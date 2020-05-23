@@ -1756,14 +1756,13 @@ object Frm_Produto: TFrm_Produto
           Style.IsFontAssigned = True
           Properties.ShadowedColor = clWhite
         end
-        object chk_ativocadastro: TcxCheckBox
+        object cbSTATUS_CADASTRAL: TcxCheckBox
           Left = 699
           Top = 4
           Caption = 'Ativo '
           ParentBackground = False
           ParentColor = False
           ParentFont = False
-          State = cbsChecked
           Style.Color = clBtnHighlight
           Style.Font.Charset = ANSI_CHARSET
           Style.Font.Color = clWindowText
@@ -4481,7 +4480,7 @@ object Frm_Produto: TFrm_Produto
           OnClick = bControleIncluirClick
         end
         object bControleAlterar: TcxButton
-          Left = 127
+          Left = 129
           Top = 5
           Width = 120
           Height = 40

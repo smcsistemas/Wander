@@ -42,7 +42,6 @@ object frm_cadastro_cliente: Tfrm_cadastro_cliente
     LookAndFeel.Kind = lfFlat
     LookAndFeel.NativeStyle = False
     LookAndFeel.SkinName = 'Metropolis'
-    ExplicitHeight = 537
     ClientRectBottom = 538
     ClientRectLeft = 2
     ClientRectRight = 1366
@@ -52,6 +51,9 @@ object frm_cadastro_cliente: Tfrm_cadastro_cliente
       Color = clMedGray
       ImageIndex = 0
       ParentColor = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
       ExplicitHeight = 507
       object Label45: TLabel
         Left = 6
@@ -2455,6 +2457,10 @@ object frm_cadastro_cliente: Tfrm_cadastro_cliente
         object cxTabSheet1: TcxTabSheet
           Caption = 'Endere'#231'o'
           ImageIndex = 0
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Panel1: TPanel
             Left = 3
             Top = 9
@@ -2998,6 +3004,10 @@ object frm_cadastro_cliente: Tfrm_cadastro_cliente
         object cxTabSheet2: TcxTabSheet
           Caption = 'Entrega'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Panel2: TPanel
             Left = 15
             Top = -4
@@ -4112,6 +4122,10 @@ object frm_cadastro_cliente: Tfrm_cadastro_cliente
           object cxTabSheet4: TcxTabSheet
             Caption = 'Empresa'
             ImageIndex = 0
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object TLabel
               Left = 22
               Top = 19
@@ -4386,6 +4400,10 @@ object frm_cadastro_cliente: Tfrm_cadastro_cliente
           object cxTabSheet5: TcxTabSheet
             Caption = 'Propriet'#225'rio'
             ImageIndex = 0
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object TLabel
               Left = 20
               Top = 15
@@ -4840,6 +4858,10 @@ object frm_cadastro_cliente: Tfrm_cadastro_cliente
         TabOrder = 4
         object tsPessoaFisica: TTabSheet
           Caption = 'Pessoa F'#237'sica'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Label25: TLabel
             Left = 70
             Top = 39

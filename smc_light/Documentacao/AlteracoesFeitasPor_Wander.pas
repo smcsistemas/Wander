@@ -8,8 +8,12 @@ implementation
 
 Ano 2020
 ordem decrescente de data....
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  178|23/05/20|wander              |Alterando produto (exceto a parte fiscal  |
+|     |   19:35|cadastro_produto    |que verei com o Vitor                     |
 |-----|--------|--------------------|------------------------------------------|
 |  177|23/05/20|wander              |Incluido após "end." no rodapé desta unit |
 |     |   18:30|AlteracoesFeitasPor_|os comandos do Arquivo backup automático  |
@@ -21,6 +25,7 @@ ordem decrescente de data....
 |-----|--------|--------------------|------------------------------------------|
 |  175|23/05/20|wander              |Eliminada a crítica de Referência do Fabri|
 |     |   15:31|cadastro_produto    |cante repetida, pois é possível que haja. |
+|     |        |                    |Avisa mas não impede.                     |
 |-----|--------|--------------------|------------------------------------------|
 |  174|23/05/20|wander              |Máquina DEV_PC não mostra mais a msg de   |
 |     |   14:02|u_funcoes           |"Certificado Não Encontrado"              |

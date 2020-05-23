@@ -102,6 +102,12 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//23/05/20-19:27-Recebe um boolean e retorna string 'ATIVO' se true e 'INATIVO' se false
+function Ativo_ou_Inativo(pBoolean:Boolean):String;
+//23/05/20-19:06-Recebe um string e retorna true ser for numérico e false se nao for
+function NumeroPositivoValido(pValor:String):Boolean;
+//23/05/20-19:00-Recebe um string e retorna float válido ou zero
+function ValorValido(pValor:String):Real;
 //23/05/20-01:42-Recebe codigo de um Subgrupo de produto e retorna sua descricao
 function fProdutoSUBGRUPO_NOME(pCODIGO:String):String;
 //Recebe codigo de um grupo de produto e retorna sua descricao
@@ -5823,6 +5829,37 @@ begin
    Q.Free;
 end;
 
+function ValorValido(pValor:String):Real;
+begin
+  result := 0.0;
+  if pValor = '' then
+     exit;
+  result := StrToFloat(MascToStr(pValor));
+end;
+
+function NumeroPositivoValido(pValor:String):Boolean;
+var vValor : Real;
+begin
+  result := false;
+  if pValor = '' then
+     exit;
+  try
+    vValor := StrToFloat(MascToStr(pValor));
+    if vValor < 0 then
+       exit;
+  except
+    exit;
+  end;
+  result := true;
+end;
+
+function Ativo_ou_Inativo(pBoolean:Boolean):String;
+begin
+   if pBoolean then
+      result := 'ATIVO'
+   else
+      result := 'INATIVO'
+end;
 //##############################################################################
 //                FIM DAS FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################

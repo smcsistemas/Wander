@@ -4,8 +4,12 @@ unit cadastro_produto;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  178|23/05/20|wander              |Alterando produto (exceto a parte fiscal  |
+|     |   19:35|cadastro_produto    |que verei com o Vitor                     |
+|-----|--------|--------------------|------------------------------------------|
 |  175|23/05/20|wander              |Eliminada a crítica de Referência do Fabri|
 |     |   15:31|cadastro_produto    |cante repetida, pois é possível que haja. |
+|     |        |                    |Avisa mas não impede.                     |
 |-----|--------|--------------------|------------------------------------------|
 |  173|23/05/20|wander              |Criado temporizador para pesqusar produto |
 |     |   06:17|cadastro_produto    |para pesquisar qdo usuário termina digitar|
@@ -321,7 +325,7 @@ type
     edPRECO_FINAL_DISTRIBUIDOR: TEdit;
     edPRECO_FINAL_ATACADO: TEdit;
     cxLabel1: TcxLabel;
-    chk_ativocadastro: TcxCheckBox;
+    cbSTATUS_CADASTRAL: TcxCheckBox;
     edGRUPO_NOME: TEdit;
     edSUBGRUPO_NOME: TEdit;
     edMARCA_NOME: TEdit;
@@ -749,6 +753,9 @@ type
     procedure ConsultarGrupos;
     procedure ConsultarSubGrupos;
     function DadosCorretos:Boolean;
+    procedure ApagarRegistro;
+    procedure InserirRegistro;
+
   public
     { Public declarations }
     deletar_prod_preco_faixa, consultarultimo: Boolean;
@@ -767,10 +774,11 @@ implementation
 
 {$R *.dfm}
 
-uses cadastro_familia, cadastro_sub_grupo, cad_marca,
-
+uses cadastro_familia, cadastro_sub_grupo, cad_marca, S_Module,
   cadastro_grupo, cadastro_unidade, u_funcoes, m_Etiqueta, vw_etiquetas,
-  dados_adicionais, vw_produto_precos, vw_preco_promocional, vw_preco_faixa, vw_composicao_preco, vw_estoque_opcoes, rel_comissao, vw_comissao_produtos, vw_balanca, cadastro_fornecedor;
+  dados_adicionais, vw_produto_precos, vw_preco_promocional, vw_preco_faixa,
+  vw_composicao_preco, vw_estoque_opcoes, rel_comissao, vw_comissao_produtos,
+  vw_balanca, cadastro_fornecedor;
 
 function TFrm_Produto.RemoveEspaco(const str: String): string;
 const
@@ -1085,14 +1093,6 @@ begin
     GroupBox23,{roupBox25, GroupBox26,} btn_familia, btn_sub, btn_grupo, btn_marca, btn_und, btn_csosn, btn_ncm, btn_anp{, grp_faixa_preco,
     btn_cad_faixa}], false);
 
-  if SQL_PRODUTOSTATUS_CADASTRAL.value = 'ATIVO' then
-    chk_ativocadastro.Checked := true
-  else
-//    chk_ativocadastro.Checked := false;
-//  if SQL_PRODUTOUSA_LOTE.value = 'SIM' then
-//    chk_usa_lote.Checked := true
-//  else
-//    chk_usa_lote.Checked := false;
 
   PreencherCSOSN(SQL_PRODUTOCSOSN.AsString);
 
@@ -1203,6 +1203,26 @@ procedure TFrm_Produto.aliq_pisKeyPress(Sender: TObject;
 begin
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
+end;
+
+procedure TFrm_Produto.ApagarRegistro;
+var qAUX: tFDQuery;
+begin
+   if edCODIGO.Text = '' then
+      exit;
+
+   qAUX := TFDQuery.Create(nil);
+   qAUX.Connection := Module.connection;
+   qAUX.ConnectionName := 'connection';
+
+   qAUX.close;
+   qAUX.sql.clear;
+   qAUX.sql.add('DELETE FROM PRODUTO    ');
+   qAUX.sql.add(' WHERE CODIGO = :CODIGO');
+   qAUX.ParamByName('CODIGO').AsString := edCODIGO.Text;
+   qAUX.ExecSql;
+
+   qAUX.Free;
 end;
 
 procedure TFrm_Produto.REDUCAO_ICMS_STKeyDown(Sender: TObject;
@@ -1379,22 +1399,13 @@ begin
   if not DadosCorretos then
      exit;
 
+   ApagarRegistro;
+   InserirRegistro;
 
-    //RefFabricanteRepetido(false);
-    if (not CodBarrasRepetido) then
-    begin
-//      if u_funcoes.CamposObrigatorios([DESCRICAO_PRODUTO, UNIDADE_MEDIDA, PRECO_FINAL_VAREJO, NCM],
-//        ['Descrição do Produto', 'Unidade de Medida', 'Preço de Varejo', 'NCM'], [], [], [TcxComboBox(dbcsticms)], ['CST ICMS']) then
-//        exit
-//      else
-//      begin
-      try
-//          SQL_PRODUTOMARGEM_L_VAREJO.asExtended := TFunctions.replace(MARGEM_LUCRO.Text, '%', VARDOUBLE);
-//          SQL_PRODUTOMARGEM_L_DISTRIBUIDOR.asExtended := TFunctions.replace(MARGEM_L_DISTRIBUIDOR.Text, '%', VARDOUBLE);
-//          SQL_PRODUTOMARGEM_L_ATACADO.asExtended := TFunctions.replace(MARGEM_L_ATACADO.Text, '%', VARDOUBLE);
-
+   {{
           if chk_ativocadastro.Checked = true then
-            SQL_PRODUTOSTATUS_CADASTRAL.value := 'ATIVO';
+            SQL_PRODUTO
+            .value := 'ATIVO';
 
           if chk_ativocadastro.Checked = false then
             SQL_PRODUTOSTATUS_CADASTRAL.value := 'INATIVO';
@@ -1422,7 +1433,7 @@ begin
               PRECO_CUSTO.Text := TFunctions.replace(PRECO_FINAL_VAREJO.Text, 'R$', VARDOUBLE);
               CUSTO_MEDIO.Text := TFunctions.replace(PRECO_FINAL_VAREJO.Text, 'R$', VARDOUBLE);
             end;  }
-
+    {
           if SQL_PRODUTOESTOQUE_MINIMO.AsString = '' then
             SQL_PRODUTOESTOQUE_MINIMO.value := '0';
 
@@ -1442,7 +1453,7 @@ begin
         end;
       end;
 //    end;
-
+  }
   //Ajusta botões de controle
   pode_Alterar_Incluir(Frm_Produto);
 
@@ -1501,9 +1512,9 @@ begin
   //Ajusta botões de controle
   pode_Cancelar_Gravar(Frm_Produto);
 
-  if bControleIncluir.Visible = true then
-  begin
-    tab_Cadastrar.show;
+  tab_Cadastrar.show;
+
+  {
     AlterarEnabled([GroupBox4, // GroupBox18, GroupBox2, GroupBox15, GroupBox16, GroupBox24, GroupBox1, GroupBox19,
     grupocfop, GroupBox22,
      // GroupBox23, GroupBox25, GroupBox26,
@@ -1538,7 +1549,7 @@ begin
 //    DBEdit13.Text := '0';
 //    ESTOQUE_MINIMO.Text := '0';
   end;
-
+  }
 end;
 
 procedure TFrm_Produto.btn_marcaClick(Sender: TObject);
@@ -1999,8 +2010,33 @@ begin
    if CodBarrasRepetido then
       exit;
 
-   if RefFabricanteRepetido then
-      exit;
+   if edPRECO_FINAL_ATACADO.Text <> '' then
+      if not NumeroPositivoValido(edPRECO_FINAL_ATACADO.Text) then
+      begin
+         wnAlerta('Cadastrar Produto','Preço de Atacado inválido', taLeftJustify, 12);
+         edPRECO_FINAL_ATACADO.SetFocus;
+         exit;
+      end;
+
+   if edPRECO_FINAL_VAREJO.Text <> '' then
+      if not NumeroPositivoValido(edPRECO_FINAL_VAREJO.Text) then
+      begin
+         wnAlerta('Cadastrar Produto','Preço de Varejo inválido', taLeftJustify, 12);
+         edPRECO_FINAL_VAREJO.SetFocus;
+         exit;
+      end;
+
+   if edPRECO_FINAL_DISTRIBUIDOR.Text <> '' then
+      if not NumeroPositivoValido(edPRECO_FINAL_DISTRIBUIDOR.Text) then
+      begin
+         wnAlerta('Cadastrar Produto','Preço de Distribuidor inválido', taLeftJustify, 12);
+         edPRECO_FINAL_DISTRIBUIDOR.SetFocus;
+         exit;
+      end;
+
+   RefFabricanteRepetido;
+
+   Result := True;
 
 end;
 
@@ -2855,6 +2891,83 @@ begin
    edArgumentoDePesquisa.SetFocus;
 end;
 
+procedure TFrm_Produto.InserirRegistro;
+var qAUX   : tFDQuery;
+    vCodigo: Integer;
+begin
+   qAUX := TFDQuery.Create(nil);
+   qAUX.Connection := Module.connection;
+   qAUX.ConnectionName := 'connection';
+
+   qAUX.close;
+   qAUX.sql.clear;
+   qAUX.sql.add('INSERT INTO PRODUTO              ');
+   qAUX.sql.add('     ( CODIGO,                   ');
+   qAUX.sql.add('       CODIGO_ALFANUMERICO,      ');
+   qAUX.sql.add('       NFe_nDI,                  ');
+   qAUX.sql.add('       DESCRICAO_PRODUTO,        ');
+   qAUX.sql.add('       INFO_ADICIONAIS,          ');
+   qAUX.sql.add('       CODIGO_BARRAS,            ');
+   qAUX.sql.add('       REFERENCIA_FABRICANTE,    ');
+   qAUX.sql.add('       MARCA,                    ');
+   qAUX.sql.add('       FAMILIA,                  ');
+   qAUX.sql.add('       GRUPO,                    ');
+   qAUX.sql.add('       SUBGRUPO,                 ');
+   qAUX.sql.add('       PRECO_FINAL_ATACADO,      ');
+   qAUX.sql.add('       PRECO_FINAL_VAREJO,       ');
+   qAUX.sql.add('       PRECO_FINAL_DISTRIBUIDOR, ');
+   qAUX.sql.add('       STATUS_CADASTRAL          ');
+   qAUX.sql.add('     )                           ');
+   qAUX.sql.add('VALUES                           ');
+   qAUX.sql.add('     (:CODIGO,                   ');
+   qAUX.sql.add('      :CODIGO_ALFANUMERICO,      ');
+   qAUX.sql.add('      :NFe_nDI,                  ');
+   qAUX.sql.add('      :DESCRICAO_PRODUTO,        ');
+   qAUX.sql.add('      :INFO_ADICIONAIS,          ');
+   qAUX.sql.add('      :CODIGO_BARRAS,            ');
+   qAUX.sql.add('      :REFERENCIA_FABRICANTE,    ');
+   qAUX.sql.add('      :MARCA,                    ');
+   qAUX.sql.add('      :FAMILIA,                  ');
+   qAUX.sql.add('      :GRUPO,                    ');
+   qAUX.sql.add('      :SUBGRUPO,                 ');
+   qAUX.sql.add('      :PRECO_FINAL_ATACADO,      ');
+   qAUX.sql.add('      :PRECO_FINAL_VAREJO,       ');
+   qAUX.sql.add('      :PRECO_FINAL_DISTRIBUIDOR, ');
+   qAUX.sql.add('      :STATUS_CADASTRAL          ');
+   qAUX.sql.add('     )                           ');
+
+   //Codigo
+   if edCodigo.Text = '' then
+   begin
+      vCodigo := ProximoProdutoCODIGO;
+      RegistraLog('Cadastrou Produto '+IntToStr(vCodigo)+'-'+edDESCRICAO_PRODUTO.Text);
+   end
+   else
+   begin
+      vCodigo := StrToInt(edCodigo.Text);
+      RegistraLog('Alterou Produto '+IntToStr(vCodigo)+'-'+edDESCRICAO_PRODUTO.Text);
+   end;
+
+   qAUX.ParamByName('CODIGO'                  ).AsInteger := vCodigo;
+   qAUX.ParamByName('CODIGO_ALFANUMERICO'     ).AsString  := edCODIGO_ALFANUMERICO.Text;
+   qAUX.ParamByName('NFe_nDI'                 ).AsString  := edNFe_nDI.Text;
+   qAUX.ParamByName('DESCRICAO_PRODUTO'       ).AsString  := edDESCRICAO_PRODUTO.Text;
+   qAUX.ParamByName('INFO_ADICIONAIS'         ).AsString  := mmINFO_ADICIONAIS.Text;
+   qAUX.ParamByName('CODIGO_BARRAS'           ).AsString  := edCODIGO_BARRAS.Text;
+   qAUX.ParamByName('REFERENCIA_FABRICANTE'   ).AsString  := edREFERENCIA_FABRICANTE.Text;
+   qAUX.ParamByName('MARCA'                   ).AsString  := edMARCA.Text;
+   qAUX.ParamByName('FAMILIA'                 ).AsString  := edFAMILIA.Text;
+   qAUX.ParamByName('GRUPO'                   ).AsString  := edGRUPO.Text;
+   qAUX.ParamByName('SUBGRUPO'                ).AsString  := edSUBGRUPO.Text;
+   qAUX.ParamByName('PRECO_FINAL_ATACADO'     ).AsFloat   := ValorValido(edPRECO_FINAL_ATACADO.Text);
+   qAUX.ParamByName('PRECO_FINAL_VAREJO'      ).AsFloat   := ValorValido(edPRECO_FINAL_VAREJO.Text);
+   qAUX.ParamByName('PRECO_FINAL_DISTRIBUIDOR').AsFloat   := ValorValido(edPRECO_FINAL_DISTRIBUIDOR.Text);
+   qAUX.ParamByName('STATUS_CADASTRAL'        ).AsString  := Ativo_ou_Inativo(cbSTATUS_CADASTRAL.Checked);
+   qAUX.ExecSQL;
+
+   qAUX.Free;
+end;
+
 procedure TFrm_Produto.edMARCAExit(Sender: TObject);
 begin
   edMARCA_NOME.Text := '';
@@ -2969,6 +3082,8 @@ begin
    edPRECO_FINAL_VAREJO.Text       := Float_to_String(qConsulta.FieldByName('PRECO_FINAL_VAREJO'      ).AsFloat);
    edPRECO_FINAL_DISTRIBUIDOR.Text := Float_to_String(qConsulta.FieldByName('PRECO_FINAL_DISTRIBUIDOR').AsFloat);
 
+   //Ativo/Inativo
+   cbSTATUS_CADASTRAL.Checked      := (qConsulta.FieldByName('STATUS_CADASTRAL').AsString = 'ATIVO');
 
    // Exibir a aba Cadastro
    cxPageControl1.ActivePAgeIndex  := 1;
@@ -3170,11 +3285,8 @@ begin
   //Resumo: esta crítica deve ser retirada pois impede que o logista cadastre
   //fatos reais.
   //
-  //Eliminado esta crítica...
-  result:=false;
-  exit;
+  //Vai avisar mas não vai impedir
 
-  {
   if edREFERENCIA_FABRICANTE.Text <> '' then
   begin
     x := 'SELECT CODIGO, DESCRICAO_PRODUTO FROM PRODUTO WHERE (REFERENCIA_FABRICANTE IS NOT NULL AND REFERENCIA_FABRICANTE <> ' + QuotedStr(emptystr) +
@@ -3190,8 +3302,8 @@ begin
          edREFERENCIA_FABRICANTE.SelectAll;
          edREFERENCIA_FABRICANTE.SetFocus;
       end;
+    end;
   end;
-  }
 end;
 
 procedure TFrm_Produto.RegraTributacao;
