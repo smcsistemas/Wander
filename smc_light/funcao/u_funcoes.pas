@@ -4,6 +4,9 @@ unit u_funcoes;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  174|23/05/20|wander              |Máquina DEV_PC não mostra mais a msg de   |
+|     |   14:02|u_funcoes           |"Certificado Não Encontrado"              |
+|-----|--------|--------------------|------------------------------------------|
 |  154|22/05/20|wander              |Criadas procedures pode_Alterar_Incluir e |
 |     |   01:37|u_funcoes           |pode_Cancelar_Gravar para habilitar e desa|
 |     |        |                    |bilitar os botoes de controle padrão      |
@@ -3893,6 +3896,7 @@ begin
       end;
     end;
   except
+    //23/05/2020 (Wander)
     if MachineName <> 'DEV_PC' then
        WnAlerta('Vencimento Certificado', slinebreak + 'Certificado digital não encontrado!', 12);
   end;

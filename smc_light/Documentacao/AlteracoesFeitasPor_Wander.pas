@@ -12,6 +12,9 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  174|23/05/20|wander              |Máquina DEV_PC não mostra mais a msg de   |
+|     |   14:02|u_funcoes           |"Certificado Não Encontrado"              |
+|-----|--------|--------------------|------------------------------------------|
 |  173|23/05/20|wander              |Criado temporizador para pesqusar produto |
 |     |   06:17|cadastro_produto    |para pesquisar qdo usuário termina digitar|
 |-----|--------|--------------------|------------------------------------------|
