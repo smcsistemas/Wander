@@ -1357,7 +1357,6 @@ object fmr_arquivos_fiscais: Tfmr_arquivos_fiscais
     ParentFont = False
   end
   object FDQuery1: TFDQuery
-    Active = True
     Connection = Module.connection
     SQL.Strings = (
       'select * from teste')

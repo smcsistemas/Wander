@@ -3893,7 +3893,8 @@ begin
       end;
     end;
   except
-    WnAlerta('Vencimento Certificado', slinebreak + 'Certificado digital não encontrado!', 12);
+    if MachineName <> 'DEV_PC' then
+       WnAlerta('Vencimento Certificado', slinebreak + 'Certificado digital não encontrado!', 12);
   end;
 end;
 
