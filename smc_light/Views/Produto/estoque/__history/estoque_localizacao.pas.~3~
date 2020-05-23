@@ -1,0 +1,133 @@
+unit estoque_localizacao;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore, dxSkinOffice2013White,
+  cxControls, cxContainer, cxEdit, cxMaskEdit, cxDropDownEdit, cxDBEdit,
+  cxTextEdit, Vcl.StdCtrls, cxGroupBox, cxButtons, dxSkinOffice2007Silver,
+  dxSkinOffice2013LightGray, dxSkinscxPCPainter, dxBarBuiltInMenu, Vcl.Mask,
+  Vcl.DBCtrls, cxPC;
+
+type
+  Tfrm_Localizacao = class(TForm)
+    cxGroupBox10: TcxGroupBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label7: TLabel;
+    cxDBTextEdit2: TcxDBTextEdit;
+    cxDBTextEdit3: TcxDBTextEdit;
+    cxDBTextEdit4: TcxDBTextEdit;
+    cxDBTextEdit5: TcxDBTextEdit;
+    cxDBTextEdit6: TcxDBTextEdit;
+    cxPageControl1: TcxPageControl;
+    cxTabSheet1: TcxTabSheet;
+    Label1: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    btRegiao: TcxButton;
+    edREG_DESCRICAO: TEdit;
+    DB_ID_REGIAO: TDBEdit;
+    DB_BAIRRO: TDBEdit;
+    btn_cep: TcxButton;
+    DB_CEP: TDBEdit;
+    DB_RUA: TDBEdit;
+    DB_NUMERO: TDBEdit;
+    DB_COMPLEMENTO: TDBEdit;
+    DB_MUNICIPIO: TDBEdit;
+    DB_ZONA: TDBEdit;
+    DB_PAIS: TDBEdit;
+    btnMunicip: TcxButton;
+    btn_zona: TcxButton;
+    cxTabSheet2: TcxTabSheet;
+    Label13: TLabel;
+    Label18: TLabel;
+    Label20: TLabel;
+    DBEdit28: TDBEdit;
+    DBEdit29: TDBEdit;
+    DBEdit30: TDBEdit;
+    DBEdit31: TDBEdit;
+    DBEdit32: TDBEdit;
+    DBEdit39: TDBEdit;
+    cxButton2: TcxButton;
+    DBEdit40: TDBEdit;
+    cxButton3: TcxButton;
+    cxButton4: TcxButton;
+    cxTabSheet3: TcxTabSheet;
+    Label21: TLabel;
+    Label22: TLabel;
+    Label23: TLabel;
+    DBEdit41: TDBEdit;
+    DBEdit42: TDBEdit;
+    DBEdit43: TDBEdit;
+    DBEdit44: TDBEdit;
+    DBEdit45: TDBEdit;
+    DBEdit52: TDBEdit;
+    cxButton6: TcxButton;
+    DBEdit53: TDBEdit;
+    cxButton7: TcxButton;
+    cxButton8: TcxButton;
+    DB_UF: TDBEdit;
+    Label6: TLabel;
+    cxDBTextEdit7: TcxDBTextEdit;
+    Label8: TLabel;
+    cxDBTextEdit8: TcxDBTextEdit;
+    Label9: TLabel;
+    cxDBTextEdit9: TcxDBTextEdit;
+    Label10: TLabel;
+    cxDBComboBox1: TcxDBComboBox;
+    DBEdit1: TDBEdit;
+    Edit1: TEdit;
+    cxButton1: TcxButton;
+    DBEdit2: TDBEdit;
+    cxDBComboBox2: TcxDBComboBox;
+    Label14: TLabel;
+    cxDBTextEdit1: TcxDBTextEdit;
+    Label15: TLabel;
+    DBEdit3: TDBEdit;
+    cxDBTextEdit10: TcxDBTextEdit;
+    Label16: TLabel;
+    cxDBTextEdit11: TcxDBTextEdit;
+    Label17: TLabel;
+    DBEdit4: TDBEdit;
+    Edit2: TEdit;
+    cxButton5: TcxButton;
+    DBEdit5: TDBEdit;
+    cxDBComboBox3: TcxDBComboBox;
+    Label19: TLabel;
+    cxDBTextEdit12: TcxDBTextEdit;
+    Label24: TLabel;
+    DBEdit6: TDBEdit;
+    cxDBTextEdit13: TcxDBTextEdit;
+    Label25: TLabel;
+    cxDBTextEdit14: TcxDBTextEdit;
+    Label26: TLabel;
+    BtnGravar: TcxButton;
+    cxButton9: TcxButton;
+    BtnAlterar: TcxButton;
+    cxButton10: TcxButton;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frm_Localizacao: Tfrm_Localizacao;
+
+implementation
+
+{$R *.dfm}
+
+procedure Tfrm_Localizacao.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := cafree;
+  self := nil;
+end;
+
+end.

@@ -1,0 +1,116 @@
+object Form6: TForm6
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Balan'#231'a'
+  ClientHeight = 138
+  ClientWidth = 213
+  Color = clWhite
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object GroupBox15: TGroupBox
+    Left = 8
+    Top = 8
+    Width = 164
+    Height = 101
+    Caption = '  Balan'#231'a  '
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    object Label55: TLabel
+      Left = 11
+      Top = 19
+      Width = 48
+      Height = 18
+      Caption = 'C'#243'd. 1:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label70: TLabel
+      Left = 11
+      Top = 44
+      Width = 48
+      Height = 18
+      Caption = 'C'#243'd. 2:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label78: TLabel
+      Left = 11
+      Top = 70
+      Width = 48
+      Height = 18
+      Caption = 'C'#243'd. 3:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object DBEdit14: TDBEdit
+      Left = 63
+      Top = 20
+      Width = 90
+      Height = 21
+      CharCase = ecUpperCase
+      DataField = 'COD_BALANCA_1'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+    end
+    object DBEdit15: TDBEdit
+      Left = 63
+      Top = 45
+      Width = 90
+      Height = 21
+      CharCase = ecUpperCase
+      DataField = 'COD_BALANCA_2'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+    end
+    object DBEdit12: TDBEdit
+      Left = 63
+      Top = 71
+      Width = 90
+      Height = 21
+      CharCase = ecUpperCase
+      DataField = 'COD_BALANCA_3'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 2
+    end
+  end
+end

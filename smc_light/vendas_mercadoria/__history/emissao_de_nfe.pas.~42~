@@ -1,0 +1,772 @@
+unit emissao_de_nfe;
+{
+================================================================================
+|   DATA   |DESENVOLVEDOR|HISTORICO DA ALTERACAO DO CODIGO                     |
+|----------|-------------|-----------------------------------------------------|
+|11/03/2020|WANDER       |Passou a receber da tela "venda_pedido" o código da  |
+|        26|             |venda                                                |
+|----------|-------------|-----------------------------------------------------|
+|11/03/2020|WANDER       |Passou a exibir os dados da venda cujo código foi    |
+|        27|             |pela tela "venda_pedido"                             |
+|----------|-------------|-----------------------------------------------------|
+|12/03/2020|WANDER       |Passou a exibir os itens da venda cujo código foi    ||
+|        28|             |passando o número do pedido como parâmetro           |
+================================================================================
+}
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack,
+  dxSkinBlue, dxSkinBlueprint, dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom,
+  dxSkinDarkSide, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
+  dxSkinFoggy, dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary,
+  dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin,
+  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinPumpkin,
+  dxSkinSeven, dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus,
+  dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
+  dxSkinTheAsphaltWorld, dxSkinsDefaultPainters, dxSkinValentine,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinXmas2008Blue, dxSkinscxPCPainter, dxBarBuiltInMenu, cxStyles,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
+  Data.DB, cxDBData, cxContainer, Vcl.Menus, Vcl.StdCtrls, Vcl.ExtCtrls,
+  cxTextEdit, cxMaskEdit, cxDropDownEdit, Vcl.ComCtrls, cxButtons,
+  cxGroupBox, Vcl.Mask, Vcl.DBCtrls, cxGridLevel, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
+  cxPC, dxCore, cxDateUtils, cxCheckBox, cxCalendar, Vcl.Grids, Vcl.DBGrids,
+  cxRadioGroup, cxLabel, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client;
+
+type
+  Tfrm_emissor_nfe = class(TForm)
+    cxPageControl1: TcxPageControl;
+    tb_consulta: TcxTabSheet;
+    tb_pedido: TcxTabSheet;
+    Shape1: TShape;
+    Label24: TLabel;
+    Shape2: TShape;
+    Label25: TLabel;
+    Label26: TLabel;
+    Label28: TLabel;
+    Label29: TLabel;
+    Label21: TLabel;
+    Label22: TLabel;
+    Label5: TLabel;
+    DBEdit20: TDBEdit;
+    DBEdit21: TDBEdit;
+    DBEdit22: TDBEdit;
+    DBEdit23: TDBEdit;
+    cxGrid1: TcxGrid;
+    cxGridDBTableView1: TcxGridDBTableView;
+    cxGridDBTableView1Column3: TcxGridDBColumn;
+    cxGridDBTableView1Column1: TcxGridDBColumn;
+    cxGridDBTableView1Column2: TcxGridDBColumn;
+    cxGridDBTableView1Column4: TcxGridDBColumn;
+    cxGridDBTableView1Column5: TcxGridDBColumn;
+    cxGridDBTableView1Column6: TcxGridDBColumn;
+    cxGridDBTableView1Column7: TcxGridDBColumn;
+    cxGridDBTableView1Column9: TcxGridDBColumn;
+    cxGridDBTableView1Column10: TcxGridDBColumn;
+    cxGridLevel1: TcxGridLevel;
+    cxComboBox3: TcxComboBox;
+    cxGroupBox1: TcxGroupBox;
+    Label6: TLabel;
+    Label3: TLabel;
+    cxGroupBox2: TcxGroupBox;
+    Panel1: TPanel;
+    btn_status: TcxButton;
+    btn_danfe: TcxButton;
+    btn_transmitir: TcxButton;
+    btn_inutilizar_nfce: TcxButton;
+    btn_cancelar: TcxButton;
+    btn_atualizar_info: TcxButton;
+    btn_enviar: TcxButton;
+    GroupBox7: TGroupBox;
+    Label20: TLabel;
+    Edit2: TEdit;
+    RadioButton3: TRadioButton;
+    RadioButton4: TRadioButton;
+    RadioButton5: TRadioButton;
+    RadioButton6: TRadioButton;
+    GroupBox1: TGroupBox;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label19: TLabel;
+    edt_periodo_inicio: TcxDateEdit;
+    edt_periodo_fim: TcxDateEdit;
+    CB_MES: TcxComboBox;
+    GroupBox6: TGroupBox;
+    Label8: TLabel;
+    Label12: TLabel;
+    edt_nfce_fim: TEdit;
+    edt_nfce_inicio: TEdit;
+    GroupBox4: TGroupBox;
+    chk_normal: TcxCheckBox;
+    chk_contingencia: TcxCheckBox;
+    DBGrid1: TDBGrid;
+    GroupBox3: TGroupBox;
+    chk_autorizadas: TcxCheckBox;
+    chk_inutilizadas: TcxCheckBox;
+    chk_canceladas: TcxCheckBox;
+    chk_pendentes: TcxCheckBox;
+    cxCheckBox1: TcxCheckBox;
+    lb_total_nfce: TLabel;
+    Label7: TLabel;
+    lbl_qtde: TLabel;
+    cxButton4: TcxButton;
+    cxButton5: TcxButton;
+    cxButton6: TcxButton;
+    cxButton12: TcxButton;
+    cxButton13: TcxButton;
+    Label23: TLabel;
+    cxCheckBox2: TcxCheckBox;
+    cxGridDBTableView1Column11: TcxGridDBColumn;
+    cxGridDBTableView1Column12: TcxGridDBColumn;
+    cxGridDBTableView1Column13: TcxGridDBColumn;
+    cxGridDBTableView1Column14: TcxGridDBColumn;
+    cxGridDBTableView1Column8: TcxGridDBColumn;
+    GroupBox2: TGroupBox;
+    cxRadioButton3: TcxRadioButton;
+    cxRadioButton4: TcxRadioButton;
+    Label27: TLabel;
+    Label30: TLabel;
+    Label31: TLabel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label4: TLabel;
+    Label9: TLabel;
+    Label11: TLabel;
+    Label10: TLabel;
+    Label15: TLabel;
+    Label32: TLabel;
+    Label35: TLabel;
+    Label18: TLabel;
+    Label36: TLabel;
+    Label37: TLabel;
+    Label38: TLabel;
+    Label39: TLabel;
+    Label40: TLabel;
+    Label41: TLabel;
+    Label42: TLabel;
+    Label43: TLabel;
+    Label44: TLabel;
+    Label45: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label33: TLabel;
+    Label34: TLabel;
+    Label46: TLabel;
+    Label47: TLabel;
+    cxGridDBTableView1Column16: TcxGridDBColumn;
+    Shape3: TShape;
+    cxGroupBox3: TcxGroupBox;
+    BtnCancelar: TcxButton;
+    BtnAlterar: TcxButton;
+    cxButton2: TcxButton;
+    cxButton8: TcxButton;
+    cxButton7: TcxButton;
+    cxButton11: TcxButton;
+    cxLabel2: TcxLabel;
+    GroupBox5: TGroupBox;
+    cxRadioButton1: TcxRadioButton;
+    cxRadioButton2: TcxRadioButton;
+    Edit1: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Edit7: TEdit;
+    SQL_VENDAS: TFDQuery;
+    DS_VENDA: TDataSource;
+    SQL_VENDA_ITENS: TFDQuery;
+    SQL_VENDA_ITENSCODIGO_VENDA: TIntegerField;
+    SQL_VENDA_ITENSCODIGO_ITEM_VENDA: TIntegerField;
+    SQL_VENDA_ITENSCODIGO_PRODUTO: TIntegerField;
+    SQL_VENDA_ITENSDESCRICAO_PRODUTO: TStringField;
+    SQL_VENDA_ITENSCODIGO_BARRAS: TStringField;
+    SQL_VENDA_ITENSNCM: TStringField;
+    SQL_VENDA_ITENSCEST: TStringField;
+    SQL_VENDA_ITENSCFOP: TStringField;
+    SQL_VENDA_ITENSCSOSN: TStringField;
+    SQL_VENDA_ITENSICMS_CST: TStringField;
+    SQL_VENDA_ITENSALIQ_ICMS: TBCDField;
+    SQL_VENDA_ITENSPIS_CST: TStringField;
+    SQL_VENDA_ITENSCOFINS_CST: TStringField;
+    SQL_VENDA_ITENSUNIDADE_MEDIDA: TStringField;
+    SQL_VENDA_ITENSQUANTIDADE: TSingleField;
+    SQL_VENDA_ITENSPRECO: TBCDField;
+    SQL_VENDA_ITENSACRESCIMO: TBCDField;
+    SQL_VENDA_ITENSDESCONTO: TBCDField;
+    SQL_VENDA_ITENSPRECO_TOTAL: TBCDField;
+    DS_VENDA_ITENS: TDataSource;
+    SQL_VENDASCODIGO_VENDA: TFDAutoIncField;
+    SQL_VENDASOPERADOR: TStringField;
+    SQL_VENDASCAIXA: TStringField;
+    SQL_VENDASDATA: TDateField;
+    SQL_VENDASHORA: TTimeField;
+    SQL_VENDASCPF_CLIENTE: TStringField;
+    SQL_VENDASNOME_CLIENTE: TStringField;
+    SQL_VENDASIE_CLIENTE: TStringField;
+    SQL_VENDASTELEFONE_CLIENTE: TStringField;
+    SQL_VENDASCODIGO_CLIENTE: TIntegerField;
+    SQL_VENDASRUA_CLIENTE: TStringField;
+    SQL_VENDASNUMERO_CLIENTE: TStringField;
+    SQL_VENDASBAIRRO_CLIENTE: TStringField;
+    SQL_VENDASVENDA_FATURADA: TStringField;
+    SQL_VENDASVALOR_VENDA: TBCDField;
+    SQL_VENDASACRESCIMO: TBCDField;
+    SQL_VENDASDESCONTO: TBCDField;
+    SQL_VENDASTOTAL_VENDA: TBCDField;
+    SQL_VENDASVALOR_PAGO: TBCDField;
+    SQL_VENDASTROCO: TBCDField;
+    SQL_VENDASSTATUS: TStringField;
+    SQL_VENDASCOD_NFCE: TStringField;
+    SQL_VENDASCOD_VENDEDOR: TIntegerField;
+    SQL_VENDASconveniado_id: TIntegerField;
+    SQL_VENDAScomanda: TIntegerField;
+    SQL_VENDASagrupou_venda: TBooleanField;
+    SQL_VENDASIdCaixa: TIntegerField;
+    SQL_VENDASSTATUSNFe: TIntegerField;
+    SQL_VENDASNOTAFISCAL: TStringField;
+    SQL_VENDASCODIGO: TIntegerField;
+    SQL_VENDASUSUARIO: TStringField;
+    SQL_VENDASSENHA: TStringField;
+    SQL_VENDASSENHA_CONFIRMA: TStringField;
+    SQL_VENDASADMINISTRADOR: TStringField;
+    SQL_VENDASDATA_CADASTRO: TDateField;
+    SQL_VENDASTIPO_USUARIO: TStringField;
+    SQL_VENDASCRIPTOGRAFADO: TIntegerField;
+    SQL_VENDASLOGADO: TIntegerField;
+    SQL_VENDASCODIGO_EMPRESA: TIntegerField;
+    SQL_VENDASCODIGO_1: TIntegerField;
+    SQL_VENDASNOME: TStringField;
+    SQL_VENDASTIPO_COLABORADOR: TStringField;
+    SQL_VENDASDATA_CADASTRO_1: TDateField;
+    SQL_VENDASDATA_NASCIMENTO: TDateField;
+    SQL_VENDASSEXO: TStringField;
+    SQL_VENDASSTATUS_CADASTRAL: TStringField;
+    SQL_VENDASUSA_FAIXA: TStringField;
+    SQL_VENDASCODIGO_PAIS: TIntegerField;
+    SQL_VENDASESTADO_CIVIL: TStringField;
+    SQL_VENDASFUNCAO: TStringField;
+    SQL_VENDASNATURALIDADE: TStringField;
+    SQL_VENDASNACIONALIDADE: TStringField;
+    SQL_VENDASNOME_PAI: TStringField;
+    SQL_VENDASNOME_MAE: TStringField;
+    SQL_VENDASTELEFONE_PAI: TStringField;
+    SQL_VENDASTELEFONE_MAE: TStringField;
+    SQL_VENDASCPF: TStringField;
+    SQL_VENDASRG: TStringField;
+    SQL_VENDASORGAO_EMISSOR: TStringField;
+    SQL_VENDASDATA_EMISSAO: TDateField;
+    SQL_VENDASTITULO_ELEITOR: TStringField;
+    SQL_VENDASSECAO: TStringField;
+    SQL_VENDASZONA: TStringField;
+    SQL_VENDASPIS: TStringField;
+    SQL_VENDASNUMERO_CNH: TStringField;
+    SQL_VENDASVALIDADE_CNH: TDateField;
+    SQL_VENDASNUMERO_CARTEIRA_TRABALHO: TStringField;
+    SQL_VENDASSERIE_CARTEIRA_TRABALHO: TStringField;
+    SQL_VENDASDATA_ADMISSAO: TDateField;
+    SQL_VENDASDATA_DEMISSAO: TDateField;
+    SQL_VENDASCOMISSAO_VENDA: TBCDField;
+    SQL_VENDASCOMISSAO_ORDEM_SERVICO: TBCDField;
+    SQL_VENDASCOMISSAO_HORA_TECNICA: TBCDField;
+    SQL_VENDASCOMISSAO_GERENTE: TBCDField;
+    SQL_VENDASCODIGO_GERENTE: TIntegerField;
+    SQL_VENDASTELEFONE_1: TStringField;
+    SQL_VENDASTELEFONE_2: TStringField;
+    SQL_VENDASCELULAR_1: TStringField;
+    SQL_VENDASCELULAR_2: TStringField;
+    SQL_VENDASEMAIL_1: TStringField;
+    SQL_VENDASEMAIL_2: TStringField;
+    SQL_VENDASOBS: TStringField;
+    SQL_VENDASSALARIO: TSingleField;
+    SQL_VENDASENDERECO: TStringField;
+    SQL_VENDASNUMERO: TStringField;
+    SQL_VENDASBAIRRO: TStringField;
+    SQL_VENDASCEP: TStringField;
+    SQL_VENDASMUNICIPIO: TStringField;
+    SQL_VENDASESTADO: TStringField;
+    SQL_VENDASPAIS: TStringField;
+    SQL_VENDASCOMPLEMENTO: TStringField;
+    SQL_VENDASCODIGO_MUNICIPIO: TIntegerField;
+    SQL_VENDASLIMITE_CREDITO: TSingleField;
+    SQL_VENDASCREDITO_DISPONIVEL: TSingleField;
+    SQL_VENDASFOTO: TStringField;
+    SQL_VENDASBANCO: TStringField;
+    SQL_VENDASBANCO_AGENCIA: TStringField;
+    SQL_VENDASBANCO_AGENCIA_DIGITO: TStringField;
+    SQL_VENDASBANCO_CONTA: TStringField;
+    SQL_VENDASBANCO_CONTA_DIGITO: TStringField;
+    SQL_VENDASBANCO_AGENCIA_DIGITO_2: TStringField;
+    SQL_VENDASBANCO_CONTA_DIGITO_2: TStringField;
+    SQL_VENDASBANCO_OP: TStringField;
+    SQL_VENDASBANCO_OP2: TStringField;
+    SQL_VENDASCELULAR_PAI: TStringField;
+    SQL_VENDASCELULAR_MAE: TStringField;
+    SQL_VENDASTELEFONE_BANCO: TStringField;
+    SQL_VENDASRAMAL_BANCO: TStringField;
+    SQL_VENDASBANCO_2: TStringField;
+    SQL_VENDASBANCO_AGENCIA_2: TStringField;
+    SQL_VENDASBANCO_CONTA_2: TStringField;
+    SQL_VENDASTELEFONE_BANCO_2: TStringField;
+    SQL_VENDASRAMAL_BANCO_2: TStringField;
+    SQL_VENDASGERENTE_BANCO: TStringField;
+    SQL_VENDASGERENTE_BANCO_1: TStringField;
+    SQL_VENDASCOMISSAO_VENDA_EXTERNA: TBCDField;
+    SQL_VENDASCODIGO_BANCO_1: TIntegerField;
+    SQL_VENDASCODIGO_BANCO_2: TIntegerField;
+    SQL_VENDAScod_usuario: TIntegerField;
+    SQL_VENDASCODIGO_2: TIntegerField;
+    SQL_VENDASDATA_CADASTRO_2: TDateField;
+    SQL_VENDASSITUACAO_FINANCEIRA: TStringField;
+    SQL_VENDASCONSUMIDOR_FINAL: TStringField;
+    SQL_VENDASPESSOA_TIPO: TStringField;
+    SQL_VENDASCLIENTE_TIPO: TStringField;
+    SQL_VENDASCONSUMIDOR_TIPO: TStringField;
+    SQL_VENDASRAZAO_SOCIAL: TStringField;
+    SQL_VENDASFANTASIA: TStringField;
+    SQL_VENDASCPF_1: TStringField;
+    SQL_VENDASCNPJ: TStringField;
+    SQL_VENDASNATURALIDADE_1: TStringField;
+    SQL_VENDASNACIONALIDADE_1: TStringField;
+    SQL_VENDASRG_1: TStringField;
+    SQL_VENDASORGAO_EMISSOR_1: TStringField;
+    SQL_VENDASINSCRICAO_ESTADUAL: TStringField;
+    SQL_VENDASINSCRICAO_MUNICIPAL: TStringField;
+    SQL_VENDASSTATUS_CADASTRAL_1: TStringField;
+    SQL_VENDASDATA_NASCIMENTO_1: TDateField;
+    SQL_VENDASSEXO_1: TStringField;
+    SQL_VENDASESTADO_CIVIL_1: TStringField;
+    SQL_VENDASSUFRAMA: TStringField;
+    SQL_VENDASRAMO_ATIVIDADE: TStringField;
+    SQL_VENDASATIVIDADE: TStringField;
+    SQL_VENDASDATA_EMISSAO_1: TDateField;
+    SQL_VENDASNOME_PAI_1: TStringField;
+    SQL_VENDASNOME_MAE_1: TStringField;
+    SQL_VENDASLIMITE_CREDITO_1: TBCDField;
+    SQL_VENDASENDERECO_1: TStringField;
+    SQL_VENDASNUMERO_1: TStringField;
+    SQL_VENDASBAIRRO_1: TStringField;
+    SQL_VENDASCOMPLEMENTO_1: TStringField;
+    SQL_VENDASCEP_1: TStringField;
+    SQL_VENDASMUNICIPIO_1: TStringField;
+    SQL_VENDASCODIGO_MUNICIPIO_1: TIntegerField;
+    SQL_VENDASREGIAO: TStringField;
+    SQL_VENDASZONA_1: TStringField;
+    SQL_VENDASROTA: TStringField;
+    SQL_VENDASESTADO_1: TStringField;
+    SQL_VENDASPAIS_1: TStringField;
+    SQL_VENDASCODIGO_PAIS_1: TIntegerField;
+    SQL_VENDASENTREGA_ENDERECO: TStringField;
+    SQL_VENDASENTREGA_NUMERO: TStringField;
+    SQL_VENDASENTREGA_BAIRRO: TStringField;
+    SQL_VENDASENTREGA_COMPLEMENTO: TStringField;
+    SQL_VENDASENTREGA_CEP: TStringField;
+    SQL_VENDASENTREGA_MUNICIPIO: TStringField;
+    SQL_VENDASENTREGA_CODIGO_MUNICIPIO: TIntegerField;
+    SQL_VENDASENTREGA_REGIAO: TStringField;
+    SQL_VENDASENTREGA_ZONA: TStringField;
+    SQL_VENDASENTREGA_ESTADO: TStringField;
+    SQL_VENDASENTREGA_PAIS: TStringField;
+    SQL_VENDASENTREGA_CODIGO_PAIS: TIntegerField;
+    SQL_VENDASCOBRANCA_ENDERECO: TStringField;
+    SQL_VENDASCOBRANCA_NUMERO: TStringField;
+    SQL_VENDASCOBRANCA_BAIRRO: TStringField;
+    SQL_VENDASCOBRANCA_COMPLEMENTO: TStringField;
+    SQL_VENDASCOBRANCA_CEP: TStringField;
+    SQL_VENDASCOBRANCA_MUNICIPIO: TStringField;
+    SQL_VENDASCOBRANCA_CODIGO_MUNICIPIO: TIntegerField;
+    SQL_VENDASCOBRANCA_REGIAO: TStringField;
+    SQL_VENDASCOBRANCA_ZONA: TStringField;
+    SQL_VENDASCOBRANCA_ESTADO: TStringField;
+    SQL_VENDASCOBRANCA_PAIS: TStringField;
+    SQL_VENDASCOBRANCA_CODIGO_PAIS: TIntegerField;
+    SQL_VENDASAVALISTA_NOME: TStringField;
+    SQL_VENDASAVALISTA_DATA_NASCIMENTO: TDateField;
+    SQL_VENDASAVALISTA_CPF: TStringField;
+    SQL_VENDASAVALISTA_RG: TStringField;
+    SQL_VENDASAVALISTA_ORGAO_EMISSOR: TStringField;
+    SQL_VENDASAVALISTA_RG_DATA_EMISSAO: TStringField;
+    SQL_VENDASAVALISTA_ESTADO_CIVIL: TStringField;
+    SQL_VENDASAVALISTA_NACIONALIDADE: TStringField;
+    SQL_VENDASAVALISTA_NATURALIDADE: TStringField;
+    SQL_VENDASAVALISTA_NOME_PAI: TStringField;
+    SQL_VENDASAVALISTA_NOME_MAE: TStringField;
+    SQL_VENDASAVALISTA_ENDERECO: TStringField;
+    SQL_VENDASAVALISTA_NUMERO: TStringField;
+    SQL_VENDASAVALISTA_BAIRRO: TStringField;
+    SQL_VENDASAVALISTA_COMPLEMENTO: TStringField;
+    SQL_VENDASAVALISTA_CEP: TStringField;
+    SQL_VENDASAVALISTA_MUNICIPIO: TStringField;
+    SQL_VENDASAVALISTA_CODIGO_MUNICIPIO: TIntegerField;
+    SQL_VENDASAVALISTA_REGIAO: TStringField;
+    SQL_VENDASAVALISTA_ZONA: TStringField;
+    SQL_VENDASAVALISTA_ESTADO: TStringField;
+    SQL_VENDASAVALISTA_PAIS: TStringField;
+    SQL_VENDASAVALISTA_CODIGO_PAIS: TIntegerField;
+    SQL_VENDASALIQUOTA_FECOEP: TIntegerField;
+    SQL_VENDASBANCO_1: TStringField;
+    SQL_VENDASBANCO_OP_CONTA: TStringField;
+    SQL_VENDASBANCO_OP2_CONTA: TStringField;
+    SQL_VENDASBANCO_CONTA_1: TStringField;
+    SQL_VENDASBANCO_AGENCIA_1: TStringField;
+    SQL_VENDASBANCO_2_1: TStringField;
+    SQL_VENDASBANCO_CONTA_2_1: TStringField;
+    SQL_VENDASBANCO_CONTA_DIGITO_1: TStringField;
+    SQL_VENDASBANCO_CONTA_DIGITO_2_1: TStringField;
+    SQL_VENDASBANCO_ANGENCIA_DIGITO: TStringField;
+    SQL_VENDASBANCO_ANGENCIA_DIGITO_2: TStringField;
+    SQL_VENDASBANCO_AGENCIA_2_1: TStringField;
+    SQL_VENDASCONTATO_NOME: TStringField;
+    SQL_VENDASCONTATO_CELULAR: TStringField;
+    SQL_VENDASTELEFONE: TStringField;
+    SQL_VENDASTELEFONE_1_1: TStringField;
+    SQL_VENDASCELULAR: TStringField;
+    SQL_VENDASCONTATO: TStringField;
+    SQL_VENDASCELULAR_1_1: TStringField;
+    SQL_VENDASCONTATO_1: TStringField;
+    SQL_VENDASEMAIL: TStringField;
+    SQL_VENDASEMAIL_1_1: TStringField;
+    SQL_VENDASSKYPE: TStringField;
+    SQL_VENDASOBSERVACAO: TStringField;
+    SQL_VENDASconvenio_inicio: TDateField;
+    SQL_VENDASconvenio_fim: TDateField;
+    SQL_VENDASINDICACAO_IE: TIntegerField;
+    SQL_VENDASTRIBUTACAO_ICMS: TIntegerField;
+    SQL_VENDASCONTRIBUINTE_ICMS: TIntegerField;
+    GridItens: TDBGrid;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure cxButton7Click(Sender: TObject);
+    procedure cxButton8Click(Sender: TObject);
+    procedure cxButton2Click(Sender: TObject);
+    procedure cxButton3Click(Sender: TObject);
+    procedure cxButton6Click(Sender: TObject);
+    procedure cxButton4Click(Sender: TObject);
+    procedure cxButton12Click(Sender: TObject);
+    procedure cxButton13Click(Sender: TObject);
+    procedure cxButton5Click(Sender: TObject);
+    procedure btn_atualizar_infoClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+    cod_venda: Integer; // Número do pedido de venda a emitir NFe
+    procedure BuscarVenda;
+    Procedure BuscaItensVenda;
+    function SomaTOTAL_VENDA: Real;
+  public
+    { Public declarations }
+    constructor Create(AOwner: TComponent; iVenda: Integer); overload;
+  end;
+
+var
+  frm_emissor_nfe: Tfrm_emissor_nfe;
+
+implementation
+
+{$R *.dfm}
+
+uses u_funcoes, nfe_nota_referenciada,  nfe_tributacao, nfe_financeiro,
+  cad_transportador, nfe_consulta_carta_correcao, controle_taxa_cartao,
+  nfe_carta_correcao, nfe_enviar_email, nfe_dados_transporte, inutilizar_faixa;
+
+
+procedure Tfrm_emissor_nfe.btn_atualizar_infoClick(Sender: TObject);
+begin
+Frm_Inutilizar_Faixa := TFrm_Inutilizar_Faixa.Create(nil);
+Frm_Inutilizar_Faixa.ShowModal;
+end;
+
+procedure Tfrm_emissor_nfe.BuscaItensVenda;
+begin
+  // Recupera os itens da venda
+
+  SQL_VENDA_ITENS.Close;
+  SQL_VENDA_ITENS.SQL.Clear;
+  SQL_VENDA_ITENS.SQL.Add('SELECT vi.CODIGO_VENDA,      ');
+  SQL_VENDA_ITENS.SQL.Add('       vi.CODIGO_ITEM_VENDA, ');
+  SQL_VENDA_ITENS.SQL.Add('       vi.CODIGO_PRODUTO,    ');
+  SQL_VENDA_ITENS.SQL.Add('       vi.QUANTIDADE,        ');
+  SQL_VENDA_ITENS.SQL.Add('       vi.PRECO,             ');
+  SQL_VENDA_ITENS.SQL.Add('       vi.ACRESCIMO,         ');
+  SQL_VENDA_ITENS.SQL.Add('       vi.DESCONTO,          ');
+  SQL_VENDA_ITENS.SQL.Add('       vi.PRECO_TOTAL,       ');
+  SQL_VENDA_ITENS.SQL.Add('       P.UNIDADE_MEDIDA,     ');
+  SQL_VENDA_ITENS.SQL.Add('       p.DESCRICAO_PRODUTO,  ');
+  SQL_VENDA_ITENS.SQL.Add('       p.CODIGO_BARRAS,      ');
+  SQL_VENDA_ITENS.SQL.Add('       p.NCM,                ');
+  SQL_VENDA_ITENS.SQL.Add('       p.CEST,               ');
+  //SQL_VENDA_ITENS.SQL.Add('       if(ICMS_CST <> '',IF(ICMS_CST=''60'',         ');
+  //SQL_VENDA_ITENS.SQL.Add('                            (SELECT CFOP_ST          ');
+  //SQL_VENDA_ITENS.SQL.Add('                               FROM NATUREZA_OPERACAO');
+  //SQL_VENDA_ITENS.SQL.Add('                              WHERE ID = 1),         ');
+  //SQL_VENDA_ITENS.SQL.Add('                            (SELECT CFOP_TI          ');
+  //SQL_VENDA_ITENS.SQL.Add('                               FROM NATUREZA_OPERACAO');
+  //SQL_VENDA_ITENS.SQL.Add('                              WHERE ID = 1)),        ');
+  //SQL_VENDA_ITENS.SQL.Add('          ) as CFOP,                                 ');
+  SQL_VENDA_ITENS.SQL.Add('       '''' as CFOP,                                 ');
+  SQL_VENDA_ITENS.SQL.Add('       p.CSOSN,                                      ');
+  SQL_VENDA_ITENS.SQL.Add('       p.ICMS_CST,                                   ');
+  SQL_VENDA_ITENS.SQL.Add('       p.ALIQ_ICMS,                                  ');
+  SQL_VENDA_ITENS.SQL.Add('       p.PIS_CST,                                    ');
+  SQL_VENDA_ITENS.SQL.Add('       p.COFINS_CST                                  ');
+  SQL_VENDA_ITENS.SQL.Add('  from venda_item vi                                 ');
+  SQL_VENDA_ITENS.SQL.Add('  join produto p                                     ');
+  SQL_VENDA_ITENS.SQL.Add('       on vi.codigo_produto = p.codigo               ');
+  SQL_VENDA_ITENS.SQL.Add(' where vi.codigo_venda = :CODIGO                     ');
+  SQL_VENDA_ITENS.ParamByName('CODIGO').AsInteger := cod_venda;
+  SQL_VENDA_ITENS.Open;
+
+end;
+
+procedure Tfrm_emissor_nfe.BuscarVenda;
+var
+  StatusVenda,
+  DataInicio,  DataFim,  DataFaixa,
+  MesInicio,   MesFim,
+  VendaInicio, VendaFim, FaixaVenda,
+  ordem,
+  PossuiNFCE,
+  InfoManual:                        string;
+begin
+   // Recupera os pedidos para emissão de NFe/NFCe
+  //if (chk_fechadas.checked) or (chk_canceladas.checked) or (chk_abertas.checked) then
+  //if (chk_canceladas.checked) then
+  begin
+    //if chk_fechadas.checked then
+    //  StatusVenda := '"FECHADA"';
+    //if chk_abertas.checked then
+    //  if StatusVenda.IsEmpty then
+    //    StatusVenda := '"ABERTA"'
+    //  else
+    //    StatusVenda := StatusVenda + ',' + '"ABERTA"';
+    if chk_canceladas.checked then
+      if StatusVenda.IsEmpty then
+        StatusVenda := '"CANCELADA"'
+      else
+        StatusVenda := StatusVenda + ',' + '"CANCELADA"';
+    if CB_MES.Text = '' then
+    begin
+      if edt_periodo_inicio.date <> NullDate then
+        DataInicio := FormatDateTime('yyyy-mm-dd', edt_periodo_inicio.date);
+      if edt_periodo_fim.date <> NullDate then
+        DataFim := FormatDateTime('yyyy-mm-dd', edt_periodo_fim.date);
+    end
+    else
+    begin
+      MesInicio := MonthToDbMonth('01', CB_MES.Text);
+      MesFim := MonthToDbMonth('31', CB_MES.Text);
+    end;
+    //if edt_venda_inicio.Text <> '' then
+    //begin
+    //  VendaInicio := edt_venda_inicio.Text;
+    //end;
+    //if edt_venda_fim.Text <> '' then
+    //begin
+    //  VendaFim := edt_venda_fim.Text;
+    //end;
+    SQL_VENDAS.Close;
+    SQL_VENDAS.SQL.Clear;
+    SQL_VENDAS.SQL.Add('SELECT *                                                 ');
+    SQL_VENDAS.SQL.Add('  FROM VENDA       V,                                    ');
+    SQL_VENDAS.SQL.Add('       USUARIO     U,                                    ');
+    SQL_VENDAS.SQL.Add('       COLABORADOR C,                                    ');
+    SQL_VENDAS.SQL.Add('       CLIENTE     X                                     ');
+    SQL_VENDAS.SQL.Add(' WHERE U.CODIGO = V.OPERADOR                             ');
+    SQL_VENDAS.SQL.Add('   AND C.CODIGO = V.COD_VENDEDOR                         ');
+    SQL_VENDAS.SQL.Add('   AND X.CODIGO = V.CODIGO_CLIENTE                       ');
+
+    // Se a tela foi "chamada" por outra que passo o número da venda/pedido
+    // filtra somente este pedido/venda...
+    if cod_venda <> 0 then
+    begin
+      SQL_VENDAS.SQL.Add('AND V.CODIGO_VENDA = :CODIGO_VENDA');
+      SQL_VENDAS.ParamByName('CODIGO_VENDA').AsInteger := cod_venda;
+    end;
+
+    SQL_VENDAS.SQL.Add('ORDER BY DATA DESC, HORA DESC                            ');
+    {
+    SQL_VENDAS.SQL.Add('WHERE V.STATUS in (' + StatusVenda + ')              ');
+
+    if (DataInicio <> '') and (DataFim <> '') then
+    Begin
+      SQL_VENDAS.SQL.Add('AND V.DATA BETWEEN :DATA_INICIO AND :DATA_FIM      ');
+      SQL_VENDAS.SQL.ParamByName('DATA_INICIO').AsDate := StrToDate(DataInicio);
+      SQL_VENDAS.SQL.ParamByName('DATA_FIM'   ).AsDate := StrToDate(DataFim);
+    End;
+
+    if (MesInicio <> '') and (MesFim <> '') then
+      DataFaixa := ' AND v.DATA BETWEEN ' + QuotedStr(MesInicio) + ' AND ' + QuotedStr(MesFim);
+    if (VendaInicio <> '') then
+      FaixaVenda := ' AND v.CODIGO_VENDA = ' + QuotedStr(VendaInicio);
+    if (VendaFim <> '') then
+      FaixaVenda := ' AND v.CODIGO_VENDA = ' + QuotedStr(VendaFim);
+    if (VendaInicio <> '') AND (VendaFim <> '') then
+      FaixaVenda := ' AND v.CODIGO_VENDA BETWEEN ' + QuotedStr(VendaInicio) + ' AND ' + QuotedStr(VendaFim);
+    if chk_nfce.checked then
+      lbl_venda_nfce.Caption := simplequery('SELECT COUNT(*) FROM VENDA v WHERE v.COD_NFCE <> "0"' + DataFaixa + FaixaVenda + InfoManual)
+        .Fields[0].AsString
+    else if not chk_nfce.checked then
+    begin
+      PossuiNFCE := ' AND v.COD_NFCE = "0"';
+      lbl_venda_nfce.Caption := '0';
+    end;
+    if chk_venda.checked then
+      ordem := ' ORDER BY v.CODIGO_VENDA';
+    if chk_data.checked then
+      ordem := ' ORDER BY v.DATA';
+    if chk_status.checked then
+      ordem := ' ORDER BY v.STATUS';
+
+    if edt_consulta.Text <> emptystr then
+      case cb_filtro.SelectedItem of
+        0:
+          InfoManual := ' AND v.NOME_CLIENTE like "' + edt_consulta.Text + '%"';
+        1:
+          InfoManual := ' AND v.CAIXA like "' + edt_consulta.Text + '%"';
+        2:
+          InfoManual := ' AND V.OPERADOR = (select u.codigo from usuario u where u.usuario like "' + edt_consulta.Text + '%")';
+        3:
+          InfoManual := ' AND v.COD_VENDEDOR = (select u.codigo from usuario u where u.usuario like "' + edt_consulta.Text + '%")';
+        4:
+          InfoManual := ' AND v.COMANDA like "' + edt_consulta.Text + '%"';
+      end;
+
+    Consulta := Consulta + DataFaixa + FaixaVenda + InfoManual + PossuiNFCE + ordem;
+    }
+    SQL_VENDAS.open;
+    SQL_VENDAS.FetchAll;
+
+    lbl_qtde.Caption      := IntToStr(SQL_VENDAS.RecordCount);
+    lb_total_nfce.Caption := Float_to_String(SomaTOTAL_VENDA);
+    SQL_VENDAS.First;
+
+  end;
+  //else
+  //  wnalerta('Consultar Venda', slinebreak + 'Você deve selecionar um status!');
+end;
+
+function Tfrm_emissor_nfe.SomaTOTAL_VENDA: Real;
+var vSomaTOTAL_VENDA:Real;
+begin
+   // Retorna o valor total das vendas constantes no grid
+   vSomaTOTAL_VENDA := 0;
+   SQL_VENDAS.First;
+   while not SQL_VENDAS.Eof do
+   begin
+     vSomaTOTAL_VENDA := vSomaTOTAL_VENDA + SQL_VENDAS.FieldByName('TOTAL_VENDA').AsFloat;
+     SQL_VENDAS.Next;
+   end;
+   SQL_VENDAS.First;
+   Result := vSomaTOTAL_VENDA;
+end;
+
+constructor Tfrm_emissor_nfe.Create(AOwner: TComponent; iVenda: Integer);
+begin
+  inherited Create(AOwner);
+  cod_venda := iVenda;
+end;
+
+procedure Tfrm_emissor_nfe.cxButton12Click(Sender: TObject);
+begin
+tb_pedido.Show;
+end;
+
+procedure Tfrm_emissor_nfe.cxButton13Click(Sender: TObject);
+begin
+tb_pedido.Show;
+end;
+
+procedure Tfrm_emissor_nfe.cxButton2Click(Sender: TObject);
+begin
+frm_dados_transporte := Tfrm_dados_transporte.Create(nil);
+frm_dados_transporte.ShowModal;
+end;
+
+procedure Tfrm_emissor_nfe.cxButton3Click(Sender: TObject);
+begin
+frm_nfe_financeiro := Tfrm_nfe_financeiro.Create(nil);
+frm_nfe_financeiro.ShowModal;
+end;
+
+procedure Tfrm_emissor_nfe.cxButton4Click(Sender: TObject);
+begin
+frm_enviar_email :=Tfrm_enviar_email.Create(nil);
+frm_enviar_email.ShowModal;
+end;
+
+procedure Tfrm_emissor_nfe.cxButton5Click(Sender: TObject);
+begin
+tb_pedido.Show;
+end;
+
+procedure Tfrm_emissor_nfe.cxButton6Click(Sender: TObject);
+begin
+frm_carta_correcao := Tfrm_carta_correcao.Create(nil);
+frm_carta_correcao.ShowModal;
+end;
+
+procedure Tfrm_emissor_nfe.cxButton7Click(Sender: TObject);
+begin
+frm_nfe_tributacao := Tfrm_nfe_tributacao.Create(nil);
+frm_nfe_tributacao.ShowModal;
+end;
+
+procedure Tfrm_emissor_nfe.cxButton8Click(Sender: TObject);
+begin
+frm_nfe_notas_ref := Tfrm_nfe_notas_ref.Create(nil);
+frm_nfe_notas_ref.ShowModal;
+end;
+
+procedure Tfrm_emissor_nfe.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := cafree;
+  self := nil;
+end;
+
+procedure Tfrm_emissor_nfe.FormShow(Sender: TObject);
+begin
+ BuscarVenda;
+ BuscaItensVenda;
+end;
+
+end.
+
+{
+    SQL_VENDAS.Close;
+    SQL_VENDAS.SQL.Clear;
+    SQL_VENDAS.SQL.Add('SELECT V.CODIGO_VENDA,                                   ');
+    SQL_VENDAS.SQL.Add('       V.DATA,                                           ');
+    SQL_VENDAS.SQL.Add('       V.HORA,                                           ');
+    SQL_VENDAS.SQL.Add('       V.CAIXA,                                          ');
+    SQL_VENDAS.SQL.Add('      (SELECT U.USUARIO                                  ');
+    SQL_VENDAS.SQL.Add('         FROM USUARIO U                                  ');
+    SQL_VENDAS.SQL.Add('        WHERE U.CODIGO = V.OPERADOR) AS OPERADOR,        ');
+    SQL_VENDAS.SQL.Add('      (SELECT C.NOME                                     ');
+    SQL_VENDAS.SQL.Add('         FROM COLABORADOR C                              ');
+    SQL_VENDAS.SQL.Add('        WHERE C.CODIGO = V.COD_VENDEDOR) AS VENDEDOR,    ');
+    SQL_VENDAS.SQL.Add('      (SELECT FANTASIA                                    ');
+    SQL_VENDAS.SQL.Add('         FROM CLIENTE                                    ');
+    SQL_VENDAS.SQL.Add('        WHERE CODIGO = V.CODIGO_CLIENTE) AS NOME_CLIENTE,');
+    SQL_VENDAS.SQL.Add('      V.TOTAL_VENDA,                                     ');
+    SQL_VENDAS.SQL.Add('      V.TROCO,                                           ');
+    SQL_VENDAS.SQL.Add('      V.VALOR_PAGO,                                      ');
+    SQL_VENDAS.SQL.Add('      V.STATUS,                                          ');
+    SQL_VENDAS.SQL.Add('      V.COD_NFCE,                                        ');
+    SQL_VENDAS.SQL.Add('      V.COMANDA                                          ');
+    SQL_VENDAS.SQL.Add(' FROM VENDA V                                            ');
+}
+
+

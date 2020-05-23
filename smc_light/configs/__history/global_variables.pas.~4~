@@ -1,0 +1,19 @@
+unit global_variables;
+{
+================================================================================
+|   DATA   |DESENVOLVEDOR|HISTORICO DA ALTERACAO DO CODIGO                     |
+|----------|-------------|-----------------------------------------------------|
+|16/03/2020|WANDER       |Criada esta unit para concentrar todas as variáveis  |
+|        28|             |globais do sistema                                   |
+================================================================================
+
+}
+
+interface
+
+var
+   g_Numero_do_Pedido:Integer;
+
+implementation
+
+end.

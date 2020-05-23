@@ -1,0 +1,24 @@
+unit CLIENTE_HISTORICO_BLOQUEIOS_CHB;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+
+type
+  TfrmCLIENTE_HISTORICO_BLOQUEIOS_CHB = class(TForm)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCLIENTE_HISTORICO_BLOQUEIOS_CHB: TfrmCLIENTE_HISTORICO_BLOQUEIOS_CHB;
+
+implementation
+
+{$R *.dfm}
+
+end.

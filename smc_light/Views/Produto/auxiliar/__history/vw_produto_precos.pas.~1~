@@ -1,0 +1,28 @@
+unit vw_produto_precos;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore, Vcl.StdCtrls, cxButtons;
+
+type
+  Tfrm_produto_precos = class(TForm)
+    cxButton2: TcxButton;
+    cxButton12: TcxButton;
+    cxButton8: TcxButton;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frm_produto_precos: Tfrm_produto_precos;
+
+implementation
+
+{$R *.dfm}
+
+end.

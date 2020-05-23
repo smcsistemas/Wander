@@ -1,0 +1,2691 @@
+object frm_Localizacao: Tfrm_Localizacao
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Localizac'#227'o'
+  ClientHeight = 630
+  ClientWidth = 725
+  Color = clWhite
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 13
+  object cxGroupBox10: TcxGroupBox
+    Left = 8
+    Top = 2
+    Caption = 'Localiza'#231#227'o Produto'
+    ParentFont = False
+    Style.TextStyle = [fsBold]
+    TabOrder = 0
+    Height = 102
+    Width = 585
+    object Label2: TLabel
+      Left = 6
+      Top = 24
+      Width = 97
+      Height = 18
+      Caption = 'Rua | Avenida:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label3: TLabel
+      Left = 63
+      Top = 49
+      Width = 42
+      Height = 18
+      Caption = 'Bairro:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label4: TLabel
+      Left = 266
+      Top = 49
+      Width = 48
+      Height = 18
+      Caption = 'Cidade:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label5: TLabel
+      Left = 448
+      Top = 24
+      Width = 57
+      Height = 18
+      Caption = 'N'#250'mero:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label7: TLabel
+      Left = 482
+      Top = 49
+      Width = 23
+      Height = 18
+      Caption = 'UF:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object cxDBTextEdit2: TcxDBTextEdit
+      Left = 109
+      Top = 22
+      DataBinding.DataField = 'RUA'
+      ParentFont = False
+      Properties.CharCase = ecUpperCase
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -11
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = []
+      Style.IsFontAssigned = True
+      TabOrder = 0
+      Width = 330
+    end
+    object cxDBTextEdit3: TcxDBTextEdit
+      Left = 510
+      Top = 23
+      DataBinding.DataField = 'NUMERO'
+      ParentFont = False
+      Properties.CharCase = ecUpperCase
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -11
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = []
+      Style.IsFontAssigned = True
+      TabOrder = 1
+      Width = 66
+    end
+    object cxDBTextEdit4: TcxDBTextEdit
+      Left = 109
+      Top = 48
+      DataBinding.DataField = 'BAIRRO'
+      ParentFont = False
+      Properties.CharCase = ecUpperCase
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -11
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = []
+      Style.IsFontAssigned = True
+      TabOrder = 2
+      Width = 150
+    end
+    object cxDBTextEdit5: TcxDBTextEdit
+      Left = 319
+      Top = 48
+      DataBinding.DataField = 'CIDADE'
+      ParentFont = False
+      Properties.CharCase = ecUpperCase
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -11
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = []
+      Style.IsFontAssigned = True
+      TabOrder = 3
+      Width = 120
+    end
+    object cxDBTextEdit6: TcxDBTextEdit
+      Left = 510
+      Top = 48
+      DataBinding.DataField = 'ESTADO'
+      ParentFont = False
+      Properties.CharCase = ecUpperCase
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -11
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = []
+      Style.IsFontAssigned = True
+      TabOrder = 4
+      Width = 66
+    end
+  end
+  object cxPageControl1: TcxPageControl
+    Left = 8
+    Top = 110
+    Width = 564
+    Height = 236
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    Properties.ActivePage = cxTabSheet3
+    Properties.CustomButtons.Buttons = <>
+    ClientRectBottom = 232
+    ClientRectLeft = 4
+    ClientRectRight = 560
+    ClientRectTop = 29
+    object cxTabSheet1: TcxTabSheet
+      Caption = 'Endere'#231'o'
+      ImageIndex = 0
+      ExplicitTop = 24
+      ExplicitHeight = 208
+      object TLabel
+        Left = 11
+        Top = 14
+        Width = 35
+        Height = 17
+        Caption = 'CEP:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label1: TLabel
+        Left = 188
+        Top = 14
+        Width = 31
+        Height = 17
+        Caption = 'Rua:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label11: TLabel
+        Left = 14
+        Top = 47
+        Width = 56
+        Height = 17
+        Caption = 'N'#250'mero:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 19
+        Top = 79
+        Width = 51
+        Height = 17
+        Caption = 'Compl.:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 6
+        Top = 110
+        Width = 64
+        Height = 17
+        Caption = 'Mun'#237'cipio:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 277
+        Top = 110
+        Width = 50
+        Height = 17
+        Caption = 'Regi'#227'o:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label12: TLabel
+        Left = 176
+        Top = 47
+        Width = 43
+        Height = 17
+        Caption = 'Bairro:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 34
+        Top = 139
+        Width = 36
+        Height = 17
+        Caption = 'Zona:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 361
+        Top = 142
+        Width = 33
+        Height = 17
+        Caption = 'Pa'#237's:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 271
+        Top = 142
+        Width = 23
+        Height = 17
+        Caption = 'UF:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label6: TLabel
+        Left = 9
+        Top = 173
+        Width = 61
+        Height = 18
+        Caption = 'Corredor:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label8: TLabel
+        Left = 152
+        Top = 173
+        Width = 80
+        Height = 18
+        Caption = 'N'#186' Pratileira:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label9: TLabel
+        Left = 290
+        Top = 173
+        Width = 70
+        Height = 18
+        Caption = 'N'#186' Coluna:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label10: TLabel
+        Left = 414
+        Top = 173
+        Width = 36
+        Height = 18
+        Caption = 'Lado:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object btRegiao: TcxButton
+        Left = 501
+        Top = 105
+        Width = 24
+        Height = 26
+        Enabled = False
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'Office2013White'
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+          00000000000100000004000000090000000D0000000F0000000F0000000C0000
+          00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+          0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+          1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+          02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+          50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+          3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+          C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+          7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+          88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+          C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+          87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+          F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+          A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+          FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+          A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+          F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+          92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+          D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+          6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+          A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+          84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+          4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+          F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+          020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+          A2FC62504B900404031000000002000000000000000000000000000000000000
+          000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+          1F3E000000060000000100000000000000000000000000000000}
+        PaintStyle = bpsGlyph
+        TabOrder = 0
+        TabStop = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object edREG_DESCRICAO: TEdit
+        Left = 386
+        Top = 105
+        Width = 112
+        Height = 26
+        TabStop = False
+        Color = clSilver
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 1
+      end
+      object DB_ID_REGIAO: TDBEdit
+        Left = 339
+        Top = 105
+        Width = 41
+        Height = 26
+        CharCase = ecUpperCase
+        Color = clHighlightText
+        DataField = 'ID_REGIAO'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+      end
+      object DB_BAIRRO: TDBEdit
+        Tag = 1
+        Left = 225
+        Top = 42
+        Width = 298
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'BAIRRO'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 3
+      end
+      object btn_cep: TcxButton
+        Left = 148
+        Top = 9
+        Width = 29
+        Height = 26
+        LookAndFeel.Kind = lfOffice11
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'Metropolis'
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+          00000000000100000004000000090000000D0000000F0000000F0000000C0000
+          00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+          0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+          1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+          02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+          50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+          3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+          C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+          7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+          88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+          C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+          87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+          F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+          A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+          FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+          A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+          F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+          92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+          D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+          6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+          A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+          84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+          4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+          F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+          020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+          A2FC62504B900404031000000002000000000000000000000000000000000000
+          000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+          1F3E000000060000000100000000000000000000000000000000}
+        TabOrder = 4
+        TabStop = False
+      end
+      object DB_CEP: TDBEdit
+        Tag = 1
+        Left = 52
+        Top = 9
+        Width = 93
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'CEP'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 5
+      end
+      object DB_RUA: TDBEdit
+        Tag = 1
+        Left = 225
+        Top = 9
+        Width = 298
+        Height = 26
+        CharCase = ecUpperCase
+        Color = clHighlightText
+        DataField = 'RUA'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 6
+      end
+      object DB_NUMERO: TDBEdit
+        Tag = 1
+        Left = 78
+        Top = 42
+        Width = 81
+        Height = 26
+        BiDiMode = bdRightToLeft
+        CharCase = ecUpperCase
+        DataField = 'NUMERO'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentBiDiMode = False
+        ParentFont = False
+        TabOrder = 7
+      end
+      object DB_COMPLEMENTO: TDBEdit
+        Left = 78
+        Top = 74
+        Width = 445
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'COMPLEMENTO'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 8
+      end
+      object DB_MUNICIPIO: TDBEdit
+        Tag = 1
+        Left = 78
+        Top = 105
+        Width = 152
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'MUNICIPIO'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 9
+      end
+      object DB_ZONA: TDBEdit
+        Left = 78
+        Top = 137
+        Width = 152
+        Height = 26
+        CharCase = ecUpperCase
+        Color = clHighlightText
+        DataField = 'ZONA'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 10
+      end
+      object DB_PAIS: TDBEdit
+        Tag = 1
+        Left = 400
+        Top = 137
+        Width = 125
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'PAIS'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 11
+      end
+      object btnMunicip: TcxButton
+        Left = 235
+        Top = 104
+        Width = 24
+        Height = 26
+        Enabled = False
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'Office2013White'
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+          00000000000100000004000000090000000D0000000F0000000F0000000C0000
+          00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+          0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+          1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+          02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+          50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+          3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+          C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+          7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+          88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+          C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+          87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+          F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+          A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+          FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+          A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+          F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+          92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+          D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+          6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+          A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+          84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+          4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+          F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+          020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+          A2FC62504B900404031000000002000000000000000000000000000000000000
+          000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+          1F3E000000060000000100000000000000000000000000000000}
+        PaintStyle = bpsGlyph
+        TabOrder = 12
+        TabStop = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object btn_zona: TcxButton
+        Left = 236
+        Top = 137
+        Width = 24
+        Height = 26
+        Enabled = False
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'Office2013White'
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+          00000000000100000004000000090000000D0000000F0000000F0000000C0000
+          00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+          0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+          1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+          02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+          50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+          3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+          C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+          7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+          88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+          C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+          87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+          F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+          A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+          FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+          A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+          F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+          92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+          D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+          6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+          A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+          84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+          4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+          F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+          020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+          A2FC62504B900404031000000002000000000000000000000000000000000000
+          000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+          1F3E000000060000000100000000000000000000000000000000}
+        PaintStyle = bpsGlyph
+        TabOrder = 13
+        TabStop = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object DB_UF: TDBEdit
+        Tag = 1
+        Left = 302
+        Top = 137
+        Width = 39
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'UF'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 14
+      end
+      object cxDBTextEdit7: TcxDBTextEdit
+        Left = 78
+        Top = 169
+        DataBinding.DataField = 'CORREDOR'
+        ParentFont = False
+        Properties.CharCase = ecUpperCase
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -15
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = []
+        Style.IsFontAssigned = True
+        TabOrder = 15
+        Width = 68
+      end
+      object cxDBTextEdit8: TcxDBTextEdit
+        Left = 235
+        Top = 169
+        DataBinding.DataField = 'PRATELEIRA'
+        ParentFont = False
+        Properties.CharCase = ecUpperCase
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -15
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = []
+        Style.IsFontAssigned = True
+        TabOrder = 16
+        Width = 48
+      end
+      object cxDBTextEdit9: TcxDBTextEdit
+        Left = 368
+        Top = 169
+        DataBinding.DataField = 'COLUNA'
+        ParentFont = False
+        Properties.CharCase = ecUpperCase
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -15
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = []
+        Style.IsFontAssigned = True
+        TabOrder = 17
+        Width = 36
+      end
+      object cxDBComboBox1: TcxDBComboBox
+        Left = 459
+        Top = 169
+        DataBinding.DataField = 'LADO'
+        ParentFont = False
+        Properties.Items.Strings = (
+          'ESQUERDO'
+          'DIREITO')
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -15
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = []
+        Style.IsFontAssigned = True
+        TabOrder = 18
+        Width = 66
+      end
+    end
+    object cxTabSheet2: TcxTabSheet
+      Caption = 'Entrega'
+      ImageIndex = 1
+      ExplicitLeft = 5
+      ExplicitTop = 30
+      object Label13: TLabel
+        Left = 15
+        Top = 47
+        Width = 56
+        Height = 17
+        Caption = 'N'#250'mero:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label18: TLabel
+        Left = 177
+        Top = 47
+        Width = 43
+        Height = 17
+        Caption = 'Bairro:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 20
+        Top = 79
+        Width = 51
+        Height = 17
+        Caption = 'Compl.:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 7
+        Top = 110
+        Width = 64
+        Height = 17
+        Caption = 'Mun'#237'cipio:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 35
+        Top = 142
+        Width = 36
+        Height = 17
+        Caption = 'Zona:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label20: TLabel
+        Left = 189
+        Top = 14
+        Width = 31
+        Height = 17
+        Caption = 'Rua:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 12
+        Top = 14
+        Width = 35
+        Height = 17
+        Caption = 'CEP:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 277
+        Top = 110
+        Width = 50
+        Height = 17
+        Caption = 'Regi'#227'o:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label14: TLabel
+        Left = 414
+        Top = 173
+        Width = 36
+        Height = 18
+        Caption = 'Lado:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 361
+        Top = 142
+        Width = 33
+        Height = 17
+        Caption = 'Pa'#237's:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label15: TLabel
+        Left = 290
+        Top = 173
+        Width = 70
+        Height = 18
+        Caption = 'N'#186' Coluna:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 271
+        Top = 142
+        Width = 23
+        Height = 17
+        Caption = 'UF:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label16: TLabel
+        Left = 152
+        Top = 173
+        Width = 80
+        Height = 18
+        Caption = 'N'#186' Pratileira:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label17: TLabel
+        Left = 9
+        Top = 173
+        Width = 61
+        Height = 18
+        Caption = 'Corredor:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object DBEdit28: TDBEdit
+        Tag = 1
+        Left = 79
+        Top = 42
+        Width = 81
+        Height = 26
+        BiDiMode = bdRightToLeft
+        CharCase = ecUpperCase
+        DataField = 'NUMERO'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentBiDiMode = False
+        ParentFont = False
+        TabOrder = 0
+      end
+      object DBEdit29: TDBEdit
+        Tag = 1
+        Left = 226
+        Top = 42
+        Width = 298
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'BAIRRO'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+      end
+      object DBEdit30: TDBEdit
+        Left = 79
+        Top = 74
+        Width = 445
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'COMPLEMENTO'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+      end
+      object DBEdit31: TDBEdit
+        Tag = 1
+        Left = 79
+        Top = 105
+        Width = 152
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'MUNICIPIO'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 3
+      end
+      object DBEdit32: TDBEdit
+        Left = 79
+        Top = 136
+        Width = 152
+        Height = 26
+        CharCase = ecUpperCase
+        Color = clHighlightText
+        DataField = 'ZONA'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 4
+      end
+      object DBEdit39: TDBEdit
+        Tag = 1
+        Left = 226
+        Top = 9
+        Width = 298
+        Height = 26
+        CharCase = ecUpperCase
+        Color = clHighlightText
+        DataField = 'RUA'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 5
+      end
+      object cxButton2: TcxButton
+        Left = 149
+        Top = 9
+        Width = 29
+        Height = 26
+        LookAndFeel.Kind = lfOffice11
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'Metropolis'
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+          00000000000100000004000000090000000D0000000F0000000F0000000C0000
+          00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+          0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+          1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+          02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+          50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+          3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+          C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+          7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+          88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+          C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+          87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+          F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+          A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+          FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+          A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+          F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+          92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+          D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+          6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+          A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+          84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+          4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+          F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+          020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+          A2FC62504B900404031000000002000000000000000000000000000000000000
+          000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+          1F3E000000060000000100000000000000000000000000000000}
+        TabOrder = 6
+        TabStop = False
+      end
+      object DBEdit40: TDBEdit
+        Tag = 1
+        Left = 53
+        Top = 9
+        Width = 93
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'CEP'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 7
+      end
+      object cxButton3: TcxButton
+        Left = 237
+        Top = 137
+        Width = 24
+        Height = 26
+        Enabled = False
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'Office2013White'
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+          00000000000100000004000000090000000D0000000F0000000F0000000C0000
+          00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+          0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+          1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+          02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+          50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+          3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+          C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+          7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+          88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+          C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+          87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+          F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+          A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+          FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+          A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+          F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+          92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+          D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+          6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+          A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+          84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+          4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+          F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+          020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+          A2FC62504B900404031000000002000000000000000000000000000000000000
+          000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+          1F3E000000060000000100000000000000000000000000000000}
+        PaintStyle = bpsGlyph
+        TabOrder = 8
+        TabStop = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object cxButton4: TcxButton
+        Left = 236
+        Top = 104
+        Width = 24
+        Height = 26
+        Enabled = False
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'Office2013White'
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+          00000000000100000004000000090000000D0000000F0000000F0000000C0000
+          00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+          0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+          1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+          02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+          50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+          3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+          C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+          7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+          88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+          C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+          87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+          F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+          A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+          FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+          A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+          F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+          92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+          D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+          6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+          A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+          84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+          4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+          F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+          020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+          A2FC62504B900404031000000002000000000000000000000000000000000000
+          000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+          1F3E000000060000000100000000000000000000000000000000}
+        PaintStyle = bpsGlyph
+        TabOrder = 9
+        TabStop = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object DBEdit1: TDBEdit
+        Left = 339
+        Top = 105
+        Width = 41
+        Height = 26
+        CharCase = ecUpperCase
+        Color = clHighlightText
+        DataField = 'ID_REGIAO'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 10
+      end
+      object Edit1: TEdit
+        Left = 386
+        Top = 105
+        Width = 112
+        Height = 26
+        TabStop = False
+        Color = clSilver
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 11
+      end
+      object cxButton1: TcxButton
+        Left = 501
+        Top = 105
+        Width = 24
+        Height = 26
+        Enabled = False
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'Office2013White'
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+          00000000000100000004000000090000000D0000000F0000000F0000000C0000
+          00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+          0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+          1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+          02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+          50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+          3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+          C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+          7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+          88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+          C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+          87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+          F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+          A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+          FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+          A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+          F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+          92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+          D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+          6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+          A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+          84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+          4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+          F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+          020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+          A2FC62504B900404031000000002000000000000000000000000000000000000
+          000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+          1F3E000000060000000100000000000000000000000000000000}
+        PaintStyle = bpsGlyph
+        TabOrder = 12
+        TabStop = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object DBEdit2: TDBEdit
+        Tag = 1
+        Left = 400
+        Top = 137
+        Width = 125
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'PAIS'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 13
+      end
+      object cxDBComboBox2: TcxDBComboBox
+        Left = 459
+        Top = 169
+        DataBinding.DataField = 'LADO'
+        ParentFont = False
+        Properties.Items.Strings = (
+          'ESQUERDO'
+          'DIREITO')
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -15
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = []
+        Style.IsFontAssigned = True
+        TabOrder = 14
+        Width = 66
+      end
+      object cxDBTextEdit1: TcxDBTextEdit
+        Left = 368
+        Top = 169
+        DataBinding.DataField = 'COLUNA'
+        ParentFont = False
+        Properties.CharCase = ecUpperCase
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -15
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = []
+        Style.IsFontAssigned = True
+        TabOrder = 15
+        Width = 36
+      end
+      object DBEdit3: TDBEdit
+        Tag = 1
+        Left = 302
+        Top = 137
+        Width = 39
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'UF'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 16
+      end
+      object cxDBTextEdit10: TcxDBTextEdit
+        Left = 235
+        Top = 169
+        DataBinding.DataField = 'PRATELEIRA'
+        ParentFont = False
+        Properties.CharCase = ecUpperCase
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -15
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = []
+        Style.IsFontAssigned = True
+        TabOrder = 17
+        Width = 48
+      end
+      object cxDBTextEdit11: TcxDBTextEdit
+        Left = 78
+        Top = 169
+        DataBinding.DataField = 'CORREDOR'
+        ParentFont = False
+        Properties.CharCase = ecUpperCase
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -15
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = []
+        Style.IsFontAssigned = True
+        TabOrder = 18
+        Width = 68
+      end
+    end
+    object cxTabSheet3: TcxTabSheet
+      Caption = 'Cobran'#231'a'
+      ImageIndex = 2
+      object Label21: TLabel
+        Left = 13
+        Top = 46
+        Width = 56
+        Height = 17
+        Caption = 'N'#250'mero:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label22: TLabel
+        Left = 175
+        Top = 46
+        Width = 43
+        Height = 17
+        Caption = 'Bairro:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 18
+        Top = 78
+        Width = 51
+        Height = 17
+        Caption = 'Compl.:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 5
+        Top = 109
+        Width = 64
+        Height = 17
+        Caption = 'Mun'#237'cipio:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 33
+        Top = 141
+        Width = 36
+        Height = 17
+        Caption = 'Zona:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label23: TLabel
+        Left = 187
+        Top = 13
+        Width = 31
+        Height = 17
+        Caption = 'Rua:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 10
+        Top = 13
+        Width = 35
+        Height = 17
+        Caption = 'CEP:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 274
+        Top = 110
+        Width = 50
+        Height = 17
+        Caption = 'Regi'#227'o:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label19: TLabel
+        Left = 411
+        Top = 173
+        Width = 36
+        Height = 18
+        Caption = 'Lado:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 358
+        Top = 142
+        Width = 33
+        Height = 17
+        Caption = 'Pa'#237's:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label24: TLabel
+        Left = 287
+        Top = 173
+        Width = 70
+        Height = 18
+        Caption = 'N'#186' Coluna:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 268
+        Top = 142
+        Width = 23
+        Height = 17
+        Caption = 'UF:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Helvetica Neue'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label25: TLabel
+        Left = 149
+        Top = 173
+        Width = 80
+        Height = 18
+        Caption = 'N'#186' Pratileira:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label26: TLabel
+        Left = 6
+        Top = 173
+        Width = 61
+        Height = 18
+        Caption = 'Corredor:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object DBEdit41: TDBEdit
+        Tag = 1
+        Left = 77
+        Top = 41
+        Width = 81
+        Height = 26
+        BiDiMode = bdRightToLeft
+        CharCase = ecUpperCase
+        DataField = 'NUMERO'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentBiDiMode = False
+        ParentFont = False
+        TabOrder = 0
+      end
+      object DBEdit42: TDBEdit
+        Tag = 1
+        Left = 224
+        Top = 41
+        Width = 298
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'BAIRRO'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+      end
+      object DBEdit43: TDBEdit
+        Left = 77
+        Top = 73
+        Width = 445
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'COMPLEMENTO'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+      end
+      object DBEdit44: TDBEdit
+        Tag = 1
+        Left = 77
+        Top = 104
+        Width = 152
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'MUNICIPIO'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 3
+      end
+      object DBEdit45: TDBEdit
+        Left = 77
+        Top = 135
+        Width = 152
+        Height = 26
+        CharCase = ecUpperCase
+        Color = clHighlightText
+        DataField = 'ZONA'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 4
+      end
+      object DBEdit52: TDBEdit
+        Tag = 1
+        Left = 224
+        Top = 8
+        Width = 298
+        Height = 26
+        CharCase = ecUpperCase
+        Color = clHighlightText
+        DataField = 'RUA'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 5
+      end
+      object cxButton6: TcxButton
+        Left = 147
+        Top = 8
+        Width = 29
+        Height = 26
+        LookAndFeel.Kind = lfOffice11
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'Metropolis'
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+          00000000000100000004000000090000000D0000000F0000000F0000000C0000
+          00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+          0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+          1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+          02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+          50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+          3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+          C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+          7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+          88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+          C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+          87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+          F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+          A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+          FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+          A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+          F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+          92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+          D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+          6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+          A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+          84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+          4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+          F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+          020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+          A2FC62504B900404031000000002000000000000000000000000000000000000
+          000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+          1F3E000000060000000100000000000000000000000000000000}
+        TabOrder = 6
+        TabStop = False
+      end
+      object DBEdit53: TDBEdit
+        Tag = 1
+        Left = 51
+        Top = 8
+        Width = 93
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'CEP'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 7
+      end
+      object cxButton7: TcxButton
+        Left = 235
+        Top = 136
+        Width = 24
+        Height = 26
+        Enabled = False
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'Office2013White'
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+          00000000000100000004000000090000000D0000000F0000000F0000000C0000
+          00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+          0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+          1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+          02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+          50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+          3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+          C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+          7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+          88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+          C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+          87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+          F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+          A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+          FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+          A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+          F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+          92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+          D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+          6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+          A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+          84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+          4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+          F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+          020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+          A2FC62504B900404031000000002000000000000000000000000000000000000
+          000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+          1F3E000000060000000100000000000000000000000000000000}
+        PaintStyle = bpsGlyph
+        TabOrder = 8
+        TabStop = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object cxButton8: TcxButton
+        Left = 234
+        Top = 103
+        Width = 24
+        Height = 26
+        Enabled = False
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'Office2013White'
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+          00000000000100000004000000090000000D0000000F0000000F0000000C0000
+          00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+          0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+          1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+          02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+          50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+          3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+          C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+          7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+          88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+          C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+          87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+          F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+          A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+          FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+          A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+          F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+          92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+          D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+          6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+          A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+          84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+          4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+          F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+          020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+          A2FC62504B900404031000000002000000000000000000000000000000000000
+          000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+          1F3E000000060000000100000000000000000000000000000000}
+        PaintStyle = bpsGlyph
+        TabOrder = 9
+        TabStop = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object DBEdit4: TDBEdit
+        Left = 336
+        Top = 105
+        Width = 41
+        Height = 26
+        CharCase = ecUpperCase
+        Color = clHighlightText
+        DataField = 'ID_REGIAO'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 10
+      end
+      object Edit2: TEdit
+        Left = 383
+        Top = 105
+        Width = 112
+        Height = 26
+        TabStop = False
+        Color = clSilver
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 11
+      end
+      object cxButton5: TcxButton
+        Left = 498
+        Top = 105
+        Width = 24
+        Height = 26
+        Enabled = False
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'Office2013White'
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+          00000000000100000004000000090000000D0000000F0000000F0000000C0000
+          00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+          0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+          1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+          02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+          50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+          3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+          C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+          7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+          88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+          C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+          87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+          F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+          A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+          FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+          A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+          F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+          92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+          D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+          6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+          A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+          84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+          4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+          F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+          020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+          A2FC62504B900404031000000002000000000000000000000000000000000000
+          000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+          1F3E000000060000000100000000000000000000000000000000}
+        PaintStyle = bpsGlyph
+        TabOrder = 12
+        TabStop = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object DBEdit5: TDBEdit
+        Tag = 1
+        Left = 397
+        Top = 137
+        Width = 125
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'PAIS'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 13
+      end
+      object cxDBComboBox3: TcxDBComboBox
+        Left = 456
+        Top = 169
+        DataBinding.DataField = 'LADO'
+        ParentFont = False
+        Properties.Items.Strings = (
+          'ESQUERDO'
+          'DIREITO')
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -15
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = []
+        Style.IsFontAssigned = True
+        TabOrder = 14
+        Width = 66
+      end
+      object cxDBTextEdit12: TcxDBTextEdit
+        Left = 365
+        Top = 169
+        DataBinding.DataField = 'COLUNA'
+        ParentFont = False
+        Properties.CharCase = ecUpperCase
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -15
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = []
+        Style.IsFontAssigned = True
+        TabOrder = 15
+        Width = 36
+      end
+      object DBEdit6: TDBEdit
+        Tag = 1
+        Left = 299
+        Top = 137
+        Width = 39
+        Height = 26
+        CharCase = ecUpperCase
+        DataField = 'UF'
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 16
+      end
+      object cxDBTextEdit13: TcxDBTextEdit
+        Left = 232
+        Top = 169
+        DataBinding.DataField = 'PRATELEIRA'
+        ParentFont = False
+        Properties.CharCase = ecUpperCase
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -15
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = []
+        Style.IsFontAssigned = True
+        TabOrder = 17
+        Width = 48
+      end
+      object cxDBTextEdit14: TcxDBTextEdit
+        Left = 75
+        Top = 169
+        DataBinding.DataField = 'CORREDOR'
+        ParentFont = False
+        Properties.CharCase = ecUpperCase
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -15
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = []
+        Style.IsFontAssigned = True
+        TabOrder = 18
+        Width = 68
+      end
+    end
+  end
+  object BtnGravar: TcxButton
+    Left = 158
+    Top = 367
+    Width = 126
+    Height = 36
+    Caption = 'Gravar'
+    LookAndFeel.NativeStyle = False
+    LookAndFeel.SkinName = 'Metropolis'
+    OptionsImage.Glyph.Data = {
+      36100000424D3610000000000000360000002800000020000000200000000100
+      2000000000000010000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000004B273C70964E78E0AB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FF964E78E04B273C70000000000000000000000000000000000000
+      000000000000964E78E0AB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFF
+      FFFFFFFFFFFFAB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB5989FFAB59
+      89FFAB5989FFAB5989FF964E78E0000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFF
+      FFFFFFFFFFFFAB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFF
+      FFFFFFFFFFFFAB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFF
+      FFFFFFFFFFFFAB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFF
+      FFFFFFFFFFFFAB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFF
+      FFFFFFFFFFFFAB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFAB5989FFAB5989FFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFC1C1
+      C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1
+      C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFFFFFFFFFFFFFFFFFFFFF
+      FFFFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFC1C1
+      C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1
+      C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFFFFFFFFFFFFFFFFFFFFF
+      FFFFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FF00000000AB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      000000000000AB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+      89FFAB5989FFAB5989FFAB5989FF000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000}
+    TabOrder = 2
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'HelveticaNeue'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object cxButton9: TcxButton
+    Left = 455
+    Top = 367
+    Width = 117
+    Height = 36
+    Caption = 'Cancelar'
+    Enabled = False
+    LookAndFeel.NativeStyle = False
+    LookAndFeel.SkinName = 'Metropolis'
+    OptionsImage.Glyph.Data = {
+      36100000424D3610000000000000360000002800000020000000200000000100
+      2000000000000010000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000001010202000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000010102020000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000005070F12354EA9C8151E424E0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000016204552354EA9C80507
+      1013000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000005070F123750AECD4463D8FF4261D3F9151E
+      424E000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000162045524261D3F94463D8FF3750
+      AECE050710130000000000000000000000000000000000000000000000000000
+      0000000000000000000000000101354DA9C74463D8FF4463D8FF4463D8FF4261
+      D3F9151E424E0000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000162045524261D3F94463D8FF4463D8FF4463
+      D8FF354EA9C80000010100000000000000000000000000000000000000000000
+      0000000000000000000000000000151E414D4261D3F94463D8FF4463D8FF4463
+      D8FF4261D3F9151E424E00000000000000000000000000000000000000000000
+      00000000000000000000162045524261D3F94463D8FF4463D8FF4463D8FF4261
+      D3F9131C3E490000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000151E414D4261D3F94463D8FF4463
+      D8FF4463D8FF4261D3F9151E424E000000000000000000000000000000000000
+      000000000000162045524261D3F94463D8FF4463D8FF4463D8FF4261D3F9131C
+      3E49000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000151E414D4261D3F94463
+      D8FF4463D8FF4463D8FF4261D3F9151F434F0000000000000000000000000000
+      0000162045524261D3F94463D8FF4463D8FF4463D8FF4261D3F9131C3E490000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000151E414D4261
+      D3F94463D8FF4463D8FF4463D8FF4261D3F9151F434F00000000000000001620
+      45524261D3F94463D8FF4463D8FF4463D8FF4261D3F9131C3E49000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000000000000151E
+      414D4261D3F94463D8FF4463D8FF4463D8FF4261D3F9151F434F162045524261
+      D3F94463D8FF4463D8FF4463D8FF4261D3F9131C3E4900000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000151E414D4261D3F94463D8FF4463D8FF4463D8FF4261D3F94261D3F94463
+      D8FF4463D8FF4463D8FF4261D3F9131C3E490000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000151E414D4261D3F94463D8FF4463D8FF4463D8FF4463D8FF4463
+      D8FF4463D8FF4261D3F9131C3E49000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000151E414D4261D3F94463D8FF4463D8FF4463D8FF4463
+      D8FF4261D3F9131C3E4900000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000162045524261D3F94463D8FF4463D8FF4463D8FF4463
+      D8FF4261D3F9151F434F00000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000162045524261D3F94463D8FF4463D8FF4463D8FF4463D8FF4463
+      D8FF4463D8FF4261D3F9151F434F000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000162045524261D3F94463D8FF4463D8FF4463D8FF4261D3F94261D3F94463
+      D8FF4463D8FF4463D8FF4261D3F9151F434F0000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000001620
+      45524261D3F94463D8FF4463D8FF4463D8FF4261D3F9131C3E49151E414D4261
+      D3F94463D8FF4463D8FF4463D8FF4261D3F9151F434F00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000162045524261
+      D3F94463D8FF4463D8FF4463D8FF4261D3F9131C3E490000000000000000151E
+      414D4261D3F94463D8FF4463D8FF4463D8FF4261D3F9151F434F000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000162045524261D3F94463
+      D8FF4463D8FF4463D8FF4261D3F9131C3E490000000000000000000000000000
+      0000151E414D4261D3F94463D8FF4463D8FF4463D8FF4261D3F9151F434F0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000162045524261D3F94463D8FF4463
+      D8FF4463D8FF4261D3F9131C3E49000000000000000000000000000000000000
+      000000000000151E414D4261D3F94463D8FF4463D8FF4463D8FF4261D3F9151F
+      434F000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000162046534261D3F94463D8FF4463D8FF4463
+      D8FF4261D3F9131C3E4900000000000000000000000000000000000000000000
+      00000000000000000000151E414D4261D3F94463D8FF4463D8FF4463D8FF4261
+      D3F9151F434F0000000000000000000000000000000000000000000000000000
+      0000000000000000000001010202354CA7C54463D8FF4463D8FF4463D8FF4261
+      D3F9131C3E490000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000151E414D4261D3F94463D8FF4463D8FF4463
+      D8FF354CA7C50000010100000000000000000000000000000000000000000000
+      000000000000000000000000000004060D0F364EABCA4463D8FF4261D3F9131C
+      3E49000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000151E414D4261D3F94463D8FF364F
+      ACCB04060E100000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000004060D0F344CA5C3131C3E490000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000151E414D354CA7C50406
+      0E10000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000010102020000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000}
+    TabOrder = 3
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'HelveticaNeue'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object BtnAlterar: TcxButton
+    Left = 309
+    Top = 367
+    Width = 118
+    Height = 36
+    Caption = 'Alterar'
+    LookAndFeel.NativeStyle = False
+    LookAndFeel.SkinName = 'Metropolis'
+    OptionsImage.Glyph.Data = {
+      36100000424D3610000000000000360000002800000020000000200000000100
+      2000000000000010000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFA272
+      44E0060503090000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFA47445E31B13
+      0B250B08050F3324154700000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFA47445E31B130B250B08
+      050F8E643BC5B6804CFC3F2C1A57000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009C6E41D81B130B250B08050F8E64
+      3BC5B8824DFFB8824DFFB6804CFC3F2C1A570000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000806030B0B08050F8E643BC5B882
+      4DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2C1A5700000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000003A291851B7814DFEB882
+      4DFFB8824DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2C1A57000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000049331E65B781
+      4DFEB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2C1A570000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000004933
+      1E65B7814DFEB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2C
+      1A57000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000049331E65B7814DFEB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB680
+      4CFC3F2C1A570000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000049331E65B7814DFEB8824DFFB8824DFFB8824DFFB8824DFFB882
+      4DFFB6804CFC3F2D1B5800000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000049331E65B7814DFEB8824DFFB8824DFFB8824DFFB882
+      4DFFB8824DFFB6804CFC3F2D1B58000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000049331E65B7814DFEB8824DFFB8824DFFB882
+      4DFFB8824DFFB8824DFFB6804CFC3F2D1B580000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000049331E65B7814DFEB8824DFFB882
+      4DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2D1B5800000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000049331E65B7814DFEB882
+      4DFFB8824DFFB8824DFFB8824DFFB8824DFF9A6D40D503020104000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000049331E65B781
+      4DFEB8824DFFB8824DFFB8824DFF9C6E41D8120D0819110C07173928184F0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000004933
+      1E65B7814DFEB8824DFF9C6E41D8120D0819110C07179A6D40D5B6804CFC3F2D
+      1B58000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000049331E659B6E41D7120D0819110C07179A6D40D5B8824DFFB8824DFFB680
+      4CFC3F2D1B580000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000005040207100B07169A6D40D5B8824DFFB8824DFFB8824DFFB882
+      4DFF795532A70000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000003F2D1B58B7814DFEB8824DFFB8824DFFB8824DFF7B57
+      33AA020201030000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000049331E65B7814DFEB8824DFF7B5733AA0202
+      0103000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000049331E657A5633A9020201030000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000}
+    TabOrder = 4
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'HelveticaNeue'
+    Font.Style = [fsBold]
+    Font.Quality = fqDraft
+    ParentFont = False
+  end
+  object cxButton10: TcxButton
+    Left = 8
+    Top = 367
+    Width = 117
+    Height = 36
+    Caption = 'Incluir'
+    LookAndFeel.NativeStyle = False
+    LookAndFeel.SkinName = 'Metropolis'
+    OptionsImage.Glyph.Data = {
+      36100000424D3610000000000000360000002800000020000000200000000100
+      2000000000000010000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB882
+      4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+      4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+      4DFFB8824DFF0000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB882
+      4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+      4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+      4DFFB8824DFF0000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB882
+      4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+      4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+      4DFFB8824DFF0000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB882
+      4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+      4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+      4DFFB8824DFF0000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
+      4DFF000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000}
+    TabOrder = 5
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'HelveticaNeue'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+end

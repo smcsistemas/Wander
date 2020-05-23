@@ -1,0 +1,282 @@
+object frm_preco_p_faixa: Tfrm_preco_p_faixa
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Pre'#231'o p/ Faixa'
+  ClientHeight = 210
+  ClientWidth = 388
+  Color = clWhite
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object grp_faixa_preco: TGroupBox
+    Left = 8
+    Top = 8
+    Width = 357
+    Height = 194
+    Caption = ' Faixa de Pre'#231'o '
+    Color = clHighlightText
+    Enabled = False
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 0
+    object Label88: TLabel
+      Left = 104
+      Top = 20
+      Width = 63
+      Height = 18
+      Caption = 'Pre'#231'o R$:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label90: TLabel
+      Left = 213
+      Top = 20
+      Width = 33
+      Height = 18
+      Caption = 'Tipo:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label89: TLabel
+      Left = 10
+      Top = 20
+      Width = 64
+      Height = 18
+      Caption = 'Qtde Min:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object edt_preco: TEdit
+      Left = 104
+      Top = 47
+      Width = 88
+      Height = 26
+      Alignment = taCenter
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+    end
+    object btn_cad_faixa: TcxButton
+      Left = 300
+      Top = 49
+      Width = 40
+      Height = 22
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Metropolis'
+      OptionsImage.Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000000000000000000000000000562D
+        4580AB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+        89FFAB5989FFAB5989FFAB5989FFAB5989FF562D45800000000000000000AB59
+        89FFAB5989FFAB5989FFFFFFFEFFFFFFFEFFAB5989FFAB5989FFFFFFFEFFFFFF
+        FEFFFFFFFEFFFFFFFEFFAB5989FFAB5989FFAB5989FF0000000000000000AB59
+        89FFAB5989FFAB5989FFFFFFFEFFFFFFFEFFAB5989FFAB5989FFFFFFFEFFFFFF
+        FEFFFFFFFEFFFFFFFEFFAB5989FFAB5989FFAB5989FF0000000000000000AB59
+        89FFAB5989FFAB5989FFFFFFFEFFFFFFFEFFAB5989FFAB5989FFFFFFFEFFFFFF
+        FEFFFFFFFEFFFFFFFEFFAB5989FFAB5989FFAB5989FF0000000000000000AB59
+        89FFAB5989FFAB5989FFFFFFFEFFFFFFFEFFFFFFFEFFFFFFFEFFFFFFFEFFFFFF
+        FEFFFFFFFEFFFFFFFEFFAB5989FFAB5989FFAB5989FF0000000000000000AB59
+        89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+        89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FF0000000000000000AB59
+        89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+        89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FF0000000000000000AB59
+        89FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFAB5989FFAB5989FF0000000000000000AB59
+        89FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFAB5989FFAB5989FF0000000000000000AB59
+        89FFAB5989FFFFFFFFFFFFFFFFFFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1
+        C1FFC1C1C1FFFFFFFFFFFFFFFFFFAB5989FFAB5989FF0000000000000000AB59
+        89FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFAB5989FFAB5989FF0000000000000000AB59
+        89FFAB5989FFFFFFFFFFFFFFFFFFC1C1C1FFC1C1C1FFC1C1C1FFC1C1C1FFC1C1
+        C1FFC1C1C1FFFFFFFFFFFFFFFFFFAB5989FFAB5989FF0000000000000000AB59
+        89FFAB5989FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFAB5989FFAB5989FF0000000000000000AB59
+        89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FFAB59
+        89FFAB5989FFAB5989FFAB5989FFAB5989FFAB5989FF00000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000}
+      TabOrder = 1
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'HelveticaNeue'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object grid_c: TcxGrid
+      Left = 2
+      Top = 89
+      Width = 353
+      Height = 103
+      Align = alBottom
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Office2013White'
+      ExplicitTop = 79
+      object grid_cDBTableView1: TcxGridDBTableView
+        Navigator.Buttons.CustomButtons = <>
+        DataController.Summary.DefaultGroupSummaryItems = <>
+        DataController.Summary.FooterSummaryItems = <>
+        DataController.Summary.SummaryGroups = <>
+        OptionsView.GroupByBox = False
+        object grid_cDBTableView1TIPO: TcxGridDBColumn
+          Caption = 'Tipo'
+          DataBinding.FieldName = 'TIPO'
+          PropertiesClassName = 'TcxLabelProperties'
+          Properties.Alignment.Horz = taCenter
+          HeaderAlignmentHorz = taCenter
+          HeaderGlyphAlignmentHorz = taCenter
+          MinWidth = 120
+          Options.Editing = False
+          Options.Filtering = False
+          Options.FilteringAddValueItems = False
+          Options.FilteringFilteredItemsList = False
+          Options.FilteringMRUItemsList = False
+          Options.FilteringPopup = False
+          Options.FilteringPopupMultiSelect = False
+          Options.FilteringWithFindPanel = False
+          Options.Focusing = False
+          Options.IgnoreTimeForFiltering = False
+          Options.IncSearch = False
+          Options.GroupFooters = False
+          Options.Grouping = False
+          Options.HorzSizing = False
+          Options.Moving = False
+          Width = 120
+        end
+        object grid_cDBTableView1QTDE_MIN: TcxGridDBColumn
+          Caption = 'Min'
+          DataBinding.FieldName = 'QTDE'
+          PropertiesClassName = 'TcxCurrencyEditProperties'
+          Properties.Alignment.Horz = taCenter
+          Properties.DisplayFormat = ',0.00;-,0.00'
+          HeaderAlignmentHorz = taCenter
+          HeaderGlyphAlignmentHorz = taCenter
+          MinWidth = 88
+          Options.Editing = False
+          Options.Filtering = False
+          Options.FilteringAddValueItems = False
+          Options.FilteringFilteredItemsList = False
+          Options.FilteringMRUItemsList = False
+          Options.FilteringPopup = False
+          Options.FilteringPopupMultiSelect = False
+          Options.FilteringWithFindPanel = False
+          Options.Focusing = False
+          Options.IgnoreTimeForFiltering = False
+          Options.IncSearch = False
+          Options.GroupFooters = False
+          Options.Grouping = False
+          Options.HorzSizing = False
+          Options.Moving = False
+          Width = 88
+        end
+        object grid_cDBTableView1PRECO: TcxGridDBColumn
+          Caption = 'Pre'#231'o'
+          DataBinding.FieldName = 'PRECO'
+          PropertiesClassName = 'TcxCurrencyEditProperties'
+          Properties.Alignment.Horz = taCenter
+          HeaderAlignmentHorz = taCenter
+          HeaderGlyphAlignmentHorz = taCenter
+          MinWidth = 100
+          Options.Editing = False
+          Options.Filtering = False
+          Options.FilteringAddValueItems = False
+          Options.FilteringFilteredItemsList = False
+          Options.FilteringMRUItemsList = False
+          Options.FilteringPopup = False
+          Options.FilteringPopupMultiSelect = False
+          Options.FilteringWithFindPanel = False
+          Options.Focusing = False
+          Options.IgnoreTimeForFiltering = False
+          Options.IncSearch = False
+          Options.GroupFooters = False
+          Options.Grouping = False
+          Options.HorzSizing = False
+          Options.Moving = False
+          Width = 100
+        end
+      end
+      object grid_cLevel1: TcxGridLevel
+        GridView = grid_cDBTableView1
+      end
+    end
+    object cb_tipo: TcxComboBox
+      Left = 211
+      Top = 47
+      ParentFont = False
+      Properties.DropDownListStyle = lsFixedList
+      Properties.DropDownRows = 3
+      Properties.Items.Strings = (
+        'VAREJO'
+        'DISTRIBUIDOR'
+        'ATACADO')
+      Style.Font.Charset = ANSI_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -15
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = [fsBold]
+      Style.LookAndFeel.NativeStyle = False
+      Style.LookAndFeel.SkinName = 'Metropolis'
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.NativeStyle = False
+      StyleDisabled.LookAndFeel.SkinName = 'Metropolis'
+      StyleFocused.LookAndFeel.NativeStyle = False
+      StyleFocused.LookAndFeel.SkinName = 'Metropolis'
+      StyleHot.LookAndFeel.NativeStyle = False
+      StyleHot.LookAndFeel.SkinName = 'Metropolis'
+      TabOrder = 3
+      Width = 83
+    end
+    object edt_qtde_min: TEdit
+      Left = 10
+      Top = 47
+      Width = 64
+      Height = 26
+      Alignment = taCenter
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+    end
+  end
+end

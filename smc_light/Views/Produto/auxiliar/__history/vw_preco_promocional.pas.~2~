@@ -1,0 +1,34 @@
+unit vw_preco_promocional;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxContainer, cxEdit, dxSkinsCore, Vcl.StdCtrls,
+  Vcl.Mask, Vcl.DBCtrls, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar,
+  cxDBEdit;
+
+type
+  Tfrm_preco_promocional = class(TForm)
+    GroupBox1: TGroupBox;
+    Label9: TLabel;
+    Label19: TLabel;
+    Label21: TLabel;
+    edt_dt_inicio: TcxDBDateEdit;
+    edt_dt_fim: TcxDBDateEdit;
+    DBEdit1: TDBEdit;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frm_preco_promocional: Tfrm_preco_promocional;
+
+implementation
+
+{$R *.dfm}
+
+end.

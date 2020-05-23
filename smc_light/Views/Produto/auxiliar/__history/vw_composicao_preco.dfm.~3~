@@ -1,0 +1,473 @@
+object frm_composicao_preco_produto: Tfrm_composicao_preco_produto
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Composi'#231#227'o de Pre'#231'o'
+  ClientHeight = 289
+  ClientWidth = 594
+  Color = clWhite
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object GroupBox2: TGroupBox
+    Left = 21
+    Top = 8
+    Width = 556
+    Height = 97
+    Caption = '  Composi'#231#227'o Pre'#231'o  '
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    object Label13: TLabel
+      Left = 53
+      Top = 24
+      Width = 105
+      Height = 18
+      Caption = 'Pre'#231'o Custo R$:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label20: TLabel
+      Left = 267
+      Top = 24
+      Width = 59
+      Height = 18
+      Caption = 'Frete %:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label26: TLabel
+      Left = 38
+      Top = 60
+      Width = 150
+      Height = 18
+      Caption = 'Desp. Operacionais %:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label39: TLabel
+      Left = 328
+      Top = 60
+      Width = 122
+      Height = 18
+      Caption = 'Pre'#231'o M'#233'dio R$:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label33: TLabel
+      Left = 398
+      Top = 24
+      Width = 80
+      Height = 18
+      Caption = 'Imposto %:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object FRETE: TDBEdit
+      Left = 333
+      Top = 20
+      Width = 56
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'FRETE'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Helvetica Neue'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+    object PRECO_CUSTO: TDBEdit
+      Left = 165
+      Top = 20
+      Width = 86
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'PRECO_CUSTO'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Helvetica Neue'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+    end
+    object DESP_OPERACIONAIS: TDBEdit
+      Left = 195
+      Top = 56
+      Width = 56
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'DESP_OPERACIONAIS'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Helvetica Neue'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+    end
+    object CUSTO_MEDIO: TDBEdit
+      Left = 456
+      Top = 56
+      Width = 85
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'CUSTO_MEDIO'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Helvetica Neue'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+    end
+    object IMPOSTO: TDBEdit
+      Left = 485
+      Top = 20
+      Width = 56
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'IMPOSTO'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Helvetica Neue'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+    end
+  end
+  object GroupBox18: TGroupBox
+    Left = 29
+    Top = 120
+    Width = 152
+    Height = 153
+    Caption = '  Margem Lucro %  '
+    Color = clBtnFace
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 1
+    object Label32: TLabel
+      Left = 23
+      Top = 123
+      Width = 58
+      Height = 18
+      Caption = 'Atacado:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label79: TLabel
+      Left = 6
+      Top = 70
+      Width = 75
+      Height = 18
+      Caption = 'Distribuidor:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label82: TLabel
+      Left = 34
+      Top = 26
+      Width = 47
+      Height = 18
+      Caption = 'Varejo:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object MARGEM_LUCRO: TDBEdit
+      Left = 87
+      Top = 22
+      Width = 56
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'MARGEM_L_VAREJO'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+    end
+    object MARGEM_L_DISTRIBUIDOR: TDBEdit
+      Left = 87
+      Top = 66
+      Width = 56
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'MARGEM_L_DISTRIBUIDOR'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+    object MARGEM_L_ATACADO: TDBEdit
+      Left = 87
+      Top = 119
+      Width = 56
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'MARGEM_L_ATACADO'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+    end
+  end
+  object GroupBox17: TcxGroupBox
+    Left = 195
+    Top = 120
+    Caption = '  Pre'#231'o Final  '
+    ParentFont = False
+    Style.Font.Charset = ANSI_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -15
+    Style.Font.Name = 'Tahoma'
+    Style.Font.Style = [fsBold]
+    Style.TextColor = clRed
+    Style.IsFontAssigned = True
+    TabOrder = 2
+    Height = 153
+    Width = 191
+    object Label24: TLabel
+      Left = 38
+      Top = 27
+      Width = 48
+      Height = 16
+      Caption = 'Varejo:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = -1
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label23: TLabel
+      Left = 6
+      Top = 72
+      Width = 80
+      Height = 16
+      Caption = 'Distribuidor:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = -1
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label86: TLabel
+      Left = 26
+      Top = 125
+      Width = 60
+      Height = 16
+      Caption = 'Atacado:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = -1
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object PRECO_FINAL_VAREJO: TDBEdit
+      Left = 97
+      Top = 22
+      Width = 85
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'PRECO_FINAL_VAREJO'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+    end
+    object PRECO_FINAL_DISTRIBUIDOR: TDBEdit
+      Left = 97
+      Top = 67
+      Width = 85
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'PRECO_FINAL_DISTRIBUIDOR'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+    object PRECO_FINAL_ATACADO: TDBEdit
+      Left = 97
+      Top = 120
+      Width = 85
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'PRECO_FINAL_ATACADO'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+    end
+  end
+  object GroupBox16: TGroupBox
+    Left = 392
+    Top = 120
+    Width = 157
+    Height = 153
+    Caption = ' Desconto M'#225'x. % '
+    Color = clWhite
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 3
+    object Label27: TLabel
+      Left = 35
+      Top = 26
+      Width = 47
+      Height = 18
+      Caption = 'Varejo:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label31: TLabel
+      Left = 7
+      Top = 70
+      Width = 75
+      Height = 18
+      Caption = 'Distribuidor:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label81: TLabel
+      Left = 24
+      Top = 123
+      Width = 58
+      Height = 18
+      Caption = 'Atacado:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object s: TDBEdit
+      Left = 90
+      Top = 22
+      Width = 56
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'DESCONTO_M_VAREJO'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+    end
+    object DESCONTO_M_DISTRIBUIDOR: TDBEdit
+      Left = 88
+      Top = 66
+      Width = 56
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'DESCONTO_M_DISTRIBUIDOR'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+    end
+    object DESCONTO_M_ATACADO: TDBEdit
+      Left = 90
+      Top = 119
+      Width = 56
+      Height = 26
+      CharCase = ecUpperCase
+      DataField = 'DESCONTO_M_ATACADO'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 2
+    end
+  end
+end

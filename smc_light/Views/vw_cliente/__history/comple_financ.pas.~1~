@@ -1,0 +1,35 @@
+unit comple_financ;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxContainer, cxEdit, dxSkinsCore,
+  dxSkinOffice2013White, cxCheckBox, cxCheckComboBox, Vcl.StdCtrls, Vcl.Mask,
+  Vcl.DBCtrls, cxTextEdit, cxMaskEdit, cxDropDownEdit, dxSkinOffice2007Silver,
+  dxSkinOffice2013LightGray;
+
+type
+  Tfmr_comp_financ = class(TForm)
+    cxComboBox2: TcxComboBox;
+    lbl8: TLabel;
+    lmt_credito: TDBEdit;
+    Label1: TLabel;
+    cxComboBox1: TcxComboBox;
+    Label2: TLabel;
+    cxCheckComboBox1: TcxCheckComboBox;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fmr_comp_financ: Tfmr_comp_financ;
+
+implementation
+
+{$R *.dfm}
+
+end.

@@ -1,0 +1,75 @@
+unit lote;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.ComCtrls, dxCore, cxDateUtils,
+  dxSkinsCore, Vcl.Menus, Vcl.StdCtrls, cxRadioGroup, Vcl.Grids, Vcl.DBGrids,
+  cxGroupBox, cxButtons, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar,
+  Vcl.Mask, Vcl.DBCtrls;
+
+type
+  TForm1 = class(TForm)
+    grp_lote: TGroupBox;
+    Label17: TLabel;
+    Label16: TLabel;
+    Label18: TLabel;
+    Label15: TLabel;
+    Label14: TLabel;
+    Label13: TLabel;
+    Label3: TLabel;
+    Label22: TLabel;
+    Label34: TLabel;
+    DBEdit5: TDBEdit;
+    DBEdit3: TDBEdit;
+    DBEdit6: TDBEdit;
+    cxDateEdit1: TcxDateEdit;
+    cxDateEdit2: TcxDateEdit;
+    DBEdit4: TDBEdit;
+    DBEdit12: TDBEdit;
+    DBEdit13: TDBEdit;
+    cxGroupBox5: TcxGroupBox;
+    cxGroupBox6: TcxGroupBox;
+    Label21: TLabel;
+    Label38: TLabel;
+    cxDateEdit7: TcxDateEdit;
+    cxDateEdit8: TcxDateEdit;
+    cxGroupBox7: TcxGroupBox;
+    Label35: TLabel;
+    Label36: TLabel;
+    cxDateEdit4: TcxDateEdit;
+    cxDateEdit6: TcxDateEdit;
+    DBGrid1: TDBGrid;
+    cxGroupBox8: TcxGroupBox;
+    Label37: TLabel;
+    cxRadioButton1: TcxRadioButton;
+    cxRadioButton2: TcxRadioButton;
+    DBEdit14: TDBEdit;
+    Label1: TLabel;
+    DBEdit1: TDBEdit;
+    cxButton2: TcxButton;
+    Label2: TLabel;
+    DBEdit7: TDBEdit;
+    DBEdit2: TDBEdit;
+    cxButton1: TcxButton;
+    DBEdit8: TDBEdit;
+    BtnGravar: TcxButton;
+    BtnCancelar: TcxButton;
+    BtnAlterar: TcxButton;
+    BtnIncluir: TcxButton;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+end.

@@ -1,0 +1,16 @@
+﻿[connection]
+Coordinates=127,1,77,36
+
+[connHostinger]
+Coordinates=127,56,97,36
+
+[Wait]
+Coordinates=68,56,40,36
+
+[Link]
+Coordinates=69,10,40,36
+
+[]
+Coordinates=10,10,49,58
+Visible=True
+

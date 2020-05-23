@@ -1,0 +1,68 @@
+unit vw_estoque_opcoes;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore, Vcl.StdCtrls, cxButtons,
+  cxControls, cxContainer, cxEdit, cxCheckBox, Vcl.Mask, Vcl.DBCtrls, estoque_2;
+
+type
+  Tfrm_estoque_opcoes = class(TForm)
+    cxButton2: TcxButton;
+    cxButton7: TcxButton;
+    cxButton6: TcxButton;
+    cxButton9: TcxButton;
+    GroupBox24: TGroupBox;
+    Label80: TLabel;
+    Label83: TLabel;
+    DBEdit13: TDBEdit;
+    ESTOQUE_MINIMO: TDBEdit;
+    chk_usa_lote: TcxCheckBox;
+    cxCheckBox2: TcxCheckBox;
+    procedure cxButton2Click(Sender: TObject);
+    procedure cxButton9Click(Sender: TObject);
+    procedure cxButton6Click(Sender: TObject);
+    procedure cxButton7Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frm_estoque_opcoes: Tfrm_estoque_opcoes;
+
+implementation
+
+uses
+  U_Localizacao;
+
+{$R *.dfm}
+
+procedure Tfrm_estoque_opcoes.cxButton2Click(Sender: TObject);
+begin
+  Frm_Estoque2 := TFrm_Estoque2.CREATE(Application);
+  Frm_Estoque2.ShowModal;
+end;
+
+procedure Tfrm_estoque_opcoes.cxButton6Click(Sender: TObject);
+begin
+  Frm_Localizacao := TFrm_Localizacao.CREATE(Application);
+  Frm_Localizacao.ShowModal;
+end;
+
+procedure Tfrm_estoque_opcoes.cxButton7Click(Sender: TObject);
+begin
+  Frm_Localizacao := TFrm_Localizacao.CREATE(Application);
+  Frm_Localizacao.ShowModal;
+end;
+
+procedure Tfrm_estoque_opcoes.cxButton9Click(Sender: TObject);
+begin
+  Frm_Localizacao := TFrm_Localizacao.CREATE(Application);
+  Frm_Localizacao.ShowModal;
+end;
+
+end.

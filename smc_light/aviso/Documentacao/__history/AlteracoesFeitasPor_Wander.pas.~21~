@@ -1,0 +1,66 @@
+unit AlteracoesFeitasPor_Wander;
+
+interface
+
+implementation
+
+{Alteracoes feitas por Wander Mendes Martins
+
+Ano: 2020
+=========================================================================================
+|ITEM |DATA |UNIT / FILE         |HISTORICO                                             |
+|-----|-----|--------------------|------------------------------------------------------|
+|   01|20/02|u_funcoes           |Transportadas p/esta unit todas as funções que haviam |
+|     |     |                    |sido desenvolvidas para o projeto que iria substitui  |
+|     |     |                    |este. Encontram-se reunidas em um mesmo local no corpo|
+|     |     |                    |da unit.                                              |
+|-----|-----|--------------------|------------------------------------------------------|
+|   02|21/02|M_Usuario	         |function TUsuario.Login:                              |
+|     |     |                    |Criado usuário MASTER e senha PIPOCA                  |
+|-----|-----|--------------------|------------------------------------------------------|
+|   03|21/02|ZIP_BACKUP.BAT      |Alterado o arquivo de lote (.bat) de backup para      |
+|     |     |                    |incluir versionamento git                             |
+|-----|-----|--------------------|------------------------------------------------------|
+|   04|21/02|u_funcoes           |Criada a function UsuarioMASTER que retorna true se o |
+|     |     |                    |usuário logado é o MASTER e false em caso contrário   |
+|-----|-----|--------------------|------------------------------------------------------|
+|   05|21/02|u_funcoes           |A variável "public_Usuario_Logado" passou a se chamar |
+|     |     |                    |Global_Usuario_Logado seguindo o padrão já existente. |
+|-----|-----|--------------------|------------------------------------------------------|
+|   06|21/02|vw_Login            |Passou a atualizar a variável Global_Usuario_Logado.  |
+|-----|-----|--------------------|------------------------------------------------------|
+|   07|21/02|vw_main             |Botão “Atualização” passa a permitir que apenas o     |
+|     |     |                    |usuário Master o execute.                             |
+|-----|-----|--------------------|------------------------------------------------------|
+|   08|21/02|vw_cliente          |Passou a criticar se o usuário tem permissão para     |
+|     |     |                    |incluir clientes.                                     |
+|-----|-----|--------------------|------------------------------------------------------|
+|   09|21/02|Atualizador         |Passou a verificar a existência da tabela de controle |
+|     |     |                    | ATUALIZADO_ATU.                                      |
+|-----|-----|--------------------|------------------------------------------------------|
+|   10|21/02|AlteracoesFeitasPor_|Criada a unit "AlteracoesFeitasPor_Wander" (esta) para|
+|     |     |Wander              |registrar todas as alterações no sistema realizadas   |
+|     |     |                    |pelo desenvolvedor Wander Mendes Martins.             |
+|-----|-----|--------------------|------------------------------------------------------|
+|   11|21/02|Banco Dados         |Usuário e senha foram criptografados.                 |
+|-----|-----|--------------------|------------------------------------------------------|
+|   12|21/02|M_Usuario           |Passou a tratar usuário e senha de forma criptografada|
+|-----|-----|--------------------|------------------------------------------------------|
+|   13|21/02|vw_cliente          |Passou a criticar se o usuário tem permissão para     |
+|     |     |                    |alterar dados de clientes.                            |
+|-----|-----|--------------------|------------------------------------------------------|
+|   14|21/02|vw_cliente          |Passou a criticar se o usuário tem permissão para     |
+|     |     |                    |excluir clientes.                                     |
+|-----|-----|--------------------|------------------------------------------------------|
+|   15|21/02|liberacao           |Passou a tratar dados criptografados do usuário.      |
+|-----|-----|--------------------|------------------------------------------------------|
+|   16|21/02|cadastro_colaborador|Passou a criticar se o usuário tem permissão para     |
+|     |     |                    |incluir/alterar/cancelar colaboradores.               |
+|-----|-----|--------------------|------------------------------------------------------|
+|   17|21/02|M_usuario           |Passou a registrar log de "acesso ao sistema" e de    |
+|     |     |                    |senha inválida.                                       |
+=========================================================================================
+Observações:
+01: Quando dá erro de compilação na unit “m_Caixa” sem que nada tenha sido alterado na mesma, basta fechar a unit e recompilar.
+}
+end.

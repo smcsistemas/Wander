@@ -1,0 +1,619 @@
+﻿{ v 22.03.20 06:34 }
+unit vw_tipoDeMovimento;
+{
+================================================================================
+|   DATA   |DESENVOLVEDOR|HISTORICO DA ALTERACAO DO CODIGO                     |
+|----------|-------------|-----------------------------------------------------|
+|22/03/2020|WANDER       |Criada esta unit/form p/ cadastrar tipos de movimento|
+|        36|             |                                                     |
+|----------|-------------|-----------------------------------------------------|
+|22/03/2020|WANDER       |Criados logs para cadastro de tipo movimento         |
+|        39|             |                                                     |
+|----------|-------------|-----------------------------------------------------|
+|22/03/2020|WANDER       |Incluido controles de acessos                        |
+|        40|             |                                                     |
+|----------|-------------|-----------------------------------------------------|
+|22/03/2020|WANDER       |Incluido log completo com antes/depois               |
+|        41|             |                                                     |
+|----------|-------------|-----------------------------------------------------|
+|31/03/2020|WANDER       |Passou a tratar o Indicador Presencial do Cliente    |
+|        59|             |                                                     |
+|----------|-------------|-----------------------------------------------------|
+|01/04/2020|WANDER       |Incluido tratamento da situacao (ativo/inativo) do   |
+|        61|             |Tipo de Movimento                                    |
+================================================================================
+}
+
+interface
+
+uses
+  Winapi.Messages,
+  Winapi.Windows, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.DBCtrls,
+  Vcl.Mask, cxGraphics,
+
+  cxTextEdit, cxDBEdit, cxPC, cxMaskEdit, cxDropDownEdit,
+  cxCheckBox, cxGroupBox, cxCalendar,
+  Vcl.Menus, cxButtons,
+  FireDAC.Stan.Param,
+  Data.DB,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  Vcl.ExtCtrls, ShellApi,
+
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
+  cxGrid,
+  cxGridDBBandedTableView,
+  System.StrUtils, XMLIntf, v_env, h_Formats, h_functions, h_DB, cxControls, cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore,
+  dxSkinBlack, dxSkinBlue, dxSkinBlueprint,
+  dxSkinCaramel,
+  dxSkinCoffee, dxSkinDarkRoom,
+  dxSkinDarkSide, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy, dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary,
+  dxSkinLilian, dxSkinLiquidSky,
+  dxSkinLondonLiquidSky,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark,
+  dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus, dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
+  dxSkinSummer2008, dxSkinTheAsphaltWorld,
+  dxSkinsDefaultPainters,
+  dxSkinValentine, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinXmas2008Blue, dxSkinscxPCPainter,
+  dxBarBuiltInMenu,
+  cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, cxDBData, cxLabel, cxContainer, dxCore, cxDateUtils,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Vcl.ImgList, cxGridBandedTableView,
+  dxGDIPlusClasses, cxClasses, cxGridCustomView,
+  cxCurrencyEdit;
+
+type
+  Tfrm_tipoDeMovimento = class(TForm)
+    DS_TPMOV: TDataSource;
+    SQL_TPMOV: TFDQuery;
+    DS_C_TPMOV: TDataSource;
+    SQL_C_TPMOV: TFDQuery;
+    tab_consulta: TcxTabSheet;
+    Label45: TLabel;
+    gd: TcxGrid;
+    tb: TcxGridDBTableView;
+    lv: TcxGridLevel;
+    edt_consulta: TEdit;
+    btn_relatorios_cli: TcxButton;
+    tab_cadastrar: TcxTabSheet;
+    Label10: TLabel;
+    BtnGravar: TcxButton;
+    BtnCancelar: TcxButton;
+    BtnIncluir: TcxButton;
+    BtnAlterar: TcxButton;
+    cxButton21: TcxButton;
+    SQL_C_TPMOVtpmov_codigo: TStringField;
+    SQL_C_TPMOVtpmov_descricao: TStringField;
+    tbtpmov_codigo: TcxGridDBColumn;
+    tbtpmov_descricao: TcxGridDBColumn;
+    lbl2: TLabel;
+    page_control: TcxPageControl;
+    edTPMOV_CODIGO: TEdit;
+    edTPMOV_DESCRICAO: TEdit;
+    rgTPMOV_INDPRES: TRadioGroup;
+    SQL_Auxiliar: TFDQuery;
+    Label13: TLabel;
+    cxTPMOV_ATIVA: TcxComboBox;
+    tabNFe: TcxTabSheet;
+    rgTPMOV_CLIFOR: TRadioGroup;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button1Click(Sender: TObject);
+    procedure BtnIncluirClick(Sender: TObject);
+    procedure BtnGravarClick(Sender: TObject);
+    procedure BtnExcluirClick(Sender: TObject);
+    procedure PadronizarLayout();
+    procedure BtnAlterarClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure Duplicar_CadastroExecute(Sender: TObject);
+    procedure CarregarDados;
+    procedure CarregarUltimoCadastro;
+    procedure DSCertFiles1GetPEMFilePasskey(ASender: TObject; var APasskey: AnsiString);
+    procedure tab_consultaShow(Sender: TObject);
+    procedure edt_consultaKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure tbKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btn_relatorios_cliClick(Sender: TObject);
+    procedure cxButton21Click(Sender: TObject);
+    procedure SQL_C_TPMOVAfterScroll(DataSet: TDataSet);
+    procedure gdEnter(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure edTPMOV_CODIGOExit(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure BtnCancelarClick(Sender: TObject);
+    procedure tbCellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+  private
+    { Private declarations }
+    procedure dlConsulta;
+    procedure ConsultaParaCadastro;
+    function DadosCorretos:Boolean;
+    Procedure LimpaTela;
+    function TPMOV_Existe(pCodigo:String): Boolean;
+    Procedure MostraDados(pCodigo:String);
+    procedure Habilita_Campos(pEnabled:Boolean);
+    procedure ExcluirRegistro;
+    procedure IncluirRegistro;
+
+  public
+    { Public declarations }
+  end;
+
+var
+  frm_tipoDeMovimento: Tfrm_tipoDeMovimento;
+  vOperacao : String;
+
+implementation
+
+{$R *.dfm}
+
+uses u_funcoes, liberacao, relatorios,
+  c_Globals, botoes_smc, h_Dialogs, S_Parametros_Venda, h_Checks;
+
+function Tfrm_tipoDeMovimento.DadosCorretos:Boolean;
+begin
+   // Critica dados obrigatórios e inconsistências...
+   //---------------------------------------------------------------------------
+   Result := False;
+
+   //Codigo-Proibido informar na inclusao
+   if vOperacao ='Inclusão' then
+   begin
+      if edTPMOV_CODIGO.Text <> '' then
+      begin
+        ShowMessage('Código não dever ser informado '+#13+#13+
+                    'na inclusão de um novo Tipo de Movimento'+#13+#13+
+                    'pois o sistema atribuirá um código sequencial ao mesmo');
+        edTPMOV_CODIGO.SetFocus;
+        exit;
+      end;
+   end;
+
+   //Codigo-Obrigatório informar na alteração
+   if vOperacao ='Alteração' then
+   begin
+     if edTPMOV_CODIGO.Text = '' then
+     begin
+       ShowMessage('Informe o Código');
+       edTPMOV_CODIGO.SetFocus;
+       exit;
+     end;
+   end;
+
+   //Descricao
+   if edTPMOV_DESCRICAO.Text = '' then
+   begin
+     ShowMessage('Informe a Descrição');
+     edTPMOV_DESCRICAO.SetFocus;
+     exit;
+   end;
+
+   //Indicador Presencial do Cliente
+   if rgTPMOV_INDPRES.ItemIndex = -1 then
+   begin
+     ShowMessage('Informe o Indicador Presencial do Cliente');
+     rgTPMOV_INDPRES.SetFocus;
+     exit;
+   end;
+
+   //Indicador de Relacionamento
+   if rgTPMOV_CLIFOR.ItemIndex = -1 then
+   begin
+     ShowMessage('Informe o Indicador de Relacionamento (Cliente, Fornecedor, Nada)');
+     rgTPMOV_CLIFOR.SetFocus;
+     exit;
+   end;
+
+   // Situação Ativa/Bloqueado
+   if cxTPMOV_ATIVA.ItemIndex = -1 then
+   begin
+     ShowMessage('Informe a Situação (ativo, bloqueado, suspenso)');
+     cxTPMOV_ATIVA.SetFocus;
+     exit;
+   end;
+
+   // Tudo ok!
+   Result := True;
+end;
+
+procedure Tfrm_tipoDeMovimento.BtnGravarClick(Sender: TObject);
+var
+  x: Integer;
+begin
+   if not DadosCorretos then exit;
+
+
+   if vOperacao = 'Inclusão' then
+   begin
+      IncluirRegistro;
+      RegistraLog('Cadastrou TPMOV '+edTPMOV_CODIGO.Text+'-'+edTPMOV_DESCRICAO.Text);
+   end
+   else
+   begin
+      ExcluirRegistro;
+      IncluirRegistro;
+      RegistraLog('Alterou TPMOV '+edTPMOV_CODIGO.Text+'-'+edTPMOV_DESCRICAO.Text);
+   end;
+   ComparaDadosDaTela('TPMOV',frm_tipoDeMovimento);
+   LimpaTela;
+   Habilita_Campos(False);
+
+   BtnIncluir.Visible  := True;
+   BtnIncluir.Enabled  := True;
+   BtnAlterar.Enabled  := True;
+   BtnGravar.Enabled   := False;
+   BtnGravar.Visible   := False;
+   BtnCancelar.Enabled := False;
+   edTPMOV_CODIGO.Enabled := True;
+   edTPMOV_CODIGO.SetFocus;
+end;
+
+procedure Tfrm_tipoDeMovimento.BtnIncluirClick(Sender: TObject);
+begin
+  if not TemAcesso(Global_Usuario_Logado,'ADDTPMOV') then
+     exit;
+  vOperacao:='Inclusão';
+  BtnIncluir.Visible  := false;
+  BtnIncluir.Enabled  := False;
+  BtnAlterar.Enabled  := False;
+  BtnGravar.Visible   := True;
+  BtnGravar.Enabled   := True;
+  BtnCancelar.Enabled := True;
+  LimpaTela;
+  //SalvaDadosDaTela(frm_tipoDeMovimento);
+  Habilita_Campos(True);
+  edTPMOV_CODIGO.Enabled := False;
+  edTPMOV_DESCRICAO.SetFocus;
+end;
+
+procedure Tfrm_tipoDeMovimento.Button1Click(Sender: TObject);
+begin
+  BtnIncluir.Enabled := true;
+end;
+
+procedure Tfrm_tipoDeMovimento.ConsultaParaCadastro;
+begin
+  CarregarDados;
+  tab_cadastrar.Show;
+  BtnAlterar.Click;
+end;
+
+procedure Tfrm_tipoDeMovimento.BtnAlterarClick(Sender: TObject);
+begin
+   if edTPMOV_CODIGO.Text = '' then
+   begin
+     ShowMessage('Informe o Código');
+     edTPMOV_CODIGO.SetFocus;
+     exit;
+   end;
+
+   if not TemAcesso(Global_Usuario_Logado,'ALTTPMOV') then
+     exit;
+
+  // Salva estes dados para serem comparados ao serem gravados
+  // a fim de registrar no log de eventos todas as alerações feitas pelo usuário
+  SalvaDadosDaTela(frm_tipoDeMovimento);
+
+  vOperacao := 'Alteração';
+
+  BtnGravar.Visible  :=true;
+  BtnGravar.Enabled  := true;
+  BtnIncluir.Visible := false;
+  BtnIncluir.Enabled := false;
+  BtnAlterar.Enabled := false;
+
+  Habilita_Campos(True);
+  edTPMOV_CODIGO.ReadOnly:=true;
+  edTPMOV_DESCRICAO.SetFocus;
+
+end;
+
+procedure Tfrm_tipoDeMovimento.BtnCancelarClick(Sender: TObject);
+begin
+     LimpaTela;
+     BtnGravar.Visible := false;
+     BtnCancelar.Enabled:=false;
+     BtnIncluir.Visible:=true;
+     BtnIncluir.Enabled := true;
+     BtnAlterar.Enabled := true;
+     edTPMOV_CODIGO.Enabled := true;
+     edTPMOV_CODIGO.SetFocus;
+end;
+
+procedure Tfrm_tipoDeMovimento.BtnExcluirClick(Sender: TObject);
+begin
+  if not TemAcesso(Global_Usuario_Logado,'DELTPMOV') then
+     exit;
+
+  if edTPMOV_CODIGO.Text = '' then
+  begin
+    ShowMessage('Informe o Tipo de Movimento');
+    edTPMOV_CODIGO.SetFocus;
+    exit;
+  end;
+
+  RegistraLog('Excluiu TPMOV '+edTPMOV_CODIGO.Text+'-'+edTPMOV_DESCRICAO.Text);
+  ExcluirRegistro;
+  LimpaTela;
+  edTPMOV_CODIGO.SetFocus;
+end;
+
+//procedure Tfrm_tipoDeMovimento.GridClientesDblClick(Sender: TObject);
+//begin
+//  u_funcoes.ConsultarCadastros(SQL_TPMOV, quotedstr(SQL_C_TPMOVtpmov_codigo.Value + '%'), 'TIPODEMOVIMENTO_TPMOV', 'CODIGO', 'pcodigo', '', '',
+//    '', 0, 0);
+//  tab_cadastrar.Show;
+//  CarregarDadosInternos;
+//end;
+
+procedure Tfrm_tipoDeMovimento.PadronizarLayout;
+begin
+  CarregarDados; //CarregarDadosInternos;
+end;
+
+procedure Tfrm_tipoDeMovimento.SQL_C_TPMOVAfterScroll(DataSet: TDataSet);
+begin
+   CarregarDados;
+end;
+
+procedure Tfrm_tipoDeMovimento.CarregarDados;
+begin
+  if SQL_C_TPMOV.eof then
+     exit;
+  MostraDados(SQL_C_TPMOV.fieldbyname('TPMOV_CODIGO').Value);
+end;
+
+procedure Tfrm_tipoDeMovimento.CarregarUltimoCadastro;
+begin
+{
+  with SQL_TPMOV do
+  begin
+    Active := false;
+    Close;
+    Params.Add.Name := 'pcodigo';
+    ParamByName('pcodigo').Value := (sql_incrementAUTO_INCREMENT.asInteger - 1);
+    Open;
+    Active := true;
+  end;
+  CarregarDados;
+}
+end;
+
+procedure Tfrm_tipoDeMovimento.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := cafree;
+  self := nil;
+end;
+
+procedure Tfrm_tipoDeMovimento.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  u_funcoes.TeclasAtalho(Key, [VK_F1, VK_F2, VK_F3, VK_F4, VK_F6], [BtnIncluir, BtnGravar, BtnCancelar, BtnAlterar]);
+end;
+
+procedure Tfrm_tipoDeMovimento.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+   if key = #27 Then
+   begin
+      key := #0;
+      Exit;
+   end;
+
+   if key = #13 Then
+   begin
+      key := #0;
+      Perform(Wm_NextDlgCtl,0,0); //unit Winapi.Messages;
+   end;
+end;
+
+procedure Tfrm_tipoDeMovimento.FormShow(Sender: TObject);
+begin
+   page_control.ActivePageIndex := 0;
+   Habilita_Campos(False);
+end;
+
+procedure Tfrm_tipoDeMovimento.gdEnter(Sender: TObject);
+begin
+//   page_control.ActivePageIndex := 1;
+end;
+
+procedure Tfrm_tipoDeMovimento.Habilita_Campos(pEnabled: Boolean);
+var i : Integer;
+begin
+   // habilita/Desabilita todos os campos da tela
+   for i := 0 to frm_tipoDeMovimento.ComponentCount - 1 do
+   begin
+      if frm_tipoDeMovimento.Components[i].classtype = TEdit Then
+         (frm_tipoDeMovimento.Components[i] as TEdit).ReadOnly := not pEnabled;
+      if frm_tipoDeMovimento.Components[i].classtype = TcxComboBox Then
+         (frm_tipoDeMovimento.Components[i] as TcxComboBox).Enabled := pEnabled;
+   end;
+
+   // Campos sempre abertos para edição
+   edTPMOV_CODIGO.ReadOnly := false;
+end;
+
+procedure Tfrm_tipoDeMovimento.IncluirRegistro;
+var vTPMOV_CODIGO:String;
+begin
+  // Incluir Registro
+  if vOperacao ='Inclusão' then
+     vTPMOV_CODIGO := ProxTPMOV
+  else
+     vTPMOV_CODIGO := edTPMOV_CODIGO.Text;
+
+  SQL_Auxiliar.Close;
+  SQL_Auxiliar.SQL.Clear;
+  SQL_Auxiliar.SQL.Add('INSERT INTO TIPOMOVIMENTO_TPMOV');
+  SQL_Auxiliar.SQL.Add('     (TPMOV_CODIGO,            ');
+  SQL_Auxiliar.SQL.Add('      TPMOV_DESCRICAO,         ');
+  SQL_Auxiliar.SQL.Add('      TPMOV_INDPRE,            ');
+  SQL_Auxiliar.SQL.Add('      TPMOV_CLIFOR,            ');
+  SQL_Auxiliar.SQL.Add('      TPMOV_ATIVA)             ');
+  SQL_Auxiliar.SQL.Add('VALUES                         ');
+  SQL_Auxiliar.SQL.Add('    (:TPMOV_CODIGO,            ');
+  SQL_Auxiliar.SQL.Add('     :TPMOV_DESCRICAO,         ');
+  SQL_Auxiliar.SQL.Add('     :TPMOV_INDPRE,            ');
+  SQL_Auxiliar.SQL.Add('     :TPMOV_CLIFOR,            ');
+  SQL_Auxiliar.SQL.Add('     :TPMOV_ATIVA)             ');
+  SQL_Auxiliar.ParamByName('TPMOV_CODIGO'   ).AsString := vTPMOV_CODIGO;
+  SQL_Auxiliar.ParamByName('TPMOV_DESCRICAO').AsString := edTPMOV_DESCRICAO.Text;
+  SQL_Auxiliar.ParamByName('TPMOV_INDPRES'  ).AsInteger:= rgTPMOV_INDPRES.ItemIndex;
+  if cxTPMOV_ATIVA.ItemIndex = 0 then
+     SQL_Auxiliar.ParamByName('TPMOV_ATIVA'    ).AsString := 'S'
+  else
+     SQL_Auxiliar.ParamByName('TPMOV_ATIVA'    ).AsString := 'N';
+  case True of
+
+  end;
+  case rgTPMOV_CLIFOR.ItemIndex of
+     0 : SQL_Auxiliar.ParamByName('TPMOV_CLIFOR').AsString := 'C'; // Cliente
+     1 : SQL_Auxiliar.ParamByName('TPMOV_CLIFOR').AsString := 'F'; // Fornecedor
+     2 : SQL_Auxiliar.ParamByName('TPMOV_CLIFOR').AsString := 'N'; // Nada
+  end;
+
+
+  SQL_Auxiliar.ExecSql;
+end;
+
+procedure Tfrm_tipoDeMovimento.LimpaTela;
+var i : Integer;
+begin
+    for i := 0 to frm_tipoDeMovimento.ComponentCount - 1 do
+    begin
+       if frm_tipoDeMovimento.Components[i].classtype = TEdit Then
+          if ((frm_tipoDeMovimento.Components[i] as TEdit).name <> 'edTPMOV_CODIGO') Then
+              (frm_tipoDeMovimento.Components[i] as TEdit).Text := '';
+    end;
+    rgTPMOV_INDPRES.ItemIndex := -1;
+    cxTPMOV_ATIVA.ItemIndex   := -1;
+    rgTPMOV_CLIFOR.ItemIndex  := -1;
+end;
+
+procedure Tfrm_tipoDeMovimento.MostraDados(pCodigo:String);
+begin
+   if not TPMOV_Existe(pCodigo) then exit;
+   edTPMOV_CODIGO.Text       := SQL_TPMOV.FieldByName('TPMOV_CODIGO'   ).AsString;
+   edTPMOV_DESCRICAO.Text    := SQL_TPMOV.FieldByName('TPMOV_DESCRICAO').AsString;
+   rgTPMOV_INDPRES.ItemIndex := SQL_TPMOV.FieldByName('TPMOV_INDPRES'  ).AsInteger;
+
+   // Ativo ou Inativo
+   if SQL_TPMOV.FieldByName('TPMOV_ATIVA').AsString = 'S' then
+      cxTPMOV_ATIVA.ItemIndex:= 1
+   else
+      cxTPMOV_ATIVA.ItemIndex:= 0;
+end;
+
+procedure Tfrm_tipoDeMovimento.btn_relatorios_cliClick(Sender: TObject);
+begin
+  //frm_rel_clientes := Tfrm_rel_clientes.CREATE(Application);
+  //frm_rel_clientes.ShowModal;
+end;
+
+procedure Tfrm_tipoDeMovimento.cxButton21Click(Sender: TObject);
+begin
+fmr_smc_btn := Tfmr_smc_btn.Create(nil);
+fmr_smc_btn.ShowModal;
+end;
+
+procedure Tfrm_tipoDeMovimento.tab_consultaShow(Sender: TObject);
+begin
+  dlConsulta;
+end;
+
+procedure Tfrm_tipoDeMovimento.tbCellDblClick(Sender: TcxCustomGridTableView;
+  ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+  AShift: TShiftState; var AHandled: Boolean);
+begin
+   //Mostra a aba 'Cadastrar'
+   tab_Cadastrar.Show;
+end;
+
+procedure Tfrm_tipoDeMovimento.tbKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if Key = VK_RETURN then
+    ConsultaParaCadastro;
+end;
+
+function Tfrm_tipoDeMovimento.TPMOV_Existe(pCodigo:String): Boolean;
+begin
+  result := false;
+  SQL_TPMOV.Close;
+  SQL_TPMOV.SQL.Clear;
+  SQL_TPMOV.SQL.Add('Select *                     ');
+  SQL_TPMOV.SQL.Add('  from tipomovimento_tpmov   ');
+  SQL_TPMOV.SQL.Add('where tpmov_codigo = :pcodigo');
+  SQL_TPMOV.ParamByName('pcodigo').Value := pCodigo;
+  SQL_TPMOV.Open;
+  if SQL_TPMOV.Eof then
+     exit;
+
+  result := true;
+end;
+
+procedure Tfrm_tipoDeMovimento.dlConsulta;
+begin
+  SQL_C_TPMOV.Close;
+  SQL_C_TPMOV.Sql.Clear;
+  SQL_C_TPMOV.Sql.Add('SELECT TPMOV_CODIGO,      ');
+  SQL_C_TPMOV.Sql.Add('       TPMOV_DESCRICAO    ');
+  SQL_C_TPMOV.Sql.Add('  FROM TIPOMOVIMENTO_TPMOV');
+  if edt_consulta.Text <> '' then
+  begin
+    SQL_C_TPMOV.Sql.Add('WHERE TPMOV_DESCRICAO LIKE :TPMOV_DESCRICAO');
+    SQL_C_TPMOV.ParamByName('TPMOV_DESCRICAO').AsString := '%'+ edt_consulta.Text + '%';
+  end;
+  SQL_C_TPMOV.Sql.Add(' ORDER BY TPMOV_DESCRICAO ');
+  SQL_C_TPMOV.Open;
+end;
+
+procedure Tfrm_tipoDeMovimento.DSCertFiles1GetPEMFilePasskey(ASender: TObject; var APasskey: AnsiString);
+begin
+  showmessage(APasskey);
+end;
+
+procedure Tfrm_tipoDeMovimento.Duplicar_CadastroExecute(Sender: TObject);
+begin
+//  DuplicarCadastro(SQL_TPMOV, 'TIPOMOVIMENTO_TPMOV', SQL_C_TPMOVtpmov_codigo.AsString);
+//  CarregarDados;
+  //AlterarEnabled([gpFisica, gpJuridica, gpData, gpBanco, gpContato, grpEndereco , gpJuridica, gpFisica, BtnCancelar,
+  //   btn_ramo], true);
+//  IniciarCadastro([BtnIncluir, BtnCancelar, BtnAlterar], true);
+//  tab_cadastrar.Show;
+end;
+
+procedure Tfrm_tipoDeMovimento.edTPMOV_CODIGOExit(Sender: TObject);
+begin
+   if btn_relatorios_cli.Focused then exit;
+   if BtnIncluir.Focused         then exit;
+   if edTPMOV_CODIGO.Text = ''   then exit;
+
+   MostraDados(edTPMOV_CODIGO.Text);
+
+end;
+
+procedure Tfrm_tipoDeMovimento.edt_consultaKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  dlConsulta;
+end;
+
+procedure Tfrm_tipoDeMovimento.ExcluirRegistro;
+begin
+  // Excluir Registro
+  SQL_Auxiliar.Close;
+  SQL_Auxiliar.SQL.Clear;
+  SQL_Auxiliar.SQL.Add('DELETE FROM TIPOMOVIMENTO_TPMOV    ');
+  SQL_Auxiliar.SQL.Add(' WHERE TPMOV_CODIGO = :TPMOV_CODIGO');
+  SQL_Auxiliar.ParamByName('TPMOV_CODIGO').AsString := edTPMOV_CODIGO.Text;
+  SQL_Auxiliar.ExecSql;
+end;
+
+end.
+
+//if Tdialogs.wnConfirmacao('Nat. Operação', slinebreak + 'Deseja excluir natureza de operação?') then

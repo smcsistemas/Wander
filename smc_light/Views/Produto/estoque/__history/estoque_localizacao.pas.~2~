@@ -1,0 +1,56 @@
+unit estoque_localizacao;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore, dxSkinOffice2013White,
+  cxControls, cxContainer, cxEdit, cxMaskEdit, cxDropDownEdit, cxDBEdit,
+  cxTextEdit, Vcl.StdCtrls, cxGroupBox, cxButtons, dxSkinOffice2007Silver,
+  dxSkinOffice2013LightGray;
+
+type
+  Tfrm_Localizacao = class(TForm)
+    BtnCancelar: TcxButton;
+    BtnIncluir: TcxButton;
+    cxGroupBox10: TcxGroupBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    cxDBTextEdit2: TcxDBTextEdit;
+    cxDBTextEdit3: TcxDBTextEdit;
+    cxDBTextEdit4: TcxDBTextEdit;
+    cxDBTextEdit5: TcxDBTextEdit;
+    cxDBTextEdit6: TcxDBTextEdit;
+    cxDBTextEdit7: TcxDBTextEdit;
+    cxDBTextEdit8: TcxDBTextEdit;
+    cxDBTextEdit9: TcxDBTextEdit;
+    cxDBComboBox1: TcxDBComboBox;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frm_Localizacao: Tfrm_Localizacao;
+
+implementation
+
+{$R *.dfm}
+
+procedure Tfrm_Localizacao.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := cafree;
+  self := nil;
+end;
+
+end.
