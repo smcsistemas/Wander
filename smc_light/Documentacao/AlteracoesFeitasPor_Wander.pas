@@ -12,6 +12,10 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  176|23/05/20|wander              |Criada a unit "GIT_Comandos" contendo o   |
+|     |   17:15|GIT_Comandos        |manual passo a passo para versionamento   |
+|     |        |                    |com Git e GitHub                          |
+|-----|--------|--------------------|------------------------------------------|
 |  175|23/05/20|wander              |Eliminada a crítica de Referência do Fabri|
 |     |   15:31|cadastro_produto    |cante repetida, pois é possível que haja. |
 |-----|--------|--------------------|------------------------------------------|
