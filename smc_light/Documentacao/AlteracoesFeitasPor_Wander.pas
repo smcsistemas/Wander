@@ -13,7 +13,7 @@ ordem decrescente de data....
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
 |  178|23/05/20|wander              |Alterando produto (exceto a parte fiscal  |
-|     |   19:35|cadastro_produto    |que verei com o Vitor                     |
+|     |   19:35|cadastro_produto    |que será discutida com o Vitor            |
 |-----|--------|--------------------|------------------------------------------|
 |  177|23/05/20|wander              |Incluido após "end." no rodapé desta unit |
 |     |   18:30|AlteracoesFeitasPor_|os comandos do Arquivo backup automático  |
