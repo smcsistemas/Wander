@@ -12,6 +12,9 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  175|23/05/20|wander              |Eliminada a crítica de Referência do Fabri|
+|     |   15:31|cadastro_produto    |cante repetida, pois é possível que haja. |
+|-----|--------|--------------------|------------------------------------------|
 |  174|23/05/20|wander              |Máquina DEV_PC não mostra mais a msg de   |
 |     |   14:02|u_funcoes           |"Certificado Não Encontrado"              |
 |-----|--------|--------------------|------------------------------------------|

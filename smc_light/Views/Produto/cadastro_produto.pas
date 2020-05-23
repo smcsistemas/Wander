@@ -4,6 +4,9 @@ unit cadastro_produto;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  175|23/05/20|wander              |Eliminada a crítica de Referência do Fabri|
+|     |   15:31|cadastro_produto    |cante repetida, pois é possível que haja. |
+|-----|--------|--------------------|------------------------------------------|
 |  173|23/05/20|wander              |Criado temporizador para pesqusar produto |
 |     |   06:17|cadastro_produto    |para pesquisar qdo usuário termina digitar|
 |-----|--------|--------------------|------------------------------------------|
@@ -745,6 +748,7 @@ type
     procedure ConsultarFamilias;
     procedure ConsultarGrupos;
     procedure ConsultarSubGrupos;
+    function DadosCorretos:Boolean;
   public
     { Public declarations }
     deletar_prod_preco_faixa, consultarultimo: Boolean;
@@ -1372,10 +1376,11 @@ end;
 
 procedure TFrm_Produto.bControleGravarClick(Sender: TObject);
 begin
-  if not bControleIncluir.Visible then
-  begin
-    //if (not CodBarrasRepetido) and (not RefFabricanteRepetido) then
-    RefFabricanteRepetido(false);
+  if not DadosCorretos then
+     exit;
+
+
+    //RefFabricanteRepetido(false);
     if (not CodBarrasRepetido) then
     begin
 //      if u_funcoes.CamposObrigatorios([DESCRICAO_PRODUTO, UNIDADE_MEDIDA, PRECO_FINAL_VAREJO, NCM],
@@ -1436,7 +1441,7 @@ begin
           end;
         end;
       end;
-    end;
+//    end;
 
   //Ajusta botões de controle
   pode_Alterar_Incluir(Frm_Produto);
@@ -1987,6 +1992,18 @@ begin
   SQL_ORIGEM_ICMS.Active := true;
 end;
 
+function TFrm_Produto.DadosCorretos: Boolean;
+begin
+   result := false;
+
+   if CodBarrasRepetido then
+      exit;
+
+   if RefFabricanteRepetido then
+      exit;
+
+end;
+
 procedure TFrm_Produto.ESTOQUE_MINIMOChange(Sender: TObject);
 begin
 //  if ESTOQUE_MINIMO.Text <> '' then
@@ -2186,22 +2203,32 @@ var
   qry: TFDQuery;
   x: string;
 begin
-  if (edCODIGO_BARRAS.Text <> '') and (edCODIGO_BARRAS.Text <> 'SEM GTIN') then
-  begin
-    x := 'SELECT CODIGO, DESCRICAO_PRODUTO FROM PRODUTO WHERE (CODIGO_BARRAS IS NOT NULL AND CODIGO_BARRAS <> ' + QuotedStr(emptystr) +
-      ') AND CODIGO_BARRAS =' + QuotedStr(edCODIGO_BARRAS.Text) + ' AND CODIGO  <>' + edCODIGO.Text;
+  result := false;
+  if edCODIGO_BARRAS.Text = '' then
+     exit;
+  if edCODIGO_BARRAS.Text = 'SEM GTIN' then
+     exit;
+
+  x := 'SELECT CODIGO,           '+
+       '       DESCRICAO_PRODUTO '+
+       '  FROM PRODUTO           '+
+       ' WHERE (     CODIGO_BARRAS IS NOT NULL '+
+       '         AND CODIGO_BARRAS <> ' + QuotedStr(emptystr) +
+       '       )                 '+
+       '   AND CODIGO_BARRAS =' + QuotedStr(edCODIGO_BARRAS.Text) +
+       '   AND CODIGO  <>     ' + edCODIGO.Text;
     qry := simplequery(x);
     if qry <> nil then
     begin
       result := true;
-      wnAlerta('Cadastrar Produto', 'Códgo de Barras já cadastrado no produto: ' + slinebreak + 'Cód: ' + qry.Fields[0].AsString +
-        slinebreak + 'Descrição: ' + qry.Fields[1].AsString, taLeftJustify, 12);
+      wnAlerta('Cadastrar Produto',
+               'Código de Barras já cadastrado no produto: ' + slinebreak
+             + 'Cód: ' + qry.Fields[0].AsString              + slinebreak
+             + 'Descrição: ' + qry.Fields[1].AsString,
+             taLeftJustify, 12);
       edCODIGO_BARRAS.SelectAll;
       edCODIGO_BARRAS.SetFocus;
-    end
-    else
-      result := false;
-  end;
+    end;
 end;
 
 procedure TFrm_Produto.edArgumentoDePesquisaKeyDown(Sender: TObject;
@@ -3127,6 +3154,27 @@ var
   qry: TFDQuery;
   x: string;
 begin
+  //23/05/2020 (Wander)
+  //Atualmente o cad prod está impedindo que se cadastre mais de um produto com
+  //a mesma referencia do fabricante.
+  //Mas isto é perfeitamente possível.
+  //Na prática um farol da marca CIBIE pode ter referencia do fabricante "F001"
+  //e um fusivel da marca "GENERERAL ELETRIC" também pode ter a mesma referencia
+  //"F001" neste outro fabricante.
+  //
+  //E mesmo que fossem do mesmo fabricante, poderia ter mesma referencia F001
+  //para um fusivel e para um determinado "fio"... nada impede.
+  //
+  //Referencia nao é o código do produto no fabricante.
+  //
+  //Resumo: esta crítica deve ser retirada pois impede que o logista cadastre
+  //fatos reais.
+  //
+  //Eliminado esta crítica...
+  result:=false;
+  exit;
+
+  {
   if edREFERENCIA_FABRICANTE.Text <> '' then
   begin
     x := 'SELECT CODIGO, DESCRICAO_PRODUTO FROM PRODUTO WHERE (REFERENCIA_FABRICANTE IS NOT NULL AND REFERENCIA_FABRICANTE <> ' + QuotedStr(emptystr) +
@@ -3139,13 +3187,11 @@ begin
         slinebreak + 'Descrição: ' + qry.Fields[1].AsString, taLeftJustify, 12);
       if foco then
       begin
-           edREFERENCIA_FABRICANTE.SelectAll;
-           edREFERENCIA_FABRICANTE.SetFocus;
+         edREFERENCIA_FABRICANTE.SelectAll;
+         edREFERENCIA_FABRICANTE.SetFocus;
       end;
-    end
-    else
-      result := false;
   end;
+  }
 end;
 
 procedure TFrm_Produto.RegraTributacao;
