@@ -1,7 +1,17 @@
 {$I ACBr.inc}
-
 unit config_nfe;
+{
 
+================================================================================
+| ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  179|23/05/20|wander              |Aplicados os botões de Controle padrão    |
+|     |   20:12|config_nfe          |                                          |
+================================================================================
+
+OBS: Outras alterações foram feitas por Wander mas não documentadas aqui.
+
+}
 interface
 
 uses
@@ -34,9 +44,6 @@ uses
 type
   TFrmconfig_NFe = class(TForm)
     Label4: TLabel;
-    btnSair: TcxButton;
-    btnGravar: TcxButton;
-    btn_Alterar: TcxButton;
     grp_geral: TGroupBox;
     GroupBox1: TGroupBox;
     edtNFeC_PastaNotas: TEdit;
@@ -87,15 +94,19 @@ type
     Label1: TLabel;
     cbxSSLType: TComboBox;
     rgNFe_MostraPreview: TRadioGroup;
+    pnControles: TPanel;
+    bControleCancelar: TcxButton;
+    cxButton4: TcxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
-    procedure btn_AlterarClick(Sender: TObject);
     procedure sbtnGetCertClick(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
     procedure cxButton2Click(Sender: TObject);
     procedure cxButton3Click(Sender: TObject);
     procedure btn_buscar_xmlClick(Sender: TObject);
     procedure edt_NFeC_PathLogoMarcaChange(Sender: TObject);
+    procedure bControleGravarClick(Sender: TObject);
+    procedure bControleCancelarClick(Sender: TObject);
   private
     { Private declarations }
     procedure MostraDados_NFe_Configuracao;
@@ -121,7 +132,12 @@ implementation
 
 uses u_funcoes,S_Module;
 
-procedure TFrmconfig_NFe.btn_AlterarClick(Sender: TObject);
+procedure TFrmconfig_NFe.bControleCancelarClick(Sender: TObject);
+begin
+   Close;
+end;
+
+procedure TFrmconfig_NFe.bControleGravarClick(Sender: TObject);
 var vNFeC_SERIE : Integer;
 begin
   if not UsuarioMASTER then

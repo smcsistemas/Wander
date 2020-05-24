@@ -1585,7 +1585,7 @@ begin
        // Ver as opcoes de CODIGO_ORIGEM_MERCADORIA
 
        //Empresa: CSOSN
-       //         000 Não se Aplica
+       //         000 - Não se Aplica
        //         101 - Tributada pelo Simples Nacional com permissão de crédito.
        //         102 - Tributada pelo Simples Nacional sem permissão de crédito.
        //         103 - Isenção do ICMS  no Simples Nacional para faixa de receita bruta.
