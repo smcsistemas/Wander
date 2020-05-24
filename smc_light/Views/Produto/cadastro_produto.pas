@@ -522,8 +522,6 @@ type
     edCODIGO_BARRAS: TEdit;
     qConsultaCODIGO_ALFANUMERICO: TStringField;
     tConsulta: TTimer;
-    procedure cxDBTextEdit2KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure cxDBComboBox10KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure BtnGravarClick(Sender: TObject);
     procedure cxTabSheet5Show(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -536,14 +534,10 @@ type
     procedure DBEdit2Exit(Sender: TObject);
     procedure cxDBTextEdit28Exit(Sender: TObject);
     procedure cxDBTextEdit35Exit(Sender: TObject);
-    procedure cxDBTextEdit50KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure cxTabSheet1Show(Sender: TObject);
-    procedure aliq_icmsKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure REDUCAO_ICMS_STKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure pauta_bcKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edt_leisKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edt_generoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure aliq_lucro_stKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edt_ncmKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Edit1KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit3KeyPress(Sender: TObject; var Key: Char);
@@ -596,21 +590,15 @@ type
     procedure cxDBTextEdit59KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit60KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit61KeyPress(Sender: TObject; var Key: Char);
-    procedure edCODIGO_ALFANUMERICOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edDESCRICAO_PRODUTOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edREFERENCIA_FABRICANTEKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edMARCAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edFAMILIAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edGRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edSUBGRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure ESTOQUE_MINIMOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure CUSTO_MEDIOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure DESCONTO_M_DISTRIBUIDORKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure MARGEM_LUCROKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure MARGEM_L_ATACADOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure BALCAO_COMISSAO_VAREJOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure BALCAO_COMISSAO_DISTRIBUIDORKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure BALCAO_COMISSAO_ATACADOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure EXTERNA_COMISSAO_VAREJOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure EXTERNA_COMISSAO_DISTRIBUIDORKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure EXTERNA_COMISSAO_ATACADOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -659,11 +647,8 @@ type
     procedure NCMKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure CSOSNKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBEdit13Change(Sender: TObject);
-    procedure DBEdit16KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure DBEdit13KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure calcular_preco_produtos(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBEdit13KeyPress(Sender: TObject; var Key: Char);
-    procedure sKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure dbcsticmsClick(Sender: TObject);
     procedure DESP_OPERACIONAISClick(Sender: TObject);
     procedure CUSTO_MEDIOClick(Sender: TObject);
@@ -805,15 +790,6 @@ begin
 //  s.SelectAll;
 end;
 
-procedure TFrm_Produto.sKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if Key in [vk_return, vk_tab] then
-//    DESCONTO_M_DISTRIBUIDOR.SetFocus;
-
-end;
-
 procedure ConsultarCODBARRAS(Consulta: TFDQuery; Texto: TDBEdit; Tabela, Coluna, Parametro: String);
 var
   QueryTemp: TFDQuery;
@@ -879,10 +855,9 @@ end;
 
 procedure TFrm_Produto.btn_csosnClick(Sender: TObject);
 begin
-  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgCSOSN, TEdit(CSOSN));
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgCSOSN, CSOSN);
   Frm_Consulta_Generica.ShowModal;
-
-  PreencherCSOSN(TEdit(CSOSN).Text);
+  PreencherCSOSN(CSOSN.Text);
 end;
 
 procedure TFrm_Produto.Button1Click(Sender: TObject);
@@ -1154,17 +1129,7 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.aliq_icmsKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-    REDUCAO_ICMS_ST.SetFocus;
-
-end;
-
 procedure TFrm_Produto.aliq_icmsKeyPress(Sender: TObject;
-
   var Key: Char);
 begin
   inherited;
@@ -1177,16 +1142,6 @@ procedure TFrm_Produto.aliq_ipiKeyPress(Sender: TObject;
 begin
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
-end;
-
-procedure TFrm_Produto.aliq_lucro_stKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-    cod_comb.SetFocus;
-  end;
 end;
 
 procedure TFrm_Produto.aliq_lucro_stKeyPress(Sender: TObject;
@@ -1225,14 +1180,6 @@ begin
    qAUX.Free;
 end;
 
-procedure TFrm_Produto.REDUCAO_ICMS_STKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-    pauta_bc.SetFocus;
-end;
-
 procedure TFrm_Produto.REDUCAO_ICMS_STKeyPress(Sender: TObject;
 
   var Key: Char);
@@ -1244,14 +1191,6 @@ end;
 procedure TFrm_Produto.BALCAO_COMISSAO_ATACADOClick(Sender: TObject);
 begin
   //BALCAO_COMISSAO_ATACADO.SelectAll;
-end;
-
-procedure TFrm_Produto.BALCAO_COMISSAO_ATACADOKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
- //   EXTERNA_COMISSAO_ATACADO.SetFocus;
 end;
 
 procedure TFrm_Produto.BALCAO_COMISSAO_ATACADOKeyPress(Sender: TObject;
@@ -1267,16 +1206,6 @@ begin
 //  BALCAO_COMISSAO_DISTRIBUIDOR.SelectAll;
 end;
 
-procedure TFrm_Produto.BALCAO_COMISSAO_DISTRIBUIDORKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
- //   EXTERNA_COMISSAO_DISTRIBUIDOR.SetFocus;
-  end;
-end;
-
 procedure TFrm_Produto.BALCAO_COMISSAO_DISTRIBUIDORKeyPress(Sender: TObject;
 
   var Key: Char);
@@ -1288,14 +1217,6 @@ end;
 procedure TFrm_Produto.BALCAO_COMISSAO_VAREJOClick(Sender: TObject);
 begin
  // BALCAO_COMISSAO_VAREJO.SelectAll;
-end;
-
-procedure TFrm_Produto.BALCAO_COMISSAO_VAREJOKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-//    edt_qtde_min.SetFocus;
 end;
 
 procedure TFrm_Produto.BALCAO_COMISSAO_VAREJOKeyPress(Sender: TObject;
@@ -1659,17 +1580,6 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.cxDBComboBox10KeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-//    ESTOQUE_MINIMO.SetFocus;
-  end;
-
-end;
-
 procedure TFrm_Produto.cxDBTextEdit10KeyPress(Sender: TObject;
 
   var Key: Char);
@@ -1753,16 +1663,6 @@ procedure TFrm_Produto.cxDBTextEdit29KeyPress(Sender: TObject;
 begin
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
-end;
-
-procedure TFrm_Produto.cxDBTextEdit2KeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-    mmINFO_ADICIONAIS.SetFocus;
-  end;
 end;
 
 procedure TFrm_Produto.cxDBTextEdit30KeyPress(Sender: TObject;
@@ -1923,16 +1823,6 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.cxDBTextEdit50KeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-    bControleGravar.SetFocus;
-  end;
-end;
-
 procedure TFrm_Produto.cxDBTextEdit52KeyPress(Sender: TObject;
 
   var Key: Char);
@@ -2052,14 +1942,6 @@ begin
 //  ESTOQUE_MINIMO.SelectAll;
 end;
 
-procedure TFrm_Produto.ESTOQUE_MINIMOKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-//    s.SetFocus;
-end;
-
 procedure TFrm_Produto.ESTOQUE_MINIMOKeyPress(Sender: TObject;
 
   var Key: Char);
@@ -2103,14 +1985,6 @@ begin
 //  DBEdit13.SelectAll;
 end;
 
-procedure TFrm_Produto.DBEdit13KeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if Key in [vk_tab, vk_return] then
-//    ESTOQUE_MINIMO.SetFocus;
-end;
-
 procedure TFrm_Produto.DBEdit13KeyPress(Sender: TObject;
 
   var Key: Char);
@@ -2151,14 +2025,6 @@ procedure TFrm_Produto.DBEdit15KeyPress(Sender: TObject;
 begin
   inherited;
   Key := ApenasNumeros(Key);
-end;
-
-procedure TFrm_Produto.DBEdit16KeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if Key in [vk_tab, vk_return] then
-//    PRECO_CUSTO.SetFocus;
 end;
 
 procedure TFrm_Produto.DBEdit1KeyPress(Sender: TObject;
@@ -2303,16 +2169,6 @@ begin
     end;
 end;
 
-procedure TFrm_Produto.edCODIGO_ALFANUMERICOKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-    edDESCRICAO_PRODUTO.SetFocus;
-  end;
-end;
-
 procedure TFrm_Produto.edCODIGO_ALFANUMERICOKeyPress(Sender: TObject;
 
   var Key: Char);
@@ -2356,16 +2212,6 @@ end;
 procedure TFrm_Produto.DESCONTO_M_DISTRIBUIDORClick(Sender: TObject);
 begin
 //  DESCONTO_M_DISTRIBUIDOR.SelectAll;
-end;
-
-procedure TFrm_Produto.DESCONTO_M_DISTRIBUIDORKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-//    DESCONTO_M_ATACADO.SetFocus;
-  end;
 end;
 
 procedure TFrm_Produto.Pesquisar;
@@ -3201,21 +3047,20 @@ procedure TFrm_Produto.PreencherCSOSN(value: string);
 var
   xCSOSN: TCsosn;
 begin
+  limparcsosn;
   if value = emptystr then
-    limparcsosn
-  else
-  begin
-    try
-      xCSOSN := TCsosn.CREATE(value);
-      CSOSN.Text := value;
-      if SQL_PRODUTO.State in [dsEdit, dsInsert] then
-        CSOSN.Text := value;
-      lbl_csosn.Caption := xCSOSN.descricao;
-    except
-      on e: exception do
-        tdialogs.wnAlerta('Consultar CSOSN', slinebreak + e.Message, 15);
-    end;
-  end;
+     exit;
+
+  try
+     xCSOSN := TCsosn.CREATE(value);
+     CSOSN.Text := value;
+     if SQL_PRODUTO.State in [dsEdit, dsInsert] then
+       CSOSN.Text := value;
+     lbl_csosn.Caption := xCSOSN.descricao;
+   except
+     on e: exception do
+       tdialogs.wnAlerta('Consultar CSOSN', slinebreak + e.Message, 15);
+   end;
 end;
 
 procedure TFrm_Produto.PreencherNCM(value: string);

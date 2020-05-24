@@ -4,6 +4,9 @@ unit vw_main;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  180|23/05/20|wander              |Aba Configurações recebeu um botão SAIR   |
+|     |   20:51|vw_main             |                                          |
+|-----|--------|--------------------|------------------------------------------|
 |  148|21/05/20|wander              |Cadastros->Produtos>Cadastrar Produtos    |
 |     |   18:22|vw_main             |mudou pra Cadastros->Estoque->Produtos    |
 ================================================================================
@@ -968,6 +971,7 @@ type
     dxBarLargeButton106: TdxBarLargeButton;
     barMngrBar6: TdxBar;
     dxBarSubItem140: TdxBarSubItem;
+    dxBarLargeButton107: TdxBarLargeButton;
     procedure dxBarLargeButton6Click(Sender: TObject);
     procedure dxBarLargeButton7Click(Sender: TObject);
     procedure dxBarLargeButton301Click(Sender: TObject);
@@ -1213,8 +1217,7 @@ type
     procedure dxBarLargeButton101Click(Sender: TObject);
     procedure dxBarLargeButton102Click(Sender: TObject);
     procedure dxBarLargeButton103Click(Sender: TObject);
-
-
+    procedure dxBarLargeButton107Click(Sender: TObject);
 
 //    procedure dxBarButton125Click(Sender: TObject);
   private
@@ -1649,6 +1652,12 @@ begin
     Frm_Lei := TFrm_Lei.Create(nil);
     Frm_Lei.showmodal;
   end;
+end;
+
+procedure Tfrm_main.dxBarLargeButton107Click(Sender: TObject);
+begin
+  RegistraLog('Saiu do Sistema');
+  Close;
 end;
 
 procedure Tfrm_main.dxBarLargeButton26Click(Sender: TObject);

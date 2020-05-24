@@ -1017,9 +1017,9 @@ object Frm_Produto: TFrm_Produto
           end
           object btn_sub: TcxButton
             Left = 500
-            Top = 206
+            Top = 204
             Width = 22
-            Height = 22
+            Height = 24
             LookAndFeel.NativeStyle = False
             LookAndFeel.SkinName = 'Metropolis'
             OptionsImage.Glyph.Data = {
@@ -1734,7 +1734,6 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             TabOrder = 4
-            OnKeyDown = edCODIGO_ALFANUMERICOKeyDown
             OnKeyPress = edCODIGO_ALFANUMERICOKeyPress
             OnKeyUp = edCODIGO_ALFANUMERICOKeyUp
           end
@@ -3557,7 +3556,6 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 2
-            OnKeyDown = aliq_icmsKeyDown
             OnKeyPress = aliq_icmsKeyPress
           end
           object aliq_lucro_st: TEdit
@@ -3574,7 +3572,6 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 3
-            OnKeyDown = aliq_lucro_stKeyDown
             OnKeyPress = aliq_lucro_stKeyPress
           end
           object REDUCAO_ICMS_ST: TEdit
@@ -3591,7 +3588,6 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 4
-            OnKeyDown = REDUCAO_ICMS_STKeyDown
             OnKeyPress = REDUCAO_ICMS_STKeyPress
           end
           object cod_comb: TEdit
@@ -5964,8 +5960,8 @@ object Frm_Produto: TFrm_Produto
         'SELECT c.descricao as CFOP, no.DESCRICAO FROM NATUREZA_OPERACAO ' +
         'no'
       'join cfop c on c.codigo = no.cfop_st')
-    Left = 400
-    Top = 240
+    Left = 408
+    Top = 224
     object SQL_CFOP_NATOPDESCRICAO: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'DESCRICAO'
