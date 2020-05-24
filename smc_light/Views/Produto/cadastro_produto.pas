@@ -1,8 +1,16 @@
 ﻿{ v 21.10.16 17:18 }
 unit cadastro_produto;
 {
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  182|23/05/20|wander              |CFOP é uma característica do produto na   |
+|     |   21:37|cadastro_produto    |operação eo não do produto                |
+|     |        |                    |Verificar com o Vitor                     |
+|-----|--------|--------------------|------------------------------------------|
+|  181|23/05/20|wander              |CSOSN é da empresa e nao do produto       |
+|     |   21:37|cadastro_produto    |Verificar com o Vitor                     |
 |-----|--------|--------------------|------------------------------------------|
 |  178|23/05/20|wander              |Alterando produto (exceto a parte fiscal  |
 |     |   19:35|cadastro_produto    |que verei com o Vitor                     |
@@ -367,7 +375,7 @@ type
     edt_cest: TEdit;
     edt_anp: TEdit;
     btn_ncm: TcxButton;
-    CSOSN: TEdit;
+    edCSOSN: TEdit;
     btn_csosn: TcxButton;
     mmNCM: TcxMemo;
     btn_anp: TcxButton;
@@ -641,11 +649,11 @@ type
     function CodBarrasRepetido: Boolean;
     function RefFabricanteRepetido(foco: Boolean = true): Boolean;
     procedure CFOPCODIGOKeyPress(Sender: TObject; var Key: Char);
-    procedure CSOSNKeyPress(Sender: TObject; var Key: Char);
+    procedure edCSOSNKeyPress(Sender: TObject; var Key: Char);
     procedure NCMKeyPress(Sender: TObject; var Key: Char);
     procedure edt_cestKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure NCMKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure CSOSNKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edCSOSNKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBEdit13Change(Sender: TObject);
     procedure calcular_preco_produtos(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBEdit13KeyPress(Sender: TObject; var Key: Char);
@@ -687,7 +695,7 @@ type
     procedure LimparCFOP_CSOSN;
     procedure LimparNCM;
     procedure LimparANP;
-    procedure CSOSNKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edCSOSNKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btn_anpClick(Sender: TObject);
     procedure tbViewCustomDrawCell(Sender: TcxCustomGridTableView; ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
       var ADone: Boolean);
@@ -855,9 +863,9 @@ end;
 
 procedure TFrm_Produto.btn_csosnClick(Sender: TObject);
 begin
-  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgCSOSN, CSOSN);
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgCSOSN, edCSOSN);
   Frm_Consulta_Generica.ShowModal;
-  PreencherCSOSN(CSOSN.Text);
+  PreencherCSOSN(edCSOSN.Text);
 end;
 
 procedure TFrm_Produto.Button1Click(Sender: TObject);
@@ -1109,14 +1117,13 @@ end;
 
 procedure TFrm_Produto.LimparCFOP_CSOSN;
 begin
-  CSOSN.Clear;
+  edCSOSN.Clear;
   lbl_csosn.Caption := '';
-
 end;
 
 procedure TFrm_Produto.limparcsosn;
 begin
-  CSOSN.Clear;
+  edCSOSN.Clear;
   lbl_csosn.Caption :=
     '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ';
 end;
@@ -2244,16 +2251,16 @@ begin
    pnContador.Caption := inttostr(qConsulta.RecordCount);
 end;
 
-procedure TFrm_Produto.CSOSNKeyDown(Sender: TObject;
+procedure TFrm_Produto.edCSOSNKeyDown(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
   if Key = vk_return then
-    if CSOSN.Text <> '' then
-      PreencherCSOSN(CSOSN.Text);
+    if edCSOSN.Text <> '' then
+      PreencherCSOSN(edCSOSN.Text);
 end;
 
-procedure TFrm_Produto.CSOSNKeyPress(Sender: TObject;
+procedure TFrm_Produto.edCSOSNKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -2261,11 +2268,11 @@ begin
   Key := ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.CSOSNKeyUp(Sender: TObject;
+procedure TFrm_Produto.edCSOSNKeyUp(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
-  CSOSN.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(CSOSN.Text));
+  edCSOSN.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(edCSOSN.Text));
 end;
 
 procedure TFrm_Produto.CUSTO_MEDIOClick(Sender: TObject);
@@ -2762,7 +2769,8 @@ begin
    qAUX.sql.add('       PRECO_FINAL_ATACADO,      ');
    qAUX.sql.add('       PRECO_FINAL_VAREJO,       ');
    qAUX.sql.add('       PRECO_FINAL_DISTRIBUIDOR, ');
-   qAUX.sql.add('       STATUS_CADASTRAL          ');
+   qAUX.sql.add('       STATUS_CADASTRAL,         ');
+   qAUX.sql.add('       CSOSN                     ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
    qAUX.sql.add('     (:CODIGO,                   ');
@@ -2779,7 +2787,8 @@ begin
    qAUX.sql.add('      :PRECO_FINAL_ATACADO,      ');
    qAUX.sql.add('      :PRECO_FINAL_VAREJO,       ');
    qAUX.sql.add('      :PRECO_FINAL_DISTRIBUIDOR, ');
-   qAUX.sql.add('      :STATUS_CADASTRAL          ');
+   qAUX.sql.add('      :STATUS_CADASTRAL,         ');
+   qAUX.sql.add('      :CSOSN                     ');
    qAUX.sql.add('     )                           ');
 
    //Codigo
@@ -2809,6 +2818,7 @@ begin
    qAUX.ParamByName('PRECO_FINAL_VAREJO'      ).AsFloat   := ValorValido(edPRECO_FINAL_VAREJO.Text);
    qAUX.ParamByName('PRECO_FINAL_DISTRIBUIDOR').AsFloat   := ValorValido(edPRECO_FINAL_DISTRIBUIDOR.Text);
    qAUX.ParamByName('STATUS_CADASTRAL'        ).AsString  := Ativo_ou_Inativo(cbSTATUS_CADASTRAL.Checked);
+   qAUX.ParamByName('CSOSN'                   ).AsString  := edCSOSN.Text;
    qAUX.ExecSQL;
 
    qAUX.Free;
@@ -2930,6 +2940,12 @@ begin
 
    //Ativo/Inativo
    cbSTATUS_CADASTRAL.Checked      := (qConsulta.FieldByName('STATUS_CADASTRAL').AsString = 'ATIVO');
+
+   //Fiscal
+   edCSOSN.Text                    := qConsulta.FieldByName('CSOSN').AsString;
+   if edCSOSN.Text <> '' then
+      PreencherCSOSN(edCSOSN.Text);
+
 
    // Exibir a aba Cadastro
    cxPageControl1.ActivePAgeIndex  := 1;
@@ -3053,9 +3069,9 @@ begin
 
   try
      xCSOSN := TCsosn.CREATE(value);
-     CSOSN.Text := value;
+     edCSOSN.Text := value;
      if SQL_PRODUTO.State in [dsEdit, dsInsert] then
-       CSOSN.Text := value;
+       edCSOSN.Text := value;
      lbl_csosn.Caption := xCSOSN.descricao;
    except
      on e: exception do
@@ -3448,6 +3464,10 @@ O que não é permitido é você emitir uma nota com a natureza da operação ve
 Uma forma de ver se as naturezas da operação são distintas é analisar se elas se contradizem. Usar o bom senso é fundamental! Venda e devolução são parecidas? Não, portanto não podem ficar na mesma nota fiscal.
 
 Viu? Definitivamente natureza da operação não é CFOP. Ficou com alguma dúvida? Envie nos comentários, queremos ajudar!
+
+(3)
+CSOSN é da empresa e nao do produto
+
 
 }
 

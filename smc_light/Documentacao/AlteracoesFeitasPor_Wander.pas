@@ -12,6 +12,13 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  182|23/05/20|wander              |CFOP é uma característica do produto na   |
+|     |   21:37|cadastro_produto    |operação eo não do produto                |
+|     |        |                    |Verificar com o Vitor                     |
+|-----|--------|--------------------|------------------------------------------|
+|  181|23/05/20|wander              |CSOSN é da empresa e nao do produto       |
+|     |   21:37|cadastro_produto    |Verificar com o Vitor                     |
+|-----|--------|--------------------|------------------------------------------|
 |  180|23/05/20|wander              |Aba Configurações recebeu um botão SAIR   |
 |     |   20:51|vw_main             |                                          |
 |-----|--------|--------------------|------------------------------------------|

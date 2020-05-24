@@ -3899,7 +3899,7 @@ object Frm_Produto: TFrm_Produto
             TabOrder = 1
             OnClick = btn_ncmClick
           end
-          object CSOSN: TEdit
+          object edCSOSN: TEdit
             Left = 62
             Top = 17
             Width = 58
@@ -3913,9 +3913,9 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 4
-            OnKeyDown = CSOSNKeyDown
-            OnKeyPress = CSOSNKeyPress
-            OnKeyUp = CSOSNKeyUp
+            OnKeyDown = edCSOSNKeyDown
+            OnKeyPress = edCSOSNKeyPress
+            OnKeyUp = edCSOSNKeyUp
           end
           object btn_csosn: TcxButton
             Left = 122
@@ -5689,8 +5689,8 @@ object Frm_Produto: TFrm_Produto
   object DS_TIPO_ITEM: TDataSource
     AutoEdit = False
     DataSet = SQL_TIPO_ITEM
-    Left = 832
-    Top = 168
+    Left = 824
+    Top = 152
   end
   object SQL_DADOS_ROTINAS: TFDQuery
     Connection = Module.connection
