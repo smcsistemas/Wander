@@ -198,11 +198,9 @@ begin
   Self := nil;
 end;
 
-
 procedure TFrm_Marca.FormCreate(Sender: TObject);
 begin
    Frm_Marca_CODIGO := '';
-
 end;
 
 procedure TFrm_Marca.FormShow(Sender: TObject);

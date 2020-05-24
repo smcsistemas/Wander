@@ -12,6 +12,21 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  188|24/05/20|wander              |Tratando unidade de medida. Antes armaze- |
+|     |   15:25|cadastro_produto    |va a sigla na tab prod agora grav o codigo|
+|-----|--------|--------------------|------------------------------------------|
+|  187|24/05/20|wander              |Padronizado tamanho do form               |
+|     |   14:54|cadastro_unidade    |Width 501 Heigth 350 e pnControles.Top=273|
+|-----|--------|--------------------|------------------------------------------|
+|  186|24/05/20|wander              |Aplicadas as proced pode_Alterar_Incluir e|
+|     |   14:54|cadastro_unidade    |pode_Cancelar_Gravar                      |
+|-----|--------|--------------------|------------------------------------------|
+|  185|24/05/20|wander              |Aplicados os botões de Controle padrão    |
+|     |   14:54|cadastro_unidade    |                                          |
+|-----|--------|--------------------|------------------------------------------|
+|  184|24/05/20|wander              |Passa a retornar o cód da unidade se foi  |
+|     |   14:54|cadastro_unidade    |selecionada uma unidade ou vazio se não   |
+|-----|--------|--------------------|------------------------------------------|
 |  183|24/05/20|wander              |Tratando ST do ICMS no novo padrão:       |
 |     |   10:44|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
 |-----|--------|--------------------|------------------------------------------|

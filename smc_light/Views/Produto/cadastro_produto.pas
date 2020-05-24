@@ -4,6 +4,9 @@ unit cadastro_produto;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  188|24/05/20|wander              |Tratando unidade de medida. Antes armaze- |
+|     |   15:25|cadastro_produto    |va a sigla na tab prod agora grav o codigo|
+|-----|--------|--------------------|------------------------------------------|
 |  183|24/05/20|wander              |Tratando ST do ICMS no novo padrão:       |
 |     |   10:44|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
 |-----|--------|--------------------|------------------------------------------|
@@ -314,7 +317,7 @@ type
     edREFERENCIA_FABRICANTE: TEdit;
     edFAMILIA: TEdit;
     edSUBGRUPO: TEdit;
-    UNIDADE_MEDIDA: TEdit;
+    edUNIDADE_MEDIDA: TEdit;
     edGRUPO: TEdit;
     edMARCA: TEdit;
     mmINFO_ADICIONAIS: TMemo;
@@ -332,7 +335,7 @@ type
     edGRUPO_NOME: TEdit;
     edSUBGRUPO_NOME: TEdit;
     edMARCA_NOME: TEdit;
-    Edit4: TEdit;
+    edUNIDADE_MEDIDA_NOME: TEdit;
     edFAMILIA_NOME: TEdit;
     Panel3: TPanel;
     cxButton3: TcxButton;
@@ -602,7 +605,6 @@ type
     procedure cxDBTextEdit60KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit61KeyPress(Sender: TObject; var Key: Char);
     procedure edDESCRICAO_PRODUTOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edREFERENCIA_FABRICANTEKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edMARCAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edFAMILIAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edGRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -739,6 +741,9 @@ type
     procedure edICMS_CSTKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edICMS_CSTExit(Sender: TObject);
+    procedure edUNIDADE_MEDIDAKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edUNIDADE_MEDIDAExit(Sender: TObject);
 
   private
     { Private declarations }
@@ -753,6 +758,7 @@ type
     procedure ConsultarGrupos;
     procedure ConsultarSubGrupos;
     procedure ConsultarCST_ICMS;
+    procedure ConsultarUnidades;
     function DadosCorretos:Boolean;
     procedure ApagarRegistro;
     procedure InserirRegistro;
@@ -1333,10 +1339,28 @@ end;
 
 procedure TFrm_Produto.btn_undClick(Sender: TObject);
 begin
+  ConsultarUnidades;
+end;
 
+procedure TFrm_Produto.ConsultarUnidades;
+begin
+  //Consultar as marcas
+  //----------------------------------------------------------------------------
+
+  //Constroi tela de consulta de marcas
   Frm_unidade := TFrm_unidade.CREATE(Application);
+
+  //Exibe a tela de consulta de marcas
   Frm_unidade.ShowModal;
-  UNIDADE_MEDIDA.Text := Frm_unidade.SQL_LISTASIGLA.value;
+
+  //Selecionou uma marca ou não
+  edUNIDADE_MEDIDA.Text := Frm_unidade_CODIGO;
+
+  //Destroi tela de consulta de marcas
+  Frm_unidade.Free;
+
+  //Exibe a sigla (o símbolo) da unidade de medida, ou limpa o campo
+  edUNIDADE_MEDIDA_NOME.Text := fproduto_unidade_SIGLA(edUNIDADE_MEDIDA.Text);
 end;
 
 procedure TFrm_Produto.bControleGravarClick(Sender: TObject);
@@ -2502,6 +2526,29 @@ begin
   Key := ApenasNumeros(Key);
 end;
 
+procedure TFrm_Produto.edUNIDADE_MEDIDAExit(Sender: TObject);
+begin
+  edUNIDADE_MEDIDA_NOME.Text := '';
+  if edUNIDADE_MEDIDA.Text = '' then
+     exit;
+
+  //Exibe o nome da UNIDADE_MEDIDA, ou limpa o campo
+  edUNIDADE_MEDIDA_NOME.Text := fproduto_unidade_SIGLA(edUNIDADE_MEDIDA.Text);
+  if edUNIDADE_MEDIDA_NOME.Text = '' then
+  begin
+    wnAlerta('Cadastrar Produto','Unidade de Medida não cadastrada');
+    edUNIDADE_MEDIDA.SetFocus;
+    exit;
+  end;
+end;
+
+procedure TFrm_Produto.edUNIDADE_MEDIDAKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = vk_F1) then
+     ConsultarUnidades;
+end;
+
 procedure TFrm_Produto.EXTERNA_COMISSAO_ATACADOClick(Sender: TObject);
 begin
 //  EXTERNA_COMISSAO_ATACADO.SelectAll;
@@ -2801,6 +2848,7 @@ begin
    qAUX.sql.add('       INFO_ADICIONAIS,          ');
    qAUX.sql.add('       CODIGO_BARRAS,            ');
    qAUX.sql.add('       REFERENCIA_FABRICANTE,    ');
+   qAUX.sql.add('       UNIDADE_MEDIDA,           ');
    qAUX.sql.add('       MARCA,                    ');
    qAUX.sql.add('       FAMILIA,                  ');
    qAUX.sql.add('       GRUPO,                    ');
@@ -2820,6 +2868,7 @@ begin
    qAUX.sql.add('      :INFO_ADICIONAIS,          ');
    qAUX.sql.add('      :CODIGO_BARRAS,            ');
    qAUX.sql.add('      :REFERENCIA_FABRICANTE,    ');
+   qAUX.sql.add('      :UNIDADE_MEDIDA,           ');
    qAUX.sql.add('      :MARCA,                    ');
    qAUX.sql.add('      :FAMILIA,                  ');
    qAUX.sql.add('      :GRUPO,                    ');
@@ -2851,6 +2900,7 @@ begin
    qAUX.ParamByName('INFO_ADICIONAIS'         ).AsString  := mmINFO_ADICIONAIS.Text;
    qAUX.ParamByName('CODIGO_BARRAS'           ).AsString  := edCODIGO_BARRAS.Text;
    qAUX.ParamByName('REFERENCIA_FABRICANTE'   ).AsString  := edREFERENCIA_FABRICANTE.Text;
+   qAUX.ParamByName('UNIDADE_MEDIDA'          ).AsString  := edUNIDADE_MEDIDA.Text;
    qAUX.ParamByName('MARCA'                   ).AsString  := edMARCA.Text;
    qAUX.ParamByName('FAMILIA'                 ).AsString  := edFAMILIA.Text;
    qAUX.ParamByName('GRUPO'                   ).AsString  := edGRUPO.Text;
@@ -2958,6 +3008,10 @@ begin
    mmINFO_ADICIONAIS.Text          := qConsulta.FieldByName('INFO_ADICIONAIS'      ).AsString;
    edCODIGO_BARRAS.Text            := qConsulta.FieldByName('CODIGO_BARRAS'        ).AsString;
    edREFERENCIA_FABRICANTE.Text    := qConsulta.FieldByName('REFERENCIA_FABRICANTE').AsString;
+
+   //Unidade de Medida
+   edUNIDADE_MEDIDA.Text           := qConsulta.FieldByName('UNIDADE_MEDIDA'       ).AsString;
+   edUNIDADE_MEDIDA_NOME.Text      := fproduto_unidade_SIGLA(qConsulta.FieldByName('UNIDADE_MEDIDA').AsString);
 
    //Marca
    edMARCA.Text                    := qConsulta.FieldByName('MARCA').AsString;
@@ -3150,14 +3204,6 @@ begin
       on e: exception do
         tdialogs.wnAlerta('Consultar NCM', slinebreak + e.Message, 15);
     end;
-  end;
-end;
-
-procedure TFrm_Produto.edREFERENCIA_FABRICANTEKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-    btn_familia.Click;
   end;
 end;
 

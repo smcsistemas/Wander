@@ -1006,7 +1006,7 @@ object Frm_Produto: TFrm_Produto
               000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
               1F3E000000060000000100000000000000000000000000000000}
             PaintStyle = bpsGlyph
-            TabOrder = 16
+            TabOrder = 18
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -1058,7 +1058,7 @@ object Frm_Produto: TFrm_Produto
               000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
               1F3E000000060000000100000000000000000000000000000000}
             PaintStyle = bpsGlyph
-            TabOrder = 17
+            TabOrder = 19
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -1110,7 +1110,7 @@ object Frm_Produto: TFrm_Produto
               000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
               1F3E000000060000000100000000000000000000000000000000}
             PaintStyle = bpsGlyph
-            TabOrder = 15
+            TabOrder = 17
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -1162,7 +1162,7 @@ object Frm_Produto: TFrm_Produto
               000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
               1F3E000000060000000100000000000000000000000000000000}
             PaintStyle = bpsGlyph
-            TabOrder = 18
+            TabOrder = 20
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -1215,7 +1215,7 @@ object Frm_Produto: TFrm_Produto
               000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
               1F3E000000060000000100000000000000000000000000000000}
             PaintStyle = bpsGlyph
-            TabOrder = 14
+            TabOrder = 16
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -1237,7 +1237,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             MaxLength = 200
             ParentFont = False
-            TabOrder = 2
+            TabOrder = 3
             OnExit = edDESCRICAO_PRODUTOExit
             OnKeyDown = edDESCRICAO_PRODUTOKeyDown
           end
@@ -1255,7 +1255,6 @@ object Frm_Produto: TFrm_Produto
             MaxLength = 50
             ParentFont = False
             TabOrder = 6
-            OnKeyDown = edREFERENCIA_FABRICANTEKeyDown
             OnKeyUp = edREFERENCIA_FABRICANTEKeyUp
           end
           object edFAMILIA: TEdit
@@ -1270,7 +1269,7 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 8
+            TabOrder = 11
             OnExit = edFAMILIAExit
             OnKeyDown = edFAMILIAKeyDown
           end
@@ -1286,11 +1285,11 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 10
+            TabOrder = 13
             OnExit = edSUBGRUPOExit
             OnKeyDown = edSUBGRUPOKeyDown
           end
-          object UNIDADE_MEDIDA: TEdit
+          object edUNIDADE_MEDIDA: TEdit
             Left = 338
             Top = 173
             Width = 36
@@ -1303,7 +1302,9 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 11
+            TabOrder = 9
+            OnExit = edUNIDADE_MEDIDAExit
+            OnKeyDown = edUNIDADE_MEDIDAKeyDown
           end
           object edGRUPO: TEdit
             Left = 98
@@ -1317,7 +1318,7 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 9
+            TabOrder = 12
             OnExit = edGRUPOExit
             OnKeyDown = edGRUPOKeyDown
           end
@@ -1333,12 +1334,12 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 7
+            TabOrder = 8
             OnExit = edMARCAExit
             OnKeyDown = edMARCAKeyDown
           end
           object mmINFO_ADICIONAIS: TMemo
-            Left = 122
+            Left = 123
             Top = 88
             Width = 621
             Height = 39
@@ -1349,7 +1350,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = [fsBold]
             MaxLength = 200
             ParentFont = False
-            TabOrder = 3
+            TabOrder = 4
           end
           object edCODIGO_ALFANUMERICO: TEdit
             Left = 409
@@ -1447,7 +1448,7 @@ object Frm_Produto: TFrm_Produto
             StyleFocused.LookAndFeel.SkinName = 'Metropolis'
             StyleHot.LookAndFeel.NativeStyle = False
             StyleHot.LookAndFeel.SkinName = 'Metropolis'
-            TabOrder = 12
+            TabOrder = 14
             Width = 188
           end
           object edNFe_nDI: TEdit
@@ -1463,13 +1464,13 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 5
+            TabOrder = 7
           end
           object cxGroupBox1: TcxGroupBox
             Left = 22
             Top = 288
             Caption = '  Pre'#231'os'
-            TabOrder = 13
+            TabOrder = 15
             Height = 62
             Width = 720
             object Label9: TLabel
@@ -1525,7 +1526,6 @@ object Frm_Produto: TFrm_Produto
               Font.Style = [fsBold]
               ParentFont = False
               TabOrder = 0
-              OnKeyDown = edREFERENCIA_FABRICANTEKeyDown
               OnKeyUp = edREFERENCIA_FABRICANTEKeyUp
             end
             object edPRECO_FINAL_DISTRIBUIDOR: TEdit
@@ -1542,7 +1542,6 @@ object Frm_Produto: TFrm_Produto
               Font.Style = [fsBold]
               ParentFont = False
               TabOrder = 1
-              OnKeyDown = edREFERENCIA_FABRICANTEKeyDown
               OnKeyUp = edREFERENCIA_FABRICANTEKeyUp
             end
             object edPRECO_FINAL_ATACADO: TEdit
@@ -1559,7 +1558,6 @@ object Frm_Produto: TFrm_Produto
               Font.Style = [fsBold]
               ParentFont = False
               TabOrder = 2
-              OnKeyDown = edREFERENCIA_FABRICANTEKeyDown
               OnKeyUp = edREFERENCIA_FABRICANTEKeyUp
             end
           end
@@ -1578,7 +1576,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 19
+            TabOrder = 21
             OnKeyDown = edGRUPOKeyDown
           end
           object edSUBGRUPO_NOME: TEdit
@@ -1596,7 +1594,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 20
+            TabOrder = 22
             OnKeyDown = edGRUPOKeyDown
           end
           object edMARCA_NOME: TEdit
@@ -1614,10 +1612,10 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 21
+            TabOrder = 23
             OnKeyDown = edGRUPOKeyDown
           end
-          object Edit4: TEdit
+          object edUNIDADE_MEDIDA_NOME: TEdit
             Left = 374
             Top = 173
             Width = 53
@@ -1632,7 +1630,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 22
+            TabOrder = 24
             OnKeyDown = edGRUPOKeyDown
           end
           object edFAMILIA_NOME: TEdit
@@ -1650,7 +1648,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 23
+            TabOrder = 25
             OnKeyDown = edGRUPOKeyDown
           end
           object edCODIGO_BARRAS: TEdit
@@ -1665,7 +1663,7 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 4
+            TabOrder = 5
             OnKeyPress = edCODIGO_ALFANUMERICOKeyPress
             OnKeyUp = edCODIGO_ALFANUMERICOKeyUp
           end
@@ -1691,7 +1689,7 @@ object Frm_Produto: TFrm_Produto
             StyleFocused.LookAndFeel.SkinName = 'Office2013White'
             StyleHot.LookAndFeel.NativeStyle = False
             StyleHot.LookAndFeel.SkinName = 'Office2013White'
-            TabOrder = 24
+            TabOrder = 2
           end
           object Edit1: TEdit
             Left = 582
@@ -1705,7 +1703,7 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 25
+            TabOrder = 10
             OnExit = edGRUPOExit
             OnKeyDown = edGRUPOKeyDown
           end

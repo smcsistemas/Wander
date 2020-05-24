@@ -36,7 +36,7 @@
   end
   object lblCódigo: TLabel
     Left = 11
-    Top = 12
+    Top = 10
     Width = 48
     Height = 18
     Caption = 'C'#243'digo:'
@@ -48,8 +48,8 @@
     ParentFont = False
   end
   object lblDescrição: TLabel
-    Left = 111
-    Top = 12
+    Left = 131
+    Top = 10
     Width = 67
     Height = 18
     Caption = 'Descri'#231#227'o:'
@@ -61,7 +61,7 @@
     ParentFont = False
   end
   object lbl2: TLabel
-    Left = 251
+    Left = 271
     Top = 47
     Width = 44
     Height = 17
@@ -74,10 +74,10 @@
     ParentFont = False
   end
   object DBGrid1: TDBGrid
-    Left = 9
-    Top = 80
-    Width = 478
-    Height = 187
+    Left = -1
+    Top = 72
+    Width = 497
+    Height = 202
     Hint = 'F4 - Alterar'#13#10'F5 - Excluir'
     DataSource = ds_lista
     Font.Charset = DEFAULT_CHARSET
@@ -129,12 +129,12 @@
   end
   object cxDBTextEdit1: TcxDBTextEdit
     Left = 63
-    Top = 11
+    Top = 8
     DataBinding.DataField = 'CODIGO'
     DataBinding.DataSource = DS_Sub_Grupo
     TabOrder = 0
     OnKeyDown = cxDBTextEdit1KeyDown
-    Width = 41
+    Width = 58
   end
   object DBLookupComboBox1: TDBLookupComboBox
     Left = 64
@@ -155,7 +155,7 @@
     OnKeyDown = DBLookupComboBox1KeyDown
   end
   object DBLookupComboBox2: TDBLookupComboBox
-    Left = 301
+    Left = 321
     Top = 42
     Width = 168
     Height = 26
@@ -172,7 +172,7 @@
     TabOrder = 2
   end
   object DBEdit1: TDBEdit
-    Left = 182
+    Left = 202
     Top = 8
     Width = 287
     Height = 26

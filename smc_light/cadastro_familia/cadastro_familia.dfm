@@ -65,10 +65,10 @@
     Width = 41
   end
   object DBGrid1: TDBGrid
-    Left = 11
+    Left = -1
     Top = 42
-    Width = 476
-    Height = 225
+    Width = 497
+    Height = 232
     Hint = 'F4 - Alterar'#13#10'F5 - Excluir'
     DataSource = ds_lista
     Font.Charset = DEFAULT_CHARSET

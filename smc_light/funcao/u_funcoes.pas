@@ -102,6 +102,8 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//24/05/20-15:01-Recebe código de Unidade de medida e devolve sua sigla
+function fproduto_unidade_SIGLA(pCODIGO:String):String;
 //24/05/20-09:51-Recebe código CST e devolve sua descricao
 function fCST_ICMS_DESCRICAO(pCODIGO:String):String;
 //23/05/20-19:27-Recebe um boolean e retorna string 'ATIVO' se true e 'INATIVO' se false
@@ -5830,6 +5832,31 @@ begin
    end;
    Q.Free;
 end;
+
+function fproduto_unidade_SIGLA(pCODIGO:String):String;
+var Q : tFDQuery;
+begin
+   result := '';
+
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+
+   try
+     Q.Close;
+     Q.Sql.Clear;
+     Q.SQL.Add('SELECT SIGLA          ');
+     Q.SQL.Add('  FROM produto_unidade');
+     Q.SQL.Add(' WHERE CODIGO = :CODIGO');
+     Q.ParamByName('CODIGO').AsString := pCODIGO;
+     Q.Open;
+     if not Q.Eof Then
+        result := Q.FieldByName('SIGLA').AsString;
+   except
+   end;
+   Q.Free;
+end;
+
 
 function fCST_ICMS_DESCRICAO(pCODIGO:String):String;
 var Q : tFDQuery;

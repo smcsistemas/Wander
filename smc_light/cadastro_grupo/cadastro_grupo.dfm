@@ -61,10 +61,10 @@
     ParentFont = False
   end
   object DBGrid1: TDBGrid
-    Left = 8
-    Top = 94
-    Width = 476
-    Height = 173
+    Left = -1
+    Top = 86
+    Width = 498
+    Height = 188
     Hint = 'F4 - Alterar'#13#10'F5 - Excluir'
     DataSource = ds_lista
     Font.Charset = DEFAULT_CHARSET
