@@ -106,11 +106,11 @@ type
     SOCIO_QUERY_BASE =
       'SELECT c.CODIGO, c.NOME, ct.TIPO_COLABORADOR FROM COLABORADOR c JOIN COLABORADOR_TIPO ct on ct.CODIGO = c.TIPO_COLABORADOR WHERE c.TIPO_COLABORADOR in ("4")';
     FORMA_PAGAMENTO_QUERY_BASE = 'SELECT COD_TIPO_PAGAMENTO, TIPO_PAGAMENTO FROM TIPO_PAGAMENTO';
-    CFOP_QUERY_BASE = 'SELECT CODIGO, DESCRICAO FROM CFOP';
+    CFOP_QUERY_BASE            = 'SELECT CODIGO, DESCRICAO FROM CFOP';
     ANP_QUERY_BASE = 'SELECT CODIGO, DESCRICAO FROM ANP';
     CSOSN_QUERY_BASE = 'SELECT CODIGO, DESCRICAO FROM CSOSN';
-    MARCA_QUERY_BASE = 'SELECT CODIGO, NOME FROM PRODUTO_MARCA';
-    ICMS_QUERY_BASE = 'SELECT CODIGO, DESCRICAO FROM CST_ICMS';
+    MARCA_QUERY_BASE = 'SELECT CODIGO, NOME      FROM PRODUTO_MARCA';
+    ICMS_QUERY_BASE  = 'SELECT CODIGO, DESCRICAO FROM CST_ICMS';
     PIS_QUERY_BASE = 'SELECT CODIGO, DESCRICAO FROM CST_PIS';
     COFINS_QUERY_BASE = 'SELECT CODIGO, DESCRICAO FROM CST_COFINS';
     ORIGEM_QUERY_BASE = 'SELECT CODIGO, DESCRICAO FROM ORIGEM_MERCADORIA';
@@ -135,7 +135,9 @@ type
     function GetQueryObject: TFDQuery;
 
     function consultaNCM(campo: TEdit): TFrm_Consulta_Generica;
+
     function consultaCFOP(campo: TEdit): TFrm_Consulta_Generica;
+
     function consultaMarca(campo: TEdit): TFrm_Consulta_Generica;
     function consultaCSOSN(campo: TEdit): TFrm_Consulta_Generica;
 
@@ -502,7 +504,6 @@ begin
       cgMarca:
         Value := SQL_DATA.FieldByName('NOME').asString;
     else
-
       Value := SQL_DATA.FieldByName('CODIGO').asString; { para qualquer outra consulta não especificada acima }
       if cgTable in [cgVendedor, cggerente] then
         Value := Value + ';' + SQL_DATA.FieldByName('NOME').asString;

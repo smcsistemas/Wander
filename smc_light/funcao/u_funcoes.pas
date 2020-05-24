@@ -102,6 +102,8 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//24/05/20-09:51-Recebe código CST e devolve sua descricao
+function fCST_ICMS_DESCRICAO(pCODIGO:String):String;
 //23/05/20-19:27-Recebe um boolean e retorna string 'ATIVO' se true e 'INATIVO' se false
 function Ativo_ou_Inativo(pBoolean:Boolean):String;
 //23/05/20-19:06-Recebe um string e retorna true ser for numérico e false se nao for
@@ -5824,6 +5826,30 @@ begin
      Q.Open;
      if not Q.Eof Then
         result := Q.FieldByName('Nome').AsString;
+   except
+   end;
+   Q.Free;
+end;
+
+function fCST_ICMS_DESCRICAO(pCODIGO:String):String;
+var Q : tFDQuery;
+begin
+   result := '';
+
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+
+   try
+     Q.Close;
+     Q.Sql.Clear;
+     Q.SQL.Add('SELECT DESCRICAO       ');
+     Q.SQL.Add('  FROM CST_ICMS        ');
+     Q.SQL.Add(' WHERE CODIGO = :CODIGO');
+     Q.ParamByName('CODIGO').AsString := pCODIGO;
+     Q.Open;
+     if not Q.Eof Then
+        result := Q.FieldByName('DESCRICAO').AsString;
    except
    end;
    Q.Free;

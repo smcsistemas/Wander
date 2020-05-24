@@ -1,9 +1,11 @@
 ﻿{ v 21.10.16 17:18 }
 unit cadastro_produto;
 {
-
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  183|24/05/20|wander              |Tratando ST do ICMS no novo padrão:       |
+|     |   10:44|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
 |-----|--------|--------------------|------------------------------------------|
 |  182|23/05/20|wander              |CFOP é uma característica do produto na   |
 |     |   21:37|cadastro_produto    |operação eo não do produto                |
@@ -356,7 +358,6 @@ type
     Label60: TLabel;
     Label57: TLabel;
     cb_origem: TcxDBLookupComboBox;
-    dbcsticms: TcxDBLookupComboBox;
     aliq_icms: TEdit;
     aliq_lucro_st: TEdit;
     REDUCAO_ICMS_ST: TEdit;
@@ -530,6 +531,9 @@ type
     edCODIGO_BARRAS: TEdit;
     qConsultaCODIGO_ALFANUMERICO: TStringField;
     tConsulta: TTimer;
+    edICMS_CST: TEdit;
+    edICMS_CST_NOME: TEdit;
+    cxButton5: TcxButton;
     procedure BtnGravarClick(Sender: TObject);
     procedure cxTabSheet5Show(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -732,6 +736,10 @@ type
       Shift: TShiftState);
     procedure edArgumentoDePesquisaKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure cxButton5Click(Sender: TObject);
+    procedure edICMS_CSTKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edICMS_CSTExit(Sender: TObject);
 
   private
     { Private declarations }
@@ -745,6 +753,7 @@ type
     procedure ConsultarFamilias;
     procedure ConsultarGrupos;
     procedure ConsultarSubGrupos;
+    procedure ConsultarCST_ICMS;
     function DadosCorretos:Boolean;
     procedure ApagarRegistro;
     procedure InserirRegistro;
@@ -1278,6 +1287,18 @@ procedure TFrm_Produto.cxButton3Click(Sender: TObject);
 begin
   frm_produto_precos := tfrm_produto_precos.CREATE(Application);
   frm_produto_precos.ShowModal;
+end;
+
+procedure TFrm_Produto.cxButton5Click(Sender: TObject);
+begin
+   ConsultarCST_ICMS;
+end;
+
+procedure TFrm_Produto.ConsultarCST_ICMS;
+begin
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgICMS, edICMS_CST);
+  Frm_Consulta_Generica.ShowModal;
+  edICMS_CST_NOME.Text := fCST_ICMS_DESCRICAO(edICMS_CST.Text);
 end;
 
 procedure TFrm_Produto.cxButton7Click(Sender: TObject);
@@ -2618,7 +2639,7 @@ begin
   edGRUPO_NOME.Text := fProdutoGRUPO_NOME(edGRUPO.Text);
   if edGRUPO_NOME.Text = '' then
   begin
-    wnAlerta('Cadastrar Grupo','GRUPO não cadastrado');
+    wnAlerta('Cadastrar Produto','GRUPO não cadastrado');
     edGRUPO.SetFocus;
     exit;
   end;
@@ -2629,6 +2650,30 @@ var Key: Word; Shift: TShiftState);
 begin
   if (Key = vk_F1) then
     ConsultarGrupos;
+end;
+
+procedure TFrm_Produto.edICMS_CSTExit(Sender: TObject);
+begin
+  edICMS_CST_NOME.Text := '';
+  if edICMS_CST.Text = '' then
+     exit;
+
+  //Exibe o nome dO ICMS_CST, ou limpa o campo
+  edICMS_CST_NOME.Text := fCST_ICMS_DESCRICAO(edICMS_CST.Text);
+  if edICMS_CST_NOME.Text = '' then
+  begin
+    wnAlerta('Cadastrar Produto','ST do ICMS não cadastrado');
+    edICMS_CST.SetFocus;
+    exit;
+  end;
+
+end;
+
+procedure TFrm_Produto.edICMS_CSTKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = vk_F1) then
+     ConsultarCST_ICMS;
 end;
 
 procedure TFrm_Produto.HabilitarCampos(pBoolean: Boolean);
@@ -2770,6 +2815,7 @@ begin
    qAUX.sql.add('       PRECO_FINAL_VAREJO,       ');
    qAUX.sql.add('       PRECO_FINAL_DISTRIBUIDOR, ');
    qAUX.sql.add('       STATUS_CADASTRAL,         ');
+   qAUX.sql.add('       ICMS_CST,                 ');
    qAUX.sql.add('       CSOSN                     ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
@@ -2788,6 +2834,7 @@ begin
    qAUX.sql.add('      :PRECO_FINAL_VAREJO,       ');
    qAUX.sql.add('      :PRECO_FINAL_DISTRIBUIDOR, ');
    qAUX.sql.add('      :STATUS_CADASTRAL,         ');
+   qAUX.sql.add('      :ICMS_CST,                 ');
    qAUX.sql.add('      :CSOSN                     ');
    qAUX.sql.add('     )                           ');
 
@@ -2818,6 +2865,7 @@ begin
    qAUX.ParamByName('PRECO_FINAL_VAREJO'      ).AsFloat   := ValorValido(edPRECO_FINAL_VAREJO.Text);
    qAUX.ParamByName('PRECO_FINAL_DISTRIBUIDOR').AsFloat   := ValorValido(edPRECO_FINAL_DISTRIBUIDOR.Text);
    qAUX.ParamByName('STATUS_CADASTRAL'        ).AsString  := Ativo_ou_Inativo(cbSTATUS_CADASTRAL.Checked);
+   qAUX.ParamByName('ICMS_CST'                ).AsString  := edICMS_CST.Text;
    qAUX.ParamByName('CSOSN'                   ).AsString  := edCSOSN.Text;
    qAUX.ExecSQL;
 
@@ -2942,10 +2990,12 @@ begin
    cbSTATUS_CADASTRAL.Checked      := (qConsulta.FieldByName('STATUS_CADASTRAL').AsString = 'ATIVO');
 
    //Fiscal
+   edICMS_CST.Text                 := qConsulta.FieldByName('ICMS_CST').AsString;
+   edICMS_CST_NOME.Text            := fCST_ICMS_DESCRICAO(edICMS_CST.Text);
+
    edCSOSN.Text                    := qConsulta.FieldByName('CSOSN').AsString;
    if edCSOSN.Text <> '' then
       PreencherCSOSN(edCSOSN.Text);
-
 
    // Exibir a aba Cadastro
    cxPageControl1.ActivePAgeIndex  := 1;
@@ -3200,7 +3250,7 @@ begin
   end
   else
     ALIQ_ICMS_PARAMETROS := SQL_DADOS_ROTINASaliq_imcs.value;
-  CST_ICMS := strtoint(dbcsticms.EditValue);
+  //edCST_ICMS := strtoint(dbcsticms.EditValue);
   PreencherCFOP(inttostr(CST_ICMS));
   case CRT of
     1: { SIMPLES NACIONAL }
@@ -3306,7 +3356,7 @@ begin
   edSUBGRUPO_NOME.Text := fProdutoSUBGRUPO_NOME(edSUBGRUPO.Text);
   if edSUBGRUPO_NOME.Text = '' then
   begin
-    wnAlerta('Cadastrar SubGrupo','SUBGRUPO não cadastrado');
+    wnAlerta('Cadastrar Produto','SUBGRUPO não cadastrado');
     edSUBGRUPO.SetFocus;
     exit;
   end;
@@ -3469,6 +3519,16 @@ Viu? Definitivamente natureza da operação não é CFOP. Ficou com alguma dúvi
 CSOSN é da empresa e nao do produto
 
 
+
+
+==========================
+O Código de Situação Tributária (CST) e
+o Código de Situação da Operação no Simples Nacional (CSOSN)
+são códigos que identificam a situação tributária das mercadorias.
+
+CST é utilizado pelos contribuintes que optam pelo regime normal de tributação,
+enquanto o
+CSOSN é utilizado pelos contribuintes optantes pelo regime do Simples Nacional.
 }
 
 

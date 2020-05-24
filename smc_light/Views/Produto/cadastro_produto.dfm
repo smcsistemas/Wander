@@ -3470,76 +3470,7 @@ object Frm_Produto: TFrm_Produto
             StyleFocused.LookAndFeel.SkinName = 'Metropolis'
             StyleHot.LookAndFeel.NativeStyle = False
             StyleHot.LookAndFeel.SkinName = 'Metropolis'
-            TabOrder = 1
-            Width = 508
-          end
-          object dbcsticms: TcxDBLookupComboBox
-            Left = 67
-            Top = 22
-            DataBinding.DataField = 'ICMS_CST'
-            DataBinding.DataSource = DS_PRODUTO
-            ParentFont = False
-            Properties.ButtonGlyph.Data = {
-              36040000424D3604000000000000360000002800000010000000100000000100
-              2000000000000004000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              000000000000000000000000000000000000000000001D1D1C3B1716162D0000
-              0000000000000000000000000000000000000000000000000000000000000000
-              00000000000000000000000000000000000000000000636362D1565554B30000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000001C1C1B37626263FF656565FB1211
-              1123000000000000000000000000000000000000000000000000000000000000
-              000000000000000000000000000000000000595857B83E3E3FFF464646FF4C4C
-              4B9C000000000000000000000000000000000000000000000000000000000000
-              00000000000000000000000000001E1D1D3B666565FF2E2E2EFF303031FF6A6A
-              6AFC0E0E0E1C0000000000000000000000000000000000000000000000000000
-              00000000000000000000000000005A5959B9414142FF343434C7343433D34848
-              48FF4D4D4B9B0000000000000000000000000000000000000000000000000000
-              000000000000000000001B1A1934616161FF2F2F2FAF010101030707070E3333
-              34C3696969FF0E0E0E1C00000000000000000000000000000000000000000000
-              000000000000000000005D5D5CC33B3B3B9B0000000100000000000000000404
-              0408484848B850504EA500000000000000000000000000000000000000000000
-              0000000000001B1B1A3636363676000000000000000000000000000000000000
-              0000000000003C3C3C831C1B1A37000000000000000000000000000000000000
-              00000000000010100F2100000000000000000000000000000000000000000000
-              000000000000000000010E0E0E1D000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000}
-            Properties.DropDownListStyle = lsFixedList
-            Properties.DropDownRows = 10
-            Properties.DropDownWidth = 751
-            Properties.KeyFieldNames = 'CODIGO'
-            Properties.ListColumns = <
-              item
-                FieldName = 'DESCRICAO'
-              end>
-            Properties.ListOptions.ShowHeader = False
-            Properties.ListSource = DS_CSTICMS
-            Style.Font.Charset = ANSI_CHARSET
-            Style.Font.Color = clWindowText
-            Style.Font.Height = -15
-            Style.Font.Name = 'Tahoma'
-            Style.Font.Style = [fsBold]
-            Style.LookAndFeel.NativeStyle = False
-            Style.LookAndFeel.SkinName = 'Metropolis'
-            Style.IsFontAssigned = True
-            StyleDisabled.LookAndFeel.NativeStyle = False
-            StyleDisabled.LookAndFeel.SkinName = 'Metropolis'
-            StyleFocused.LookAndFeel.NativeStyle = False
-            StyleFocused.LookAndFeel.SkinName = 'Metropolis'
-            StyleHot.LookAndFeel.NativeStyle = False
-            StyleHot.LookAndFeel.SkinName = 'Metropolis'
             TabOrder = 0
-            OnClick = dbcsticmsClick
             Width = 508
           end
           object aliq_icms: TEdit
@@ -3555,7 +3486,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = [fsBold]
             ParentBiDiMode = False
             ParentFont = False
-            TabOrder = 2
+            TabOrder = 1
             OnKeyPress = aliq_icmsKeyPress
           end
           object aliq_lucro_st: TEdit
@@ -3571,7 +3502,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = [fsBold]
             ParentBiDiMode = False
             ParentFont = False
-            TabOrder = 3
+            TabOrder = 2
             OnKeyPress = aliq_lucro_stKeyPress
           end
           object REDUCAO_ICMS_ST: TEdit
@@ -3587,7 +3518,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = [fsBold]
             ParentBiDiMode = False
             ParentFont = False
-            TabOrder = 4
+            TabOrder = 3
             OnKeyPress = REDUCAO_ICMS_STKeyPress
           end
           object cod_comb: TEdit
@@ -3603,7 +3534,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = [fsBold]
             ParentBiDiMode = False
             ParentFont = False
-            TabOrder = 5
+            TabOrder = 4
             OnKeyPress = cod_combKeyPress
           end
           object pauta_bc: TEdit
@@ -3619,7 +3550,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = [fsBold]
             ParentBiDiMode = False
             ParentFont = False
-            TabOrder = 6
+            TabOrder = 5
             OnKeyDown = pauta_bcKeyDown
             OnKeyPress = pauta_bcKeyPress
           end
@@ -3636,7 +3567,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = [fsBold]
             ParentBiDiMode = False
             ParentFont = False
-            TabOrder = 7
+            TabOrder = 6
             OnKeyDown = edt_generoKeyDown
             OnKeyPress = edt_generoKeyPress
           end
@@ -3700,9 +3631,97 @@ object Frm_Produto: TFrm_Produto
             StyleFocused.LookAndFeel.SkinName = 'Office2013White'
             StyleHot.LookAndFeel.NativeStyle = False
             StyleHot.LookAndFeel.SkinName = 'Office2013White'
-            TabOrder = 8
+            TabOrder = 7
             OnKeyDown = edt_leisKeyDown
             Width = 71
+          end
+          object edICMS_CST: TEdit
+            Left = 68
+            Top = 23
+            Width = 51
+            Height = 26
+            BiDiMode = bdRightToLeft
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'Helvetica Neue'
+            Font.Style = [fsBold]
+            MaxLength = 3
+            ParentBiDiMode = False
+            ParentFont = False
+            TabOrder = 8
+            OnExit = edICMS_CSTExit
+            OnKeyDown = edICMS_CSTKeyDown
+          end
+          object edICMS_CST_NOME: TEdit
+            Left = 119
+            Top = 23
+            Width = 429
+            Height = 25
+            TabStop = False
+            CharCase = ecUpperCase
+            Color = clSilver
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'Helvetica Neue'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 9
+            OnKeyDown = edGRUPOKeyDown
+          end
+          object cxButton5: TcxButton
+            Left = 550
+            Top = 21
+            Width = 22
+            Height = 22
+            LookAndFeel.NativeStyle = False
+            LookAndFeel.SkinName = 'Metropolis'
+            OptionsImage.Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              2000000000000004000000000000000000000000000000000000000000000000
+              0000000000000000000000000000000000000000000000000000000000000000
+              000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+              0000000000000000000000000000000000000000000000000000000000000000
+              0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+              00000000000100000004000000090000000D0000000F0000000F0000000C0000
+              00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+              0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+              1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+              02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+              50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+              3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+              C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+              7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+              88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+              C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+              87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+              F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+              A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+              FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+              A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+              F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+              92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+              D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+              6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+              A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+              84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+              4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+              F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+              020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+              A2FC62504B900404031000000002000000000000000000000000000000000000
+              000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+              1F3E000000060000000100000000000000000000000000000000}
+            PaintStyle = bpsGlyph
+            TabOrder = 10
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            OnClick = cxButton5Click
           end
         end
         object GroupBox22: TGroupBox

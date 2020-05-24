@@ -12,6 +12,9 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  183|24/05/20|wander              |Tratando ST do ICMS no novo padrão:       |
+|     |   10:44|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
+|-----|--------|--------------------|------------------------------------------|
 |  182|23/05/20|wander              |CFOP é uma característica do produto na   |
 |     |   21:37|cadastro_produto    |operação eo não do produto                |
 |     |        |                    |Verificar com o Vitor                     |
