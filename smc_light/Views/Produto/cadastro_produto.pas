@@ -100,8 +100,6 @@ type
     sql_increment: TFDQuery;
     sql_incrementAUTO_INCREMENT: TLargeintField;
     DS_PRODUTO: TDataSource;
-    DS_CSTICMS: TDataSource;
-    SQL_CSTICMS: TFDQuery;
     DS_CSTPIS: TDataSource;
     DS_CSTCOFINS: TDataSource;
     SQL_CSTPIS: TFDQuery;
@@ -150,8 +148,6 @@ type
     SQL_IPI: TFDQuery;
     DS_IPI: TDataSource;
     SQL_PRODUTONCM: TStringField;
-    SQL_CSTICMSCODIGO: TStringField;
-    SQL_CSTICMSDESCRICAO: TStringField;
     SQL_PRODUTOSTATUS_CADASTRAL: TStringField;
     SQL_TIPO_ITEM: TFDQuery;
     DS_TIPO_ITEM: TDataSource;
@@ -324,7 +320,6 @@ type
     mmINFO_ADICIONAIS: TMemo;
     edCODIGO_ALFANUMERICO: TEdit;
     edCODIGO: TEdit;
-    cbTipoItem: TcxDBLookupComboBox;
     cb_ponto_impressao: TcxDBLookupComboBox;
     edNFe_nDI: TEdit;
     cxGroupBox1: TcxGroupBox;
@@ -334,8 +329,6 @@ type
     edPRECO_FINAL_VAREJO: TEdit;
     edPRECO_FINAL_DISTRIBUIDOR: TEdit;
     edPRECO_FINAL_ATACADO: TEdit;
-    cxLabel1: TcxLabel;
-    cbSTATUS_CADASTRAL: TcxCheckBox;
     edGRUPO_NOME: TEdit;
     edSUBGRUPO_NOME: TEdit;
     edMARCA_NOME: TEdit;
@@ -357,7 +350,6 @@ type
     Label56: TLabel;
     Label60: TLabel;
     Label57: TLabel;
-    cb_origem: TcxDBLookupComboBox;
     aliq_icms: TEdit;
     aliq_lucro_st: TEdit;
     REDUCAO_ICMS_ST: TEdit;
@@ -534,6 +526,13 @@ type
     edICMS_CST: TEdit;
     edICMS_CST_NOME: TEdit;
     cxButton5: TcxButton;
+    cbSTATUS_CADASTRAL: TcxCheckBox;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    cxButton6: TcxButton;
+    Edit3: TEdit;
+    Edit5: TEdit;
+    cxButton7: TcxButton;
     procedure BtnGravarClick(Sender: TObject);
     procedure cxTabSheet5Show(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -1062,7 +1061,6 @@ procedure TFrm_Produto.CarregarDadosInternos;
 
 begin
 
-  SQL_CSTICMS.Active := true;
   SQL_CSTPIS.Active := true;
 
   SQL_CSTCOFINS.Active := true;
@@ -1339,8 +1337,6 @@ begin
   Frm_unidade := TFrm_unidade.CREATE(Application);
   Frm_unidade.ShowModal;
   UNIDADE_MEDIDA.Text := Frm_unidade.SQL_LISTASIGLA.value;
-//  ESTOQUE_MINIMO.SetFocus;
-
 end;
 
 procedure TFrm_Produto.bControleGravarClick(Sender: TObject);
@@ -1424,7 +1420,6 @@ begin
     SQL_PRODUTO.Cancel;
     SQL_PRODUTO.Active := false;
     sql_increment.Active := false;
-    SQL_CSTICMS.Active := false;
     SQL_CSTPIS.Active := false;
     SQL_CSTCOFINS.Active := false;
     SQL_ORIGEM_ICMS.Active := false;
@@ -1917,7 +1912,6 @@ end;
 procedure TFrm_Produto.cxTabSheet5Show(Sender: TObject);
 begin
   //Panel1.show;
-  SQL_CSTICMS.Active := true;
   SQL_ORIGEM_ICMS.Active := true;
 end;
 
