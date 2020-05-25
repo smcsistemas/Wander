@@ -12,18 +12,6 @@ uses
   FireDAC.Comp.Client, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, cxButtons,
   Vcl.DBCtrls, Vcl.ExtCtrls,
 
-
-
-
-
-
-
-
-
-
-
-
-
   vw_consulta_generica, c_Globals, h_functions, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinBlueprint, dxSkinCaramel, dxSkinCoffee,
   dxSkinDarkRoom, dxSkinDarkSide, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy, dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky,
   dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
@@ -269,12 +257,12 @@ begin
     with Frm_produto do
     begin
       Frm_produto.consultarultimo := false;
-      with SQL_PRODUTO do
-      begin
-        CLOSE;
-        parambyname('pcodigo').Value := SQL_VENDA_ITENSCODIGO_PRODUTO.Value;
-        OPEN;
-      end;
+      //with SQL_PRODUTO do
+      //begin
+      //  CLOSE;
+      //  parambyname('pcodigo').Value := SQL_VENDA_ITENSCODIGO_PRODUTO.Value;
+      //  OPEN;
+      //end;
       visible := false;
       show;
       btnalterar.Click;

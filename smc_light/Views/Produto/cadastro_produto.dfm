@@ -724,7 +724,6 @@ object Frm_Produto: TFrm_Produto
             FieldName = 'DESCRICAO'
           end>
         Properties.ListOptions.ShowHeader = False
-        Properties.ListSource = DS_TIPO_ITEM
         Properties.OnEditValueChanged = cbTipoItemConsultaPropertiesEditValueChanged
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clWindowText
@@ -1395,7 +1394,6 @@ object Frm_Produto: TFrm_Produto
               Left = 559
               Top = 236
               DataBinding.DataField = 'ponto_impressao_id'
-              DataBinding.DataSource = DS_PRODUTO
               ParentFont = False
               Properties.ButtonGlyph.Data = {
                 36040000424D3604000000000000360000002800000010000000100000000100
@@ -1712,7 +1710,6 @@ object Frm_Produto: TFrm_Produto
               Font.Style = []
               ParentFont = False
               TabOrder = 10
-              Text = '04'
               OnExit = edTIPO_ITEMExit
               OnKeyDown = edTIPO_ITEMKeyDown
             end
@@ -3414,10 +3411,10 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
           end
-          object aliq_icms: TEdit
+          object edALIQ_ICMS: TEdit
             Left = 67
             Top = 79
-            Width = 80
+            Width = 38
             Height = 26
             BiDiMode = bdRightToLeft
             Font.Charset = ANSI_CHARSET
@@ -3428,7 +3425,8 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 6
-            OnKeyPress = aliq_icmsKeyPress
+            OnExit = edALIQ_ICMSExit
+            OnKeyPress = edALIQ_ICMSKeyPress
           end
           object aliq_lucro_st: TEdit
             Left = 103
@@ -3514,7 +3512,6 @@ object Frm_Produto: TFrm_Produto
             Left = 504
             Top = 115
             DataBinding.DataField = 'LEIS'
-            DataBinding.DataSource = DS_PRODUTO
             ParentFont = False
             Properties.Buttons = <
               item
@@ -3577,7 +3574,7 @@ object Frm_Produto: TFrm_Produto
             Left = 68
             Top = 23
             Width = 36
-            Height = 25
+            Height = 26
             BiDiMode = bdRightToLeft
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
@@ -3666,7 +3663,7 @@ object Frm_Produto: TFrm_Produto
             Left = 68
             Top = 51
             Width = 36
-            Height = 25
+            Height = 26
             BiDiMode = bdRightToLeft
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
@@ -4117,7 +4114,6 @@ object Frm_Produto: TFrm_Produto
             Left = 67
             Top = 21
             DataBinding.DataField = 'PIS_CST'
-            DataBinding.DataSource = DS_PRODUTO
             ParentFont = False
             Properties.ButtonGlyph.Data = {
               36040000424D3604000000000000360000002800000010000000100000000100
@@ -4205,7 +4201,6 @@ object Frm_Produto: TFrm_Produto
             Left = 67
             Top = 50
             DataBinding.DataField = 'COFINS_CST'
-            DataBinding.DataSource = DS_PRODUTO
             ParentFont = False
             Properties.ButtonGlyph.Data = {
               36040000424D3604000000000000360000002800000010000000100000000100
@@ -4989,11 +4984,6 @@ object Frm_Produto: TFrm_Produto
       Origin = 'AUTO_INCREMENT'
     end
   end
-  object DS_PRODUTO: TDataSource
-    DataSet = SQL_PRODUTO
-    Left = 464
-    Top = 336
-  end
   object DS_CSTPIS: TDataSource
     DataSet = SQL_CSTPIS
     Left = 192
@@ -5042,625 +5032,10 @@ object Frm_Produto: TFrm_Produto
       Size = 150
     end
   end
-  object DS_ORIGEM_ICMS: TDataSource
-    DataSet = SQL_ORIGEM_ICMS
-    Left = 1208
-    Top = 160
-  end
-  object SQL_ORIGEM_ICMS: TFDQuery
-    Connection = Module.connection
-    SQL.Strings = (
-      'SELECT * FROM origem_mercadoria'
-      'ORDER BY CODIGO')
-    Left = 1216
-    Top = 224
-    object SQL_ORIGEM_ICMSCODIGO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      Size = 2
-    end
-    object SQL_ORIGEM_ICMSDESCRICAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO'
-      Origin = 'DESCRICAO'
-      Size = 200
-    end
-  end
   object DS_Lista: TDataSource
     DataSet = qConsulta
     Left = 200
     Top = 128
-  end
-  object SQL_PRODUTO: TFDQuery
-    Connection = Module.connection
-    SQL.Strings = (
-      'select * from produto where codigo = :pcodigo')
-    Left = 456
-    Top = 384
-    ParamData = <
-      item
-        Name = 'pcodigo'
-        DataType = ftWideString
-        FDDataType = dtWideString
-        ParamType = ptInput
-        Value = Null
-      end>
-    object SQL_PRODUTOCODIGO: TFDAutoIncField
-      AutoGenerateValue = arNone
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      ClientAutoIncrement = False
-      ServerAutoIncrement = False
-      AutoIncrementSeed = 1
-      AutoIncrementStep = 1
-      IdentityInsert = True
-    end
-    object SQL_PRODUTOCODIGO_BARRAS: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_BARRAS'
-      Origin = 'CODIGO_BARRAS'
-      Size = 50
-    end
-    object SQL_PRODUTODESCRICAO_PRODUTO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO_PRODUTO'
-      Origin = 'DESCRICAO_PRODUTO'
-      Size = 200
-    end
-    object SQL_PRODUTOINFO_ADICIONAIS: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'INFO_ADICIONAIS'
-      Origin = 'INFO_ADICIONAIS'
-      Size = 200
-    end
-    object SQL_PRODUTOREFERENCIA_FABRICANTE: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'REFERENCIA_FABRICANTE'
-      Origin = 'REFERENCIA_FABRICANTE'
-      Size = 50
-    end
-    object SQL_PRODUTOMARCA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'MARCA'
-      Origin = 'MARCA'
-      Size = 50
-    end
-    object SQL_PRODUTOFAMILIA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'FAMILIA'
-      Origin = 'FAMILIA'
-      Size = 50
-    end
-    object SQL_PRODUTOGRUPO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'GRUPO'
-      Origin = 'GRUPO'
-      Size = 50
-    end
-    object SQL_PRODUTOSUBGRUPO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'SUBGRUPO'
-      Origin = 'SUBGRUPO'
-      Size = 50
-    end
-    object SQL_PRODUTOUNIDADE_MEDIDA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'UNIDADE_MEDIDA'
-      Origin = 'UNIDADE_MEDIDA'
-      Size = 50
-    end
-    object SQL_PRODUTODATA_CADASTRO: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'DATA_CADASTRO'
-      Origin = 'DATA_CADASTRO'
-      EditMask = '!99/99/0000;1;_'
-    end
-    object SQL_PRODUTOTIPO_ITEM: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'TIPO_ITEM'
-      Origin = 'TIPO_ITEM'
-      Size = 100
-    end
-    object SQL_PRODUTOLEIS: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'LEIS'
-      Origin = 'LEIS'
-    end
-    object SQL_PRODUTOGENERO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'GENERO'
-      Origin = 'GENERO'
-    end
-    object SQL_PRODUTOFORNECEDOR_NOME: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'FORNECEDOR_NOME'
-      Origin = 'FORNECEDOR_NOME'
-      Size = 100
-    end
-    object SQL_PRODUTOCOD_COMB: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'COD_COMB'
-      Origin = 'COD_COMB'
-    end
-    object SQL_PRODUTOENQUADRAMENTO_IPI: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'ENQUADRAMENTO_IPI'
-      Origin = 'ENQUADRAMENTO_IPI'
-    end
-    object SQL_PRODUTOCODIGO_LOCALIZACAO: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_LOCALIZACAO'
-      Origin = 'CODIGO_LOCALIZACAO'
-    end
-    object SQL_PRODUTOICMS_CST: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'ICMS_CST'
-      Origin = 'ICMS_CST'
-      Size = 2
-    end
-    object SQL_PRODUTOICMS_IPI: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'ICMS_IPI'
-      Origin = 'ICMS_IPI'
-      Size = 2
-    end
-    object SQL_PRODUTOPIS_CST: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'PIS_CST'
-      Origin = 'PIS_CST'
-      Size = 2
-    end
-    object SQL_PRODUTOCSOSN: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'CSOSN'
-      Origin = 'CSOSN'
-      Size = 200
-    end
-    object SQL_PRODUTOCEST: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'CEST'
-      Origin = 'CEST'
-      Size = 50
-    end
-    object SQL_PRODUTOANP: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'ANP'
-      Origin = 'ANP'
-      Size = 50
-    end
-    object SQL_PRODUTOEX_IPI: TSingleField
-      AutoGenerateValue = arDefault
-      FieldName = 'EX_IPI'
-      Origin = 'EX_IPI'
-    end
-    object SQL_PRODUTONCM: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'NCM'
-      Origin = 'NCM'
-      Size = 50
-    end
-    object SQL_PRODUTOSTATUS_CADASTRAL: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'STATUS_CADASTRAL'
-      Origin = 'STATUS_CADASTRAL'
-      FixedChar = True
-      Size = 7
-    end
-    object SQL_PRODUTOCOD_BARRAS_AUXILIAR: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'COD_BARRAS_AUXILIAR'
-      Origin = 'COD_BARRAS_AUXILIAR'
-      Size = 50
-    end
-    object SQL_PRODUTOPESAVEL: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'PESAVEL'
-      Origin = 'PESAVEL'
-      FixedChar = True
-      Size = 3
-    end
-    object SQL_PRODUTOUTILIZA_ETIQUETA_BALANCA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'UTILIZA_ETIQUETA_BALANCA'
-      Origin = 'UTILIZA_ETIQUETA_BALANCA'
-      FixedChar = True
-      Size = 3
-    end
-    object SQL_PRODUTOUSA_LOTE: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'USA_LOTE'
-      Origin = 'USA_LOTE'
-      FixedChar = True
-      Size = 3
-    end
-    object SQL_PRODUTOCONTROLADO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CONTROLADO'
-      Origin = 'CONTROLADO'
-      FixedChar = True
-      Size = 3
-    end
-    object SQL_PRODUTOPRECO_CUSTO: TBCDField
-      FieldName = 'PRECO_CUSTO'
-      Origin = 'PRECO_CUSTO'
-      DisplayFormat = 'R$ #,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOQUANT_MINI_ATACADO_D: TBCDField
-      FieldName = 'QUANT_MINI_ATACADO_D'
-      Origin = 'QUANT_MINI_ATACADO_D'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTOQUANT_MINI_DISTRIBUIDOR_D: TBCDField
-      FieldName = 'QUANT_MINI_DISTRIBUIDOR_D'
-      Origin = 'QUANT_MINI_DISTRIBUIDOR_D'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTOQUANT_MINI_VAREJO_D: TBCDField
-      FieldName = 'QUANT_MINI_VAREJO_D'
-      Origin = 'QUANT_MINI_VAREJO_D'
-      EditFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTOALIQ_ICMS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_ICMS'
-      Origin = 'ALIQ_ICMS'
-      Precision = 10
-    end
-    object SQL_PRODUTOCODIGO_FORNECEDOR: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_FORNECEDOR'
-      Origin = 'CODIGO_FORNECEDOR'
-    end
-    object SQL_PRODUTOQUANT_MINI_VAREJO_P: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'QUANT_MINI_VAREJO_P'
-      Origin = 'QUANT_MINI_VAREJO_P'
-      Precision = 10
-    end
-    object SQL_PRODUTOQUANT_MINI_ATACADO_P: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'QUANT_MINI_ATACADO_P'
-      Origin = 'QUANT_MINI_ATACADO_P'
-      Precision = 10
-    end
-    object SQL_PRODUTOQUANT_MINI_DISTRIBUIDOR_P: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'QUANT_MINI_DISTRIBUIDOR_P'
-      Origin = 'QUANT_MINI_DISTRIBUIDOR_P'
-      Precision = 10
-    end
-    object SQL_PRODUTOQUANT_MINI_VAREJO_Q: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'QUANT_MINI_VAREJO_Q'
-      Origin = 'QUANT_MINI_VAREJO_Q'
-      Precision = 10
-    end
-    object SQL_PRODUTOQUANT_MINI_ATACADO_Q: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'QUANT_MINI_ATACADO_Q'
-      Origin = 'QUANT_MINI_ATACADO_Q'
-      Precision = 10
-    end
-    object SQL_PRODUTOQUANT_MINI_DISTRIBUIDOR_Q: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'QUANT_MINI_DISTRIBUIDOR_Q'
-      Origin = 'QUANT_MINI_DISTRIBUIDOR_Q'
-      Precision = 10
-    end
-    object SQL_PRODUTOPRECO_FINAL_ATACADO: TBCDField
-      FieldName = 'PRECO_FINAL_ATACADO'
-      Origin = 'PRECO_FINAL_ATACADO'
-      DisplayFormat = 'R$ #,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOPRECO_FINAL_DISTRIBUIDOR: TBCDField
-      FieldName = 'PRECO_FINAL_DISTRIBUIDOR'
-      Origin = 'PRECO_FINAL_DISTRIBUIDOR'
-      DisplayFormat = 'R$ #,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOPRECO_FINAL_VAREJO: TBCDField
-      FieldName = 'PRECO_FINAL_VAREJO'
-      Origin = 'PRECO_FINAL_VAREJO'
-      DisplayFormat = 'R$ #,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOPROMO_VAREJO: TBCDField
-      FieldName = 'PROMO_VAREJO'
-      Origin = 'PROMO_VAREJO'
-      DisplayFormat = 'R$ #,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOPROMO_ATACADO: TBCDField
-      FieldName = 'PROMO_ATACADO'
-      Origin = 'PROMO_ATACADO'
-      DisplayFormat = 'R$ #,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOPROMO_DISTRIBUIDOR: TBCDField
-      FieldName = 'PROMO_DISTRIBUIDOR'
-      Origin = 'PROMO_DISTRIBUIDOR'
-      DisplayFormat = 'R$ #,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOVALOR_PROMOCIONAL_ATACADO: TBCDField
-      FieldName = 'VALOR_PROMOCIONAL_ATACADO'
-      Origin = 'VALOR_PROMOCIONAL_ATACADO'
-      DisplayFormat = 'R$ #,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField
-      FieldName = 'VALOR_PROMOCIONAL_DISTRIBUIDOR'
-      Origin = 'VALOR_PROMOCIONAL_DISTRIBUIDOR'
-      DisplayFormat = 'R$ #,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOVALOR_PROMOCIONAL_VAREJO: TBCDField
-      FieldName = 'VALOR_PROMOCIONAL_VAREJO'
-      Origin = 'VALOR_PROMOCIONAL_VAREJO'
-      DisplayFormat = 'R$ #,##0.00'
-      EditFormat = '#,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOSALDO: TBCDField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'SALDO'
-      Origin = 'SALDO'
-      Precision = 10
-    end
-    object SQL_PRODUTOALIQ_ICMS_SUBST: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_ICMS_SUBST'
-      Origin = 'ALIQ_ICMS_SUBST'
-    end
-    object SQL_PRODUTOALIQ_IPI: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_IPI'
-      Origin = 'ALIQ_IPI'
-    end
-    object SQL_PRODUTOMARGEM_LUCRO: TBCDField
-      FieldName = 'MARGEM_LUCRO'
-      Origin = 'MARGEM_LUCRO'
-      DisplayFormat = '#,##0.00%'
-      EditFormat = '#,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOMARGEM_L_VAREJO: TBCDField
-      FieldName = 'MARGEM_L_VAREJO'
-      Origin = 'MARGEM_L_VAREJO'
-      DisplayFormat = '#,##0.00%'
-      EditFormat = '#,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOMARGEM_L_ATACADO: TBCDField
-      FieldName = 'MARGEM_L_ATACADO'
-      Origin = 'MARGEM_L_ATACADO'
-      DisplayFormat = '#,##0.00%'
-      EditFormat = '#,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOMARGEM_L_DISTRIBUIDOR: TBCDField
-      FieldName = 'MARGEM_L_DISTRIBUIDOR'
-      Origin = 'MARGEM_L_DISTRIBUIDOR'
-      DisplayFormat = '#,##0.00%'
-      EditFormat = '#,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTODESCONTO_MAXIMO: TBCDField
-      FieldName = 'DESCONTO_MAXIMO'
-      Origin = 'DESCONTO_MAXIMO'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTODESCONTO_M_VAREJO: TBCDField
-      FieldName = 'DESCONTO_M_VAREJO'
-      Origin = 'DESCONTO_M_VAREJO'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTODESCONTO_M_ATACADO: TBCDField
-      FieldName = 'DESCONTO_M_ATACADO'
-      Origin = 'DESCONTO_M_ATACADO'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTODESCONTO_M_DISTRIBUIDOR: TBCDField
-      FieldName = 'DESCONTO_M_DISTRIBUIDOR'
-      Origin = 'DESCONTO_M_DISTRIBUIDOR'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTODESCONTO_L_VAREJO: TBCDField
-      FieldName = 'DESCONTO_L_VAREJO'
-      Origin = 'DESCONTO_L_VAREJO'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTODESCONTO_L_ATACADO: TBCDField
-      FieldName = 'DESCONTO_L_ATACADO'
-      Origin = 'DESCONTO_L_ATACADO'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTODESCONTO_L_DISTRIBUIDOR: TBCDField
-      FieldName = 'DESCONTO_L_DISTRIBUIDOR'
-      Origin = 'DESCONTO_L_DISTRIBUIDOR'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTOFRETE: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'FRETE'
-      Origin = 'FRETE'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTOIMPOSTO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'IMPOSTO'
-      Origin = 'IMPOSTO'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTOCUSTO_MEDIO: TBCDField
-      FieldName = 'CUSTO_MEDIO'
-      Origin = 'CUSTO_MEDIO'
-      DisplayFormat = 'R$ #,##0.00'
-      Precision = 10
-    end
-    object SQL_PRODUTOCOMISSAO_BALCAO: TBCDField
-      FieldName = 'COMISSAO_BALCAO'
-      Origin = 'COMISSAO_BALCAO'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTOCOMISSAO_EXTERNA: TBCDField
-      FieldName = 'COMISSAO_EXTERNA'
-      Origin = 'COMISSAO_EXTERNA'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTOESTOQUE_MINIMO: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'ESTOQUE_MINIMO'
-      Origin = 'ESTOQUE_MINIMO'
-      Size = 50
-    end
-    object SQL_PRODUTODESP_OPERACIONAIS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESP_OPERACIONAIS'
-      Origin = 'DESP_OPERACIONAIS'
-      DisplayFormat = '#,##0.00%'
-      Precision = 10
-    end
-    object SQL_PRODUTOPAGAR_COMISSAO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'PAGAR_COMISSAO'
-      Origin = 'PAGAR_COMISSAO'
-      Precision = 10
-    end
-    object SQL_PRODUTOCOFINS_CST: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'COFINS_CST'
-      Origin = 'COFINS_CST'
-      Size = 2
-    end
-    object SQL_PRODUTOCODIGO_ORIGEM_MERCADORIA: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_ORIGEM_MERCADORIA'
-      Origin = 'CODIGO_ORIGEM_MERCADORIA'
-    end
-    object SQL_PRODUTOCOD_BALANCA_1: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'COD_BALANCA_1'
-      Origin = 'COD_BALANCA_1'
-      Size = 8
-    end
-    object SQL_PRODUTOCOD_BALANCA_2: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'COD_BALANCA_2'
-      Origin = 'COD_BALANCA_2'
-      Size = 8
-    end
-    object SQL_PRODUTOCOD_BALANCA_3: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'COD_BALANCA_3'
-      Origin = 'COD_BALANCA_3'
-      Size = 8
-    end
-    object SQL_PRODUTOCST_IPI: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CST_IPI'
-      Origin = 'CST_IPI'
-      Size = 3
-    end
-    object SQL_PRODUTOBALCAO_COMISSAO_ATACADO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'BALCAO_COMISSAO_ATACADO'
-      Origin = 'BALCAO_COMISSAO_ATACADO'
-      Precision = 10
-    end
-    object SQL_PRODUTOBALCAO_COMISSAO_DISTRIBUIDOR: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'BALCAO_COMISSAO_DISTRIBUIDOR'
-      Origin = 'BALCAO_COMISSAO_DISTRIBUIDOR'
-      Precision = 10
-    end
-    object SQL_PRODUTOEXTERNA_COMISSAO_VAREJO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'EXTERNA_COMISSAO_VAREJO'
-      Origin = 'EXTERNA_COMISSAO_VAREJO'
-      Precision = 10
-    end
-    object SQL_PRODUTOEXTERNA_COMISSAO_ATACADO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'EXTERNA_COMISSAO_ATACADO'
-      Origin = 'EXTERNA_COMISSAO_ATACADO'
-      Precision = 10
-    end
-    object SQL_PRODUTOEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'EXTERNA_COMISSAO_DISTRIBUIDOR'
-      Origin = 'EXTERNA_COMISSAO_DISTRIBUIDOR'
-      Precision = 10
-    end
-    object SQL_PRODUTOBALCAO_COMISSAO_VAREJO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'BALCAO_COMISSAO_VAREJO'
-      Origin = 'BALCAO_COMISSAO_VAREJO'
-      Precision = 10
-    end
-    object SQL_PRODUTOPROMOCAO_INICIO: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'PROMOCAO_INICIO'
-      Origin = 'PROMOCAO_INICIO'
-    end
-    object SQL_PRODUTOPROMOCAO_TERMINO: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'PROMOCAO_TERMINO'
-      Origin = 'PROMOCAO_TERMINO'
-    end
-    object SQL_PRODUTOREDUCAO_ICMS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'REDUCAO_ICMS'
-      Origin = 'REDUCAO_ICMS'
-      Precision = 10
-    end
-    object SQL_PRODUTOREDUCAO_ICMS_ST: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'REDUCAO_ICMS_ST'
-      Origin = 'REDUCAO_ICMS_ST'
-      Precision = 10
-    end
-    object SQL_PRODUTOLUCRO_SUBST_TRIBUTARIA: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'LUCRO_SUBST_TRIBUTARIA'
-      Origin = 'LUCRO_SUBST_TRIBUTARIA'
-      Precision = 10
-    end
-    object SQL_PRODUTOVALOR_PAUTA_BC_ST: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_PAUTA_BC_ST'
-      Origin = 'VALOR_PAUTA_BC_ST'
-      Precision = 10
-    end
-    object SQL_PRODUTOponto_impressao_id: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'ponto_impressao_id'
-      Origin = 'ponto_impressao_id'
-    end
   end
   object DS_CSTIPI: TDataSource
     DataSet = SQL_CSTIPI
@@ -5687,31 +5062,6 @@ object Frm_Produto: TFrm_Produto
     DataSet = SQL_IPI
     Left = 912
     Top = 168
-  end
-  object SQL_TIPO_ITEM: TFDQuery
-    Connection = Module.connection
-    SQL.Strings = (
-      'SELECT * FROM PRODUTO_TIPO_ITEM')
-    Left = 832
-    Top = 240
-    object SQL_TIPO_ITEMCODIGO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO'
-      Required = True
-      Size = 50
-    end
-    object SQL_TIPO_ITEMDESCRICAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO'
-      Required = True
-      Size = 100
-    end
-  end
-  object DS_TIPO_ITEM: TDataSource
-    AutoEdit = False
-    DataSet = SQL_TIPO_ITEM
-    Left = 824
-    Top = 152
   end
   object SQL_DADOS_ROTINAS: TFDQuery
     Connection = Module.connection

@@ -1,8 +1,12 @@
 ﻿{ v 21.10.16 17:18 }
 unit cadastro_produto;
 {
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  192|24/05/20|wander              |Tratando Alíquota de ICMS                 |
+|     |   22:06|cadastro_produto    |                                          |
 |-----|--------|--------------------|------------------------------------------|
 |  191|24/05/20|wander              |Tratando Origem do Produto no novo padrão:|
 |     |   19:56|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
@@ -108,7 +112,6 @@ type
   TFrm_Produto = class(TForm)
     sql_increment: TFDQuery;
     sql_incrementAUTO_INCREMENT: TLargeintField;
-    DS_PRODUTO: TDataSource;
     DS_CSTPIS: TDataSource;
     DS_CSTCOFINS: TDataSource;
     SQL_CSTPIS: TFDQuery;
@@ -117,103 +120,19 @@ type
     SQL_CSTCOFINSDESCRICAO: TStringField;
     SQL_CSTPISCODIGO: TStringField;
     SQL_CSTPISDESCRICAO: TStringField;
-    DS_ORIGEM_ICMS: TDataSource;
-    SQL_ORIGEM_ICMS: TFDQuery;
-    SQL_ORIGEM_ICMSCODIGO: TStringField;
-    SQL_ORIGEM_ICMSDESCRICAO: TStringField;
     DS_Lista: TDataSource;
-    SQL_PRODUTO: TFDQuery;
     DS_CSTIPI: TDataSource;
     cxPageControl1: TcxPageControl;
     cxTabSheet1: TcxTabSheet;
     edArgumentoDePesquisa: TEdit;
     tab_Cadastrar: TcxTabSheet;
-    SQL_PRODUTOCODIGO: TFDAutoIncField;
-    SQL_PRODUTOCODIGO_BARRAS: TStringField;
-    SQL_PRODUTODESCRICAO_PRODUTO: TStringField;
-    SQL_PRODUTOINFO_ADICIONAIS: TStringField;
-    SQL_PRODUTOREFERENCIA_FABRICANTE: TStringField;
-    SQL_PRODUTOMARCA: TStringField;
-    SQL_PRODUTOFAMILIA: TStringField;
-    SQL_PRODUTOGRUPO: TStringField;
-    SQL_PRODUTOSUBGRUPO: TStringField;
-    SQL_PRODUTOUNIDADE_MEDIDA: TStringField;
-    SQL_PRODUTODATA_CADASTRO: TDateField;
-    SQL_PRODUTOTIPO_ITEM: TStringField;
-    SQL_PRODUTOLEIS: TStringField;
-    SQL_PRODUTOGENERO: TStringField;
-    SQL_PRODUTOFORNECEDOR_NOME: TStringField;
-    SQL_PRODUTOCOD_COMB: TStringField;
-    SQL_PRODUTOENQUADRAMENTO_IPI: TIntegerField;
-    SQL_PRODUTOCODIGO_LOCALIZACAO: TIntegerField;
-    SQL_PRODUTOICMS_CST: TStringField;
-    SQL_PRODUTOICMS_IPI: TStringField;
-    SQL_PRODUTOPIS_CST: TStringField;
-    SQL_PRODUTOCSOSN: TStringField;
-    SQL_PRODUTOCEST: TStringField;
-    SQL_PRODUTOANP: TStringField;
-    SQL_PRODUTOEX_IPI: TSingleField;
     SQL_CSTIPI: TFDQuery;
     SQL_IPI: TFDQuery;
     DS_IPI: TDataSource;
-    SQL_PRODUTONCM: TStringField;
-    SQL_PRODUTOSTATUS_CADASTRAL: TStringField;
-    SQL_TIPO_ITEM: TFDQuery;
-    DS_TIPO_ITEM: TDataSource;
-    SQL_TIPO_ITEMCODIGO: TStringField;
-    SQL_TIPO_ITEMDESCRICAO: TStringField;
-    SQL_PRODUTOCOD_BARRAS_AUXILIAR: TStringField;
     SQL_DADOS_ROTINAS: TFDQuery;
     DS_DADOS_ROTINAS: TDataSource;
-    SQL_PRODUTOPESAVEL: TStringField;
-    SQL_PRODUTOUTILIZA_ETIQUETA_BALANCA: TStringField;
-    SQL_PRODUTOUSA_LOTE: TStringField;
-    SQL_PRODUTOCONTROLADO: TStringField;
     popmenu: TPopupMenu;
     duplicar_cadastro: TMenuItem;
-    SQL_PRODUTOPRECO_CUSTO: TBCDField;
-    SQL_PRODUTOQUANT_MINI_ATACADO_D: TBCDField;
-    SQL_PRODUTOQUANT_MINI_DISTRIBUIDOR_D: TBCDField;
-    SQL_PRODUTOQUANT_MINI_VAREJO_D: TBCDField;
-    SQL_PRODUTOALIQ_ICMS: TBCDField;
-    SQL_PRODUTOCODIGO_FORNECEDOR: TIntegerField;
-    SQL_PRODUTOQUANT_MINI_VAREJO_P: TBCDField;
-    SQL_PRODUTOQUANT_MINI_ATACADO_P: TBCDField;
-    SQL_PRODUTOQUANT_MINI_DISTRIBUIDOR_P: TBCDField;
-    SQL_PRODUTOQUANT_MINI_VAREJO_Q: TBCDField;
-    SQL_PRODUTOQUANT_MINI_ATACADO_Q: TBCDField;
-    SQL_PRODUTOQUANT_MINI_DISTRIBUIDOR_Q: TBCDField;
-    SQL_PRODUTOPRECO_FINAL_ATACADO: TBCDField;
-    SQL_PRODUTOPRECO_FINAL_DISTRIBUIDOR: TBCDField;
-    SQL_PRODUTOPRECO_FINAL_VAREJO: TBCDField;
-    SQL_PRODUTOPROMO_VAREJO: TBCDField;
-    SQL_PRODUTOPROMO_ATACADO: TBCDField;
-    SQL_PRODUTOPROMO_DISTRIBUIDOR: TBCDField;
-    SQL_PRODUTOVALOR_PROMOCIONAL_ATACADO: TBCDField;
-    SQL_PRODUTOVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
-    SQL_PRODUTOVALOR_PROMOCIONAL_VAREJO: TBCDField;
-    SQL_PRODUTOSALDO: TBCDField;
-    SQL_PRODUTOALIQ_ICMS_SUBST: TStringField;
-    SQL_PRODUTOALIQ_IPI: TStringField;
-    SQL_PRODUTOMARGEM_LUCRO: TBCDField;
-    SQL_PRODUTOMARGEM_L_VAREJO: TBCDField;
-    SQL_PRODUTOMARGEM_L_ATACADO: TBCDField;
-    SQL_PRODUTOMARGEM_L_DISTRIBUIDOR: TBCDField;
-    SQL_PRODUTODESCONTO_MAXIMO: TBCDField;
-    SQL_PRODUTODESCONTO_M_VAREJO: TBCDField;
-    SQL_PRODUTODESCONTO_M_ATACADO: TBCDField;
-    SQL_PRODUTODESCONTO_M_DISTRIBUIDOR: TBCDField;
-    SQL_PRODUTODESCONTO_L_VAREJO: TBCDField;
-    SQL_PRODUTODESCONTO_L_ATACADO: TBCDField;
-    SQL_PRODUTODESCONTO_L_DISTRIBUIDOR: TBCDField;
-    SQL_PRODUTOFRETE: TBCDField;
-    SQL_PRODUTOIMPOSTO: TBCDField;
-    SQL_PRODUTOCUSTO_MEDIO: TBCDField;
-    SQL_PRODUTOCOMISSAO_BALCAO: TBCDField;
-    SQL_PRODUTOCOMISSAO_EXTERNA: TBCDField;
-    SQL_PRODUTOESTOQUE_MINIMO: TStringField;
-    SQL_PRODUTODESP_OPERACIONAIS: TBCDField;
-    SQL_PRODUTOPAGAR_COMISSAO: TBCDField;
     SQL_DADOS_ROTINAScodigo_regime_tributario: TStringField;
     SQL_DADOS_ROTINASid: TIntegerField;
     SQL_DADOS_ROTINASaliq_imcs: TBCDField;
@@ -222,24 +141,12 @@ type
     SQL_DADOS_ROTINASaliq_cofins_cumulativo: TBCDField;
     SQL_DADOS_ROTINASaliq_cofins_nao_cumulativo: TBCDField;
     SQL_DADOS_ROTINASaliq_iss: TBCDField;
-    SQL_PRODUTOCOFINS_CST: TStringField;
     Label58: TLabel;
     Label63: TLabel;
     Label68: TLabel;
     SQL_DADOS_ROTINASPASTA_FTP: TStringField;
     SQL_DADOS_ROTINAScaminho_backup: TStringField;
     SQL_DADOS_ROTINAShost_name: TStringField;
-    SQL_PRODUTOCODIGO_ORIGEM_MERCADORIA: TIntegerField;
-    SQL_PRODUTOCOD_BALANCA_1: TStringField;
-    SQL_PRODUTOCOD_BALANCA_2: TStringField;
-    SQL_PRODUTOCOD_BALANCA_3: TStringField;
-    SQL_PRODUTOCST_IPI: TStringField;
-    SQL_PRODUTOBALCAO_COMISSAO_ATACADO: TBCDField;
-    SQL_PRODUTOBALCAO_COMISSAO_DISTRIBUIDOR: TBCDField;
-    SQL_PRODUTOEXTERNA_COMISSAO_VAREJO: TBCDField;
-    SQL_PRODUTOEXTERNA_COMISSAO_ATACADO: TBCDField;
-    SQL_PRODUTOEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField;
-    SQL_PRODUTOBALCAO_COMISSAO_VAREJO: TBCDField;
     SQL_PRECO_FAIXA: TFDQuery;
     DS_PRECO_FAIXA: TDataSource;
     SQL_PRECO_FAIXAID: TFDAutoIncField;
@@ -281,22 +188,15 @@ type
     tbViewPRECO: TcxGridDBColumn;
     cbTipoItemConsulta: TcxLookupComboBox;
     tbViewESTOQUE_MINIMO: TcxGridDBColumn;
-    SQL_PRODUTOPROMOCAO_INICIO: TDateField;
-    SQL_PRODUTOPROMOCAO_TERMINO: TDateField;
     QtdeItens: TLabel;
     Label51: TLabel;
     Label35: TLabel;
     lblprodcads: TLabel;
     tbViewPRECO_PROMO: TcxGridDBColumn;
-    SQL_PRODUTOREDUCAO_ICMS: TBCDField;
-    SQL_PRODUTOREDUCAO_ICMS_ST: TBCDField;
-    SQL_PRODUTOLUCRO_SUBST_TRIBUTARIA: TBCDField;
-    SQL_PRODUTOVALOR_PAUTA_BC_ST: TBCDField;
     sql_ponto_impressao: TFDQuery;
     ds_ponto_impressao: TDataSource;
     sql_ponto_impressaoid: TFDAutoIncField;
     sql_ponto_impressaonome: TStringField;
-    SQL_PRODUTOponto_impressao_id: TIntegerField;
     N1: TMenuItem;
     ImprimirEtiqueta1: TMenuItem;
     Panel2: TPanel;
@@ -316,7 +216,7 @@ type
     Label56: TLabel;
     Label60: TLabel;
     Label57: TLabel;
-    aliq_icms: TEdit;
+    edALIQ_ICMS: TEdit;
     aliq_lucro_st: TEdit;
     REDUCAO_ICMS_ST: TEdit;
     cod_comb: TEdit;
@@ -544,7 +444,6 @@ type
     edTIPO_ITEM_NOME: TEdit;
     btn_Tipo: TcxButton;
     procedure BtnGravarClick(Sender: TObject);
-    procedure cxTabSheet5Show(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
     procedure btn_subClick(Sender: TObject);
@@ -552,9 +451,6 @@ type
     procedure btn_grupoClick(Sender: TObject);
     procedure btn_undClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
-    procedure DBEdit2Exit(Sender: TObject);
-    procedure cxDBTextEdit28Exit(Sender: TObject);
-    procedure cxDBTextEdit35Exit(Sender: TObject);
     procedure cxTabSheet1Show(Sender: TObject);
     procedure Edit1KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit3KeyPress(Sender: TObject; var Key: Char);
@@ -589,7 +485,7 @@ type
     procedure cxDBTextEdit28KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit26KeyPress(Sender: TObject; var Key: Char);
     procedure DBEdit1KeyPress(Sender: TObject; var Key: Char);
-    procedure aliq_icmsKeyPress(Sender: TObject; var Key: Char);
+    procedure edALIQ_ICMSKeyPress(Sender: TObject; var Key: Char);
     procedure REDUCAO_ICMS_STKeyPress(Sender: TObject; var Key: Char);
     procedure pauta_bcKeyPress(Sender: TObject; var Key: Char);
     procedure edt_generoKeyPress(Sender: TObject; var Key: Char);
@@ -624,14 +520,9 @@ type
     procedure FormShow(Sender: TObject);
     procedure btn_ncmClick(Sender: TObject);
     procedure RegraTributacao;
-    procedure LimparCampos;
-    procedure cxTabSheet3Show(Sender: TObject);
     procedure duplicar_cadastroClick(Sender: TObject);
     function RemoveEspaco(const str: String): string;
     procedure edDESCRICAO_PRODUTOExit(Sender: TObject);
-    procedure MARGEM_LUCROExit(Sender: TObject);
-    procedure MARGEM_L_DISTRIBUIDORExit(Sender: TObject);
-    procedure MARGEM_L_ATACADOExit(Sender: TObject);
     procedure chk_ativoClick(Sender: TObject);
     procedure chk_inativoClick(Sender: TObject);
     procedure chk_todosClick(Sender: TObject);
@@ -640,10 +531,7 @@ type
     procedure DBEdit14KeyPress(Sender: TObject; var Key: Char);
     procedure DBEdit15KeyPress(Sender: TObject; var Key: Char);
     procedure DBEdit12KeyPress(Sender: TObject; var Key: Char);
-    procedure DBEdit14Exit(Sender: TObject);
     procedure CodBalancaCheck(campo: TDBEdit);
-    procedure DBEdit15Exit(Sender: TObject);
-    procedure DBEdit12Exit(Sender: TObject);
     procedure cxButton7Click(Sender: TObject);
     procedure edCODIGO_ALFANUMERICOKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     function CodBarrasRepetido: Boolean;
@@ -654,20 +542,15 @@ type
     procedure edt_cestKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure NCMKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edCSOSNKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure DBEdit13Change(Sender: TObject);
     procedure calcular_preco_produtos(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBEdit13KeyPress(Sender: TObject; var Key: Char);
     procedure dbcsticmsClick(Sender: TObject);
     procedure DESP_OPERACIONAISClick(Sender: TObject);
-    procedure CUSTO_MEDIOClick(Sender: TObject);
-    procedure MARGEM_L_ATACADOClick(Sender: TObject);
     procedure BALCAO_COMISSAO_VAREJOClick(Sender: TObject);
     procedure BALCAO_COMISSAO_DISTRIBUIDORClick(Sender: TObject);
     procedure BALCAO_COMISSAO_ATACADOClick(Sender: TObject);
     procedure EXTERNA_COMISSAO_DISTRIBUIDORClick(Sender: TObject);
     procedure EXTERNA_COMISSAO_ATACADOClick(Sender: TObject);
-    procedure DBEdit13Click(Sender: TObject);
-    procedure ESTOQUE_MINIMOClick(Sender: TObject);
     procedure sClick(Sender: TObject);
     procedure DESCONTO_M_DISTRIBUIDORClick(Sender: TObject);
     procedure DESCONTO_M_ATACADOClick(Sender: TObject);
@@ -684,7 +567,6 @@ type
     procedure edt_precoExit(Sender: TObject);
     procedure PRECO_FINAL_ATACADOKeyPress(Sender: TObject; var Key: Char);
     procedure chk_diff_estoquePropertiesChange(Sender: TObject);
-    procedure ESTOQUE_MINIMOChange(Sender: TObject);
     procedure PreencherCSOSN(value: string);
     procedure PreencherNCM(value: string);
     procedure preencherANP(value: string);
@@ -746,6 +628,7 @@ type
     procedure edCODIGO_ORIGEM_MERCADORIAKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edCODIGO_ORIGEM_MERCADORIAExit(Sender: TObject);
+    procedure edALIQ_ICMSExit(Sender: TObject);
 
   private
     { Private declarations }
@@ -764,6 +647,7 @@ type
     procedure ConsultarCST_ICMS;
     procedure ConsultarUnidades;
     function DadosCorretos:Boolean;
+    function AliquotaICMSCorreta: Boolean;
     procedure ApagarRegistro;
     procedure InserirRegistro;
 
@@ -1081,7 +965,7 @@ begin
   sql_ponto_impressao.Active := false;
   sql_ponto_impressao.Active := true;
 
-  edCODIGO.Text := inttostr(SQL_PRODUTOCODIGO.value);
+  //edCODIGO.Text := inttostr(SQL_PRODUTOCODIGO.value);
   //u_funcoes.CamposObrigatorios_CorPadrao([DESCRICAO_PRODUTO, UNIDADE_MEDIDA, {PRECO_FINAL_VAREJO,} NCM], [], [TcxComboBox(dbcsticms)]);
 //  u_funcoes.CamposObrigatorios_CorPadrao([{edt_qtde_min, edt_preco, TEdit(cb_tipo}], []);
   carregar_faixa;
@@ -1091,13 +975,13 @@ begin
     btn_cad_faixa}], false);
 
 
-  PreencherCSOSN(SQL_PRODUTOCSOSN.AsString);
+  //PreencherCSOSN(SQL_PRODUTOCSOSN.AsString);
 
-  PreencherNCM(SQL_PRODUTONCM.AsString);
+  //PreencherNCM(SQL_PRODUTONCM.AsString);
 
-  preencherANP(SQL_PRODUTOANP.AsString);
+  //preencherANP(SQL_PRODUTOANP.AsString);
 
-  PreencherCFOP(SQL_PRODUTOICMS_CST.AsString);
+  //PreencherCFOP(SQL_PRODUTOICMS_CST.AsString);
 
 //  cb_tipo.itemindex := 0;
 //  btnlocalizacao.Enabled := false;
@@ -1121,14 +1005,6 @@ begin
     '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  ';
 end;
 
-procedure TFrm_Produto.LimparCampos;
-begin
-  SQL_PRODUTO.Active := true;
-  SQL_PRODUTO.Active := false;
-//  TFunctions.ClearFields([edt_qtde_min, edt_preco]);
-//  cb_tipo.itemindex := -1;
-end;
-
 procedure TFrm_Produto.LimparCFOP_CSOSN;
 begin
   edCSOSN.Clear;
@@ -1150,7 +1026,13 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.aliq_icmsKeyPress(Sender: TObject;
+procedure TFrm_Produto.edALIQ_ICMSExit(Sender: TObject);
+begin
+   if not AliquotaICMSCorreta then
+      exit;
+end;
+
+procedure TFrm_Produto.edALIQ_ICMSKeyPress(Sender: TObject;
   var Key: Char);
 begin
   inherited;
@@ -1398,14 +1280,10 @@ begin
       deletar_prod_preco_faixa := false;
     end;
 
-    SQL_PRODUTO.Cancel;
-    SQL_PRODUTO.Active := false;
     sql_increment.Active := false;
     SQL_CSTPIS.Active := false;
     SQL_CSTCOFINS.Active := false;
-    SQL_ORIGEM_ICMS.Active := false;
     edCODIGO.Clear;
-    LimparCampos;
     CarregarDadosInternos;
   end;
 end;
@@ -1652,30 +1530,15 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.cxDBTextEdit28Exit(Sender: TObject);
-var
-  soma: real;
-begin
-//  if DESP_OPERACIONAIS.Text = '' then
-//  begin
-//    DESP_OPERACIONAIS.Text := '0';
-//  end;
-
-  soma := SQL_PRODUTOFRETE.value + SQL_PRODUTOIMPOSTO.value + SQL_PRODUTODESP_OPERACIONAIS.value;
-  SQL_PRODUTOCUSTO_MEDIO.value := (SQL_PRODUTOPRECO_CUSTO.value * soma / 100) + SQL_PRODUTOPRECO_CUSTO.value;
-end;
-
 procedure TFrm_Produto.cxDBTextEdit28KeyPress(Sender: TObject;
-
-  var Key: Char);
+var Key: Char);
 begin
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
 procedure TFrm_Produto.cxDBTextEdit29KeyPress(Sender: TObject;
-
-  var Key: Char);
+var Key: Char);
 begin
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
@@ -1705,14 +1568,7 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.cxDBTextEdit35Exit(Sender: TObject);
-begin
-  SQL_PRODUTOPRECO_FINAL_VAREJO.value := (SQL_PRODUTOCUSTO_MEDIO.value * SQL_PRODUTOMARGEM_LUCRO.value / 100) +
-    SQL_PRODUTOCUSTO_MEDIO.value;
-end;
-
 procedure TFrm_Produto.cxDBTextEdit35KeyPress(Sender: TObject;
-
   var Key: Char);
 begin
   inherited;
@@ -1897,17 +1753,6 @@ begin
   lblprodcads.Caption := TProduto.CREATE.countAll;
 end;
 
-procedure TFrm_Produto.cxTabSheet3Show(Sender: TObject);
-begin
-  //Panel1.hide;
-end;
-
-procedure TFrm_Produto.cxTabSheet5Show(Sender: TObject);
-begin
-  //Panel1.show;
-  SQL_ORIGEM_ICMS.Active := true;
-end;
-
 function TFrm_Produto.DadosCorretos: Boolean;
 begin
    result := false;
@@ -1939,25 +1784,40 @@ begin
          exit;
       end;
 
+   if not AliquotaICMSCorreta then
+      exit;
+
    Result := True;
 
 end;
 
-procedure TFrm_Produto.ESTOQUE_MINIMOChange(Sender: TObject);
+function TFrm_Produto.AliquotaICMSCorreta: Boolean;
 begin
-//  if ESTOQUE_MINIMO.Text <> '' then
-//    DBEdit13.OnChange(DBEdit13);
+   result := True;
+   if edALIQ_ICMS.Text = '' then
+      exit;
 
-end;
-
-procedure TFrm_Produto.ESTOQUE_MINIMOClick(Sender: TObject);
-begin
-//  ESTOQUE_MINIMO.SelectAll;
+   result := False;
+   if edALIQ_ICMS.Text <> '' then
+   begin
+      if not NumeroPositivoValido(edALIQ_ICMS.Text) then
+      begin
+         wnAlerta('Cadastrar Produto','Alíquota do ICMS inválida', taLeftJustify, 12);
+         edALIQ_ICMS.SetFocus;
+         exit;
+      end;
+      if StrToFloat(MascToStr(edALIQ_ICMS.Text)) > 100 then
+      begin
+         wnAlerta('Cadastrar Produto','Alíquota do ICMS inválida', taLeftJustify, 12);
+         edALIQ_ICMS.SetFocus;
+         exit;
+      end;
+   end;
+   result := True;
 end;
 
 procedure TFrm_Produto.ESTOQUE_MINIMOKeyPress(Sender: TObject;
-
-  var Key: Char);
+var Key: Char);
 begin
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
@@ -1968,39 +1828,15 @@ begin
   RegraTributacao;
 end;
 
-procedure TFrm_Produto.DBEdit12Exit(Sender: TObject);
-begin
-//  CodBalancaCheck(DBEdit12);
-end;
-
 procedure TFrm_Produto.DBEdit12KeyPress(Sender: TObject;
-
-  var Key: Char);
+var Key: Char);
 begin
   inherited;
   Key := ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.DBEdit13Change(Sender: TObject);
-var
-  value: extended;
-begin
-//  if ESTOQUE_MINIMO.Text = '' then
-//    value := 10
-//  else
-//    value := strtofloat(ESTOQUE_MINIMO.Text);
-//
-//  DBEdit13.Color := colorirestoque(DBEdit13.Text, value);
-end;
-
-procedure TFrm_Produto.DBEdit13Click(Sender: TObject);
-begin
-//  DBEdit13.SelectAll;
-end;
-
 procedure TFrm_Produto.DBEdit13KeyPress(Sender: TObject;
-
-  var Key: Char);
+var Key: Char);
 begin
   if not TEnv.Tuser.isGerente then
   begin
@@ -2014,61 +1850,36 @@ begin
   end;
 end;
 
-procedure TFrm_Produto.DBEdit14Exit(Sender: TObject);
-begin
-//  CodBalancaCheck(DBEdit14);
-end;
-
 procedure TFrm_Produto.DBEdit14KeyPress(Sender: TObject;
-
-  var Key: Char);
+var Key: Char);
 begin
   inherited;
   Key := ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.DBEdit15Exit(Sender: TObject);
-begin
-//  CodBalancaCheck(DBEdit15);
-end;
-
 procedure TFrm_Produto.DBEdit15KeyPress(Sender: TObject;
-
-  var Key: Char);
+var Key: Char);
 begin
   inherited;
   Key := ApenasNumeros(Key);
 end;
 
 procedure TFrm_Produto.DBEdit1KeyPress(Sender: TObject;
-
-  var Key: Char);
+var Key: Char);
 begin
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.DBEdit2Exit(Sender: TObject);
-var
-  soma: real;
-begin
-
-  soma := SQL_PRODUTOFRETE.value + SQL_PRODUTOIMPOSTO.value + SQL_PRODUTODESP_OPERACIONAIS.value;
-  SQL_PRODUTOCUSTO_MEDIO.value := (SQL_PRODUTOPRECO_CUSTO.value * soma / 100) + SQL_PRODUTOPRECO_CUSTO.value;
-
-end;
-
 procedure TFrm_Produto.DBEdit2KeyPress(Sender: TObject;
-
-  var Key: Char);
+var Key: Char);
 begin
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
 procedure TFrm_Produto.CFOPCODIGOKeyPress(Sender: TObject;
-
-  var Key: Char);
+var Key: Char);
 begin
   inherited;
   Key := ApenasNumeros(Key);
@@ -2282,8 +2093,7 @@ begin
 end;
 
 procedure TFrm_Produto.edCSOSNKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
+var Key: Word; Shift: TShiftState);
 begin
   if Key = vk_return then
     if edCSOSN.Text <> '' then
@@ -2291,24 +2101,16 @@ begin
 end;
 
 procedure TFrm_Produto.edCSOSNKeyPress(Sender: TObject;
-
-  var Key: Char);
+var Key: Char);
 begin
   inherited;
   Key := ApenasNumeros(Key);
 end;
 
 procedure TFrm_Produto.edCSOSNKeyUp(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
+var Key: Word; Shift: TShiftState);
 begin
   edCSOSN.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(edCSOSN.Text));
-end;
-
-procedure TFrm_Produto.CUSTO_MEDIOClick(Sender: TObject);
-begin
-//  CUSTO_MEDIO.SelStart := 0;
-//  CUSTO_MEDIO.SelectAll;
 end;
 
 procedure TFrm_Produto.carregar_faixa;
@@ -2772,7 +2574,8 @@ begin
    qAUX.sql.add('       ICMS_CST,                 ');
    qAUX.sql.add('       CSOSN,                    ');
    qAUX.sql.add('       TIPO_ITEM,                ');
-   qAUX.sql.add('       CODIGO_ORIGEM_MERCADORIA  ');
+   qAUX.sql.add('       CODIGO_ORIGEM_MERCADORIA, ');
+   qAUX.sql.add('       ALIQ_ICMS                 ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
    qAUX.sql.add('     (:CODIGO,                   ');
@@ -2794,7 +2597,8 @@ begin
    qAUX.sql.add('      :ICMS_CST,                 ');
    qAUX.sql.add('      :CSOSN,                    ');
    qAUX.sql.add('      :TIPO_ITEM,                ');
-   qAUX.sql.add('      :CODIGO_ORIGEM_MERCADORIA  ');
+   qAUX.sql.add('      :CODIGO_ORIGEM_MERCADORIA, ');
+   qAUX.sql.add('      :ALIQ_ICMS                 ');
    qAUX.sql.add('     )                           ');
 
    //Codigo
@@ -2829,6 +2633,7 @@ begin
    qAUX.ParamByName('CSOSN'                   ).AsString  := edCSOSN.Text;
    qAUX.ParamByName('TIPO_ITEM'               ).AsString  := edTIPO_ITEM.Text;
    qAUX.ParamByName('CODIGO_ORIGEM_MERCADORIA').AsString  := edCODIGO_ORIGEM_MERCADORIA.Text;
+   qAUX.ParamByName('ALIQ_ICMS'               ).AsFloat   := ValorValido(edALIQ_ICMS.Text);
    qAUX.ExecSQL;
 
    qAUX.Free;
@@ -2854,36 +2659,6 @@ var Key: Word; Shift: TShiftState);
 begin
   if (Key = vk_F1) then
     ConsultarMarcas;
-end;
-
-procedure TFrm_Produto.MARGEM_LUCROExit(Sender: TObject);
-var
-  resultado: real;
-begin
-  resultado := SQL_PRODUTOCUSTO_MEDIO.value * SQL_PRODUTOMARGEM_LUCRO.value / 100;
-  SQL_PRODUTOPRECO_FINAL_VAREJO.value := SQL_PRODUTOCUSTO_MEDIO.value + resultado;
-end;
-
-procedure TFrm_Produto.MARGEM_L_ATACADOClick(Sender: TObject);
-begin
-//  MARGEM_L_ATACADO.SelStart := 0;
-//  MARGEM_L_ATACADO.SelectAll;
-end;
-
-procedure TFrm_Produto.MARGEM_L_ATACADOExit(Sender: TObject);
-var
-  resultado: real;
-begin
-  resultado := SQL_PRODUTOCUSTO_MEDIO.value * SQL_PRODUTOMARGEM_L_ATACADO.value / 100;
-  SQL_PRODUTOPRECO_FINAL_ATACADO.value := SQL_PRODUTOCUSTO_MEDIO.value + resultado;
-end;
-
-procedure TFrm_Produto.MARGEM_L_DISTRIBUIDORExit(Sender: TObject);
-var
-  resultado: real;
-begin
-  resultado := SQL_PRODUTOCUSTO_MEDIO.value * SQL_PRODUTOMARGEM_L_DISTRIBUIDOR.value / 100;
-  SQL_PRODUTOPRECO_FINAL_DISTRIBUIDOR.value := SQL_PRODUTOCUSTO_MEDIO.value + resultado;
 end;
 
 procedure TFrm_Produto.Mostrar_Produto;
@@ -2935,7 +2710,10 @@ begin
    //Ativo/Inativo
    cbSTATUS_CADASTRAL.Checked      := (qConsulta.FieldByName('STATUS_CADASTRAL').AsString = 'ATIVO');
 
-   //Fiscal
+   //Dados Fiscais
+   //---------------------------------------------------------------------------
+
+   //Código da Situação Tributária do ICMS
    edICMS_CST.Text                 := qConsulta.FieldByName('ICMS_CST').AsString;
    edICMS_CST_NOME.Text            := fCST_ICMS_DESCRICAO(edICMS_CST.Text);
 
@@ -2943,9 +2721,14 @@ begin
    edCODIGO_ORIGEM_MERCADORIA.Text      := qConsulta.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsString;
    edCODIGO_ORIGEM_MERCADORIA_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edCODIGO_ORIGEM_MERCADORIA.Text);
 
+   //Alíquota do ICMS
+   edALIQ_ICMS.Text                := Float_to_String(qConsulta.FieldByName('ALIQ_ICMS').AsFloat);
+
+   //CSOSN - Código da Situação da Operação no Símples Nacional
    edCSOSN.Text                    := qConsulta.FieldByName('CSOSN').AsString;
    if edCSOSN.Text <> '' then
       PreencherCSOSN(edCSOSN.Text);
+
 
    // Exibir a aba Cadastro
    cxPageControl1.ActivePAgeIndex  := 1;
@@ -3012,8 +2795,8 @@ begin
     try
       xANP := TANP.CREATE(strtoint(value));
       edt_anp.Text := value;
-      if SQL_PRODUTO.State in [dsEdit, dsInsert] then
-        edt_anp.Text := value;
+      //if SQL_PRODUTO.State in [dsEdit, dsInsert] then
+      //  edt_anp.Text := value;
       lbl_anp.Caption := xANP.descricao;
     except
       on e: exception do
@@ -3060,8 +2843,8 @@ begin
   try
      xCSOSN := TCsosn.CREATE(value);
      edCSOSN.Text := value;
-     if SQL_PRODUTO.State in [dsEdit, dsInsert] then
-       edCSOSN.Text := value;
+     //if SQL_PRODUTO.State in [dsEdit, dsInsert] then
+     //  edCSOSN.Text := value;
      lbl_csosn.Caption := xCSOSN.descricao;
    except
      on e: exception do
@@ -3083,8 +2866,8 @@ begin
       begin
         mmNCM.Text := xNCM.descricao;
         edt_cest.Text := xNCM.CEST;
-        if SQL_PRODUTO.State in [dsEdit, dsInsert] then
-          edt_cest.Text := xNCM.CEST;
+        //if SQL_PRODUTO.State in [dsEdit, dsInsert] then
+        //  edt_cest.Text := xNCM.CEST;
         if edt_cest.Text = '0' then
         begin
           mmNCM.Clear;
@@ -3200,7 +2983,7 @@ begin
           40: { ISENTA }
             begin
               PreencherCSOSN('103');
-              aliq_icms.Text := '0';
+              edALIQ_ICMS.Text := '0';
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3208,7 +2991,7 @@ begin
           41: { Não TRIBUTADA }
             begin
               PreencherCSOSN('102');
-              aliq_icms.Text := '0';
+              edALIQ_ICMS.Text := '0';
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3216,7 +2999,7 @@ begin
           60: { SUBSTITUIÇÃO }
             begin
               PreencherCSOSN('500');
-              aliq_icms.Text := '0';
+              edALIQ_ICMS.Text := '0';
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3230,7 +3013,7 @@ begin
           00: { TRIBUTADO }
             begin
               PreencherCSOSN('102');
-              aliq_icms.Text := floattostr(ALIQ_ICMS_PARAMETROS);
+              edALIQ_ICMS.Text := floattostr(ALIQ_ICMS_PARAMETROS);
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3238,7 +3021,7 @@ begin
           40: { ISENTA }
             begin
               PreencherCSOSN('103');
-              aliq_icms.Text := '0';
+              edALIQ_ICMS.Text := '0';
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3246,7 +3029,7 @@ begin
           60: { SUBSTITUIÇÃO }
             begin
               PreencherCSOSN('500');
-              aliq_icms.Text := '0';
+              edALIQ_ICMS.Text := '0';
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3260,7 +3043,7 @@ begin
           00: { TRIBUTADO }
             begin
               PreencherCSOSN('102');
-              aliq_icms.Text := floattostr(ALIQ_ICMS_PARAMETROS);
+              edALIQ_ICMS.Text := floattostr(ALIQ_ICMS_PARAMETROS);
               cstpis.EditValue := '01';
               cstcofins.EditValue := '01';
               exit;
@@ -3268,7 +3051,7 @@ begin
           40: { ISENTA }
             begin
               PreencherCSOSN('103');
-              aliq_icms.Text := '0';
+              edALIQ_ICMS.Text := '0';
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3276,7 +3059,7 @@ begin
           60: { SUBSTITUIÇÃO }
             begin
               PreencherCSOSN('500');
-              aliq_icms.Text := '0';
+              edALIQ_ICMS.Text := '0';
               cstpis.EditValue := '08';
               cstcofins.EditValue := '08';
               exit;

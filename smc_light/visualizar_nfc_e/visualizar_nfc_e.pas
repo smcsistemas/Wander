@@ -265,12 +265,12 @@ begin
       with Frm_produto do
       begin
         Frm_produto.consultarultimo := false;
-        with SQL_PRODUTO do
-        begin
-          Close;
-          ParamByName('pcodigo').Value := SQL_NFCE_ITENSCODIGO_PRODUTO.Value;
-          Open;
-        end;
+        //with SQL_PRODUTO do
+        //begin
+        //  Close;
+        //  ParamByName('pcodigo').Value := SQL_NFCE_ITENSCODIGO_PRODUTO.Value;
+        //  Open;
+        //end;
         visible := false;
         Show;
         BtnAlterar.Click;
