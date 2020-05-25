@@ -2975,6 +2975,10 @@ begin
     ALIQ_ICMS_PARAMETROS := SQL_DADOS_ROTINASaliq_imcs.value;
   //edCST_ICMS := strtoint(dbcsticms.EditValue);
   PreencherCFOP(inttostr(CST_ICMS));
+
+//  CRT  CST_ICMS   CSOSN
+
+
   case CRT of
     1: { SIMPLES NACIONAL }
       begin
