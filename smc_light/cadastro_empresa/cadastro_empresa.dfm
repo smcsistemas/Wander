@@ -2958,7 +2958,7 @@ object Form_Empresa: TForm_Empresa
   end
   object grpContatoCont: TGroupBox
     Left = 653
-    Top = 569
+    Top = 456
     Width = 443
     Height = 128
     Caption = '  Contato Cont'#225'bil  '
@@ -3104,7 +3104,7 @@ object Form_Empresa: TForm_Empresa
   end
   object grpEscritorioCont: TGroupBox
     Left = 653
-    Top = 426
+    Top = 330
     Width = 443
     Height = 125
     Caption = '  Escrit'#243'rio Cont'#225'bil  '
@@ -3268,9 +3268,9 @@ object Form_Empresa: TForm_Empresa
   end
   object grpLogo: TGroupBox
     Left = 885
-    Top = 58
-    Width = 211
-    Height = 252
+    Top = 2
+    Width = 214
+    Height = 227
     Caption = '  Logotipo  '
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clNone
@@ -3302,7 +3302,7 @@ object Form_Empresa: TForm_Empresa
     end
     object cxButton1: TcxButton
       Left = 14
-      Top = 211
+      Top = 195
       Width = 87
       Height = 25
       Caption = 'Inserir'
@@ -3355,7 +3355,7 @@ object Form_Empresa: TForm_Empresa
     end
     object cxButton2: TcxButton
       Left = 114
-      Top = 211
+      Top = 195
       Width = 86
       Height = 25
       Caption = 'Remover'
@@ -3409,7 +3409,7 @@ object Form_Empresa: TForm_Empresa
   end
   object grpContatosAd: TGroupBox
     Left = 653
-    Top = 237
+    Top = 173
     Width = 211
     Height = 158
     Caption = '  Contatos Respons'#225'vel  '
@@ -3543,7 +3543,7 @@ object Form_Empresa: TForm_Empresa
   end
   object grpContatos: TGroupBox
     Left = 653
-    Top = 42
+    Top = 16
     Width = 211
     Height = 155
     Caption = '  Contatos Empresa  '
@@ -4481,6 +4481,25 @@ object Form_Empresa: TForm_Empresa
       StyleHot.LookAndFeel.SkinName = 'Office2013White'
       TabOrder = 2
     end
+  end
+  object RadioGroup1: TRadioGroup
+    Left = 650
+    Top = 590
+    Width = 320
+    Height = 105
+    Caption = 'Regime Tribut'#225'rio - CRT'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    Items.Strings = (
+      '0 - N'#227'o se Aplica'
+      '1 - Simples Nacional'
+      '2 - Simples Nacional com Excesso de Receita'
+      '3 - Regime Normal (Lucro real ou presumido)')
+    ParentFont = False
+    TabOrder = 16
   end
   object SQL_Empresa: TFDQuery
     Connection = Module.connection

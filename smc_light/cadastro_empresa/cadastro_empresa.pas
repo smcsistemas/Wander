@@ -2,6 +2,20 @@
 unit cadastro_empresa;
 {
 ================================================================================
+| ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  199|25/05/20|wander              |Incluida informação                       |
+|     |   14:55|cadastro_empresa    |CRT - Código de Regime Tributário:        |                      |
+|     |        |                    |0-Não se Aplica                           |
+|     |        |                    |1-Símples Nacional                        |
+|     |        |                    |2-Símples Nacional com Excesso de Receita |
+|     |        |                    |3-Regime Normal (Lucro real ou presumido) |
+|-----|--------|--------------------|------------------------------------------|
+|   93|20/04/20|Wander              |Passou a tratar a nova coluna pCOFINS     |
+|     |   17:30|cadastro_empresa    |(aliquota de COFINS)                      |
+================================================================================
+
+================================================================================
 |   DATA   |DESENVOLVEDOR|HISTORICO DA ALTERACAO DO CODIGO                     |
 |----------|-------------|-----------------------------------------------------|
 |25/02/2020|WANDER       |Obriga razao social <= 60 caracteres                 |
@@ -9,12 +23,6 @@ unit cadastro_empresa;
 |----------|-------------|-----------------------------------------------------|
 |02/04/2020|WANDER       |Incluido parâmetro "Contribuinte do ICMS" (S/N)      |
 |        63|             |                                                     |
-================================================================================
-================================================================================
-|ITEM |DATA |DESENVOLVEDOR       |HISTORICO                                    |
-|-----|-----|--------------------|---------------------------------------------|
-|   93|20/04|Wander              |Passou a tratar a nova coluna pCOFINS        |
-|     |17:30|                    |(aliquota de COFINS)                         |
 ================================================================================
 
 }
@@ -299,6 +307,7 @@ type
     SQL_Empresalocal_key: TMemoField;
     SQL_EmpresaCONTRIBUINTE_ICMS: TStringField;
     SQL_EmpresapCOFINS: TBCDField;
+    RadioGroup1: TRadioGroup;
     procedure BtnIncluirClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BtnGravarClick(Sender: TObject);

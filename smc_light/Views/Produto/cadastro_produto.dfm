@@ -58,10 +58,6 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 0
       ParentFont = False
       OnShow = cxTabSheet1Show
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label58: TLabel
         Left = 20
         Top = 555
@@ -549,30 +545,6 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 50
           end
-          object tbViewCSOSN: TcxGridDBColumn
-            DataBinding.FieldName = 'CSOSN'
-            PropertiesClassName = 'TcxLabelProperties'
-            Properties.Alignment.Horz = taCenter
-            HeaderAlignmentHorz = taCenter
-            HeaderGlyphAlignmentHorz = taCenter
-            MinWidth = 70
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.IgnoreTimeForFiltering = False
-            Options.IncSearch = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Options.HorzSizing = False
-            Options.Moving = False
-            Width = 70
-          end
           object tbViewNCM: TcxGridDBColumn
             DataBinding.FieldName = 'NCM'
             PropertiesClassName = 'TcxLabelProperties'
@@ -765,10 +737,6 @@ object Frm_Produto: TFrm_Produto
     object tab_Cadastrar: TcxTabSheet
       Caption = 'Cadastro'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel2: TPanel
         Left = 9
         Top = 6
@@ -3285,7 +3253,7 @@ object Frm_Produto: TFrm_Produto
         Top = -32
         Width = 606
         Height = 438
-        TabOrder = 3
+        TabOrder = 2
         object GroupBox23: TGroupBox
           Left = 4
           Top = 37
@@ -3811,34 +3779,6 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
           end
-          object Label77: TLabel
-            Left = 6
-            Top = 21
-            Width = 51
-            Height = 18
-            Caption = 'CSOSN:'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object lbl_csosn: TLabel
-            Left = 206
-            Top = 26
-            Width = 608
-            Height = 14
-            Caption = 
-              'GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG' +
-              'GGGGGGGGGGGG'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clGrayText
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-          end
           object lbl_anp: TLabel
             Left = 206
             Top = 117
@@ -3950,69 +3890,6 @@ object Frm_Produto: TFrm_Produto
             TabOrder = 1
             OnClick = btn_ncmClick
           end
-          object edCSOSN: TEdit
-            Left = 62
-            Top = 17
-            Width = 58
-            Height = 26
-            BiDiMode = bdLeftToRight
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentBiDiMode = False
-            ParentFont = False
-            TabOrder = 4
-            OnKeyDown = edCSOSNKeyDown
-            OnKeyPress = edCSOSNKeyPress
-            OnKeyUp = edCSOSNKeyUp
-          end
-          object btn_csosn: TcxButton
-            Left = 122
-            Top = 17
-            Width = 23
-            Height = 26
-            LookAndFeel.NativeStyle = False
-            LookAndFeel.SkinName = 'Metropolis'
-            OptionsImage.Glyph.Data = {
-              36040000424D3604000000000000360000002800000010000000100000000100
-              2000000000000004000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
-              00000000000100000004000000090000000D0000000F0000000F0000000C0000
-              00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
-              0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
-              1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
-              02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
-              50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
-              3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
-              C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
-              7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
-              88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
-              C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
-              87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
-              F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
-              A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
-              FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
-              A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
-              F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
-              92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
-              D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
-              6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
-              A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
-              84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
-              4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
-              F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
-              020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
-              A2FC62504B900404031000000002000000000000000000000000000000000000
-              000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
-              1F3E000000060000000100000000000000000000000000000000}
-            TabOrder = 5
-            OnClick = btn_csosnClick
-          end
           object mmNCM: TcxMemo
             Left = 206
             Top = 47
@@ -4026,7 +3903,7 @@ object Frm_Produto: TFrm_Produto
             Style.Font.Name = 'Helvetica Neue'
             Style.Font.Style = [fsBold]
             Style.IsFontAssigned = True
-            TabOrder = 6
+            TabOrder = 4
             Height = 66
             Width = 367
           end
@@ -4072,7 +3949,7 @@ object Frm_Produto: TFrm_Produto
               A2FC62504B900404031000000002000000000000000000000000000000000000
               000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
               1F3E000000060000000100000000000000000000000000000000}
-            TabOrder = 7
+            TabOrder = 5
             OnClick = btn_anpClick
           end
         end
@@ -4274,97 +4151,6 @@ object Frm_Produto: TFrm_Produto
           end
         end
       end
-      object grupocfop: TGroupBox
-        Left = 11
-        Top = 458
-        Width = 587
-        Height = 135
-        Caption = '  C'#243'digo CFOP  '
-        Color = clGradientInactiveCaption
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -15
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentBackground = False
-        ParentColor = False
-        ParentFont = False
-        TabOrder = 2
-        object gdCFOPNAT: TcxGrid
-          Left = 2
-          Top = 20
-          Width = 583
-          Height = 113
-          Align = alClient
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 0
-          LookAndFeel.NativeStyle = False
-          LookAndFeel.SkinName = 'Office2013White'
-          object gdCFOPNATview: TcxGridDBTableView
-            Navigator.Buttons.CustomButtons = <>
-            DataController.DataSource = DS_CFOP_NATOP
-            DataController.Summary.DefaultGroupSummaryItems = <>
-            DataController.Summary.FooterSummaryItems = <>
-            DataController.Summary.SummaryGroups = <>
-            OptionsView.NoDataToDisplayInfoText = ' . . .'
-            OptionsView.GroupByBox = False
-            object gdCFOPNATviewID: TcxGridDBColumn
-              DataBinding.FieldName = 'ID'
-              Visible = False
-            end
-            object gdCFOPNATviewCFOP: TcxGridDBColumn
-              DataBinding.FieldName = 'CFOP'
-              PropertiesClassName = 'TcxLabelProperties'
-              Properties.Alignment.Horz = taLeftJustify
-              HeaderGlyphAlignmentHorz = taCenter
-              MinWidth = 250
-              Options.Editing = False
-              Options.Filtering = False
-              Options.FilteringAddValueItems = False
-              Options.FilteringFilteredItemsList = False
-              Options.FilteringMRUItemsList = False
-              Options.FilteringPopup = False
-              Options.FilteringPopupMultiSelect = False
-              Options.FilteringWithFindPanel = False
-              Options.Focusing = False
-              Options.IgnoreTimeForFiltering = False
-              Options.IncSearch = False
-              Options.GroupFooters = False
-              Options.Grouping = False
-              Width = 412
-            end
-            object gdCFOPNATviewDESCRICAO: TcxGridDBColumn
-              Caption = 'Natureza de Opera'#231#227'o'
-              DataBinding.FieldName = 'DESCRICAO'
-              PropertiesClassName = 'TcxLabelProperties'
-              Properties.Alignment.Horz = taLeftJustify
-              MinWidth = 294
-              Options.Editing = False
-              Options.Filtering = False
-              Options.FilteringAddValueItems = False
-              Options.FilteringFilteredItemsList = False
-              Options.FilteringMRUItemsList = False
-              Options.FilteringPopup = False
-              Options.FilteringPopupMultiSelect = False
-              Options.FilteringWithFindPanel = False
-              Options.Focusing = False
-              Options.IgnoreTimeForFiltering = False
-              Options.IncSearch = False
-              Options.GroupFooters = False
-              Options.Grouping = False
-              Width = 412
-            end
-          end
-          object gdCFOPNATl1: TcxGridLevel
-            GridView = gdCFOPNATview
-          end
-        end
-      end
       object pnControles: TPanel
         Left = 878
         Top = 542
@@ -4372,7 +4158,7 @@ object Frm_Produto: TFrm_Produto
         Height = 49
         Color = 8421440
         ParentBackground = False
-        TabOrder = 4
+        TabOrder = 3
         object bControleIncluir: TcxButton
           Left = 5
           Top = 5
@@ -5227,7 +5013,7 @@ object Frm_Produto: TFrm_Produto
       'select * from produto_preco_faixa'
       'where id_produto = :pid_prod')
     Left = 576
-    Top = 48
+    Top = 192
     ParamData = <
       item
         Name = 'PID_PROD'
@@ -5268,8 +5054,8 @@ object Frm_Produto: TFrm_Produto
   end
   object DS_PRECO_FAIXA: TDataSource
     DataSet = SQL_PRECO_FAIXA
-    Left = 592
-    Top = 104
+    Left = 472
+    Top = 256
   end
   object pop_faixa: TPopupMenu
     Left = 1120
@@ -5313,57 +5099,6 @@ object Frm_Produto: TFrm_Produto
       Caption = 'Remover Faixa'
     end
   end
-  object SQL_NAT_OP: TFDQuery
-    Connection = Module.connection
-    SQL.Strings = (
-      'select id, descricao from natureza_operacao order by id')
-    Left = 520
-    Top = 104
-    object SQL_NAT_OPid: TFDAutoIncField
-      FieldName = 'id'
-      Origin = 'ID'
-      ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
-    end
-    object SQL_NAT_OPdescricao: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'descricao'
-      Origin = 'DESCRICAO'
-      Size = 255
-    end
-  end
-  object SQL_CFOP_NATOP: TFDQuery
-    Connection = Module.connection
-    SQL.Strings = (
-      
-        'SELECT c.descricao as CFOP, no.DESCRICAO FROM NATUREZA_OPERACAO ' +
-        'no'
-      'join cfop c on c.codigo = no.cfop_st')
-    Left = 384
-    Top = 96
-    object SQL_CFOP_NATOPDESCRICAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO'
-      Origin = 'DESCRICAO'
-      Size = 255
-    end
-    object SQL_CFOP_NATOPCFOP: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CFOP'
-      Origin = 'CFOP'
-      Size = 500
-    end
-  end
-  object DS_NAT_OP: TDataSource
-    DataSet = SQL_NAT_OP
-    Left = 472
-    Top = 144
-  end
-  object DS_CFOP_NATOP: TDataSource
-    DataSet = SQL_CFOP_NATOP
-    Left = 464
-    Top = 120
-  end
   object sql_ponto_impressao: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
@@ -5396,8 +5131,8 @@ object Frm_Produto: TFrm_Produto
     Connection = Module.connection
     SQL.Strings = (
       'SELECT * FROM produto')
-    Left = 24
-    Top = 56
+    Left = 72
+    Top = 96
     object qConsultaCodigo: TFDAutoIncField
       FieldName = 'Codigo'
       Origin = 'CODIGO'
@@ -5457,12 +5192,6 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'ncm'
       Origin = 'NCM'
       Size = 50
-    end
-    object qConsultacsosn: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'csosn'
-      Origin = 'CSOSN'
-      Size = 200
     end
     object qConsultareferencia_fabricante: TStringField
       AutoGenerateValue = arDefault

@@ -3,6 +3,30 @@ unit Atualizador;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  201|25/05/20|wander              |Criada padrão para dados da tabela        |
+|     |   17:30|Atualizador         |RELACAO_CRT_CST_CSOSN_CFOP_RCCCC          |
+|     |        |                    |para o tipo de movimento TPMOV = 1 (Venda)|
+|     |        |                    |como segue (CRT da empresa = 1            |
+|     |        |                    |                                          |
+|     |        |                    |       TPMOV CRT CST  CSOSN               |
+|     |        |                    |         1    1   00   101                |
+|     |        |                    |         1    1   41   102                |
+|     |        |                    |         1    1   40   103                |
+|     |        |                    |         1    1   60   500                |
+|     |        |                    |         1    1   90   900                |
+|     |        |                    |                                          |
+|-----|--------|--------------------|------------------------------------------|
+|  195|25/05/20|wander              |Incluida coluna VI_CFOP_CSOSN na tabela   |
+|     |   14:22|Atualizador         |Venda_Item, para armazenar o CFOP caso o  |
+|     |        |                    |seja optante do regime Normal ou CSOSN se |
+|     |        |                    |optante do regime Simples Nacional.       |
+|-----|--------|--------------------|------------------------------------------|
+|  194|25/05/20|wander              |Eliminada coluna CFOP da tabel Venda_Item |
+|     |   14:22|Atualizador         |                                          |
+|-----|--------|--------------------|------------------------------------------|
+|  193|25/05/20|wander              |Eliminada coluna CSOSN da tabela produto  |
+|     |   14:22|Atualizador         |                                          |
+|-----|--------|--------------------|------------------------------------------|
 |  159|22/05/20|wander              |Tabela FAMILIA apagada do banco de dados e|
 |     |   09:39|Atualizador         |substituida p/PRODUTO_FAMILIA já existente|
 |-----|--------|--------------------|------------------------------------------|
@@ -141,6 +165,12 @@ type
    procedure CriarFuncoes;
    Procedure CriaF(pFuncao,pDescricao:String);
    function fNaoAtualizado(pScript:String):Boolean;
+   procedure Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC(pRCC_TPMOV     :String;
+                                                      pRCC_CRT       :Integer;
+                                                      pRCC_CST_ICMS,
+                                                      pRCC_CSOSN,
+                                                      pRCC_CFOP      :String);
+
   public
     { Public declarations }
   end;
@@ -199,11 +229,41 @@ begin
   // Criar controle de atualizacos para evitar aplicar o mesmo script mais de uma vez
   CriaATUALIZADO_ATU;
 
-  // Aplicar scripts
+    // Aplicar scripts
   Atualizacao01;
 
   // Definir as funcionalidades do sistema que possuem controle de acesso
   CriarFuncoes;
+end;
+
+procedure TfrmAtualizador.Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC(pRCC_TPMOV     :String;
+                                                                   pRCC_CRT       :Integer;
+                                                                   pRCC_CST_ICMS,
+                                                                   pRCC_CSOSN,
+                                                                   pRCC_CFOP      :String);
+begin
+   Module.Query.Close;
+   Module.Query.Sql.Clear;
+   Module.Query.Sql.Add('INSERT INTO RELACAO_CRT_CST_CSOSN_CFOP_RCC ');
+   Module.Query.Sql.Add('     ( RCC_TPMOV,                          ');
+   Module.Query.Sql.Add('       RCC_CRT,                            ');
+   Module.Query.Sql.Add('       RCC_CST_ICMS,                       ');
+   Module.Query.Sql.Add('       RCC_CSOSN,                          ');
+   Module.Query.Sql.Add('       RCC_CFOP                            ');
+   Module.Query.Sql.Add('     )                                     ');
+   Module.Query.Sql.Add('VALUES                                     ');
+   Module.Query.Sql.Add('     (:RCC_TPMOV,                          ');
+   Module.Query.Sql.Add('      :RCC_CRT,                            ');
+   Module.Query.Sql.Add('      :RCC_CST_ICMS,                       ');
+   Module.Query.Sql.Add('      :RCC_CSOSN,                          ');
+   Module.Query.Sql.Add('      :RCC_CFOP                            ');
+   Module.Query.Sql.Add('     )                                                                                             ');
+   Module.Query.ParamByName('RCC_TPMOV'   ).AsString  := pRCC_TPMOV;
+   Module.Query.ParamByName('RCC_CRT'     ).AsInteger := pRCC_CRT;
+   Module.Query.ParamByName('RCC_CST_ICMS').AsString  := pRCC_CST_ICMS;
+   Module.Query.ParamByName('RCC_CSOSN'   ).AsString  := pRCC_CSOSN;
+   Module.Query.ParamByName('RCC_CFOP'    ).AsString  := pRCC_CFOP;
+   Module.Query.ExecSql;
 end;
 
 procedure TfrmAtualizador.DesconectarBancoDeDados;
@@ -2032,6 +2092,61 @@ begin
        Executar('CREATE INDEX idx_NCM                   ON PRODUTO(NCM)                   ');
        Executar('CREATE INDEX idx_referencia_fabricante ON PRODUTO(referencia_fabricante) ');
     end;
+    if fNaoAtualizado('Tabela RELACAO_CRT_CST_CSOSN_CFOP_RCCCC') Then
+    begin
+       Module.Query.Close;
+       Module.Query.Sql.Clear;
+       Module.Query.Sql.Add('CREATE TABLE RELACAO_CRT_CST_CSOSN_CFOP_RCC                                                        ');
+       Module.Query.Sql.Add('     ( RCC_TPMOV    VARCHAR(10) NOT NULL COMMENT "Cod do Tipo de Movimento",                       ');
+       Module.Query.Sql.Add('       RCC_CRT      INTEGER     NOT NULL COMMENT "Cod do Regime Tributário do Emissor de NFe",     ');
+       Module.Query.Sql.Add('       RCC_CST_ICMS VARCHAR(03) NOT NULL COMMENT "Cod da Situacao Tributaria do Produto",          ');
+       Module.Query.Sql.Add('       RCC_CSOSN    VARCHAR(04)     NULL COMMENT "Cod da Situacao da Operação no Símples Nacional",');
+       Module.Query.Sql.Add('       RCC_CFOP     VARCHAR(04)     NULL COMMENT "Cod Fiscal da Operação"                          ');
+       Module.Query.Sql.Add('     )                                                                                             ');
+       Module.Query.Sql.Add('COMMENT="Relacionamento entre Natureza de Operacao (Tipo de Movimento), CRT, CST, CSOSN e CFOP"    ');
+       Module.Query.ExecSql;
+    end;
+    if fNaoAtualizado('Preencher Tabela RELACAO_CRT_CST_CSOSN_CFOP_RCCCC') Then
+    begin
+       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',1,'00','101','');
+       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',1,'41','102','');
+       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',1,'40','103','');
+       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',1,'60','500','');
+       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',1,'90','900','');
+    end;
+    if fNaoAtualizado('Acertar Tabela RELACAO_CRT_CST_CSOSN_CFOP_RCCCC') Then
+       Executar('DELETE FROM RELACAO_CRT_CST_CSOSN_CFOP_RCC WHERE RCC_CRT <> 1');
+
+    {
+    if fNaoAtualizado('Mais (1) Tabela RELACAO_CRT_CST_CSOSN_CFOP_RCCCC') Then
+    begin
+       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',2,'00','101','');
+       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',2,'40','103','');
+       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',2,'60','500','');
+
+       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',3,'00','102','');
+       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',3,'40','103','');
+       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',3,'60','500','');
+    end;
+    }
+    if fNaoAtualizado('Produto: Eliminada coluna CSOSN') Then
+       //Eliminada coluna CSOSN da tabela produto
+       Executar('ALTER TABLE PRODUTO DROP COLUMN CSOSN');
+
+    if fNaoAtualizado('Venda Item: Incluida coluna VI_CFOP_CSOSN...') Then
+    begin
+       //Eliminada coluna CFOP da tabela Venda_Item
+       Executar('ALTER TABLE VENDA_ITEM DROP COLUMN CFOP');
+       //Incluida coluna VI_CFOP_CSOSN na tabela Venda_Item
+       Executar('UPDATE VENDA_ITEM ADD VI_CFOP_CSOSN VARCHAR(04) NULL COMMENT "Cod do CFOP ou do CSOSN do produto na operacao"');
+    end;
+
+    if fNaoAtualizado('Empresa: CRT 0/1/2/3...') Then
+       Executar('ALTER TABLE EMPRESA MODIFY CODIGO_REGIME_TRIBUTARIO INTEGER NOT NULL DEFAULT 0 COMMENT "código do regime tributário da Empresa" ');
+
+    if fNaoAtualizado('Empresa: Eliminada coluna OPTANTE_SIMPLES_NACIONAL') Then
+       Executar('ALTER TABLE EMPRESA DROP COLUMN OPTANTE_SIMPLES_NACIONAL');
+
 end;
 
 end.

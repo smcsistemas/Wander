@@ -1,6 +1,14 @@
 unit EmissaoDeNFe;
 {
 ================================================================================
+| ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  198|25/05/20|wander              |VENDA_ITEM(CFOP) substituido por          |
+|     |   14:37|EmissaoDeNFe        |VENDA_ITEM(VI_CFOP_CSOSN)                 |
+================================================================================
+
+
+================================================================================
 |   DATA   |DESENVOLVEDOR|HISTORICO DA ALTERACAO DO CODIGO                     |
 |----------|-------------|-----------------------------------------------------|
 |14/03/2020|WANDER       |Criada esta unit/form para concentrar todo o processo|
@@ -3883,7 +3891,7 @@ begin
    //(CFOP)
    //Código Fiscal de Operações                                 e Prestações
    //Utilizar Tabela de CFOP.
-   Produto.Prod.CFOP := qVENDA_ITEM.FieldByName('CFOP').AsString;
+   Produto.Prod.CFOP := qVENDA_ITEM.FieldByName('VI_CFOP_CSOSN').AsString;
 
    {108-I09}
    //(uCom)
@@ -5646,6 +5654,7 @@ begin
         //CFOP
         //CFOP
         //Utilizar Tabela de CFOP.
+        //CFOP := qVENDA_ITEM.FieldByName('VI_CFOP_CSOSN').AsString;
 
         {372-X17}
         //cMunFG

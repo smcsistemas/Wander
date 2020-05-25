@@ -5,6 +5,12 @@ unit cadastro_produto;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  197|25/05/20|wander              |Eliminado tratamento de CSOSN pois não é  |
+|     |   14:37|cadastro_produto    |de produto mas sim de operação(movimento) |
+|-----|--------|--------------------|------------------------------------------|
+|  196|25/05/20|wander              |Eliminado tratamento de CFOP pois não é de|
+|     |   14:37|cadastro_produto    |produto mas sim de operação(movimento)    |
+|-----|--------|--------------------|------------------------------------------|
 |  192|24/05/20|wander              |Tratando Alíquota de ICMS                 |
 |     |   22:06|cadastro_produto    |                                          |
 |-----|--------|--------------------|------------------------------------------|
@@ -74,7 +80,7 @@ uses
   vw_consulta_generica, c_Globals,
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxGrid, System.math, strutils,
-  m_Csosn, h_Dialogs, h_Functions, m_Ncm, m_Anp, m_Produto, v_env, cxControls,
+  h_Dialogs, h_Functions, m_Ncm, m_Anp, m_Produto, v_env, cxControls,
   cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue,
   dxSkinBlueprint,
   dxSkinCaramel,
@@ -157,14 +163,6 @@ type
     SQL_PRECO_FAIXAID_PRODUTO: TIntegerField;
     SQL_PRECO_FAIXAQTDE: TBCDField;
     chk_diff_estoque: TcxCheckBox;
-    SQL_NAT_OP: TFDQuery;
-    SQL_CFOP_NATOP: TFDQuery;
-    DS_NAT_OP: TDataSource;
-    DS_CFOP_NATOP: TDataSource;
-    SQL_NAT_OPid: TFDAutoIncField;
-    SQL_NAT_OPdescricao: TStringField;
-    SQL_CFOP_NATOPDESCRICAO: TStringField;
-    SQL_CFOP_NATOPCFOP: TStringField;
     tbView: TcxGridDBTableView;
     gdProdsLevel1: TcxGridLevel;
     gdProds: TcxGrid;
@@ -182,7 +180,6 @@ type
     tbViewICMS_CST: TcxGridDBColumn;
     tbViewPIS_CST: TcxGridDBColumn;
     tbViewCOFINS_CST: TcxGridDBColumn;
-    tbViewCSOSN: TcxGridDBColumn;
     tbViewNCM: TcxGridDBColumn;
     tbViewCEST: TcxGridDBColumn;
     tbViewPRECO: TcxGridDBColumn;
@@ -227,15 +224,11 @@ type
     Label16: TLabel;
     Label17: TLabel;
     Label29: TLabel;
-    Label77: TLabel;
-    lbl_csosn: TLabel;
     lbl_anp: TLabel;
     NCM: TEdit;
     edt_cest: TEdit;
     edt_anp: TEdit;
     btn_ncm: TcxButton;
-    edCSOSN: TEdit;
-    btn_csosn: TcxButton;
     mmNCM: TcxMemo;
     btn_anp: TcxButton;
     GroupBox19: TGroupBox;
@@ -250,13 +243,6 @@ type
     cxButton4: TcxButton;
     cxButton2: TcxButton;
     cxButton18: TcxButton;
-    grupocfop: TGroupBox;
-    gdCFOPNAT: TcxGrid;
-    gdCFOPNATview: TcxGridDBTableView;
-    gdCFOPNATviewID: TcxGridDBColumn;
-    gdCFOPNATviewCFOP: TcxGridDBColumn;
-    gdCFOPNATviewDESCRICAO: TcxGridDBColumn;
-    gdCFOPNATl1: TcxGridLevel;
     pnControles: TPanel;
     bControleIncluir: TcxButton;
     bControleAlterar: TcxButton;
@@ -274,7 +260,6 @@ type
     qConsultamarca: TStringField;
     qConsultaicms_cst: TStringField;
     qConsultancm: TStringField;
-    qConsultacsosn: TStringField;
     qConsultareferencia_fabricante: TStringField;
     Label45: TLabel;
     qConsultaCOD_BARRAS_AUXILIAR: TStringField;
@@ -450,7 +435,6 @@ type
     procedure btn_marcaClick(Sender: TObject);
     procedure btn_grupoClick(Sender: TObject);
     procedure btn_undClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure cxTabSheet1Show(Sender: TObject);
     procedure Edit1KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit3KeyPress(Sender: TObject; var Key: Char);
@@ -536,12 +520,9 @@ type
     procedure edCODIGO_ALFANUMERICOKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     function CodBarrasRepetido: Boolean;
     function RefFabricanteRepetido(foco: Boolean = true): Boolean;
-    procedure CFOPCODIGOKeyPress(Sender: TObject; var Key: Char);
-    procedure edCSOSNKeyPress(Sender: TObject; var Key: Char);
     procedure NCMKeyPress(Sender: TObject; var Key: Char);
     procedure edt_cestKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure NCMKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edCSOSNKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure calcular_preco_produtos(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBEdit13KeyPress(Sender: TObject; var Key: Char);
     procedure dbcsticmsClick(Sender: TObject);
@@ -567,15 +548,10 @@ type
     procedure edt_precoExit(Sender: TObject);
     procedure PRECO_FINAL_ATACADOKeyPress(Sender: TObject; var Key: Char);
     procedure chk_diff_estoquePropertiesChange(Sender: TObject);
-    procedure PreencherCSOSN(value: string);
     procedure PreencherNCM(value: string);
     procedure preencherANP(value: string);
-    procedure limparcsosn;
-    procedure carregar_nat_op;
-    procedure LimparCFOP_CSOSN;
     procedure LimparNCM;
     procedure LimparANP;
-    procedure edCSOSNKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btn_anpClick(Sender: TObject);
     procedure tbViewCustomDrawCell(Sender: TcxCustomGridTableView; ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
       var ADone: Boolean);
@@ -586,7 +562,6 @@ type
     procedure consultaparacadastro;
 
     procedure updateEstoque;
-    procedure btn_csosnClick(Sender: TObject);
     procedure tbViewKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edREFERENCIA_FABRICANTEKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -632,7 +607,6 @@ type
 
   private
     { Private declarations }
-    procedure PreencherCFOP(icms_cst: string);
     procedure Inicio;
     procedure HabilitarCampos(pBoolean:Boolean);
     procedure Pode_Alterar;
@@ -761,18 +735,6 @@ begin
 //
 //    end;
 //  end;
-end;
-
-procedure TFrm_Produto.btn_csosnClick(Sender: TObject);
-begin
-  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgCSOSN, edCSOSN);
-  Frm_Consulta_Generica.ShowModal;
-  PreencherCSOSN(edCSOSN.Text);
-end;
-
-procedure TFrm_Produto.Button1Click(Sender: TObject);
-begin
-  //SQL_LISTA.Active := true;
 end;
 
 procedure TFrm_Produto.calcular_preco_produtos(Sender: TObject;
@@ -956,11 +918,7 @@ procedure TFrm_Produto.CarregarDadosInternos;
 begin
 
   SQL_CSTPIS.Active := true;
-
   SQL_CSTCOFINS.Active := true;
-
-  SQL_NAT_OP.Active := false;
-  SQL_NAT_OP.Active := true;
 
   sql_ponto_impressao.Active := false;
   sql_ponto_impressao.Active := true;
@@ -970,18 +928,15 @@ begin
 //  u_funcoes.CamposObrigatorios_CorPadrao([{edt_qtde_min, edt_preco, TEdit(cb_tipo}], []);
   carregar_faixa;
 
-   AlterarEnabled([GroupBox4,{GroupBox18, GroupBox2, GroupBox15, GroupBox16, GroupBox24, GroupBox1, }GroupBox19, grupocfop, GroupBox22,
-    GroupBox23,{roupBox25, GroupBox26,} btn_familia, btn_sub, btn_grupo, btn_marca, btn_und, btn_csosn, btn_ncm, btn_anp{, grp_faixa_preco,
+   AlterarEnabled([GroupBox4,{GroupBox18, GroupBox2, GroupBox15, GroupBox16, GroupBox24, GroupBox1, }GroupBox19, GroupBox22,
+    GroupBox23,{roupBox25, GroupBox26,} btn_familia, btn_sub, btn_grupo, btn_marca, btn_und, btn_ncm, btn_anp{, grp_faixa_preco,
     btn_cad_faixa}], false);
 
-
-  //PreencherCSOSN(SQL_PRODUTOCSOSN.AsString);
 
   //PreencherNCM(SQL_PRODUTONCM.AsString);
 
   //preencherANP(SQL_PRODUTOANP.AsString);
 
-  //PreencherCFOP(SQL_PRODUTOICMS_CST.AsString);
 
 //  cb_tipo.itemindex := 0;
 //  btnlocalizacao.Enabled := false;
@@ -1003,19 +958,6 @@ begin
   edt_anp.Clear;
   lbl_anp.Caption :=
     '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  ';
-end;
-
-procedure TFrm_Produto.LimparCFOP_CSOSN;
-begin
-  edCSOSN.Clear;
-  lbl_csosn.Caption := '';
-end;
-
-procedure TFrm_Produto.limparcsosn;
-begin
-  edCSOSN.Clear;
-  lbl_csosn.Caption :=
-    '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ';
 end;
 
 procedure TFrm_Produto.aliq_cofinsKeyPress(Sender: TObject;
@@ -1878,13 +1820,6 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.CFOPCODIGOKeyPress(Sender: TObject;
-var Key: Char);
-begin
-  inherited;
-  Key := ApenasNumeros(Key);
-end;
-
 procedure TFrm_Produto.chk_ativoClick(Sender: TObject);
 begin
   edArgumentoDePesquisa.SetFocus;
@@ -2092,27 +2027,6 @@ begin
    pnContador.Caption := inttostr(qConsulta.RecordCount);
 end;
 
-procedure TFrm_Produto.edCSOSNKeyDown(Sender: TObject;
-var Key: Word; Shift: TShiftState);
-begin
-  if Key = vk_return then
-    if edCSOSN.Text <> '' then
-      PreencherCSOSN(edCSOSN.Text);
-end;
-
-procedure TFrm_Produto.edCSOSNKeyPress(Sender: TObject;
-var Key: Char);
-begin
-  inherited;
-  Key := ApenasNumeros(Key);
-end;
-
-procedure TFrm_Produto.edCSOSNKeyUp(Sender: TObject;
-var Key: Word; Shift: TShiftState);
-begin
-  edCSOSN.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(edCSOSN.Text));
-end;
-
 procedure TFrm_Produto.carregar_faixa;
 begin
   if not ansimatchstr(edCODIGO.Text, [emptystr, '0']) then
@@ -2123,12 +2037,6 @@ begin
   end
   else
     SQL_PRECO_FAIXA.Close;
-end;
-
-procedure TFrm_Produto.carregar_nat_op;
-begin
-  SQL_NAT_OP.Active := false;
-  SQL_NAT_OP.Active := true;
 end;
 
 procedure TFrm_Produto.cbFiltroPropertiesEditValueChanged(Sender: TObject);
@@ -2572,7 +2480,6 @@ begin
    qAUX.sql.add('       PRECO_FINAL_DISTRIBUIDOR, ');
    qAUX.sql.add('       STATUS_CADASTRAL,         ');
    qAUX.sql.add('       ICMS_CST,                 ');
-   qAUX.sql.add('       CSOSN,                    ');
    qAUX.sql.add('       TIPO_ITEM,                ');
    qAUX.sql.add('       CODIGO_ORIGEM_MERCADORIA, ');
    qAUX.sql.add('       ALIQ_ICMS                 ');
@@ -2595,7 +2502,6 @@ begin
    qAUX.sql.add('      :PRECO_FINAL_DISTRIBUIDOR, ');
    qAUX.sql.add('      :STATUS_CADASTRAL,         ');
    qAUX.sql.add('      :ICMS_CST,                 ');
-   qAUX.sql.add('      :CSOSN,                    ');
    qAUX.sql.add('      :TIPO_ITEM,                ');
    qAUX.sql.add('      :CODIGO_ORIGEM_MERCADORIA, ');
    qAUX.sql.add('      :ALIQ_ICMS                 ');
@@ -2630,7 +2536,6 @@ begin
    qAUX.ParamByName('PRECO_FINAL_DISTRIBUIDOR').AsFloat   := ValorValido(edPRECO_FINAL_DISTRIBUIDOR.Text);
    qAUX.ParamByName('STATUS_CADASTRAL'        ).AsString  := Ativo_ou_Inativo(cbSTATUS_CADASTRAL.Checked);
    qAUX.ParamByName('ICMS_CST'                ).AsString  := edICMS_CST.Text;
-   qAUX.ParamByName('CSOSN'                   ).AsString  := edCSOSN.Text;
    qAUX.ParamByName('TIPO_ITEM'               ).AsString  := edTIPO_ITEM.Text;
    qAUX.ParamByName('CODIGO_ORIGEM_MERCADORIA').AsString  := edCODIGO_ORIGEM_MERCADORIA.Text;
    qAUX.ParamByName('ALIQ_ICMS'               ).AsFloat   := ValorValido(edALIQ_ICMS.Text);
@@ -2724,12 +2629,6 @@ begin
    //Alíquota do ICMS
    edALIQ_ICMS.Text                := Float_to_String(qConsulta.FieldByName('ALIQ_ICMS').AsFloat);
 
-   //CSOSN - Código da Situação da Operação no Símples Nacional
-   edCSOSN.Text                    := qConsulta.FieldByName('CSOSN').AsString;
-   if edCSOSN.Text <> '' then
-      PreencherCSOSN(edCSOSN.Text);
-
-
    // Exibir a aba Cadastro
    cxPageControl1.ActivePAgeIndex  := 1;
 end;
@@ -2803,53 +2702,6 @@ begin
         tdialogs.wnAlerta('Consultar ANP', slinebreak + e.Message, 15);
     end;
   end;
-end;
-
-procedure TFrm_Produto.PreencherCFOP(icms_cst: string);
-var
-  cfop_x: string;
-begin
-  if icms_cst <> '' then
-  begin
-    if icms_cst = '60' then
-      cfop_x := 'CFOP_ST'
-    else
-      cfop_x := 'CFOP_TI';
-
-    with SQL_CFOP_NATOP do
-    begin
-      Close;
-      Open('SELECT c.descricao as CFOP,  '+
-           '       no.DESCRICAO          '+
-           '  FROM NATUREZA_OPERACAO no  '+
-           '  join cfop c on c.codigo = no.' + cfop_x +
-           ' where ' + cfop_x + ' <> 0   '+
-           ' order by no.id');
-      Refresh;
-    end;
-  end
-  else
-    SQL_CFOP_NATOP.Close;
-end;
-
-procedure TFrm_Produto.PreencherCSOSN(value: string);
-var
-  xCSOSN: TCsosn;
-begin
-  limparcsosn;
-  if value = emptystr then
-     exit;
-
-  try
-     xCSOSN := TCsosn.CREATE(value);
-     edCSOSN.Text := value;
-     //if SQL_PRODUTO.State in [dsEdit, dsInsert] then
-     //  edCSOSN.Text := value;
-     lbl_csosn.Caption := xCSOSN.descricao;
-   except
-     on e: exception do
-       tdialogs.wnAlerta('Consultar CSOSN', slinebreak + e.Message, 15);
-   end;
 end;
 
 procedure TFrm_Produto.PreencherNCM(value: string);
@@ -2974,103 +2826,20 @@ begin
   else
     ALIQ_ICMS_PARAMETROS := SQL_DADOS_ROTINASaliq_imcs.value;
   //edCST_ICMS := strtoint(dbcsticms.EditValue);
-  PreencherCFOP(inttostr(CST_ICMS));
+{
+  CRT  CST_ICMS   CSOSN
+    1  40         103
+    1  41         102
+    1  60         500
+    2  00         102
+    2  40         103
+    2  60         500
+    3  00         102
+    3  40         103
+    3  60         500
+}
 
-//  CRT  CST_ICMS   CSOSN
 
-
-  case CRT of
-    1: { SIMPLES NACIONAL }
-      begin
-        LimparCFOP_CSOSN;
-        case CST_ICMS of
-          40: { ISENTA }
-            begin
-              PreencherCSOSN('103');
-              edALIQ_ICMS.Text := '0';
-              cstpis.EditValue := '99';
-              cstcofins.EditValue := '99';
-              exit;
-            end;
-          41: { Não TRIBUTADA }
-            begin
-              PreencherCSOSN('102');
-              edALIQ_ICMS.Text := '0';
-              cstpis.EditValue := '99';
-              cstcofins.EditValue := '99';
-              exit;
-            end;
-          60: { SUBSTITUIÇÃO }
-            begin
-              PreencherCSOSN('500');
-              edALIQ_ICMS.Text := '0';
-              cstpis.EditValue := '99';
-              cstcofins.EditValue := '99';
-              exit;
-            end;
-        end;
-      end; { FIM SIMPLES NACIONAL }
-    2: { SIMPLES NACIONAL COM SUBLIMITE }
-      begin
-        LimparCFOP_CSOSN;
-        case CST_ICMS of
-          00: { TRIBUTADO }
-            begin
-              PreencherCSOSN('102');
-              edALIQ_ICMS.Text := floattostr(ALIQ_ICMS_PARAMETROS);
-              cstpis.EditValue := '99';
-              cstcofins.EditValue := '99';
-              exit;
-            end;
-          40: { ISENTA }
-            begin
-              PreencherCSOSN('103');
-              edALIQ_ICMS.Text := '0';
-              cstpis.EditValue := '99';
-              cstcofins.EditValue := '99';
-              exit;
-            end;
-          60: { SUBSTITUIÇÃO }
-            begin
-              PreencherCSOSN('500');
-              edALIQ_ICMS.Text := '0';
-              cstpis.EditValue := '99';
-              cstcofins.EditValue := '99';
-              exit;
-            end;
-        end;
-      end;
-    3: { REGIME NORMAL }
-      begin
-        LimparCFOP_CSOSN;
-        case CST_ICMS of
-          00: { TRIBUTADO }
-            begin
-              PreencherCSOSN('102');
-              edALIQ_ICMS.Text := floattostr(ALIQ_ICMS_PARAMETROS);
-              cstpis.EditValue := '01';
-              cstcofins.EditValue := '01';
-              exit;
-            end;
-          40: { ISENTA }
-            begin
-              PreencherCSOSN('103');
-              edALIQ_ICMS.Text := '0';
-              cstpis.EditValue := '99';
-              cstcofins.EditValue := '99';
-              exit;
-            end;
-          60: { SUBSTITUIÇÃO }
-            begin
-              PreencherCSOSN('500');
-              edALIQ_ICMS.Text := '0';
-              cstpis.EditValue := '08';
-              cstcofins.EditValue := '08';
-              exit;
-            end;
-        end;
-      end;
-  end;
 end;
 
 procedure TFrm_Produto.edSUBGRUPOExit(Sender: TObject);

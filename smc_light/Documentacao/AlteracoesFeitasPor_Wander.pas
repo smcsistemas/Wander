@@ -12,6 +12,54 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  201|25/05/20|wander              |Criada padrão para dados da tabela        |
+|     |   17:30|Atualizador         |RELACAO_CRT_CST_CSOSN_CFOP_RCC            |
+|     |        |                    |para o tipo de movimento TPMOV = 1 (Venda)|
+|     |        |                    |como segue (CRT da empresa = 1            |
+|     |        |                    |                                          |
+|     |        |                    |       TPMOV CRT CST  CSOSN               |
+|     |        |                    |         1    1   00   101                |
+|     |        |                    |         1    1   41   102                |
+|     |        |                    |         1    1   40   103                |
+|     |        |                    |         1    1   60   500                |
+|     |        |                    |         1    1   90   900                |
+|     |        |                    |                                          |
+|-----|--------|--------------------|------------------------------------------|
+|  200|25/05/20|wander              |Criada tabela                             |
+|     |   17:30|Atualizador         |RELACAO_CRT_CST_CSOSN_CFOP_RCC            |
+|     |        |                    |que define qual o CSOSN a ser aplicado a  |
+|     |        |                    |produtos, conforme CRT da empresa e CST do|
+|     |        |                    |ICMS da empresa:                          |
+|     |        |                    |                                          |
+|     |        |                    |                                          |
+|-----|--------|--------------------|------------------------------------------|
+|  199|25/05/20|wander              |Incluida informação                       |
+|     |   14:55|cadastro_empresa    |CRT - Código de Regime Tributário:        |
+|     |        |                    |0-Não se Aplica                           |
+|     |        |                    |1-Símples Nacional                        |
+|     |        |                    |2-Símples Nacional com Excesso de Receita |
+|     |        |                    |3-Regime Normal (Lucro real ou presumido) |
+|-----|--------|--------------------|------------------------------------------|
+|  198|25/05/20|wander              |VENDA_ITEM(CFOP) substituido por          |
+|     |   14:37|EmissaoDeNFe        |VENDA_ITEM(VI_CFOP_CSOSN)                 |
+|-----|--------|--------------------|------------------------------------------|
+|  197|25/05/20|wander              |Eliminado tratamento de CSOSN pois não é  |
+|     |   14:37|cadastro_produto    |de produto mas sim de operação(movimento) |
+|-----|--------|--------------------|------------------------------------------|
+|  196|25/05/20|wander              |Eliminado tratamento de CFOP pois não é de|
+|     |   14:37|cadastro_produto    |produto mas sim de operação(movimento)    |
+|-----|--------|--------------------|------------------------------------------|
+|  195|25/05/20|wander              |Incluida coluna VI_CFOP_CSOSN na tabela   |
+|     |   14:22|Atualizador         |Venda_Item, para armazenar o CFOP caso o  |
+|     |        |                    |seja optante do regime Normal ou CSOSN se |
+|     |        |                    |optante do regime Simples Nacional.       |
+|-----|--------|--------------------|------------------------------------------|
+|  194|25/05/20|wander              |Eliminada coluna CFOP da tabel Venda_Item |
+|     |   14:22|Atualizador         |                                          |
+|-----|--------|--------------------|------------------------------------------|
+|  193|25/05/20|wander              |Eliminada coluna CSOSN da tabela produto  |
+|     |   14:22|Atualizador         |                                          |
+|-----|--------|--------------------|------------------------------------------|
 |  192|24/05/20|wander              |Tratando Alíquota de ICMS                 |
 |     |   22:06|cadastro_produto    |                                          |
 |-----|--------|--------------------|------------------------------------------|
@@ -703,6 +751,90 @@ function fUltimaNFe(pNFe_SeRIE:String):integer;
 
 }
 end.
+
+
+{Alterado em 25/05/2020
+
+@echo off
+ECHO ----------------------------------
+REM ECHO WANDER MENDES MARTINS - 08/01/2020 versao 1
+ECHO WANDER MENDES MARTINS - 15/05/2020 versao 2
+ECHO ----------------------------------
+:Variaveis
+rem %time:~3,2%
+set DATA=%date:~0,2%-%date:~3,2%-%date:~6,10%_
+SET /P obsarquivo=[ENTRE COM UMA OBS PARA COMPOR O NOME DO ARQUIVO:]
+c:
+cd\
+ECHO Procurando por alteracoes...
+del c:\SMC_WANDER\src\*.*.*~* /s
+XCOPY c:\SMC_WANDER\src  D:\SMC_WANDER\src /s /y /d /i
+ECHO D:\SMC_WANDER atualizado...
+XCOPY c:\SMC_WANDER\src  C:\SMC_GIT\src /s /y /d /i
+ECHO C:\SMC_GIT atualizado...
+rem XCOPY c:\SMC_WANDER  C:\SMC_GIT /s /y
+ECHO .
+ECHO Compactando...
+ECHO
+ECHO ON
+copy C:\SMC_WANDER\Win32\Debug\SMC_LIGHT.exe "C:\Users\DEV_SMC\Desktop\RODRIGO TESTAR\"
+d:
+cd\BACKUP_DEV
+set PASTA0=Mes-%date:~3,2%-%date:~6,10%
+cd %PASTA0%
+set PASTA=%date:~0,2%-%date:~3,2%-%date:~6,10%
+md %PASTA%
+cd %PASTA%
+rem pause
+c:
+cd\
+cd "Program Files\7-Zip\"
+7z a -t7z -r D:\BACKUP_DEV\%PASTA0%\%PASTA%\SMC_%DATA%_%obsarquivo%.7z "C:\SMC_WANDER\*"
+del  D:\wander_Backup\*.7z
+copy D:\BACKUP_DEV\%PASTA0%\%PASTA%\SMC_%DATA%_%obsarquivo%.7z D:\wander_Backup
+echo versionando no git branch wander
+rem *****************************************
+rem *** funcoes do ususario do git/github ***
+rem *****************************************
+c:
+cd\
+cd SMC_GIT
+cd src
+git checkout wander
+git status
+git add .
+git status
+rem pause
+git commit -m %obsarquivo%
+git status
+rem pause
+rem copiando para wander o q thailor subiu (apos o push do thailor na maq dele)
+git pull Thailor
+pause
+git pull master
+pause
+git push
+rem ************************************
+rem *** funcoes do adm do git/github ***
+rem ************************************
+git checkout master
+git merge wander
+rem thailor ja esta atulizado em wander
+rem git merge Thailor
+rem git push
+rem git pull
+rem git checkout Thailor
+rem git merge wander
+rem thailor ja esta atulizado em wander
+rem git merge Thailor
+git push
+rem git pull
+echo versionando no git WANDER
+rem C:\Wander\ZIP_BACKUP_Wander.bat %obsarquivo%
+pause
+exit
+
+}
 
 { Arquivo backup automático - Wander
 @echo off

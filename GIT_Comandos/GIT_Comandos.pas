@@ -135,3 +135,86 @@ interface
 implementation
 
 end.
+
+
+{
+@echo off
+ECHO ----------------------------------
+REM ECHO WANDER MENDES MARTINS - 08/01/2020 versao 1
+ECHO WANDER MENDES MARTINS - 15/05/2020 versao 2
+ECHO ----------------------------------
+:Variaveis
+rem %time:~3,2%
+set DATA=%date:~0,2%-%date:~3,2%-%date:~6,10%_
+SET /P obsarquivo=[ENTRE COM UMA OBS PARA COMPOR O NOME DO ARQUIVO:]
+c:
+cd\
+ECHO Procurando por alteracoes...
+del c:\SMC_WANDER\src\*.*.*~* /s
+XCOPY c:\SMC_WANDER\src  D:\SMC_WANDER\src /s /y /d /i
+ECHO D:\SMC_WANDER atualizado...
+XCOPY c:\SMC_WANDER\src  C:\SMC_GIT\src /s /y /d /i
+ECHO C:\SMC_GIT atualizado...
+rem XCOPY c:\SMC_WANDER  C:\SMC_GIT /s /y
+ECHO .
+ECHO Compactando...
+ECHO
+ECHO ON
+copy C:\SMC_WANDER\Win32\Debug\SMC_LIGHT.exe "C:\Users\DEV_SMC\Desktop\RODRIGO TESTAR\"
+d:
+cd\BACKUP_DEV
+set PASTA0=Mes-%date:~3,2%-%date:~6,10%
+cd %PASTA0%
+set PASTA=%date:~0,2%-%date:~3,2%-%date:~6,10%
+md %PASTA%
+cd %PASTA%
+rem pause
+c:
+cd\
+cd "Program Files\7-Zip\"
+7z a -t7z -r D:\BACKUP_DEV\%PASTA0%\%PASTA%\SMC_%DATA%_%obsarquivo%.7z "C:\SMC_WANDER\*"
+del  D:\wander_Backup\*.7z
+copy D:\BACKUP_DEV\%PASTA0%\%PASTA%\SMC_%DATA%_%obsarquivo%.7z D:\wander_Backup
+echo versionando no git branch wander
+rem *****************************************
+rem *** funcoes do ususario do git/github ***
+rem *****************************************
+c:
+cd\
+cd SMC_GIT
+cd src
+git checkout wander
+git status
+git add .
+git status
+rem pause
+git commit -m %obsarquivo%
+git status
+rem pause
+rem copiando para wander o q thailor subiu (apos o push do thailor na maq dele)
+git pull Thailor
+pause
+git pull master
+pause
+git push
+rem ************************************
+rem *** funcoes do adm do git/github ***
+rem ************************************
+git checkout master
+git merge wander
+rem thailor ja esta atulizado em wander
+rem git merge Thailor
+rem git push
+rem git pull
+rem git checkout Thailor
+rem git merge wander
+rem thailor ja esta atulizado em wander
+rem git merge Thailor
+git push
+rem git pull
+echo versionando no git WANDER
+rem C:\Wander\ZIP_BACKUP_Wander.bat %obsarquivo%
+pause
+exit
+
+}
