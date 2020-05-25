@@ -102,9 +102,13 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
-//24/05/20-15:01-Recebe código de Unidade de medida e devolve sua sigla
+//24/05/20-19:44-Recebe código de Origem de Mercdoria e retorna sua descrição
+function fORIGEM_MERCADORIA_DESCRICAO(pCODIGO:String):String;
+//24/05/20-18:35-Recebe código de Tipo de Item (produto) e retorna sua descrição
+function fProduto_tipo_item_NOME(pCODIGO:String):String;
+//24/05/20-15:01-Recebe código de Unidade de medida e retorna sua sigla
 function fproduto_unidade_SIGLA(pCODIGO:String):String;
-//24/05/20-09:51-Recebe código CST e devolve sua descricao
+//24/05/20-09:51-Recebe código CST e retorna sua descricao
 function fCST_ICMS_DESCRICAO(pCODIGO:String):String;
 //23/05/20-19:27-Recebe um boolean e retorna string 'ATIVO' se true e 'INATIVO' se false
 function Ativo_ou_Inativo(pBoolean:Boolean):String;
@@ -5882,6 +5886,54 @@ begin
    Q.Free;
 end;
 
+function fProduto_tipo_item_NOME(pCODIGO:String):String;
+var Q : tFDQuery;
+begin
+   result := '';
+
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+
+   try
+     Q.Close;
+     Q.Sql.Clear;
+     Q.SQL.Add('SELECT DESCRICAO         ');
+     Q.SQL.Add('  FROM produto_tipo_item ');
+     Q.SQL.Add(' WHERE CODIGO = :CODIGO  ');
+     Q.ParamByName('CODIGO').AsString := pCODIGO;
+     Q.Open;
+     if not Q.Eof Then
+        result := Q.FieldByName('DESCRICAO').AsString;
+   except
+   end;
+   Q.Free;
+end;
+
+function fORIGEM_MERCADORIA_DESCRICAO(pCODIGO:String):String;
+var Q : tFDQuery;
+begin
+   result := '';
+
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+
+   try
+     Q.Close;
+     Q.Sql.Clear;
+     Q.SQL.Add('SELECT DESCRICAO         ');
+     Q.SQL.Add('  FROM origem_mercadoria ');
+     Q.SQL.Add(' WHERE CODIGO = :CODIGO  ');
+     Q.ParamByName('CODIGO').AsString := pCODIGO;
+     Q.Open;
+     if not Q.Eof Then
+        result := Q.FieldByName('DESCRICAO').AsString;
+   except
+   end;
+   Q.Free;
+end;
+
 function ValorValido(pValor:String):Real;
 begin
   result := 0.0;
@@ -5919,4 +5971,11 @@ end;
 
 //GRUPO TEM QUE SER DESVINCULADO DE FAMILIA
 end.
-
+CREATE TABLE `` (
+	`CODIGO` VARCHAR(50) NOT NULL,
+	`DESCRICAO` VARCHAR(100) NOT NULL,
+	PRIMARY KEY (`CODIGO`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;

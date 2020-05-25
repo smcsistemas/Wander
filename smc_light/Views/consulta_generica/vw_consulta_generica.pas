@@ -1,5 +1,12 @@
 unit vw_consulta_generica;
-
+{
+================================================================================
+| ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  189|24/05/20|wander              |Criada a consulta genérica para a tabela  |
+|     |   18:42|vw_consulta_generica|produto_tipo_item                         |
+================================================================================
+}
 interface
 
 uses
@@ -75,6 +82,7 @@ type
     procedure FillCOFINS(const QueryString: string);
     procedure FillORIGEM(const QueryString: string);
     procedure FillOperadorCaixa(const QueryString: string);
+    procedure FillTIPO_ITEM(const QueryString: string);
 
     procedure SetQuery(const QueryString: string);
     procedure CustomizeGrid(const FontSize: Integer);
@@ -113,10 +121,9 @@ type
     ICMS_QUERY_BASE  = 'SELECT CODIGO, DESCRICAO FROM CST_ICMS';
     PIS_QUERY_BASE = 'SELECT CODIGO, DESCRICAO FROM CST_PIS';
     COFINS_QUERY_BASE = 'SELECT CODIGO, DESCRICAO FROM CST_COFINS';
-    ORIGEM_QUERY_BASE = 'SELECT CODIGO, DESCRICAO FROM ORIGEM_MERCADORIA';
-    OPERADOR_QUERY_BASE =
-      'SELECT c.CODIGO, c.NOME, u.USUARIO FROM COLABORADOR c JOIN USUARIO U ON U.CODIGO = C.COD_USUARIO WHERE c.TIPO_COLABORADOR = "8"';
-
+    ORIGEM_QUERY_BASE    = 'SELECT CODIGO, DESCRICAO FROM ORIGEM_MERCADORIA';
+    OPERADOR_QUERY_BASE  = 'SELECT c.CODIGO, c.NOME, u.USUARIO FROM COLABORADOR c JOIN USUARIO U ON U.CODIGO = C.COD_USUARIO WHERE c.TIPO_COLABORADOR = "8"';
+    TIPO_ITEM_QUERY_BASE = 'SELECT CODIGO, DESCRICAO FROM produto_tipo_item';
   const
 
     msk_CPF = '999.999.999-99;0';
@@ -140,6 +147,7 @@ type
 
     function consultaMarca(campo: TEdit): TFrm_Consulta_Generica;
     function consultaCSOSN(campo: TEdit): TFrm_Consulta_Generica;
+    function consultaTIPO_ITEM(campo: TEdit): TFrm_Consulta_Generica;
 
   end;
 
@@ -196,6 +204,17 @@ function TFrm_Consulta_Generica.consultaCSOSN(campo: TEdit): TFrm_Consulta_Gener
 begin
   self.m_Field_Edit := campo;
   self.cgTable := cgCSOSN;
+
+  self.SetFormSize;
+  self.query_filled := false;
+
+  result := self;
+end;
+
+function TFrm_Consulta_Generica.consultaTIPO_ITEM(campo: TEdit): TFrm_Consulta_Generica;
+begin
+  self.m_Field_Edit := campo;
+  self.cgTable := cgTIPO_ITEM;
 
   self.SetFormSize;
   self.query_filled := false;
@@ -283,6 +302,10 @@ begin
           FillORIGEM(ORIGEM_QUERY_BASE + QRY_WHERE_FULL_LIKE);
       cgoperadorcaixa:
         FillOperadorCaixa(OPERADOR_QUERY_BASE + QRY_AND_PART_LIKE);
+      cgTIPO_ITEM:
+        if cb_tipo_consulta.SelectedItem = 1 then
+          FillTIPO_ITEM(TIPO_ITEM_QUERY_BASE + QRY_WHERE_FULL_LIKE);
+
     end;
     onOpen := false;
   end
@@ -329,8 +352,22 @@ begin
       CharCase := ecUpperCase;
       DropDownListStyle := TcxEditDropDownListStyle.lsFixedList;
     end;
-    if cgTable in [cgFornecedor, cgCliente, cgUsuario, cgVendedor, cgSocio, cgFormasPagamento, cgCFOP, cgANP, cgCSOSN, cgMarca, cgPIS,
-      cgCOFINS, cgORIGEM, cgICMS, cgoperadorcaixa] then
+    if cgTable in [cgFornecedor,
+                   cgCliente,
+                   cgUsuario,
+                   cgVendedor,
+                   cgSocio,
+                   cgFormasPagamento,
+                   cgCFOP,
+                   cgANP,
+                   cgCSOSN,
+                   cgMarca,
+                   cgPIS,
+                   cgCOFINS,
+                   cgORIGEM,
+                   cgICMS,
+                   cgoperadorcaixa,
+                   cgTIPO_ITEM] then
       IndexCombo := 1
     else if cgTable in [cgProduto, cgNCM] then
       IndexCombo := 2;
@@ -726,6 +763,17 @@ begin
   SetGridStyle(1, ArrFieldsTitle[1], 1200, taLeftJustify); { DESCRIÇÃO }
 end;
 
+procedure TFrm_Consulta_Generica.FillTIPO_ITEM(const QueryString: string);
+begin
+  SetQuery(QueryString);
+  CustomizeGrid(10);
+  SetLength(ArrFieldsTitle, 2);
+  ArrFieldsTitle[0] := 'TIPO ITEM';
+  ArrFieldsTitle[1] := 'DESCRIÇÃO';
+  SetGridStyle(0, ArrFieldsTitle[0], 0); { TIPO_ITEM }
+  SetGridStyle(1, ArrFieldsTitle[1], 1200, taLeftJustify); { DESCRIÇÃO }
+end;
+
 procedure TFrm_Consulta_Generica.FillDefaultData;
 begin
   case cgTable of
@@ -763,6 +811,8 @@ begin
       FillORIGEM(ORIGEM_QUERY_BASE);
     cgoperadorcaixa:
       FillOperadorCaixa(OPERADOR_QUERY_BASE);
+    cgTIPO_ITEM:
+      FillTIPO_ITEM(TIPO_ITEM_QUERY_BASE);
   end;
 end;
 
@@ -893,6 +943,8 @@ begin
       result := ' ORDER BY ' + f(['CODIGO', 'DESCRICAO']);
     cgoperadorcaixa:
       result := ' ORDER BY ' + f(['c.CODIGO', 'c.NOME', 'u.USUARIO']);
+    cgTIPO_ITEM:
+      result := ' ORDER BY ' + f(['CODIGO', 'DESCRICAO']);
   end;
   result := result + ' ';
 end;
@@ -981,6 +1033,9 @@ begin
 
     cgoperadorcaixa:
       configLayout(450, 280, 10, 10, 'Operador de Caixa');
+
+    cgTIPO_ITEM:
+      configLayout(540, 317, 16, 10, 'Tipo do Item');
 
   end;
 end;

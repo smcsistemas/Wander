@@ -38,8 +38,28 @@ const
 
   // [cg] Constantes para identificar a tabela a qual a tela de consulta genérica irá trazer
 type
-  TConsultaGenericaKind = (cgNull, cgProduto, cgFornecedor, cgUsuario, cgCliente, cgMunicipio, cgNCM, cgVendedor, cgGerente, cgFormasPagamento, cgCFOP, cgCSOSN, cgANP, cgSocio,
-    cgMarca, cgICMS, cgPIS, cgCOFINS, cgORIGEM, cgOperadorCaixa, cgCST_ICMS);
+  TConsultaGenericaKind = (cgNull,
+                           cgProduto,
+                           cgFornecedor,
+                           cgUsuario,
+                           cgCliente,
+                           cgMunicipio,
+                           cgNCM,
+                           cgVendedor,
+                           cgGerente,
+                           cgFormasPagamento,
+                           cgCFOP,
+                           cgCSOSN,
+                           cgANP,
+                           cgSocio,
+                           cgMarca,
+                           cgICMS,
+                           cgPIS,
+                           cgCOFINS,
+                           cgORIGEM,
+                           cgOperadorCaixa,
+                           cgCST_ICMS,
+                           cgTIPO_ITEM);
 
 type
   TDBConn = (dbLocal, dbOnline);

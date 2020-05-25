@@ -12,6 +12,15 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  191|24/05/20|wander              |Tratando Origem do Produto no novo padrão:|
+|     |   19:56|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
+|-----|--------|--------------------|------------------------------------------|
+|  190|24/05/20|wander              |Tratando TIPO ITEM no novo padrão:        |
+|     |   19:19|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
+|-----|--------|--------------------|------------------------------------------|
+|  189|24/05/20|wander              |Criada a consulta genérica para a tabela  |
+|     |   18:42|vw_consulta_generica|produto_tipo_item                         |
+|-----|--------|--------------------|------------------------------------------|
 |  188|24/05/20|wander              |Tratando unidade de medida. Antes armaze- |
 |     |   15:25|cadastro_produto    |va a sigla na tab prod agora grav o codigo|
 |-----|--------|--------------------|------------------------------------------|

@@ -4,6 +4,12 @@ unit cadastro_produto;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  191|24/05/20|wander              |Tratando Origem do Produto no novo padrão:|
+|     |   19:56|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
+|-----|--------|--------------------|------------------------------------------|
+|  190|24/05/20|wander              |Tratando TIPO ITEM no novo padrão:        |
+|     |   19:19|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
+|-----|--------|--------------------|------------------------------------------|
 |  188|24/05/20|wander              |Tratando unidade de medida. Antes armaze- |
 |     |   15:25|cadastro_produto    |va a sigla na tab prod agora grav o codigo|
 |-----|--------|--------------------|------------------------------------------|
@@ -46,7 +52,7 @@ unit cadastro_produto;
 interface
 
 uses
-  Winapi.Windows, System.SysUtils, System.Variants,
+  Winapi.Messages, Winapi.Windows, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.DBCtrls, Vcl.StdCtrls,
   Vcl.Mask, cxGraphics,
@@ -294,49 +300,6 @@ type
     N1: TMenuItem;
     ImprimirEtiqueta1: TMenuItem;
     Panel2: TPanel;
-    GroupBox4: TGroupBox;
-    Label3: TLabel;
-    Label1: TLabel;
-    Label4: TLabel;
-    A: TLabel;
-    Label5: TLabel;
-    Label7: TLabel;
-    Label37: TLabel;
-    Label15: TLabel;
-    Label6: TLabel;
-    Label8: TLabel;
-    Label36: TLabel;
-    lbl2: TLabel;
-    Label18: TLabel;
-    btn_familia: TcxButton;
-    btn_sub: TcxButton;
-    btn_grupo: TcxButton;
-    btn_und: TcxButton;
-    btn_marca: TcxButton;
-    edDESCRICAO_PRODUTO: TEdit;
-    edREFERENCIA_FABRICANTE: TEdit;
-    edFAMILIA: TEdit;
-    edSUBGRUPO: TEdit;
-    edUNIDADE_MEDIDA: TEdit;
-    edGRUPO: TEdit;
-    edMARCA: TEdit;
-    mmINFO_ADICIONAIS: TMemo;
-    edCODIGO_ALFANUMERICO: TEdit;
-    edCODIGO: TEdit;
-    cb_ponto_impressao: TcxDBLookupComboBox;
-    edNFe_nDI: TEdit;
-    cxGroupBox1: TcxGroupBox;
-    Label9: TLabel;
-    Label10: TLabel;
-    Label13: TLabel;
-    edPRECO_FINAL_VAREJO: TEdit;
-    edPRECO_FINAL_DISTRIBUIDOR: TEdit;
-    edPRECO_FINAL_ATACADO: TEdit;
-    edGRUPO_NOME: TEdit;
-    edSUBGRUPO_NOME: TEdit;
-    edMARCA_NOME: TEdit;
-    edUNIDADE_MEDIDA_NOME: TEdit;
-    edFAMILIA_NOME: TEdit;
     Panel3: TPanel;
     cxButton3: TcxButton;
     cxButton11: TcxButton;
@@ -522,20 +485,64 @@ type
     qConsultaNFe_modBCST: TIntegerField;
     qConsultaNFe_pMVAST: TBCDField;
     qConsultaNFe_motDesICMS: TIntegerField;
-    Label11: TLabel;
-    edCODIGO_BARRAS: TEdit;
     qConsultaCODIGO_ALFANUMERICO: TStringField;
     tConsulta: TTimer;
     edICMS_CST: TEdit;
     edICMS_CST_NOME: TEdit;
     cxButton5: TcxButton;
-    cbSTATUS_CADASTRAL: TcxCheckBox;
-    Edit1: TEdit;
-    Edit2: TEdit;
-    cxButton6: TcxButton;
-    Edit3: TEdit;
-    Edit5: TEdit;
+    edCODIGO_ORIGEM_MERCADORIA: TEdit;
+    edCODIGO_ORIGEM_MERCADORIA_NOME: TEdit;
     cxButton7: TcxButton;
+    Panel1: TPanel;
+    GroupBox4: TGroupBox;
+    Label3: TLabel;
+    Label1: TLabel;
+    Label4: TLabel;
+    A: TLabel;
+    Label5: TLabel;
+    Label7: TLabel;
+    Label37: TLabel;
+    Label15: TLabel;
+    Label6: TLabel;
+    Label8: TLabel;
+    Label36: TLabel;
+    lbl2: TLabel;
+    Label18: TLabel;
+    Label11: TLabel;
+    btn_familia: TcxButton;
+    btn_sub: TcxButton;
+    btn_grupo: TcxButton;
+    btn_und: TcxButton;
+    btn_marca: TcxButton;
+    edDESCRICAO_PRODUTO: TEdit;
+    edREFERENCIA_FABRICANTE: TEdit;
+    edFAMILIA: TEdit;
+    edSUBGRUPO: TEdit;
+    edUNIDADE_MEDIDA: TEdit;
+    edGRUPO: TEdit;
+    edMARCA: TEdit;
+    mmINFO_ADICIONAIS: TMemo;
+    edCODIGO_ALFANUMERICO: TEdit;
+    edCODIGO: TEdit;
+    cb_ponto_impressao: TcxDBLookupComboBox;
+    edNFe_nDI: TEdit;
+    cxGroupBox1: TcxGroupBox;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label13: TLabel;
+    edPRECO_FINAL_VAREJO: TEdit;
+    edPRECO_FINAL_DISTRIBUIDOR: TEdit;
+    edPRECO_FINAL_ATACADO: TEdit;
+    edGRUPO_NOME: TEdit;
+    edSUBGRUPO_NOME: TEdit;
+    edMARCA_NOME: TEdit;
+    edUNIDADE_MEDIDA_NOME: TEdit;
+    edFAMILIA_NOME: TEdit;
+    edCODIGO_BARRAS: TEdit;
+    cbSTATUS_CADASTRAL: TcxCheckBox;
+    edTIPO_ITEM: TEdit;
+    edTIPO_ITEM_NOME: TEdit;
+    btn_Tipo: TcxButton;
     procedure BtnGravarClick(Sender: TObject);
     procedure cxTabSheet5Show(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -549,10 +556,6 @@ type
     procedure cxDBTextEdit28Exit(Sender: TObject);
     procedure cxDBTextEdit35Exit(Sender: TObject);
     procedure cxTabSheet1Show(Sender: TObject);
-    procedure pauta_bcKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edt_leisKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edt_generoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edt_ncmKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Edit1KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit3KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit29KeyPress(Sender: TObject; var Key: Char);
@@ -604,19 +607,11 @@ type
     procedure cxDBTextEdit59KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit60KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit61KeyPress(Sender: TObject; var Key: Char);
-    procedure edDESCRICAO_PRODUTOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edMARCAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edFAMILIAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edGRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edSUBGRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure CUSTO_MEDIOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure MARGEM_LUCROKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure MARGEM_L_ATACADOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure EXTERNA_COMISSAO_VAREJOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure EXTERNA_COMISSAO_DISTRIBUIDORKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure EXTERNA_COMISSAO_ATACADOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure DESP_OPERACIONAISKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure Edit1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edCODIGO_ALFANUMERICOKeyPress(Sender: TObject; var Key: Char);
     procedure ESTOQUE_MINIMOKeyPress(Sender: TObject; var Key: Char);
     procedure BALCAO_COMISSAO_VAREJOKeyPress(Sender: TObject; var Key: Char);
@@ -665,12 +660,10 @@ type
     procedure dbcsticmsClick(Sender: TObject);
     procedure DESP_OPERACIONAISClick(Sender: TObject);
     procedure CUSTO_MEDIOClick(Sender: TObject);
-    procedure MARGEM_L_DISTRIBUIDORClick(Sender: TObject);
     procedure MARGEM_L_ATACADOClick(Sender: TObject);
     procedure BALCAO_COMISSAO_VAREJOClick(Sender: TObject);
     procedure BALCAO_COMISSAO_DISTRIBUIDORClick(Sender: TObject);
     procedure BALCAO_COMISSAO_ATACADOClick(Sender: TObject);
-    procedure EXTERNA_COMISSAO_VAREJOClick(Sender: TObject);
     procedure EXTERNA_COMISSAO_DISTRIBUIDORClick(Sender: TObject);
     procedure EXTERNA_COMISSAO_ATACADOClick(Sender: TObject);
     procedure DBEdit13Click(Sender: TObject);
@@ -744,6 +737,15 @@ type
     procedure edUNIDADE_MEDIDAKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edUNIDADE_MEDIDAExit(Sender: TObject);
+    procedure btn_TipoClick(Sender: TObject);
+    procedure edTIPO_ITEMKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edTIPO_ITEMExit(Sender: TObject);
+    procedure edREFERENCIA_FABRICANTEExit(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure edCODIGO_ORIGEM_MERCADORIAKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edCODIGO_ORIGEM_MERCADORIAExit(Sender: TObject);
 
   private
     { Private declarations }
@@ -756,6 +758,8 @@ type
     procedure ConsultarMarcas;
     procedure ConsultarFamilias;
     procedure ConsultarGrupos;
+    procedure ConsultarProduto_tipo_item;
+    procedure ConsultarCODIGO_ORIGEM_MERCADORIA;
     procedure ConsultarSubGrupos;
     procedure ConsultarCST_ICMS;
     procedure ConsultarUnidades;
@@ -1071,9 +1075,6 @@ begin
 
   SQL_CSTCOFINS.Active := true;
 
-  SQL_ORIGEM_ICMS.Active := true;
-  SQL_TIPO_ITEM.Active := true;
-
   SQL_NAT_OP.Active := false;
   SQL_NAT_OP.Active := true;
 
@@ -1298,6 +1299,13 @@ begin
    ConsultarCST_ICMS;
 end;
 
+procedure TFrm_Produto.ConsultarCODIGO_ORIGEM_MERCADORIA;
+begin
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgORIGEM, edCODIGO_ORIGEM_MERCADORIA);
+  Frm_Consulta_Generica.ShowModal;
+  edCODIGO_ORIGEM_MERCADORIA_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edCODIGO_ORIGEM_MERCADORIA.Text);
+end;
+
 procedure TFrm_Produto.ConsultarCST_ICMS;
 begin
   Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgICMS, edICMS_CST);
@@ -1307,7 +1315,7 @@ end;
 
 procedure TFrm_Produto.cxButton7Click(Sender: TObject);
 begin
-  SQL_PRODUTO.Prior;
+   ConsultarCODIGO_ORIGEM_MERCADORIA;
 end;
 
 procedure TFrm_Produto.cxButton9Click(Sender: TObject);
@@ -1368,61 +1376,10 @@ begin
   if not DadosCorretos then
      exit;
 
-   ApagarRegistro;
-   InserirRegistro;
+  ApagarRegistro;
+  InserirRegistro;
+  Pesquisar;
 
-   {{
-          if chk_ativocadastro.Checked = true then
-            SQL_PRODUTO
-            .value := 'ATIVO';
-
-          if chk_ativocadastro.Checked = false then
-            SQL_PRODUTOSTATUS_CADASTRAL.value := 'INATIVO';
-
-//          if chk_usa_lote.Checked = true then
-//            SQL_PRODUTOUSA_LOTE.value := 'SIM'
-//          else
-//            SQL_PRODUTOUSA_LOTE.value := 'NAO';
-
-          if cbTipoItem.Text = '' then
-            SQL_PRODUTOTIPO_ITEM.value := '00';
-
-          if cstcofins.Text <> emptystr then
-            SQL_PRODUTOCOFINS_CST.value := cstcofins.Text;
-
-        {  if cstpis.Text <> emptystr then
-            SQL_PRODUTOPIS_CST.value := cstpis.Text;
-          if (TFunctions.replace(PRECO_CUSTO.Text, 'R$', VARDOUBLE) = 0) and (TFunctions.replace(FRETE.Text, '%', VARDOUBLE) = 0) and
-            (TFunctions.replace(CUSTO_MEDIO.Text, 'R$', VARDOUBLE) = 0) and (TFunctions.replace(IMPOSTO.Text, '%', VARDOUBLE) = 0) and
-            (TFunctions.replace(DESP_OPERACIONAIS.Text, '%', VARDOUBLE) = 0) and
-            (TFunctions.replace(PRECO_FINAL_VAREJO.Text, 'R$', VARDOUBLE) <> 0) then
-            if wnconfirmacao('Cadastrar Produto', slinebreak + 'Campo PREÇO DE CUSTO está com valor zerado!' + slinebreak +
-              'Deseja replicar o preço de varejo no preço de custo do produto?') then
-            begin
-              PRECO_CUSTO.Text := TFunctions.replace(PRECO_FINAL_VAREJO.Text, 'R$', VARDOUBLE);
-              CUSTO_MEDIO.Text := TFunctions.replace(PRECO_FINAL_VAREJO.Text, 'R$', VARDOUBLE);
-            end;  }
-    {
-          if SQL_PRODUTOESTOQUE_MINIMO.AsString = '' then
-            SQL_PRODUTOESTOQUE_MINIMO.value := '0';
-
-          SQL_PRODUTO.Post;
-          wninfo('Cadastrar Produto', slinebreak + slinebreak + 'Cadastro conclusão com sucesso!');
-          //u_funcoes.IniciarCadastro([bControleIncluir, bControleCancelar, bControleAlterar], false);
-          LimparCampos;
-          CarregarDadosInternos;
-          if not consultarultimo then
-            Close;
-        except
-          On e: exception do
-          begin
-            Application.MessageBox(StringToOleStr(e.Message + slinebreak + 'Erro ao cadastrar Produto. '), 'Erro de Cadastro.',
-              MB_ICONINFORMATION + MB_OK);
-          end;
-        end;
-      end;
-//    end;
-  }
   //Ajusta botões de controle
   pode_Alterar_Incluir(Frm_Produto);
 
@@ -1546,6 +1503,14 @@ begin
   edMARCA_NOME.Text := fProdutoMarca_NOME(edMARCA.Text);
 end;
 
+procedure TFrm_Produto.ConsultarProduto_tipo_item;
+begin
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgTIPO_ITEM, edTIPO_ITEM);
+  Frm_Consulta_Generica.ShowModal;
+  Frm_Consulta_Generica.Free;
+  edTIPO_ITEM_NOME.Text := fProduto_tipo_item_NOME(edTIPO_ITEM.Text);
+end;
+
 procedure TFrm_Produto.ConsultarSubGrupos;
 begin
   Frm_SubGrupo := TFrm_SubGrupo.CREATE(Application);
@@ -1611,8 +1576,12 @@ begin
   ConsultarSubGrupos;
 end;
 
-procedure TFrm_Produto.cxDateEdit1KeyPress(Sender: TObject;
+procedure TFrm_Produto.btn_TipoClick(Sender: TObject);
+begin
+   ConsultarProduto_tipo_item;
+end;
 
+procedure TFrm_Produto.cxDateEdit1KeyPress(Sender: TObject;
   var Key: Char);
 begin
   inherited;
@@ -1970,8 +1939,6 @@ begin
          exit;
       end;
 
-   RefFabricanteRepetido;
-
    Result := True;
 
 end;
@@ -2231,6 +2198,30 @@ begin
     CodBarrasRepetido;
 end;
 
+procedure TFrm_Produto.edCODIGO_ORIGEM_MERCADORIAExit(Sender: TObject);
+begin
+  edCODIGO_ORIGEM_MERCADORIA_NOME.Text := '';
+  if edCODIGO_ORIGEM_MERCADORIA.Text = '' then
+     exit;
+
+  //Exibe o nome da Origem da Mercadoria, ou limpa o campo
+  edCODIGO_ORIGEM_MERCADORIA_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edCODIGO_ORIGEM_MERCADORIA.Text);
+  if edCODIGO_ORIGEM_MERCADORIA_NOME.Text = '' then
+  begin
+    wnAlerta('Cadastrar Produto','Origem não cadastrada');
+    edCODIGO_ORIGEM_MERCADORIA.SetFocus;
+    exit;
+  end;
+
+end;
+
+procedure TFrm_Produto.edCODIGO_ORIGEM_MERCADORIAKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key = vk_F1) then
+   ConsultarCODIGO_ORIGEM_MERCADORIA;
+end;
+
 procedure TFrm_Produto.cod_combKeyPress(Sender: TObject;
 
   var Key: Char);
@@ -2320,14 +2311,6 @@ begin
 //  CUSTO_MEDIO.SelectAll;
 end;
 
-procedure TFrm_Produto.CUSTO_MEDIOKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-//    MARGEM_LUCRO.SetFocus;
-end;
-
 procedure TFrm_Produto.carregar_faixa;
 begin
   if not ansimatchstr(edCODIGO.Text, [emptystr, '0']) then
@@ -2373,30 +2356,10 @@ begin
   edDESCRICAO_PRODUTO.Text := RemoveEspaco(edDESCRICAO_PRODUTO.Text);
 end;
 
-procedure TFrm_Produto.edDESCRICAO_PRODUTOKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-    edREFERENCIA_FABRICANTE.SetFocus;
-  end;
-end;
-
 procedure TFrm_Produto.DESP_OPERACIONAISClick(Sender: TObject);
 begin
 //  DESP_OPERACIONAIS.SelStart := 0;
 //  DESP_OPERACIONAIS.SelectAll;
-end;
-
-procedure TFrm_Produto.DESP_OPERACIONAISKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-//    CUSTO_MEDIO.SetFocus;
-  end;
 end;
 
 procedure TFrm_Produto.duplicar_cadastroClick(Sender: TObject);
@@ -2410,16 +2373,6 @@ begin
   CODIGO_BARRAS.Text := '';
   tab_Cadastrar.show;
   }
-end;
-
-procedure TFrm_Produto.Edit1KeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-    edCODIGO_BARRAS.SetFocus;
-  end;
 end;
 
 procedure TFrm_Produto.Edit1KeyPress(Sender: TObject;
@@ -2444,42 +2397,12 @@ begin
   edt_cest.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(edt_cest.Text));
 end;
 
-procedure TFrm_Produto.edt_generoKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-    aliq_lucro_st.SetFocus;
-  end;
-end;
-
 procedure TFrm_Produto.edt_generoKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
-end;
-
-procedure TFrm_Produto.edt_leisKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-    edt_genero.SetFocus;
-  end;
-end;
-
-procedure TFrm_Produto.edt_ncmKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-    edt_anp.SetFocus;
-  end;
 end;
 
 procedure TFrm_Produto.edt_precoExit(Sender: TObject);
@@ -2577,37 +2500,12 @@ begin
 //  EXTERNA_COMISSAO_DISTRIBUIDOR.SelectAll;
 end;
 
-procedure TFrm_Produto.EXTERNA_COMISSAO_DISTRIBUIDORKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-//    BALCAO_COMISSAO_ATACADO.SetFocus;
-  end;
-end;
-
 procedure TFrm_Produto.EXTERNA_COMISSAO_DISTRIBUIDORKeyPress(Sender: TObject; var Key: Char);
 begin
 
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
 
-end;
-
-procedure TFrm_Produto.EXTERNA_COMISSAO_VAREJOClick(Sender: TObject);
-begin
-//  EXTERNA_COMISSAO_VAREJO.SelectAll;
-end;
-
-procedure TFrm_Produto.EXTERNA_COMISSAO_VAREJOKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-    //BALCAO_COMISSAO_DISTRIBUIDOR.SetFocus;
-  end;
 end;
 
 procedure TFrm_Produto.EXTERNA_COMISSAO_VAREJOKeyPress(Sender: TObject; var Key: Char);
@@ -2658,6 +2556,21 @@ end;
 
 
 
+procedure TFrm_Produto.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+    if key = #27 Then
+    begin
+      key := #0;
+      Exit;
+    end;
+
+    if key = #13 Then
+    begin
+      key := #0;
+      Perform(Wm_NextDlgCtl, 0, 0); // unit Winapi.Messages;
+    end;
+end;
+
 procedure TFrm_Produto.FormShow(Sender: TObject);
 begin
   Inicio;
@@ -2707,7 +2620,6 @@ begin
     edICMS_CST.SetFocus;
     exit;
   end;
-
 end;
 
 procedure TFrm_Produto.edICMS_CSTKeyDown(Sender: TObject; var Key: Word;
@@ -2858,7 +2770,9 @@ begin
    qAUX.sql.add('       PRECO_FINAL_DISTRIBUIDOR, ');
    qAUX.sql.add('       STATUS_CADASTRAL,         ');
    qAUX.sql.add('       ICMS_CST,                 ');
-   qAUX.sql.add('       CSOSN                     ');
+   qAUX.sql.add('       CSOSN,                    ');
+   qAUX.sql.add('       TIPO_ITEM,                ');
+   qAUX.sql.add('       CODIGO_ORIGEM_MERCADORIA  ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
    qAUX.sql.add('     (:CODIGO,                   ');
@@ -2878,7 +2792,9 @@ begin
    qAUX.sql.add('      :PRECO_FINAL_DISTRIBUIDOR, ');
    qAUX.sql.add('      :STATUS_CADASTRAL,         ');
    qAUX.sql.add('      :ICMS_CST,                 ');
-   qAUX.sql.add('      :CSOSN                     ');
+   qAUX.sql.add('      :CSOSN,                    ');
+   qAUX.sql.add('      :TIPO_ITEM,                ');
+   qAUX.sql.add('      :CODIGO_ORIGEM_MERCADORIA  ');
    qAUX.sql.add('     )                           ');
 
    //Codigo
@@ -2911,6 +2827,8 @@ begin
    qAUX.ParamByName('STATUS_CADASTRAL'        ).AsString  := Ativo_ou_Inativo(cbSTATUS_CADASTRAL.Checked);
    qAUX.ParamByName('ICMS_CST'                ).AsString  := edICMS_CST.Text;
    qAUX.ParamByName('CSOSN'                   ).AsString  := edCSOSN.Text;
+   qAUX.ParamByName('TIPO_ITEM'               ).AsString  := edTIPO_ITEM.Text;
+   qAUX.ParamByName('CODIGO_ORIGEM_MERCADORIA').AsString  := edCODIGO_ORIGEM_MERCADORIA.Text;
    qAUX.ExecSQL;
 
    qAUX.Free;
@@ -2946,16 +2864,6 @@ begin
   SQL_PRODUTOPRECO_FINAL_VAREJO.value := SQL_PRODUTOCUSTO_MEDIO.value + resultado;
 end;
 
-procedure TFrm_Produto.MARGEM_LUCROKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-   // MARGEM_L_DISTRIBUIDOR.SetFocus;
-  end;
-end;
-
 procedure TFrm_Produto.MARGEM_L_ATACADOClick(Sender: TObject);
 begin
 //  MARGEM_L_ATACADO.SelStart := 0;
@@ -2968,20 +2876,6 @@ var
 begin
   resultado := SQL_PRODUTOCUSTO_MEDIO.value * SQL_PRODUTOMARGEM_L_ATACADO.value / 100;
   SQL_PRODUTOPRECO_FINAL_ATACADO.value := SQL_PRODUTOCUSTO_MEDIO.value + resultado;
-end;
-
-procedure TFrm_Produto.MARGEM_L_ATACADOKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-//    PRECO_FINAL_VAREJO.SetFocus;
-end;
-
-procedure TFrm_Produto.MARGEM_L_DISTRIBUIDORClick(Sender: TObject);
-begin
-//  MARGEM_L_DISTRIBUIDOR.SelStart := 0;
-//  MARGEM_L_DISTRIBUIDOR.SelectAll;
 end;
 
 procedure TFrm_Produto.MARGEM_L_DISTRIBUIDORExit(Sender: TObject);
@@ -3013,6 +2907,10 @@ begin
    edUNIDADE_MEDIDA.Text           := qConsulta.FieldByName('UNIDADE_MEDIDA'       ).AsString;
    edUNIDADE_MEDIDA_NOME.Text      := fproduto_unidade_SIGLA(qConsulta.FieldByName('UNIDADE_MEDIDA').AsString);
 
+   //Tipo
+   edTIPO_ITEM.Text                := qConsulta.FieldByName('TIPO_ITEM').AsString;
+   edTIPO_ITEM_NOME.Text           := fProduto_tipo_item_NOME(edTIPO_ITEM.Text);
+
    //Marca
    edMARCA.Text                    := qConsulta.FieldByName('MARCA').AsString;
    edMARCA_NOME.Text               := fProdutoMarca_NOME(edMARCA.Text);
@@ -3040,6 +2938,10 @@ begin
    //Fiscal
    edICMS_CST.Text                 := qConsulta.FieldByName('ICMS_CST').AsString;
    edICMS_CST_NOME.Text            := fCST_ICMS_DESCRICAO(edICMS_CST.Text);
+
+   //Origem da Mercadoria
+   edCODIGO_ORIGEM_MERCADORIA.Text      := qConsulta.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsString;
+   edCODIGO_ORIGEM_MERCADORIA_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edCODIGO_ORIGEM_MERCADORIA.Text);
 
    edCSOSN.Text                    := qConsulta.FieldByName('CSOSN').AsString;
    if edCSOSN.Text <> '' then
@@ -3071,16 +2973,6 @@ procedure TFrm_Produto.NCMKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   NCM.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(NCM.Text));
-end;
-
-procedure TFrm_Produto.pauta_bcKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if (Key = vk_return) or (Key = vk_tab) then
-  begin
-    edt_leis.SetFocus;
-  end;
 end;
 
 procedure TFrm_Produto.pauta_bcKeyPress(Sender: TObject;
@@ -3207,6 +3099,11 @@ begin
   end;
 end;
 
+procedure TFrm_Produto.edREFERENCIA_FABRICANTEExit(Sender: TObject);
+begin
+   RefFabricanteRepetido;
+end;
+
 procedure TFrm_Produto.edREFERENCIA_FABRICANTEKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
@@ -3246,13 +3143,16 @@ begin
     if qry <> nil then
     begin
       result := true;
+      //Avisar
       wnAlerta('Cadastrar Produto', 'Referencia do fabricante já cadastrado no produto: ' + slinebreak + 'Cód: ' + qry.Fields[0].AsString +
         slinebreak + 'Descrição: ' + qry.Fields[1].AsString, taLeftJustify, 12);
+      {Não impedir
       if foco then
       begin
          edREFERENCIA_FABRICANTE.SelectAll;
          edREFERENCIA_FABRICANTE.SetFocus;
       end;
+      }
     end;
   end;
 end;
@@ -3408,6 +3308,29 @@ procedure TFrm_Produto.edSUBGRUPOKeyDown(Sender: TObject;
 begin
   if (Key = vk_F1) then
     ConsultarSubGrupos;
+end;
+
+procedure TFrm_Produto.edTIPO_ITEMExit(Sender: TObject);
+begin
+  edTIPO_ITEM_NOME.Text := '';
+  if edTIPO_ITEM.Text = '' then
+     exit;
+
+  //Exibe o nome dO TIPO_ITEM, ou limpa o campo
+  edTIPO_ITEM_NOME.Text := fProduto_tipo_item_NOME(edTIPO_ITEM.Text);
+  if edTIPO_ITEM_NOME.Text = '' then
+  begin
+    wnAlerta('Cadastrar Produto','Tipo de Item não cadastrado');
+    edTIPO_ITEM.SetFocus;
+    exit;
+  end;
+end;
+
+procedure TFrm_Produto.edTIPO_ITEMKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = vk_F1) then
+    ConsultarProduto_tipo_item;
 end;
 
 procedure TFrm_Produto.tbViewCellDblClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
