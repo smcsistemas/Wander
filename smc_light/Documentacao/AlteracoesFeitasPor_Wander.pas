@@ -12,6 +12,22 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  204|25/05/20|wander              |Substituidos os 3 checkboxs (chk_3, 4 e 5)|
+|     |   20:15|cadastro_empresa    |mutuamente excludentes por um RadioGroup  |
+|     |        |                    |rgCONTRIBUINTE_IPI com as opções          |
+|     |        |                    | - Apuração Mensal                        |
+|     |        |                    | - Apuração Decendial                     |
+|     |        |                    | - Não Contribuinte                       |
+|-----|--------|--------------------|------------------------------------------|
+|  203|25/05/20|wander              |Deixa de tratar a coluna                  |
+|     |   20:15|cadastro_empresa    |OPTANTE_SIMPLES_NACIONAL da tabela Empresa|
+|     |        |                    |e passa a tratar a coluna                 |
+|     |        |                    |CODIGO_REGIME_TRIBUTARIO para esta função |
+|-----|--------|--------------------|------------------------------------------|
+|  202|25/05/20|wander              |Eliminada coluna OPTANTE_SIMPLES_NACIONAL |
+|     |   20:15|Atualizador         |da tabela Empresa pois já havia a coluna  |
+|     |        |                    |CODIGO_REGIME_TRIBUTARIO para esta função |
+|-----|--------|--------------------|------------------------------------------|
 |  201|25/05/20|wander              |Criada padrão para dados da tabela        |
 |     |   17:30|Atualizador         |RELACAO_CRT_CST_CSOSN_CFOP_RCC            |
 |     |        |                    |para o tipo de movimento TPMOV = 1 (Venda)|
@@ -54,7 +70,7 @@ ordem decrescente de data....
 |     |        |                    |seja optante do regime Normal ou CSOSN se |
 |     |        |                    |optante do regime Simples Nacional.       |
 |-----|--------|--------------------|------------------------------------------|
-|  194|25/05/20|wander              |Eliminada coluna CFOP da tabel Venda_Item |
+|  194|25/05/20|wander              |Eliminada coluna CFOP da tabela Venda_Item|
 |     |   14:22|Atualizador         |                                          |
 |-----|--------|--------------------|------------------------------------------|
 |  193|25/05/20|wander              |Eliminada coluna CSOSN da tabela produto  |

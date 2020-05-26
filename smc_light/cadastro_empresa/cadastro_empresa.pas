@@ -4,6 +4,18 @@ unit cadastro_empresa;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  204|25/05/20|wander              |Substituidos os 3 checkboxs (chk_3, 4 e 5)|
+|     |   20:15|cadastro_empresa    |mutuamente excludentes por um RadioGroup  |
+|     |        |                    |rgCONTRIBUINTE_IPI com as opções          |
+|     |        |                    | - Apuração Mensal                        |
+|     |        |                    | - Apuração Decendial                     |
+|     |        |                    | - Não Contribuinte                       |
+|-----|--------|--------------------|------------------------------------------|
+|  203|25/05/20|wander              |Deixa de tratar a coluna                  |
+|     |   20:15|cadastro_empresa    |OPTANTE_SIMPLES_NACIONAL da tabela Empresa|
+|     |        |                    |e passa a tratar a coluna                 |
+|     |        |                    |CODIGO_REGIME_TRIBUTARIO para esta função |
+|-----|--------|--------------------|------------------------------------------|
 |  199|25/05/20|wander              |Incluida informação                       |
 |     |   14:55|cadastro_empresa    |CRT - Código de Regime Tributário:        |                      |
 |     |        |                    |0-Não se Aplica                           |
@@ -114,10 +126,9 @@ type
     SQL_EmpresaPAIS: TStringField;
     SQL_EmpresaCOMPLEMENTO: TStringField;
     SQL_EmpresaIE_SUBSTITUTO_TRIBUTARIO: TStringField;
-    SQL_EmpresaCODIGO_REGIME_TRIBUTARIO: TStringField;
+    SQL_EmpresaCODIGO_REGIME_TRIBUTARIO: TIntegerField;
     SQL_EmpresaAPURACAO_MENSAL_IPI: TStringField;
     SQL_EmpresaAPURACAO_DECENDIAL_IPI: TStringField;
-    SQL_EmpresaOPTANTE_SIMPLES_NACIONAL: TStringField;
     SQL_EmpresaTRIBUTADO_ALIQUOTA_FIXA_ICMS: TStringField;
     SQL_EmpresaCONTRIBUINTE_IPI: TStringField;
     SQL_EmpresaORGANIZACAO_CONTABIL_RAZAO_SOCIAL: TStringField;
@@ -194,13 +205,11 @@ type
     SQL_EmpresaNOME_CONTATO_AD: TMemoField;
     cxButton3: TcxButton;
     GroupBox1: TGroupBox;
-    Label12: TLabel;
     GroupBox2: TGroupBox;
     Label2: TLabel;
     Label9: TLabel;
     Edit1: TEdit;
     Edit2: TEdit;
-    cb_regime_tribu: TComboBoxEx;
     grpConfig: TGroupBox;
     BtnCertificado: TcxButton;
     BtnEmail: TcxButton;
@@ -284,9 +293,6 @@ type
     SUFRAMA: TDBEdit;
     INICIO_ATIVIDADE: TcxDateEdit;
     grpCRT: TGroupBox;
-    chk_6: TcxCheckBox;
-    chk_7: TcxCheckBox;
-    chk_8: TcxCheckBox;
     cxCONTRIBUINTE_ICMS: TcxCheckBox;
     grpPisCofins: TGroupBox;
     chk_2: TcxCheckBox;
@@ -299,15 +305,12 @@ type
     GroupBox3: TGroupBox;
     Label11: TLabel;
     Edit3: TEdit;
-    grpIPI: TGroupBox;
-    chk_3: TcxCheckBox;
-    chk_4: TcxCheckBox;
-    chk_5: TcxCheckBox;
-    chk_9: TcxCheckBox;
     SQL_Empresalocal_key: TMemoField;
     SQL_EmpresaCONTRIBUINTE_ICMS: TStringField;
     SQL_EmpresapCOFINS: TBCDField;
-    RadioGroup1: TRadioGroup;
+    rgCODIGO_REGIME_TRIBUTARIO: TRadioGroup;
+    rgCONTRIBUINTE_IPI: TRadioGroup;
+    chk_9: TcxCheckBox;
     procedure BtnIncluirClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BtnGravarClick(Sender: TObject);
@@ -386,12 +389,6 @@ type
     procedure FormShow(Sender: TObject);
     procedure chk_1PropertiesChange(Sender: TObject);
     procedure chk_2PropertiesChange(Sender: TObject);
-    procedure chk_3PropertiesChange(Sender: TObject);
-    procedure chk_4PropertiesChange(Sender: TObject);
-    procedure chk_5PropertiesChange(Sender: TObject);
-    procedure chk_6PropertiesChange(Sender: TObject);
-    procedure chk_7PropertiesChange(Sender: TObject);
-    procedure chk_8PropertiesChange(Sender: TObject);
     procedure BtnAlterarClick(Sender: TObject);
     procedure CarregarDadosInternos();
     procedure BuscarSocios();
@@ -527,7 +524,7 @@ begin
     BuscarSocios();
     DS_Empresa.Edit;
     u_funcoes.AlterarEnabled([grpDadosEmpresa, grpOutras, grpLogo, grpContatosAd, grpEndereco, grpEscritorioCont, grpContatos,  grpContatosAd,
-      grpContatoCont, grpPisCofins, grpIPI, grpCRT,  cxButton5, cxButton1, cxButton2], True);
+      grpContatoCont, grpPisCofins, GroupBox1, grpCRT,  cxButton5, cxButton1, cxButton2], True);
     RAZAO_SOCIAL.SetFocus;
     RAZAO_SOCIAL.selectall;
   end;
@@ -606,143 +603,108 @@ begin
       ['Razão Social', 'Nome Fantasia', 'CNPJ', 'Inscrição Estadual * ISENTO Caso não possua', 'CNAE ', 'Endereço', 'Número', 'BAIRRO', 'CEP', 'Município',
       'Telefone * No mínimo um', 'Organização Contabil', 'CPF do Contador', 'Nome do Contador', 'CRC do Contador', 'Email do Contador * No mínimo um'], [], [],
       [], []) then
-    begin
-      exit
-    end
-    else if u_funcoes.VerificaEstadoCheck([chk_6, chk_7, chk_8], false) then
+      exit;
+
+    if rgCODIGO_REGIME_TRIBUTARIO.ItemIndex = -1 then
     begin
       wnAlerta('Cadastro Empresa', 'Por favor, selecione um CRT para a empresa.');
-      exit
-    end
-    else if u_funcoes.VerificaEstadoCheck([chk_1, chk_2], false) then
+      exit;
+    end;
+
+    if u_funcoes.VerificaEstadoCheck([chk_1, chk_2], false) then
     begin
       wnAlerta('Cadastro Empresa', 'Por favor, selecione um tipo de trib. PIS/COFINS para a empresa.');
-      exit
-    end
+      exit;
+    end;
+
+    if u_funcoes.RemoverEspacoEmBranco(RemoverCaracteresEspeciais(INICIO_ATIVIDADE.Text)) = '' then
+       SQL_EmpresaINICIO_ATIVIDADE.Text := '01/01/0001';
+
+    if chk_1.Checked = True then
+       SQL_EmpresaTRIBUTACAO_PIS_COFINS.Value := 'CUMULATIVO';
+    if chk_2.Checked = True then
+       SQL_EmpresaTRIBUTACAO_PIS_COFINS.Value := 'NAO_CUMULATIVO';
+
+    SQL_Empresa.FieldByName('CODIGO_REGIME_TRIBUTARIO').AsInteger := rgCODIGO_REGIME_TRIBUTARIO.ItemIndex;
+
+    //Wander 25/05/2020
+    SQL_EmpresaCONTRIBUINTE_IPI.AsString       := 'N';
+    SQL_EmpresaAPURACAO_MENSAL_IPI.AsString    := 'N';
+    SQL_EmpresaAPURACAO_DECENDIAL_IPI.AsString := 'N';
+
+    Case rgCONTRIBUINTE_IPI.ItemIndex of
+       0 : SQL_EmpresaCONTRIBUINTE_IPI.AsString       := 'X';
+       1 : SQL_EmpresaAPURACAO_MENSAL_IPI.AsString    := 'X';
+       2 : SQL_EmpresaAPURACAO_DECENDIAL_IPI.AsString := 'X';
+    End;
+
+    //Wander 02/04/2020
+    if cxCONTRIBUINTE_ICMS.Checked then
+       SQL_Empresa.FieldByName('CONTRIBUINTE_ICMS').AsString := 'S'
     else
-    begin
+       SQL_Empresa.FieldByName('CONTRIBUINTE_ICMS').AsString := 'N';
 
-      if u_funcoes.RemoverEspacoEmBranco(RemoverCaracteresEspeciais(INICIO_ATIVIDADE.Text)) = '' then
-        SQL_EmpresaINICIO_ATIVIDADE.Text := '01/01/0001';
-
-      if chk_1.Checked = True then
-        SQL_EmpresaTRIBUTACAO_PIS_COFINS.Value := 'CUMULATIVO';
-      if chk_2.Checked = True then
-        SQL_EmpresaTRIBUTACAO_PIS_COFINS.Value := 'NAO_CUMULATIVO';
-      if chk_6.Checked = True then
-        SQL_EmpresaCODIGO_REGIME_TRIBUTARIO.Value := IntToStr(1)
-      else if chk_7.Checked = True then
-        SQL_EmpresaCODIGO_REGIME_TRIBUTARIO.Value := IntToStr(2)
-      else if chk_8.Checked = True then
-        SQL_EmpresaCODIGO_REGIME_TRIBUTARIO.Value := IntToStr(3);
-
-      if chk_3.Checked = True then
-      begin
-        SQL_EmpresaCONTRIBUINTE_IPI.AsString := 'X';
-      end;
-
-      if chk_3.Checked = false then
-      begin
-        SQL_EmpresaCONTRIBUINTE_IPI.AsString := 'N';
-      end;
-
-      //Wander 02/04/2020
-      if cxCONTRIBUINTE_ICMS.Checked then
-         SQL_Empresa.FieldByName('CONTRIBUINTE_ICMS').AsString := 'S'
-      else
-         SQL_Empresa.FieldByName('CONTRIBUINTE_ICMS').AsString := 'N';
-
-      //Wander 20/04/2020
-      if ed_EMPRESA_pCOFINS.Text = '' then
-         ed_EMPRESA_pCOFINS.Text := '0.00';
-      try
-         vFloat := StrToFloat(ed_EMPRESA_pCOFINS.Text);
-         if vFloat < 0 then
-         begin
-           ShowMessage('Valor Alíquota COFINS inválido');
-           ed_EMPRESA_pCOFINS.SetFocus;
-           exit;
-         end;
-         SQL_Empresa.FieldByName('pCOFINS').AsFloat := vFloat;
-      except
+    //Wander 20/04/2020
+    if ed_EMPRESA_pCOFINS.Text = '' then
+       ed_EMPRESA_pCOFINS.Text := '0.00';
+    try
+       vFloat := StrToFloat(ed_EMPRESA_pCOFINS.Text);
+       if vFloat < 0 then
+       begin
          ShowMessage('Valor Alíquota COFINS inválido');
          ed_EMPRESA_pCOFINS.SetFocus;
          exit;
-      end;
-
-      if chk_4.Checked = True then
-      begin
-        SQL_EmpresaAPURACAO_MENSAL_IPI.AsString := 'X';
-      end;
-
-      if chk_4.Checked = false then
-      begin
-        SQL_EmpresaAPURACAO_MENSAL_IPI.AsString := 'N';
-      end;
-
-      if chk_5.Checked = True then
-      begin
-        SQL_EmpresaAPURACAO_DECENDIAL_IPI.AsString := 'X';
-      end;
-
-      if chk_5.Checked = false then
-      begin
-        SQL_EmpresaAPURACAO_DECENDIAL_IPI.AsString := 'N';
-      end;
-
-      if chk_6.Checked = True then
-      begin
-        SQL_EmpresaOPTANTE_SIMPLES_NACIONAL.AsString := 'X';
-      end;
-
-      if chk_6.Checked = false then
-      begin
-        SQL_EmpresaOPTANTE_SIMPLES_NACIONAL.AsString := 'N';
-      end;
-
-      if u_funcoes.RemoverCaracteresEspeciais(INICIO_ATIVIDADE.Text) <> '' then
-        SQL_EmpresaINICIO_ATIVIDADE.Value := strtodate(INICIO_ATIVIDADE.Text)
-      else
-        SQL_EmpresaINICIO_ATIVIDADE.Value := 0;
-
-      SQL_Empresa.Post;
-      MessageDLG('Operação concluída com sucesso', mtInformation, [mbOk], 0);
-      u_funcoes.IniciarCadastro([BtnIncluir, BtnCancelar, BtnAlterar], false);
-      chk_3.Checked := false;
-
-      //Wander 02/04/2020
-      cxCONTRIBUINTE_ICMS.Checked := false;
-      ed_EMPRESA_pCOFINS.Text     := '0,00';
-
-      chk_4.Checked := false;
-      chk_5.Checked := false;
-      chk_6.Checked := false;
-      cxButton1.Enabled := false;
-      cxButton2.Enabled := false;
-
-      Image1.Picture := nil;
-
-      CarregarDadosInternos();
-
-      u_funcoes.CamposObrigatorios_corpadrao([RAZAO_SOCIAL, dbedtNOME_FANTASIA, CNPJ, INSCRICAO_ESTADUAL, CNAE, DBEdit3, NUMERO, BAIRRO, CEP, MUNICIPIO, EMPRESA_TELEFONE_01,
-        ORGANIZACAO_CONTABIL_FANTASIA, ORGANIZACAO_CONTABIL_CPF, CONTADOR_NOME, CONTADOR_CRC], [], []);
-
+       end;
+       SQL_Empresa.FieldByName('pCOFINS').AsFloat := vFloat;
+    except
+       ShowMessage('Valor Alíquota COFINS inválido');
+       ed_EMPRESA_pCOFINS.SetFocus;
+       exit;
     end;
+
+    if u_funcoes.RemoverCaracteresEspeciais(INICIO_ATIVIDADE.Text) <> '' then
+      SQL_EmpresaINICIO_ATIVIDADE.Value := strtodate(INICIO_ATIVIDADE.Text)
+    else
+      SQL_EmpresaINICIO_ATIVIDADE.Value := 0;
+
+    SQL_Empresa.Post;
+    MessageDLG('Operação concluída com sucesso', mtInformation, [mbOk], 0);
+    u_funcoes.IniciarCadastro([BtnIncluir, BtnCancelar, BtnAlterar], false);
+
+    //Wander 25/05/2020
+    rgCONTRIBUINTE_IPI.ItemIndex:= -1;
+    rgCODIGO_REGIME_TRIBUTARIO.ItemIndex := -1;
+
+    //Wander 02/04/2020
+    cxCONTRIBUINTE_ICMS.Checked := false;
+    ed_EMPRESA_pCOFINS.Text              := '0,00';
+
+    cxButton1.Enabled := false;
+    cxButton2.Enabled := false;
+
+    Image1.Picture := nil;
+
+    CarregarDadosInternos();
+
+    u_funcoes.CamposObrigatorios_corpadrao([RAZAO_SOCIAL, dbedtNOME_FANTASIA, CNPJ, INSCRICAO_ESTADUAL, CNAE, DBEdit3, NUMERO, BAIRRO, CEP, MUNICIPIO, EMPRESA_TELEFONE_01,
+              ORGANIZACAO_CONTABIL_FANTASIA, ORGANIZACAO_CONTABIL_CPF, CONTADOR_NOME, CONTADOR_CRC], [], []);
+
   end;
 end;
 
 procedure TForm_Empresa.BtnIncluirClick(Sender: TObject);
 begin
   u_funcoes.AlterarEnabled([grpDadosEmpresa, grpOutras, grpLogo, grpContatosAd, grpEndereco, grpEscritorioCont, grpContatos, grpContatosAd,
-  grpContatoCont, grpPisCofins, grpIPI, grpCRT, cxButton5, cxButton1, cxButton2], True);
-  chk_3.Checked := false;
+  grpContatoCont, grpPisCofins, GroupBox1, grpCRT, cxButton5, cxButton1, cxButton2], True);
+
+  //Wander 25/05/2020
+  rgCONTRIBUINTE_IPI.ItemIndex:= -1;
+  rgCODIGO_REGIME_TRIBUTARIO.ItemIndex := -1;
 
   //Wander 02/04/2020
   cxCONTRIBUINTE_ICMS.Checked := false;
   ed_EMPRESA_pCOFINS.Text     := '0,00';
 
-  chk_4.Checked := false;
-  chk_5.Checked := false;
   SQL_Empresa.Active := True;
   SQL_Empresa.Insert; // vai amarrar o banco ate o usuario gravar ou desistir....
   SQL_EmpresaDATA_CADASTRO.Value := date;
@@ -795,39 +757,20 @@ var
 begin
   BuscarSocios();
   u_funcoes.AlterarEnabled([grpDadosEmpresa, grpOutras, grpLogo, grpContatosAd, grpEndereco, grpEscritorioCont, grpContatos, grpContatosAd,
-    grpContatoCont, grpPisCofins, grpIPI, grpCRT, cxButton5, cxButton1, cxButton2], false);
-  if SQL_EmpresaCODIGO_REGIME_TRIBUTARIO.Value <> '' then
-  begin
-    I := strtoint(SQL_EmpresaCODIGO_REGIME_TRIBUTARIO.Value);
-    case I of
-      1:
-        chk_6.Checked := True;
-      2:
-        chk_7.Checked := True;
-      3:
-        chk_8.Checked := True;
-    end;
-  end;
+    grpContatoCont, grpPisCofins, GroupBox1, grpCRT, cxButton5, cxButton1, cxButton2], false);
+
   if SQL_EmpresaTRIBUTACAO_PIS_COFINS.Value = 'CUMULATIVO' then
     chk_1.Checked := True
   else if SQL_EmpresaTRIBUTACAO_PIS_COFINS.Value = 'NAO_CUMULATIVO' then
     chk_2.Checked := True;
-  if SQL_EmpresaAPURACAO_IPI.Value = 'MENSAL' then
-    chk_4.Checked := True
-  else if SQL_EmpresaAPURACAO_IPI.Value = 'DECENDIAL' then
-    chk_5.Checked := True
-  else if SQL_EmpresaCONTRIBUINTE_IPI.Value = 'X' then
-    chk_3.Checked := True
-  else if SQL_EmpresaCONTRIBUINTE_IPI.Value <> 'X' then
-    chk_3.Checked := false;
-  if SQL_EmpresaCONTRIBUINTE_IPI.AsString = 'X' then
-  begin
-    chk_3.Checked := True;
-  end
-  else if SQL_EmpresaCONTRIBUINTE_IPI.AsString = 'N' then
-  begin
-    chk_3.Checked := false;
-  end;
+
+  //Wander 25/05/2020
+  rgCONTRIBUINTE_IPI.ItemIndex:= 2; // Não contribuinte
+  if SQL_EmpresaAPURACAO_DECENDIAL_IPI.AsString = 'X' then
+     rgCONTRIBUINTE_IPI.ItemIndex:= 1; // DECENDIAL
+  if SQL_EmpresaAPURACAO_MENSAL_IPI.AsString = 'X' then
+     rgCONTRIBUINTE_IPI.ItemIndex:= 0; // MENSAL
+  rgCODIGO_REGIME_TRIBUTARIO.ItemIndex := SQL_Empresa.FieldByName('CODIGO_REGIME_TRIBUTARIO').AsInteger;
 
   //Wander 02/04/2020
   if SQL_Empresa.FieldByName('CONTRIBUINTE_ICMS').AsString = 'S' then
@@ -837,31 +780,6 @@ begin
 
   //Wander 20/04/2020
   ed_EMPRESA_pCOFINS.Text := Float_to_String(SQL_Empresa.FieldByName('pCOFINS').AsFloat);
-
-  if SQL_EmpresaAPURACAO_DECENDIAL_IPI.AsString = 'X' then
-  begin
-    chk_5.Checked := True;
-  end
-  else if SQL_EmpresaAPURACAO_DECENDIAL_IPI.AsString = 'N' then
-  begin
-    chk_5.Checked := false;
-  end;
-  if SQL_EmpresaAPURACAO_DECENDIAL_IPI.AsString = 'X' then
-  begin
-    chk_5.Checked := True;
-  end
-  else if SQL_EmpresaAPURACAO_DECENDIAL_IPI.AsString = 'N' then
-  begin
-    chk_5.Checked := false;
-  end;
-  if SQL_EmpresaAPURACAO_MENSAL_IPI.AsString = 'X' then
-  begin
-    chk_4.Checked := True;
-  end
-  else if SQL_EmpresaAPURACAO_MENSAL_IPI.AsString = 'N' then
-  begin
-    chk_4.Checked := false;
-  end;
 
   if SQL_EmpresaLOGOTIPO.Value <> '' then
     if FileExists(SQL_EmpresaLOGOTIPO.Value, True) then
@@ -915,36 +833,6 @@ end;
 procedure TForm_Empresa.chk_2PropertiesChange(Sender: TObject);
 begin
   u_funcoes.AlteraChecks(chk_2, [chk_1]);
-end;
-
-procedure TForm_Empresa.chk_3PropertiesChange(Sender: TObject);
-begin
-  u_funcoes.AlteraChecks(chk_3, [chk_4, chk_5]);
-end;
-
-procedure TForm_Empresa.chk_4PropertiesChange(Sender: TObject);
-begin
-  u_funcoes.AlteraChecks(chk_4, [chk_3, chk_5]);
-end;
-
-procedure TForm_Empresa.chk_5PropertiesChange(Sender: TObject);
-begin
-  u_funcoes.AlteraChecks(chk_5, [chk_4, chk_3]);
-end;
-
-procedure TForm_Empresa.chk_6PropertiesChange(Sender: TObject);
-begin
-  u_funcoes.AlteraChecks(chk_6, [chk_7, chk_8]);
-end;
-
-procedure TForm_Empresa.chk_7PropertiesChange(Sender: TObject);
-begin
-  u_funcoes.AlteraChecks(chk_7, [chk_6, chk_8]);
-end;
-
-procedure TForm_Empresa.chk_8PropertiesChange(Sender: TObject);
-begin
-  u_funcoes.AlteraChecks(chk_8, [chk_6, chk_7]);
 end;
 
 procedure TForm_Empresa.CNAEKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -1062,6 +950,7 @@ begin
   //Se é contribuinte do ICMS, permite informar alíquotas de ICMS
   //Se não é contribuinte do ICMS, não permite informar alíquotas de ICMS
   //----------------------------------------------------------------------------
+
   edit1.Enabled := cxCONTRIBUINTE_ICMS.Checked;
   edit2.Enabled := cxCONTRIBUINTE_ICMS.Checked;
   if not cxCONTRIBUINTE_ICMS.Checked then
@@ -1069,6 +958,7 @@ begin
      edit1.Text := '';
      edit2.Text := '';
   end;
+
 end;
 
 procedure TForm_Empresa.cxDBTextEdit4KeyPress(Sender: TObject; var Key: Char);
@@ -1411,15 +1301,6 @@ begin
       Edit;
     end;
 
-    if SQL_EmpresaCONTRIBUINTE_IPI.Value = 'X' then
-    begin
-      chk_3.Checked := True;
-    end;
-    if SQL_EmpresaCONTRIBUINTE_IPI.Value <> 'X' then
-    begin
-      chk_3.Checked := false;
-    end;
-
     //Wander 02/04/2020
     if SQL_Empresa.FieldByName('CONTRIBUINTE_ICMS').AsString = 'S' then
        cxCONTRIBUINTE_ICMS.Checked := True
@@ -1429,32 +1310,12 @@ begin
     //Wander 20/04/20
     ed_EMPRESA_pCOFINS.Text := Float_to_String(SQL_Empresa.FieldByName('pCOFINS').AsFloat);
 
-    if SQL_EmpresaAPURACAO_MENSAL_IPI.Value = 'X' then
-    begin
-      chk_4.Checked := True;
-    end;
-    if SQL_EmpresaAPURACAO_MENSAL_IPI.Value <> 'X' then
-    begin
-      chk_4.Checked := false;
-    end;
-
+    //Wander 25/05/2020
+    rgCONTRIBUINTE_IPI.ItemIndex:= 2; // Não contribuinte do IPI
+    if SQL_EmpresaAPURACAO_MENSAL_IPI.AsString = 'X' then
+       rgCONTRIBUINTE_IPI.ItemIndex:= 0; // MENSAL
     if SQL_EmpresaAPURACAO_DECENDIAL_IPI.Value = 'X' then
-    begin
-      chk_5.Checked := True;
-    end;
-    if SQL_EmpresaAPURACAO_DECENDIAL_IPI.Value <> 'X' then
-    begin
-      chk_5.Checked := false;
-    end;
-
-    if SQL_EmpresaOPTANTE_SIMPLES_NACIONAL.Value = 'X' then
-    begin
-      chk_6.Checked := True;
-    end;
-    if SQL_EmpresaOPTANTE_SIMPLES_NACIONAL.Value <> 'X' then
-    begin
-      chk_6.Checked := false;
-    end;
+       rgCONTRIBUINTE_IPI.ItemIndex:= 1; // DECENDIAL
 
     with SQL_COLABORADOR do
     begin

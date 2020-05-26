@@ -3,6 +3,10 @@ unit Atualizador;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  202|25/05/20|wander              |Eliminada coluna OPTANTE_SIMPLES_NACIONAL |
+|     |   20:15|Atualizador         |da tabela Empresa pois já havia a coluna  |
+|     |        |                    |CODIGO_REGIME_TRIBUTARIO para esta função |
+|-----|--------|--------------------|------------------------------------------|
 |  201|25/05/20|wander              |Criada padrão para dados da tabela        |
 |     |   17:30|Atualizador         |RELACAO_CRT_CST_CSOSN_CFOP_RCCCC          |
 |     |        |                    |para o tipo de movimento TPMOV = 1 (Venda)|
@@ -21,7 +25,7 @@ unit Atualizador;
 |     |        |                    |seja optante do regime Normal ou CSOSN se |
 |     |        |                    |optante do regime Simples Nacional.       |
 |-----|--------|--------------------|------------------------------------------|
-|  194|25/05/20|wander              |Eliminada coluna CFOP da tabel Venda_Item |
+|  194|25/05/20|wander              |Eliminada coluna CFOP da tabela Venda_Item|
 |     |   14:22|Atualizador         |                                          |
 |-----|--------|--------------------|------------------------------------------|
 |  193|25/05/20|wander              |Eliminada coluna CSOSN da tabela produto  |

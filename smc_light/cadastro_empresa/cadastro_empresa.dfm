@@ -5,7 +5,7 @@ object Form_Empresa: TForm_Empresa
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Cadastro | Empresa'
-  ClientHeight = 733
+  ClientHeight = 714
   ClientWidth = 1263
   Color = clHighlightText
   DefaultMonitor = dmMainForm
@@ -23,7 +23,7 @@ object Form_Empresa: TForm_Empresa
   PixelsPerInch = 96
   TextHeight = 13
   object BtnGravar: TcxButton
-    Left = 1127
+    Left = 1151
     Top = 9
     Width = 105
     Height = 43
@@ -171,7 +171,7 @@ object Form_Empresa: TForm_Empresa
     OnClick = BtnGravarClick
   end
   object BtnCancelar: TcxButton
-    Left = 1127
+    Left = 1151
     Top = 56
     Width = 105
     Height = 43
@@ -320,7 +320,7 @@ object Form_Empresa: TForm_Empresa
     OnClick = BtnCancelarClick
   end
   object BtnIncluir: TcxButton
-    Left = 1127
+    Left = 1151
     Top = 9
     Width = 105
     Height = 43
@@ -468,7 +468,7 @@ object Form_Empresa: TForm_Empresa
     OnClick = BtnIncluirClick
   end
   object BtnAlterar: TcxButton
-    Left = 1127
+    Left = 1151
     Top = 103
     Width = 105
     Height = 42
@@ -617,7 +617,7 @@ object Form_Empresa: TForm_Empresa
     OnClick = BtnAlterarClick
   end
   object cxButton3: TcxButton
-    Left = 1127
+    Left = 1151
     Top = 151
     Width = 105
     Height = 42
@@ -767,9 +767,9 @@ object Form_Empresa: TForm_Empresa
   end
   object GroupBox1: TGroupBox
     Left = 16
-    Top = 413
-    Width = 625
-    Height = 228
+    Top = 394
+    Width = 685
+    Height = 257
     Caption = '  Parametros de Tributa'#231#227'o'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clNone
@@ -778,24 +778,11 @@ object Form_Empresa: TForm_Empresa
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 5
-    object Label12: TLabel
-      Left = 455
-      Top = 140
-      Width = 99
-      Height = 17
-      Caption = 'Reg. Tribut'#225'rio:'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Helvetica Neue'
-      Font.Style = []
-      ParentFont = False
-    end
     object GroupBox2: TGroupBox
-      Left = 10
-      Top = 80
-      Width = 143
-      Height = 113
+      Left = 3
+      Top = 126
+      Width = 150
+      Height = 103
       Caption = '  ICMS  '
       Color = clWhite
       Font.Charset = DEFAULT_CHARSET
@@ -808,8 +795,8 @@ object Form_Empresa: TForm_Empresa
       ParentFont = False
       TabOrder = 0
       object Label2: TLabel
-        Left = 60
-        Top = 46
+        Left = 68
+        Top = 41
         Width = 20
         Height = 18
         Caption = '%:'
@@ -821,8 +808,8 @@ object Form_Empresa: TForm_Empresa
         ParentFont = False
       end
       object Label9: TLabel
-        Left = 7
-        Top = 83
+        Left = 15
+        Top = 72
         Width = 73
         Height = 18
         Caption = 'Simples %:'
@@ -834,9 +821,9 @@ object Form_Empresa: TForm_Empresa
         ParentFont = False
       end
       object Edit1: TEdit
-        Left = 86
-        Top = 42
-        Width = 49
+        Left = 94
+        Top = 37
+        Width = 41
         Height = 26
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clNone
@@ -848,9 +835,9 @@ object Form_Empresa: TForm_Empresa
         Text = 'Edit1'
       end
       object Edit2: TEdit
-        Left = 86
-        Top = 79
-        Width = 49
+        Left = 94
+        Top = 68
+        Width = 41
         Height = 26
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clNone
@@ -862,8 +849,8 @@ object Form_Empresa: TForm_Empresa
         Text = 'Edit1'
       end
       object cxCONTRIBUINTE_ICMS: TcxCheckBox
-        Left = 11
-        Top = 18
+        Left = 19
+        Top = 13
         Caption = 'Contribuinte'
         ParentBackground = False
         ParentColor = False
@@ -890,46 +877,22 @@ object Form_Empresa: TForm_Empresa
         TabOrder = 2
       end
     end
-    object cb_regime_tribu: TComboBoxEx
-      Left = 455
-      Top = 166
-      Width = 157
-      Height = 27
-      ItemsEx = <
-        item
-          Caption = '1 - SIMPLES NACIONAL'
-        end
-        item
-          Caption = '2 - SIMP. NAC. C/ EXC. DE SUBLIMITE'
-        end
-        item
-          Caption = '3 - REGIME NORMAL'
-        end>
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clNone
-      Font.Height = -15
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 1
-      Text = 'cb_regime_tribu'
-    end
     object grpPisCofins: TGroupBox
-      Left = 165
-      Top = 80
-      Width = 279
-      Height = 113
-      Caption = '  PIS | COFINS              PIS      -     COFINS  '
+      Left = 208
+      Top = 126
+      Width = 232
+      Height = 104
+      Caption = '  PIS | COFINS          PIS      COFINS  '
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clNone
       Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 1
       object chk_2: TcxCheckBox
-        Left = 6
-        Top = 84
+        Left = 3
+        Top = 71
         Caption = 'N'#227'o Cumulativo'
         ParentBackground = False
         ParentColor = False
@@ -956,7 +919,7 @@ object Form_Empresa: TForm_Empresa
         TabOrder = 1
       end
       object chk_1: TcxCheckBox
-        Left = 6
+        Left = 5
         Top = 38
         Caption = 'Cumulativo'
         ParentBackground = False
@@ -983,7 +946,7 @@ object Form_Empresa: TForm_Empresa
         TabOrder = 0
       end
       object Edit4: TEdit
-        Left = 144
+        Left = 125
         Top = 34
         Width = 49
         Height = 26
@@ -997,8 +960,8 @@ object Form_Empresa: TForm_Empresa
         Text = 'Edit1'
       end
       object Edit5: TEdit
-        Left = 144
-        Top = 79
+        Left = 125
+        Top = 66
         Width = 49
         Height = 26
         Font.Charset = DEFAULT_CHARSET
@@ -1011,7 +974,7 @@ object Form_Empresa: TForm_Empresa
         Text = 'Edit1'
       end
       object ed_EMPRESA_pCOFINS: TEdit
-        Left = 220
+        Left = 177
         Top = 34
         Width = 49
         Height = 26
@@ -1025,8 +988,8 @@ object Form_Empresa: TForm_Empresa
         Text = '0,00'
       end
       object Edit7: TEdit
-        Left = 220
-        Top = 79
+        Left = 177
+        Top = 66
         Width = 49
         Height = 26
         Font.Charset = DEFAULT_CHARSET
@@ -1041,17 +1004,16 @@ object Form_Empresa: TForm_Empresa
     end
     object cxCheckBox1: TcxCheckBox
       Left = 3
-      Top = 199
+      Top = 233
       Caption = 'Tratar ICMS de Diferimento (CST 51) (depende da UF)'
       ParentBackground = False
       ParentColor = False
       ParentFont = False
-      Properties.OnChange = chk_4PropertiesChange
       Style.BorderColor = clWindow
       Style.Color = clBtnHighlight
       Style.Font.Charset = DEFAULT_CHARSET
       Style.Font.Color = clNone
-      Style.Font.Height = -15
+      Style.Font.Height = -12
       Style.Font.Name = 'Tahoma'
       Style.Font.Style = [fsBold]
       Style.LookAndFeel.NativeStyle = False
@@ -1064,13 +1026,13 @@ object Form_Empresa: TForm_Empresa
       StyleFocused.LookAndFeel.SkinName = 'Office2013White'
       StyleHot.LookAndFeel.NativeStyle = False
       StyleHot.LookAndFeel.SkinName = 'Office2013White'
-      TabOrder = 3
+      TabOrder = 2
     end
     object GroupBox3: TGroupBox
-      Left = 454
-      Top = 80
+      Left = 447
+      Top = 130
       Width = 158
-      Height = 50
+      Height = 44
       Caption = '  ISS  '
       Color = 10921727
       Font.Charset = DEFAULT_CHARSET
@@ -1081,10 +1043,10 @@ object Form_Empresa: TForm_Empresa
       ParentBackground = False
       ParentColor = False
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 3
       object Label11: TLabel
         Left = 59
-        Top = 20
+        Top = 16
         Width = 20
         Height = 18
         Caption = '%:'
@@ -1097,7 +1059,7 @@ object Form_Empresa: TForm_Empresa
       end
       object Edit3: TEdit
         Left = 84
-        Top = 16
+        Top = 12
         Width = 49
         Height = 26
         Font.Charset = DEFAULT_CHARSET
@@ -1110,131 +1072,75 @@ object Form_Empresa: TForm_Empresa
         Text = 'Edit1'
       end
     end
-    object grpIPI: TGroupBox
-      Left = 10
-      Top = 21
-      Width = 602
-      Height = 52
-      Caption = '  IPI  '
+    object rgCODIGO_REGIME_TRIBUTARIO: TRadioGroup
+      Left = 0
+      Top = 25
+      Width = 281
+      Height = 101
+      Caption = 'Regime Tribut'#225'rio - CRT'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      Items.Strings = (
+        '0 - N'#227'o se Aplica'
+        '1 - Simples Nacional'
+        '2 - Simples Nacional com Excesso de Receita'
+        '3 - Regime Normal (Lucro real ou presumido)')
+      ParentFont = False
+      TabOrder = 4
+    end
+    object rgCONTRIBUINTE_IPI: TRadioGroup
+      Left = 287
+      Top = 26
+      Width = 154
+      Height = 98
+      Caption = '  IPI'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clNone
       Font.Height = -12
       Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
+      Font.Style = []
+      Items.Strings = (
+        'Apura'#231#227'o Mensal'
+        'Apura'#231#227'o Decendial'
+        'N'#227'o Contribuinte')
       ParentFont = False
       TabOrder = 5
-      object chk_3: TcxCheckBox
-        Left = 20
-        Top = 21
-        Caption = 'Contribuinte'
-        ParentBackground = False
-        ParentColor = False
-        ParentFont = False
-        Properties.OnChange = chk_3PropertiesChange
-        Style.BorderColor = clWindow
-        Style.Color = clBtnHighlight
-        Style.Font.Charset = DEFAULT_CHARSET
-        Style.Font.Color = clNone
-        Style.Font.Height = -12
-        Style.Font.Name = 'Tahoma'
-        Style.Font.Style = [fsBold]
-        Style.LookAndFeel.NativeStyle = False
-        Style.LookAndFeel.SkinName = 'Office2013White'
-        Style.Shadow = False
-        Style.IsFontAssigned = True
-        StyleDisabled.LookAndFeel.NativeStyle = False
-        StyleDisabled.LookAndFeel.SkinName = 'Office2013White'
-        StyleFocused.LookAndFeel.NativeStyle = False
-        StyleFocused.LookAndFeel.SkinName = 'Office2013White'
-        StyleHot.LookAndFeel.NativeStyle = False
-        StyleHot.LookAndFeel.SkinName = 'Office2013White'
-        TabOrder = 0
-      end
-      object chk_4: TcxCheckBox
-        Left = 136
-        Top = 21
-        Caption = 'Apura'#231#227'o Mensal'
-        ParentBackground = False
-        ParentColor = False
-        ParentFont = False
-        Properties.OnChange = chk_4PropertiesChange
-        Style.BorderColor = clWindow
-        Style.Color = clBtnHighlight
-        Style.Font.Charset = DEFAULT_CHARSET
-        Style.Font.Color = clNone
-        Style.Font.Height = -12
-        Style.Font.Name = 'Tahoma'
-        Style.Font.Style = [fsBold]
-        Style.LookAndFeel.NativeStyle = False
-        Style.LookAndFeel.SkinName = 'Office2013White'
-        Style.Shadow = False
-        Style.IsFontAssigned = True
-        StyleDisabled.LookAndFeel.NativeStyle = False
-        StyleDisabled.LookAndFeel.SkinName = 'Office2013White'
-        StyleFocused.LookAndFeel.NativeStyle = False
-        StyleFocused.LookAndFeel.SkinName = 'Office2013White'
-        StyleHot.LookAndFeel.NativeStyle = False
-        StyleHot.LookAndFeel.SkinName = 'Office2013White'
-        TabOrder = 1
-      end
-      object chk_5: TcxCheckBox
-        Left = 274
-        Top = 21
-        Caption = 'Apura'#231#227'o Decendial'
-        ParentBackground = False
-        ParentColor = False
-        ParentFont = False
-        Properties.OnChange = chk_5PropertiesChange
-        Style.BorderColor = clWindow
-        Style.Color = clBtnHighlight
-        Style.Font.Charset = DEFAULT_CHARSET
-        Style.Font.Color = clNone
-        Style.Font.Height = -12
-        Style.Font.Name = 'Tahoma'
-        Style.Font.Style = [fsBold]
-        Style.LookAndFeel.NativeStyle = False
-        Style.LookAndFeel.SkinName = 'Office2013White'
-        Style.Shadow = False
-        Style.IsFontAssigned = True
-        StyleDisabled.LookAndFeel.NativeStyle = False
-        StyleDisabled.LookAndFeel.SkinName = 'Office2013White'
-        StyleFocused.LookAndFeel.NativeStyle = False
-        StyleFocused.LookAndFeel.SkinName = 'Office2013White'
-        StyleHot.LookAndFeel.NativeStyle = False
-        StyleHot.LookAndFeel.SkinName = 'Office2013White'
-        TabOrder = 2
-      end
-      object chk_9: TcxCheckBox
-        Left = 437
-        Top = 21
-        Caption = 'Soma IPI Base ICMS'
-        ParentBackground = False
-        ParentColor = False
-        ParentFont = False
-        Properties.OnChange = chk_5PropertiesChange
-        Style.BorderColor = clWhite
-        Style.Color = 10921727
-        Style.Font.Charset = DEFAULT_CHARSET
-        Style.Font.Color = clBlack
-        Style.Font.Height = -12
-        Style.Font.Name = 'Tahoma'
-        Style.Font.Style = [fsBold]
-        Style.LookAndFeel.NativeStyle = False
-        Style.LookAndFeel.SkinName = 'Office2013White'
-        Style.Shadow = False
-        Style.IsFontAssigned = True
-        StyleDisabled.LookAndFeel.NativeStyle = False
-        StyleDisabled.LookAndFeel.SkinName = 'Office2013White'
-        StyleFocused.LookAndFeel.NativeStyle = False
-        StyleFocused.LookAndFeel.SkinName = 'Office2013White'
-        StyleHot.LookAndFeel.NativeStyle = False
-        StyleHot.LookAndFeel.SkinName = 'Office2013White'
-        TabOrder = 3
-      end
+    end
+    object chk_9: TcxCheckBox
+      Left = 447
+      Top = 33
+      AutoSize = False
+      Caption = 'Soma IPI Base ICMS'
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      Style.BorderColor = clWhite
+      Style.Color = 10921727
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clBlack
+      Style.Font.Height = -12
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = [fsBold]
+      Style.LookAndFeel.NativeStyle = False
+      Style.LookAndFeel.SkinName = 'Office2013White'
+      Style.Shadow = False
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.NativeStyle = False
+      StyleDisabled.LookAndFeel.SkinName = 'Office2013White'
+      StyleFocused.LookAndFeel.NativeStyle = False
+      StyleFocused.LookAndFeel.SkinName = 'Office2013White'
+      StyleHot.LookAndFeel.NativeStyle = False
+      StyleHot.LookAndFeel.SkinName = 'Office2013White'
+      TabOrder = 6
+      Height = 19
+      Width = 158
     end
   end
   object grpConfig: TGroupBox
-    Left = 1124
+    Left = 1150
     Top = 207
     Width = 111
     Height = 442
@@ -2862,9 +2768,9 @@ object Form_Empresa: TForm_Empresa
   end
   object grpOutras: TGroupBox
     Left = 16
-    Top = 653
-    Width = 625
-    Height = 62
+    Top = 652
+    Width = 685
+    Height = 59
     Caption = '  Outras Informa'#231#245'es  '
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clNone
@@ -2957,7 +2863,7 @@ object Form_Empresa: TForm_Empresa
     end
   end
   object grpContatoCont: TGroupBox
-    Left = 653
+    Left = 707
     Top = 456
     Width = 443
     Height = 128
@@ -3103,7 +3009,7 @@ object Form_Empresa: TForm_Empresa
     end
   end
   object grpEscritorioCont: TGroupBox
-    Left = 653
+    Left = 707
     Top = 330
     Width = 443
     Height = 125
@@ -3267,7 +3173,7 @@ object Form_Empresa: TForm_Empresa
     end
   end
   object grpLogo: TGroupBox
-    Left = 885
+    Left = 925
     Top = 2
     Width = 214
     Height = 227
@@ -3408,7 +3314,7 @@ object Form_Empresa: TForm_Empresa
     end
   end
   object grpContatosAd: TGroupBox
-    Left = 653
+    Left = 707
     Top = 173
     Width = 211
     Height = 158
@@ -3542,7 +3448,7 @@ object Form_Empresa: TForm_Empresa
     end
   end
   object grpContatos: TGroupBox
-    Left = 653
+    Left = 708
     Top = 16
     Width = 211
     Height = 155
@@ -3681,8 +3587,8 @@ object Form_Empresa: TForm_Empresa
   end
   object grpEndereco: TGroupBox
     Left = 16
-    Top = 227
-    Width = 625
+    Top = 213
+    Width = 685
     Height = 180
     Caption = '  Endere'#231'o  '
     Color = clBtnHighlight
@@ -4085,8 +3991,8 @@ object Form_Empresa: TForm_Empresa
   end
   object grpDadosEmpresa: TGroupBox
     Left = 16
-    Top = 10
-    Width = 625
+    Top = -1
+    Width = 685
     Height = 211
     Caption = '  Dados Empresa  '
     Font.Charset = DEFAULT_CHARSET
@@ -4110,7 +4016,7 @@ object Form_Empresa: TForm_Empresa
       ParentFont = False
     end
     object Label8: TLabel
-      Left = 308
+      Left = 380
       Top = 182
       Width = 130
       Height = 17
@@ -4123,7 +4029,7 @@ object Form_Empresa: TForm_Empresa
       ParentFont = False
     end
     object Label15: TLabel
-      Left = 400
+      Left = 472
       Top = 149
       Width = 38
       Height = 17
@@ -4136,7 +4042,7 @@ object Form_Empresa: TForm_Empresa
       ParentFont = False
     end
     object Label6: TLabel
-      Left = 311
+      Left = 383
       Top = 118
       Width = 127
       Height = 17
@@ -4149,7 +4055,7 @@ object Form_Empresa: TForm_Empresa
       ParentFont = False
     end
     object Label3: TLabel
-      Left = 396
+      Left = 468
       Top = 87
       Width = 42
       Height = 17
@@ -4227,7 +4133,7 @@ object Form_Empresa: TForm_Empresa
       ParentFont = False
     end
     object IE_SUBSTITUTO_TRIBUTARIO: TDBEdit
-      Left = 442
+      Left = 514
       Top = 177
       Width = 160
       Height = 26
@@ -4246,7 +4152,7 @@ object Form_Empresa: TForm_Empresa
       OnKeyPress = IE_SUBSTITUTO_TRIBUTARIOKeyPress
     end
     object NIRE: TDBEdit
-      Left = 442
+      Left = 514
       Top = 144
       Width = 160
       Height = 26
@@ -4264,7 +4170,7 @@ object Form_Empresa: TForm_Empresa
       OnKeyPress = NIREKeyPress
     end
     object INSCRICAO_MUNICIPAL: TDBEdit
-      Left = 442
+      Left = 514
       Top = 113
       Width = 160
       Height = 26
@@ -4283,7 +4189,7 @@ object Form_Empresa: TForm_Empresa
       OnKeyPress = INSCRICAO_MUNICIPALKeyPress
     end
     object CNPJ: TDBEdit
-      Left = 442
+      Left = 514
       Top = 82
       Width = 160
       Height = 26
@@ -4303,7 +4209,7 @@ object Form_Empresa: TForm_Empresa
     object dbedtNOME_FANTASIA: TDBEdit
       Left = 139
       Top = 51
-      Width = 463
+      Width = 536
       Height = 26
       CharCase = ecUpperCase
       DataField = 'NOME_FANTASIA'
@@ -4321,7 +4227,7 @@ object Form_Empresa: TForm_Empresa
     object RAZAO_SOCIAL: TDBEdit
       Left = 139
       Top = 20
-      Width = 463
+      Width = 536
       Height = 26
       CharCase = ecUpperCase
       DataField = 'RAZAO_SOCIAL'
@@ -4420,86 +4326,6 @@ object Form_Empresa: TForm_Empresa
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 15
-    object chk_6: TcxCheckBox
-      Left = 13
-      Top = 17
-      Caption = '1 - SIMPLES NACIONAL'
-      ParentBackground = False
-      ParentColor = False
-      Properties.OnChange = chk_6PropertiesChange
-      State = cbsChecked
-      Style.BorderColor = clWindow
-      Style.Color = clBtnHighlight
-      Style.LookAndFeel.NativeStyle = False
-      Style.LookAndFeel.SkinName = 'Office2013White'
-      Style.Shadow = False
-      StyleDisabled.LookAndFeel.NativeStyle = False
-      StyleDisabled.LookAndFeel.SkinName = 'Office2013White'
-      StyleFocused.LookAndFeel.NativeStyle = False
-      StyleFocused.LookAndFeel.SkinName = 'Office2013White'
-      StyleHot.LookAndFeel.NativeStyle = False
-      StyleHot.LookAndFeel.SkinName = 'Office2013White'
-      TabOrder = 0
-    end
-    object chk_7: TcxCheckBox
-      Left = 13
-      Top = 36
-      Caption = '2 - SIMP. NAC. C/ EXC. DE SUBLIMITE'
-      ParentBackground = False
-      ParentColor = False
-      Properties.OnChange = chk_7PropertiesChange
-      Style.BorderColor = clWindow
-      Style.Color = clBtnHighlight
-      Style.LookAndFeel.NativeStyle = False
-      Style.LookAndFeel.SkinName = 'Office2013White'
-      Style.Shadow = False
-      StyleDisabled.LookAndFeel.NativeStyle = False
-      StyleDisabled.LookAndFeel.SkinName = 'Office2013White'
-      StyleFocused.LookAndFeel.NativeStyle = False
-      StyleFocused.LookAndFeel.SkinName = 'Office2013White'
-      StyleHot.LookAndFeel.NativeStyle = False
-      StyleHot.LookAndFeel.SkinName = 'Office2013White'
-      TabOrder = 1
-    end
-    object chk_8: TcxCheckBox
-      Left = 13
-      Top = 57
-      Caption = '3 - REGIME NORMAL'
-      ParentBackground = False
-      ParentColor = False
-      Properties.OnChange = chk_8PropertiesChange
-      Style.BorderColor = clWindow
-      Style.Color = clBtnHighlight
-      Style.LookAndFeel.NativeStyle = False
-      Style.LookAndFeel.SkinName = 'Office2013White'
-      Style.Shadow = False
-      StyleDisabled.LookAndFeel.NativeStyle = False
-      StyleDisabled.LookAndFeel.SkinName = 'Office2013White'
-      StyleFocused.LookAndFeel.NativeStyle = False
-      StyleFocused.LookAndFeel.SkinName = 'Office2013White'
-      StyleHot.LookAndFeel.NativeStyle = False
-      StyleHot.LookAndFeel.SkinName = 'Office2013White'
-      TabOrder = 2
-    end
-  end
-  object RadioGroup1: TRadioGroup
-    Left = 650
-    Top = 590
-    Width = 320
-    Height = 105
-    Caption = 'Regime Tribut'#225'rio - CRT'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -15
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    Items.Strings = (
-      '0 - N'#227'o se Aplica'
-      '1 - Simples Nacional'
-      '2 - Simples Nacional com Excesso de Receita'
-      '3 - Regime Normal (Lucro real ou presumido)')
-    ParentFont = False
-    TabOrder = 16
   end
   object SQL_Empresa: TFDQuery
     Connection = Module.connection
@@ -4667,12 +4493,10 @@ object Form_Empresa: TForm_Empresa
       Origin = 'IE_SUBSTITUTO_TRIBUTARIO'
       Size = 15
     end
-    object SQL_EmpresaCODIGO_REGIME_TRIBUTARIO: TStringField
+    object SQL_EmpresaCODIGO_REGIME_TRIBUTARIO: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'CODIGO_REGIME_TRIBUTARIO'
       Origin = 'CODIGO_REGIME_TRIBUTARIO'
-      FixedChar = True
-      Size = 1
     end
     object SQL_EmpresaAPURACAO_MENSAL_IPI: TStringField
       AutoGenerateValue = arDefault
@@ -4685,13 +4509,6 @@ object Form_Empresa: TForm_Empresa
       AutoGenerateValue = arDefault
       FieldName = 'APURACAO_DECENDIAL_IPI'
       Origin = 'APURACAO_DECENDIAL_IPI'
-      FixedChar = True
-      Size = 1
-    end
-    object SQL_EmpresaOPTANTE_SIMPLES_NACIONAL: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'OPTANTE_SIMPLES_NACIONAL'
-      Origin = 'OPTANTE_SIMPLES_NACIONAL'
       FixedChar = True
       Size = 1
     end
@@ -5194,7 +5011,7 @@ object Form_Empresa: TForm_Empresa
       'and '
       '   n2.codigo = :pcodigo2')
     Left = 816
-    Top = 672
+    Top = 632
     ParamData = <
       item
         Name = 'PCODIGO'
