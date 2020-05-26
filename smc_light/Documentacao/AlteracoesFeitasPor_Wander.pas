@@ -12,6 +12,12 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  215|26/05/20|wander              |Tratando Valor de Pauta para cálculo da   |
+|     |   18:04|cadastro_produto    |Base de Cálculo do ICMS                   |
+|-----|--------|--------------------|------------------------------------------|
+|  214|26/05/20|wander              |Tratando Modalidade de Determinação da    |
+|     |   18:04|cadastro_produto    |Base de Cálculo do ICMS                   |
+|-----|--------|--------------------|------------------------------------------|
 |  213|26/05/20|wander              |Tratando Redução da Alíquota de ICMS      |
 |     |   07:17|cadastro_produto    |                                          |
 |-----|--------|--------------------|------------------------------------------|

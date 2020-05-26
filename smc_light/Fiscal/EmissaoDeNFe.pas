@@ -6127,6 +6127,19 @@ begin
       //        1 - Pauta (Valor)
       //        2 - Preço Tabelado Máx. (valor)
       //        3 - valor da operação
+      //------------------------------------------------------------------------
+      //A pauta fiscal informa o valor de mercado de um determinado produto,
+      //auxiliando na definição da base de cálculo do ICMS.
+      //Esse valor referencial é definido pela Secretaria da Fazenda mediante
+      //pesquisa periódica de preços, para ser utilizado como base de cálculo
+      //nas situações previstas na legislação tributária.
+      //Tem por fundamento o princípio da praticidade e, por objetivo,
+      //orientação e controle fiscal, visando adequar o valor sobre o qual são
+      //calculados os impostos aos preços efetivamente praticados no mercado
+      //local.
+      //
+      //Fonte: http://intra.totall.com.br:8080/wiki/index.php/Pauta_Fiscal
+      //------------------------------------------------------------------------
       case qVENDA_ITEM.FieldByName('NFe_modBC').AsInteger of
          0 : modBC := dbiMargemValorAgregado;
          1 : modBC := dbiPauta;
@@ -6138,8 +6151,18 @@ begin
      {169-N15}
      //vBC
      //Valor da BC do ICMS
-     vBC := qVENDA_ITEM.FieldByName('PRECO_TOTAL').AsFloat *
-            qVENDA_ITEM.FieldByName('QUANTIDADE' ).AsFloat;
+     if modBC = dbiPauta then
+     begin
+        //Usar o valor de pauta
+        vBC := qVENDA_ITEM.FieldByName('VALOR_PAUTA_BC').AsFloat *
+               qVENDA_ITEM.FieldByName('QUANTIDADE'    ).AsFloat;
+     end
+     else
+     begin
+        //Usar o valor do movimento
+        vBC := qVENDA_ITEM.FieldByName('PRECO_TOTAL').AsFloat *
+               qVENDA_ITEM.FieldByName('QUANTIDADE' ).AsFloat;
+     end;
 
      {170-N16}
      //pICMS

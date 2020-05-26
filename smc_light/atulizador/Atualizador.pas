@@ -2151,6 +2151,9 @@ begin
     if fNaoAtualizado('Empresa: Eliminada coluna OPTANTE_SIMPLES_NACIONAL') Then
        Executar('ALTER TABLE EMPRESA DROP COLUMN OPTANTE_SIMPLES_NACIONAL');
 
+    //26/05/2020
+    if fNaoAtualizado('Produto:Valor de Pauta BC ICMS') Then
+       Executar('ALTER TABLE PRODUTO ADD VALOR_PAUTA_BC DECIMAL(10,4) NULL DEFAULT 0 COMMENT "Valor de Pauta do produto" ');
 end;
 
 end.

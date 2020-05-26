@@ -1,9 +1,14 @@
 ﻿{ v 21.10.16 17:18 }
 unit cadastro_produto;
 {
-
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  215|26/05/20|wander              |Tratando Valor de Pauta para cálculo da   |
+|     |   18:04|cadastro_produto    |Base de Cálculo do ICMS                   |
+|-----|--------|--------------------|------------------------------------------|
+|  214|26/05/20|wander              |Tratando Modalidade de Determinação da    |
+|     |   18:04|cadastro_produto    |Base de Cálculo do ICMS                   |
 |-----|--------|--------------------|------------------------------------------|
 |  213|26/05/20|wander              |Tratando Redução da Alíquota de ICMS      |
 |     |   07:17|cadastro_produto    |                                          |
@@ -205,41 +210,6 @@ type
     cxButton11: TcxButton;
     cxButton12: TcxButton;
     cxButton9: TcxButton;
-    Panel4: TPanel;
-    GroupBox23: TGroupBox;
-    Label22: TLabel;
-    Label2: TLabel;
-    Label52: TLabel;
-    Label61: TLabel;
-    Label53: TLabel;
-    Label62: TLabel;
-    Label56: TLabel;
-    Label60: TLabel;
-    Label57: TLabel;
-    edALIQ_ICMS: TEdit;
-    aliq_lucro_st: TEdit;
-    edREDUCAO_ICMS: TEdit;
-    cod_comb: TEdit;
-    pauta_bc: TEdit;
-    edt_genero: TEdit;
-    edt_leis: TcxDBButtonEdit;
-    GroupBox22: TGroupBox;
-    Label16: TLabel;
-    Label17: TLabel;
-    Label29: TLabel;
-    lbl_anp: TLabel;
-    NCM: TEdit;
-    edt_cest: TEdit;
-    edt_anp: TEdit;
-    btn_ncm: TcxButton;
-    mmNCM: TcxMemo;
-    btn_anp: TcxButton;
-    GroupBox19: TGroupBox;
-    Label14: TLabel;
-    Label30: TLabel;
-    cstpis: TcxDBLookupComboBox;
-    chk_monofasico: TcxCheckBox;
-    cstcofins: TcxDBLookupComboBox;
     cxButton14: TcxButton;
     cxButton1: TcxButton;
     cxButton17: TcxButton;
@@ -375,12 +345,6 @@ type
     qConsultaNFe_motDesICMS: TIntegerField;
     qConsultaCODIGO_ALFANUMERICO: TStringField;
     tConsulta: TTimer;
-    edICMS_CST: TEdit;
-    edICMS_CST_NOME: TEdit;
-    cxButton5: TcxButton;
-    edCODIGO_ORIGEM_MERCADORIA: TEdit;
-    edCODIGO_ORIGEM_MERCADORIA_NOME: TEdit;
-    cxButton7: TcxButton;
     Panel1: TPanel;
     GroupBox4: TGroupBox;
     Label3: TLabel;
@@ -431,6 +395,57 @@ type
     edTIPO_ITEM: TEdit;
     edTIPO_ITEM_NOME: TEdit;
     btn_Tipo: TcxButton;
+    tabTributacao: TcxTabSheet;
+    Panel4: TPanel;
+    GroupBox22: TGroupBox;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label29: TLabel;
+    lbl_anp: TLabel;
+    NCM: TEdit;
+    edt_cest: TEdit;
+    edt_anp: TEdit;
+    btn_ncm: TcxButton;
+    mmNCM: TcxMemo;
+    btn_anp: TcxButton;
+    GroupBox19: TGroupBox;
+    Label14: TLabel;
+    Label30: TLabel;
+    cstpis: TcxDBLookupComboBox;
+    chk_monofasico: TcxCheckBox;
+    cstcofins: TcxDBLookupComboBox;
+    GroupBox23: TGroupBox;
+    Label22: TLabel;
+    Label2: TLabel;
+    Label52: TLabel;
+    Label61: TLabel;
+    Label53: TLabel;
+    Label62: TLabel;
+    Label60: TLabel;
+    Label57: TLabel;
+    edALIQ_ICMS: TEdit;
+    aliq_lucro_st: TEdit;
+    edREDUCAO_ICMS: TEdit;
+    cod_comb: TEdit;
+    edt_genero: TEdit;
+    edt_leis: TcxDBButtonEdit;
+    edICMS_CST: TEdit;
+    edICMS_CST_NOME: TEdit;
+    cxButton5: TcxButton;
+    edCODIGO_ORIGEM_MERCADORIA: TEdit;
+    edCODIGO_ORIGEM_MERCADORIA_NOME: TEdit;
+    cxButton7: TcxButton;
+    Panel5: TPanel;
+    rgNFe_modBC: TRadioGroup;
+    pnValorPautaBC_ICMS: TPanel;
+    Label56: TLabel;
+    edVALOR_PAUTA_BC: TEdit;
+    qConsultaVALOR_PAUTA_BC: TBCDField;
+    Panel6: TPanel;
+    cxButton6: TcxButton;
+    cxButton8: TcxButton;
+    cxButton10: TcxButton;
+    cxButton13: TcxButton;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -474,7 +489,7 @@ type
     procedure DBEdit1KeyPress(Sender: TObject; var Key: Char);
     procedure edALIQ_ICMSKeyPress(Sender: TObject; var Key: Char);
     procedure edREDUCAO_ICMSKeyPress(Sender: TObject; var Key: Char);
-    procedure pauta_bcKeyPress(Sender: TObject; var Key: Char);
+    procedure edVALOR_PAUTA_BCKeyPress(Sender: TObject; var Key: Char);
     procedure edt_generoKeyPress(Sender: TObject; var Key: Char);
     procedure aliq_lucro_stKeyPress(Sender: TObject; var Key: Char);
     procedure cod_combKeyPress(Sender: TObject; var Key: Char);
@@ -608,6 +623,7 @@ type
     procedure edCODIGO_ORIGEM_MERCADORIAExit(Sender: TObject);
     procedure edALIQ_ICMSExit(Sender: TObject);
     procedure edREDUCAO_ICMSExit(Sender: TObject);
+    procedure rgNFe_modBCClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -625,6 +641,7 @@ type
     procedure ConsultarCST_ICMS;
     procedure ConsultarUnidades;
     function DadosCorretos:Boolean;
+    procedure AplicarPadroes;
     procedure ApagarRegistro;
     procedure InserirRegistro;
 
@@ -660,6 +677,11 @@ begin
   result := str;
   while pos(cDouble, result) > 0 do
     result := StringReplace(result, cDouble, cOne, [rfReplaceAll]);
+end;
+
+procedure TFrm_Produto.rgNFe_modBCClick(Sender: TObject);
+begin
+   pnValorPautaBC_ICMS.Enabled := (rgNFe_modBC.ItemIndex = 1);
 end;
 
 //procedure TFrm_Produto.RemoverFaixa1Click(Sender: TObject);
@@ -1029,6 +1051,20 @@ begin
    qAUX.ExecSql;
 
    qAUX.Free;
+end;
+
+procedure TFrm_Produto.AplicarPadroes;
+begin
+   //Quando o usuário não definir, aplicar o padrão de alguns parâmetros
+   //---------------------------------------------------------------------------
+
+   //Modalidade de determinação da BC do ICMS
+   //Padrão = 3-Valor da Operação
+   if rgNFe_modBC.ItemIndex = -1 then
+      rgNFe_modBC.ItemIndex := 3;
+
+   if edVALOR_PAUTA_BC.Text = '' then
+      edVALOR_PAUTA_BC.Text := '0';
 end;
 
 procedure TFrm_Produto.edREDUCAO_ICMSExit(Sender: TObject);
@@ -1753,6 +1789,30 @@ begin
       exit;
    end;
 
+   // Modalidade BC ICMS = Valor de Pauta
+   if rgNFe_modBC.ItemIndex = 1 then
+   begin
+      if edVALOR_PAUTA_BC.Text = '' then
+      begin
+         wnAlerta('Cadastrar Produto','Modalidade de BC Pauta exige que se informe o Valor de Pauta', taLeftJustify, 12);
+         edVALOR_PAUTA_BC.SetFocus;
+         exit;
+      end
+   end
+   else
+   begin
+      if edVALOR_PAUTA_BC.Text <> '' then
+      begin
+         wnAlerta('Cadastrar Produto','Modalidade de BC difernte de Pauta impede que se informe o Valor de Pauta', taLeftJustify, 12);
+         edVALOR_PAUTA_BC.SetFocus;
+         exit;
+      end
+   end;
+
+   // Aplicar padrões
+   AplicarPadroes;
+
+   //Tudo ok!
    Result := True;
 
 end;
@@ -2399,6 +2459,9 @@ begin
    edArgumentoDePesquisa.Enabled  := True;
    edArgumentoDePesquisa.ReadOnly :=false;
 
+   //Este panel é habilitado/desabilitado pelas opções do rgNFe_modBC
+   pnValorPautaBC_ICMS.Enabled    := True;
+
    {
    cbOrder.enabled                := True;
    rgPESSOA_TIPO.enabled          := True;
@@ -2483,7 +2546,9 @@ begin
    qAUX.sql.add('       TIPO_ITEM,                ');
    qAUX.sql.add('       CODIGO_ORIGEM_MERCADORIA, ');
    qAUX.sql.add('       ALIQ_ICMS,                ');
-   qAUX.sql.add('       REDUCAO_ICMS              ');
+   qAUX.sql.add('       REDUCAO_ICMS,             ');
+   qAUX.sql.add('       NFe_modBC,                ');
+   qAUX.sql.add('       VALOR_PAUTA_BC            ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
    qAUX.sql.add('     (:CODIGO,                   ');
@@ -2506,7 +2571,9 @@ begin
    qAUX.sql.add('      :TIPO_ITEM,                ');
    qAUX.sql.add('      :CODIGO_ORIGEM_MERCADORIA, ');
    qAUX.sql.add('      :ALIQ_ICMS,                ');
-   qAUX.sql.add('      :REDUCAO_ICMS              ');
+   qAUX.sql.add('      :REDUCAO_ICMS,             ');
+   qAUX.sql.add('      :NFe_modBC,                ');
+   qAUX.sql.add('      :VALOR_PAUTA_BC            ');
    qAUX.sql.add('     )                           ');
 
    //Codigo
@@ -2542,6 +2609,8 @@ begin
    qAUX.ParamByName('CODIGO_ORIGEM_MERCADORIA').AsString  := edCODIGO_ORIGEM_MERCADORIA.Text;
    qAUX.ParamByName('ALIQ_ICMS'               ).AsFloat   := ValorValido(edALIQ_ICMS.Text);
    qAUX.ParamByName('REDUCAO_ICMS'            ).AsFloat   := ValorValido(edREDUCAO_ICMS.Text);
+   qAUX.ParamByName('NFe_modBC'               ).AsInteger := rgNFe_modBC.ItemIndex;
+   qAUX.ParamByName('VALOR_PAUTA_BC'          ).AsFloat   := ValorValido(edVALOR_PAUTA_BC.Text);
    qAUX.ExecSQL;
 
    qAUX.Free;
@@ -2630,10 +2699,16 @@ begin
    edCODIGO_ORIGEM_MERCADORIA_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edCODIGO_ORIGEM_MERCADORIA.Text);
 
    //Alíquota do ICMS
-   edALIQ_ICMS.Text                := Float_to_String(qConsulta.FieldByName('ALIQ_ICMS'   ).AsFloat);
+   edALIQ_ICMS.Text                     := Float_to_String(qConsulta.FieldByName('ALIQ_ICMS').AsFloat);
 
    //Percentual de redução da Alíquota do ICMS
-   edREDUCAO_ICMS.Text             := Float_to_String(qConsulta.FieldByName('REDUCAO_ICMS').AsFloat);
+   edREDUCAO_ICMS.Text                  := Float_to_String(qConsulta.FieldByName('REDUCAO_ICMS').AsFloat);
+
+   //Modalidade de determinação da BC do ICMS
+   rgNFe_modBC.ItemIndex                := qConsulta.FieldByName('NFe_modBC').AsInteger;
+
+   //Valor da Pauta da BC do ICMS
+   edVALOR_PAUTA_BC.Text                := Float_to_String(qConsulta.FieldByName('VALOR_PAUTA_BC').AsFloat);
 
    // Exibir a aba Cadastro
    cxPageControl1.ActivePAgeIndex  := 1;
@@ -2663,14 +2738,12 @@ begin
   NCM.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(NCM.Text));
 end;
 
-procedure TFrm_Produto.pauta_bcKeyPress(Sender: TObject;
-
+procedure TFrm_Produto.edVALOR_PAUTA_BCKeyPress(Sender: TObject;
   var Key: Char);
 begin
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
 end;
-
 
 procedure TFrm_Produto.Pode_Alterar;
 begin
