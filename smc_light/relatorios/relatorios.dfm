@@ -16660,30 +16660,6 @@ object frm_relatorio: Tfrm_relatorio
       end
     end
   end
-  object frx_PDF: TfrxPDFExport
-    FileName = 'Z:\PROGRAMACAO\CX_MOVIMENTACAO.pdf'
-    UseFileCache = True
-    ShowProgress = True
-    OverwritePrompt = False
-    CreationTime = 43113.513025231480000000
-    DataOnly = False
-    PrintOptimized = False
-    Outline = False
-    Background = False
-    HTMLTags = True
-    Quality = 100
-    Author = 'FastReport'
-    Subject = 'FastReport PDF export'
-    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
-    HideToolbar = False
-    HideMenubar = False
-    HideWindowUI = False
-    FitWindow = False
-    CenterWindow = False
-    PrintScaling = False
-    Left = 975
-    Top = 602
-  end
   object fr_venda_simples: TfrxReport
     Version = '5.2.3'
     DotMatrixReport = False
@@ -43681,19 +43657,6 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'impressora'
       Size = 255
     end
-  end
-  object frx_xlsx: TfrxXLSXExport
-    FileName = 'C:\Users\KERNEL\Desktop\sdasdasd.xlsx'
-    UseFileCache = True
-    ShowProgress = True
-    OverwritePrompt = False
-    CreationTime = 43147.470647754630000000
-    DataOnly = False
-    ChunkSize = 0
-    PictureType = gpPNG
-    Wysiwyg = False
-    Left = 976
-    Top = 552
   end
   object sql_caixa_detalhe: TFDQuery
     Connection = Module.connection

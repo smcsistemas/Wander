@@ -1186,10 +1186,6 @@ object frm_parametro_vendas: Tfrm_parametro_vendas
       ImageIndex = 0
       ParentColor = False
       ParentFont = False
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 281
-      ExplicitHeight = 165
       object cxGroupBox1: TcxGroupBox
         Left = 11
         Top = 7
@@ -1870,10 +1866,6 @@ object frm_parametro_vendas: Tfrm_parametro_vendas
     object cxTabSheet2: TcxTabSheet
       Caption = '  PDV  '
       ImageIndex = 1
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 281
-      ExplicitHeight = 165
       object cxGroupBox7: TcxGroupBox
         Left = 21
         Top = 52
@@ -2416,8 +2408,8 @@ object frm_parametro_vendas: Tfrm_parametro_vendas
     Connection = Module.connection
     SQL.Strings = (
       'select * from empresa order by codigo desc limit 1')
-    Left = 1216
-    Top = 280
+    Left = 976
+    Top = 224
     object SQL_EmpresaCODIGO: TFDAutoIncField
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
@@ -2596,13 +2588,6 @@ object frm_parametro_vendas: Tfrm_parametro_vendas
       AutoGenerateValue = arDefault
       FieldName = 'APURACAO_DECENDIAL_IPI'
       Origin = 'APURACAO_DECENDIAL_IPI'
-      FixedChar = True
-      Size = 1
-    end
-    object SQL_EmpresaOPTANTE_SIMPLES_NACIONAL: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'OPTANTE_SIMPLES_NACIONAL'
-      Origin = 'OPTANTE_SIMPLES_NACIONAL'
       FixedChar = True
       Size = 1
     end

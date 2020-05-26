@@ -1,5 +1,13 @@
 { v 17.10.16 09:43 }
 unit relatorios;
+{
+================================================================================
+| ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  207|25/05/20|wander              |Retirada a coluna OPTANTE_SIMPLES_NACIONAL|
+|     |   22:52|relatorios          |do TFDQuery SQL_Empresa                   |
+================================================================================
+}
 
 interface
 
@@ -363,7 +371,7 @@ type
     SQL_OP_NFCETOTAL_AUT: TFMTBCDField;
     grp1: TGroupBox;
     fr_produtos: TfrxReport;
-    frx_PDF: TfrxPDFExport;
+    //frx_PDF: TfrxPDFExport;
     fr_venda_simples: TfrxReport;
     ds_venda_simples: TfrxDBDataset;
     sql_venda_simples: TFDQuery;
@@ -1226,12 +1234,12 @@ begin
       end;
     rkPDF:
       begin
-        frx_PDF.ShowDialog := False;
-        frx_PDF.FileName := tdir.Temp.rel_livro_saida_pdf;
-        frx_PDF.ShowProgress := False;
-        frx_PDF.OverwritePrompt := False;
-        fr_livro_entrada.export(frx_PDF);
-        result := frx_PDF.FileName;
+        //frx_PDF.ShowDialog := False;
+        //frx_PDF.FileName := tdir.Temp.rel_livro_saida_pdf;
+        //frx_PDF.ShowProgress := False;
+        //frx_PDF.OverwritePrompt := False;
+        //fr_livro_entrada.export(frx_PDF);
+        //result := frx_PDF.FileName;
       end;
   end;
 
@@ -1349,13 +1357,13 @@ begin
         FR_LIVRO_SAIDA.showreport(true)
       else
       begin
-        frx_PDF.FileName := path_arquivo;
-        frx_PDF.ShowDialog := False;
+        //frx_PDF.FileName := path_arquivo;
+        //frx_PDF.ShowDialog := False;
 
-        frx_PDF.ShowProgress := False;
-        frx_PDF.OverwritePrompt := False;
+        //frx_PDF.ShowProgress := False;
+        //frx_PDF.OverwritePrompt := False;
 
-        FR_LIVRO_SAIDA.export(frx_PDF);
+        //FR_LIVRO_SAIDA.export(frx_PDF);
 
         Erro_Emissao := true;
       end;

@@ -1,5 +1,12 @@
 unit parametros_sistemas;
-
+{
+================================================================================
+| ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  211|25/05/20|wander              |Retirada a coluna OPTANTE_SIMPLES_NACIONAL|
+|     |   23:07|parametros_sistemas |do TFDQuery SQL_Empresa                   |
+================================================================================
+}
 interface
 
 uses
@@ -100,7 +107,6 @@ type
     SQL_EmpresaCODIGO_REGIME_TRIBUTARIO: TStringField;
     SQL_EmpresaAPURACAO_MENSAL_IPI: TStringField;
     SQL_EmpresaAPURACAO_DECENDIAL_IPI: TStringField;
-    SQL_EmpresaOPTANTE_SIMPLES_NACIONAL: TStringField;
     SQL_EmpresaTRIBUTADO_ALIQUOTA_FIXA_ICMS: TStringField;
     SQL_EmpresaCONTRIBUINTE_IPI: TStringField;
     SQL_EmpresaORGANIZACAO_CONTABIL_RAZAO_SOCIAL: TStringField;

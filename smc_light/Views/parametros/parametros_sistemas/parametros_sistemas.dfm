@@ -725,8 +725,8 @@ object frm_parametros_sistemas: Tfrm_parametros_sistemas
     Connection = Module.connection
     SQL.Strings = (
       'select * from empresa order by codigo desc limit 1')
-    Left = 496
-    Top = 32
+    Left = 184
+    Top = 184
     object SQL_EmpresaCODIGO: TFDAutoIncField
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
@@ -905,13 +905,6 @@ object frm_parametros_sistemas: Tfrm_parametros_sistemas
       AutoGenerateValue = arDefault
       FieldName = 'APURACAO_DECENDIAL_IPI'
       Origin = 'APURACAO_DECENDIAL_IPI'
-      FixedChar = True
-      Size = 1
-    end
-    object SQL_EmpresaOPTANTE_SIMPLES_NACIONAL: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'OPTANTE_SIMPLES_NACIONAL'
-      Origin = 'OPTANTE_SIMPLES_NACIONAL'
       FixedChar = True
       Size = 1
     end

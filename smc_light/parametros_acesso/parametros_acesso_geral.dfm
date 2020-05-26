@@ -2237,13 +2237,6 @@ object frm_parametros_sistema: Tfrm_parametros_sistema
       FixedChar = True
       Size = 1
     end
-    object SQL_EmpresaOPTANTE_SIMPLES_NACIONAL: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'OPTANTE_SIMPLES_NACIONAL'
-      Origin = 'OPTANTE_SIMPLES_NACIONAL'
-      FixedChar = True
-      Size = 1
-    end
     object SQL_EmpresaTRIBUTADO_ALIQUOTA_FIXA_ICMS: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'TRIBUTADO_ALIQUOTA_FIXA_ICMS'

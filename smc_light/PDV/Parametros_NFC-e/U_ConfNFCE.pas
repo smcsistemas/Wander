@@ -1,5 +1,13 @@
 ﻿{ 21.11.16 16:59 }
 unit U_ConfNFCE;
+{
+================================================================================
+| ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  206|25/05/20|wander              |Retirada a coluna OPTANTE_SIMPLES_NACIONAL|
+|     |   22:52|U_ConfNFCE          |do TFDQuery SQL_Empresa                   |
+================================================================================
+}
 
 interface
 
@@ -97,7 +105,6 @@ type
     SQL_EmpresaAPURACAO_MENSAL_IPI: TStringField;
     SQL_EmpresaAPURACAO_IPI: TStringField;
     SQL_EmpresaAPURACAO_DECENDIAL_IPI: TStringField;
-    SQL_EmpresaOPTANTE_SIMPLES_NACIONAL: TStringField;
     SQL_EmpresaTRIBUTADO_ALIQUOTA_FIXA_ICMS: TStringField;
     SQL_EmpresaCONTRIBUINTE_IPI: TStringField;
     SQL_EmpresaORGANIZACAO_CONTABIL_RAZAO_SOCIAL: TStringField;

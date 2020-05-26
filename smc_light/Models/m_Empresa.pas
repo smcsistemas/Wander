@@ -381,7 +381,7 @@ type
     property APURACAO_MENSAL_IPI: string read getEmpresa_Apuracao_Mensal_Ipi write setEmpresa_Apuracao_Mensal_Ipi;
     property APURACAO_IPI: string read getEmpresa_Apuracao_Ipi write setEmpresa_Apuracao_Ipi;
     property APURACAO_DECIMAL_IPI: string read getEmpresa_Apuracao_Decendial_Ipi write setEmpresa_Apuracao_Decendial_Ipi;
-    property OPTANTE_SIMPLES_NACIONAL: string read getEmpresa_Optante_Pelo_Simples write setEmpresa_Optante_Pelo_Simples;
+    //property OPTANTE_SIMPLES_NACIONAL: string read getEmpresa_Optante_Pelo_Simples write setEmpresa_Optante_Pelo_Simples;
     property TRIBUTADO_ALIQUOTA_FIXA_ICMS: string read getEmpresa_Tributado_Aliquota_Fixa_Icms write setEmpresa_Tributado_Aliquota_Fixa_Icms;
     property CONTRIBUINTE_IPI: string read getEmpresa_Contribuinte_Ipi write setEmpresa_Contribuinte_Ipi;
 

@@ -12,6 +12,32 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  212|25/05/20|wander              |Retirada a coluna OPTANTE_SIMPLES_NACIONAL|
+|     |   23:10|parametros          |do TFDQuery SQL_Empresa                   |
+|     |        |tributacao          |                                          |
+|-----|--------|--------------------|------------------------------------------|
+|  211|25/05/20|wander              |Retirada a coluna OPTANTE_SIMPLES_NACIONAL|
+|     |   23:07|parametros_sistemas |do TFDQuery SQL_Empresa                   |
+|-----|--------|--------------------|------------------------------------------|
+|  210|25/05/20|wander              |Retirada a coluna OPTANTE_SIMPLES_NACIONAL|
+|     |   22:52|paramentros_produtos|do TFDQuery SQL_Empresa                   |
+|-----|--------|--------------------|------------------------------------------|
+|  209|25/05/20|wander              |Retirada a coluna OPTANTE_SIMPLES_NACIONAL|
+|     |   23:02|parametros_comanda  |do TFDQuery SQL_Empresa                   |
+|-----|--------|--------------------|------------------------------------------|
+|  208|25/05/20|wander              |Retirada a coluna OPTANTE_SIMPLES_NACIONAL|
+|     |   22:52|paramentros_clientes|do TFDQuery SQL_Empresa                   |
+|-----|--------|--------------------|------------------------------------------|
+|  207|25/05/20|wander              |Retirada a coluna OPTANTE_SIMPLES_NACIONAL|
+|     |   22:52|relatorios          |do TFDQuery SQL_Empresa                   |
+|-----|--------|--------------------|------------------------------------------|
+|  206|25/05/20|wander              |Retirada a coluna OPTANTE_SIMPLES_NACIONAL|
+|     |   22:52|U_ConfNFCE          |do TFDQuery SQL_Empresa                   |
+|-----|--------|--------------------|------------------------------------------|
+|  205|25/05/20|wander              |Retirada a coluna OPTANTE_SIMPLES_NACIONAL|
+|     |   22:15|parametros_acesso   |do TFDQuery SQL_Empresa                   |
+|     |        |_geral              |                                          |
+|-----|--------|--------------------|------------------------------------------|
 |  204|25/05/20|wander              |Substituidos os 3 checkboxs (chk_3, 4 e 5)|
 |     |   20:15|cadastro_empresa    |mutuamente excludentes por um RadioGroup  |
 |     |        |                    |rgCONTRIBUINTE_IPI com as opções          |
