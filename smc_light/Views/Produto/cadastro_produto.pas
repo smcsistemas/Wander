@@ -5,6 +5,9 @@ unit cadastro_produto;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  213|26/05/20|wander              |Tratando Redução da Alíquota de ICMS      |
+|     |   07:17|cadastro_produto    |                                          |
+|-----|--------|--------------------|------------------------------------------|
 |  197|25/05/20|wander              |Eliminado tratamento de CSOSN pois não é  |
 |     |   14:37|cadastro_produto    |de produto mas sim de operação(movimento) |
 |-----|--------|--------------------|------------------------------------------|
@@ -215,7 +218,7 @@ type
     Label57: TLabel;
     edALIQ_ICMS: TEdit;
     aliq_lucro_st: TEdit;
-    REDUCAO_ICMS_ST: TEdit;
+    edREDUCAO_ICMS: TEdit;
     cod_comb: TEdit;
     pauta_bc: TEdit;
     edt_genero: TEdit;
@@ -470,7 +473,7 @@ type
     procedure cxDBTextEdit26KeyPress(Sender: TObject; var Key: Char);
     procedure DBEdit1KeyPress(Sender: TObject; var Key: Char);
     procedure edALIQ_ICMSKeyPress(Sender: TObject; var Key: Char);
-    procedure REDUCAO_ICMS_STKeyPress(Sender: TObject; var Key: Char);
+    procedure edREDUCAO_ICMSKeyPress(Sender: TObject; var Key: Char);
     procedure pauta_bcKeyPress(Sender: TObject; var Key: Char);
     procedure edt_generoKeyPress(Sender: TObject; var Key: Char);
     procedure aliq_lucro_stKeyPress(Sender: TObject; var Key: Char);
@@ -604,6 +607,7 @@ type
       Shift: TShiftState);
     procedure edCODIGO_ORIGEM_MERCADORIAExit(Sender: TObject);
     procedure edALIQ_ICMSExit(Sender: TObject);
+    procedure edREDUCAO_ICMSExit(Sender: TObject);
 
   private
     { Private declarations }
@@ -621,7 +625,6 @@ type
     procedure ConsultarCST_ICMS;
     procedure ConsultarUnidades;
     function DadosCorretos:Boolean;
-    function AliquotaICMSCorreta: Boolean;
     procedure ApagarRegistro;
     procedure InserirRegistro;
 
@@ -970,8 +973,11 @@ end;
 
 procedure TFrm_Produto.edALIQ_ICMSExit(Sender: TObject);
 begin
-   if not AliquotaICMSCorreta then
+   if not PercentualCorreto(edALIQ_ICMS.Text,'Alíquota de ICMS') then
+   begin
+      edALIQ_ICMS.SetFocus;
       exit;
+  end;
 end;
 
 procedure TFrm_Produto.edALIQ_ICMSKeyPress(Sender: TObject;
@@ -1025,7 +1031,16 @@ begin
    qAUX.Free;
 end;
 
-procedure TFrm_Produto.REDUCAO_ICMS_STKeyPress(Sender: TObject;
+procedure TFrm_Produto.edREDUCAO_ICMSExit(Sender: TObject);
+begin
+   if not PercentualCorreto(edREDUCAO_ICMS.Text,'Redução do ICMS') then
+   begin
+      edREDUCAO_ICMS.SetFocus;
+      exit;
+   end;
+end;
+
+procedure TFrm_Produto.edREDUCAO_ICMSKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -1726,37 +1741,22 @@ begin
          exit;
       end;
 
-   if not AliquotaICMSCorreta then
+   if not PercentualCorreto(edALIQ_ICMS.Text,'Alíquota de ICMS') then
+   begin
+      edALIQ_ICMS.SetFocus;
       exit;
+   end;
+
+   if not PercentualCorreto(edREDUCAO_ICMS.Text,'Redução do ICMS') then
+   begin
+      edREDUCAO_ICMS.SetFocus;
+      exit;
+   end;
 
    Result := True;
 
 end;
 
-function TFrm_Produto.AliquotaICMSCorreta: Boolean;
-begin
-   result := True;
-   if edALIQ_ICMS.Text = '' then
-      exit;
-
-   result := False;
-   if edALIQ_ICMS.Text <> '' then
-   begin
-      if not NumeroPositivoValido(edALIQ_ICMS.Text) then
-      begin
-         wnAlerta('Cadastrar Produto','Alíquota do ICMS inválida', taLeftJustify, 12);
-         edALIQ_ICMS.SetFocus;
-         exit;
-      end;
-      if StrToFloat(MascToStr(edALIQ_ICMS.Text)) > 100 then
-      begin
-         wnAlerta('Cadastrar Produto','Alíquota do ICMS inválida', taLeftJustify, 12);
-         edALIQ_ICMS.SetFocus;
-         exit;
-      end;
-   end;
-   result := True;
-end;
 
 procedure TFrm_Produto.ESTOQUE_MINIMOKeyPress(Sender: TObject;
 var Key: Char);
@@ -2482,7 +2482,8 @@ begin
    qAUX.sql.add('       ICMS_CST,                 ');
    qAUX.sql.add('       TIPO_ITEM,                ');
    qAUX.sql.add('       CODIGO_ORIGEM_MERCADORIA, ');
-   qAUX.sql.add('       ALIQ_ICMS                 ');
+   qAUX.sql.add('       ALIQ_ICMS,                ');
+   qAUX.sql.add('       REDUCAO_ICMS              ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
    qAUX.sql.add('     (:CODIGO,                   ');
@@ -2504,7 +2505,8 @@ begin
    qAUX.sql.add('      :ICMS_CST,                 ');
    qAUX.sql.add('      :TIPO_ITEM,                ');
    qAUX.sql.add('      :CODIGO_ORIGEM_MERCADORIA, ');
-   qAUX.sql.add('      :ALIQ_ICMS                 ');
+   qAUX.sql.add('      :ALIQ_ICMS,                ');
+   qAUX.sql.add('      :REDUCAO_ICMS              ');
    qAUX.sql.add('     )                           ');
 
    //Codigo
@@ -2539,6 +2541,7 @@ begin
    qAUX.ParamByName('TIPO_ITEM'               ).AsString  := edTIPO_ITEM.Text;
    qAUX.ParamByName('CODIGO_ORIGEM_MERCADORIA').AsString  := edCODIGO_ORIGEM_MERCADORIA.Text;
    qAUX.ParamByName('ALIQ_ICMS'               ).AsFloat   := ValorValido(edALIQ_ICMS.Text);
+   qAUX.ParamByName('REDUCAO_ICMS'            ).AsFloat   := ValorValido(edREDUCAO_ICMS.Text);
    qAUX.ExecSQL;
 
    qAUX.Free;
@@ -2627,7 +2630,10 @@ begin
    edCODIGO_ORIGEM_MERCADORIA_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edCODIGO_ORIGEM_MERCADORIA.Text);
 
    //Alíquota do ICMS
-   edALIQ_ICMS.Text                := Float_to_String(qConsulta.FieldByName('ALIQ_ICMS').AsFloat);
+   edALIQ_ICMS.Text                := Float_to_String(qConsulta.FieldByName('ALIQ_ICMS'   ).AsFloat);
+
+   //Percentual de redução da Alíquota do ICMS
+   edREDUCAO_ICMS.Text             := Float_to_String(qConsulta.FieldByName('REDUCAO_ICMS').AsFloat);
 
    // Exibir a aba Cadastro
    cxPageControl1.ActivePAgeIndex  := 1;

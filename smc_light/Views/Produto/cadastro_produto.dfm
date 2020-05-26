@@ -58,6 +58,10 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 0
       ParentFont = False
       OnShow = cxTabSheet1Show
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label58: TLabel
         Left = 20
         Top = 555
@@ -3323,11 +3327,11 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object Label53: TLabel
-            Left = 160
+            Left = 109
             Top = 83
-            Width = 81
+            Width = 142
             Height = 18
-            Caption = 'Redu'#231#227'o %:'
+            Caption = 'Redu'#231#227'o Al'#237'q ICMS%:'
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -15
@@ -3388,9 +3392,9 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object edALIQ_ICMS: TEdit
-            Left = 67
-            Top = 79
-            Width = 38
+            Left = 68
+            Top = 81
+            Width = 36
             Height = 26
             BiDiMode = bdRightToLeft
             Font.Charset = ANSI_CHARSET
@@ -3420,10 +3424,10 @@ object Frm_Produto: TFrm_Produto
             TabOrder = 7
             OnKeyPress = aliq_lucro_stKeyPress
           end
-          object REDUCAO_ICMS_ST: TEdit
-            Left = 247
+          object edREDUCAO_ICMS: TEdit
+            Left = 255
             Top = 79
-            Width = 83
+            Width = 42
             Height = 26
             BiDiMode = bdRightToLeft
             Font.Charset = ANSI_CHARSET
@@ -3434,7 +3438,8 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 8
-            OnKeyPress = REDUCAO_ICMS_STKeyPress
+            OnExit = edREDUCAO_ICMSExit
+            OnKeyPress = edREDUCAO_ICMSKeyPress
           end
           object cod_comb: TEdit
             Left = 261

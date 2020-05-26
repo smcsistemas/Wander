@@ -12,6 +12,9 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  213|26/05/20|wander              |Tratando Redução da Alíquota de ICMS      |
+|     |   07:17|cadastro_produto    |                                          |
+|-----|--------|--------------------|------------------------------------------|
 |  212|25/05/20|wander              |Retirada a coluna OPTANTE_SIMPLES_NACIONAL|
 |     |   23:10|parametros          |do TFDQuery SQL_Empresa                   |
 |     |        |tributacao          |                                          |

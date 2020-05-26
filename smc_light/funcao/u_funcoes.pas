@@ -102,6 +102,9 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//26/05/2020-06:58-Recebe um valor (string) e retorna true se for um valor de
+//                 percentual correto e false se não for
+function PercentualCorreto(pValor,pDescricao:String): Boolean;
 //24/05/20-19:44-Recebe código de Origem de Mercdoria e retorna sua descrição
 function fORIGEM_MERCADORIA_DESCRICAO(pCODIGO:String):String;
 //24/05/20-18:35-Recebe código de Tipo de Item (produto) e retorna sua descrição
@@ -5965,17 +5968,34 @@ begin
    else
       result := 'INATIVO'
 end;
+
+function PercentualCorreto(pValor,pDescricao:String): Boolean;
+begin
+   result := True;
+   if pValor = '' then
+      exit;
+
+   result := False;
+   if pValor <> '' then
+   begin
+      if not NumeroPositivoValido(pValor) then
+      begin
+         wnAlerta('Cadastrar Produto',pDescricao+' com Valor inválido', taLeftJustify, 12);
+         exit;
+      end;
+      if StrToFloat(MascToStr(pValor)) > 100 then
+      begin
+         wnAlerta('Cadastrar Produto',pDescricao+' com Valor inválido', taLeftJustify, 12);
+         exit;
+      end;
+   end;
+   result := True;
+end;
+
 //##############################################################################
 //                FIM DAS FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
 
 //GRUPO TEM QUE SER DESVINCULADO DE FAMILIA
 end.
-CREATE TABLE `` (
-	`CODIGO` VARCHAR(50) NOT NULL,
-	`DESCRICAO` VARCHAR(100) NOT NULL,
-	PRIMARY KEY (`CODIGO`)
-)
-COLLATE='latin1_swedish_ci'
-ENGINE=InnoDB
-;
+
