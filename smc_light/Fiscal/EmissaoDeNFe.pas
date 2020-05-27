@@ -6285,8 +6285,12 @@ begin
      {182-N21}
      //vBCST
      //Valor da BC do ICMS ST
-     vBCST := (pMVAST/100 * qVENDA_ITEM.FieldByName('PRECO_TOTAL').AsFloat)
-            * ((100-qVENDA_ITEM.FieldByName('REDUCAO_ICMS_ST').AsFloat)/100);
+     if modBCST = dbisPauta then
+        vBCST := (pMVAST/100 * qVENDA_ITEM.FieldByName('VALOR_PAUTA_BC_ST').AsFloat)
+               * ((100-qVENDA_ITEM.FieldByName('REDUCAO_ICMS_ST').AsFloat)/100)
+     else
+        vBCST := (pMVAST/100 * qVENDA_ITEM.FieldByName('PRECO_TOTAL').AsFloat)
+               * ((100-qVENDA_ITEM.FieldByName('REDUCAO_ICMS_ST').AsFloat)/100);
 
      {183-N22}
      //pICMSST
@@ -6297,8 +6301,7 @@ begin
      //vICMSST
      //Valor do ICMS ST
      //Valor do ICMS ST retido
-     vICMSST := qVENDA_ITEM.FieldByName('ALIQ_ICMS_SUBST').AsFloat / 100
-              * vBCST;
+     vICMSST := pICMSST / 100 * vBCST;
    end; // with...
 end;
 

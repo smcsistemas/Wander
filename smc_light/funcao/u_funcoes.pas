@@ -102,6 +102,9 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//26/05/2020-21:35-Recebe um valor (string) e retorna true se for vazio ou zero
+function Vazio_ou_Zero(pValor:String): Boolean;
+
 //26/05/2020-06:58-Recebe um valor (string) e retorna true se for um valor de
 //                 percentual correto e false se não for
 function PercentualCorreto(pValor,pDescricao:String): Boolean;
@@ -5770,8 +5773,12 @@ begin
             ((pForm.Components[i] as TcxButton).Name = 'bControleAlterar') then
               (pForm.Components[i] as TcxButton).Enabled := True
          else
-         if ((pForm.Components[i] as TcxButton).Name = 'bControleCancelar') or
-            ((pForm.Components[i] as TcxButton).Name = 'bControleGravar') then
+         if ((pForm.Components[i] as TcxButton).Name = 'bControleCancelar' ) or
+            ((pForm.Components[i] as TcxButton).Name = 'bControleGravar'   ) or
+            //botões de uma segunda aba da tela...
+            ((pForm.Components[i] as TcxButton).Name = 'bControleCancelar2') or
+            ((pForm.Components[i] as TcxButton).Name = 'bControleGravar2'  ) then
+
               (pForm.Components[i] as TcxButton).Enabled := False;
 end;
 
@@ -5787,8 +5794,11 @@ begin
             ((pForm.Components[i] as TcxButton).Name = 'bControleAlterar') then
               (pForm.Components[i] as TcxButton).Enabled := False
          else
-         if ((pForm.Components[i] as TcxButton).Name = 'bControleCancelar') or
-            ((pForm.Components[i] as TcxButton).Name = 'bControleGravar') then
+         if ((pForm.Components[i] as TcxButton).Name = 'bControleCancelar' ) or
+            ((pForm.Components[i] as TcxButton).Name = 'bControleGravar'   ) or
+            //botões de uma segunda aba da tela...
+            ((pForm.Components[i] as TcxButton).Name = 'bControleCancelar2') or
+            ((pForm.Components[i] as TcxButton).Name = 'bControleGravar2'  ) then
               (pForm.Components[i] as TcxButton).Enabled := True;
 end;
 
@@ -5990,6 +6000,17 @@ begin
       end;
    end;
    result := True;
+end;
+
+function Vazio_ou_Zero(pValor:String): Boolean;
+begin
+   if (pValor = ''    ) or
+      (pValor = '0'   ) or
+      (pValor = '0,0' ) or
+      (pValor = '0,00') then
+      result := true
+   else
+     result := false;
 end;
 
 //##############################################################################

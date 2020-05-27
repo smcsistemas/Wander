@@ -1,8 +1,18 @@
 ﻿{ v 21.10.16 17:18 }
 unit cadastro_produto;
 {
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  218|26/05/20|wander              |Criada aba Tributação para tratar apenas  |
+|     |   21:54|cadastro_produto    |parâmetros fiscais                        |
+|-----|--------|--------------------|------------------------------------------|
+|  217|26/05/20|wander              |Tratando Valor de Pauta para cálculo da   |
+|     |   21:54|cadastro_produto    |Base de Cálculo do ICMS ST                |
+|-----|--------|--------------------|------------------------------------------|
+|  216|26/05/20|wander              |Tratando Modalidade de Determinação da    |
+|     |   21:54|cadastro_produto    |Base de Cálculo do ICMS ST                |
 |-----|--------|--------------------|------------------------------------------|
 |  215|26/05/20|wander              |Tratando Valor de Pauta para cálculo da   |
 |     |   18:04|cadastro_produto    |Base de Cálculo do ICMS                   |
@@ -442,10 +452,12 @@ type
     edVALOR_PAUTA_BC: TEdit;
     qConsultaVALOR_PAUTA_BC: TBCDField;
     Panel6: TPanel;
-    cxButton6: TcxButton;
-    cxButton8: TcxButton;
-    cxButton10: TcxButton;
-    cxButton13: TcxButton;
+    bControleCancelar2: TcxButton;
+    bControleGravar2: TcxButton;
+    rgNFe_modBCST: TRadioGroup;
+    pnValorPautaBC_ICMS_ST: TPanel;
+    Label12: TLabel;
+    edVALOR_PAUTA_BC_ST: TEdit;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -624,6 +636,8 @@ type
     procedure edALIQ_ICMSExit(Sender: TObject);
     procedure edREDUCAO_ICMSExit(Sender: TObject);
     procedure rgNFe_modBCClick(Sender: TObject);
+    procedure edVALOR_PAUTA_BC_STKeyPress(Sender: TObject; var Key: Char);
+    procedure rgNFe_modBCSTClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -641,10 +655,12 @@ type
     procedure ConsultarCST_ICMS;
     procedure ConsultarUnidades;
     function DadosCorretos:Boolean;
+    function Dados_da_Aba_Cadastro_OK  :Boolean;
+    function Dados_da_Aba_Tributacao_OK:Boolean;
     procedure AplicarPadroes;
     procedure ApagarRegistro;
     procedure InserirRegistro;
-
+    procedure Ir_Para_Consulta;
   public
     { Public declarations }
     deletar_prod_preco_faixa, consultarultimo: Boolean;
@@ -682,6 +698,11 @@ end;
 procedure TFrm_Produto.rgNFe_modBCClick(Sender: TObject);
 begin
    pnValorPautaBC_ICMS.Enabled := (rgNFe_modBC.ItemIndex = 1);
+end;
+
+procedure TFrm_Produto.rgNFe_modBCSTClick(Sender: TObject);
+begin
+   pnValorPautaBC_ICMS_ST.Enabled := (rgNFe_modBCST.ItemIndex = 5);
 end;
 
 //procedure TFrm_Produto.RemoverFaixa1Click(Sender: TObject);
@@ -1065,6 +1086,15 @@ begin
 
    if edVALOR_PAUTA_BC.Text = '' then
       edVALOR_PAUTA_BC.Text := '0';
+
+   //Modalidade de determinação da BC do ICMS ST (Substituição Tributária)
+   //Padrão = 6-Valor da Operação
+   if rgNFe_modBCST.ItemIndex = -1 then
+      rgNFe_modBCST.ItemIndex := 6;
+
+   if edVALOR_PAUTA_BC_ST.Text = '' then
+      edVALOR_PAUTA_BC_ST.Text := '0';
+
 end;
 
 procedure TFrm_Produto.edREDUCAO_ICMSExit(Sender: TObject);
@@ -1265,20 +1295,20 @@ begin
   //Ajusta botões de controle
   pode_Alterar_Incluir(Frm_Produto);
 
-  if bControleCancelar.Enabled then
-  begin
-    if deletar_prod_preco_faixa then
-    begin
-      execquery('delete from produto_preco_faixa where id_produto=' + edCODIGO.Text);
-      deletar_prod_preco_faixa := false;
-    end;
+  //Posicionar na aba de consulta
+  Ir_Para_Consulta;
 
-    sql_increment.Active := false;
-    SQL_CSTPIS.Active := false;
-    SQL_CSTCOFINS.Active := false;
-    edCODIGO.Clear;
-    CarregarDadosInternos;
-  end;
+end;
+
+procedure TFrm_Produto.Ir_Para_Consulta;
+begin
+   //limpar todos os campos da tela
+   //LimpaTela;
+
+   //Posicionar na aba de consulta
+   //e no campo consulta
+   cxpageControl1.ActivePageIndex := 0;
+   edArgumentoDePesquisa.SetFocus;
 end;
 
 procedure TFrm_Produto.bControleAlterarClick(Sender: TObject);
@@ -1750,6 +1780,33 @@ function TFrm_Produto.DadosCorretos: Boolean;
 begin
    result := false;
 
+   if not Dados_da_Aba_Cadastro_OK   then exit;
+   if not Dados_da_Aba_Tributacao_OK then exit;
+
+
+
+   // Aplicar padrões
+   AplicarPadroes;
+
+   //Tudo ok!
+   Result := True;
+
+end;
+
+
+function TFrm_Produto.Dados_da_Aba_Cadastro_OK: Boolean;
+begin
+   //Valida Dados da Aba Cadastro
+   //       Retorna true se tudo ok
+   //       Retorna false se algo errado
+   //---------------------------------------------------------------------------
+
+   //Posiciona na Aba de Cadastros
+   //evitando que o comando "setfocus" de erro por focar objeto não disponível
+   cxPageControl1.ActivePageIndex := 1;
+
+   result := false;
+
    if CodBarrasRepetido then
       exit;
 
@@ -1777,6 +1834,25 @@ begin
          exit;
       end;
 
+   //Aba Cadastro ok!
+   Result := True;
+
+end;
+
+function TFrm_Produto.Dados_da_Aba_Tributacao_OK: Boolean;
+begin
+   //Valida Dados da Aba Tributação
+   //       Retorna true se tudo ok
+   //       Retorna false se algo errado
+   //---------------------------------------------------------------------------
+
+   //Posiciona na Aba de Tributação
+   //evitando que o comando "setfocus" de erro por focar objeto não disponível
+   cxPageControl1.ActivePageIndex := 2;
+
+
+   result := false;
+
    if not PercentualCorreto(edALIQ_ICMS.Text,'Alíquota de ICMS') then
    begin
       edALIQ_ICMS.SetFocus;
@@ -1792,31 +1868,46 @@ begin
    // Modalidade BC ICMS = Valor de Pauta
    if rgNFe_modBC.ItemIndex = 1 then
    begin
-      if edVALOR_PAUTA_BC.Text = '' then
+      if Vazio_ou_Zero(edVALOR_PAUTA_BC.Text) then
       begin
-         wnAlerta('Cadastrar Produto','Modalidade de BC Pauta exige que se informe o Valor de Pauta', taLeftJustify, 12);
+         wnAlerta('Cadastrar Produto','Modalidade de BC ICMS Pauta exige que se informe o Valor de Pauta', taLeftJustify, 12);
          edVALOR_PAUTA_BC.SetFocus;
          exit;
       end
    end
    else
    begin
-      if edVALOR_PAUTA_BC.Text <> '' then
+      if not Vazio_ou_Zero(edVALOR_PAUTA_BC.Text) then
       begin
-         wnAlerta('Cadastrar Produto','Modalidade de BC difernte de Pauta impede que se informe o Valor de Pauta', taLeftJustify, 12);
+         wnAlerta('Cadastrar Produto','Modalidade de BC ICMS diferente de Pauta impede que se informe o Valor de Pauta', taLeftJustify, 12);
          edVALOR_PAUTA_BC.SetFocus;
          exit;
       end
    end;
 
-   // Aplicar padrões
-   AplicarPadroes;
+   // Modalidade BC ICMS ST = Valor de Pauta
+   if rgNFe_modBCST.ItemIndex = 5 then
+   begin
+      if Vazio_ou_Zero(edVALOR_PAUTA_BC_ST.Text) then
+      begin
+         wnAlerta('Cadastrar Produto','Modalidade de BC ICMS ST Pauta exige que se informe o Valor de Pauta', taLeftJustify, 12);
+         edVALOR_PAUTA_BC_ST.SetFocus;
+         exit;
+      end
+   end
+   else
+   begin
+      if not Vazio_ou_Zero(edVALOR_PAUTA_BC_ST.Text) then
+      begin
+         wnAlerta('Cadastrar Produto','Modalidade de BC ST diferente de Pauta impede que se informe o Valor de Pauta', taLeftJustify, 12);
+         edVALOR_PAUTA_BC_ST.SetFocus;
+         exit;
+      end
+   end;
 
-   //Tudo ok!
+   //Aba Tributação ok!
    Result := True;
-
 end;
-
 
 procedure TFrm_Produto.ESTOQUE_MINIMOKeyPress(Sender: TObject;
 var Key: Char);
@@ -2061,6 +2152,9 @@ procedure TFrm_Produto.Pesquisar;
 begin
    // Pesquisa Produto
    //---------------------------------------------------------------------------
+
+   //Posiciona na aba Consulta
+   cxPageControl1.ActivePageIndex := 0;
 
    if NaoPesquisar then
       exit;
@@ -2462,6 +2556,9 @@ begin
    //Este panel é habilitado/desabilitado pelas opções do rgNFe_modBC
    pnValorPautaBC_ICMS.Enabled    := True;
 
+   //Este panel é habilitado/desabilitado pelas opções do rgNFe_modBCST
+   pnValorPautaBC_ICMS_ST.Enabled := True;
+
    {
    cbOrder.enabled                := True;
    rgPESSOA_TIPO.enabled          := True;
@@ -2548,7 +2645,9 @@ begin
    qAUX.sql.add('       ALIQ_ICMS,                ');
    qAUX.sql.add('       REDUCAO_ICMS,             ');
    qAUX.sql.add('       NFe_modBC,                ');
-   qAUX.sql.add('       VALOR_PAUTA_BC            ');
+   qAUX.sql.add('       NFe_modBCST,              ');
+   qAUX.sql.add('       VALOR_PAUTA_BC,           ');
+   qAUX.sql.add('       VALOR_PAUTA_BC_ST         ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
    qAUX.sql.add('     (:CODIGO,                   ');
@@ -2573,7 +2672,9 @@ begin
    qAUX.sql.add('      :ALIQ_ICMS,                ');
    qAUX.sql.add('      :REDUCAO_ICMS,             ');
    qAUX.sql.add('      :NFe_modBC,                ');
-   qAUX.sql.add('      :VALOR_PAUTA_BC            ');
+   qAUX.sql.add('      :NFe_modBCST,              ');
+   qAUX.sql.add('      :VALOR_PAUTA_BC,           ');
+   qAUX.sql.add('      :VALOR_PAUTA_BC_ST         ');
    qAUX.sql.add('     )                           ');
 
    //Codigo
@@ -2610,7 +2711,9 @@ begin
    qAUX.ParamByName('ALIQ_ICMS'               ).AsFloat   := ValorValido(edALIQ_ICMS.Text);
    qAUX.ParamByName('REDUCAO_ICMS'            ).AsFloat   := ValorValido(edREDUCAO_ICMS.Text);
    qAUX.ParamByName('NFe_modBC'               ).AsInteger := rgNFe_modBC.ItemIndex;
+   qAUX.ParamByName('NFe_modBCST'             ).AsInteger := rgNFe_modBCST.ItemIndex;
    qAUX.ParamByName('VALOR_PAUTA_BC'          ).AsFloat   := ValorValido(edVALOR_PAUTA_BC.Text);
+   qAUX.ParamByName('VALOR_PAUTA_BC_ST'       ).AsFloat   := ValorValido(edVALOR_PAUTA_BC_ST.Text);
    qAUX.ExecSQL;
 
    qAUX.Free;
@@ -2710,6 +2813,12 @@ begin
    //Valor da Pauta da BC do ICMS
    edVALOR_PAUTA_BC.Text                := Float_to_String(qConsulta.FieldByName('VALOR_PAUTA_BC').AsFloat);
 
+   //Modalidade de determinação da BC do ICMS ST
+   rgNFe_modBCST.ItemIndex              := qConsulta.FieldByName('NFe_modBCST').AsInteger;
+
+   //Valor da Pauta da BC do ICMS ST
+   edVALOR_PAUTA_BC_ST.Text             := Float_to_String(qConsulta.FieldByName('VALOR_PAUTA_BC_ST').AsFloat);
+
    // Exibir a aba Cadastro
    cxPageControl1.ActivePAgeIndex  := 1;
 end;
@@ -2739,6 +2848,13 @@ begin
 end;
 
 procedure TFrm_Produto.edVALOR_PAUTA_BCKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  inherited;
+  Key := u_funcoes.ApenasNumeros(Key);
+end;
+
+procedure TFrm_Produto.edVALOR_PAUTA_BC_STKeyPress(Sender: TObject;
   var Key: Char);
 begin
   inherited;

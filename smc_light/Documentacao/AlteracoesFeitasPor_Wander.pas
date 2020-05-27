@@ -12,6 +12,15 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  218|26/05/20|wander              |Criada aba Tributação para tratar apenas  |
+|     |   21:54|cadastro_produto    |parâmetros fiscais                        |
+|-----|--------|--------------------|------------------------------------------|
+|  217|26/05/20|wander              |Tratando Valor de Pauta para cálculo da   |
+|     |   21:54|cadastro_produto    |Base de Cálculo do ICMS ST                |
+|-----|--------|--------------------|------------------------------------------|
+|  216|26/05/20|wander              |Tratando Modalidade de Determinação da    |
+|     |   21:54|cadastro_produto    |Base de Cálculo do ICMS ST                |
+|-----|--------|--------------------|------------------------------------------|
 |  215|26/05/20|wander              |Tratando Valor de Pauta para cálculo da   |
 |     |   18:04|cadastro_produto    |Base de Cálculo do ICMS                   |
 |-----|--------|--------------------|------------------------------------------|

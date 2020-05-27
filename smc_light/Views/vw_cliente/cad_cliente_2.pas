@@ -774,8 +774,8 @@ begin
   //Ajusta botões de controle
   pode_Alterar_Incluir(frm_cadastro_cliente);
 
-   //Posicionar na aba de consulta
-   Ir_Para_Consulta;
+  //Posicionar na aba de consulta
+  Ir_Para_Consulta;
 end;
 
 procedure Tfrm_cadastro_cliente.bControleGravarClick(Sender: TObject);
@@ -1792,7 +1792,7 @@ begin
 
    //Posicionar na aba de consulta
    //e no campo consulta
-   tab_consulta.Show;
+   page_Control.ActivePageIndex := 0;
    edArgumentoDePesquisa.SetFocus;
 end;
 
