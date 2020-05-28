@@ -593,7 +593,6 @@ type
     procedure consultaparacadastro;
 
     procedure updateEstoque;
-    procedure tbViewKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edREFERENCIA_FABRICANTEKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure ImprimirEtiqueta1Click(Sender: TObject);
@@ -616,8 +615,6 @@ type
     procedure tConsultaTimer(Sender: TObject);
     procedure edArgumentoDePesquisaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure edArgumentoDePesquisaKeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure cxButton5Click(Sender: TObject);
     procedure edICMS_CSTKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -639,6 +636,7 @@ type
     procedure rgNFe_modBCClick(Sender: TObject);
     procedure edVALOR_PAUTA_BC_STKeyPress(Sender: TObject; var Key: Char);
     procedure rgNFe_modBCSTClick(Sender: TObject);
+    procedure edArgumentoDePesquisaKeyPress(Sender: TObject; var Key: Char);
 
   private
     { Private declarations }
@@ -2064,12 +2062,26 @@ begin
     end;
 end;
 
-procedure TFrm_Produto.edArgumentoDePesquisaKeyDown(Sender: TObject;
-  var Key: Word; Shift: TShiftState);
+procedure TFrm_Produto.edArgumentoDePesquisaKeyPress(Sender: TObject;
+  var Key: Char);
 begin
    //Quando o usuário pressiona uma tecla, o tempo para de ser contado
    //Pesquisar Produtos após parar de digitar
    tConsulta.Enabled := true;
+
+   //Se o usuário pressionar [ENTER] ou [RETURN]
+   //no campo de argumento de pesquisa...
+   //O foco do cursor deve ir para o grid de produtos para que o usuário possa
+   //pecorrer os itens que vieram com a pesquisa.
+   //
+   //Um novo [ENTER} sobre um item o abrirá para consultas.
+   if (Key = #13) then
+   begin
+     Key := #0;
+     gdProds.SetFocus;
+     exit;
+   end;
+
 end;
 
 procedure TFrm_Produto.edArgumentoDePesquisaKeyUp(Sender: TObject;
@@ -2452,6 +2464,20 @@ begin
     if key = #13 Then
     begin
       key := #0;
+
+      // ENTER no grid de produtos...
+      if gdProds.Focused then
+      begin
+         //Se o usuário pressionar [ENTER] ou [RETURN]
+         //no campo de argumento de pesquisa...
+         //O foco do cursor deve ir para o grid de produtos para que o usuário possa
+         //pecorrer os itens que vieram com a pesquisa.
+         //
+         //Um novo [ENTER} sobre um item o abrirá para consultas.
+         consultaparacadastro;
+         exit;
+      end;
+
       Perform(Wm_NextDlgCtl, 0, 0); // unit Winapi.Messages;
     end;
 end;
@@ -2520,64 +2546,17 @@ begin
    // Habilitar/Desabiitar campos do cadastro de clientes (W)
    //---------------------------------------------------------------------------
 
-   //Bastam os panels....
+   //Bastam os Tpanels....
+   //Desde que todos os objetos editáveis estejam dentro de algum tPanel...
+   //---------------------------------------------------------------------------
+   //É melhor desabilitar panels do que ojetos editáveis, pois quando estes são
+   //desabilitados, ficam opacos dificultando a leitura, enquanto que, quando
+   //estes objetos editáveis estão dentro de tPanels, quando desabilitamos o
+   //tPanel, eles ficam inacessíveis (read-only) porém mantém seus conteúdos
+   //visíveis, não opacos. Quando o TPanel é habilitado, estes objetos voltam a
+   //estar disponíveis para edição.
    HabilitarPanels(Frm_Produto,pBoolean);
-
-   {
-   for i := 0 to Frm_Produto.ComponentCount - 1 do
-   begin
-
-   end;
-     // TDBEdit
-     if (Frm_Produto.Components[i] is TDBEdit) then
-        (Frm_Produto.Components[i] as TDBEdit).ReadOnly := not pBoolean;
-
-     // TEdit
-     if (Frm_Produto.Components[i] is TEdit) then
-        if (Frm_Produto.Components[i] as TEdit).Tag <> 1 then
-           (Frm_Produto.Components[i] as TEdit).ReadOnly := not pBoolean
-        else
-           (Frm_Produto.Components[i] as TEdit).ReadOnly := True;
-
-     // TMaskEdit
-     if (Frm_Produto.Components[i] is TMaskEdit) then
-        (Frm_Produto.Components[i] as TMaskEdit).ReadOnly := not pBoolean;
-
-     //TcxDateEdit
-     if (Frm_Produto.Components[i] is TcxDateEdit) then
-        (Frm_Produto.Components[i] as TcxDateEdit).Enabled := pBoolean;
-
-     //TDateTimePicker
-     {if (Frm_Produto.Components[i] is TDateTimePicker) then
-        (Frm_Produto.Components[i] as TDateTimePicker).Enabled := pBoolean;
-
-     //TComboBox
-     if (Frm_Produto.Components[i] is TComboBox) then
-        (Frm_Produto.Components[i] as TComboBox).enabled := pBoolean;
-
-     //TcxComboBox
-     if (Frm_Produto.Components[i] is TcxComboBox) then
-        (Frm_Produto.Components[i] as TcxComboBox).enabled := pBoolean;
-
-     //TcxButton
-     if (Frm_Produto.Components[i] is TcxButton) then
-     begin
-       if (Frm_Produto.Components[i] as TcxButton).tag = 3 then
-          (Frm_Produto.Components[i] as TcxButton).enabled := True
-       else
-          (Frm_Produto.Components[i] as TcxButton).enabled := pBoolean;
-     end;
-
-     //TRadioGroup
-   //  if (Frm_Produto.Components[i] is TRadioGroup) then
-   //     (Frm_Produto.Components[i] as TRadioGroup).enabled := pBoolean;
-   //
-
-   {  //TDBComboBox
-     if (Frm_Produto.Components[i] is TDBComboBox) then
-        (Frm_Produto.Components[i] as TDBComboBox).enabled := pBoolean;
-   end;
-   }
+   //---------------------------------------------------------------------------
 
    //Objetos sempre habilitados
    edArgumentoDePesquisa.Enabled  := True;
@@ -2589,20 +2568,9 @@ begin
    //Este panel é habilitado/desabilitado pelas opções do rgNFe_modBCST
    pnValorPautaBC_ICMS_ST.Enabled := True;
 
-   {
-   cbOrder.enabled                := True;
-   rgPESSOA_TIPO.enabled          := True;
-   rgSTATUS_CADASTRAL.enabled     := True;
-   bHistoricoAlteracoes.enabled   := True;
-   cbHistoricoBloqueios.enabled   := True;
-
-   }
    //Objetos sempre desabilitados
    edCODIGO.ReadOnly        := True;
-   {
-   edDATA_CADASTRO.ReadOnly := True;
-   edDTBLOQUEIO.ReadOnly    := True;
-   }
+
 end;
 
 procedure TFrm_Produto.ImprimirEtiqueta1Click(Sender: TObject);
@@ -3147,13 +3115,6 @@ begin
 
   TFunctions.stripedGrid(ACanvas, AViewInfo);
 end;
-
-procedure TFrm_Produto.tbViewKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
-  if Key = vk_return then
-    consultaparacadastro;
-end;
-
 
 procedure TFrm_Produto.tConsultaTimer(Sender: TObject);
 begin

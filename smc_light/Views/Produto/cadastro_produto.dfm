@@ -39,7 +39,7 @@ object Frm_Produto: TFrm_Produto
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    Properties.ActivePage = tab_Cadastrar
+    Properties.ActivePage = cxTabSheet1
     Properties.ActivateFocusedTab = False
     Properties.CustomButtons.Buttons = <>
     LookAndFeel.NativeStyle = False
@@ -169,7 +169,7 @@ object Frm_Produto: TFrm_Produto
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 0
-        OnKeyDown = edArgumentoDePesquisaKeyDown
+        OnKeyPress = edArgumentoDePesquisaKeyPress
         OnKeyUp = edArgumentoDePesquisaKeyUp
       end
       object chk_diff_estoque: TcxCheckBox
@@ -205,7 +205,6 @@ object Frm_Produto: TFrm_Produto
         LookAndFeel.SkinName = 'Office2013White'
         object tbView: TcxGridDBTableView
           PopupMenu = popmenu
-          OnKeyDown = tbViewKeyDown
           Navigator.Buttons.CustomButtons = <>
           OnCellDblClick = tbViewCellDblClick
           OnCustomDrawCell = tbViewCustomDrawCell
@@ -737,7 +736,6 @@ object Frm_Produto: TFrm_Produto
     object tab_Cadastrar: TcxTabSheet
       Caption = 'Cadastro'
       ImageIndex = 3
-      ExplicitHeight = 593
       object Panel6: TPanel
         Left = 3
         Top = 2

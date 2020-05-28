@@ -27,7 +27,7 @@ WANDER possui 3 branches
 
 
 (#4)
-Para Thailor, usar, em sua máquina deve aplicar em sua máquina:
+Para Rodrigo, Vitor e Thailor usarem, devem aplicar, em suas respectivas máquinas:
 
 C:\> cd\SMC
      ------
@@ -39,7 +39,7 @@ C:\SMC\src\> git init
              --------
 
 C:\SMC\src\> git remote add origin https://github.com/smcsistemas/Wander.git
-             --------------------------------------------------------------
+             ---------------------------------------------------------------
 (#5)
 Após criar é preciso baixar os branches remotos para a máquina local com o
 comando abaixo:
