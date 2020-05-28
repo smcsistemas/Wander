@@ -2541,9 +2541,11 @@ begin
      end;
 
      //TRadioGroup
-     if (Frm_Produto.Components[i] is TRadioGroup) then
-        (Frm_Produto.Components[i] as TRadioGroup).enabled := pBoolean;
+   //  if (Frm_Produto.Components[i] is TRadioGroup) then
+   //     (Frm_Produto.Components[i] as TRadioGroup).enabled := pBoolean;
+   //
 
+   Basta os panels....
      //TDBComboBox
      if (Frm_Produto.Components[i] is TDBComboBox) then
         (Frm_Produto.Components[i] as TDBComboBox).enabled := pBoolean;

@@ -39,7 +39,7 @@ object Frm_Produto: TFrm_Produto
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    Properties.ActivePage = tab_Cadastrar
+    Properties.ActivePage = tabTributacao
     Properties.ActivateFocusedTab = False
     Properties.CustomButtons.Buttons = <>
     LookAndFeel.NativeStyle = False
@@ -4751,7 +4751,7 @@ object Frm_Produto: TFrm_Produto
         object rgNFe_modBC: TRadioGroup
           Left = 0
           Top = 7
-          Width = 241
+          Width = 344
           Height = 105
           Caption = 'Modalidade de determina'#231#227'o da BC do ICMS'
           Font.Charset = ANSI_CHARSET
@@ -4761,8 +4761,8 @@ object Frm_Produto: TFrm_Produto
           Font.Style = []
           Items.Strings = (
             'Margem de Valor Agregado (%)'
-            'Pauta'
-            'Preco Tabelado'
+            'Pauta Fiscal'
+            'Pre'#231'o Tabelado'
             'Valor da Opera'#231#227'o'
             'Nenhum')
           ParentFont = False
@@ -4772,18 +4772,18 @@ object Frm_Produto: TFrm_Produto
         object pnValorPautaBC_ICMS: TPanel
           Left = 0
           Top = 112
-          Width = 241
+          Width = 344
           Height = 34
           BevelKind = bkFlat
           BevelOuter = bvNone
           Enabled = False
           TabOrder = 1
           object Label56: TLabel
-            Left = 4
+            Left = 38
             Top = 4
-            Width = 102
+            Width = 181
             Height = 18
-            Caption = 'Valor Pauta BC:'
+            Caption = 'Valor Pauta Fiscal BC ICMS:'
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -15
@@ -4792,9 +4792,9 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object edVALOR_PAUTA_BC: TEdit
-            Left = 109
+            Left = 226
             Top = 2
-            Width = 83
+            Width = 107
             Height = 26
             BiDiMode = bdRightToLeft
             Font.Charset = ANSI_CHARSET
@@ -4809,9 +4809,9 @@ object Frm_Produto: TFrm_Produto
           end
         end
         object rgNFe_modBCST: TRadioGroup
-          Left = 244
+          Left = 348
           Top = 7
-          Width = 241
+          Width = 344
           Height = 105
           Caption = 'Modalidade de determina'#231#227'o da BC do ICMS ST'
           Font.Charset = ANSI_CHARSET
@@ -4825,27 +4825,27 @@ object Frm_Produto: TFrm_Produto
             'Lista Positiva'
             'Lista Neutra'
             'Margem de Valor Agregado (%)'
-            'Pauta'
+            'Pauta Fiscal'
             'Valor da Opera'#231#227'o')
           ParentFont = False
           TabOrder = 2
           OnClick = rgNFe_modBCSTClick
         end
         object pnValorPautaBC_ICMS_ST: TPanel
-          Left = 244
+          Left = 348
           Top = 112
-          Width = 241
+          Width = 344
           Height = 34
           BevelKind = bkFlat
           BevelOuter = bvNone
           Enabled = False
           TabOrder = 3
           object Label12: TLabel
-            Left = 3
-            Top = 3
-            Width = 125
+            Left = 11
+            Top = 6
+            Width = 204
             Height = 18
-            Caption = 'Valor Pauta BC ST:'
+            Caption = 'Valor Pauta Fiscal BC ICMS ST:'
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -15
@@ -4854,9 +4854,9 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object edVALOR_PAUTA_BC_ST: TEdit
-            Left = 134
-            Top = 1
-            Width = 83
+            Left = 222
+            Top = 2
+            Width = 113
             Height = 26
             BiDiMode = bdRightToLeft
             Font.Charset = ANSI_CHARSET
