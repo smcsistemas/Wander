@@ -5,6 +5,17 @@ unit cadastro_produto;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  221|28/05/20|wander              |Tratando GENERO. Só aceitava números mas o|
+|     |   18:57|cadastro_produto    |campo na tebela produtos é alfanumérico,  |
+|     |        |                    |portanto o código foi alterado p/ aceitar |
+|     |        |                    |letras, números e caracteres especiais.   |
+|-----|--------|--------------------|------------------------------------------|
+|  220|28/05/20|wander              |Não foi identificada a função da Coluna   |
+|     |   18:57|cadastro_produto    |COD_COMB da tabela "Produtos". Rodrigo e  |
+|     |        |                    |desconhecem sua utilidade. Pesquisei e não|
+|     |        |                    |há referênca a esta coluna em todo o siste|
+|     |        |                    |ma. Rodrigo pediu para não trata-la.      |
+|-----|--------|--------------------|------------------------------------------|
 |  219|28/05/20|wander              |Tratando Margem de Valor Agregado (% MVA) |
 |     |   13:23|cadastro_produto    |da ST                                     |
 |-----|--------|--------------------|------------------------------------------|
@@ -381,13 +392,11 @@ type
     Label2: TLabel;
     Label52: TLabel;
     Label53: TLabel;
-    Label62: TLabel;
     Label60: TLabel;
     Label57: TLabel;
     edALIQ_ICMS: TEdit;
     edREDUCAO_ICMS: TEdit;
-    cod_comb: TEdit;
-    edt_genero: TEdit;
+    edGENERO: TEdit;
     edt_leis: TcxDBButtonEdit;
     edICMS_CST: TEdit;
     edICMS_CST_NOME: TEdit;
@@ -506,7 +515,6 @@ type
     procedure edALIQ_ICMSKeyPress(Sender: TObject; var Key: Char);
     procedure edREDUCAO_ICMSKeyPress(Sender: TObject; var Key: Char);
     procedure edVALOR_PAUTA_BCKeyPress(Sender: TObject; var Key: Char);
-    procedure edt_generoKeyPress(Sender: TObject; var Key: Char);
     procedure edNFe_pMVASTKeyPress(Sender: TObject; var Key: Char);
     procedure cod_combKeyPress(Sender: TObject; var Key: Char);
     procedure ex_ipiKeyPress(Sender: TObject; var Key: Char);
@@ -571,15 +579,10 @@ type
     procedure DESCONTO_M_ATACADOClick(Sender: TObject);
     procedure calc_margem(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure NCMExit(Sender: TObject);
-    procedure edt_qtde_minExit(Sender: TObject);
     procedure edt_qtde_minKeyPress(Sender: TObject; var Key: Char);
-    procedure edt_qtde_minKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edt_qtde_maxKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edt_precoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure cb_tipoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btn_cad_faixaClick(Sender: TObject);
     procedure carregar_faixa;
-    procedure edt_precoExit(Sender: TObject);
     procedure PRECO_FINAL_ATACADOKeyPress(Sender: TObject; var Key: Char);
     procedure chk_diff_estoquePropertiesChange(Sender: TObject);
     procedure PreencherNCM(value: string);
@@ -2314,50 +2317,6 @@ begin
   edt_cest.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(edt_cest.Text));
 end;
 
-procedure TFrm_Produto.edt_generoKeyPress(Sender: TObject;
-
-  var Key: Char);
-begin
-  inherited;
-  Key := u_funcoes.ApenasNumeros(Key);
-end;
-
-procedure TFrm_Produto.edt_precoExit(Sender: TObject);
-begin
-//  if edt_preco.Text <> emptystr then
-//    edt_preco.Text := formatarmoeda(TFunctions.replace(edt_preco.Text, 'R$', VARDOUBLE));
-end;
-
-procedure TFrm_Produto.edt_precoKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-//  if Key in [vk_return, vk_tab] then
-//    cb_tipo.SetFocus;
-end;
-
-procedure TFrm_Produto.edt_qtde_maxKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if Key in [vk_return, vk_tab] then
-//    edt_preco.SetFocus;
-end;
-
-procedure TFrm_Produto.edt_qtde_minExit(Sender: TObject);
-begin
-//  if edt_qtde_min.Text <> emptystr then
-//    edt_qtde_min.Text := floattostr(formatarmoeda(strtofloat(edt_qtde_min.Text), VARDOUBLE));
-end;
-
-procedure TFrm_Produto.edt_qtde_minKeyDown(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if Key in [vk_return, vk_tab] then
-//    edt_preco.SetFocus;
-end;
-
 procedure TFrm_Produto.edt_qtde_minKeyPress(Sender: TObject;
 
   var Key: Char);
@@ -2658,6 +2617,7 @@ begin
    qAUX.sql.add('       FAMILIA,                  ');
    qAUX.sql.add('       GRUPO,                    ');
    qAUX.sql.add('       SUBGRUPO,                 ');
+   qAUX.sql.add('       GENERO,                   ');
    qAUX.sql.add('       PRECO_FINAL_ATACADO,      ');
    qAUX.sql.add('       PRECO_FINAL_VAREJO,       ');
    qAUX.sql.add('       PRECO_FINAL_DISTRIBUIDOR, ');
@@ -2686,6 +2646,7 @@ begin
    qAUX.sql.add('      :FAMILIA,                  ');
    qAUX.sql.add('      :GRUPO,                    ');
    qAUX.sql.add('      :SUBGRUPO,                 ');
+   qAUX.sql.add('      :GENERO,                   ');
    qAUX.sql.add('      :PRECO_FINAL_ATACADO,      ');
    qAUX.sql.add('      :PRECO_FINAL_VAREJO,       ');
    qAUX.sql.add('      :PRECO_FINAL_DISTRIBUIDOR, ');
@@ -2726,6 +2687,7 @@ begin
    qAUX.ParamByName('FAMILIA'                 ).AsString  := edFAMILIA.Text;
    qAUX.ParamByName('GRUPO'                   ).AsString  := edGRUPO.Text;
    qAUX.ParamByName('SUBGRUPO'                ).AsString  := edSUBGRUPO.Text;
+   qAUX.ParamByName('GENERO'                  ).AsString  := edGENERO.Text;
    qAUX.ParamByName('PRECO_FINAL_ATACADO'     ).AsFloat   := ValorValido(edPRECO_FINAL_ATACADO.Text);
    qAUX.ParamByName('PRECO_FINAL_VAREJO'      ).AsFloat   := ValorValido(edPRECO_FINAL_VAREJO.Text);
    qAUX.ParamByName('PRECO_FINAL_DISTRIBUIDOR').AsFloat   := ValorValido(edPRECO_FINAL_DISTRIBUIDOR.Text);
@@ -2807,6 +2769,9 @@ begin
    //SubGrupo
    edSUBGRUPO.Text                 := qConsulta.FieldByName('SUBGRUPO').AsString;
    edSUBGRUPO_NOME.Text            := fProdutoSUBGRUPO_NOME(edGRUPO.Text);
+
+   //Gênero
+   edGENERO.Text                   := qConsulta.FieldByName('GENERO').AsString;
 
    //Preços de Venda
    edPRECO_FINAL_ATACADO.Text      := Float_to_String(qConsulta.FieldByName('PRECO_FINAL_ATACADO'     ).AsFloat);
@@ -3287,4 +3252,3 @@ enquanto o
 CSOSN é utilizado pelos contribuintes optantes pelo regime do Simples Nacional.
 }
 
-NFe_pMVAST

@@ -12,6 +12,17 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  221|28/05/20|wander              |Tratando GENERO. Só aceitava números mas o|
+|     |   18:57|cadastro_produto    |campo na tebela produtos é alfanumérico,  |
+|     |        |                    |portanto o código foi alterado p/ aceitar |
+|     |        |                    |letras, números e caracteres especiais.   |
+|-----|--------|--------------------|------------------------------------------|
+|  220|28/05/20|wander              |Não foi identificada a função da Coluna   |
+|     |   18:57|cadastro_produto    |COD_COMB da tabela "Produtos". Rodrigo e  |
+|     |        |                    |desconhecem sua utilidade. Pesquisei e não|
+|     |        |                    |há referênca a esta coluna em todo o siste|
+|     |        |                    |ma. Rodrigo pediu para não trata-la.      |
+|-----|--------|--------------------|------------------------------------------|
 |  219|28/05/20|wander              |Tratando Margem de Valor Agregado (% MVA) |
 |     |   13:23|cadastro_produto    |da ST                                     |
 |-----|--------|--------------------|------------------------------------------|
