@@ -39,7 +39,7 @@ object Frm_Produto: TFrm_Produto
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    Properties.ActivePage = cxTabSheet1
+    Properties.ActivePage = tabTributacao
     Properties.ActivateFocusedTab = False
     Properties.CustomButtons.Buttons = <>
     LookAndFeel.NativeStyle = False
@@ -58,6 +58,10 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 0
       ParentFont = False
       OnShow = cxTabSheet1Show
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label58: TLabel
         Left = 20
         Top = 555
@@ -205,6 +209,7 @@ object Frm_Produto: TFrm_Produto
         LookAndFeel.SkinName = 'Office2013White'
         object tbView: TcxGridDBTableView
           PopupMenu = popmenu
+          OnKeyPress = tbViewKeyPress
           Navigator.Buttons.CustomButtons = <>
           OnCellDblClick = tbViewCellDblClick
           OnCustomDrawCell = tbViewCustomDrawCell
@@ -736,6 +741,10 @@ object Frm_Produto: TFrm_Produto
     object tab_Cadastrar: TcxTabSheet
       Caption = 'Cadastro'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel6: TPanel
         Left = 3
         Top = 2
@@ -3857,6 +3866,10 @@ object Frm_Produto: TFrm_Produto
     object tabTributacao: TcxTabSheet
       Caption = ' Tributa'#231#227'o'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel4: TPanel
         Left = -1
         Top = 3
@@ -4293,7 +4306,7 @@ object Frm_Produto: TFrm_Produto
         object GroupBox23: TGroupBox
           Left = 4
           Top = 5
-          Width = 587
+          Width = 597
           Height = 148
           Caption = '  Tributa'#231#227'o ICMS'
           Color = clGradientInactiveCaption
@@ -4345,21 +4358,8 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
           end
-          object Label61: TLabel
-            Left = 13
-            Top = 117
-            Width = 83
-            Height = 18
-            Caption = 'Lucro ST %:'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
           object Label53: TLabel
-            Left = 109
+            Left = 115
             Top = 83
             Width = 142
             Height = 18
@@ -4372,8 +4372,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object Label62: TLabel
-            Left = 177
-            Top = 117
+            Left = 301
+            Top = 83
             Width = 78
             Height = 18
             Caption = 'C'#243'd. Comb:'
@@ -4385,8 +4385,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object Label60: TLabel
-            Left = 335
-            Top = 117
+            Left = 467
+            Top = 83
             Width = 52
             Height = 18
             Caption = 'G'#234'nero:'
@@ -4427,10 +4427,10 @@ object Frm_Produto: TFrm_Produto
             OnExit = edALIQ_ICMSExit
             OnKeyPress = edALIQ_ICMSKeyPress
           end
-          object aliq_lucro_st: TEdit
-            Left = 103
-            Top = 113
-            Width = 64
+          object edREDUCAO_ICMS: TEdit
+            Left = 261
+            Top = 79
+            Width = 36
             Height = 26
             BiDiMode = bdRightToLeft
             Font.Charset = ANSI_CHARSET
@@ -4441,28 +4441,12 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 7
-            OnKeyPress = aliq_lucro_stKeyPress
-          end
-          object edREDUCAO_ICMS: TEdit
-            Left = 255
-            Top = 79
-            Width = 42
-            Height = 26
-            BiDiMode = bdRightToLeft
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Helvetica Neue'
-            Font.Style = [fsBold]
-            ParentBiDiMode = False
-            ParentFont = False
-            TabOrder = 8
             OnExit = edREDUCAO_ICMSExit
             OnKeyPress = edREDUCAO_ICMSKeyPress
           end
           object cod_comb: TEdit
-            Left = 261
-            Top = 113
+            Left = 385
+            Top = 79
             Width = 64
             Height = 26
             BiDiMode = bdRightToLeft
@@ -4473,12 +4457,12 @@ object Frm_Produto: TFrm_Produto
             Font.Style = [fsBold]
             ParentBiDiMode = False
             ParentFont = False
-            TabOrder = 9
+            TabOrder = 8
             OnKeyPress = cod_combKeyPress
           end
           object edt_genero: TEdit
-            Left = 394
-            Top = 113
+            Left = 522
+            Top = 79
             Width = 65
             Height = 26
             BiDiMode = bdRightToLeft
@@ -4489,7 +4473,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = [fsBold]
             ParentBiDiMode = False
             ParentFont = False
-            TabOrder = 10
+            TabOrder = 9
             OnKeyPress = edt_generoKeyPress
           end
           object edt_leis: TcxDBButtonEdit
@@ -4551,7 +4535,7 @@ object Frm_Produto: TFrm_Produto
             StyleFocused.LookAndFeel.SkinName = 'Office2013White'
             StyleHot.LookAndFeel.NativeStyle = False
             StyleHot.LookAndFeel.SkinName = 'Office2013White'
-            TabOrder = 11
+            TabOrder = 10
             Width = 71
           end
           object edICMS_CST: TEdit
@@ -4743,7 +4727,7 @@ object Frm_Produto: TFrm_Produto
         object rgNFe_modBC: TRadioGroup
           Left = 0
           Top = 7
-          Width = 344
+          Width = 387
           Height = 105
           Caption = 'Modalidade de determina'#231#227'o da BC do ICMS'
           Font.Charset = ANSI_CHARSET
@@ -4764,14 +4748,14 @@ object Frm_Produto: TFrm_Produto
         object pnValorPautaBC_ICMS: TPanel
           Left = 0
           Top = 112
-          Width = 344
-          Height = 34
+          Width = 387
+          Height = 81
           BevelKind = bkFlat
           BevelOuter = bvNone
           Enabled = False
           TabOrder = 1
           object Label56: TLabel
-            Left = 38
+            Left = 88
             Top = 4
             Width = 181
             Height = 18
@@ -4784,7 +4768,7 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object edVALOR_PAUTA_BC: TEdit
-            Left = 226
+            Left = 276
             Top = 2
             Width = 107
             Height = 26
@@ -4801,9 +4785,9 @@ object Frm_Produto: TFrm_Produto
           end
         end
         object rgNFe_modBCST: TRadioGroup
-          Left = 348
+          Left = 388
           Top = 7
-          Width = 344
+          Width = 387
           Height = 105
           Caption = 'Modalidade de determina'#231#227'o da BC do ICMS ST'
           Font.Charset = ANSI_CHARSET
@@ -4824,16 +4808,16 @@ object Frm_Produto: TFrm_Produto
           OnClick = rgNFe_modBCSTClick
         end
         object pnValorPautaBC_ICMS_ST: TPanel
-          Left = 348
+          Left = 388
           Top = 112
-          Width = 344
-          Height = 34
+          Width = 387
+          Height = 81
           BevelKind = bkFlat
           BevelOuter = bvNone
           Enabled = False
           TabOrder = 3
           object Label12: TLabel
-            Left = 11
+            Left = 59
             Top = 6
             Width = 204
             Height = 18
@@ -4845,8 +4829,21 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
           end
+          object Label61: TLabel
+            Left = 11
+            Top = 33
+            Width = 251
+            Height = 18
+            Caption = 'Margem do Valor Agregado (MVA) %:'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
           object edVALOR_PAUTA_BC_ST: TEdit
-            Left = 222
+            Left = 267
             Top = 2
             Width = 113
             Height = 26
@@ -4860,6 +4857,22 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             TabOrder = 0
             OnKeyPress = edVALOR_PAUTA_BC_STKeyPress
+          end
+          object edNFe_pMVAST: TEdit
+            Left = 267
+            Top = 29
+            Width = 36
+            Height = 26
+            BiDiMode = bdRightToLeft
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'Helvetica Neue'
+            Font.Style = [fsBold]
+            ParentBiDiMode = False
+            ParentFont = False
+            TabOrder = 1
+            OnKeyPress = edNFe_pMVASTKeyPress
           end
         end
       end
@@ -5540,8 +5553,8 @@ object Frm_Produto: TFrm_Produto
   end
   object DS_Lista: TDataSource
     DataSet = qConsulta
-    Left = 200
-    Top = 128
+    Left = 312
+    Top = 144
   end
   object DS_CSTIPI: TDataSource
     DataSet = SQL_CSTIPI
@@ -5836,8 +5849,8 @@ object Frm_Produto: TFrm_Produto
   end
   object ds_ponto_impressao: TDataSource
     DataSet = sql_ponto_impressao
-    Left = 288
-    Top = 128
+    Left = 440
+    Top = 112
   end
   object qConsulta: TFDQuery
     Connection = Module.connection

@@ -5,6 +5,9 @@ unit cadastro_produto;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  219|28/05/20|wander              |Tratando Margem de Valor Agregado (% MVA) |
+|     |   13:23|cadastro_produto    |da ST                                     |
+|-----|--------|--------------------|------------------------------------------|
 |  218|26/05/20|wander              |Criada aba Tributação para tratar apenas  |
 |     |   21:54|cadastro_produto    |parâmetros fiscais                        |
 |-----|--------|--------------------|------------------------------------------|
@@ -377,13 +380,11 @@ type
     Label22: TLabel;
     Label2: TLabel;
     Label52: TLabel;
-    Label61: TLabel;
     Label53: TLabel;
     Label62: TLabel;
     Label60: TLabel;
     Label57: TLabel;
     edALIQ_ICMS: TEdit;
-    aliq_lucro_st: TEdit;
     edREDUCAO_ICMS: TEdit;
     cod_comb: TEdit;
     edt_genero: TEdit;
@@ -459,6 +460,8 @@ type
     edTIPO_ITEM: TEdit;
     edTIPO_ITEM_NOME: TEdit;
     btn_Tipo: TcxButton;
+    Label61: TLabel;
+    edNFe_pMVAST: TEdit;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -504,7 +507,7 @@ type
     procedure edREDUCAO_ICMSKeyPress(Sender: TObject; var Key: Char);
     procedure edVALOR_PAUTA_BCKeyPress(Sender: TObject; var Key: Char);
     procedure edt_generoKeyPress(Sender: TObject; var Key: Char);
-    procedure aliq_lucro_stKeyPress(Sender: TObject; var Key: Char);
+    procedure edNFe_pMVASTKeyPress(Sender: TObject; var Key: Char);
     procedure cod_combKeyPress(Sender: TObject; var Key: Char);
     procedure ex_ipiKeyPress(Sender: TObject; var Key: Char);
     procedure aliq_ipiKeyPress(Sender: TObject; var Key: Char);
@@ -590,7 +593,6 @@ type
       AShift: TShiftState; var AHandled: Boolean);
     procedure cbFiltroPropertiesEditValueChanged(Sender: TObject);
     procedure cbTipoItemConsultaPropertiesEditValueChanged(Sender: TObject);
-    procedure consultaparacadastro;
 
     procedure updateEstoque;
     procedure edREFERENCIA_FABRICANTEKeyUp(Sender: TObject; var Key: Word;
@@ -637,6 +639,7 @@ type
     procedure edVALOR_PAUTA_BC_STKeyPress(Sender: TObject; var Key: Char);
     procedure rgNFe_modBCSTClick(Sender: TObject);
     procedure edArgumentoDePesquisaKeyPress(Sender: TObject; var Key: Char);
+    procedure tbViewKeyPress(Sender: TObject; var Key: Char);
 
   private
     { Private declarations }
@@ -1039,7 +1042,7 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.aliq_lucro_stKeyPress(Sender: TObject;
+procedure TFrm_Produto.edNFe_pMVASTKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -1095,6 +1098,9 @@ begin
 
    if edVALOR_PAUTA_BC_ST.Text = '' then
       edVALOR_PAUTA_BC_ST.Text := '0';
+
+   if edNFe_pMVAST.Text = '' then
+      edNFe_pMVAST.Text := '0';
 
 end;
 
@@ -1797,19 +1803,22 @@ end;
 
 function TFrm_Produto.DadosCorretos: Boolean;
 begin
+   //Valida todos os dados
+   //       Retorna true se tudo ok
+   //       Retorna false se algo errado
+   //---------------------------------------------------------------------------
+
    result := false;
 
+   //Validar dados por abas...
    if not Dados_da_Aba_Cadastro_OK   then exit;
    if not Dados_da_Aba_Tributacao_OK then exit;
 
-
-
-   // Aplicar padrões
+   // Aplicar valores-padrão
    AplicarPadroes;
 
    //Tudo ok!
    Result := True;
-
 end;
 
 
@@ -1890,7 +1899,7 @@ begin
       if Vazio_ou_Zero(edVALOR_PAUTA_BC.Text) then
       begin
          wnAlerta('Cadastrar Produto','Modalidade de BC ICMS Pauta exige que se informe o Valor de Pauta', taLeftJustify, 12);
-         edVALOR_PAUTA_BC.SetFocus;
+         rgNFe_modBC.SetFocus;
          exit;
       end
    end
@@ -1899,7 +1908,7 @@ begin
       if not Vazio_ou_Zero(edVALOR_PAUTA_BC.Text) then
       begin
          wnAlerta('Cadastrar Produto','Modalidade de BC ICMS diferente de Pauta impede que se informe o Valor de Pauta', taLeftJustify, 12);
-         edVALOR_PAUTA_BC.SetFocus;
+         rgNFe_modBC.SetFocus;
          exit;
       end
    end;
@@ -1910,7 +1919,7 @@ begin
       if Vazio_ou_Zero(edVALOR_PAUTA_BC_ST.Text) then
       begin
          wnAlerta('Cadastrar Produto','Modalidade de BC ICMS ST Pauta exige que se informe o Valor de Pauta', taLeftJustify, 12);
-         edVALOR_PAUTA_BC_ST.SetFocus;
+         rgNFe_modBCST.SetFocus;
          exit;
       end
    end
@@ -1919,7 +1928,27 @@ begin
       if not Vazio_ou_Zero(edVALOR_PAUTA_BC_ST.Text) then
       begin
          wnAlerta('Cadastrar Produto','Modalidade de BC ST diferente de Pauta impede que se informe o Valor de Pauta', taLeftJustify, 12);
-         edVALOR_PAUTA_BC_ST.SetFocus;
+         rgNFe_modBCST.SetFocus;
+         exit;
+      end
+   end;
+
+   // Modalidade BC ICMS ST = Margem do Valor Agregado
+   if rgNFe_modBCST.ItemIndex = 4 then
+   begin
+      if Vazio_ou_Zero(edNFe_pMVAST.Text) then
+      begin
+         wnAlerta('Cadastrar Produto','Modalidade de BC ICMS ST Margem do Valor Agregado (MVA) exige que se informe o % de MVA', taLeftJustify, 12);
+         rgNFe_modBCST.SetFocus;
+         exit;
+      end
+   end
+   else
+   begin
+      if not Vazio_ou_Zero(edNFe_pMVAST.Text) then
+      begin
+         wnAlerta('Cadastrar Produto','Modalidade de BC ST diferente de Margem de Valor Agregado (MVA) impede que se informe o % de MVA', taLeftJustify, 12);
+         rgNFe_modBCST.SetFocus;
          exit;
       end
    end;
@@ -2158,15 +2187,6 @@ procedure TFrm_Produto.cod_combKeyPress(Sender: TObject;
 begin
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
-end;
-
-procedure TFrm_Produto.consultaparacadastro;
-begin
-  //u_funcoes.ConsultarCadastros(SQL_PRODUTO, QuotedStr(inttostr(SQL_LISTACODIGO.value) + '%'), 'PRODUTO', 'CODIGO', 'pcodigo', '', '',
-  //  '', 0, 0);
-  //CarregarDadosInternos;
-  //tab_Cadastrar.show;
-  //bControleAlterar.Click;
 end;
 
 procedure TFrm_Produto.DESCONTO_M_ATACADOClick(Sender: TObject);
@@ -2461,23 +2481,28 @@ begin
       Exit;
     end;
 
+    {
     if key = #13 Then
     begin
       key := #0;
-
       // ENTER no grid de produtos...
-      if gdProds.Focused then
-      begin
-         //Se o usuário pressionar [ENTER] ou [RETURN]
-         //no campo de argumento de pesquisa...
-         //O foco do cursor deve ir para o grid de produtos para que o usuário possa
-         //pecorrer os itens que vieram com a pesquisa.
-         //
-         //Um novo [ENTER} sobre um item o abrirá para consultas.
-         consultaparacadastro;
-         exit;
-      end;
-
+      if (Sender is TcxGridDBTableView) then
+         if (Sender as TcxGridDBTableView).Name = 'tbView' then
+         begin
+            //Se o usuário pressionar [ENTER] ou [RETURN]
+            //no campo de argumento de pesquisa...
+            //O foco do cursor deve ir para o grid de produtos para que o usuário possa
+            //pecorrer os itens que vieram com a pesquisa.
+            //
+            //Um novo [ENTER] sobre um item o abrirá para consultas.
+            Clicou_no_Grid_de_Produto;
+            exit;
+         end;
+    end;
+    }
+    if key = #13 Then
+    begin
+      key := #0;
       Perform(Wm_NextDlgCtl, 0, 0); // unit Winapi.Messages;
     end;
 end;
@@ -2645,7 +2670,8 @@ begin
    qAUX.sql.add('       NFe_modBC,                ');
    qAUX.sql.add('       NFe_modBCST,              ');
    qAUX.sql.add('       VALOR_PAUTA_BC,           ');
-   qAUX.sql.add('       VALOR_PAUTA_BC_ST         ');
+   qAUX.sql.add('       VALOR_PAUTA_BC_ST,        ');
+   qAUX.sql.add('       NFe_pMVAST                ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
    qAUX.sql.add('     (:CODIGO,                   ');
@@ -2672,7 +2698,8 @@ begin
    qAUX.sql.add('      :NFe_modBC,                ');
    qAUX.sql.add('      :NFe_modBCST,              ');
    qAUX.sql.add('      :VALOR_PAUTA_BC,           ');
-   qAUX.sql.add('      :VALOR_PAUTA_BC_ST         ');
+   qAUX.sql.add('      :VALOR_PAUTA_BC_ST,        ');
+   qAUX.sql.add('      :NFe_pMVAST                ');
    qAUX.sql.add('     )                           ');
 
    //Codigo
@@ -2712,6 +2739,7 @@ begin
    qAUX.ParamByName('NFe_modBCST'             ).AsInteger := rgNFe_modBCST.ItemIndex;
    qAUX.ParamByName('VALOR_PAUTA_BC'          ).AsFloat   := ValorValido(edVALOR_PAUTA_BC.Text);
    qAUX.ParamByName('VALOR_PAUTA_BC_ST'       ).AsFloat   := ValorValido(edVALOR_PAUTA_BC_ST.Text);
+   qAUX.ParamByName('NFe_pMVAST'              ).AsFloat   := ValorValido(edNFe_pMVAST.Text);
    qAUX.ExecSQL;
 
    qAUX.Free;
@@ -2816,6 +2844,9 @@ begin
 
    //Valor da Pauta da BC do ICMS ST
    edVALOR_PAUTA_BC_ST.Text             := Float_to_String(qConsulta.FieldByName('VALOR_PAUTA_BC_ST').AsFloat);
+
+   //Percentual de Margem de Valor Agregado (MVA) (ST)
+   edNFe_pMVAST.Text                    := Float_to_String(qConsulta.FieldByName('NFe_pMVAST').AsFloat);
 
    // Exibir a aba Cadastro
    cxPageControl1.ActivePAgeIndex  := 1;
@@ -3116,6 +3147,26 @@ begin
   TFunctions.stripedGrid(ACanvas, AViewInfo);
 end;
 
+procedure TFrm_Produto.tbViewKeyPress(Sender: TObject; var Key: Char);
+begin
+    if key = #13 Then
+    begin
+      key := #0;
+      // ENTER no grid de produtos...
+      if tbView.Focused then
+      begin
+         //Se o usuário pressionar [ENTER] ou [RETURN]
+         //no campo de argumento de pesquisa...
+         //O foco do cursor deve ir para o grid de produtos para que o usuário possa
+         //pecorrer os itens que vieram com a pesquisa.
+         //
+         //Um novo [ENTER} sobre um item o abrirá para consultas.
+         Clicou_no_Grid_de_Produto;
+         exit;
+      end;
+    end;
+end;
+
 procedure TFrm_Produto.tConsultaTimer(Sender: TObject);
 begin
    //Pesquisar Produtos após parar de digitar
@@ -3236,4 +3287,4 @@ enquanto o
 CSOSN é utilizado pelos contribuintes optantes pelo regime do Simples Nacional.
 }
 
-
+NFe_pMVAST
