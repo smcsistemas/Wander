@@ -214,7 +214,6 @@ type
     sql_ponto_impressaonome: TStringField;
     N1: TMenuItem;
     ImprimirEtiqueta1: TMenuItem;
-    Panel2: TPanel;
     Panel3: TPanel;
     cxButton3: TcxButton;
     cxButton11: TcxButton;
@@ -355,7 +354,62 @@ type
     qConsultaNFe_motDesICMS: TIntegerField;
     qConsultaCODIGO_ALFANUMERICO: TStringField;
     tConsulta: TTimer;
-    Panel1: TPanel;
+    tabTributacao: TcxTabSheet;
+    Panel4: TPanel;
+    GroupBox22: TGroupBox;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label29: TLabel;
+    lbl_anp: TLabel;
+    NCM: TEdit;
+    edt_cest: TEdit;
+    edt_anp: TEdit;
+    btn_ncm: TcxButton;
+    mmNCM: TcxMemo;
+    btn_anp: TcxButton;
+    GroupBox19: TGroupBox;
+    Label14: TLabel;
+    Label30: TLabel;
+    cstpis: TcxDBLookupComboBox;
+    chk_monofasico: TcxCheckBox;
+    cstcofins: TcxDBLookupComboBox;
+    GroupBox23: TGroupBox;
+    Label22: TLabel;
+    Label2: TLabel;
+    Label52: TLabel;
+    Label61: TLabel;
+    Label53: TLabel;
+    Label62: TLabel;
+    Label60: TLabel;
+    Label57: TLabel;
+    edALIQ_ICMS: TEdit;
+    aliq_lucro_st: TEdit;
+    edREDUCAO_ICMS: TEdit;
+    cod_comb: TEdit;
+    edt_genero: TEdit;
+    edt_leis: TcxDBButtonEdit;
+    edICMS_CST: TEdit;
+    edICMS_CST_NOME: TEdit;
+    cxButton5: TcxButton;
+    edCODIGO_ORIGEM_MERCADORIA: TEdit;
+    edCODIGO_ORIGEM_MERCADORIA_NOME: TEdit;
+    cxButton7: TcxButton;
+    Panel5: TPanel;
+    rgNFe_modBC: TRadioGroup;
+    pnValorPautaBC_ICMS: TPanel;
+    Label56: TLabel;
+    edVALOR_PAUTA_BC: TEdit;
+    qConsultaVALOR_PAUTA_BC: TBCDField;
+    pnControles2: TPanel;
+    bControleCancelar2: TcxButton;
+    bControleGravar2: TcxButton;
+    rgNFe_modBCST: TRadioGroup;
+    pnValorPautaBC_ICMS_ST: TPanel;
+    Label12: TLabel;
+    edVALOR_PAUTA_BC_ST: TEdit;
+    bControleAlterar2: TcxButton;
+    bControleIncluir2: TcxButton;
+    Panel6: TPanel;
     GroupBox4: TGroupBox;
     Label3: TLabel;
     Label1: TLabel;
@@ -405,59 +459,6 @@ type
     edTIPO_ITEM: TEdit;
     edTIPO_ITEM_NOME: TEdit;
     btn_Tipo: TcxButton;
-    tabTributacao: TcxTabSheet;
-    Panel4: TPanel;
-    GroupBox22: TGroupBox;
-    Label16: TLabel;
-    Label17: TLabel;
-    Label29: TLabel;
-    lbl_anp: TLabel;
-    NCM: TEdit;
-    edt_cest: TEdit;
-    edt_anp: TEdit;
-    btn_ncm: TcxButton;
-    mmNCM: TcxMemo;
-    btn_anp: TcxButton;
-    GroupBox19: TGroupBox;
-    Label14: TLabel;
-    Label30: TLabel;
-    cstpis: TcxDBLookupComboBox;
-    chk_monofasico: TcxCheckBox;
-    cstcofins: TcxDBLookupComboBox;
-    GroupBox23: TGroupBox;
-    Label22: TLabel;
-    Label2: TLabel;
-    Label52: TLabel;
-    Label61: TLabel;
-    Label53: TLabel;
-    Label62: TLabel;
-    Label60: TLabel;
-    Label57: TLabel;
-    edALIQ_ICMS: TEdit;
-    aliq_lucro_st: TEdit;
-    edREDUCAO_ICMS: TEdit;
-    cod_comb: TEdit;
-    edt_genero: TEdit;
-    edt_leis: TcxDBButtonEdit;
-    edICMS_CST: TEdit;
-    edICMS_CST_NOME: TEdit;
-    cxButton5: TcxButton;
-    edCODIGO_ORIGEM_MERCADORIA: TEdit;
-    edCODIGO_ORIGEM_MERCADORIA_NOME: TEdit;
-    cxButton7: TcxButton;
-    Panel5: TPanel;
-    rgNFe_modBC: TRadioGroup;
-    pnValorPautaBC_ICMS: TPanel;
-    Label56: TLabel;
-    edVALOR_PAUTA_BC: TEdit;
-    qConsultaVALOR_PAUTA_BC: TBCDField;
-    Panel6: TPanel;
-    bControleCancelar2: TcxButton;
-    bControleGravar2: TcxButton;
-    rgNFe_modBCST: TRadioGroup;
-    pnValorPautaBC_ICMS_ST: TPanel;
-    Label12: TLabel;
-    edVALOR_PAUTA_BC_ST: TEdit;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -660,7 +661,9 @@ type
     procedure AplicarPadroes;
     procedure ApagarRegistro;
     procedure InserirRegistro;
+    procedure Ir_Para_Cadastro;
     procedure Ir_Para_Consulta;
+
   public
     { Public declarations }
     deletar_prod_preco_faixa, consultarultimo: Boolean;
@@ -1283,10 +1286,15 @@ begin
 
   ApagarRegistro;
   InserirRegistro;
-  Pesquisar;
 
   //Ajusta botões de controle
   pode_Alterar_Incluir(Frm_Produto);
+
+  //Posicionar na aba de consulta
+  Ir_Para_Consulta;
+
+  //Atualizar a pesquisa para constar o produto cadastrado ou alterado
+  Pesquisar;
 
 end;
 
@@ -1300,14 +1308,23 @@ begin
 
 end;
 
+procedure TFrm_Produto.Ir_Para_Cadastro;
+begin
+
+   //Posicionar na aba de Cadastro
+   cxpageControl1.ActivePageIndex := 1;
+
+end;
+
 procedure TFrm_Produto.Ir_Para_Consulta;
 begin
    //limpar todos os campos da tela
    //LimpaTela;
 
    //Posicionar na aba de consulta
-   //e no campo consulta
    cxpageControl1.ActivePageIndex := 0;
+
+   //Posicionar o cursor no campo de argumento de pesquisa
    edArgumentoDePesquisa.SetFocus;
 end;
 
@@ -1321,15 +1338,15 @@ begin
     exit;
   end;
 
-  HabilitarCampos(True);
-
   //AlterarEnabled([GroupBox4, GroupBox19, grupocfop, GroupBox22, GroupBox23,btn_familia, btn_sub, btn_grupo, btn_marca, btn_und, btn_csosn, btn_ncm, btn_anp], true);
 
   //Ajusta botões de controle
   pode_Cancelar_Gravar(Frm_Produto);
 
-  //carregar_nat_op;
+  //Posicionar na aba Cadastro
+  Ir_Para_Cadastro;
 
+  HabilitarCampos(True);
   edDESCRICAO_PRODUTO.SetFocus;
 end;
 
@@ -1338,7 +1355,11 @@ begin
   //Ajusta botões de controle
   pode_Cancelar_Gravar(Frm_Produto);
 
-  tab_Cadastrar.show;
+  //limpar todos os campos da tela
+  LimpaTela(Frm_Produto);
+
+  //Posicionar na aba Cadastro
+  Ir_Para_Cadastro;
 
   {
     AlterarEnabled([GroupBox4, // GroupBox18, GroupBox2, GroupBox15, GroupBox16, GroupBox24, GroupBox1, GroupBox19,
@@ -2498,8 +2519,15 @@ var i : integer;
 begin
    // Habilitar/Desabiitar campos do cadastro de clientes (W)
    //---------------------------------------------------------------------------
+
+   //Bastam os panels....
+   HabilitarPanels(Frm_Produto,pBoolean);
+
+   {
    for i := 0 to Frm_Produto.ComponentCount - 1 do
    begin
+
+   end;
      // TDBEdit
      if (Frm_Produto.Components[i] is TDBEdit) then
         (Frm_Produto.Components[i] as TDBEdit).ReadOnly := not pBoolean;
@@ -2522,7 +2550,7 @@ begin
      //TDateTimePicker
      {if (Frm_Produto.Components[i] is TDateTimePicker) then
         (Frm_Produto.Components[i] as TDateTimePicker).Enabled := pBoolean;
-     }
+
      //TComboBox
      if (Frm_Produto.Components[i] is TComboBox) then
         (Frm_Produto.Components[i] as TComboBox).enabled := pBoolean;
@@ -2545,11 +2573,11 @@ begin
    //     (Frm_Produto.Components[i] as TRadioGroup).enabled := pBoolean;
    //
 
-   Basta os panels....
-     //TDBComboBox
+   {  //TDBComboBox
      if (Frm_Produto.Components[i] is TDBComboBox) then
         (Frm_Produto.Components[i] as TDBComboBox).enabled := pBoolean;
    end;
+   }
 
    //Objetos sempre habilitados
    edArgumentoDePesquisa.Enabled  := True;

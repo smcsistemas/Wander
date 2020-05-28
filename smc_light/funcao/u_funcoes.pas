@@ -5643,7 +5643,9 @@ begin
    begin
      //tPanel
      if pForm.Components[i].classtype = tPanel Then
-        if (pForm.Components[i] as tPanel).Name = 'pnControles' then
+        if ( ( (pForm.Components[i] as tPanel).Name = 'pnControles' )   or
+             //botões de uma segunda aba da tela...
+             ( (pForm.Components[i] as tPanel).Name = 'pnControles2') ) then
         begin
            //Nunca desabilitar o panel de controle (ins/alt/can/grav)
            (pForm.Components[i] as tPanel).Enabled := True;
@@ -5653,10 +5655,16 @@ begin
            (pForm.Components[i] as tPanel).Enabled := pEnabled;
      //Padronizar os Botões de Controle
      if pForm.Components[i].classtype = TcxButton Then
-        if ( ( (pForm.Components[i] as TcxButton).Name = 'bControleIncluir' ) or
-             ( (pForm.Components[i] as TcxButton).Name = 'bControleAlterar' ) or
-             ( (pForm.Components[i] as TcxButton).Name = 'bControleCancelar') or
-             ( (pForm.Components[i] as TcxButton).Name = 'bControleGravar'  )    ) then
+        if ( ( (pForm.Components[i] as TcxButton).Name = 'bControleIncluir'  ) or
+             ( (pForm.Components[i] as TcxButton).Name = 'bControleAlterar'  ) or
+             ( (pForm.Components[i] as TcxButton).Name = 'bControleCancelar' ) or
+             ( (pForm.Components[i] as TcxButton).Name = 'bControleGravar'   ) or
+             //botões de uma segunda aba da tela...
+             ( (pForm.Components[i] as TcxButton).Name = 'bControleIncluir2' ) or
+             ( (pForm.Components[i] as TcxButton).Name = 'bControleAlterar2' ) or
+             ( (pForm.Components[i] as TcxButton).Name = 'bControleCancelar2') or
+             ( (pForm.Components[i] as TcxButton).Name = 'bControleGravar2'  ) ) then
+
         begin
            (pForm.Components[i] as TcxButton).Top       :=   4;
            (pForm.Components[i] as TcxButton).Height    :=  40;
@@ -5680,7 +5688,9 @@ begin
 
      // TEdit
      if (pForm.Components[i] is TEdit) then
-        (pForm.Components[i] as TEdit).Text := '';
+        //Não limpar o campo de argumento de pesquisas
+        if (pForm.Components[i] as TEdit).Name <> 'edArgumentoDePesquisa' then
+           (pForm.Components[i] as TEdit).Text := '';
 
      // TMaskEdit
      if (pForm.Components[i] is TMaskEdit) then
@@ -5770,8 +5780,12 @@ begin
   for i := 0 to pForm.ComponentCount-1 do
       if (pForm.Components[i] is TcxButton) then
          if ((pForm.Components[i] as TcxButton).Name = 'bControleIncluir') or
-            ((pForm.Components[i] as TcxButton).Name = 'bControleAlterar') then
-              (pForm.Components[i] as TcxButton).Enabled := True
+            ((pForm.Components[i] as TcxButton).Name = 'bControleAlterar') or
+            //botões de uma segunda aba da tela...
+            ((pForm.Components[i] as TcxButton).Name = 'bControleIncluir2') or
+            ((pForm.Components[i] as TcxButton).Name = 'bControleAlterar2') then
+
+             (pForm.Components[i] as TcxButton).Enabled := True
          else
          if ((pForm.Components[i] as TcxButton).Name = 'bControleCancelar' ) or
             ((pForm.Components[i] as TcxButton).Name = 'bControleGravar'   ) or
@@ -5791,7 +5805,11 @@ begin
   for i := 0 to pForm.ComponentCount-1 do
       if (pForm.Components[i] is TcxButton) then
          if ((pForm.Components[i] as TcxButton).Name = 'bControleIncluir') or
-            ((pForm.Components[i] as TcxButton).Name = 'bControleAlterar') then
+            ((pForm.Components[i] as TcxButton).Name = 'bControleAlterar') or
+            //botões de uma segunda aba da tela...
+            ((pForm.Components[i] as TcxButton).Name = 'bControleIncluir2') or
+            ((pForm.Components[i] as TcxButton).Name = 'bControleAlterar2') then
+
               (pForm.Components[i] as TcxButton).Enabled := False
          else
          if ((pForm.Components[i] as TcxButton).Name = 'bControleCancelar' ) or
