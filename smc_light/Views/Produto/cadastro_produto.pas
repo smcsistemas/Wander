@@ -5,6 +5,15 @@ unit cadastro_produto;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  227|28/05/20|wander              |Deixa de tratar ANP - Código do produto na|
+|     |   20:39|cadastro_produto    |Agência Nacional de Petróleo              |
+|-----|--------|--------------------|------------------------------------------|
+|  225|28/05/20|wander              |Tratando CEST                             |
+|     |   20:21|cadastro_produto    |                                          |
+|-----|--------|--------------------|------------------------------------------|
+|  224|28/05/20|wander              |Tratando NCM / SH                         |
+|     |   20:21|cadastro_produto    |                                          |
+|-----|--------|--------------------|------------------------------------------|
 |  221|28/05/20|wander              |Tratando GENERO. Só aceitava números mas o|
 |     |   18:57|cadastro_produto    |campo na tebela produtos é alfanumérico,  |
 |     |        |                    |portanto o código foi alterado p/ aceitar |
@@ -373,14 +382,10 @@ type
     GroupBox22: TGroupBox;
     Label16: TLabel;
     Label17: TLabel;
-    Label29: TLabel;
-    lbl_anp: TLabel;
-    NCM: TEdit;
-    edt_cest: TEdit;
-    edt_anp: TEdit;
+    edNCM: TEdit;
+    edCEST: TEdit;
     btn_ncm: TcxButton;
     mmNCM: TcxMemo;
-    btn_anp: TcxButton;
     GroupBox19: TGroupBox;
     Label14: TLabel;
     Label30: TLabel;
@@ -521,7 +526,7 @@ type
     procedure aliq_ipiKeyPress(Sender: TObject; var Key: Char);
     procedure aliq_pisKeyPress(Sender: TObject; var Key: Char);
     procedure aliq_cofinsKeyPress(Sender: TObject; var Key: Char);
-    procedure edt_cestKeyPress(Sender: TObject; var Key: Char);
+    procedure edCESTKeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit48KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit49KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit55KeyPress(Sender: TObject; var Key: Char);
@@ -554,6 +559,7 @@ type
     procedure chk_todosClick(Sender: TObject);
     procedure cxchckbx1PropertiesChange(Sender: TObject);
     procedure Pesquisar;
+    procedure Pesquisar_NCM;
     procedure DBEdit14KeyPress(Sender: TObject; var Key: Char);
     procedure DBEdit15KeyPress(Sender: TObject; var Key: Char);
     procedure DBEdit12KeyPress(Sender: TObject; var Key: Char);
@@ -562,9 +568,8 @@ type
     procedure edCODIGO_ALFANUMERICOKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     function CodBarrasRepetido: Boolean;
     function RefFabricanteRepetido(foco: Boolean = true): Boolean;
-    procedure NCMKeyPress(Sender: TObject; var Key: Char);
-    procedure edt_cestKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure NCMKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edCESTKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edNCMKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure calcular_preco_produtos(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBEdit13KeyPress(Sender: TObject; var Key: Char);
     procedure dbcsticmsClick(Sender: TObject);
@@ -578,7 +583,7 @@ type
     procedure DESCONTO_M_DISTRIBUIDORClick(Sender: TObject);
     procedure DESCONTO_M_ATACADOClick(Sender: TObject);
     procedure calc_margem(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure NCMExit(Sender: TObject);
+    procedure edNCMExit(Sender: TObject);
     procedure edt_qtde_minKeyPress(Sender: TObject; var Key: Char);
     procedure cb_tipoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btn_cad_faixaClick(Sender: TObject);
@@ -587,7 +592,6 @@ type
     procedure chk_diff_estoquePropertiesChange(Sender: TObject);
     procedure PreencherNCM(value: string);
     procedure preencherANP(value: string);
-    procedure LimparNCM;
     procedure LimparANP;
     procedure btn_anpClick(Sender: TObject);
     procedure tbViewCustomDrawCell(Sender: TcxCustomGridTableView; ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
@@ -643,6 +647,7 @@ type
     procedure rgNFe_modBCSTClick(Sender: TObject);
     procedure edArgumentoDePesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure tbViewKeyPress(Sender: TObject; var Key: Char);
+    procedure edNCMKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 
   private
     { Private declarations }
@@ -981,9 +986,9 @@ begin
 //  u_funcoes.CamposObrigatorios_CorPadrao([{edt_qtde_min, edt_preco, TEdit(cb_tipo}], []);
   carregar_faixa;
 
-   AlterarEnabled([GroupBox4,{GroupBox18, GroupBox2, GroupBox15, GroupBox16, GroupBox24, GroupBox1, }GroupBox19, GroupBox22,
-    GroupBox23,{roupBox25, GroupBox26,} btn_familia, btn_sub, btn_grupo, btn_marca, btn_und, btn_ncm, btn_anp{, grp_faixa_preco,
-    btn_cad_faixa}], false);
+   //AlterarEnabled([GroupBox4,{GroupBox18, GroupBox2, GroupBox15, GroupBox16, GroupBox24, GroupBox1, }GroupBox19, GroupBox22,
+   // GroupBox23,{roupBox25, GroupBox26,} btn_familia, btn_sub, btn_grupo, btn_marca, btn_und, btn_ncm, btn_anp{, grp_faixa_preco,
+   // btn_cad_faixa}], false);
 
 
   //PreencherNCM(SQL_PRODUTONCM.AsString);
@@ -997,20 +1002,12 @@ begin
 //    IniciarCadastro([bControleIncluir, bControleCancelar, bControleAlterar], false);
 end;
 
-procedure TFrm_Produto.LimparNCM;
-begin
-
-  NCM.Clear;
-  edt_cest.Clear;
-  mmNCM.Clear;
-
-end;
 
 procedure TFrm_Produto.LimparANP;
 begin
-  edt_anp.Clear;
-  lbl_anp.Caption :=
-    '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  ';
+  //edt_anp.Clear;
+  //lbl_anp.Caption :=
+  //  '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  ';
 end;
 
 procedure TFrm_Produto.aliq_cofinsKeyPress(Sender: TObject;
@@ -1255,9 +1252,9 @@ end;
 
 procedure TFrm_Produto.btn_anpClick(Sender: TObject);
 begin
-  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgANP, TEdit(edt_anp));
-  Frm_Consulta_Generica.ShowModal;
-  preencherANP(edt_anp.Text);
+  //Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgANP, TEdit(edt_anp));
+  //Frm_Consulta_Generica.ShowModal;
+  //preencherANP(edt_anp.Text);
 end;
 
 procedure TFrm_Produto.btn_undClick(Sender: TObject);
@@ -1376,7 +1373,6 @@ begin
        //grp_faixa_preco,
     //  btn_cad_faixa
       ], true);
-    LimparNCM;
     SQL_CSTIPI.Active := true;
     SQL_CSTPIS.Active := true;
     SQL_CSTCOFINS.Active := true;
@@ -1450,22 +1446,29 @@ begin
 end;
 
 procedure TFrm_Produto.btn_ncmClick(Sender: TObject);
+begin
+  Pesquisar_NCM;
+end;
+
+procedure TFrm_Produto.Pesquisar_NCM;
 var
   int: Integer;
   str_cest: string;
   qry: TFDQuery;
 begin
-  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgNCM, TEdit(NCM));
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgNCM, edNCM);
   Frm_Consulta_Generica.ShowModal;
-  str_cest := NCM.Text;
+  str_cest := edNCM.Text;
   if str_cest <> emptystr then
   begin
     int := pos(';', str_cest);
-    NCM.Text := copy(str_cest, 0, int - 1);
-    NCM.Text := NCM.Text;
-    edt_cest.Text := TFunctions.replace(str_cest, NCM.Text + ';');
-    //edt_cest.Text := edt_cest.Text;
-    qry := simplequery('SELECT DESCRICAO FROM TAB_CEST WHERE NCM = "' + NCM.Text + '" AND CEST="' + edt_cest.Text + '"');
+    edNCM.Text := copy(str_cest, 0, int - 1);
+    edCEST.Text := TFunctions.replace(str_cest, edNCM.Text + ';');
+    qry := simplequery('SELECT DESCRICAO FROM TAB_CEST WHERE NCM = "'
+                      + edNCM.Text
+                      + '" AND CEST="'
+                      + edCEST.Text
+                      + '"');
     if qry <> nil then
       mmNCM.Text := qry.Fields[0].Text;
   end;
@@ -2303,18 +2306,18 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.edt_cestKeyPress(Sender: TObject;
+procedure TFrm_Produto.edCESTKeyPress(Sender: TObject;
   var Key: Char);
 begin
   inherited;
   Key := ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.edt_cestKeyUp(Sender: TObject;
+procedure TFrm_Produto.edCESTKeyUp(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
-  edt_cest.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(edt_cest.Text));
+  edCEST.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(edCEST.Text));
 end;
 
 procedure TFrm_Produto.edt_qtde_minKeyPress(Sender: TObject;
@@ -2618,6 +2621,8 @@ begin
    qAUX.sql.add('       GRUPO,                    ');
    qAUX.sql.add('       SUBGRUPO,                 ');
    qAUX.sql.add('       GENERO,                   ');
+   qAUX.sql.add('       NCM,                      ');
+   qAUX.sql.add('       CEST,                     ');
    qAUX.sql.add('       PRECO_FINAL_ATACADO,      ');
    qAUX.sql.add('       PRECO_FINAL_VAREJO,       ');
    qAUX.sql.add('       PRECO_FINAL_DISTRIBUIDOR, ');
@@ -2647,6 +2652,8 @@ begin
    qAUX.sql.add('      :GRUPO,                    ');
    qAUX.sql.add('      :SUBGRUPO,                 ');
    qAUX.sql.add('      :GENERO,                   ');
+   qAUX.sql.add('      :NCM,                      ');
+   qAUX.sql.add('      :CEST,                     ');
    qAUX.sql.add('      :PRECO_FINAL_ATACADO,      ');
    qAUX.sql.add('      :PRECO_FINAL_VAREJO,       ');
    qAUX.sql.add('      :PRECO_FINAL_DISTRIBUIDOR, ');
@@ -2688,6 +2695,8 @@ begin
    qAUX.ParamByName('GRUPO'                   ).AsString  := edGRUPO.Text;
    qAUX.ParamByName('SUBGRUPO'                ).AsString  := edSUBGRUPO.Text;
    qAUX.ParamByName('GENERO'                  ).AsString  := edGENERO.Text;
+   qAUX.ParamByName('NCM'                     ).AsString  := edNCM.Text;
+   qAUX.ParamByName('CEST'                    ).AsString  := edCEST.Text;
    qAUX.ParamByName('PRECO_FINAL_ATACADO'     ).AsFloat   := ValorValido(edPRECO_FINAL_ATACADO.Text);
    qAUX.ParamByName('PRECO_FINAL_VAREJO'      ).AsFloat   := ValorValido(edPRECO_FINAL_VAREJO.Text);
    qAUX.ParamByName('PRECO_FINAL_DISTRIBUIDOR').AsFloat   := ValorValido(edPRECO_FINAL_DISTRIBUIDOR.Text);
@@ -2773,6 +2782,17 @@ begin
    //Gênero
    edGENERO.Text                   := qConsulta.FieldByName('GENERO').AsString;
 
+   //NCM/SH
+   edNCM.Text                      := qConsulta.FieldByName('NCM').AsString;
+
+   //CEST
+   //Código Especificador da Substituição Tributária
+   //O CEST é composto por sete dígitos numerais,
+   //onde: 1º e 2º dígitos: representam o segmento da mercadoria
+   //      3º, 4º e 5º dígitos: correspondem ao item de um segmento de mercadoria
+   //      6º e 7º dígitos: relacionam-se à especificação do item
+   edCEST.Text                     := qConsulta.FieldByName('CEST').AsString;
+
    //Preços de Venda
    edPRECO_FINAL_ATACADO.Text      := Float_to_String(qConsulta.FieldByName('PRECO_FINAL_ATACADO'     ).AsFloat);
    edPRECO_FINAL_VAREJO.Text       := Float_to_String(qConsulta.FieldByName('PRECO_FINAL_VAREJO'      ).AsFloat);
@@ -2817,28 +2837,27 @@ begin
    cxPageControl1.ActivePAgeIndex  := 1;
 end;
 
-procedure TFrm_Produto.NCMExit(Sender: TObject);
+procedure TFrm_Produto.edNCMExit(Sender: TObject);
 begin
-  if NCM.Text = emptystr then
+
+  if edNCM.Text = '' then
   begin
-    mmNCM.Text := emptystr;
-    edt_cest.Clear;
+    mmNCM.Text  := '';
+    edCEST.Text := '';
   end;
 end;
 
-procedure TFrm_Produto.NCMKeyPress(Sender: TObject;
-
-  var Key: Char);
+procedure TFrm_Produto.edNCMKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
-  inherited;
-  Key := ApenasNumeros(Key);
+  if (Key = vk_F1) then
+     Pesquisar_NCM;
 end;
 
-procedure TFrm_Produto.NCMKeyUp(Sender: TObject;
-
+procedure TFrm_Produto.edNCMKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
-  NCM.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(NCM.Text));
+  edNCM.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(edNCM.Text));
 end;
 
 procedure TFrm_Produto.edVALOR_PAUTA_BCKeyPress(Sender: TObject;
@@ -2882,10 +2901,10 @@ begin
   begin
     try
       xANP := TANP.CREATE(strtoint(value));
-      edt_anp.Text := value;
+      //edt_anp.Text := value;
       //if SQL_PRODUTO.State in [dsEdit, dsInsert] then
       //  edt_anp.Text := value;
-      lbl_anp.Caption := xANP.descricao;
+      //lbl_anp.Caption := xANP.descricao;
     except
       on e: exception do
         tdialogs.wnAlerta('Consultar ANP', slinebreak + e.Message, 15);
@@ -2897,22 +2916,26 @@ procedure TFrm_Produto.PreencherNCM(value: string);
 var
   xNCM: tNCM;
 begin
-  if value = emptystr then
-    LimparNCM
-  else
+  if value = '' then
   begin
+    edNCM.Text  := '';
+    mmNCM.Lines.Clear;
+    edCEST.Text := '';
+    exit;
+  end;
+
     try
       xNCM := tNCM.CREATE(value);
       if xNCM <> nil then
       begin
         mmNCM.Text := xNCM.descricao;
-        edt_cest.Text := xNCM.CEST;
+        edCEST.Text := xNCM.CEST;
         //if SQL_PRODUTO.State in [dsEdit, dsInsert] then
-        //  edt_cest.Text := xNCM.CEST;
-        if edt_cest.Text = '0' then
+        //  edCEST.Text := xNCM.CEST;
+        if edCEST.Text = '0' then
         begin
           mmNCM.Clear;
-          edt_cest.Clear;
+          edCEST.Clear;
         end;
         xNCM.Destroy;
       end;
@@ -2920,7 +2943,6 @@ begin
       on e: exception do
         tdialogs.wnAlerta('Consultar NCM', slinebreak + e.Message, 15);
     end;
-  end;
 end;
 
 procedure TFrm_Produto.edREFERENCIA_FABRICANTEExit(Sender: TObject);
@@ -3251,4 +3273,141 @@ CST é utilizado pelos contribuintes que optam pelo regime normal de tributaçã
 enquanto o
 CSOSN é utilizado pelos contribuintes optantes pelo regime do Simples Nacional.
 }
-
+{
+CREATE TABLE `produto` (
+	`CODIGO` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'código gerado pelo sistema',
+	`CODIGO_BARRAS` VARCHAR(50) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
+	`COD_BARRAS_AUXILIAR` VARCHAR(50) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
+	`DESCRICAO_PRODUTO` VARCHAR(200) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
+	`INFO_ADICIONAIS` VARCHAR(200) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
+	`REFERENCIA_FABRICANTE` VARCHAR(50) NULL DEFAULT NULL COMMENT 'informa a referência do fabricante do produto',
+	`MARCA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de marcas',
+	`FAMILIA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de familia',
+	`GRUPO` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de grupos',
+	`SUBGRUPO` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de subgrupo',
+	`UNIDADE_MEDIDA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de medidas',
+	`DATA_CADASTRO` DATE NULL DEFAULT '0000-00-00' COMMENT 'informa a data e hora do cadastramento do produto',
+	`TIPO_ITEM` VARCHAR(100) NULL DEFAULT NULL COMMENT 'determina a finalidade do produto',
+	`ESTOQUE_MINIMO` VARCHAR(50) NULL DEFAULT NULL,
+	`PRECO_CUSTO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`FRETE` DECIMAL(10,4) NULL DEFAULT NULL,
+	`IMPOSTO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESP_OPERACIONAIS` DECIMAL(10,4) NULL DEFAULT NULL,
+	`CUSTO_MEDIO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`MARGEM_LUCRO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`MARGEM_L_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`MARGEM_L_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`MARGEM_L_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_MAXIMO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_M_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_M_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_M_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_L_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_L_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_L_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PAGAR_COMISSAO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`COMISSAO_BALCAO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`BALCAO_COMISSAO_VAREJO` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`BALCAO_COMISSAO_ATACADO` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`BALCAO_COMISSAO_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`COMISSAO_EXTERNA` DECIMAL(10,4) NULL DEFAULT NULL,
+	`EXTERNA_COMISSAO_VAREJO` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`EXTERNA_COMISSAO_ATACADO` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`EXTERNA_COMISSAO_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`PRECO_FINAL_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PRECO_FINAL_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PRECO_FINAL_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROMO_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROMO_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROMO_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROMOCAO_INICIO` DATE NULL DEFAULT NULL,
+	`PROMOCAO_TERMINO` DATE NULL DEFAULT NULL,
+	`VALOR_PROMOCIONAL_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`VALOR_PROMOCIONAL_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`VALOR_PROMOCIONAL_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`SALDO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`ALIQ_ICMS` DECIMAL(10,4) NULL DEFAULT NULL,
+	`REDUCAO_ICMS` DECIMAL(10,4) NULL DEFAULT NULL,
+	`ALIQ_ICMS_SUBST` VARCHAR(20) NULL DEFAULT NULL,
+	`REDUCAO_ICMS_ST` DECIMAL(10,4) NULL DEFAULT NULL,
+	`LUCRO_SUBST_TRIBUTARIA` DECIMAL(10,4) NULL DEFAULT NULL,
+	`VALOR_PAUTA_BC_ST` DECIMAL(10,4) NULL DEFAULT NULL,
+	`LEIS` VARCHAR(20) NULL DEFAULT NULL,
+	`GENERO` VARCHAR(20) NULL DEFAULT NULL,
+	`FORNECEDOR_NOME` VARCHAR(100) NULL DEFAULT NULL,
+	`COD_COMB` VARCHAR(20) NULL DEFAULT NULL,
+	`ALIQ_IPI` VARCHAR(20) NULL DEFAULT NULL,
+	`ENQUADRAMENTO_IPI` INT(11) NULL DEFAULT NULL,
+	`CODIGO_LOCALIZACAO` INT(11) NULL DEFAULT NULL,
+	`ICMS_CST` VARCHAR(3) NULL DEFAULT NULL,
+	`ICMS_IPI` VARCHAR(2) NULL DEFAULT NULL,
+	`PIS_CST` VARCHAR(5) NULL DEFAULT NULL,
+	`COFINS_CST` VARCHAR(5) NULL DEFAULT NULL,
+	`CODIGO_ORIGEM_MERCADORIA` INT(11) NULL DEFAULT NULL,
+	`NCM` VARCHAR(50) NULL DEFAULT NULL,
+	`CEST` VARCHAR(50) NULL DEFAULT NULL,
+	`ANP` VARCHAR(50) NULL DEFAULT NULL,
+	`EX_IPI` FLOAT NULL DEFAULT NULL,
+	`STATUS_CADASTRAL` ENUM('ATIVO','INATIVO') NULL DEFAULT 'ATIVO',
+	`PESAVEL` ENUM('SIM','NAO') NULL DEFAULT NULL,
+	`UTILIZA_ETIQUETA_BALANCA` ENUM('SIM','NAO') NULL DEFAULT NULL,
+	`USA_LOTE` ENUM('SIM','NAO') NULL DEFAULT NULL,
+	`CONTROLADO` ENUM('SIM','NAO') NULL DEFAULT NULL,
+	`CODIGO_FORNECEDOR` INT(11) NULL DEFAULT NULL,
+	`QUANT_MINI_VAREJO_P` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_ATACADO_P` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_DISTRIBUIDOR_P` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_VAREJO_Q` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_ATACADO_Q` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_DISTRIBUIDOR_Q` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_VAREJO_D` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_DISTRIBUIDOR_D` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_ATACADO_D` DECIMAL(10,4) NULL DEFAULT NULL,
+	`CST_IPI` VARCHAR(3) NULL DEFAULT NULL,
+	`COD_BALANCA_1` VARCHAR(8) NULL DEFAULT NULL,
+	`COD_BALANCA_2` VARCHAR(8) NULL DEFAULT NULL,
+	`COD_BALANCA_3` VARCHAR(8) NULL DEFAULT NULL,
+	`ponto_impressao_id` INT(11) NULL DEFAULT NULL,
+	`Produto_ou_Servico` ENUM('P','S') NULL DEFAULT 'P' COMMENT 'P=Produto e S=Serviço',
+	`PagaComissaoSN` ENUM('S','N') NULL DEFAULT 'S' COMMENT 'S=Paga Comissão e N=Não paga',
+	`ContaContabil` INT(11) NULL DEFAULT NULL COMMENT 'Código da Conta Contábil no Plano de Contas',
+	`CentroDeCustos` INT(11) NULL DEFAULT NULL COMMENT 'Código do Centro de Custos',
+	`NFe_indTot` INT(11) NULL DEFAULT '1' COMMENT 'Indicador de participacao do Total da NFe',
+	`NFe_VeiculoNovo` INT(11) NULL DEFAULT NULL COMMENT 'Nfe: Indicador de Veículo Novo (0-Não)(1-Sim)',
+	`NFe_nDI` VARCHAR(10) NULL DEFAULT NULL COMMENT 'Nfe: Número do Documento de Importação DI/DSI/DA',
+	`NFe_dDI` DATETIME NULL DEFAULT NULL COMMENT 'Nfe: Data de registro do Documento de Importação DI/DSI/DA',
+	`NFe_xLocDesemb` VARCHAR(60) NULL DEFAULT NULL COMMENT 'Nfe: Local de Desembaraço',
+	`NFe_UFDesemb` VARCHAR(2) NULL DEFAULT NULL COMMENT 'Nfe: UF onde ocorreu o Desembaraço Aduaneiro',
+	`NFe_dDesemb` DATETIME NULL DEFAULT NULL COMMENT 'Nfe: Data do Desembaraço Aduaneiro',
+	`NFe_cExportador` VARCHAR(60) NULL DEFAULT NULL COMMENT 'Nfe: Código do exportador',
+	`NFe_nAdicao` INT(3) NULL DEFAULT NULL COMMENT 'Nfe: Numero da adição',
+	`NFe_cFabricante` VARCHAR(60) NULL DEFAULT NULL COMMENT 'Nfe: Código do fabricante estrangeiro',
+	`NFe_vDescDI` DECIMAL(10,4) NULL DEFAULT NULL COMMENT 'Nfe: Valor do desconto do item da  DI – adição',
+	`NFe_Veiculo_Cor_Codigo` VARCHAR(4) NULL DEFAULT NULL COMMENT 'Nfe: (Veículo) Cor - código na montadora',
+	`NFe_Veiculo_Cor_Descricao` VARCHAR(40) NULL DEFAULT NULL COMMENT 'Nfe: (Veículo) Cor - descrição',
+	`NFe_Veiculo_Pot` VARCHAR(4) NULL DEFAULT NULL COMMENT 'Nfe: (Veículo) Potência motor em cavalo vapor (CV).',
+	`NFe_Veiculo_Cilin` VARCHAR(4) NULL DEFAULT NULL COMMENT 'Nfe: (Veículo) Cilindradas.',
+	`NFe_Medicamento` INT(11) NULL DEFAULT NULL COMMENT 'Nfe: Indicador Medicamento (0-Não)(1-Sim)',
+	`NFe_Armamento` INT(11) NULL DEFAULT NULL COMMENT 'Nfe: Indicador Armamento (0-Não)(1-Sim)',
+	`NFe_Combustivel` INT(11) NULL DEFAULT NULL COMMENT 'Nfe: Indicador Combustivel (0-Não)(1-Sim)',
+	`NFe_modBC` INT(11) NULL DEFAULT NULL COMMENT 'Nfe: Indicador modalidade de base de cálculo',
+	`NFe_modBCST` INT(11) NULL DEFAULT NULL COMMENT 'Nfe: Indicador modalidade de base de cálculo da ST',
+	`NFe_pMVAST` DECIMAL(6,2) NULL DEFAULT NULL COMMENT '% da MV Adicionado do ICMS ST',
+	`NFe_motDesICMS` INT(11) NULL DEFAULT NULL COMMENT 'Indicador Motivo da desoneração do ICMS',
+	`CODIGO_ALFANUMERICO` VARCHAR(20) NULL DEFAULT NULL COMMENT 'Codigo Alfanumerico Alternativo',
+	`VALOR_PAUTA_BC` DECIMAL(10,4) NULL DEFAULT '0.0000' COMMENT 'Valor de Pauta do produto',
+	PRIMARY KEY (`CODIGO`),
+	INDEX `ponto_impressao_id` (`ponto_impressao_id`),
+	INDEX `idx_CODIGO_ALFANUMERICO` (`CODIGO_ALFANUMERICO`),
+	INDEX `idx_codigo_barras` (`CODIGO_BARRAS`),
+	INDEX `idx_descricao_produto` (`DESCRICAO_PRODUTO`),
+	INDEX `idx_NCM` (`NCM`),
+	INDEX `idx_referencia_fabricante` (`REFERENCIA_FABRICANTE`),
+	CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`ponto_impressao_id`) REFERENCES `ponto_impressao` (`id`)
+)
+COMMENT='onde encontram-se os produtos cadastrados\r\n'
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=34052
+;
+}

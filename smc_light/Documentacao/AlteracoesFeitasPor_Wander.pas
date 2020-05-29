@@ -12,6 +12,24 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  227|28/05/20|wander              |Deixa de tratar ANP - Código do produto na|
+|     |   20:39|cadastro_produto    |Agência Nacional de Petróleo              |
+|-----|--------|--------------------|------------------------------------------|
+|  226|28/05/20|wander              |Coluna ANP da tabela PRODUTO passou de 50 |
+|     |   20:37|Atualizador         |para 9 caracteres.                        |
+|-----|--------|--------------------|------------------------------------------|
+|  225|28/05/20|wander              |Tratando CEST                             |
+|     |   20:21|cadastro_produto    |                                          |
+|-----|--------|--------------------|------------------------------------------|
+|  224|28/05/20|wander              |Tratando NCM / SH                         |
+|     |   20:21|cadastro_produto    |                                          |
+|-----|--------|--------------------|------------------------------------------|
+|  223|28/05/20|wander              |Coluna CEST da tabela PRODUTO passou de 50|
+|     |   20:20|Atualizador         |para 7 caracteres.                        |
+|-----|--------|--------------------|------------------------------------------|
+|  222|28/05/20|wander              |Coluna NCM da tabela PRODUTO passou de 50 |
+|     |   19:55|Atualizador         |para 8 caracteres.                        |
+|-----|--------|--------------------|------------------------------------------|
 |  221|28/05/20|wander              |Tratando GENERO. Só aceitava números mas o|
 |     |   18:57|cadastro_produto    |campo na tebela produtos é alfanumérico,  |
 |     |        |                    |portanto o código foi alterado p/ aceitar |

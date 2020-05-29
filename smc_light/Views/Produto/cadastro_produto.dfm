@@ -3907,36 +3907,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
           end
-          object Label29: TLabel
-            Left = 25
-            Top = 117
-            Width = 32
-            Height = 18
-            Caption = 'ANP:'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object lbl_anp: TLabel
-            Left = 206
-            Top = 117
-            Width = 603
-            Height = 14
-            Caption = 
-              '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ' +
-              '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ' +
-              '- - - '
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clGrayText
-            Font.Height = -12
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-          end
-          object NCM: TEdit
+          object edNCM: TEdit
             Left = 62
             Top = 48
             Width = 104
@@ -3947,15 +3918,16 @@ object Frm_Produto: TFrm_Produto
             Font.Height = -15
             Font.Name = 'Helvetica Neue'
             Font.Style = [fsBold]
+            MaxLength = 8
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 0
-            OnExit = NCMExit
-            OnKeyPress = NCMKeyPress
-            OnKeyUp = NCMKeyUp
+            OnExit = edNCMExit
+            OnKeyDown = edNCMKeyDown
+            OnKeyUp = edNCMKeyUp
           end
-          object edt_cest: TEdit
-            Left = 62
+          object edCEST: TEdit
+            Left = 63
             Top = 81
             Width = 129
             Height = 26
@@ -3965,26 +3937,12 @@ object Frm_Produto: TFrm_Produto
             Font.Height = -15
             Font.Name = 'Helvetica Neue'
             Font.Style = [fsBold]
-            ParentBiDiMode = False
-            ParentFont = False
-            TabOrder = 3
-            OnKeyPress = edt_cestKeyPress
-            OnKeyUp = edt_cestKeyUp
-          end
-          object edt_anp: TEdit
-            Left = 62
-            Top = 113
-            Width = 104
-            Height = 26
-            BiDiMode = bdLeftToRight
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Helvetica Neue'
-            Font.Style = [fsBold]
+            MaxLength = 7
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 2
+            OnKeyPress = edCESTKeyPress
+            OnKeyUp = edCESTKeyUp
           end
           object btn_ncm: TcxButton
             Left = 168
@@ -4044,54 +4002,9 @@ object Frm_Produto: TFrm_Produto
             Style.Font.Name = 'Helvetica Neue'
             Style.Font.Style = [fsBold]
             Style.IsFontAssigned = True
-            TabOrder = 4
+            TabOrder = 3
             Height = 66
             Width = 367
-          end
-          object btn_anp: TcxButton
-            Left = 168
-            Top = 113
-            Width = 23
-            Height = 26
-            LookAndFeel.NativeStyle = False
-            LookAndFeel.SkinName = 'Metropolis'
-            OptionsImage.Glyph.Data = {
-              36040000424D3604000000000000360000002800000010000000100000000100
-              2000000000000004000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
-              00000000000100000004000000090000000D0000000F0000000F0000000C0000
-              00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
-              0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
-              1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
-              02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
-              50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
-              3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
-              C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
-              7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
-              88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
-              C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
-              87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
-              F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
-              A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
-              FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
-              A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
-              F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
-              92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
-              D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
-              6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
-              A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
-              84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
-              4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
-              F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
-              020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
-              A2FC62504B900404031000000002000000000000000000000000000000000000
-              000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
-              1F3E000000060000000100000000000000000000000000000000}
-            TabOrder = 5
-            OnClick = btn_anpClick
           end
         end
         object GroupBox19: TGroupBox

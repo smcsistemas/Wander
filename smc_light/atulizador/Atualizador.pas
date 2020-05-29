@@ -3,6 +3,15 @@ unit Atualizador;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  226|28/05/20|wander              |Coluna ANP da tabela PRODUTO passou de 50 |
+|     |   20:37|Atualizador         |para 9 caracteres.                        |
+|-----|--------|--------------------|------------------------------------------|
+|  223|28/05/20|wander              |Coluna CEST da tabela PRODUTO passou de 50|
+|     |   20:20|Atualizador         |para 7 caracteres.                        |
+|-----|--------|--------------------|------------------------------------------|
+|  222|28/05/20|wander              |Coluna NCM da tabela PRODUTO passou de 50 |
+|     |   19:55|Atualizador         |para 8 caracteres.                        |
+|-----|--------|--------------------|------------------------------------------|
 |  202|25/05/20|wander              |Eliminada coluna OPTANTE_SIMPLES_NACIONAL |
 |     |   20:15|Atualizador         |da tabela Empresa pois já havia a coluna  |
 |     |        |                    |CODIGO_REGIME_TRIBUTARIO para esta função |
@@ -2154,6 +2163,14 @@ begin
     //26/05/2020
     if fNaoAtualizado('Produto:Valor de Pauta BC ICMS') Then
        Executar('ALTER TABLE PRODUTO ADD VALOR_PAUTA_BC DECIMAL(10,4) NULL DEFAULT 0 COMMENT "Valor de Pauta do produto" ');
+
+    //28/05/2020
+    if fNaoAtualizado('Produto: NCM passa de 50 para 8 caracteres...') Then
+       Executar('ALTER TABLE PRODUTO MODIFY NCM VARCHAR(8) NULL DEFAULT NULL COMMENT "código do NCM_SH" ');
+    if fNaoAtualizado('Produto: CEST passa de 50 para 7 caracteres...') Then
+       Executar('ALTER TABLE PRODUTO MODIFY CEST VARCHAR(7) NULL DEFAULT NULL COMMENT "Código Especificador da Substituição Tributária" ');
+    if fNaoAtualizado('Produto: ANP passa de 50 para 9 caracteres...') Then
+       Executar('ALTER TABLE PRODUTO MODIFY ANP VARCHAR(9) NULL DEFAULT NULL COMMENT "Código Agencia Nacional de Petróleo" ');
 
 end;
 
