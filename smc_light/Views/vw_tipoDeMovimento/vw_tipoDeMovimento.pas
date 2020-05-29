@@ -198,7 +198,7 @@ type
 var
   frm_tipoDeMovimento: Tfrm_tipoDeMovimento;
   vfrm_tipoDeMovimentovConsultaExterna:Boolean; // Se é uma consulta feita por outro form
-  vfrm_tipoDeMovimentoTPMOV_CODIGO, // Retorna o código do movimento selecionado
+  vfrm_tipoDeMovimentoTPMOV_CODIGO,             // Retorna o código do movimento selecionado
   vOperacao : String;
 
 implementation

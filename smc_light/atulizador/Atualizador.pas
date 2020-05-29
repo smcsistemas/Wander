@@ -3,6 +3,23 @@ unit Atualizador;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  234|29/05/20|wander              |Criada rotina que preenche a nova tabela  |
+|     |   13:19|Atualizador         |RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC |
+|     |        |                    |com os dados do cadastro dos produtos     |
+|     |        |                    |Associando ao tipo de movimento 1 (venda  |
+|     |        |                    |padrão do CMS_LIGHT                       |
+|-----|--------|--------------------|------------------------------------------|
+|  233|29/05/20|wander              |Criada Tabela                             |
+|     |   13:19|Atualizador         |RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC |
+|     |        |                    |que relaciona CFOP com o PRODUTO e seus   |
+|     |        |                    |CSTs de PIS e de COFINS                   |
+|     |        |                    |que geralmente são iguais, exceto como    |
+|     |        |                    |explicado no item 231 do cad produto      |
+|-----|--------|--------------------|------------------------------------------|
+|  232|29/05/20|wander              |Tabela TIPOMOVIMENTO_TPMOV recebe coluna  |
+|     |   13:19|Atualizador         |TPMOV_CFOP para armazenar o seu CFOP      |
+|     |        |                    |
+|-----|--------|--------------------|------------------------------------------|
 |  226|28/05/20|wander              |Coluna ANP da tabela PRODUTO passou de 50 |
 |     |   20:37|Atualizador         |para 9 caracteres.                        |
 |-----|--------|--------------------|------------------------------------------|
@@ -160,7 +177,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DBXMySQL,
   Data.DBXPool, Data.DB, Data.SqlExpr, Data.Win.ADODB, cxClasses,
-  dxServerModeData, dxServerModeADODataSource, liberacao, v_Env;
+  dxServerModeData, dxServerModeADODataSource, liberacao, v_Env,
+  FireDAC.Comp.Client;
 
 type
   TfrmAtualizador = class(TForm)
@@ -178,11 +196,16 @@ type
    procedure CriarFuncoes;
    Procedure CriaF(pFuncao,pDescricao:String);
    function fNaoAtualizado(pScript:String):Boolean;
-   procedure Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC(pRCC_TPMOV     :String;
-                                                      pRCC_CRT       :Integer;
-                                                      pRCC_CST_ICMS,
-                                                      pRCC_CSOSN,
-                                                      pRCC_CFOP      :String);
+   procedure Preencher_RELACAO_TPMOV_CRT_CST_ICMS_CSOSN_CFOP(pRCC_TPMOV     :String;
+                                                             pRCC_CRT       :Integer;
+                                                             pRCC_CST_ICMS,
+                                                             pRCC_CSOSN,
+                                                             pRCC_CFOP      :String);
+   procedure Converte_PROD_CST_PISCOFINS_em_RELACAO_RPC_Para_TPMOV_igual_a_1;
+   procedure Associar_CFOP_PROD_CST_PISCOFINS(pCFOP:String;
+                                              pPRODUTO:Integer;
+                                              pPIS_CST,
+                                              pCOFINS_CST:String);
 
   public
     { Public declarations }
@@ -191,6 +214,7 @@ type
 var
   frmAtualizador: TfrmAtualizador;
   vGlobal_Qtde_de_Funcoes:Integer; // Gera i ID da função
+
 implementation
 
 uses
@@ -249,11 +273,11 @@ begin
   CriarFuncoes;
 end;
 
-procedure TfrmAtualizador.Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC(pRCC_TPMOV     :String;
-                                                                   pRCC_CRT       :Integer;
-                                                                   pRCC_CST_ICMS,
-                                                                   pRCC_CSOSN,
-                                                                   pRCC_CFOP      :String);
+procedure TfrmAtualizador.Preencher_RELACAO_TPMOV_CRT_CST_ICMS_CSOSN_CFOP(pRCC_TPMOV     :String;
+                                                                          pRCC_CRT       :Integer;
+                                                                          pRCC_CST_ICMS,
+                                                                          pRCC_CSOSN,
+                                                                          pRCC_CFOP      :String);
 begin
    Module.Query.Close;
    Module.Query.Sql.Clear;
@@ -299,6 +323,78 @@ begin
       Result := False;
 end;
 
+procedure TfrmAtualizador.Converte_PROD_CST_PISCOFINS_em_RELACAO_RPC_Para_TPMOV_igual_a_1;
+var qPRODUTO,
+    qRPC     : tFDQuery;
+    vCFOP    : String;
+begin
+   // TPMOV = 1 é o padrão do SMC para o TIPO de MOVIMENTO vendas dentro da UF
+   // --------------------------------------------------------------------------
+   //
+   //Esta rotina preenche a tabela de relacionamentos entre CFOP x Produto x CST-PIS/COFINS
+   //Pegando:
+   //        CFOP          do cadastro do TIPO_DE_MOVIMENTO = 1
+   //        CODPRODUTO    do cadastro do PRODUTO
+   //        CST_PISCOFINS do cadastro do PRODUTO
+   //---------------------------------------------------------------------------
+   // Isto é neessário para aproveitar o atual cadastro de PRODUTOS nos cliente
+   // que usam a versão anterior do SMC_LIGHT
+   //---------------------------------------------------------------------------
+
+   //Recuperar o CFOP do tipo de movimento 1 (venda padrão)
+   vCFOP := fTPMOV_CFOP('1');
+
+   // Se não informado ou se não existe, abortar
+   if vCFOP = '' then
+      exit;
+
+   //Criar Query para tratar produtos
+   qPRODUTO := TFDQuery.Create(nil);
+   qPRODUTO.Connection     := Module.connection;
+   qPRODUTO.ConnectionName := 'connection';
+
+   //Criar Query para tratar Relacionamento CFOP x PRODUTO x CST_PISCOFINS
+   qRPC := TFDQuery.Create(nil);
+   qRPC.Connection     := Module.connection;
+   qRPC.ConnectionName := 'connection';
+
+   //Recuperar todos os produtos cadastrados...
+   qPRODUTO.Close;
+   qPRODUTO.Sql.Clear;
+   qPRODUTO.SQL.Add('SELECT CODIGO,             ');
+   qPRODUTO.SQL.Add('       DESCRICAO_PRODUTO,  ');
+   qPRODUTO.SQL.Add('       PIS_CST,            ');
+   qPRODUTO.SQL.Add('       COFINS_CST,         ');
+
+   // Não precisa, mas fica como modelo:
+   qPRODUTO.SQL.Add('       ICMS_CST,           ');
+   qPRODUTO.SQL.Add('       ICMS_IPI,           ');
+   qPRODUTO.SQL.Add('       CST_IPI             ');
+   //
+   qPRODUTO.SQL.Add('  FROM PRODUTO             ');
+   qPRODUTO.SQL.Add(' ORDER BY DESCRICAO_PRODUTO');
+   qPRODUTO.Open;
+   mmExecutado.Lines.Clear;
+   while not qPRODUTO.eof do
+   begin
+     //Mostra o nome do produto que irá associar
+     mmExecutado.Lines.Add(qPRODUTO.FieldByName('DESCRICAO_PRODUTO').AsString);
+     frmAtualizador.Refresh;
+     Application.ProcessMessages;
+
+     //Associar
+     Associar_CFOP_PROD_CST_PISCOFINS(vCFOP,
+                                      qPRODUTO.FieldByName('CODIGO'    ).AsInteger,
+                                      qPRODUTO.FieldByName('PIS_CST'   ).AsString,
+                                      qPRODUTO.FieldByName('COFINS_CST').AsString);
+     //Próximo Produto
+     qPRODUTO.Next;
+   end;
+
+   //Destroi as Queries para liberar espaço em memória
+   qPRODUTO.Free;
+   qRPC.Free;
+end;
 
 procedure TfrmAtualizador.CriaATUALIZADO_ATU;
 begin
@@ -376,6 +472,48 @@ begin
    CriaF('ALTSERV','Servico-Editar');
    CriaF('DELSERV','Servico-Excluir');
 
+end;
+
+procedure TfrmAtualizador.Associar_CFOP_PROD_CST_PISCOFINS(pCFOP: String;
+                                                           pPRODUTO: Integer;
+                                                           pPIS_CST,
+                                                           pCOFINS_CST: String);
+var qLocal : tFDQuery;
+begin
+   // É obrigatório que haja o CST do PIS ou do COFINS
+   if (pPIS_CST    = '') and
+      (pCOFINS_CST = '') then
+      exit;
+
+   //Criar Query Local
+   qLocal := TFDQuery.Create(nil);
+   qLocal.Connection     := Module.connection;
+   qLocal.ConnectionName := 'connection';
+
+   //Recuperar todos os produtos cadastrados...
+   qLocal.Close;
+   qLocal.Sql.Clear;
+   qLocal.SQL.Add('INSERT INTO RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC');
+   qLocal.SQL.Add('     (                                               ');
+   qLocal.SQL.Add('       RPC_CFOP,                                     ');
+   qLocal.SQL.Add('       RPC_PRODUTO,                                  ');
+   qLocal.SQL.Add('       RPC_PIS,                                      ');
+   qLocal.SQL.Add('       RPC_COFINS                                    ');
+   qLocal.SQL.Add('     )                                               ');
+   qLocal.SQL.Add('VALUES                                               ');
+   qLocal.SQL.Add('     (                                               ');
+   qLocal.SQL.Add('      :RPC_CFOP,                                     ');
+   qLocal.SQL.Add('      :RPC_PRODUTO,                                  ');
+   qLocal.SQL.Add('      :RPC_PIS,                                      ');
+   qLocal.SQL.Add('      :RPC_COFINS                                    ');
+   qLocal.SQL.Add('     )                                               ');
+   qLocal.ParamByName('RPC_CFOP'   ).AsString := pCFOP;
+   qLocal.ParamByName('RPC_PRODUTO').AsInteger:= pPRODUTO;
+   qLocal.ParamByName('RPC_PIS'    ).AsString := pPIS_CST;
+   qLocal.ParamByName('RPC_COFINS' ).AsString := pCOFINS_CST;
+   qLocal.ExecSql;
+   //Liberar memória
+   qLocal.Free;
 end;
 
 procedure TfrmAtualizador.Atualizacao01;
@@ -2121,11 +2259,11 @@ begin
     end;
     if fNaoAtualizado('Preencher Tabela RELACAO_CRT_CST_CSOSN_CFOP_RCCCC') Then
     begin
-       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',1,'00','101','');
-       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',1,'41','102','');
-       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',1,'40','103','');
-       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',1,'60','500','');
-       Preencher_RELACAO_CRT_CST_CSOSN_CFOP_RCC('1',1,'90','900','');
+       Preencher_RELACAO_TPMOV_CRT_CST_ICMS_CSOSN_CFOP('1',1,'00','101','');
+       Preencher_RELACAO_TPMOV_CRT_CST_ICMS_CSOSN_CFOP('1',1,'41','102','');
+       Preencher_RELACAO_TPMOV_CRT_CST_ICMS_CSOSN_CFOP('1',1,'40','103','');
+       Preencher_RELACAO_TPMOV_CRT_CST_ICMS_CSOSN_CFOP('1',1,'60','500','');
+       Preencher_RELACAO_TPMOV_CRT_CST_ICMS_CSOSN_CFOP('1',1,'90','900','');
     end;
     if fNaoAtualizado('Acertar Tabela RELACAO_CRT_CST_CSOSN_CFOP_RCCCC') Then
        Executar('DELETE FROM RELACAO_CRT_CST_CSOSN_CFOP_RCC WHERE RCC_CRT <> 1');
@@ -2171,8 +2309,9 @@ begin
        Executar('ALTER TABLE PRODUTO MODIFY CEST VARCHAR(7) NULL DEFAULT NULL COMMENT "Código Especificador da Substituição Tributária" ');
     if fNaoAtualizado('Produto: ANP passa de 50 para 9 caracteres...') Then
        Executar('ALTER TABLE PRODUTO MODIFY ANP VARCHAR(9) NULL DEFAULT NULL COMMENT "Código Agencia Nacional de Petróleo" ');
+
     //29/05/2020
-    if fNaoAtualizado('CST_PIS: Preenchido com códigos válidos...') Then
+    {if fNaoAtualizado('CST_PIS: Preenchido com códigos válidos...') Then
     begin
        Executar('DELETE FROM CST_PIS WHERE CODIGO not in ("04", "05", "07", "08", "09")');
        Executar('UPDATE CST_PIS SET DESCRICAO = "Operação Tributável (tributação monofásica (alíquota zero)" WHERE CODIGO = "04"');
@@ -2181,8 +2320,31 @@ begin
        Executar('UPDATE CST_PIS SET DESCRICAO = "Operação Sem Incidência da Contribuição"                    WHERE CODIGO = "08"');
        Executar('UPDATE CST_PIS SET DESCRICAO = "Operação com Suspensão da Contribuição"                     WHERE CODIGO = "09"');
     end;
+    }
+    //29/05/2020
+    if fNaoAtualizado('Tipo de Movimento: Criada coluna TPMOV_CFOP') then
+    begin
+       Executar('ALTER TABLE TIPOMOVIMENTO_TPMOV ADD TPMOV_CFOP VARCHAR(04) NULL COMMENT "Codigo CFOP" ');
+       Executar('UPDATE TIPOMOVIMENTO_TPMOV SET TPMOV_CFOP = "5102" WHERE TPMOV_CODIGO = 1 ');
+    end;
+
+    if fNaoAtualizado('Tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC...') Then
+    begin
+       Module.Query.Close;
+       Module.Query.Sql.Clear;
+       Module.Query.Sql.Add('CREATE TABLE RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC                                                      ');
+       Module.Query.Sql.Add('     ( RPC_CFOP      VARCHAR(04) NOT NULL COMMENT "Cod Fiscal da Operação",           ');
+       Module.Query.Sql.Add('       RPC_PRODUTO   INTEGER     NOT NULL COMMENT "Cod do Produto",                   ');
+       Module.Query.Sql.Add('       RPC_PIS       VARCHAR(02) NOT NULL COMMENT "Cod da Situacao Tributaria PIS",   ');
+       Module.Query.Sql.Add('       RPC_COFINS    VARCHAR(02) NOT NULL COMMENT "Cod da Situacao Tributaria COFINS" ');
+       Module.Query.Sql.Add('     )                                                                                ');
+       Module.Query.Sql.Add('COMMENT="Relacionamento entre CFOP, PRODUTO e CST PIS/COFINS"');
+       Module.Query.ExecSql;
+    end;
+    if fNaoAtualizado('Preenche Tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC..') Then
+       Converte_PROD_CST_PISCOFINS_em_RELACAO_RPC_Para_TPMOV_igual_a_1;
 end;
 
 end.
 
-
+* FROM PRODUTO');

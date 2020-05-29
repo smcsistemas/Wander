@@ -102,171 +102,172 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
-//29/05/2020-05:29-Recebe um codigo de CST_PIS e retorna sua descrição
+//080 29/05/2020-12:06-Recebe um codigo de TPMOV e retorna seu CFOP
+function fTPMOV_CFOP(pCODIGO:String):String;
+//079 29/05/2020-05:29-Recebe um codigo de CST_PIS e retorna sua descrição
 function fCST_PIS_DESCRICAO(pCodigo:String): String;
-//26/05/2020-21:35-Recebe um valor (string) e retorna true se for vazio ou zero
+//078 26/05/2020-21:35-Recebe um valor (string) e retorna true se for vazio ou zero
 function Vazio_ou_Zero(pValor:String): Boolean;
 
-//26/05/2020-06:58-Recebe um valor (string) e retorna true se for um valor de
+//077 26/05/2020-06:58-Recebe um valor (string) e retorna true se for um valor de
 //                 percentual correto e false se não for
 function PercentualCorreto(pValor,pDescricao:String): Boolean;
-//24/05/20-19:44-Recebe código de Origem de Mercdoria e retorna sua descrição
+//076 24/05/20-19:44-Recebe código de Origem de Mercdoria e retorna sua descrição
 function fORIGEM_MERCADORIA_DESCRICAO(pCODIGO:String):String;
-//24/05/20-18:35-Recebe código de Tipo de Item (produto) e retorna sua descrição
+//075 24/05/20-18:35-Recebe código de Tipo de Item (produto) e retorna sua descrição
 function fProduto_tipo_item_NOME(pCODIGO:String):String;
-//24/05/20-15:01-Recebe código de Unidade de medida e retorna sua sigla
+//074 24/05/20-15:01-Recebe código de Unidade de medida e retorna sua sigla
 function fproduto_unidade_SIGLA(pCODIGO:String):String;
-//24/05/20-09:51-Recebe código CST e retorna sua descricao
+//073 24/05/20-09:51-Recebe código CST e retorna sua descricao
 function fCST_ICMS_DESCRICAO(pCODIGO:String):String;
-//23/05/20-19:27-Recebe um boolean e retorna string 'ATIVO' se true e 'INATIVO' se false
+//072 23/05/20-19:27-Recebe um boolean e retorna string 'ATIVO' se true e 'INATIVO' se false
 function Ativo_ou_Inativo(pBoolean:Boolean):String;
-//23/05/20-19:06-Recebe um string e retorna true ser for numérico e false se nao for
+//071 23/05/20-19:06-Recebe um string e retorna true ser for numérico e false se nao for
 function NumeroPositivoValido(pValor:String):Boolean;
-//23/05/20-19:00-Recebe um string e retorna float válido ou zero
+//070 23/05/20-19:00-Recebe um string e retorna float válido ou zero
 function ValorValido(pValor:String):Real;
-//23/05/20-01:42-Recebe codigo de um Subgrupo de produto e retorna sua descricao
+//069 23/05/20-01:42-Recebe codigo de um Subgrupo de produto e retorna sua descricao
 function fProdutoSUBGRUPO_NOME(pCODIGO:String):String;
-//Recebe codigo de um grupo de produto e retorna sua descricao
+//068 Recebe codigo de um grupo de produto e retorna sua descricao
 function fProdutoGRUPO_NOME(pCODIGO:String):String;
-//Recebe codigo de uma familia de produto e retorna sua descricao
+//067 Recebe codigo de uma familia de produto e retorna sua descricao
 function fProdutoFAMILIA_NOME(pCodigo:String):String;
-//Controle de botoes-padrao
+//066 Controle de botoes-padrao
 procedure pode_Alterar_Incluir(pForm:TForm);
 procedure pode_Cancelar_Gravar(pForm:TForm);
-//Habilita/Desabilita Botoes
+//065 Habilita/Desabilita Botoes
 procedure HabilitaBotoes(ArrayBotoes: array of TcxButton; pEnabled: boolean);
-//Recebe o codigo de uma marca de produto e retorna sua descricao
+//064 Recebe o codigo de uma marca de produto e retorna sua descricao
 function fProdutoMarca_NOME(pCodigo:String):String;
-//Recebe um form (pForm) e limpa todos os seus campos
+//063 Recebe um form (pForm) e limpa todos os seus campos
 procedure LimpaTela(pForm:TForm);
-//Recebe um Form e um booleano e habilita/desabilita objetos tPanel
+//062 Recebe um Form e um booleano e habilita/desabilita objetos tPanel
 procedure HabilitarPanels(pForm:TForm;pEnabled:Boolean);
-//Recebe true/false retorna 0/1
+//061 Recebe true/false retorna 0/1
 function f0_1(pBoolean:Boolean):Integer;
-//Retorna a descrição do tipo de movimento se existir. Se não existir retorna vazio
+//060 Retorna a descrição do tipo de movimento se existir. Se não existir retorna vazio
 function fTPMOV_DESCRICAO(pTPMOV_CODIGO:String):String;
-//Verifica se á filiais cadastradas no sistema
+//059 Verifica se á filiais cadastradas no sistema
 Function PossuiFiliais:Boolean;
-//Retorna o nome da Empresa/Filial
+//058 Retorna o nome da Empresa/Filial
 function DescricaoEmpresa(pEMP_CODIGO:String):String;
-//Verifica se uma empresa existe
+//057 Verifica se uma empresa existe
 function ExisteEmpresa(pEMP_CODIGO:String):Boolean;
-//Cria a o cad da empresa matriz
+//056 Cria a o cad da empresa matriz
 procedure Criar_Empresa_Matriz;
-//Retorna o próximo código de Cliente
+//055 Retorna o próximo código de Cliente
 function ProximoClienteCODIGO:Integer;
-//Recebe uma data e a devolve no formato string ou vazio se a data for inválida
+//054 Recebe uma data e a devolve no formato string ou vazio se a data for inválida
 function DataValida(pData:TDateTime):String;
-//Recebe o código de uma Região e retorna sua Descrição
+//053 Recebe o código de uma Região e retorna sua Descrição
 function DescricaoREGIAO(pCodigo:String):String;
-//recebe uma string e a retorna sem acentos
+//052 recebe uma string e a retorna sem acentos
 Function fTiraAcentos(pFraseComAcentos:String):String;
-//Recebe uma sigla de UF e verifica se existe.
+//051 Recebe uma sigla de UF e verifica se existe.
 function UfInvalida(UF:String):Boolean;
-//Recebe um codigo de Colaborador e retorna seu nome
+//050 Recebe um codigo de Colaborador e retorna seu nome
 function NomeColaborador(pCodigo:String):String;
-//Recebe um codigo de Cliente e um Evento e registra no Histórico
+//049 Recebe um codigo de Cliente e um Evento e registra no Histórico
 procedure Registrar_Historico_Bloqueios(pCliente:Integer;pEvento:String);
-//Recebe um codigo de Ramo de Ativiadde retorna sua descricao
+//048 Recebe um codigo de Ramo de Ativiadde retorna sua descricao
 function DescricaoCAD_RAMO_ATIVIDADE(pCODIGO:String):String;
-//Retorna o próximo código sequencial para um produto novo
+//047 Retorna o próximo código sequencial para um produto novo
 function ProximoProdutoCODIGO:Integer;
-//Retorna o próximo código sequencial para uma nova região
+//046 Retorna o próximo código sequencial para uma nova região
 function ProximoREG_CODIGO:Integer;
-//Recebe um codigo de centro de custos e retorna sua classificacao e descricao
+//045 Recebe um codigo de centro de custos e retorna sua classificacao e descricao
 function DescricaoCentroDeCustos(pCentroDeCusto:Integer):String;
-//Recebe um codigo de conta contábil e retorna sua classificacao e descricao
+//044 Recebe um codigo de conta contábil e retorna sua classificacao e descricao
 function DescricaoPlanoDeContas(pContaContabil:Integer):String;
-//Recebe o código de uma unidade de medida e retorna seu nome
+//043 Recebe o código de uma unidade de medida e retorna seu nome
 function NomeUND(pCodigo:Integer):String;
-//Elimina endereços sem a RUA informada
+//042 Elimina endereços sem a RUA informada
 Procedure LimpaEnderecos;
-//Recebe a sigla de uma Municipio e retorna seu codigo IBGE
+//041 Recebe a sigla de uma Municipio e retorna seu codigo IBGE
 function CodigoMunicipio(pMunicipio,pUF:String):String;
-//Recebe a sigra de uma UF e retorna seu codigo IBGE
+//040Recebe a sigra de uma UF e retorna seu codigo IBGE
 function CodigoUF(pUF:String):String;
-// Recebe uma string e retona vazio se for uma sequencia de asteriscos '***'
+//039 Recebe uma string e retona vazio se for uma sequencia de asteriscos '***'
 // ou a retorna, se nao for
 function SemAsteriscos(pString:String):String;
-// recebe uma data e a retorna no formato AAMM
+//038 recebe uma data e a retorna no formato AAMM
 function DataAAMM(pData:TDateTime):String;
-// Cria tabela auxiliar de venda
+//037 Cria tabela auxiliar de venda
 procedure Criar_Tabela_Temporaria_de_Venda(pTabela:String);
-// Destroi tabela auxiliar de venda
+//036 Destroi tabela auxiliar de venda
 procedure Destruir_Tabela_Temporaria_de_Venda(pTabela:String);
-
-// verifica se uma tabela existe no banco de dados
+//035 verifica se uma tabela existe no banco de dados
 function Existe_Tabela(pNomeTabela:String):Boolean;
-// Sobrecarrega funcao ApenasLetras para receber e retornar strings
+//034 Sobrecarrega funcao ApenasLetras para receber e retornar strings
 function ApenasLetras(pFrase: String): String; Overload;
-// Retorna a data do servidor com string
+//033 Retorna a data do servidor com string
 function sDataServidor:String;
 procedure ApagaRegistroDeDadosDaTela(pTela:String);
-// Apaga os registros de controle contendo os dados da tela
+//032 Apaga os registros de controle contendo os dados da tela
 procedure ComparaDadosDaTela(pFrase:String;pTela:Tobject);
-// Compara os dados da tela atual com o salvo antes (anterior)
+//031 Compara os dados da tela atual com o salvo antes (anterior)
 procedure VerificaSeMudouDadoDaTela(pFrase,pTela,pNome,pValor:String);
-// Compara os dados da tela atual com o salvo antes (anterior)
+//030 Compara os dados da tela atual com o salvo antes (anterior)
 procedure SalvaDadosDaTela(Tela:TObject);
-// Salva todos os campos da tela
+//029 Salva todos os campos da tela
 procedure Salvar_DadosDaTela(pTela,pNome,pValor:String);
-// salva um registro de campo da tela
+//028 salva um registro de campo da tela
 function UsuarioMASTER_SenhaCorreta(pUsuario,pSenha:String):Boolean;
-// retorna true se a senah do usuário está correta e retorna false se incorreta
+//027 retorna true se a senah do usuário está correta e retorna false se incorreta
 function UsuarioMASTER:Boolean;
-// retorna true se o usuário logado é o MASTER e false em caso contrário
+//026 retorna true se o usuário logado é o MASTER e false em caso contrário
 function TemAcesso(pUsuario,pFuncao:string):Boolean;
-// verificar se o usuário tem acesso a determinado recurso/funcionalidade do sistema
+//025 verificar se o usuário tem acesso a determinado recurso/funcionalidade do sistema
 procedure RegistraLog(pEvento:String);
-// Registra um evento do sistema
+//024 Registra um evento do sistema
 function DataServidor:tDatetime;
-//  retorna a data do servidor para nao usar a data da estação
+//023  retorna a data do servidor para nao usar a data da estação
 function HoraServidor:String;
-//  retorna a Hora do servidor para nao usar a data da estação
+//022  retorna a Hora do servidor para nao usar a data da estação
 procedure Executar(pTexto:String);
-// executa scripts no banco de dados
+//021 executa scripts no banco de dados
 function Cripto(Texto: String): String;
-// Criptografa Texto
+//020 Criptografa Texto
 function DesCripto(Texto: String): String;
-// Descriptografa Texto
+//019 Descriptografa Texto
 function ValorAsc(Letra: String): Byte;
-// retorna o valor ASC de Letra
+//018 retorna o valor ASC de Letra
 function NaoAtualizado(pInformacao:String) : Boolean;
-// Verifica se determinado script (pInformacao) ja foi aplicado ao banco de dados
+//017 Verifica se determinado script (pInformacao) ja foi aplicado ao banco de dados
 Function NomeComputador : String;
-// retorna o nome da estacao
+//016 retorna o nome da estacao
 procedure UsuarioLogou;
-// Seta o usuario como "logado"
+//015 Seta o usuario como "logado"
 procedure UsuarioDeslogou;
-// Seta o usuario como "deslogado"
+//014 Seta o usuario como "deslogado"
 procedure AcessoExclusivoMaster;
-// Exibe mensagem padrão : "Acesso exclusivo do suporte..."
+//013 Exibe mensagem padrão : "Acesso exclusivo do suporte..."
 function fUltimaNFe(pNFe_SeRIE:String):integer;
-// Retorna o último número de NFe emitida nesta série
+//012 Retorna o último número de NFe emitida nesta série
 function Float_to_String(pValor:real):String;
-// Recebe um valor numérico ponto flutuante e devolve em string formatada 9.999,99
+//011 Recebe um valor numérico ponto flutuante e devolve em string formatada 9.999,99
 Function ProximaNotaFiscal(pSerie:Integer):Integer;
-// Retorna o próximo código sequencial do tipo de movimento
+//010 Retorna o próximo código sequencial do tipo de movimento
 function ProxTPMOV:String;
-// Retorna o próximo número de NFe
+//009 Retorna o próximo número de NFe
 function SoNumeros(numero:string):Integer;
-// Recebe uma string contendo um número formatado (mask) e retorna um inteiro
+//008 Recebe uma string contendo um número formatado (mask) e retorna um inteiro
 // Limpa a máscara...
 function SoNumerosX(numero:string):String;
-// Recebe uma string contendo um número formatado (mask) e retorna uma string
+//007 Recebe uma string contendo um número formatado (mask) e retorna uma string
 // Limpa a máscara...
 Function Zeros(Frase: String; Comprimento:Integer) : String;
-// Recebe uma string e seu comprimento e preenche com Zeros a esquerda até completar
+//006 Recebe uma string e seu comprimento e preenche com Zeros a esquerda até completar
 function masctostr(numero:string):string;
-// recebe uma string formatada e a retorna sem formatação
+//005 recebe uma string formatada e a retorna sem formatação
 procedure RecalculaSaldoEstoque(pProduto:String;pData:TdateTime);
-// Recebe o ID de uma natureza de operação e retorna sua descrição, se existir
+//004 Recebe o ID de uma natureza de operação e retorna sua descrição, se existir
 function fnatureza_operacaoDESCRICAO(pID:Integer):String;
-// Recebe o Codigo de um Colaborador e retorna seu nome, se existir
+//003 Recebe o Codigo de um Colaborador e retorna seu nome, se existir
 function fColaboradorNOME(pCodigo:Integer):String;
-// Valida CNPJ
+//002 Valida CNPJ
 function  CHEK_CGC(var_cgc:string):boolean;
-// Valida CPF
+//001 Valida CPF
 function  CHEK_CPF(var_cpf:string):boolean;
 
 //##############################################################################
@@ -4920,7 +4921,7 @@ begin
    try
      Q.Close;
      Q.Sql.Clear;
-     Q.SQL.Add('SELECT *  ');
+     Q.SQL.Add('SELECT *                   ');
      Q.SQL.Add('  FROM TIPOMOVIMENTO_TPMOV ');
      Q.Open;
      if Q.Eof then
@@ -6054,6 +6055,27 @@ begin
       result := true
    else
      result := false;
+end;
+
+function fTPMOV_CFOP(pCODIGO:String):String;
+var Q : tFDQuery;
+begin
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+   Result := '1';
+
+   Q.Close;
+   Q.Sql.Clear;
+   Q.SQL.Add('SELECT TPMOV_CFOP                  ');
+   Q.SQL.Add('  FROM TIPOMOVIMENTO_TPMOV         ');
+   Q.SQL.Add(' WHERE TPMOV_CODIGO = :TPMOV_CODIGO');
+   Q.ParamByName('TPMOV_CODIGO').AsString := pCODIGO;
+   Q.Open;
+   if not Q.Eof Then
+      result := Q.FieldByName('TPMOV_CFOP').AsString;
+
+   Q.Free;
 end;
 
 //##############################################################################

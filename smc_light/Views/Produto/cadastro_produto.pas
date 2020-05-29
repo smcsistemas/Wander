@@ -8,6 +8,16 @@ https://docs.enotasgw.com.br/v2/docs/cst-pis-e-cofins
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  231|29/05/20|wander              |CST do PIS pode ser diferente do CST da   |
+|     |   13:11|cadastro_produto    |COFINS se a natureza da PJ for igual a    |
+|     |        |                    |“02 – Entidade sujeita ao PIS/Pasep       |
+|     |        |                    |exclusivamente com base na Folha de       |
+|     |        |                    |Salários”.                                |
+|     |        |                    |Fora isso, para poder emitir um documento |
+|     |        |                    |fiscal com CST´s diferentes é preciso     |
+|     |        |                    |vincular um “processo judicial ou um      |
+|     |        |                    |processo administrativo” (1010/1020).     |
+|-----|--------|--------------------|------------------------------------------|
 |  230|29/05/20|wander              |Deixa de tratar o CST do COFINS, pelo     |
 |     |   06:40|cadastro_produto    |mesmo motivo do CST do PIS descrito abaixo|
 |-----|--------|--------------------|------------------------------------------|

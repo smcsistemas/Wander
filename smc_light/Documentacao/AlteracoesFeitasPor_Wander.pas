@@ -12,6 +12,33 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  234|29/05/20|wander              |Criada rotina que preenche a nova tabela  |
+|     |   13:19|Atualizador         |RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC |
+|     |        |                    |com os dados do cadastro dos produtos     |
+|     |        |                    |Associando ao tipo de movimento 1 (venda  |
+|     |        |                    |padrão do CMS_LIGHT                       |
+|-----|--------|--------------------|------------------------------------------|
+|  233|29/05/20|wander              |Criada Tabela                             |
+|     |   13:19|Atualizador         |RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC |
+|     |        |                    |que relaciona CFOP com o PRODUTO e seus   |
+|     |        |                    |CSTs de PIS e de COFINS                   |
+|     |        |                    |que geralmente são iguais, exceto como    |
+|     |        |                    |explicado no item 231 do cad produto      |
+|-----|--------|--------------------|------------------------------------------|
+|  232|29/05/20|wander              |Tabela TIPOMOVIMENTO_TPMOV recebe coluna  |
+|     |   13:19|Atualizador         |TPMOV_CFOP para armazenar o seu CFOP      |
+|     |        |                    |
+|-----|--------|--------------------|------------------------------------------|
+|  231|29/05/20|wander              |CST do PIS pode ser diferente do CST da   |
+|     |   13:11|cadastro_produto    |COFINS se a natureza da PJ for igual a    |
+|     |        |                    |“02 – Entidade sujeita ao PIS/Pasep       |
+|     |        |                    |exclusivamente com base na Folha de       |
+|     |        |                    |Salários”.                                |
+|     |        |                    |Fora isso, para poder emitir um documento |
+|     |        |                    |fiscal com CST´s diferentes é preciso     |
+|     |        |                    |vincular um “processo judicial ou um      |
+|     |        |                    |processo administrativo” (1010/1020).     |
+|-----|--------|--------------------|------------------------------------------|
 |  230|29/05/20|wander              |Deixa de tratar o CST do COFINS, pelo     |
 |     |   06:40|cadastro_produto    |mesmo motivo do CST do PIS descrito abaixo|
 |-----|--------|--------------------|------------------------------------------|
@@ -847,15 +874,15 @@ ordem crescente de data....
 |--------------|
 |MES/ANO|Desenv|
 |-------|------|
-|02/2020|  20  |
+|02/2020|  20  |  20
 |-------|------|
-|03/2020|  40  |
+|03/2020|  40  |  60
 |-------|------|
-|04/2020|  60  |
+|04/2020|  60  | 120
 |-------|------|
-|05/2020|  06  |
+|05/2020| 110  | 230
 |-------|------|
-|  TOTAL| 126  |
+|  TOTAL| 230  |
 ================
 
 Observações:
