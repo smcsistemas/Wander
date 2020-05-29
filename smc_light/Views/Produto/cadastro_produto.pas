@@ -1,9 +1,37 @@
 ﻿{ v 21.10.16 17:18 }
 unit cadastro_produto;
+
 {
+
+https://docs.enotasgw.com.br/v2/docs/cst-pis-e-cofins
 
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  230|29/05/20|wander              |Deixa de tratar o CST do COFINS, pelo     |
+|     |   06:40|cadastro_produto    |mesmo motivo do CST do PIS descrito abaixo|
+|-----|--------|--------------------|------------------------------------------|
+|  229|29/05/20|wander              |Deixa de tratar o CST do PIS, pois, assim |
+|     |   06:16|cadastro_produto    |como o CSOSN e o CFOP, o CST do PIS não é |
+|     |        |                    |um atributo intrínsico do produto, mas sim|
+|     |        |                    |do produto na operação, não fazendo,      |
+|     |        |                    |portanto, nenhumo sentido estar no        |
+|     |        |                    |cadastro do produto, mas sim numa tabela  |
+|     |        |                    |que relacione o TIPO DE MOVIMENTO (venda, |
+|     |        |                    |compra, bonficação, devolução, descarte,  |
+|     |        |                    |doação, remessa a conserto, exposição,etc)|
+|     |        |                    |com o PRODUTO. Pois este código vai mudar |
+|     |        |                    |para o mesmo produto em diferentes        |
+|     |        |                    |operações.                                |
+|     |        |                    |Consequentemente, foi eliminado o CST do  |
+|     |        |                    |PIS do cadastro do produto e uma tela     |
+|     |        |                    |e tabela deverão ser criados em que onde o|
+|     |        |                    |usuário/contador/suporte possam definir o |
+|     |        |                    |CST correto para cada operação.           |
+|-----|--------|--------------------|------------------------------------------|
+|  228|29/05/20|wander              |Deixa de tratar a flag "PIS MONOFÀSICO"   |
+|     |   05:18|cadastro_produto    |Pois ao escolher o CST já está implicito  |
+|     |        |                    |se é (04) ou não (demais) monofásico.     |
 |-----|--------|--------------------|------------------------------------------|
 |  227|28/05/20|wander              |Deixa de tratar ANP - Código do produto na|
 |     |   20:39|cadastro_produto    |Agência Nacional de Petróleo              |
@@ -159,14 +187,6 @@ type
   TFrm_Produto = class(TForm)
     sql_increment: TFDQuery;
     sql_incrementAUTO_INCREMENT: TLargeintField;
-    DS_CSTPIS: TDataSource;
-    DS_CSTCOFINS: TDataSource;
-    SQL_CSTPIS: TFDQuery;
-    SQL_CSTCOFINS: TFDQuery;
-    SQL_CSTCOFINSCODIGO: TStringField;
-    SQL_CSTCOFINSDESCRICAO: TStringField;
-    SQL_CSTPISCODIGO: TStringField;
-    SQL_CSTPISDESCRICAO: TStringField;
     DS_Lista: TDataSource;
     DS_CSTIPI: TDataSource;
     cxPageControl1: TcxPageControl;
@@ -386,12 +406,6 @@ type
     edCEST: TEdit;
     btn_ncm: TcxButton;
     mmNCM: TcxMemo;
-    GroupBox19: TGroupBox;
-    Label14: TLabel;
-    Label30: TLabel;
-    cstpis: TcxDBLookupComboBox;
-    chk_monofasico: TcxCheckBox;
-    cstcofins: TcxDBLookupComboBox;
     GroupBox23: TGroupBox;
     Label22: TLabel;
     Label2: TLabel;
@@ -557,7 +571,6 @@ type
     procedure chk_ativoClick(Sender: TObject);
     procedure chk_inativoClick(Sender: TObject);
     procedure chk_todosClick(Sender: TObject);
-    procedure cxchckbx1PropertiesChange(Sender: TObject);
     procedure Pesquisar;
     procedure Pesquisar_NCM;
     procedure DBEdit14KeyPress(Sender: TObject; var Key: Char);
@@ -975,9 +988,6 @@ procedure TFrm_Produto.CarregarDadosInternos;
 
 begin
 
-  SQL_CSTPIS.Active := true;
-  SQL_CSTCOFINS.Active := true;
-
   sql_ponto_impressao.Active := false;
   sql_ponto_impressao.Active := true;
 
@@ -1234,20 +1244,6 @@ procedure TFrm_Produto.cxButton9Click(Sender: TObject);
 begin
   frm_comissoes := Tfrm_comissoes.CREATE(Application);
   frm_comissoes.ShowModal;
-end;
-
-procedure TFrm_Produto.cxchckbx1PropertiesChange(Sender: TObject);
-begin
-  if chk_monofasico.Checked then
-  begin
-    cstpis.EditValue := '04';
-    cstcofins.EditValue := '04';
-  end
-  else
-  begin
-    cstpis.EditValue := '99';
-    cstcofins.EditValue := '99';
-  end;
 end;
 
 procedure TFrm_Produto.btn_anpClick(Sender: TObject);
@@ -2299,7 +2295,6 @@ begin
 end;
 
 procedure TFrm_Produto.Edit1KeyPress(Sender: TObject;
-
   var Key: Char);
 begin
   inherited;
@@ -3012,10 +3007,6 @@ var
 begin
   SQL_DADOS_ROTINAS.Active := false;
   SQL_DADOS_ROTINAS.Active := true;
-  SQL_CSTPIS.Active := false;
-  SQL_CSTCOFINS.Active := false;
-  SQL_CSTPIS.Active := true;
-  SQL_CSTCOFINS.Active := true;
 
   qry_tmp := simplequery('SELECT CODIGO_REGIME_TRIBUTARIO from empresa');
   if qry_tmp <> nil then
@@ -3411,3 +3402,4 @@ ENGINE=InnoDB
 AUTO_INCREMENT=34052
 ;
 }
+

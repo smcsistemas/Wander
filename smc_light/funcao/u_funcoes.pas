@@ -102,6 +102,8 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//29/05/2020-05:29-Recebe um codigo de CST_PIS e retorna sua descrição
+function fCST_PIS_DESCRICAO(pCodigo:String): String;
 //26/05/2020-21:35-Recebe um valor (string) e retorna true se for vazio ou zero
 function Vazio_ou_Zero(pValor:String): Boolean;
 
@@ -5892,7 +5894,6 @@ begin
    Q.Free;
 end;
 
-
 function fCST_ICMS_DESCRICAO(pCODIGO:String):String;
 var Q : tFDQuery;
 begin
@@ -5907,6 +5908,30 @@ begin
      Q.Sql.Clear;
      Q.SQL.Add('SELECT DESCRICAO       ');
      Q.SQL.Add('  FROM CST_ICMS        ');
+     Q.SQL.Add(' WHERE CODIGO = :CODIGO');
+     Q.ParamByName('CODIGO').AsString := pCODIGO;
+     Q.Open;
+     if not Q.Eof Then
+        result := Q.FieldByName('DESCRICAO').AsString;
+   except
+   end;
+   Q.Free;
+end;
+
+function fCST_PIS_DESCRICAO(pCODIGO:String): String;
+var Q : tFDQuery;
+begin
+   result := '';
+
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+
+   try
+     Q.Close;
+     Q.Sql.Clear;
+     Q.SQL.Add('SELECT DESCRICAO       ');
+     Q.SQL.Add('  FROM CST_PIS         ');
      Q.SQL.Add(' WHERE CODIGO = :CODIGO');
      Q.ParamByName('CODIGO').AsString := pCODIGO;
      Q.Open;

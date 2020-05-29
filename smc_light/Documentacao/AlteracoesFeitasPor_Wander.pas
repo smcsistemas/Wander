@@ -12,6 +12,31 @@ ordem decrescente de data....
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  230|29/05/20|wander              |Deixa de tratar o CST do COFINS, pelo     |
+|     |   06:40|cadastro_produto    |mesmo motivo do CST do PIS descrito abaixo|
+|-----|--------|--------------------|------------------------------------------|
+|  229|29/05/20|wander              |Deixa de tratar o CST do PIS, pois, assim |
+|     |   06:16|cadastro_produto    |como o CSOSN e o CFOP, o CST do PIS não é |
+|     |        |                    |um atributo intrínsico do produto, mas sim|
+|     |        |                    |do produto na operação, não fazendo,      |
+|     |        |                    |portanto, nenhumo sentido estar no        |
+|     |        |                    |cadastro do produto, mas sim numa tabela  |
+|     |        |                    |que relacione o TIPO DE MOVIMENTO (venda, |
+|     |        |                    |compra, bonficação, devolução, descarte,  |
+|     |        |                    |doação, remessa a conserto, exposição,etc)|
+|     |        |                    |com o PRODUTO. Pois este código vai mudar |
+|     |        |                    |para o mesmo produto em diferentes        |
+|     |        |                    |operações.                                |
+|     |        |                    |Consequentemente, foi eliminado o CST do  |
+|     |        |                    |PIS do cadastro do produto e uma tela     |
+|     |        |                    |e tabela deverão ser criados em que onde o|
+|     |        |                    |usuário/contador/suporte possam definir o |
+|     |        |                    |CST correto para cada operação.           |
+|-----|--------|--------------------|------------------------------------------|
+|  228|29/05/20|wander              |Deixa de tratar a flag "PIS MONOFÀSICO"   |
+|     |   05:18|cadastro_produto    |Pois ao escolher o CST já está implicito  |
+|     |        |                    |se é (04) ou não (demais) monofásico.     |
+|-----|--------|--------------------|------------------------------------------|
 |  227|28/05/20|wander              |Deixa de tratar ANP - Código do produto na|
 |     |   20:39|cadastro_produto    |Agência Nacional de Petróleo              |
 |-----|--------|--------------------|------------------------------------------|

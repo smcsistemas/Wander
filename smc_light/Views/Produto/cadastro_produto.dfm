@@ -39,7 +39,7 @@ object Frm_Produto: TFrm_Produto
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    Properties.ActivePage = tabTributacao
+    Properties.ActivePage = cxTabSheet1
     Properties.ActivateFocusedTab = False
     Properties.CustomButtons.Buttons = <>
     LookAndFeel.NativeStyle = False
@@ -4007,203 +4007,6 @@ object Frm_Produto: TFrm_Produto
             Width = 367
           end
         end
-        object GroupBox19: TGroupBox
-          Left = 4
-          Top = 307
-          Width = 587
-          Height = 82
-          Caption = '  Tributa'#231#227'o PIS / COFINS'
-          Color = clGradientInactiveCaption
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentBackground = False
-          ParentColor = False
-          ParentFont = False
-          TabOrder = 1
-          object Label14: TLabel
-            Left = 37
-            Top = 25
-            Width = 27
-            Height = 18
-            Caption = 'PIS:'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object Label30: TLabel
-            Left = 7
-            Top = 54
-            Width = 57
-            Height = 18
-            Caption = 'COFINS:'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object cstpis: TcxDBLookupComboBox
-            Left = 67
-            Top = 21
-            DataBinding.DataField = 'PIS_CST'
-            ParentFont = False
-            Properties.ButtonGlyph.Data = {
-              36040000424D3604000000000000360000002800000010000000100000000100
-              2000000000000004000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              000000000000000000000000000000000000000000001D1D1C3B1716162D0000
-              0000000000000000000000000000000000000000000000000000000000000000
-              00000000000000000000000000000000000000000000636362D1565554B30000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000001C1C1B37626263FF656565FB1211
-              1123000000000000000000000000000000000000000000000000000000000000
-              000000000000000000000000000000000000595857B83E3E3FFF464646FF4C4C
-              4B9C000000000000000000000000000000000000000000000000000000000000
-              00000000000000000000000000001E1D1D3B666565FF2E2E2EFF303031FF6A6A
-              6AFC0E0E0E1C0000000000000000000000000000000000000000000000000000
-              00000000000000000000000000005A5959B9414142FF343434C7343433D34848
-              48FF4D4D4B9B0000000000000000000000000000000000000000000000000000
-              000000000000000000001B1A1934616161FF2F2F2FAF010101030707070E3333
-              34C3696969FF0E0E0E1C00000000000000000000000000000000000000000000
-              000000000000000000005D5D5CC33B3B3B9B0000000100000000000000000404
-              0408484848B850504EA500000000000000000000000000000000000000000000
-              0000000000001B1B1A3636363676000000000000000000000000000000000000
-              0000000000003C3C3C831C1B1A37000000000000000000000000000000000000
-              00000000000010100F2100000000000000000000000000000000000000000000
-              000000000000000000010E0E0E1D000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000}
-            Properties.DropDownListStyle = lsFixedList
-            Properties.DropDownRows = 10
-            Properties.DropDownWidth = 751
-            Properties.KeyFieldNames = 'CODIGO'
-            Properties.ListColumns = <
-              item
-                FieldName = 'DESCRICAO'
-              end>
-            Properties.ListOptions.ShowHeader = False
-            Properties.ListSource = DS_CSTPIS
-            Style.Font.Charset = DEFAULT_CHARSET
-            Style.Font.Color = clWindowText
-            Style.Font.Height = -15
-            Style.Font.Name = 'Tahoma'
-            Style.Font.Style = [fsBold]
-            Style.LookAndFeel.NativeStyle = False
-            Style.LookAndFeel.SkinName = 'Metropolis'
-            Style.IsFontAssigned = True
-            StyleDisabled.LookAndFeel.NativeStyle = False
-            StyleDisabled.LookAndFeel.SkinName = 'Metropolis'
-            StyleFocused.LookAndFeel.NativeStyle = False
-            StyleFocused.LookAndFeel.SkinName = 'Metropolis'
-            StyleHot.LookAndFeel.NativeStyle = False
-            StyleHot.LookAndFeel.SkinName = 'Metropolis'
-            TabOrder = 1
-            Width = 508
-          end
-          object chk_monofasico: TcxCheckBox
-            Left = 225
-            Top = -1
-            Caption = 'Monof'#225'sico'
-            ParentBackground = False
-            ParentColor = False
-            Properties.OnChange = cxchckbx1PropertiesChange
-            Style.BorderColor = clMaroon
-            Style.Color = clGradientInactiveCaption
-            Style.LookAndFeel.NativeStyle = False
-            Style.LookAndFeel.SkinName = 'Office2013White'
-            Style.TextColor = clRed
-            StyleDisabled.LookAndFeel.NativeStyle = False
-            StyleDisabled.LookAndFeel.SkinName = 'Office2013White'
-            StyleFocused.LookAndFeel.NativeStyle = False
-            StyleFocused.LookAndFeel.SkinName = 'Office2013White'
-            StyleHot.LookAndFeel.NativeStyle = False
-            StyleHot.LookAndFeel.SkinName = 'Office2013White'
-            TabOrder = 0
-          end
-          object cstcofins: TcxDBLookupComboBox
-            Left = 67
-            Top = 50
-            DataBinding.DataField = 'COFINS_CST'
-            ParentFont = False
-            Properties.ButtonGlyph.Data = {
-              36040000424D3604000000000000360000002800000010000000100000000100
-              2000000000000004000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              000000000000000000000000000000000000000000001D1D1C3B1716162D0000
-              0000000000000000000000000000000000000000000000000000000000000000
-              00000000000000000000000000000000000000000000636362D1565554B30000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000001C1C1B37626263FF656565FB1211
-              1123000000000000000000000000000000000000000000000000000000000000
-              000000000000000000000000000000000000595857B83E3E3FFF464646FF4C4C
-              4B9C000000000000000000000000000000000000000000000000000000000000
-              00000000000000000000000000001E1D1D3B666565FF2E2E2EFF303031FF6A6A
-              6AFC0E0E0E1C0000000000000000000000000000000000000000000000000000
-              00000000000000000000000000005A5959B9414142FF343434C7343433D34848
-              48FF4D4D4B9B0000000000000000000000000000000000000000000000000000
-              000000000000000000001B1A1934616161FF2F2F2FAF010101030707070E3333
-              34C3696969FF0E0E0E1C00000000000000000000000000000000000000000000
-              000000000000000000005D5D5CC33B3B3B9B0000000100000000000000000404
-              0408484848B850504EA500000000000000000000000000000000000000000000
-              0000000000001B1B1A3636363676000000000000000000000000000000000000
-              0000000000003C3C3C831C1B1A37000000000000000000000000000000000000
-              00000000000010100F2100000000000000000000000000000000000000000000
-              000000000000000000010E0E0E1D000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000000000000000
-              0000000000000000000000000000000000000000000000000000}
-            Properties.DropDownListStyle = lsFixedList
-            Properties.DropDownRows = 10
-            Properties.DropDownWidth = 751
-            Properties.KeyFieldNames = 'CODIGO'
-            Properties.ListColumns = <
-              item
-                FieldName = 'DESCRICAO'
-              end>
-            Properties.ListOptions.ShowHeader = False
-            Properties.ListSource = DS_CSTCOFINS
-            Style.Font.Charset = DEFAULT_CHARSET
-            Style.Font.Color = clWindowText
-            Style.Font.Height = -15
-            Style.Font.Name = 'Tahoma'
-            Style.Font.Style = [fsBold]
-            Style.LookAndFeel.NativeStyle = False
-            Style.LookAndFeel.SkinName = 'Metropolis'
-            Style.IsFontAssigned = True
-            StyleDisabled.LookAndFeel.NativeStyle = False
-            StyleDisabled.LookAndFeel.SkinName = 'Metropolis'
-            StyleFocused.LookAndFeel.NativeStyle = False
-            StyleFocused.LookAndFeel.SkinName = 'Metropolis'
-            StyleHot.LookAndFeel.NativeStyle = False
-            StyleHot.LookAndFeel.SkinName = 'Metropolis'
-            TabOrder = 2
-            Width = 508
-          end
-        end
         object GroupBox23: TGroupBox
           Left = 4
           Top = 5
@@ -4219,7 +4022,7 @@ object Frm_Produto: TFrm_Produto
           ParentBackground = False
           ParentColor = False
           ParentFont = False
-          TabOrder = 2
+          TabOrder = 1
           object Label22: TLabel
             Left = 20
             Top = 26
@@ -5373,54 +5176,6 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'AUTO_INCREMENT'
       Origin = 'AUTO_INCREMENT'
-    end
-  end
-  object DS_CSTPIS: TDataSource
-    DataSet = SQL_CSTPIS
-    Left = 192
-    Top = 328
-  end
-  object DS_CSTCOFINS: TDataSource
-    DataSet = SQL_CSTCOFINS
-    Left = 1056
-    Top = 168
-  end
-  object SQL_CSTPIS: TFDQuery
-    Connection = Module.connection
-    SQL.Strings = (
-      'select * from cst_pis order by codigo')
-    Left = 192
-    Top = 384
-    object SQL_CSTPISCODIGO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      Size = 2
-    end
-    object SQL_CSTPISDESCRICAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO'
-      Origin = 'DESCRICAO'
-      Size = 210
-    end
-  end
-  object SQL_CSTCOFINS: TFDQuery
-    Connection = Module.connection
-    SQL.Strings = (
-      'select * from cst_cofins order by codigo')
-    Left = 1056
-    Top = 239
-    object SQL_CSTCOFINSCODIGO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      Size = 2
-    end
-    object SQL_CSTCOFINSDESCRICAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO'
-      Origin = 'DESCRICAO'
-      Size = 150
     end
   end
   object DS_Lista: TDataSource

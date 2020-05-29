@@ -2171,7 +2171,16 @@ begin
        Executar('ALTER TABLE PRODUTO MODIFY CEST VARCHAR(7) NULL DEFAULT NULL COMMENT "Código Especificador da Substituição Tributária" ');
     if fNaoAtualizado('Produto: ANP passa de 50 para 9 caracteres...') Then
        Executar('ALTER TABLE PRODUTO MODIFY ANP VARCHAR(9) NULL DEFAULT NULL COMMENT "Código Agencia Nacional de Petróleo" ');
-
+    //29/05/2020
+    if fNaoAtualizado('CST_PIS: Preenchido com códigos válidos...') Then
+    begin
+       Executar('DELETE FROM CST_PIS WHERE CODIGO not in ("04", "05", "07", "08", "09")');
+       Executar('UPDATE CST_PIS SET DESCRICAO = "Operação Tributável (tributação monofásica (alíquota zero)" WHERE CODIGO = "04"');
+       Executar('UPDATE CST_PIS SET DESCRICAO = "Operação Tributável (alíquota zero)"                        WHERE CODIGO = "06"');
+       Executar('UPDATE CST_PIS SET DESCRICAO = "Operação Isenta da Contribuição"                            WHERE CODIGO = "07"');
+       Executar('UPDATE CST_PIS SET DESCRICAO = "Operação Sem Incidência da Contribuição"                    WHERE CODIGO = "08"');
+       Executar('UPDATE CST_PIS SET DESCRICAO = "Operação com Suspensão da Contribuição"                     WHERE CODIGO = "09"');
+    end;
 end;
 
 end.
