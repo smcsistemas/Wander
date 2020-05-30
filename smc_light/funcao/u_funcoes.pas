@@ -6,6 +6,8 @@ unit u_funcoes;
 |-----|--------|--------------------|------------------------------------------|
 |  235|30/05/20|wander              |Criada rotina que preenche tabela CST_PIS |
 |     |   00:41|u_funcoes           |                                          |
+|     |        |--------------------|                                          |
+|     |        |   Fonte: https://docs.enotasgw.com.br/v2/docs/cst-pis-e-cofins|
 |-----|--------|--------------------|------------------------------------------|
 |  174|23/05/20|wander              |Máquina DEV_PC não mostra mais a msg de   |
 |     |   14:02|u_funcoes           |"Certificado Não Encontrado"              |
@@ -6222,6 +6224,8 @@ end;
 
 procedure Cadastrar_CST_PIS;
 begin
+    //Fonte: https://docs.enotasgw.com.br/v2/docs/cst-pis-e-cofins
+    //--------------------------------------------------------------------------
     CST_PIS_Insert('01','Operação Tributável com Alíquota Básica');
     CST_PIS_Insert('02','Operação Tributável com Alíquota Diferenciada');
     CST_PIS_Insert('03','Operação Tributável com Alíquota por Unidade de Medida de Produto');
@@ -6283,7 +6287,6 @@ begin
    Q.ExecSql;
 
    Q.Free;
-
 end;
 //##############################################################################
 //                FIM DAS FUNCOES DESENVOLVIDAS PELO WANDER

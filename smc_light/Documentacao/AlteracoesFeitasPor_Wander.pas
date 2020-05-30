@@ -38,6 +38,8 @@ ordem decrescente de data....
 |-----|--------|--------------------|------------------------------------------|
 |  235|30/05/20|wander              |Criada rotina que preenche tabela CST_PIS |
 |     |   00:41|u_funcoes           |                                          |
+|     |        |--------------------|                                          |
+|     |        |   Fonte: https://docs.enotasgw.com.br/v2/docs/cst-pis-e-cofins|
 |-----|--------|--------------------|------------------------------------------|
 |  234|29/05/20|wander              |Criada rotina que preenche a nova tabela  |
 |     |   13:19|Atualizador         |RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC |
