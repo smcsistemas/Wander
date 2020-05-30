@@ -8,6 +8,16 @@ https://docs.enotasgw.com.br/v2/docs/cst-pis-e-cofins
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  242|30/05/20|wander              |Tratando CST-COFINS no novo padrão:       |
+|     |   05:15|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
+|-----|--------|--------------------|------------------------------------------|
+|  241|30/05/20|wander              |Tratando CST-PIS no novo padrão:          |
+|     |   05:15|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
+|-----|--------|--------------------|------------------------------------------|
+|  240|30/05/20|wander              |Tratando CFOP do CST-PIS/COFINS no novo   |
+|     |   05:15|cadastro_produto    |padrão:                                   |
+|     |        |                    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
+|-----|--------|--------------------|------------------------------------------|
 |  237|29/05/20|wander              |Passa a permitir que o usuário consulte,  |
 |     |   22:46|cadastro_produto    |altere, exclua e inclua relacionamentos   |
 |     |        |                    |entre o PRODUTO, o CFOP, a CST do PIS e o |
@@ -520,6 +530,9 @@ type
     Label20: TLabel;
     edRPC_COFINS: TEdit;
     edRPC_COFINS_NOME: TEdit;
+    cxButton6: TcxButton;
+    cxButton8: TcxButton;
+    cxButton10: TcxButton;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -698,6 +711,15 @@ type
     procedure edRPC_CFOPChange(Sender: TObject);
     procedure edRPC_PISChange(Sender: TObject);
     procedure edRPC_COFINSChange(Sender: TObject);
+    procedure cxButton6Click(Sender: TObject);
+    procedure edRPC_CFOPKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure cxButton8Click(Sender: TObject);
+    procedure edRPC_PISKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edRPC_COFINSKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure cxButton10Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -713,7 +735,10 @@ type
     procedure ConsultarCODIGO_ORIGEM_MERCADORIA;
     procedure ConsultarSubGrupos;
     procedure ConsultarCST_ICMS;
+    procedure ConsultarCST_PIS;
+    procedure ConsultarCST_COFINS;
     procedure ConsultarUnidades;
+    procedure ConsultarCFOP;
     function DadosCorretos:Boolean;
     function Dados_da_Aba_Cadastro_OK  :Boolean;
     function Dados_da_Aba_Tributacao_OK:Boolean;
@@ -1217,6 +1242,11 @@ begin
 ////frm_estoque_opcoes;
 //end;
 
+procedure TFrm_Produto.cxButton10Click(Sender: TObject);
+begin
+   ConsultarCST_COFINS;
+end;
+
 procedure TFrm_Produto.cxButton11Click(Sender: TObject);
 begin
   frm_estoque_opcoes := tfrm_estoque_opcoes.CREATE(Application);
@@ -1258,11 +1288,22 @@ begin
    ConsultarCST_ICMS;
 end;
 
+procedure TFrm_Produto.cxButton6Click(Sender: TObject);
+begin
+   ConsultarCFOP;
+end;
+
 procedure TFrm_Produto.bRPC_DeleteClick(Sender: TObject);
 begin
    ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(edCodigo.Text,
                                                    edRPC_CFOP.Text);
    Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
+end;
+
+procedure TFrm_Produto.ConsultarCFOP;
+begin
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgCFOP, edRPC_CFOP);
+  Frm_Consulta_Generica.ShowModal;
 end;
 
 procedure TFrm_Produto.ConsultarCODIGO_ORIGEM_MERCADORIA;
@@ -1272,6 +1313,12 @@ begin
   edCODIGO_ORIGEM_MERCADORIA_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edCODIGO_ORIGEM_MERCADORIA.Text);
 end;
 
+procedure TFrm_Produto.ConsultarCST_COFINS;
+begin
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgCOFINS, edRPC_COFINS);
+  Frm_Consulta_Generica.ShowModal;
+end;
+
 procedure TFrm_Produto.ConsultarCST_ICMS;
 begin
   Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgICMS, edICMS_CST);
@@ -1279,9 +1326,20 @@ begin
   edICMS_CST_NOME.Text := fCST_ICMS_DESCRICAO(edICMS_CST.Text);
 end;
 
+procedure TFrm_Produto.ConsultarCST_PIS;
+begin
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgPIS, edRPC_PIS);
+  Frm_Consulta_Generica.ShowModal;
+end;
+
 procedure TFrm_Produto.cxButton7Click(Sender: TObject);
 begin
    ConsultarCODIGO_ORIGEM_MERCADORIA;
+end;
+
+procedure TFrm_Produto.cxButton8Click(Sender: TObject);
+begin
+   ConsultarCST_PIS;
 end;
 
 procedure TFrm_Produto.bRPC_InsertClick(Sender: TObject);
@@ -3065,6 +3123,13 @@ begin
    edRPC_CFOP_Nome.Text := fCFOP_DESCRICAO(edRPC_CFOP.Text);
 end;
 
+procedure TFrm_Produto.edRPC_CFOPKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = vk_F1) then
+   ConsultarCFOP;
+end;
+
 procedure TFrm_Produto.edRPC_COFINSChange(Sender: TObject);
 begin
    edRPC_COFINS_Nome.Text := '';
@@ -3073,12 +3138,26 @@ begin
    edRPC_COFINS_Nome.Text := fCST_COFINS_DESCRICAO(edRPC_COFINS.Text);
 end;
 
+procedure TFrm_Produto.edRPC_COFINSKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = vk_F1) then
+   ConsultarCST_COFINS;
+end;
+
 procedure TFrm_Produto.edRPC_PISChange(Sender: TObject);
 begin
    edRPC_PIS_Nome.Text := '';
    if edRPC_PIS.Text = '' then
       exit;
    edRPC_PIS_Nome.Text := fCST_PIS_DESCRICAO(edRPC_PIS.Text);
+end;
+
+procedure TFrm_Produto.edRPC_PISKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = vk_F1) then
+   ConsultarCST_PIS;
 end;
 
 function TFrm_Produto.RefFabricanteRepetido(foco: Boolean = true): Boolean;

@@ -20,13 +20,23 @@ ordem decrescente de data....
 |-------|------|
 |04/2020|  60  | 120
 |-------|------|
-|05/2020| 119  | 239
+|05/2020| 121  | 239
 |-------|------|
-|  TOTAL| 239  |
+|  TOTAL| 242  |
 ================
 
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  242|30/05/20|wander              |Tratando CST-COFINS no novo padrão:       |
+|     |   05:15|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
+|-----|--------|--------------------|------------------------------------------|
+|  241|30/05/20|wander              |Tratando CST-PIS no novo padrão:          |
+|     |   05:15|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
+|-----|--------|--------------------|------------------------------------------|
+|  240|30/05/20|wander              |Tratando CFOP do CST-PIS/COFINS no novo   |
+|     |   05:15|cadastro_produto    |padrão:                                   |
+|     |        |                    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
 |-----|--------|--------------------|------------------------------------------|
 |  239|30/05/20|wander              |Chama a rotina que preenche tabela        |
 |     |   01:07|Atualizador         |CST_COFINS                                |
