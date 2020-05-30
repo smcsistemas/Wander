@@ -4,6 +4,9 @@ unit u_funcoes;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  235|30/05/20|wander              |Criada rotina que preenche tabela CST_PIS |
+|     |   00:41|u_funcoes           |                                          |
+|-----|--------|--------------------|------------------------------------------|
 |  174|23/05/20|wander              |Máquina DEV_PC não mostra mais a msg de   |
 |     |   14:02|u_funcoes           |"Certificado Não Encontrado"              |
 |-----|--------|--------------------|------------------------------------------|
@@ -102,6 +105,10 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//087 30/05/2020-00:30-Cadastra todos os CST de PIS
+procedure Cadastrar_CST_PIS;
+//086 30/05/2020-00:30-Recebe codigo e descrição de CST_PIS e os inclui na tabela CST_PIS
+procedure CST_PIS_Insert(pCodigo, pDescricao:String);
 //085 29/05/2020-21:34-Recebe codigo CST_PIS e devolve sua descrição
 function fCST_COFINS_DESCRICAO(pCodigo:String):String;
 //084 29/05/2020-21:34-Recebe codigo CST_PIS e devolve sua descrição
@@ -6213,6 +6220,71 @@ begin
    Q.Free;
 end;
 
+procedure Cadastrar_CST_PIS;
+begin
+    CST_PIS_Insert('01','Operação Tributável com Alíquota Básica');
+    CST_PIS_Insert('02','Operação Tributável com Alíquota Diferenciada');
+    CST_PIS_Insert('03','Operação Tributável com Alíquota por Unidade de Medida de Produto');
+    CST_PIS_Insert('04','Operação Tributável Monofásica - Revenda a Alíquota Zero');
+    CST_PIS_Insert('05','Operação Tributável por Substituição Tributária');
+    CST_PIS_Insert('06','Operação Tributável a Alíquota Zero');
+    CST_PIS_Insert('07','Operação Isenta da Contribuição');
+    CST_PIS_Insert('08','Operação sem Incidência da Contribuição');
+    CST_PIS_Insert('09','Operação com Suspensão da Contribuição');
+    CST_PIS_Insert('49','Outras Operações de Saída');
+    CST_PIS_Insert('50','Operação com Direito a Crédito - Vinculada Exclusivamente a Receita Tributada no Mercado Interno');
+    CST_PIS_Insert('51','Operação com Direito a Crédito - Vinculada Exclusivamente a Receita Não-Tributada no Mercado Interno');
+    CST_PIS_Insert('52','Operação com Direito a Crédito - Vinculada Exclusivamente a Receita de Exportação');
+    CST_PIS_Insert('53','Operação com Direito a Crédito - Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno');
+    CST_PIS_Insert('54','Operação com Direito a Crédito - Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno');
+    CST_PIS_Insert('55','Operação com Direito a Crédito - Vinculada a Receitas Não Tributadas no Mercado Interno e de Exportação');
+    CST_PIS_Insert('56','Operação com Direito a Crédito - Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno e de Exportação');
+    CST_PIS_Insert('60','Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a Receita Tributada no Mercado Interno');
+    CST_PIS_Insert('61','Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a Receita Não-Tributada no Mercado Interno');
+    CST_PIS_Insert('62','Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a Receita de Exportação');
+    CST_PIS_Insert('63','Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno');
+    CST_PIS_Insert('64','Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas no Mercado Interno e de Exportação');
+    CST_PIS_Insert('65','Crédito Presumido - Operação de Aquisição Vinculada a Receitas Não-Tributadas no Mercado Interno e de Exportação');
+    CST_PIS_Insert('66','Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno e de Exportação');
+    CST_PIS_Insert('67','Crédito Presumido - Outras Operações');
+    CST_PIS_Insert('70','Operação de Aquisição sem Direito a Crédito');
+    CST_PIS_Insert('71','Operação de Aquisição com Isenção');
+    CST_PIS_Insert('72','Operação de Aquisição com Suspensão');
+    CST_PIS_Insert('73','Operação de Aquisição a Alíquota Zero');
+    CST_PIS_Insert('74','Operação de Aquisição sem Incidência da Contribuição');
+    CST_PIS_Insert('75','Operação de Aquisição por Substituição Tributária');
+    CST_PIS_Insert('98','Outras Operações de Entrada');
+    CST_PIS_Insert('99','Outras Operações');
+end;
+procedure CST_PIS_Insert(pCodigo, pDescricao:String);
+var Q : tFDQuery;
+begin
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+
+   Q.Close;
+   Q.Sql.Clear;
+   Q.SQL.Add('DELETE FROM CST_PIS    ');
+   Q.SQL.Add(' WHERE CODIGO = :CODIGO');
+   Q.ParamByName('CODIGO').AsString := pCODIGO;
+   Q.ExecSql;
+
+   Q.Close;
+   Q.Sql.Clear;
+   Q.SQL.Add('INSERT INTO CST_PIS');
+   Q.SQL.Add('     ( CODIGO,     ');
+   Q.SQL.Add('       DESCRICAO)  ');
+   Q.SQL.Add('VALUES             ');
+   Q.SQL.Add('     (:CODIGO,     ');
+   Q.SQL.Add('      :DESCRICAO)  ');
+   Q.ParamByName('CODIGO'   ).AsString := pCODIGO;
+   Q.ParamByName('DESCRICAO').AsString := pDESCRICAO;
+   Q.ExecSql;
+
+   Q.Free;
+
+end;
 //##############################################################################
 //                FIM DAS FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################

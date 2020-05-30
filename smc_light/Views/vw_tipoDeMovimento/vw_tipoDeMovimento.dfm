@@ -50,6 +50,10 @@ object frm_tipoDeMovimento: Tfrm_tipoDeMovimento
       ImageIndex = 0
       ParentColor = False
       OnShow = tab_consultaShow
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label45: TLabel
         Left = 14
         Top = 18
@@ -179,6 +183,10 @@ object frm_tipoDeMovimento: Tfrm_tipoDeMovimento
       Font.Style = []
       ImageIndex = 1
       ParentFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pcCadastrar: TPageControl
         Left = 0
         Top = 0
@@ -200,6 +208,10 @@ object frm_tipoDeMovimento: Tfrm_tipoDeMovimento
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Panel1: TPanel
             Left = 0
             Top = 0
@@ -386,6 +398,10 @@ object frm_tipoDeMovimento: Tfrm_tipoDeMovimento
         object tbParametrosFiscais: TTabSheet
           Caption = '  Par'#226'metros Fiscais'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Panel2: TPanel
             Left = 0
             Top = 0
@@ -461,6 +477,10 @@ object frm_tipoDeMovimento: Tfrm_tipoDeMovimento
         object tbTratamentosFiscais: TTabSheet
           Caption = '  Tratamentos Fiscais'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Panel3: TPanel
             Left = 0
             Top = 0

@@ -3,6 +3,9 @@ unit Atualizador;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  236|30/05/20|wander              |Chama rotina que preenche tabela CST_PIS  |
+|     |   00:41|Atualizador         |                                          |
+|-----|--------|--------------------|------------------------------------------|
 |  234|29/05/20|wander              |Criada rotina que preenche a nova tabela  |
 |     |   13:19|Atualizador         |RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC |
 |     |        |                    |com os dados do cadastro dos produtos     |
@@ -268,6 +271,7 @@ begin
   // Definir as funcionalidades do sistema que possuem controle de acesso
   CriarFuncoes;
 end;
+
 
 procedure TfrmAtualizador.Preencher_RELACAO_TPMOV_CRT_CST_ICMS_CSOSN_CFOP(pRCC_TPMOV     :String;
                                                                           pRCC_CRT       :Integer;
@@ -2298,8 +2302,11 @@ begin
     end;
     if fNaoAtualizado('Preenche Tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC..') Then
        Converte_PROD_CST_PISCOFINS_em_RELACAO_RPC_Para_TPMOV_igual_a_1;
+
+    if fNaoAtualizado('Cadastrar CST_PIS') Then
+       Cadastrar_CST_PIS;
 end;
 
 end.
 
-* FROM PRODUTO');
+

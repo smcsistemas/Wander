@@ -9,8 +9,35 @@ implementation
 Ano 2020
 ordem decrescente de data....
 
+================
+|    Resumo    |
+|--------------|
+|MES/ANO|Desenv|
+|-------|------|
+|02/2020|  20  |  20
+|-------|------|
+|03/2020|  40  |  60
+|-------|------|
+|04/2020|  60  | 120
+|-------|------|
+|05/2020| 117  | 237
+|-------|------|
+|  TOTAL| 236  |
+================
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  237|29/05/20|wander              |Passa a permitir que o usuário consulte,  |
+|     |   22:46|cadastro_produto    |altere, exclua e inclua relacionamentos   |
+|     |        |                    |entre o PRODUTO, o CFOP, a CST do PIS e o |
+|     |        |                    |CST do COFINS                             |
+|-----|--------|--------------------|------------------------------------------|
+|  236|30/05/20|wander              |Chama rotina que preenche tabela CST_PIS  |
+|     |   00:41|Atualizador         |                                          |
+|-----|--------|--------------------|------------------------------------------|
+|  235|30/05/20|wander              |Criada rotina que preenche tabela CST_PIS |
+|     |   00:41|u_funcoes           |                                          |
 |-----|--------|--------------------|------------------------------------------|
 |  234|29/05/20|wander              |Criada rotina que preenche a nova tabela  |
 |     |   13:19|Atualizador         |RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC |
@@ -871,21 +898,6 @@ ordem crescente de data....
 |   50|28/03|venda_pedido        |Implementada a pesquisa de cliente no padrão do SMC   |
 ================================================================================
 
-================
-|    Resumo    |
-|--------------|
-|MES/ANO|Desenv|
-|-------|------|
-|02/2020|  20  |  20
-|-------|------|
-|03/2020|  40  |  60
-|-------|------|
-|04/2020|  60  | 120
-|-------|------|
-|05/2020| 110  | 230
-|-------|------|
-|  TOTAL| 230  |
-================
 
 Observações:
 01: Quando dá erro de compilação na unit “m_Caixa” sem que nada tenha sido alterado na mesma, basta fechar a unit e recompilar.

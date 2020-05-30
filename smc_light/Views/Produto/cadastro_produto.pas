@@ -8,6 +8,11 @@ https://docs.enotasgw.com.br/v2/docs/cst-pis-e-cofins
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  237|29/05/20|wander              |Passa a permitir que o usuário consulte,  |
+|     |   22:46|cadastro_produto    |altere, exclua e inclua relacionamentos   |
+|     |        |                    |entre o PRODUTO, o CFOP, a CST do PIS e o |
+|     |        |                    |CST do COFINS                             |
+|-----|--------|--------------------|------------------------------------------|
 |  231|29/05/20|wander              |CST do PIS pode ser diferente do CST da   |
 |     |   13:11|cadastro_produto    |COFINS se a natureza da PJ for igual a    |
 |     |        |                    |“02 – Entidade sujeita ao PIS/Pasep       |
