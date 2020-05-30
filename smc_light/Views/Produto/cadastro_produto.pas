@@ -17,7 +17,9 @@ https://docs.enotasgw.com.br/v2/docs/cst-pis-e-cofins
 |     |        |                    |fiscal com CST´s diferentes é preciso     |
 |     |        |                    |vincular um “processo judicial ou um      |
 |     |        |                    |processo administrativo” (1010/1020).     |
-|-----|--------|--------------------|------------------------------------------|
+|     |        |                    |                                          ---------------
+|Fonte: https://www.contabeis.com.br/noticias/40929/simples-nacional-x-cst-de-pis-e-cofins/  |
+|-----|--------|--------------------|---------------------------------------------------------
 |  230|29/05/20|wander              |Deixa de tratar o CST do COFINS, pelo     |
 |     |   06:40|cadastro_produto    |mesmo motivo do CST do PIS descrito abaixo|
 |-----|--------|--------------------|------------------------------------------|

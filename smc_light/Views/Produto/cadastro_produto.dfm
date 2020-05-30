@@ -58,6 +58,10 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 0
       ParentFont = False
       OnShow = cxTabSheet1Show
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label58: TLabel
         Left = 20
         Top = 555
@@ -739,6 +743,8 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 3
       ExplicitLeft = 4
       ExplicitTop = 52
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel6: TPanel
         Left = 3
         Top = 2
@@ -3862,6 +3868,8 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 2
       ExplicitLeft = 74
       ExplicitTop = 30
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel4: TPanel
         Left = -1
         Top = 3
