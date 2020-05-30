@@ -20,13 +20,21 @@ ordem decrescente de data....
 |-------|------|
 |04/2020|  60  | 120
 |-------|------|
-|05/2020| 117  | 237
+|05/2020| 119  | 239
 |-------|------|
-|  TOTAL| 236  |
+|  TOTAL| 239  |
 ================
 
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  239|30/05/20|wander              |Chama a rotina que preenche tabela        |
+|     |   01:07|Atualizador         |CST_COFINS                                |
+|-----|--------|--------------------|------------------------------------------|
+|  238|30/05/20|wander              |Criada rotina que preenche tabela         |
+|     |   01:07|u_funcoes           |CST_COFINS                                |
+|     |        |--------------------|                                          |
+|     |        |   Fonte: https://docs.enotasgw.com.br/v2/docs/cst-pis-e-cofins|
 |-----|--------|--------------------|------------------------------------------|
 |  237|29/05/20|wander              |Passa a permitir que o usuário consulte,  |
 |     |   22:46|cadastro_produto    |altere, exclua e inclua relacionamentos   |

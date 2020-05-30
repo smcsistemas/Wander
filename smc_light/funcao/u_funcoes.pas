@@ -4,6 +4,11 @@ unit u_funcoes;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  238|30/05/20|wander              |Criada rotina que preenche tabela         |
+|     |   01:07|u_funcoes           |CST_COFINS                                |
+|     |        |--------------------|                                          |
+|     |        |   Fonte: https://docs.enotasgw.com.br/v2/docs/cst-pis-e-cofins|
+|-----|--------|--------------------|------------------------------------------|
 |  235|30/05/20|wander              |Criada rotina que preenche tabela CST_PIS |
 |     |   00:41|u_funcoes           |                                          |
 |     |        |--------------------|                                          |
@@ -107,6 +112,10 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//089 30/05/2020-01:07-Cadastra todos os CST de COFINS
+procedure Cadastrar_CST_COFINS;
+//088 30/05/2020-01:07-Recebe codigo e descrição de CST_COFINS e os inclui na tabela CST_COFINS
+procedure CST_COFINS_Insert(pCodigo, pDescricao:String);
 //087 30/05/2020-00:30-Cadastra todos os CST de PIS
 procedure Cadastrar_CST_PIS;
 //086 30/05/2020-00:30-Recebe codigo e descrição de CST_PIS e os inclui na tabela CST_PIS
@@ -114,7 +123,7 @@ procedure CST_PIS_Insert(pCodigo, pDescricao:String);
 //085 29/05/2020-21:34-Recebe codigo CST_PIS e devolve sua descrição
 function fCST_COFINS_DESCRICAO(pCodigo:String):String;
 //084 29/05/2020-21:34-Recebe codigo CST_PIS e devolve sua descrição
-//function fCST_PIS_DESCRICAO(pCodigo:String):String;
+function fCST_PIS_DESCRICAO(pCodigo:String):String;
 //083 29/05/2020-21:19-Recebe codigo CFOP devolve sua descrição
 function fCFOP_DESCRICAO(pCodigo:String):String;
 //082 29/05/2020-20:49-Insere registro na tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
@@ -127,7 +136,7 @@ procedure ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pPRODUTO,pCFOP:String)
 //080 29/05/2020-12:06-Recebe um codigo de TPMOV e retorna seu CFOP
 function fTPMOV_CFOP(pCODIGO:String):String;
 //079 29/05/2020-05:29-Recebe um codigo de CST_PIS e retorna sua descrição
-function fCST_PIS_DESCRICAO(pCodigo:String): String;
+//function fCST_PIS_DESCRICAO(pCodigo:String): String;
 //078 26/05/2020-21:35-Recebe um valor (string) e retorna true se for vazio ou zero
 function Vazio_ou_Zero(pValor:String): Boolean;
 
@@ -6260,6 +6269,7 @@ begin
     CST_PIS_Insert('98','Outras Operações de Entrada');
     CST_PIS_Insert('99','Outras Operações');
 end;
+
 procedure CST_PIS_Insert(pCodigo, pDescricao:String);
 var Q : tFDQuery;
 begin
@@ -6288,6 +6298,75 @@ begin
 
    Q.Free;
 end;
+
+procedure Cadastrar_CST_COFINS;
+begin
+    //Fonte: https://docs.enotasgw.com.br/v2/docs/cst-pis-e-cofins
+    //--------------------------------------------------------------------------
+    CST_COFINS_Insert('01','Operação Tributável com Alíquota Básica');
+    CST_COFINS_Insert('02','Operação Tributável com Alíquota Diferenciada');
+    CST_COFINS_Insert('03','Operação Tributável com Alíquota por Unidade de Medida de Produto');
+    CST_COFINS_Insert('04','Operação Tributável Monofásica - Revenda a Alíquota Zero');
+    CST_COFINS_Insert('05','Operação Tributável por Substituição Tributária');
+    CST_COFINS_Insert('06','Operação Tributável a Alíquota Zero');
+    CST_COFINS_Insert('07','Operação Isenta da Contribuição');
+    CST_COFINS_Insert('08','Operação sem Incidência da Contribuição');
+    CST_COFINS_Insert('09','Operação com Suspensão da Contribuição');
+    CST_COFINS_Insert('49','Outras Operações de Saída');
+    CST_COFINS_Insert('50','Operação com Direito a Crédito - Vinculada Exclusivamente a Receita Tributada no Mercado Interno');
+    CST_COFINS_Insert('51','Operação com Direito a Crédito - Vinculada Exclusivamente a Receita Não-Tributada no Mercado Interno');
+    CST_COFINS_Insert('52','Operação com Direito a Crédito - Vinculada Exclusivamente a Receita de Exportação');
+    CST_COFINS_Insert('53','Operação com Direito a Crédito - Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno');
+    CST_COFINS_Insert('54','Operação com Direito a Crédito - Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno');
+    CST_COFINS_Insert('55','Operação com Direito a Crédito - Vinculada a Receitas Não Tributadas no Mercado Interno e de Exportação');
+    CST_COFINS_Insert('56','Operação com Direito a Crédito - Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno e de Exportação');
+    CST_COFINS_Insert('60','Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a Receita Tributada no Mercado Interno');
+    CST_COFINS_Insert('61','Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a Receita Não-Tributada no Mercado Interno');
+    CST_COFINS_Insert('62','Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a Receita de Exportação');
+    CST_COFINS_Insert('63','Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno');
+    CST_COFINS_Insert('64','Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas no Mercado Interno e de Exportação');
+    CST_COFINS_Insert('65','Crédito Presumido - Operação de Aquisição Vinculada a Receitas Não-Tributadas no Mercado Interno e de Exportação');
+    CST_COFINS_Insert('66','Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno e de Exportação');
+    CST_COFINS_Insert('67','Crédito Presumido - Outras Operações');
+    CST_COFINS_Insert('70','Operação de Aquisição sem Direito a Crédito');
+    CST_COFINS_Insert('71','Operação de Aquisição com Isenção');
+    CST_COFINS_Insert('72','Operação de Aquisição com Suspensão');
+    CST_COFINS_Insert('73','Operação de Aquisição a Alíquota Zero');
+    CST_COFINS_Insert('74','Operação de Aquisição sem Incidência da Contribuição');
+    CST_COFINS_Insert('75','Operação de Aquisição por Substituição Tributária');
+    CST_COFINS_Insert('98','Outras Operações de Entrada');
+    CST_COFINS_Insert('99','Outras Operações');
+end;
+
+procedure CST_COFINS_Insert(pCodigo, pDescricao:String);
+var Q : tFDQuery;
+begin
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+
+   Q.Close;
+   Q.Sql.Clear;
+   Q.SQL.Add('DELETE FROM CST_COFINS ');
+   Q.SQL.Add(' WHERE CODIGO = :CODIGO');
+   Q.ParamByName('CODIGO').AsString := pCODIGO;
+   Q.ExecSql;
+
+   Q.Close;
+   Q.Sql.Clear;
+   Q.SQL.Add('INSERT INTO CST_COFINS');
+   Q.SQL.Add('     ( CODIGO,        ');
+   Q.SQL.Add('       DESCRICAO)     ');
+   Q.SQL.Add('VALUES                ');
+   Q.SQL.Add('     (:CODIGO,        ');
+   Q.SQL.Add('      :DESCRICAO)     ');
+   Q.ParamByName('CODIGO'   ).AsString := pCODIGO;
+   Q.ParamByName('DESCRICAO').AsString := pDESCRICAO;
+   Q.ExecSql;
+
+   Q.Free;
+end;
+
 //##############################################################################
 //                FIM DAS FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################

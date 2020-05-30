@@ -3,6 +3,9 @@ unit Atualizador;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  239|30/05/20|wander              |Chama a rotina que preenche tabela        |
+|     |   01:07|Atualizador         |CST_COFINS                                |
+|-----|--------|--------------------|------------------------------------------|
 |  236|30/05/20|wander              |Chama rotina que preenche tabela CST_PIS  |
 |     |   00:41|Atualizador         |                                          |
 |-----|--------|--------------------|------------------------------------------|
@@ -2305,6 +2308,10 @@ begin
 
     if fNaoAtualizado('Cadastrar CST_PIS') Then
        Cadastrar_CST_PIS;
+
+    if fNaoAtualizado('Cadastrar CST_COFINS') Then
+       Cadastrar_CST_COFINS;
+
 end;
 
 end.
