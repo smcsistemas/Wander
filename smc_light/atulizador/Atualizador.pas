@@ -202,10 +202,6 @@ type
                                                              pRCC_CSOSN,
                                                              pRCC_CFOP      :String);
    procedure Converte_PROD_CST_PISCOFINS_em_RELACAO_RPC_Para_TPMOV_igual_a_1;
-   procedure Associar_CFOP_PROD_CST_PISCOFINS(pCFOP:String;
-                                              pPRODUTO:Integer;
-                                              pPIS_CST,
-                                              pCOFINS_CST:String);
 
   public
     { Public declarations }
@@ -474,47 +470,6 @@ begin
 
 end;
 
-procedure TfrmAtualizador.Associar_CFOP_PROD_CST_PISCOFINS(pCFOP: String;
-                                                           pPRODUTO: Integer;
-                                                           pPIS_CST,
-                                                           pCOFINS_CST: String);
-var qLocal : tFDQuery;
-begin
-   // É obrigatório que haja o CST do PIS ou do COFINS
-   if (pPIS_CST    = '') and
-      (pCOFINS_CST = '') then
-      exit;
-
-   //Criar Query Local
-   qLocal := TFDQuery.Create(nil);
-   qLocal.Connection     := Module.connection;
-   qLocal.ConnectionName := 'connection';
-
-   //Recuperar todos os produtos cadastrados...
-   qLocal.Close;
-   qLocal.Sql.Clear;
-   qLocal.SQL.Add('INSERT INTO RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC');
-   qLocal.SQL.Add('     (                                               ');
-   qLocal.SQL.Add('       RPC_CFOP,                                     ');
-   qLocal.SQL.Add('       RPC_PRODUTO,                                  ');
-   qLocal.SQL.Add('       RPC_PIS,                                      ');
-   qLocal.SQL.Add('       RPC_COFINS                                    ');
-   qLocal.SQL.Add('     )                                               ');
-   qLocal.SQL.Add('VALUES                                               ');
-   qLocal.SQL.Add('     (                                               ');
-   qLocal.SQL.Add('      :RPC_CFOP,                                     ');
-   qLocal.SQL.Add('      :RPC_PRODUTO,                                  ');
-   qLocal.SQL.Add('      :RPC_PIS,                                      ');
-   qLocal.SQL.Add('      :RPC_COFINS                                    ');
-   qLocal.SQL.Add('     )                                               ');
-   qLocal.ParamByName('RPC_CFOP'   ).AsString := pCFOP;
-   qLocal.ParamByName('RPC_PRODUTO').AsInteger:= pPRODUTO;
-   qLocal.ParamByName('RPC_PIS'    ).AsString := pPIS_CST;
-   qLocal.ParamByName('RPC_COFINS' ).AsString := pCOFINS_CST;
-   qLocal.ExecSql;
-   //Liberar memória
-   qLocal.Free;
-end;
 
 procedure TfrmAtualizador.Atualizacao01;
 begin

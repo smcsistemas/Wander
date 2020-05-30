@@ -102,6 +102,19 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//085 29/05/2020-21:34-Recebe codigo CST_PIS e devolve sua descrição
+function fCST_COFINS_DESCRICAO(pCodigo:String):String;
+//084 29/05/2020-21:34-Recebe codigo CST_PIS e devolve sua descrição
+//function fCST_PIS_DESCRICAO(pCodigo:String):String;
+//083 29/05/2020-21:19-Recebe codigo CFOP devolve sua descrição
+function fCFOP_DESCRICAO(pCodigo:String):String;
+//082 29/05/2020-20:49-Insere registro na tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
+procedure Associar_CFOP_PROD_CST_PISCOFINS(pCFOP:String;
+                                           pPRODUTO:Integer;
+                                           pPIS_CST,
+                                           pCOFINS_CST:String);
+//081 29/05/2020-20:38-Recebe Codigo de Produto e CFOP e exclui relacionamento CST PIS COFINS
+procedure ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pPRODUTO,pCFOP:String);
 //080 29/05/2020-12:06-Recebe um codigo de TPMOV e retorna seu CFOP
 function fTPMOV_CFOP(pCODIGO:String):String;
 //079 29/05/2020-05:29-Recebe um codigo de CST_PIS e retorna sua descrição
@@ -6074,6 +6087,128 @@ begin
    Q.Open;
    if not Q.Eof Then
       result := Q.FieldByName('TPMOV_CFOP').AsString;
+
+   Q.Free;
+end;
+
+procedure ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pPRODUTO,pCFOP:String);
+var Q : tFDQuery;
+begin
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+   Q.Close;
+   Q.Sql.Clear;
+   Q.SQL.Add('DELETE FROM RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC ');
+   Q.SQL.Add(' WHERE RPC_CFOP    = :RPC_CFOP                        ');
+   Q.SQL.Add('   AND RPC_PRODUTO = :RPC_PRODUTO                     ');
+   Q.ParamByName('RPC_CFOP'   ).AsString := pCFOP;
+   Q.ParamByName('RPC_PRODUTO').AsString := pPRODUTO;
+   Q.ExecSql;
+   Q.Free;
+end;
+
+procedure Associar_CFOP_PROD_CST_PISCOFINS(pCFOP: String;
+                                           pPRODUTO: Integer;
+                                           pPIS_CST,
+                                           pCOFINS_CST: String);
+var qLocal : tFDQuery;
+begin
+   // É obrigatório que haja o CST do PIS ou do COFINS
+   if (pPIS_CST    = '') and
+      (pCOFINS_CST = '') then
+      exit;
+
+   //Criar Query Local
+   qLocal := TFDQuery.Create(nil);
+   qLocal.Connection     := Module.connection;
+   qLocal.ConnectionName := 'connection';
+
+   //Recuperar todos os produtos cadastrados...
+   qLocal.Close;
+   qLocal.Sql.Clear;
+   qLocal.SQL.Add('INSERT INTO RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC');
+   qLocal.SQL.Add('     (                                               ');
+   qLocal.SQL.Add('       RPC_CFOP,                                     ');
+   qLocal.SQL.Add('       RPC_PRODUTO,                                  ');
+   qLocal.SQL.Add('       RPC_PIS,                                      ');
+   qLocal.SQL.Add('       RPC_COFINS                                    ');
+   qLocal.SQL.Add('     )                                               ');
+   qLocal.SQL.Add('VALUES                                               ');
+   qLocal.SQL.Add('     (                                               ');
+   qLocal.SQL.Add('      :RPC_CFOP,                                     ');
+   qLocal.SQL.Add('      :RPC_PRODUTO,                                  ');
+   qLocal.SQL.Add('      :RPC_PIS,                                      ');
+   qLocal.SQL.Add('      :RPC_COFINS                                    ');
+   qLocal.SQL.Add('     )                                               ');
+   qLocal.ParamByName('RPC_CFOP'   ).AsString := pCFOP;
+   qLocal.ParamByName('RPC_PRODUTO').AsInteger:= pPRODUTO;
+   qLocal.ParamByName('RPC_PIS'    ).AsString := pPIS_CST;
+   qLocal.ParamByName('RPC_COFINS' ).AsString := pCOFINS_CST;
+   qLocal.ExecSql;
+   //Liberar memória
+   qLocal.Free;
+end;
+
+function fCFOP_DESCRICAO(pCodigo:String):String;
+var Q : tFDQuery;
+begin
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+   Result := '';
+
+   Q.Close;
+   Q.Sql.Clear;
+   Q.SQL.Add('SELECT DESCRICAO       ');
+   Q.SQL.Add('  FROM CFOP            ');
+   Q.SQL.Add(' WHERE CODIGO = :CODIGO');
+   Q.ParamByName('CODIGO').AsString := pCODIGO;
+   Q.Open;
+   if not Q.Eof Then
+      result := Q.FieldByName('DESCRICAO').AsString;
+
+   Q.Free;
+end;
+
+{function fCST_PIS_DESCRICAO(pCodigo:String):String;
+var Q : tFDQuery;
+begin
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+   Result := '';
+
+   Q.Close;
+   Q.Sql.Clear;
+   Q.SQL.Add('SELECT DESCRICAO       ');
+   Q.SQL.Add('  FROM CST_PIS         ');
+   Q.SQL.Add(' WHERE CODIGO = :CODIGO');
+   Q.ParamByName('CODIGO').AsString := pCODIGO;
+   Q.Open;
+   if not Q.Eof Then
+      result := Q.FieldByName('DESCRICAO').AsString;
+
+   Q.Free;
+end;
+}
+function fCST_COFINS_DESCRICAO(pCodigo:String):String;
+var Q : tFDQuery;
+begin
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+   Result := '';
+
+   Q.Close;
+   Q.Sql.Clear;
+   Q.SQL.Add('SELECT DESCRICAO       ');
+   Q.SQL.Add('  FROM CST_COFINS      ');
+   Q.SQL.Add(' WHERE CODIGO = :CODIGO');
+   Q.ParamByName('CODIGO').AsString := pCODIGO;
+   Q.Open;
+   if not Q.Eof Then
+      result := Q.FieldByName('DESCRICAO').AsString;
 
    Q.Free;
 end;

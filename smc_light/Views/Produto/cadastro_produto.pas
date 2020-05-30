@@ -204,8 +204,8 @@ type
     edArgumentoDePesquisa: TEdit;
     tab_Cadastrar: TcxTabSheet;
     SQL_CSTIPI: TFDQuery;
-    SQL_IPI: TFDQuery;
-    DS_IPI: TDataSource;
+    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC: TFDQuery;
+    dsRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC: TDataSource;
     SQL_DADOS_ROTINAS: TFDQuery;
     DS_DADOS_ROTINAS: TDataSource;
     popmenu: TPopupMenu;
@@ -500,6 +500,19 @@ type
     btn_Tipo: TcxButton;
     Label61: TLabel;
     edNFe_pMVAST: TEdit;
+    DBGrid1: TDBGrid;
+    Panel1: TPanel;
+    bRPC_Delete: TcxButton;
+    bRPC_Insert: TcxButton;
+    Label14: TLabel;
+    edRPC_CFOP: TEdit;
+    edRPC_CFOP_NOME: TEdit;
+    edRPC_PIS_NOME: TEdit;
+    edRPC_PIS: TEdit;
+    Label19: TLabel;
+    Label20: TLabel;
+    edRPC_COFINS: TEdit;
+    edRPC_COFINS_NOME: TEdit;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -671,6 +684,13 @@ type
     procedure edArgumentoDePesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure tbViewKeyPress(Sender: TObject; var Key: Char);
     procedure edNCMKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPCAfterScroll(
+      DataSet: TDataSet);
+    procedure bRPC_DeleteClick(Sender: TObject);
+    procedure bRPC_InsertClick(Sender: TObject);
+    procedure edRPC_CFOPChange(Sender: TObject);
+    procedure edRPC_PISChange(Sender: TObject);
+    procedure edRPC_COFINSChange(Sender: TObject);
 
   private
     { Private declarations }
@@ -695,7 +715,7 @@ type
     procedure InserirRegistro;
     procedure Ir_Para_Cadastro;
     procedure Ir_Para_Consulta;
-
+    procedure Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
   public
     { Public declarations }
     deletar_prod_preco_faixa, consultarultimo: Boolean;
@@ -1231,6 +1251,13 @@ begin
    ConsultarCST_ICMS;
 end;
 
+procedure TFrm_Produto.bRPC_DeleteClick(Sender: TObject);
+begin
+   ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(edCodigo.Text,
+                                                   edRPC_CFOP.Text);
+   Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
+end;
+
 procedure TFrm_Produto.ConsultarCODIGO_ORIGEM_MERCADORIA;
 begin
   Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgORIGEM, edCODIGO_ORIGEM_MERCADORIA);
@@ -1248,6 +1275,24 @@ end;
 procedure TFrm_Produto.cxButton7Click(Sender: TObject);
 begin
    ConsultarCODIGO_ORIGEM_MERCADORIA;
+end;
+
+procedure TFrm_Produto.bRPC_InsertClick(Sender: TObject);
+begin
+   if edRPC_CFOP.Text   = '' then exit;
+   if edRPC_PIS.Text    = '' then exit;
+   if edRPC_COFINS.Text = '' then exit;
+
+   ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(edCodigo.Text,
+                                                   edRPC_CFOP.Text);
+
+
+   Associar_CFOP_PROD_CST_PISCOFINS(edRPC_CFOP.Text,
+                                    StrToInt(edCodigo.Text),
+                                    edRPC_PIS.Text,
+                                    edRPC_COFINS.Text);
+
+   Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
 end;
 
 procedure TFrm_Produto.cxButton9Click(Sender: TObject);
@@ -1300,6 +1345,10 @@ begin
   //Ajusta botões de controle
   pode_Alterar_Incluir(Frm_Produto);
 
+  //Relação CFOPxProdutoxCSTPIS/COFINS
+  bRPC_Insert.Enabled := false;
+  bRPC_Delete.Enabled := false;
+
   //Posicionar na aba de consulta
   Ir_Para_Consulta;
 
@@ -1312,6 +1361,10 @@ procedure TFrm_Produto.bControleCancelarClick(Sender: TObject);
 begin
   //Ajusta botões de controle
   pode_Alterar_Incluir(Frm_Produto);
+
+  //Relação CFOPxProdutoxCSTPIS/COFINS
+  bRPC_Insert.Enabled := false;
+  bRPC_Delete.Enabled := false;
 
   //Posicionar na aba de consulta
   Ir_Para_Consulta;
@@ -1330,6 +1383,7 @@ procedure TFrm_Produto.Ir_Para_Consulta;
 begin
    //limpar todos os campos da tela
    //LimpaTela;
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Close;
 
    //Posicionar na aba de consulta
    cxpageControl1.ActivePageIndex := 0;
@@ -1353,6 +1407,10 @@ begin
   //Ajusta botões de controle
   pode_Cancelar_Gravar(Frm_Produto);
 
+  //Relação CFOPxProdutoxCSTPIS/COFINS
+  bRPC_Insert.Enabled := true;
+  bRPC_Delete.Enabled := true;
+
   //Posicionar na aba Cadastro
   Ir_Para_Cadastro;
 
@@ -1364,6 +1422,10 @@ procedure TFrm_Produto.bControleIncluirClick(Sender: TObject);
 begin
   //Ajusta botões de controle
   pode_Cancelar_Gravar(Frm_Produto);
+
+  //Relação CFOPxProdutoxCSTPIS/COFINS
+  bRPC_Insert.Enabled := false;
+  bRPC_Delete.Enabled := false;
 
   //limpar todos os campos da tela
   LimpaTela(Frm_Produto);
@@ -2838,13 +2900,29 @@ begin
    //Percentual de Margem de Valor Agregado (MVA) (ST)
    edNFe_pMVAST.Text                    := Float_to_String(qConsulta.FieldByName('NFe_pMVAST').AsFloat);
 
+   Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
+
    // Exibir a aba Cadastro
    cxPageControl1.ActivePAgeIndex  := 1;
 end;
 
+procedure TFrm_Produto.Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
+begin
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Close;
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Clear;
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('SELECT *                                          ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('  FROM RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC, ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('       CFOP                                       ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add(' WHERE RPC_CFOP    = CODIGO                       ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('   AND RPC_PRODUTO = :RPC_PRODUTO                 ');
+
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add(' ORDER BY RPC_CFOP                                ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.ParamByName('RPC_PRODUTO').AsString := qConsulta.FieldByName('CODIGO').AsString;
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Open;
+end;
+
 procedure TFrm_Produto.edNCMExit(Sender: TObject);
 begin
-
   if edNCM.Text = '' then
   begin
     mmNCM.Text  := '';
@@ -2950,6 +3028,15 @@ begin
     end;
 end;
 
+procedure TFrm_Produto.qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPCAfterScroll(
+  DataSet: TDataSet);
+begin
+   edRPC_CFOP.Text   := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_CFOP'  ).AsString;
+   edRPC_PIS.Text    := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString;
+   edRPC_COFINS.Text := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString;
+
+end;
+
 procedure TFrm_Produto.edREFERENCIA_FABRICANTEExit(Sender: TObject);
 begin
    RefFabricanteRepetido;
@@ -2961,6 +3048,30 @@ begin
   if key <> VK_RETURN then
     if length(edREFERENCIA_FABRICANTE.Text) > 0 then
        RefFabricanteRepetido;
+end;
+
+procedure TFrm_Produto.edRPC_CFOPChange(Sender: TObject);
+begin
+   edRPC_CFOP_Nome.Text := '';
+   if edRPC_CFOP.Text = '' then
+      exit;
+   edRPC_CFOP_Nome.Text := fCFOP_DESCRICAO(edRPC_CFOP.Text);
+end;
+
+procedure TFrm_Produto.edRPC_COFINSChange(Sender: TObject);
+begin
+   edRPC_COFINS_Nome.Text := '';
+   if edRPC_COFINS.Text = '' then
+      exit;
+   edRPC_COFINS_Nome.Text := fCST_COFINS_DESCRICAO(edRPC_COFINS.Text);
+end;
+
+procedure TFrm_Produto.edRPC_PISChange(Sender: TObject);
+begin
+   edRPC_PIS_Nome.Text := '';
+   if edRPC_PIS.Text = '' then
+      exit;
+   edRPC_PIS_Nome.Text := fCST_PIS_DESCRICAO(edRPC_PIS.Text);
 end;
 
 function TFrm_Produto.RefFabricanteRepetido(foco: Boolean = true): Boolean;
