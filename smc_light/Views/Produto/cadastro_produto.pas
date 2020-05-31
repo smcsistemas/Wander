@@ -4,6 +4,9 @@ unit cadastro_produto;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  243|31/05/20|wander              |Acertada a rotina que encontra o CEST e a |
+|     |   08:15|cadastro_produto    |descrição pelo código NCM do produto      |
+|-----|--------|--------------------|------------------------------------------|
 |  242|30/05/20|wander              |Tratando CST-COFINS no novo padrão:       |
 |     |   05:15|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
 |-----|--------|--------------------|------------------------------------------|
@@ -612,6 +615,7 @@ type
     procedure chk_todosClick(Sender: TObject);
     procedure Pesquisar;
     procedure Pesquisar_NCM;
+    procedure Preencher_CEST;
     procedure DBEdit14KeyPress(Sender: TObject; var Key: Char);
     procedure DBEdit15KeyPress(Sender: TObject; var Key: Char);
     procedure DBEdit12KeyPress(Sender: TObject; var Key: Char);
@@ -643,8 +647,7 @@ type
     procedure PRECO_FINAL_ATACADOKeyPress(Sender: TObject; var Key: Char);
     procedure chk_diff_estoquePropertiesChange(Sender: TObject);
     procedure PreencherNCM(value: string);
-    procedure preencherANP(value: string);
-    procedure LimparANP;
+    //procedure preencherANP(value: string);
     procedure btn_anpClick(Sender: TObject);
     procedure tbViewCustomDrawCell(Sender: TcxCustomGridTableView; ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
       var ADone: Boolean);
@@ -1070,14 +1073,6 @@ begin
 //    IniciarCadastro([bControleIncluir, bControleCancelar, bControleAlterar], false);
 end;
 
-
-procedure TFrm_Produto.LimparANP;
-begin
-  //edt_anp.Clear;
-  //lbl_anp.Caption :=
-  //  '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  ';
-end;
-
 procedure TFrm_Produto.aliq_cofinsKeyPress(Sender: TObject;
 
   var Key: Char);
@@ -1443,7 +1438,7 @@ end;
 procedure TFrm_Produto.Ir_Para_Consulta;
 begin
    //limpar todos os campos da tela
-   //LimpaTela;
+   LimpaTela(Frm_Produto);
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Close;
 
    //Posicionar na aba de consulta
@@ -1580,27 +1575,56 @@ begin
 end;
 
 procedure TFrm_Produto.Pesquisar_NCM;
+begin
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgNCM, edNCM);
+  Frm_Consulta_Generica.ShowModal;
+  Preencher_CEST;
+end;
+
+procedure TFrm_Produto.Preencher_CEST;
 var
   int: Integer;
   str_cest: string;
   qry: TFDQuery;
 begin
-  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgNCM, edNCM);
-  Frm_Consulta_Generica.ShowModal;
-  str_cest := edNCM.Text;
-  if str_cest <> emptystr then
+  //Inicia CEST e descrição do NCM
+  mmNCM.Text  := '';
+  edCEST.Text := '';
+
+  if edNCM.Text = '' then
   begin
-    int := pos(';', str_cest);
-    edNCM.Text := copy(str_cest, 0, int - 1);
-    edCEST.Text := TFunctions.replace(str_cest, edNCM.Text + ';');
-    qry := simplequery('SELECT DESCRICAO FROM TAB_CEST WHERE NCM = "'
-                      + edNCM.Text
-                      + '" AND CEST="'
-                      + edCEST.Text
-                      + '"');
-    if qry <> nil then
-      mmNCM.Text := qry.Fields[0].Text;
+    // Não informou NCM...
+    mmNCM.Text  := '';
+    edCEST.Text := '';
+    exit;
   end;
+
+  // Informou NCM...
+  str_cest := edNCM.Text;
+
+  {
+  int := pos(';', str_cest);
+  if int <> 0 then
+     edNCM.Text := copy(str_cest, 0, int - 1);
+  }
+
+
+  //Procura CEST na relação NCM x CEST
+  qry := simplequery('SELECT CEST, DESCRICAO FROM TAB_CEST WHERE NCM = "'
+                    + edNCM.Text+'"');
+
+  if qry = nil then
+  begin
+    //Não encontrou NCM
+    wnAlerta('Cadastrar Produto',
+             'NCM não encontrado');
+    edNCM.SetFocus;
+    exit;
+  end;
+
+  //Encontrou CEST...
+  edCEST.Text := qry.FieldByName('CEST'     ).AsString;
+  mmNCM.Text  := qry.FieldByName('DESCRICAO').AsString;
 
 end;
 
@@ -2984,11 +3008,7 @@ end;
 
 procedure TFrm_Produto.edNCMExit(Sender: TObject);
 begin
-  if edNCM.Text = '' then
-  begin
-    mmNCM.Text  := '';
-    edCEST.Text := '';
-  end;
+  Preencher_CEST;
 end;
 
 procedure TFrm_Produto.edNCMKeyDown(Sender: TObject; var Key: Word;
@@ -3033,8 +3053,7 @@ begin
   Key := ApenasNumeros(Key);
 end;
 
-
-
+{
 procedure TFrm_Produto.preencherANP(value: string);
 var
   xANP: TANP;
@@ -3055,7 +3074,7 @@ begin
     end;
   end;
 end;
-
+}
 procedure TFrm_Produto.PreencherNCM(value: string);
 var
   xNCM: tNCM;
@@ -3605,4 +3624,5 @@ ENGINE=InnoDB
 AUTO_INCREMENT=34052
 ;
 }
+
 

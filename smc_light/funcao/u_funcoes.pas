@@ -5754,6 +5754,10 @@ begin
      if (pForm.Components[i] is TMemo) then
         (pForm.Components[i] as TMemo).Lines.Clear;
 
+     //TcxMemo
+     if (pForm.Components[i] is TcxMemo) then
+        (pForm.Components[i] as TcxMemo).Lines.Clear;
+
    end;
 end;
 

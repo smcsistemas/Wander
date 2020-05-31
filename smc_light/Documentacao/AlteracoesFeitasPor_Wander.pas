@@ -20,13 +20,16 @@ ordem decrescente de data....
 |-------|------|
 |04/2020|  60  | 120
 |-------|------|
-|05/2020| 121  | 239
+|05/2020| 123  | 243
 |-------|------|
-|  TOTAL| 242  |
+|  TOTAL| 243  |
 ================
 
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  243|31/05/20|wander              |Acertada a rotina que encontra o CEST e a |
+|     |   08:15|cadastro_produto    |descrição pelo código NCM do produto      |
 |-----|--------|--------------------|------------------------------------------|
 |  242|30/05/20|wander              |Tratando CST-COFINS no novo padrão:       |
 |     |   05:15|cadastro_produto    |[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]   |
