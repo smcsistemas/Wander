@@ -25,6 +25,307 @@ ordem decrescente de data....
 |  TOTAL| 243  |
 ================
 
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+243|31/05/20|08:15|cadastro_produto            |Acertada a rotina que encontra o CEST e a descrição pelo código NCM do produto
+242|30/05/20|05:15|cadastro_produto            |Tratando CST-COFINS no novo padrão:[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]
+241|30/05/20|05:15|cadastro_produto            |Tratando CST-PIS no novo padrão:[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]
+240|30/05/20|05:15|cadastro_produto            |Tratando CFOP do CST-PIS/COFINS no novo padrão:[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]
+239|30/05/20|01:07|Atualizador                 |Chama a rotina que preenche tabela CST_COFINS
+238|30/05/20|01:07|u_funcoes                   |Criada rotina que preenche tabela CST_COFINS
+238|                                           |Fonte: https://docs.enotasgw.com.br/v2/docs/cst-pis-e-cofins
+237|29/05/20|22:46|cadastro_produto            |Passa a permitir que o usuário consulte, altere, exclua e inclua relacionamentos entre
+237|                                           |o PRODUTO, o CFOP, a CST do PIS e o CST do COFINS
+236|30/05/20|00:41|Atualizador                 |Chama rotina que preenche tabela CST_PIS
+235|30/05/20|00:41|u_funcoes                   |Criada rotina que preenche tabela CST_PIS
+235|                                           |Fonte: https://docs.enotasgw.com.br/v2/docs/cst-pis-e-cofins
+234|29/05/20|13:19|Atualizador                 |Criada rotina que preenche a nova tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
+234|                                           |com os dados do cadastro dos produtos Associando ao tipo de movimento 1 (venda padrão do CMS_LIGHT
+233|29/05/20|13:19|Atualizador                 |Criada Tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC que relaciona CFOP com o PRODUTO e seus
+233|                                           |CSTs de PIS e de COFINS que geralmente são iguais, exceto como explicado no item 231 do cad produto
+232|29/05/20|13:19|Atualizador                 |Tabela TIPOMOVIMENTO_TPMOV recebe coluna TPMOV_CFOP para armazenar o seu CFOP
+231|29/05/20|13:11|cadastro_produto            |CST do PIS pode ser diferente do CST da COFINS se a natureza da PJ for igual a “02 – Entidade sujeita ao PIS/Pasep
+231|                                           |exclusivamente com base na Folha de Salários”. Fora isso, para poder emitir um documento fiscal com CST´s
+231|                                           |diferentes é preciso vincular um “processo judicial ou um processo administrativo” (1010/1020).
+231|                                           |Fonte: https://www.contabeis.com.br/noticias/40929/simples-nacional-x-cst-de-pis-e-cofins/
+230|29/05/20|06:40|cadastro_produto            |Deixa de tratar o CST do COFINS, pelo mesmo motivo do CST do PIS descrito abaixo
+229|29/05/20|06:16|cadastro_produto            |Deixa de tratar o CST do PIS, pois, assim como o CSOSN e o CFOP, o CST do PIS não é
+229|                                           |um atributo intrínsico do produto, mas sim do produto na operação, não fazendo,
+229|                                           |portanto, nenhumo sentido estar no cadastro do produto, mas sim numa tabela
+229|                                           |que relacione o TIPO DE MOVIMENTO (venda, compra, bonficação, devolução, descarte,
+229|                                           |doação, remessa a conserto, exposição,etc
+229|                                           |com o PRODUTO. Pois este código vai mudar para o mesmo produto em diferentes operações.
+229|                                           |Consequentemente, foi eliminado o CST do PIS do cadastro do produto e uma tela
+229|                                           |e tabela deverão ser criados em que onde o usuário/contador/suporte possam definir o
+229|                                           |CST correto para cada operação.
+228|29/05/20|05:18|cadastro_produto            |Deixa de tratar a flag "PIS MONOFÀSICO" Pois ao escolher o CST já está implicito
+228|                                           |se é (04) ou não (demais) monofásico.
+227|28/05/20|20:39|cadastro_produto            |Deixa de tratar ANP - Código do produto na Agência Nacional de Petróleo
+226|28/05/20|20:37|Atualizador                 |Coluna ANP da tabela PRODUTO passou de 50 para 9 caracteres.
+225|28/05/20|20:21|cadastro_produto            |Tratando CEST
+224|28/05/20|20:21|cadastro_produto            |Tratando NCM / SH
+223|28/05/20|20:20|Atualizador                 |Coluna CEST da tabela PRODUTO passou de 50 para 7 caracteres.
+222|28/05/20|19:55|Atualizador                 |Coluna NCM da tabela PRODUTO passou de 50 para 8 caracteres.
+221|28/05/20|18:57|cadastro_produto            |Tratando GENERO. Só aceitava números mas o campo na tebela produtos é alfanumérico,
+221|                                           |portanto o código foi alterado p/ aceitar letras, números e caracteres especiais.
+220|28/05/20|18:57|cadastro_produto            |Não foi identificada a função da Coluna
+220|                                           |COD_COMB da tabela "Produtos". Rodrigo e desconhecem sua utilidade. Pesquisei e não
+220|                                           |há referênca a esta coluna em todo o sistema. Rodrigo pediu para não trata-la.
+219|28/05/20|13:23|cadastro_produto            |Tratando Margem de Valor Agregado (% MVA) da ST
+218|26/05/20|21:54|cadastro_produto            |Criada aba Tributação para tratar apenas parâmetros fiscais
+217|26/05/20|21:54|cadastro_produto            |Tratando Valor de Pauta para cálculo da Base de Cálculo do ICMS ST
+216|26/05/20|21:54|cadastro_produto            |Tratando Modalidade de Determinação da Base de Cálculo do ICMS ST
+215|26/05/20|18:04|cadastro_produto            |Tratando Valor de Pauta para cálculo da Base de Cálculo do ICMS
+214|26/05/20|18:04|cadastro_produto            |Tratando Modalidade de Determinação da Base de Cálculo do ICMS
+213|26/05/20|07:17|cadastro_produto            |Tratando Redução da Alíquota de ICMS
+212|25/05/20|23:10|parametros                  |Retirada a coluna OPTANTE_SIMPLES_NACIONAL do TFDQuery SQL_Empresa tributacao
+211|25/05/20|23:07|parametros_sistemas         |Retirada a coluna OPTANTE_SIMPLES_NACIONAL do TFDQuery SQL_Empresa
+210|25/05/20|22:52|paramentros_produtos        |Retirada a coluna OPTANTE_SIMPLES_NACIONAL do TFDQuery SQL_Empresa
+209|25/05/20|23:02|parametros_comanda          |Retirada a coluna OPTANTE_SIMPLES_NACIONAL do TFDQuery SQL_Empresa
+208|25/05/20|22:52|paramentros_clientes        |Retirada a coluna OPTANTE_SIMPLES_NACIONAL do TFDQuery SQL_Empresa
+207|25/05/20|22:52|relatorios                  |Retirada a coluna OPTANTE_SIMPLES_NACIONAL do TFDQuery SQL_Empresa
+206|25/05/20|22:52|U_ConfNFCE                  |Retirada a coluna OPTANTE_SIMPLES_NACIONAL do TFDQuery SQL_Empresa
+205|25/05/20|22:15|parametros_acesso_geral     |Retirada a coluna OPTANTE_SIMPLES_NACIONAL do TFDQuery SQL_Empresa
+204|25/05/20|20:15|cadastro_empresa            |Substituidos os 3 checkboxs (chk_3, 4 e 5) mutuamente excludentes por um RadioGroup
+204|                                           |rgCONTRIBUINTE_IPI com as opções
+204|                                           | - Apuração Mensal
+204|                                           | - Apuração Decendial
+204|                                           | - Não Contribuinte
+203|25/05/20|20:15|cadastro_empresa            |Deixa de tratar a coluna OPTANTE_SIMPLES_NACIONAL da tabela Empresa
+203|                                           |e passa a tratar a coluna CODIGO_REGIME_TRIBUTARIO para esta função
+202|25/05/20|20:15|Atualizador                 |Eliminada coluna OPTANTE_SIMPLES_NACIONAL da tabela Empresa pois já havia a coluna
+202|                                           |CODIGO_REGIME_TRIBUTARIO para esta função
+201|25/05/20|17:30|Atualizador                 |Criada padrão para dados da tabela RELACAO_CRT_CST_CSOSN_CFOP_RCC
+201|                                           |para o tipo de movimento TPMOV = 1 (Venda) como segue (CRT da empresa = 1
+201|                                           |       TPMOV CRT CST  CSOSN
+201|                                           |         1    1   00   101
+201|                                           |         1    1   41   102
+201|                                           |         1    1   40   103
+201|                                           |         1    1   60   500
+201|                                           |         1    1   90   900
+200|25/05/20|17:30|Atualizador                 |Criada tabela RELACAO_CRT_CST_CSOSN_CFOP_RCC que define qual o CSOSN a ser aplicado a produtos,
+200|                                           |conforme CRT da empresa e CST do ICMS da empresa:
+199|25/05/20|14:55|cadastro_empresa            |Incluida informação CRT - Código de Regime Tributário:
+199|                                           |0-Não se Aplica
+199|                                           |1-Símples Nacional
+199|                                           |2-Símples Nacional com Excesso de Receita
+199|                                           |3-Regime Normal (Lucro real ou presumido)
+198|25/05/20|14:37|EmissaoDeNFe                |VENDA_ITEM(CFOP) substituido por VENDA_ITEM(VI_CFOP_CSOSN)
+197|25/05/20|14:37|cadastro_produto            |Eliminado tratamento de CSOSN pois não é de produto mas sim de operação(movimento)
+196|25/05/20|14:37|cadastro_produto            |Eliminado tratamento de CFOP pois não é de produto mas sim de operação(movimento)
+195|25/05/20|14:22|Atualizador                 |Incluida coluna VI_CFOP_CSOSN na tabela Venda_Item, para armazenar o CFOP caso o
+195|                                           |seja optante do regime Normal ou CSOSN se optante do regime Simples Nacional.
+194|25/05/20|14:22|Atualizador                 |Eliminada coluna CFOP da tabela Venda_Item
+193|25/05/20|14:22|Atualizador                 |Eliminada coluna CSOSN da tabela produto
+192|24/05/20|22:06|cadastro_produto            |Tratando Alíquota de ICMS
+191|24/05/20|19:56|cadastro_produto            |Tratando Origem do Produto no novo padrão:[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]
+190|24/05/20|19:19|cadastro_produto            |Tratando TIPO ITEM no novo padrão: [COD][F1-Pesquisa][Nome][Lupa-Pesquisa]
+189|24/05/20|18:42|vw_consulta_generica        |Criada a consulta genérica para a tabela produto_tipo_item
+188|24/05/20|15:25|cadastro_produto            |Tratando unidade de medida. Antes armazeva a sigla na tab prod agora grav o codigo
+187|24/05/20|14:54|cadastro_unidade            |Padronizado tamanho do form cadastro_unidade Width 501 Heigth 350 e pnControles.Top=273
+186|24/05/20|14:54|cadastro_unidade            |Aplicadas as proced pode_Alterar_Incluir e pode_Cancelar_Gravar
+185|24/05/20|14:54|cadastro_unidade            |Aplicados os botões de Controle padrão
+184|24/05/20|14:54|cadastro_unidade            |Passa a retornar o cód da unidade se foi selecionada uma unidade ou vazio se não
+183|24/05/20|10:44|cadastro_produto            |Tratando ST do ICMS no novo padrão:[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]
+182|23/05/20|21:37|cadastro_produto            |CFOP é uma característica do produto na operação eo não do produto. Verificar com o Vitor
+181|23/05/20|21:37|cadastro_produto            |CSOSN é da empresa e nao do produto Verificar com o Vitor
+180|23/05/20|20:51|vw_main                     |Aba Configurações recebeu um botão SAIR
+179|23/05/20|20:12|config_nfe                  |Aplicados os botões de Controle padrão
+178|23/05/20|19:35|cadastro_produto            |Alterando produto (exceto a parte fiscal que será discutida com o Vitor
+177|23/05/20|18:30|AlteracoesFeitasPor_Wander  |Incluido após "end." no rodapé desta unit os comandos do Arquivo backup automático que faz backup e trata Git e GitHub
+176|23/05/20|17:15|GIT_Comandos                |Criada a unit "GIT_Comandos" contendo o manual passo a passo para versionamento com Git e GitHub
+175|23/05/20|15:31|cadastro_produto            |Eliminada a crítica de Referência do Fabricante repetida, pois é possível que haja. Avisa mas não impede.
+174|23/05/20|14:02|u_funcoes                   |Máquina DEV_PC não mostra mais a msg de "Certificado Não Encontrado"
+173|23/05/20|06:17|cadastro_produto            |Criado temporizador para pesqusar produto para pesquisar qdo usuário termina digitar
+172|23/05/20|02:25|cadastro_sub_grupo          |Percebi que permite gravar subgrupo sem o grupo e família associados e que no banco de dados o autoincremento se aplica apenas
+172|                                           |ao código sem associar grupo e família. Ou seja, o 1o subgrupo da familia 1 e grup 1 é 1. Mas o 1o subgrupo da familia 1 e
+172|                                           |grupo 2 nao é 1 e sim 2 como abaixo:
+172|                                           |Se familia e grupo se relacionassem com o subgrupo, teríamos a situação abaixo:
+172|                                           |familia|grupo|subgrupo|  familia, grupo e
+172|                                           |   1   |  1  |   1    |  subgrupo sao
+172|                                           |   1   |  2  |   1    |  chaves da tabela
+172|                                           |   2   |  1  |   1    |  produtos_subgrupo
+172|                                           |Observe que o cod do subgrupo se repete para familia e/ou grupos diferentes.
+172|                                           |Entretanto, como família e grupo não se relacionam, com subgrupo, temos a seguinte situação real:
+172|                                           |familia|grupo|subgrupo|  apenas o subgrupo
+172|                                           |   1   |  1  |   1    |  é chave da tabela
+172|                                           |   1   |  2  |   2    |  produtos_subgrupo
+172|                                           |   2   |  1  |   3    |
+172|                                           |Observe que o cod do subgrupo nunca se repete mesmo para familia e/ou grupos diferentes.
+172|                                           |O fato de familia, grupo e subgrupos serem desassociados torna muito mais flexível
+172|                                           |tanto o cadastro que evita repeticoes desnecessárias quanto da codificacao.
+172|                                           |Supondo que haja 5 familias, com 5 grupos cada e cada grupo com 5 subgrupos cada, seriam necessários 155 cadastros se estes
+172|                                           |campos se relacionassem. Como não se relacionam, basta apenas 15 cadastros!!!
+172|                                           |Pois um subgrupo serve a todos os grupos e famílias que se desejar.
+171|23/05/20|02:25|cadastro_sub_grupo          |Tabela FAMILIA apagada do banco de dados e substituida p/PRODUTO_FAMILIA já existente
+170|23/05/20|02:25|cadastro_grupo              |Tabela FAMILIA apagada do banco de dados e substituida p/PRODUTO_FAMILIA já existente
+169|23/05/20|02:01|cadastro_sub_grupo          |Passa a retornar código da subgrupo se foi selecionado subgrupomarca ou vazio se não
+168|23/05/20|02:01|cadastro_sub_grupo          |Aplicados os botões de Controle padrão
+167|23/05/20|02:01|cadastro_sub_grupo          |Padronizado tamanho do form Width 501 Heigth 350 e pnControles.Top=273
+166|23/05/20|02:01|cadastro_grupo              |Padronizado tamanho do form Width 501 Heigth 350 e pnControles.Top=273
+165|23/05/20|02:01|cadastro_familia            |Padronizado tamanho do form Width 501 Heigth 350 e pnControles.Top=273
+164|23/05/20|02:01|cad_marca                   |Padronizado tamanho do form Width 501 Heigth 350 e pnControles.Top=273
+163|22/05/20|17:10|cadastro_grupo              |Passa a retornar o código da grupo se foi selecionada uma marca ou vazio se não
+162|22/05/20|16:54|cadastro_grupo              |Aplicados os botões de Controle padrão
+161|22/05/20|09:59|cadastro_familia            |Aplicados os botões de Controle padrão
+160|22/05/20|09:42|cadastro_familia            |Deixou de tratar tabela FAMILIA e passou a tratar a tab PRODUTO_FAMILIA já existente
+159|22/05/20|09:39|Atualizador                 |Tabela FAMILIA apagada do banco de dados e substituida p/PRODUTO_FAMILIA já existente
+158|22/05/20|05:53|cadastro_familia            |Passa a retornar o código da família se selecionada uma marca ou vazio se não
+157|22/05/20|01:48|cad_cliente_2               |Aplicadas as proced pode_Alterar_Incluir e pode_Cancelar_Gravar
+156|22/05/20|01:48|cadastro_produto            |Aplicadas as proced pode_Alterar_Incluir e pode_Cancelar_Gravar
+155|22/05/20|01:40|cad_marca                   |Aplicadas as proced pode_Alterar_Incluir e pode_Cancelar_Gravar
+154|22/05/20|01:37|u_funcoes                   |Criadas procedures pode_Alterar_Incluir e pode_Cancelar_Gravar para habilitar e desabilitar os botoes de controle padrão
+153|22/05/20|01:21|cad_marca                   |Aplicados os botões de Controle padrão
+152|22/05/20|01:02|cad_marca                   |Passa a retornar o código da marca se foi selecionada uma marca ou vazio se não
+151|22/05/20|00:40|u_funcoes                   |Criada procedure HabilitaBotoes que habilita/Desabilia botões de controle (INS/ALT/CANC/GRAVAR) das telas de cadastro
+150|21/05/20|20:21|Atualizador                 |Criado Código Alfanumérico Alternativo na tabela PRODUTO (CODIGO_ALFANUMERICO) com 20 caracteres para permitir cod alfa.
+149|21/05/20|19:11|u_funcoes                   |Criada procedure LimpaTela que recebe um Tform e limpa todos os seus campos e objetos
+148|21/05/20|18:22|vw_main                     |Cadastros->Produtos>Cadastrar Produtos mudou pra Cadastros->Estoque->Produtos
+147|21/05/20|07:36|cad_cliente_2               |Padronizados os botões de controle (INS/ALT/CAN/GRAV) e uso proc HabilitarPanels
+146|21/05/20|07:36|cadastro_produto            |Padronizados os botões de controle (INS/ALT/CAN/GRAV) e uso proc HabilitarPanels
+145|21/05/20|07:36|vw_tipoDeMovimento          |Padronizados os botões de controle (INS/ALT/CAN/GRAV) e uso proc HabilitarPanels
+144|21/05/20|07:32|u_funcoes                   |Criado procedure HabilitarPanels q recebe um Tform e torna todos os TPanels enabled ou Disabled em função de um parâmetro
+144|                                           |booleano passado como parâmetro. Esta pro- cedure também padroniza o panel e botões de controle (INS/ALT/CAN/GRAV) do form.
+143|20/05/20|06:44|cadastro_produto            |Aplicado novo conceito de campos de pesquisa que passam a mostrar o código na tela  permitindo que o usuário
+143|                                           |digite o código sem precisar consultar.
+142|20/05/20|06:13|cadastro_produto            |Objetos TDBEdit substituídos por TEdit para que a tela não fique linkada em tempo real com o banco de dados.
+141|18/05/20|13:37|Atualizador                 |Passa a pedir usuário e senha de adm para executar o Atualizador da Base de Dados caso o usuário logado n seja adm ou MASTER
+140|18/05/20|08:00|vw_tipoDeMovimento          |Criada aba Parâmetros Fiscais que define quais grupos da NFe devem ser tratados
+139|14/05/20|10:53|venda_pedido                |Criada Consulta de Tipo de Movimento. Este campo passa a ser obrigatório para gravar a venda e para emitir NFe.
+138|14/05/20|10:53|venda_pedido                |Venda_Tipo foi substituido por VENDA_TPMOV Venda_Tipo era muito restrito enquanto VENDA_TPMOV permite mais flexibilidade,
+138|                                           |pois o usuário pode escolher qualquer um   tipos de movimento cadastrados.
+137|14/05/20|08:47|vw_tipoDeMovimento          |Acertando a mecânica da tela do cad tipo de movimento
+136|14/05/20|08:01|vw_tipoDeMovimento          |Recebeu parâmetro TPMOV_FINALIDADE Indicador Finalidade do Doc Fiscal
+135|14/05/20|08:01|vw_tipoDeMovimento          |Recebeu parâmetro TPMOV_EMITENF Indicador de emissão de Doc Fiscal
+134|14/05/20|07:54|Atualizador                 |Alterando o tipos de dados de algumas colunas: TPMOV_EMITENF
+133|13/05/20|10:44|vw_Login                    |Só exibe e exige que o usuário preencha o  campo EMPRESA se existir filiais cadastra-das.
+132|13/05/20|10:28|u_funcoes                   |Criada a função PossuiFiliais que retorna TRUE se há mais de uma empresa cadastrada no SMC, e FALSE se não
+131|11/05/20|19:22|u_funcoes                   |A função RegistraLog passoua salvar o cód. da empresa associada ao evento (log) Coluna LOG_EMPRESA
+130|11/05/20|19:12|u_funcoes                   |A função RegistraLog passou a criar a coluna LOG_EMPRESA na taleba LOG_LOG caso não exista.
+130|                                           |Esta coluna armazenará O CÓDIGO
+129|11/05/20|18:12|cad_cliente_2               |Passou a gravar na tabela Cliente e a exibir na tela a empresa/filial que cadastrou e que fez a última alteração no cad cli
+128|11/05/20|15:12|vw_Login                    |Passou a pedir a Filial e a atualizar a variável Global_Filial_Em_Uso para controlar a Filial ativa (em uso)
+127|11/05/20|15:09|u_funcoes                   |Criada variável Global_Filial_Em_Uso para controlar a Filial ativa (em uso)
+126|05/05/20|22:10|cad_cliente_2               |Pintar as linhas do grid de consulta Clientes ativos aparecerão em verde Clientes inativos aparecerão em vermelho
+125|05/05/20|21:24|cad_cliente_2               |A consulta passa a procurar nome, razao social, nome fantasia, cpf, cnpj, rg, ie, telefone, sem a necessidade do usuário
+125|                                           |selecionar o filtro correspondente
+124|05/05/20|19:22|cad_cliente_2               |Ao selecionar o tipo de pessoa (fisica ou jurídica) clicando no tRadioGroup criado pelo item 122, as TableSheets do
+124|                                           |TPageControl (física/jurídica) se excluem mutuamente.
+123|05/05/20|19:22|cad_cliente_2               |Eliminadas as sobreposições dos grupos Pessoa Física e Pessoa Jurídica. Substidos por um
+123|                                           |TPageControl com duas TableSheets: Pessoa Física e Pessoa Jurídica123
+122|05/05/20|19:22|cad_cliente_2               |Os dois botões (Pessoa Física) e (Pessoa Jurídica) foram substituídos por um TRadio group com as opções Física e Jurídica
+121|05/05/20|18:28|cad_cliente_2               |Inicio da Implementação do código de cad cliente no novo layout
+120|27/04/20|09:18|Atualizador                 |Criada tabela VENDA_INFORM_COMPL_VIC para armazenar texto de Informações Complementares da NFe
+119|27/04/20|06:25|Atualizador                 |Criadas colunas p/ detalhes de volumes da NFe
+118|27/04/20|00:10|vw_cliente                  |Criada coluna ID_REGIAO na tabela Cliente_Endereco
+117|26/04/20|20:45|cad_regiao                  |Implemento o código de cadastro de regiões
+116|26/04/20|18:00|Atualizador                 |Implemento o código de Cadasttela
+115|20/04/20|07:30|vw_cliente                  |Passou mostrar dados do bloqueio
+114|26/04/20|05:21|CLIENTE_HISTORICO_BLOQUEIOS |Criada unit/form para listar o histórico de bloqueios/desbloqueios do cadastro de um Cliente
+113|26/04/20|03:30|Atualizador                 |Criadas colunas para registrar dados da alteração cadastral do cliente.
+112|26/04/20|03:00|Atualizador                 |Criada tabela para registrar o histórico de bloqueios e desbloqueios do cliente.
+111|26/04/20|Atualizador                       |Criadas colunas para registrar dados do bloqueio do cliente.
+110|25/04/20|Atualizador                       |Criada coluna ID_CAD_RAMO_ATIVIDADE para armazenar o código do Ramo de Atividade do cliente
+109|25/04/20|06:50|cad_atividade               |Eliminado bug na coluna STATUS que impedia consultas,
+108|24/04/20|06:00|Wander                      |inserção e edição Criada tabela VENDA_LACRE_VLAC para armazenar dados dos lacres associados a um movimento
+107|24/04/20|00:30|Wander                      |Tratamento Transportador
+106|24/04/20|00:00|Atualizador                 |Incluida coluna Transportador na tabela Venda
+105|23/04/20|19:57|Atualizador                 |Incluída col Contribuinte_do_ICMS na tabela Transportador (S=Sim, N=Não)
+104|23/04/20|06:50|cad_servico                 |Criados LOGS para cadastro de serviços
+103|23/04/20|06:40|cad_servico                 |Aplicada auditoria no cadastro de serviços
+102|23/04/20|06:05|cad_servico                 |Aplicados controles de acesso para cadastro de serviços
+101|23/04/20|06:05|Atualizador                 |Criados controles de acesso para cadastro de serviços
+100|22/04/20|22:20|cad_servico                 |Implemtação do cadastro de serviços
+099|22/04/20|18:05|Atualizador                 |Incluida coluna CentroDeCustos na tabela Produto
+098|22/04/20|14:08|cad_plano_contas            |Criada consulta do plano de contas
+097|22/04/20|14:17|Atualizador                 |Incluida coluna ContaContabil na tabela Produto
+096|22/04/20|07:40|Atualizador                 |Incluida coluna Produto_ou_Servico na tabela Produto, indicando se o mesmo é um Produto (P) ou Serviço (S)
+095|22/04/20|07:00|EmissaoDeNFe                |Tratamento de Totais da NFe
+094|21/04/20|17:00|EmissaoDeNFe                |Tratamento de COFINS_ST
+093|20/04/20|17:30|cadastro_empresa            |Passou a tratar a nova coluna pCOFINS (aliquota de COFINS)
+092|20/04/20|17:00|EmissaoDeNFe                |Tratamento de COFINS
+091|20/04/20|16:50| Atualizador                |Incluida coluna pCOFINS (aliquota de COFINS) na tabela Empresa
+090|20/04/20|09:30|EmissaoDeNFe                |Tratamento de Importação
+089|20/04/20|07:30|EmissaoDeNFe                |Tratamento de IPI (indicação)
+088|20/04/20|07:30|vw_cliente                  |Eliminadas procedures não usadas.
+087|18/04/20|04:30|vw_cliente                  |Tratando banco
+086|16/04/20|09:40|vw_cliente                  |Tratando endereços e contatos do cliente
+085|16/04/20|06:35|U_Municipio                 |Não estava encontrando a cidade de Itajubá/MG. Alterado script de consulta da SQL_MUNICIPIO para tratar corretamente as tabelas
+085|                                           |endereco_estado e endereco_municipio para localizar qualquer cidade cadastrada
+084|09/04/20|06:35|vw_cliente                  |Tratando botões do cad de endereço. Quando clica em incluir ou alterar cliente, estes botões são habilitados. Ao salvar ou cancelar,
+084|                                           |são desabilitados novamente.
+083|09/04/20|06:35|vw_cliente                  |Grupo Pessoa Física que sobrepoe o Grupo Pessoa Jurídica na aba de cadastro passa a se posicionar
+083|                                           |corretamente onde deve ficar, em tempo de execucao, facilitando o manuseio do codigo durante sua edição/programação.
+082|09/04/20|06:35|vw_cliente                  |Estava tratando endereco da tabela de cliente e nao da tabela de cliente_endereco
+081|09/04/20|06:35|vw_cliente                  |Não estava tratando corretamente o codigo_Cidade-IBGE
+080|09/04/20|06:35|vw_cliente                  |Não estava tratando corretamente o codigo_UF-IBGE
+079|09/04/20|06:35|vw_cliente                  |Não havia a tabela Cliente_Endereco
+078|09/04/20|06:35|vw_cliente                  |Não havia a tabela Cliente_Banco
+077|09/04/20|06:35|vw_cliente                  |O nome fantasia não aparecia na tela de cadastro para alterar
+076|09/04/20|06:35|vw_cliente                  |O nome fantasia não aparecia no grid de consulta
+075|09/04/20|06:35|vw_cliente                  |Os campos edit/maskedit como o CNPJ/CPF não eram "limpos" ao clicar em INCLUIR permanecendo os dados do último cliente na tela de um
+075|                                           |novo cliente
+074|09/04/20|06:35|vw_cliente                  |Antes, ao selecionar um cliente já entrava em modo de edicao (alteracao).Modificado para entrar em modo de consulta.
+074|                                           |Para alterar é preciso clicar no botao Alterar.
+073|09/04/20|06:35|vw_cliente                  |Passou a consultar cliente com duplo clique na lista de clientes
+072|09/04/20|06:35|vw_cliente                  |Não permitia percorrer o grid da consulta de clientes. Ao clicar no grid já selecionava e editava o cliente
+071|09/04/20|06:35|vw_cliente                  |Não estava tratando SUFRAMA. Estava colocando o nome FANTASIA no campo SUFRAMA
+070|09/04/20|06:35|vw_cliente                  |Não estava gravando o status_cadastral Ativo/inativo
+069|09/04/20|06:35|vw_cliente                  |Tratando codigo UF e Municipio apos recuperar dados pelo CNPJ (rec.federal)
+068|08/04/20|06:35|vw_cliente                  |Consultando dados do Cliente pelo CNPJ (Rec.Federal)
+067|02/04/20|06:35|EmissaoDeNFe                |Implementado todo o tratamento de ICMS
+066|02/04/20|06:35|Atualizador                 |Incluidos várias colunas na tabela venda para tratar notas fiscais e cupons fiscais referenciados
+065|02/04/20|06:35|Atualizador                 |Incluido parâmetro "Contribuinte do ICMS" (S/N) na tabela empresa
+064|02/04/20|06:35|m_empresa                   |Incluido parâmetro "Contribuinte do ICMS" (S/N)
+063|02/04/20|06:35|cadastro_empresa            |Incluido parâmetro "Contribuinte do ICMS" (S/N)
+062|02/04/20|06:35|cadastro_empresa            |Obriga razao social <= 60 caracteres (Limite imposto pela SEFAZ para a emissão de NFe)
+061|01/04/20|06:35|vw_tipoDeMovimento          |Incluido tratamento da situacao (ativo/inativo) do Tipo de Movimento
+060|31/03/20|06:35|vw_main                     |Incluida chamada para o cadastro de tipo de movimento pois havia desaparecido nas ações do git
+059|31/03/20|06:35|vw_tipoDeMovimento          |Passou a tratar o Indicador Presencial do Cliente
+058|31/03/20|06:35|EmissaoDeNFe                |Passou a configurar idDest (interna, interestadual, exterior) a partir da tabela Natureza_Operacao e não
+058|                                           |mais da tabela TipoMovimento_TpMov
+057|31/03/20|06:35|vw_natureza_op              |Passou a tratar ESTADO = 'EXTERIOR'
+056|31/03/20|06:35|m_Natureza_Op               |Passou a tratar ESTADO = 'EXTERIOR'
+055|31/03/20|06:35|Atualizador                 |Alterada a coluna ESTADO da tabela Natureza_Operacao para aceitar EXTERIOR
+054|30/03/20|06:35|Atualizador                 |Criada coluna CFOP na tabela venda_item
+053|30/03/20|06:35|venda_pedido                |O tipo de venda passou a vir da tabela venda coluna venda_tipo
+052|30/03/20|06:35|Atualizador                 |Criada coluna venda_tipo na tabela venda identificar orçamentos, vendas NFe, vendas NFCe, Consignadas, etc
+051|28/03/20|06:35|venda_pedido                |Exibindo itens do movimento
+023|06/03/20|06:35|u_funcoes                   |Criada a função Float_to_String para padronizar a do tipo real para string formatada 9.999,99
+024|06/03/20|06:35|venda_pedido                |Duplo click no grid para abrir a venda (Copiado da unit venda_mercadoria)
+025|14/03/20|06:35|EmissaoDeNFe                |Criada esta unit/form para concentrar todo o processo de emissão de documentos fiscais e poder atender a
+025|                                           |qualquer parte do sistema que precise emitir doc fisc
+026|16/03/20|06:35|EmissaoDeNFe                |Passou a tratar a variavel global g_Numero_do_Pedido c/o nro do movimento p/o qual será emitido doc fiscal
+027|16/03/20|06:35|Emissor_nfe                 |Passou a chamar a rotina de tratamento de documentos fiscais usando a variavel global g_Numero_do_Movimento
+027|                                           |c/ o nro do movimento p/o qual será emitido doc fiscal
+028|16/03/20|06:35|global_variables            |Criada esta unit para concentrar todas as variáveis globais do sistema
+029|19/03/20|06:35|EmissaoDeNFe                |Emitiu a primeira NFe pelo SMC
+030|21/03/20|06:35|Atualizador                 |Criada tabela tipo de movimento TIPOMOVIMENTO_TPMOV
+031|21/03/20|06:35|Atualizador                 |Criada coluna VENDA_TPMOV na tabela VENDA
+032|21/03/20|06:35|Atualizador                 |Criado tipo de movimento V=Venda
+033|21/03/20|06:35|EmissaoDeNFe                |Passou a ler dados do Cliente ou do Fornecedor como Destinatário em função de parâmetros do tipo de movim
+034|21/03/20|06:35|EmissaoDeNFe                |Passou a aplicar a natureza da operacao na NFe em função de parâmetros do tipo de movimento
+035|21/03/20|06:35|EmissaoDeNFe                |Passou a aplicar a tipo de NFe (entrada ou saída) em função de parâmetros do tipo de movimento
+036|22/03/20|06:35|vw_tipoDeMovimento          |Criada esta unit/form p/ cadastrar tipos de movimento
+037|22/03/20|06:35|vw_main                     |Incluida chamada para o cadastro de tipo de movimento
+038|23/03/20|06:35|Atualizador                 |Criado controle de acesso p/cadastrar tipo de movimento
+039|23/03/20|06:35|vw_tipoDeMovimento          |Criados logs para cadastro de tipo movimento
+040|23/03/20|06:35|vw_tipoDeMovimento          |Incluido controles de acessos
+041|23/03/20|06:35|vw_tipoDeMovimento          |Incluido log completo com antes/depois
+042|23/03/20|06:35|Atualizador                 |Criada coluna venda_natureza_operacao na tabela venda para ser usado na emissão de docs fiscais
+043|26/03/20|06:35|venda_pedido                |Passou a gravar em venda.venda_natureza_operacao o cod
+043|                                           |da natureza de operacao definida pelo usuário
+044|27/03/20|06:35|u_funcoes                   |Criada a função fnatureza_operacaoDESCRICAO que recebe o ID de uma Natureza de Operação e retorna sua descrição,
+044|                                           |se houver, e vazio se não houver.
+045|27/03/20|06:35|venda_pedido                |Mostrando a natureza de operacao da venda a partir do codigo gravado em venda.venda_natureza_operacao
+046|27/03/20|06:35|venda_pedido                |Mostrando o CFOP da natureza de operacao da venda
+047|27/03/20|06:35|u_funcoes                   |Criada a função fColaboradorNOME que recebe o codigo de um Colaborador e retorna seu nome, se houver, e vazio se não houver.
+048|27/03/20|06:35|venda_pedido                |Mostrando Vendedor da venda a partir do codigo gravado em venda.cod_vendedor
+049|27/03/20|06:35|venda_pedido                |Mostrando Cliente da venda a partir do codigo gravado em venda.codigo_cliente
+050|28/03/20|06:35|venda_pedido                |Implementada a pesquisa de cliente no padrão do SMC
+000|28/03/20|06:35|FIM                         |FIM
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
