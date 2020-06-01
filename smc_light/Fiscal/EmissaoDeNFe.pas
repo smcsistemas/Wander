@@ -3155,14 +3155,10 @@ begin
 //02-04-2020//             vAuxiliarBCItem := vValorDoProduto;
              // quantidade do produto - comercial (ex. 10.000)
 
-             // unidade de medida comercial (ex. KG)
-             Produto.Prod.uCom     := 'UND';//qVENDA_ITEM.FieldByName('PROD_UNID'  ).AsString;
              // valor unitário comercial do produto (ex. 100,00)
 //02-04-2020//             Produto.Prod.vUnCom   := vValorUnitario;
              // Qtde tributavel
 //02-04-2020//             Produto.Prod.qTrib    := vQtde; // 270612: aqui esta a qtde tributada. Para isentos devo usar zero???
-             // unidade tributavel
-             Produto.Prod.uTrib    := 'UND';//qVENDA_ITEM.FieldByName('PROD_UNID'  ).AsString;
              // valor unitário tributável do produto (ex. 100,00)
              // 07/11/12
 //02-04-2020//             Produto.Prod.vUnTrib  := vValorUnitario;   // 270612: aqui esta o valor tributado. Para isentos devo usar zero???
@@ -3887,7 +3883,8 @@ begin
    //(uCom)
    //Unidade Comercial
    //Informar a unidade de comercialização do produto
-   Produto.Prod.uCom := qVENDA_ITEM.FieldByName('UNIDADE').AsString;
+   //Informar a sigla (o símbolo) da unidade de medida
+   Produto.Prod.uCom := fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('UNIDADE_MEDIDA').AsString);
 
    {109-I10}
    //(qCom)
@@ -3922,7 +3919,8 @@ begin
    {112-I13}
    //(uTrib)
    //Unidade Tributável
-   Produto.Prod.uTrib := qVENDA_ITEM.FieldByName('UNIDADE').AsString;
+   //Exibe a sigla (o símbolo) da unidade de medida, ou limpa o campo
+   Produto.Prod.uTrib := fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('UNIDADE_MEDIDA').AsString);
 
    {113-I14}
    //(qTrib)

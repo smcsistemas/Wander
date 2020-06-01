@@ -1,5 +1,11 @@
 unit venda_pedido;
 {
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+248|01/06/20|14:16|venda_pedido                |Tratando os novos campos fiscas do cadastro do produto.
+========================================================================================================================================
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
@@ -277,20 +283,6 @@ type
     DS_VENDAS: TDataSource;
     SQL_VENDA_ITEM: TFDQuery;
     DS_VENDA_ITEM: TDataSource;
-    SQL_VENDA_ITEMCODIGO: TFDAutoIncField;
-    SQL_VENDA_ITEMCODIGO_VENDA: TIntegerField;
-    SQL_VENDA_ITEMCODIGO_ITEM_VENDA: TIntegerField;
-    SQL_VENDA_ITEMCODIGO_PRODUTO: TIntegerField;
-    SQL_VENDA_ITEMDESCRICAO: TStringField;
-    SQL_VENDA_ITEMUNIDADE: TStringField;
-    SQL_VENDA_ITEMQUANTIDADE: TSingleField;
-    SQL_VENDA_ITEMPRECO: TBCDField;
-    SQL_VENDA_ITEMACRESCIMO: TBCDField;
-    SQL_VENDA_ITEMDESCONTO: TBCDField;
-    SQL_VENDA_ITEMPRECO_TOTAL: TBCDField;
-    SQL_VENDA_ITEMrateio_desconto: TBCDField;
-    SQL_VENDA_ITEMrateio_acrescimo: TBCDField;
-    SQL_VENDA_ITEMpreco_custo: TBCDField;
     SQL_CLIENTE: TFDQuery;
     Label27: TLabel;
     edPROD_CODIGO: TEdit;
@@ -311,10 +303,24 @@ type
     Label34: TLabel;
     edCFOP_Produto: TEdit;
     cxGridDBTableView1Column11: TcxGridDBColumn;
-    SQL_VENDA_ITEMCFOP: TIntegerField;
     edTPMOV: TEdit;
     edTPMOV_DESCRICAO: TEdit;
     bPesquisaTPMOV: TcxButton;
+    SQL_VENDA_ITEMCODIGO: TFDAutoIncField;
+    SQL_VENDA_ITEMCODIGO_VENDA: TIntegerField;
+    SQL_VENDA_ITEMCODIGO_ITEM_VENDA: TIntegerField;
+    SQL_VENDA_ITEMCODIGO_PRODUTO: TIntegerField;
+    SQL_VENDA_ITEMDESCRICAO: TStringField;
+    SQL_VENDA_ITEMUNIDADE: TStringField;
+    SQL_VENDA_ITEMQUANTIDADE: TSingleField;
+    SQL_VENDA_ITEMPRECO: TBCDField;
+    SQL_VENDA_ITEMACRESCIMO: TBCDField;
+    SQL_VENDA_ITEMDESCONTO: TBCDField;
+    SQL_VENDA_ITEMPRECO_TOTAL: TBCDField;
+    SQL_VENDA_ITEMrateio_desconto: TBCDField;
+    SQL_VENDA_ITEMrateio_acrescimo: TBCDField;
+    SQL_VENDA_ITEMpreco_custo: TBCDField;
+    SQL_VENDA_ITEMNFe_Veiculo_Chassi: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cxButton4Click(Sender: TObject);
     procedure BtnNFEClick(Sender: TObject);

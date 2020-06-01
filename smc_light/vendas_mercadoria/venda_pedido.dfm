@@ -34,7 +34,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    Properties.ActivePage = cxTabSheet2
+    Properties.ActivePage = cxTabSheet1
     Properties.CustomButtons.Buttons = <>
     LookAndFeel.NativeStyle = False
     LookAndFeel.SkinName = 'Metropolis'
@@ -51,10 +51,6 @@ object frm_pedido_venda: Tfrm_pedido_venda
       Font.Style = [fsBold]
       ImageIndex = 0
       ParentFont = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lbl_qtde: TLabel
         Left = 537
         Top = 603
@@ -5968,7 +5964,6 @@ object frm_pedido_venda: Tfrm_pedido_venda
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
       ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
     end
     object SQL_VENDA_ITEMCODIGO_VENDA: TIntegerField
       AutoGenerateValue = arDefault
@@ -6044,10 +6039,11 @@ object frm_pedido_venda: Tfrm_pedido_venda
       Origin = 'preco_custo'
       Precision = 10
     end
-    object SQL_VENDA_ITEMCFOP: TIntegerField
+    object SQL_VENDA_ITEMNFe_Veiculo_Chassi: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CFOP'
-      Origin = 'CFOP'
+      FieldName = 'NFe_Veiculo_Chassi'
+      Origin = 'NFe_Veiculo_Chassi'
+      Size = 17
     end
   end
   object DS_VENDA_ITEM: TDataSource
