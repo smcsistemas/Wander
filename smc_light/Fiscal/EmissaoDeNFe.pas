@@ -6151,6 +6151,12 @@ begin
      {169-N15}
      //vBC
      //Valor da BC do ICMS
+     {
+     ***                                                               ***
+     *** SE FOR MVA, PRECISARÀ USAR O PREÇO DE CUSTO DO PRODUTO        ***
+     ***    CALCULAR O VALOR DA VENDA = MVA*VALORCUSTO/100+ VALORVUSTO ***
+     ***                                                               ***
+     }
      if modBC = dbiPauta then
      begin
         //Usar o valor de pauta
@@ -6240,6 +6246,14 @@ begin
      {176-N15}
      //vBC
      //Valor da BC do ICMS
+     {
+     ***                                                               ***
+     *** SE FOR MVA, PRECISARÀ USAR O PREÇO DE CUSTO DO PRODUTO        ***
+     ***    CALCULAR O VALOR DA VENDA = MVA*VALORCUSTO/100+ VALORVUSTO ***
+     ***                                                               ***
+
+     }
+
      vBC := qVENDA_ITEM.FieldByName('PRECO_TOTAL').AsFloat;
 
      {177-N16}

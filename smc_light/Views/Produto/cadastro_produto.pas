@@ -4,6 +4,9 @@ unit cadastro_produto;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  245|01/06/20|wander              |Tratando MVA (Percentual de Margem d Valor|
+|     |   08:14|cadastro_produto    |Agregado) da base de cálculo (BC) do ICMS.|
+|-----|--------|--------------------|------------------------------------------|
 |  244|31/05/20|wander              |Tratando campo LEIS, cuja definição       |
 |     |   19:53|cadastro_produto    |precisa Rodrigo ficou de passar amanhã.   |
 |-----|--------|--------------------|------------------------------------------|
@@ -535,6 +538,9 @@ type
     cxButton8: TcxButton;
     cxButton10: TcxButton;
     edLEIS: TEdit;
+    Label21: TLabel;
+    edNFe_pMVA: TEdit;
+    qConsultaNFe_pMVA: TBCDField;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -722,6 +728,7 @@ type
     procedure edRPC_COFINSKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure cxButton10Click(Sender: TObject);
+    procedure edNFe_pMVAKeyPress(Sender: TObject; var Key: Char);
 
   private
     { Private declarations }
@@ -1108,6 +1115,11 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
+procedure TFrm_Produto.edNFe_pMVAKeyPress(Sender: TObject; var Key: Char);
+begin
+  Key := u_funcoes.ApenasNumeros(Key);
+end;
+
 procedure TFrm_Produto.edNFe_pMVASTKeyPress(Sender: TObject;
 
   var Key: Char);
@@ -1164,6 +1176,9 @@ begin
 
    if edVALOR_PAUTA_BC_ST.Text = '' then
       edVALOR_PAUTA_BC_ST.Text := '0';
+
+   if edNFe_pMVA.Text = '' then
+      edNFe_pMVA.Text := '0';
 
    if edNFe_pMVAST.Text = '' then
       edNFe_pMVAST.Text := '0';
@@ -2095,6 +2110,26 @@ begin
       end
    end;
 
+   // Modalidade BC ICMS = Margem do Valor Agregado
+   if rgNFe_modBC.ItemIndex = 0 then
+   begin
+      if Vazio_ou_Zero(edNFe_pMVA.Text) then
+      begin
+         wnAlerta('Cadastrar Produto','Modalidade de BC ICMS Margem do Valor Agregado (MVA) exige que se informe o % de MVA', taLeftJustify, 12);
+         rgNFe_modBC.SetFocus;
+         exit;
+      end
+   end
+   else
+   begin
+      if not Vazio_ou_Zero(edNFe_pMVA.Text) then
+      begin
+         wnAlerta('Cadastrar Produto','Modalidade de BC diferente de Margem de Valor Agregado (MVA) impede que se informe o % de MVA', taLeftJustify, 12);
+         rgNFe_modBC.SetFocus;
+         exit;
+      end
+   end;
+
    // Modalidade BC ICMS ST = Margem do Valor Agregado
    if rgNFe_modBCST.ItemIndex = 4 then
    begin
@@ -2792,6 +2827,7 @@ begin
    qAUX.sql.add('       NFe_modBCST,              ');
    qAUX.sql.add('       VALOR_PAUTA_BC,           ');
    qAUX.sql.add('       VALOR_PAUTA_BC_ST,        ');
+   qAUX.sql.add('       NFe_pMVA,                 ');
    qAUX.sql.add('       NFe_pMVAST                ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
@@ -2824,6 +2860,7 @@ begin
    qAUX.sql.add('      :NFe_modBCST,              ');
    qAUX.sql.add('      :VALOR_PAUTA_BC,           ');
    qAUX.sql.add('      :VALOR_PAUTA_BC_ST,        ');
+   qAUX.sql.add('      :NFe_pMVA,                 ');
    qAUX.sql.add('      :NFe_pMVAST                ');
    qAUX.sql.add('     )                           ');
 
@@ -2868,6 +2905,7 @@ begin
    qAUX.ParamByName('NFe_modBCST'             ).AsInteger := rgNFe_modBCST.ItemIndex;
    qAUX.ParamByName('VALOR_PAUTA_BC'          ).AsFloat   := ValorValido(edVALOR_PAUTA_BC.Text);
    qAUX.ParamByName('VALOR_PAUTA_BC_ST'       ).AsFloat   := ValorValido(edVALOR_PAUTA_BC_ST.Text);
+   qAUX.ParamByName('NFe_pMVA'                ).AsFloat   := ValorValido(edNFe_pMVA.Text);
    qAUX.ParamByName('NFe_pMVAST'              ).AsFloat   := ValorValido(edNFe_pMVAST.Text);
    qAUX.ExecSQL;
 
@@ -2991,7 +3029,10 @@ begin
    //Valor da Pauta da BC do ICMS ST
    edVALOR_PAUTA_BC_ST.Text             := Float_to_String(qConsulta.FieldByName('VALOR_PAUTA_BC_ST').AsFloat);
 
-   //Percentual de Margem de Valor Agregado (MVA) (ST)
+   //Percentual de Margem de Valor Agregado (MVA) (ICMS)
+   edNFe_pMVA.Text                      := Float_to_String(qConsulta.FieldByName('NFe_pMVA').AsFloat);
+
+   //Percentual de Margem de Valor Agregado (MVA) (ICMS ST)
    edNFe_pMVAST.Text                    := Float_to_String(qConsulta.FieldByName('NFe_pMVAST').AsFloat);
 
    Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;

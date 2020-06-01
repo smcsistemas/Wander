@@ -22,12 +22,15 @@ ordem decrescente de data....
 |-------|------|
 |05/2020| 124  | 244
 |-------|------|
-|  TOTAL| 244  |
+|06/2020|  01  | 245
+|-------|------|
+|  TOTAL| 245  |
 ================
 
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+245|01/06/20|08:14|cadastro_produto            |Tratando MVA (Percentual de Margem de Valor Agregado) da base de cálculo (BC) do ICMS.
 244|31/05/20|19:53|cadastro_produto            |Tratando campo LEIS, cuja definição precisa Rodrigo ficou de passar amanhã.
 243|31/05/20|08:15|cadastro_produto            |Acertada a rotina que encontra o CEST e a descrição pelo código NCM do produto
 242|30/05/20|05:15|cadastro_produto            |Tratando CST-COFINS no novo padrão:[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]
@@ -329,6 +332,9 @@ ALT|   DATA |HORA |UNIT                        |Descrição                       
 
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  245|01/06/20|wander              |Tratando MVA (Percentual de Margem d Valor|
+|     |   08:14|cadastro_produto    |Agregado) da base de cálculo (BC) do ICMS.|
 |-----|--------|--------------------|------------------------------------------|
 |  244|31/05/20|wander              |Tratando campo LEIS, cuja definição       |
 |     |   19:53|cadastro_produto    |precisa Rodrigo ficou de passar amanhã.   |

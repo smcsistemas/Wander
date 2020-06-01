@@ -2312,6 +2312,10 @@ begin
     if fNaoAtualizado('Cadastrar CST_COFINS') Then
        Cadastrar_CST_COFINS;
 
+    //01/06/2020
+    if fNaoAtualizado('Produto:Margem de Valor Agregado ICMS (MVA)') Then
+       Executar('ALTER TABLE PRODUTO ADD NFe_pMVA DECIMAL(6,4) NULL DEFAULT 0 COMMENT "Margem de Valor Agregado ICMS (MVA)" ');
+
 end;
 
 end.

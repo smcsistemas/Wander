@@ -4035,8 +4035,9 @@ object Frm_Produto: TFrm_Produto
               'cxMemo1')
             ParentFont = False
             Properties.ReadOnly = True
+            Style.Color = clSilver
             Style.Font.Charset = ANSI_CHARSET
-            Style.Font.Color = clGrayText
+            Style.Font.Color = clWindowText
             Style.Font.Height = -11
             Style.Font.Name = 'Helvetica Neue'
             Style.Font.Style = [fsBold]
@@ -5042,7 +5043,7 @@ object Frm_Produto: TFrm_Produto
           Font.Name = 'Tahoma'
           Font.Style = []
           Items.Strings = (
-            'Margem de Valor Agregado (%)'
+            'Margem de Valor Agregado - MVA (%)'
             'Pauta Fiscal'
             'Pre'#231'o Tabelado'
             'Valor da Opera'#231#227'o'
@@ -5073,6 +5074,19 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
           end
+          object Label21: TLabel
+            Left = 40
+            Top = 31
+            Width = 229
+            Height = 18
+            Caption = 'Margem de Valor Agregado - MVA:'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
           object edVALOR_PAUTA_BC: TEdit
             Left = 276
             Top = 2
@@ -5088,6 +5102,22 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             TabOrder = 0
             OnKeyPress = edVALOR_PAUTA_BCKeyPress
+          end
+          object edNFe_pMVA: TEdit
+            Left = 276
+            Top = 29
+            Width = 107
+            Height = 26
+            BiDiMode = bdRightToLeft
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'Helvetica Neue'
+            Font.Style = [fsBold]
+            ParentBiDiMode = False
+            ParentFont = False
+            TabOrder = 1
+            OnKeyPress = edNFe_pMVAKeyPress
           end
         end
         object rgNFe_modBCST: TRadioGroup
@@ -5106,7 +5136,7 @@ object Frm_Produto: TFrm_Produto
             'Lista Negativa'
             'Lista Positiva'
             'Lista Neutra'
-            'Margem de Valor Agregado (%)'
+            'Margem de Valor Agregado - MVA (%)'
             'Pauta Fiscal'
             'Valor da Opera'#231#227'o')
           ParentFont = False
@@ -6177,7 +6207,7 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'ncm'
       Origin = 'NCM'
-      Size = 50
+      Size = 8
     end
     object qConsultareferencia_fabricante: TStringField
       AutoGenerateValue = arDefault
@@ -6538,7 +6568,7 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'ANP'
       Origin = 'ANP'
-      Size = 50
+      Size = 9
     end
     object qConsultaEX_IPI: TSingleField
       AutoGenerateValue = arDefault
@@ -6824,6 +6854,12 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'VALOR_PAUTA_BC'
       Origin = 'VALOR_PAUTA_BC'
       Precision = 10
+    end
+    object qConsultaNFe_pMVA: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_pMVA'
+      Origin = 'NFe_pMVA'
+      Precision = 6
     end
   end
   object tConsulta: TTimer
