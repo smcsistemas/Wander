@@ -5030,6 +5030,12 @@ object Frm_Produto: TFrm_Produto
         Width = 780
         Height = 379
         BevelOuter = bvNone
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 1
         object rgNFe_modBC: TRadioGroup
           Left = 0
@@ -5056,7 +5062,7 @@ object Frm_Produto: TFrm_Produto
           Left = 0
           Top = 112
           Width = 387
-          Height = 81
+          Height = 61
           BevelKind = bkFlat
           BevelOuter = bvNone
           Enabled = False
@@ -5210,6 +5216,24 @@ object Frm_Produto: TFrm_Produto
             TabOrder = 1
             OnKeyPress = edNFe_pMVASTKeyPress
           end
+        end
+        object rgNFe_indEscala: TRadioGroup
+          Left = 0
+          Top = 176
+          Width = 171
+          Height = 71
+          Caption = 'Indicador de Escala Relevante'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Items.Strings = (
+            'Relevante'
+            'N'#227'o Relevante'
+            'Nenhum')
+          ParentFont = False
+          TabOrder = 4
         end
       end
       object pnControles2: TPanel
@@ -5970,8 +5994,8 @@ object Frm_Produto: TFrm_Produto
   end
   object DS_DADOS_ROTINAS: TDataSource
     DataSet = SQL_DADOS_ROTINAS
-    Left = 704
-    Top = 168
+    Left = 784
+    Top = 88
   end
   object popmenu: TPopupMenu
     Left = 1152
@@ -6860,6 +6884,11 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'NFe_pMVA'
       Origin = 'NFe_pMVA'
       Precision = 6
+    end
+    object qConsultaNFe_indEscala: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_indEscala'
+      Origin = 'NFe_indEscala'
     end
   end
   object tConsulta: TTimer

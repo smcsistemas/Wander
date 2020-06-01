@@ -1,6 +1,15 @@
 ﻿{ v 21.10.16 17:18 }
 unit cadastro_produto;
-{
+{ Feito por Wander
+
+
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+247|01/06/20|09:33|cadastro_produto            |Tratando o "Indicador de Escala Relevante" do Produto.
+246|01/06/20|09:33|Atualizador                 |Criada coluna NFe_IndEscala para armazenar o "Indicador de Escala Relevante" do Produto.
+========================================================================================================================================
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
@@ -541,6 +550,8 @@ type
     Label21: TLabel;
     edNFe_pMVA: TEdit;
     qConsultaNFe_pMVA: TBCDField;
+    rgNFe_indEscala: TRadioGroup;
+    qConsultaNFe_indEscala: TIntegerField;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -1182,6 +1193,11 @@ begin
 
    if edNFe_pMVAST.Text = '' then
       edNFe_pMVAST.Text := '0';
+
+   //Indicador de Escala Relevante
+   //Padrão = 2-Nenhum
+   if rgNFe_indEscala.ItemIndex = -1 then
+      rgNFe_indEscala.ItemIndex := 2;
 
 end;
 
@@ -2825,6 +2841,7 @@ begin
    qAUX.sql.add('       REDUCAO_ICMS,             ');
    qAUX.sql.add('       NFe_modBC,                ');
    qAUX.sql.add('       NFe_modBCST,              ');
+   qAUX.sql.add('       NFe_indEscala,            ');
    qAUX.sql.add('       VALOR_PAUTA_BC,           ');
    qAUX.sql.add('       VALOR_PAUTA_BC_ST,        ');
    qAUX.sql.add('       NFe_pMVA,                 ');
@@ -2858,6 +2875,7 @@ begin
    qAUX.sql.add('      :REDUCAO_ICMS,             ');
    qAUX.sql.add('      :NFe_modBC,                ');
    qAUX.sql.add('      :NFe_modBCST,              ');
+   qAUX.sql.add('      :NFe_indEscala,            ');
    qAUX.sql.add('      :VALOR_PAUTA_BC,           ');
    qAUX.sql.add('      :VALOR_PAUTA_BC_ST,        ');
    qAUX.sql.add('      :NFe_pMVA,                 ');
@@ -2903,6 +2921,7 @@ begin
    qAUX.ParamByName('REDUCAO_ICMS'            ).AsFloat   := ValorValido(edREDUCAO_ICMS.Text);
    qAUX.ParamByName('NFe_modBC'               ).AsInteger := rgNFe_modBC.ItemIndex;
    qAUX.ParamByName('NFe_modBCST'             ).AsInteger := rgNFe_modBCST.ItemIndex;
+   qAUX.ParamByName('NFe_indEscala'           ).AsInteger := rgNFe_indEscala.ItemIndex;
    qAUX.ParamByName('VALOR_PAUTA_BC'          ).AsFloat   := ValorValido(edVALOR_PAUTA_BC.Text);
    qAUX.ParamByName('VALOR_PAUTA_BC_ST'       ).AsFloat   := ValorValido(edVALOR_PAUTA_BC_ST.Text);
    qAUX.ParamByName('NFe_pMVA'                ).AsFloat   := ValorValido(edNFe_pMVA.Text);
@@ -3034,6 +3053,9 @@ begin
 
    //Percentual de Margem de Valor Agregado (MVA) (ICMS ST)
    edNFe_pMVAST.Text                    := Float_to_String(qConsulta.FieldByName('NFe_pMVAST').AsFloat);
+
+   //Indicador de Escala Relevante
+   rgNFe_indEscala.ItemIndex            := qConsulta.FieldByName('NFe_indEscala').AsInteger;
 
    Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
 

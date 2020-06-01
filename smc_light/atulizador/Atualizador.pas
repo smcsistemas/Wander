@@ -2316,6 +2316,10 @@ begin
     if fNaoAtualizado('Produto:Margem de Valor Agregado ICMS (MVA)') Then
        Executar('ALTER TABLE PRODUTO ADD NFe_pMVA DECIMAL(6,4) NULL DEFAULT 0 COMMENT "Margem de Valor Agregado ICMS (MVA)" ');
 
+    //01/06/2020
+    if fNaoAtualizado('Produto:Indicador de Escala Relevante') Then
+       Executar('ALTER TABLE PRODUTO ADD NFe_indEscala INTEGER NULL DEFAULT 2 COMMENT "Indicador de Escala Relevante" ');
+
 end;
 
 end.

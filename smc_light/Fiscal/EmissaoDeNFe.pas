@@ -3180,7 +3180,7 @@ begin
 
              //4.00-------------------------------------------------------------
 
-             Produto.Prod.indEscala := TpcnIndEscala(0); //qVENDA_ITEM.FieldByName('PROD_INDESCALA').AsInteger); // 4.00
+
              //Produto.Prod.CNPJFab   := qVENDA_ITEM.FieldByName('PROD_CNPJFAB').AsString; // 4.00
              //Produto.Prod.cBenef    := qVENDA_ITEM.FieldByName('PROD_CBENEF' ).AsString; // 4.00
 
@@ -3246,16 +3246,6 @@ begin
                 Produto.Imposto.ICMS.pCredSN := 0;
                 Produto.Imposto.ICMS.vCredICMSSN :=0;
              //end;
-
-             //
-             {
-             case qVENDA_ITEM.FieldByName('PROD_ImpostoICMSmodBC').AsInteger of
-                0: Produto.Imposto.ICMS.modBC  := dbiMargemValorAgregado;
-                1: Produto.Imposto.ICMS.modBC  := dbiPauta;
-                2: Produto.Imposto.ICMS.modBC  := dbiPrecoTabelado;
-                3: Produto.Imposto.ICMS.modBC  := dbiValorOperacao;
-             end;
-             }
              Produto.Imposto.ICMS.modBC  := dbiPrecoTabelado;
 
              //-----------------------------------------------------------------------
@@ -3917,7 +3907,8 @@ begin
    {110-I11}
    //vProd
    //Valor Total Bruto dos Produtos ou Serviços
-   Produto.Prod.vProd := qVENDA_ITEM.FieldByName('PRECO').AsFloat * qVENDA_ITEM.FieldByName('QUANTIDADE').AsFloat;
+   Produto.Prod.vProd := qVENDA_ITEM.FieldByName('PRECO').AsFloat
+                       * qVENDA_ITEM.FieldByName('QUANTIDADE').AsFloat;
 
    {111-I12}
    //(cEANTrib)
@@ -3989,6 +3980,13 @@ begin
       1 : Produto.Prod.IndTot:= itNaoSomaTotalNFe;
    End;
 
+   //Indicador de Escala Relevante não consta no manual que baixei
+   //mas é obrigatório no layout do XML da versão 4.00 da NFe (Wander)
+   Case qVENDA_ITEM.FieldByName('NFe_indEscala').AsInteger of
+      0 : Produto.Prod.indEscala := ieRelevante;
+      1 : Produto.Prod.indEscala := ieNaoRelevante;
+      2 : Produto.Prod.indEscala := ieNenhum;
+   End;
 
    Tratar_SubGrupo_DI_Declaracao_de_Importacao;
    Tratar_Grupo_J_Detalhamento_Especifico_de_Veiculos_Novos;

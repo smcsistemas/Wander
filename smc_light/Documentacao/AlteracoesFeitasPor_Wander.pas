@@ -22,14 +22,16 @@ ordem decrescente de data....
 |-------|------|
 |05/2020| 124  | 244
 |-------|------|
-|06/2020|  01  | 245
+|06/2020|  03  | 247
 |-------|------|
-|  TOTAL| 245  |
+|  TOTAL| 247  |
 ================
 
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+247|01/06/20|09:33|cadastro_produto            |Tratando o "Indicador de Escala Relevante" do Produto.
+246|01/06/20|09:33|Atualizador                 |Criada coluna NFe_IndEscala para armazenar o "Indicador de Escala Relevante" do Produto.
 245|01/06/20|08:14|cadastro_produto            |Tratando MVA (Percentual de Margem de Valor Agregado) da base de cálculo (BC) do ICMS.
 244|31/05/20|19:53|cadastro_produto            |Tratando campo LEIS, cuja definição precisa Rodrigo ficou de passar amanhã.
 243|31/05/20|08:15|cadastro_produto            |Acertada a rotina que encontra o CEST e a descrição pelo código NCM do produto
