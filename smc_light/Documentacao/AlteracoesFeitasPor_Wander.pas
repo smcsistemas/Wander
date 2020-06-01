@@ -20,14 +20,15 @@ ordem decrescente de data....
 |-------|------|
 |04/2020|  60  | 120
 |-------|------|
-|05/2020| 123  | 243
+|05/2020| 124  | 244
 |-------|------|
-|  TOTAL| 243  |
+|  TOTAL| 244  |
 ================
 
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+244|31/05/20|19:53|cadastro_produto            |Tratando campo LEIS, cuja definição precisa Rodrigo ficou de passar amanhã.
 243|31/05/20|08:15|cadastro_produto            |Acertada a rotina que encontra o CEST e a descrição pelo código NCM do produto
 242|30/05/20|05:15|cadastro_produto            |Tratando CST-COFINS no novo padrão:[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]
 241|30/05/20|05:15|cadastro_produto            |Tratando CST-PIS no novo padrão:[COD][F1-Pesquisa][Nome][Lupa-Pesquisa]
@@ -328,6 +329,9 @@ ALT|   DATA |HORA |UNIT                        |Descrição                       
 
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
+|-----|--------|--------------------|------------------------------------------|
+|  244|31/05/20|wander              |Tratando campo LEIS, cuja definição       |
+|     |   19:53|cadastro_produto    |precisa Rodrigo ficou de passar amanhã.   |
 |-----|--------|--------------------|------------------------------------------|
 |  243|31/05/20|wander              |Acertada a rotina que encontra o CEST e a |
 |     |   08:15|cadastro_produto    |descrição pelo código NCM do produto      |

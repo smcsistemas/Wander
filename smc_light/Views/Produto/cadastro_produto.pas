@@ -4,6 +4,9 @@ unit cadastro_produto;
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
+|  244|31/05/20|wander              |Tratando campo LEIS, cuja definição       |
+|     |   19:53|cadastro_produto    |precisa Rodrigo ficou de passar amanhã.   |
+|-----|--------|--------------------|------------------------------------------|
 |  243|31/05/20|wander              |Acertada a rotina que encontra o CEST e a |
 |     |   08:15|cadastro_produto    |descrição pelo código NCM do produto      |
 |-----|--------|--------------------|------------------------------------------|
@@ -442,7 +445,6 @@ type
     edALIQ_ICMS: TEdit;
     edREDUCAO_ICMS: TEdit;
     edGENERO: TEdit;
-    edt_leis: TcxDBButtonEdit;
     edICMS_CST: TEdit;
     edICMS_CST_NOME: TEdit;
     cxButton5: TcxButton;
@@ -532,6 +534,7 @@ type
     cxButton6: TcxButton;
     cxButton8: TcxButton;
     cxButton10: TcxButton;
+    edLEIS: TEdit;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -2773,6 +2776,7 @@ begin
    qAUX.sql.add('       GRUPO,                    ');
    qAUX.sql.add('       SUBGRUPO,                 ');
    qAUX.sql.add('       GENERO,                   ');
+   qAUX.sql.add('       LEIS,                     ');
    qAUX.sql.add('       NCM,                      ');
    qAUX.sql.add('       CEST,                     ');
    qAUX.sql.add('       PRECO_FINAL_ATACADO,      ');
@@ -2804,6 +2808,7 @@ begin
    qAUX.sql.add('      :GRUPO,                    ');
    qAUX.sql.add('      :SUBGRUPO,                 ');
    qAUX.sql.add('      :GENERO,                   ');
+   qAUX.sql.add('      :LEIS,                     ');
    qAUX.sql.add('      :NCM,                      ');
    qAUX.sql.add('      :CEST,                     ');
    qAUX.sql.add('      :PRECO_FINAL_ATACADO,      ');
@@ -2847,6 +2852,7 @@ begin
    qAUX.ParamByName('GRUPO'                   ).AsString  := edGRUPO.Text;
    qAUX.ParamByName('SUBGRUPO'                ).AsString  := edSUBGRUPO.Text;
    qAUX.ParamByName('GENERO'                  ).AsString  := edGENERO.Text;
+   qAUX.ParamByName('LEIS'                    ).AsString  := edLEIS.Text;
    qAUX.ParamByName('NCM'                     ).AsString  := edNCM.Text;
    qAUX.ParamByName('CEST'                    ).AsString  := edCEST.Text;
    qAUX.ParamByName('PRECO_FINAL_ATACADO'     ).AsFloat   := ValorValido(edPRECO_FINAL_ATACADO.Text);
@@ -2933,6 +2939,9 @@ begin
 
    //Gênero
    edGENERO.Text                   := qConsulta.FieldByName('GENERO').AsString;
+
+   //Leis
+   edLEIS.Text                     := qConsulta.FieldByName('LEIS').AsString;
 
    //NCM/SH
    edNCM.Text                      := qConsulta.FieldByName('NCM').AsString;
