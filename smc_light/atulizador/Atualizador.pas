@@ -2247,12 +2247,11 @@ begin
        Executar('ALTER TABLE PRODUTO DROP COLUMN CSOSN');
 
     if fNaoAtualizado('Venda Item: Incluida coluna VI_CFOP_CSOSN...') Then
-    begin
        //Eliminada coluna CFOP da tabela Venda_Item
        Executar('ALTER TABLE VENDA_ITEM DROP COLUMN CFOP');
+    if fNaoAtualizado('Venda Item: Incluida coluna VI_CFOP_CSOSN....') Then
        //Incluida coluna VI_CFOP_CSOSN na tabela Venda_Item
-       Executar('UPDATE VENDA_ITEM ADD VI_CFOP_CSOSN VARCHAR(04) NULL COMMENT "Cod do CFOP ou do CSOSN do produto na operacao"');
-    end;
+       Executar('ALTER TABLE VENDA_ITEM ADD VI_CFOP_CSOSN VARCHAR(04) NULL COMMENT "Cod do CFOP ou do CSOSN do produto na operacao"');
 
     if fNaoAtualizado('Empresa: CRT 0/1/2/3...') Then
        Executar('ALTER TABLE EMPRESA MODIFY CODIGO_REGIME_TRIBUTARIO INTEGER NOT NULL DEFAULT 0 COMMENT "código do regime tributário da Empresa" ');
@@ -2318,6 +2317,10 @@ begin
 
     //01/06/2020
     if fNaoAtualizado('Produto:Indicador de Escala Relevante') Then
+       Executar('ALTER TABLE PRODUTO ADD NFe_indEscala INTEGER NULL DEFAULT 2 COMMENT "Indicador de Escala Relevante" ');
+
+    //02/06/2020
+    if fNaoAtualizado('Produto:Calcular ST ICMS') Then
        Executar('ALTER TABLE PRODUTO ADD NFe_indEscala INTEGER NULL DEFAULT 2 COMMENT "Indicador de Escala Relevante" ');
 
 end;

@@ -22,14 +22,15 @@ ordem decrescente de data....
 |-------|------|
 |05/2020| 124  | 244
 |-------|------|
-|06/2020|  03  | 247
+|06/2020|  05  | 249
 |-------|------|
-|  TOTAL| 247  |
+|  TOTAL| 249  |
 ================
 
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+249|02/06/20|20:08|EmissaoDeNFe                |Passa a completar com pontos "." as unidades de medida que possuam menos de 3 caracteres (ex: KG -> KG.)
 248|01/06/20|14:16|venda_pedido                |Tratando os novos campos fiscas do cadastro do produto.
 247|01/06/20|09:33|cadastro_produto            |Tratando o "Indicador de Escala Relevante" do Produto.
 246|01/06/20|09:33|Atualizador                 |Criada coluna NFe_IndEscala para armazenar o "Indicador de Escala Relevante" do Produto.

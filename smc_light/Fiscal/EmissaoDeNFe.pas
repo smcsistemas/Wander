@@ -1,5 +1,11 @@
 unit EmissaoDeNFe;
 {
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+249|02/06/20|20:08|EmissaoDeNFe                |Passa a completar com pontos "." as unidades de medida que possuam menos de 3 caracteres (ex: KG -> KG.)
+========================================================================================================================================
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
@@ -3884,7 +3890,7 @@ begin
    //Unidade Comercial
    //Informar a unidade de comercialização do produto
    //Informar a sigla (o símbolo) da unidade de medida
-   Produto.Prod.uCom := fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('UNIDADE_MEDIDA').AsString);
+   Produto.Prod.uCom := CompletarComPontos(fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('UNIDADE_MEDIDA').AsString),3);
 
    {109-I10}
    //(qCom)
@@ -3920,7 +3926,7 @@ begin
    //(uTrib)
    //Unidade Tributável
    //Exibe a sigla (o símbolo) da unidade de medida, ou limpa o campo
-   Produto.Prod.uTrib := fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('UNIDADE_MEDIDA').AsString);
+   Produto.Prod.uTrib := CompletarComPontos(fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('UNIDADE_MEDIDA').AsString),03);
 
    {113-I14}
    //(qTrib)
@@ -4648,7 +4654,7 @@ procedure TfrmEmissaoDeNFe.Tratar_Grupo_P_Imposto_de_Importacao;
 begin
    //Somente se o tipo de movimento está configurado para tratar o grupo P
    //---------------------------------------------------------------------------
-   if qTPMOV.FieldByName('TPMOV_NFE_TRATAR_GRUPO_O_II').AsInteger = 0 then
+   if qTPMOV.FieldByName('TPMOV_NFE_TRATAR_GRUPO_P_II').AsInteger = 0 then
       exit;
 
    //---------------------------------------------------------------------------
