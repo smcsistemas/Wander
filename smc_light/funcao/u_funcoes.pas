@@ -113,7 +113,11 @@ const
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
 //090 02/06/2020-20:04-Recebe um string e completa com "." até atingir o pTamanho
+//Foi para a unit venda_pedido pois precisava invocar "cadastro_produto" que já
+//invocava u_funcoes
+//function Produto_sem_CST_ICMS(pVenda: Integer): Boolean;
 function CompletarComPontos(pTexto:String;pTamanho:Integer):String;
+
 //089 30/05/2020-01:07-Cadastra todos os CST de COFINS
 procedure Cadastrar_CST_COFINS;
 //088 30/05/2020-01:07-Recebe codigo e descrição de CST_COFINS e os inclui na tabela CST_COFINS
@@ -6381,6 +6385,7 @@ begin
       xTexto := xTexto + '.';
    result := xTexto;
 end;
+
 
 //##############################################################################
 //                FIM DAS FUNCOES DESENVOLVIDAS PELO WANDER

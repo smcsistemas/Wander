@@ -3,6 +3,8 @@ unit venda_pedido;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+252|03/06/20|05:34|venda_pedido                |Se encontrar algum produto sem o CST do ICMS informado, abre o cadastro do produto para que o usuário corrija.
+251|03/06/20|05:34|venda_pedido                |Passa a criticar e avisar ao usuário se encontrar algum produto sem o CST do ICMS informado
 248|01/06/20|14:16|venda_pedido                |Tratando os novos campos fiscas do cadastro do produto.
 ========================================================================================================================================
 
@@ -395,6 +397,7 @@ type
     procedure Preenche_Tela(pCODIGO_VENDA:Integer);
     function  Preenche_Natureza_de_Operacao:Boolean;
     function  Preenche_Vendedor:Boolean;
+    function Produto_sem_CST_ICMS(pVenda:Integer):Boolean;
 
     function  Produto_Existe(pCodigo:String):Boolean;
     function  CFOP_Existe(pCFOP:String):Boolean;
@@ -451,7 +454,7 @@ implementation
 uses
   u_funcoes, totalizacao_pedido,  EmissaoDeNFe, visualizar_venda,
   h_Functions, vw_consulta_generica, c_Globals, S_Module,
-  vw_tipoDeMovimento;
+  vw_tipoDeMovimento, cadastro_produto;
 
 {$R *.dfm}
 
@@ -915,7 +918,7 @@ begin
    // Tipo de Movimento - obrigatório
    if edTPMOV.Text = '' then
    begin
-     ShowMessage('Tipo de Movimento não cadastrado.');
+     ShowMessage('Tipo de Movimento não informado');
      edTPMOV.SetFocus;
      exit;
    end;
@@ -947,6 +950,9 @@ begin
 
    // Pedido sem item - não permitido
    if not Ha_Produtos then exit;
+
+   // Produto sem CST ICMS - não permitido
+   if Produto_sem_CST_ICMS(SQL_C_VENDASCODIGO_VENDA.asinteger) then exit;
 
    result := true;
 end;
@@ -1872,6 +1878,67 @@ begin
    except
       ShowMessage('Erro: Ao pesquisar Produto.');
    end;
+end;
+
+function Tfrm_pedido_venda.Produto_sem_CST_ICMS(pVenda: Integer): Boolean;
+var Q : tFDQuery;
+begin
+   //03/06/2020-04:32-Verifica se há algum produto em VENDA_ITEM de determinado
+   //                 pedido sem o CST do ICMS informado. Retorna true se sim.
+
+   Result := false;
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+
+   //Procura por itens do pedido que não tenham o CST do ICMS informado
+   //em seus cadastros
+   Q.Close;
+   Q.Sql.Clear;
+   Q.SQL.Add('SELECT P.CODIGO,                     ');
+   Q.SQL.Add('       P.DESCRICAO_PRODUTO           ');
+   Q.SQL.Add('  FROM VENDA_ITEM V,                 ');
+   Q.SQL.Add('       PRODUTO    P                  ');
+   Q.SQL.Add(' WHERE V.CODIGO_PRODUTO = P.CODIGO   ');
+   Q.SQL.Add('   AND V.CODIGO_VENDA   = :CODIGO    ');
+   Q.SQL.Add('   AND (                             ');
+   Q.SQL.Add('            (P.ICMS_CST IS NULL)     ');
+   Q.SQL.Add('         OR (P.ICMS_CST =  ""  )     ');
+   Q.SQL.Add('       )                             ');
+   Q.ParamByName('CODIGO').AsInteger := pVenda;
+   Q.Open;
+   while not Q.EOF do
+   begin
+      //Seta estatus de existência de produto sem CST do ICMS
+      Result := True;
+
+      //Avisa ao usuário e o orienta a consertar o cadastro do produto
+      WnAlerta('Erro em Produto',
+               'Produto '
+             + Q.FieldByName('CODIGO').AsString
+             + '-'
+             + Q.FieldByName('DESCRICAO_PRODUTO').AsString
+             + slinebreak
+             + 'sem CST do ICMS definido.'
+             + slinebreak
+             + slinebreak
+             + 'Acerte o cadastro deste produto e tente novamente emitir a NFe.'
+             );
+
+      //Abre o cadastro do produto
+      Frm_Produto := TFrm_Produto.Create(Self);
+      vFrm_ProdutoPesquisarCodigoDoProduto:=True;
+      Frm_Produto.edArgumentoDePesquisa.Text := Q.FieldByName('CODIGO').AsString;
+      Frm_Produto.ShowModal;
+      Frm_Produto.Free;
+
+      //Próximo item do pedido
+      Q.Next;
+   end;
+
+   //Destroi a Query para liberar memória
+   Q.Free;
+
 end;
 
 procedure Tfrm_pedido_venda.Preenche_Tela(pCODIGO_VENDA:Integer);

@@ -5,6 +5,7 @@ unit cadastro_produto;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+250|03/06/20|05:34|cadastro_produto            |Preparada para ser chamada por telas do movimento para acertar o cadastro de algum produto
 247|01/06/20|09:33|cadastro_produto            |Tratando o "Indicador de Escala Relevante" do Produto.
 246|01/06/20|09:33|Atualizador                 |Criada coluna NFe_IndEscala para armazenar o "Indicador de Escala Relevante" do Produto.
 ========================================================================================================================================
@@ -739,6 +740,7 @@ type
       Shift: TShiftState);
     procedure cxButton10Click(Sender: TObject);
     procedure edNFe_pMVAKeyPress(Sender: TObject; var Key: Char);
+    procedure FormCreate(Sender: TObject);
 
   private
     { Private declarations }
@@ -747,6 +749,7 @@ type
     procedure Pode_Alterar;
     procedure Mostrar_Produto;
     procedure Clicou_no_Grid_de_Produto;
+    procedure Clicou_Botao_Alterar;
     procedure ConsultarMarcas;
     procedure ConsultarFamilias;
     procedure ConsultarGrupos;
@@ -777,9 +780,20 @@ type
 
 var
   Frm_Produto: TFrm_Produto;
+
   NaoPesquisar: Boolean; // Impede que haja pesquisas enquanto a tela está
                          // sendo configurada pela procedure INICIO ao aplicar
                          // os padrões iniciais.
+
+  vFrm_ProdutoPesquisarCodigoDoProduto: Boolean; //Quando esta tela for aberta
+                         // pela tela de venda, ou alguma outra tela que use
+                         // o cadastro do produto, deverá pesquisar apenas pelo
+                         // código do produto, que será preenchido por aquela
+                         // tela que chamou esta aqui.
+                         // Se vFrm_ProdutoPesquisarCodigoDoProduto = true
+                         // pesquisará apenas pelo código do produto, e se for
+                         // false, pesquisará pelos demais atributos definidos
+                         // na função PESQUISAR.
 
 implementation
 
@@ -1431,6 +1445,13 @@ begin
   ApagarRegistro;
   InserirRegistro;
 
+  //Se esta tela foi chamada por outra tela,
+  //Fecha a tela ao salvar o produto
+  if vFrm_ProdutoPesquisarCodigoDoProduto then
+  begin
+    Close;
+  end;
+
   //Ajusta botões de controle
   pode_Alterar_Incluir(Frm_Produto);
 
@@ -1448,6 +1469,14 @@ end;
 
 procedure TFrm_Produto.bControleCancelarClick(Sender: TObject);
 begin
+  //Se esta tela foi chamada por outra tela,
+  //Fecha a tela ao cancelar edição do produto
+  if vFrm_ProdutoPesquisarCodigoDoProduto then
+  begin
+    Close;
+  end;
+
+
   //Ajusta botões de controle
   pode_Alterar_Incluir(Frm_Produto);
 
@@ -1482,6 +1511,11 @@ begin
 end;
 
 procedure TFrm_Produto.bControleAlterarClick(Sender: TObject);
+begin
+  Clicou_Botao_Alterar;
+end;
+
+procedure TFrm_Produto.Clicou_Botao_Alterar;
 begin
   if ((edCODIGO.Text = '' )  or
       (edCODIGO.Text = '0')) and
@@ -2428,22 +2462,53 @@ begin
    qConsulta.Sql.Clear;
    qConsulta.Sql.Add('SELECT *              ');
    qConsulta.Sql.Add('  FROM produto        ');
-   qConsulta.Sql.Add(' WHERE Codigo = Codigo');
-   if edArgumentoDePesquisa.Text <> '' then
+
+   if vFrm_ProdutoPesquisarCodigoDoProduto then
    begin
-      qConsulta.sql.add(' AND (                                        ');
-      qConsulta.sql.add('          (CODIGO                LIKE :TEXTO) ');
-      qConsulta.sql.add('       OR (CODIGO_ALFANUMERICO   LIKE :TEXTO) ');
-      qConsulta.sql.add('       OR (codigo_barras         LIKE :TEXTO) ');
-      qConsulta.sql.add('       OR (descricao_produto     LIKE :TEXTO) ');
-      qConsulta.sql.add('       OR (ncm                   LIKE :TEXTO) ');
-      qConsulta.sql.add('       OR (referencia_fabricante LIKE :TEXTO) ');
-      qConsulta.sql.add('     )                                        ');
-      qConsulta.ParamByName('TEXTO').AsString := '%'+edArgumentoDePesquisa.Text+'%';
+     //Esta tela foi chamada por algma outra que usa o cadastro de produto.
+     //Localizar o produto e, se encontrar, abrir para edição.
+     //Informar o usuário caso não encontre o produto e deixar que o usuário
+     //proceda como desejar.
+     qConsulta.Sql.Add(' WHERE Codigo = :Codigo');
+     qConsulta.ParamByName('Codigo').AsString := edArgumentoDePesquisa.Text;
+   end
+   else
+   begin
+     //Esta tela foi aberta pelo usuário.
+     //Localizar o produto por qualquer dos atributos previstos abaixo
+     qConsulta.Sql.Add(' WHERE Codigo = Codigo');
+     if edArgumentoDePesquisa.Text <> '' then
+     begin
+        qConsulta.sql.add(' AND (                                        ');
+        qConsulta.sql.add('          (CODIGO                LIKE :TEXTO) ');
+        qConsulta.sql.add('       OR (CODIGO_ALFANUMERICO   LIKE :TEXTO) ');
+        qConsulta.sql.add('       OR (codigo_barras         LIKE :TEXTO) ');
+        qConsulta.sql.add('       OR (descricao_produto     LIKE :TEXTO) ');
+        qConsulta.sql.add('       OR (ncm                   LIKE :TEXTO) ');
+        qConsulta.sql.add('       OR (referencia_fabricante LIKE :TEXTO) ');
+        qConsulta.sql.add('     )                                        ');
+        qConsulta.ParamByName('TEXTO').AsString := '%'+edArgumentoDePesquisa.Text+'%';
+     end;
    end;
+
+   //Trazer o/os produtos que atendam ao Argumento de Pesquisa
    qConsulta.Open;
 
    pnContador.Caption := inttostr(qConsulta.RecordCount);
+
+   //Se esta tela foi chamada por outra tela,
+   //Se encontrou o produto (um único produto)
+   //Mostrar o produto
+   //Entra em modo de edição
+   if vFrm_ProdutoPesquisarCodigoDoProduto then
+   begin
+      if qConsulta.RecordCount = 1 then
+      begin
+         Clicou_no_Grid_de_Produto;
+         Clicou_Botao_Alterar;
+      end;
+   end;
+
 end;
 
 procedure TFrm_Produto.carregar_faixa;
@@ -2640,6 +2705,11 @@ end;
 
 
 
+procedure TFrm_Produto.FormCreate(Sender: TObject);
+begin
+     vFrm_ProdutoPesquisarCodigoDoProduto := false;
+end;
+
 procedure TFrm_Produto.FormKeyPress(Sender: TObject; var Key: Char);
 begin
     if key = #27 Then
@@ -2677,7 +2747,8 @@ end;
 procedure TFrm_Produto.FormShow(Sender: TObject);
 begin
   Inicio;
-
+  if vFrm_ProdutoPesquisarCodigoDoProduto then
+     Pesquisar;
 
   //chk_diff_estoque.Checked := (simplequery('select prod_difer_estoque from parametros_sistema').Fields[0].AsString = m_true);
   //deletar_prod_preco_faixa := false;

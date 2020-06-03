@@ -22,14 +22,17 @@ ordem decrescente de data....
 |-------|------|
 |05/2020| 124  | 244
 |-------|------|
-|06/2020|  05  | 249
+|06/2020|  08  | 252
 |-------|------|
-|  TOTAL| 249  |
+|  TOTAL| 252  |
 ================
 
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+252|03/06/20|05:34|venda_pedido                |Se encontrar algum produto sem o CST do ICMS informado, abre o cadastro do produto para que o usuário corrija.
+251|03/06/20|05:34|venda_pedido                |Passa a criticar e avisar ao usuário se encontrar algum produto sem o CST do ICMS informado
+250|03/06/20|05:34|cadastro_produto            |Preparada para ser chamada por telas do movimento para acertar o cadastro de algum produto
 249|02/06/20|20:08|EmissaoDeNFe                |Passa a completar com pontos "." as unidades de medida que possuam menos de 3 caracteres (ex: KG -> KG.)
 248|01/06/20|14:16|venda_pedido                |Tratando os novos campos fiscas do cadastro do produto.
 247|01/06/20|09:33|cadastro_produto            |Tratando o "Indicador de Escala Relevante" do Produto.

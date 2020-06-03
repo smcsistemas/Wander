@@ -22,6 +22,7 @@ object Frm_Produto: TFrm_Produto
   Position = poMainFormCenter
   Scaled = False
   OnClose = FormClose
+  OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
@@ -39,7 +40,7 @@ object Frm_Produto: TFrm_Produto
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    Properties.ActivePage = tabTributacao
+    Properties.ActivePage = tab_Cadastrar
     Properties.ActivateFocusedTab = False
     Properties.CustomButtons.Buttons = <>
     LookAndFeel.NativeStyle = False
@@ -58,10 +59,6 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 0
       ParentFont = False
       OnShow = cxTabSheet1Show
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label58: TLabel
         Left = 20
         Top = 555
@@ -741,10 +738,6 @@ object Frm_Produto: TFrm_Produto
     object tab_Cadastrar: TcxTabSheet
       Caption = 'Cadastro'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel6: TPanel
         Left = 3
         Top = 2
@@ -3866,10 +3859,6 @@ object Frm_Produto: TFrm_Produto
     object tabTributacao: TcxTabSheet
       Caption = ' Tributa'#231#227'o'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel4: TPanel
         Left = -1
         Top = 3

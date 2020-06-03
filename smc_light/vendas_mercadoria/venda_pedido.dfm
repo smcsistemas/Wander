@@ -34,7 +34,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    Properties.ActivePage = cxTabSheet1
+    Properties.ActivePage = cxTabSheet2
     Properties.CustomButtons.Buttons = <>
     LookAndFeel.NativeStyle = False
     LookAndFeel.SkinName = 'Metropolis'
@@ -51,6 +51,10 @@ object frm_pedido_venda: Tfrm_pedido_venda
       Font.Style = [fsBold]
       ImageIndex = 0
       ParentFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lbl_qtde: TLabel
         Left = 537
         Top = 603
@@ -1763,6 +1767,10 @@ object frm_pedido_venda: Tfrm_pedido_venda
       Font.Style = [fsBold]
       ImageIndex = 1
       ParentFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label23: TLabel
         Left = 18
         Top = 7
@@ -5964,6 +5972,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object SQL_VENDA_ITEMCODIGO_VENDA: TIntegerField
       AutoGenerateValue = arDefault
