@@ -323,6 +323,7 @@ type
     SQL_VENDA_ITEMrateio_acrescimo: TBCDField;
     SQL_VENDA_ITEMpreco_custo: TBCDField;
     SQL_VENDA_ITEMNFe_Veiculo_Chassi: TStringField;
+    SQL_VENDA_ITEMVI_CFOP_CSOSN: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cxButton4Click(Sender: TObject);
     procedure BtnNFEClick(Sender: TObject);

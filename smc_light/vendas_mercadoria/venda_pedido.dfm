@@ -51,10 +51,6 @@ object frm_pedido_venda: Tfrm_pedido_venda
       Font.Style = [fsBold]
       ImageIndex = 0
       ParentFont = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lbl_qtde: TLabel
         Left = 537
         Top = 603
@@ -1767,10 +1763,6 @@ object frm_pedido_venda: Tfrm_pedido_venda
       Font.Style = [fsBold]
       ImageIndex = 1
       ParentFont = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label23: TLabel
         Left = 18
         Top = 7
@@ -3682,9 +3674,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
             Width = 366
           end
           object cxGridDBTableView1Column11: TcxGridDBColumn
-            DataBinding.FieldName = 'CFOP'
-            FooterAlignmentHorz = taCenter
-            GroupSummaryAlignment = taCenter
+            DataBinding.FieldName = 'VI_CFOP_CSOSN'
             HeaderAlignmentHorz = taCenter
             HeaderGlyphAlignmentHorz = taCenter
             Width = 45
@@ -6053,6 +6043,14 @@ object frm_pedido_venda: Tfrm_pedido_venda
       FieldName = 'NFe_Veiculo_Chassi'
       Origin = 'NFe_Veiculo_Chassi'
       Size = 17
+    end
+    object SQL_VENDA_ITEMVI_CFOP_CSOSN: TStringField
+      Alignment = taCenter
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'CFOP'
+      FieldName = 'VI_CFOP_CSOSN'
+      Origin = 'VI_CFOP_CSOSN'
+      Size = 4
     end
   end
   object DS_VENDA_ITEM: TDataSource
