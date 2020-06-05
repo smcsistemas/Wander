@@ -1470,9 +1470,11 @@ begin
    // Unidade de medida
    edUNIDADE_MEDIDA.Text := SQL_PRODUTO.FieldByName('UNIDADE_MEDIDA').AsString;
 
-   // CFOP
-   edCFOP.Text := '';
-
+   // CFOP do produto
+   // Vem da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
+   // A chave de pesquisa precisa incluir o tipo de movimento...
+   edCFOP_Produto.Text := fRPC_CFOP(edPROD_CODIGO.Text,
+                                    edTPMOV.Text);
 end;
 
 procedure Tfrm_pedido_venda.Mostra_CFOP;

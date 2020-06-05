@@ -530,28 +530,33 @@ type
     btn_Tipo: TcxButton;
     Label61: TLabel;
     edNFe_pMVAST: TEdit;
-    DBGrid1: TDBGrid;
-    Panel1: TPanel;
-    bRPC_Delete: TcxButton;
-    bRPC_Insert: TcxButton;
-    Label14: TLabel;
-    edRPC_CFOP: TEdit;
-    edRPC_CFOP_NOME: TEdit;
-    edRPC_PIS_NOME: TEdit;
-    edRPC_PIS: TEdit;
-    Label19: TLabel;
-    Label20: TLabel;
-    edRPC_COFINS: TEdit;
-    edRPC_COFINS_NOME: TEdit;
-    cxButton6: TcxButton;
-    cxButton8: TcxButton;
-    cxButton10: TcxButton;
     edLEIS: TEdit;
     Label21: TLabel;
     edNFe_pMVA: TEdit;
     qConsultaNFe_pMVA: TBCDField;
     rgNFe_indEscala: TRadioGroup;
     qConsultaNFe_indEscala: TIntegerField;
+    Panel2: TPanel;
+    Label14: TLabel;
+    Label19: TLabel;
+    Label20: TLabel;
+    Label23: TLabel;
+    DBGrid1: TDBGrid;
+    Panel1: TPanel;
+    bRPC_Delete: TcxButton;
+    bRPC_Insert: TcxButton;
+    edRPC_CFOP: TEdit;
+    edRPC_CFOP_NOME: TEdit;
+    edRPC_PIS_NOME: TEdit;
+    edRPC_PIS: TEdit;
+    edRPC_COFINS: TEdit;
+    edRPC_COFINS_NOME: TEdit;
+    cxButton6: TcxButton;
+    cxButton8: TcxButton;
+    cxButton10: TcxButton;
+    edRPC_TPMOV: TEdit;
+    edRPC_TPMOV_Nome: TEdit;
+    cxButton13: TcxButton;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -741,6 +746,10 @@ type
     procedure cxButton10Click(Sender: TObject);
     procedure edNFe_pMVAKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
+    procedure cxButton13Click(Sender: TObject);
+    procedure edRPC_TPMOVKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edRPC_TPMOVChange(Sender: TObject);
 
   private
     { Private declarations }
@@ -761,6 +770,7 @@ type
     procedure ConsultarCST_COFINS;
     procedure ConsultarUnidades;
     procedure ConsultarCFOP;
+    procedure ConsultarTPMOV;
     function DadosCorretos:Boolean;
     function Dados_da_Aba_Cadastro_OK  :Boolean;
     function Dados_da_Aba_Tributacao_OK:Boolean;
@@ -1297,6 +1307,11 @@ begin
   frm_dados_produtos.ShowModal;
 end;
 
+procedure TFrm_Produto.cxButton13Click(Sender: TObject);
+begin
+   ConsultarTPMOV;
+end;
+
 procedure TFrm_Produto.cxButton16Click(Sender: TObject);
 begin
   frm_balanca := Tfrm_balanca.CREATE(Application);
@@ -1334,6 +1349,7 @@ end;
 procedure TFrm_Produto.bRPC_DeleteClick(Sender: TObject);
 begin
    ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(edCodigo.Text,
+                                                   edRPC_TPMOV.Text,
                                                    edRPC_CFOP.Text);
    Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
 end;
@@ -1382,15 +1398,18 @@ end;
 
 procedure TFrm_Produto.bRPC_InsertClick(Sender: TObject);
 begin
+   if edRPC_TPMOV.Text  = '' then exit;
    if edRPC_CFOP.Text   = '' then exit;
    if edRPC_PIS.Text    = '' then exit;
    if edRPC_COFINS.Text = '' then exit;
 
    ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(edCodigo.Text,
+                                                   edRPC_TPMOV.Text,
                                                    edRPC_CFOP.Text);
 
 
-   Associar_CFOP_PROD_CST_PISCOFINS(edRPC_CFOP.Text,
+   Associar_CFOP_PROD_CST_PISCOFINS(edRPC_TPMOV.Text,
+                                    edRPC_CFOP.Text,
                                     StrToInt(edCodigo.Text),
                                     edRPC_PIS.Text,
                                     edRPC_COFINS.Text);
@@ -1634,6 +1653,12 @@ begin
   edSUBGRUPO.Text := Frm_SubGrupo_CODIGO;
   Frm_SubGrupo.Free;
   edSUBGRUPO_NOME.Text := fProdutoSUBGRUPO_NOME(edSUBGRUPO.Text);
+end;
+
+procedure TFrm_Produto.ConsultarTPMOV;
+begin
+//  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgTPMOV, edRPC_TPMOV);
+//  Frm_Consulta_Generica.ShowModal;
 end;
 
 procedure TFrm_Produto.btn_ncmClick(Sender: TObject);
@@ -3139,11 +3164,12 @@ begin
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Clear;
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('SELECT *                                          ');
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('  FROM RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC, ');
-   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('       CFOP                                       ');
-   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add(' WHERE RPC_CFOP    = CODIGO                       ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('       CFOP,                                      ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('       TIPOMOVIMENTO_TPMOV                        ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add(' WHERE RPC_TPMOV   = TPMOV_CODIGO                 ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('   AND RPC_CFOP    = CODIGO                       ');
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('   AND RPC_PRODUTO = :RPC_PRODUTO                 ');
-
-   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add(' ORDER BY RPC_CFOP                                ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add(' ORDER BY TPMOV_DESCRICAO, RPC_CFOP                                ');
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.ParamByName('RPC_PRODUTO').AsString := qConsulta.FieldByName('CODIGO').AsString;
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Open;
 end;
@@ -3253,6 +3279,7 @@ end;
 procedure TFrm_Produto.qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPCAfterScroll(
   DataSet: TDataSet);
 begin
+   edRPC_TPMOV.Text  := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_TPMOV' ).AsString;
    edRPC_CFOP.Text   := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_CFOP'  ).AsString;
    edRPC_PIS.Text    := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString;
    edRPC_COFINS.Text := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString;
@@ -3314,6 +3341,21 @@ procedure TFrm_Produto.edRPC_PISKeyDown(Sender: TObject; var Key: Word;
 begin
   if (Key = vk_F1) then
    ConsultarCST_PIS;
+end;
+
+procedure TFrm_Produto.edRPC_TPMOVChange(Sender: TObject);
+begin
+   edRPC_TPMOV_Nome.Text := '';
+   if edRPC_TPMOV.Text = '' then
+      exit;
+   edRPC_TPMOV_Nome.Text := fTPMOV_DESCRICAO(edRPC_TPMOV.Text);
+end;
+
+procedure TFrm_Produto.edRPC_TPMOVKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = vk_F1) then
+     ConsultarTPMOV;
 end;
 
 function TFrm_Produto.RefFabricanteRepetido(foco: Boolean = true): Boolean;

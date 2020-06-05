@@ -112,12 +112,15 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+
+//Recebe cod PROD e TPMOV e retorna o CFOP associado ao produto.
+//Se não existir associação, retorna o CFOP dp TPMOV
+function fRPC_CFOP(pPRODUTO,pTPMOV:String):String;
 //090 02/06/2020-20:04-Recebe um string e completa com "." até atingir o pTamanho
 //Foi para a unit venda_pedido pois precisava invocar "cadastro_produto" que já
 //invocava u_funcoes
 //function Produto_sem_CST_ICMS(pVenda: Integer): Boolean;
 function CompletarComPontos(pTexto:String;pTamanho:Integer):String;
-
 //089 30/05/2020-01:07-Cadastra todos os CST de COFINS
 procedure Cadastrar_CST_COFINS;
 //088 30/05/2020-01:07-Recebe codigo e descrição de CST_COFINS e os inclui na tabela CST_COFINS
@@ -133,12 +136,13 @@ function fCST_PIS_DESCRICAO(pCodigo:String):String;
 //083 29/05/2020-21:19-Recebe codigo CFOP devolve sua descrição
 function fCFOP_DESCRICAO(pCodigo:String):String;
 //082 29/05/2020-20:49-Insere registro na tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
-procedure Associar_CFOP_PROD_CST_PISCOFINS(pCFOP:String;
+procedure Associar_CFOP_PROD_CST_PISCOFINS(pTPMOV,
+                                           pCFOP:String;
                                            pPRODUTO:Integer;
                                            pPIS_CST,
                                            pCOFINS_CST:String);
 //081 29/05/2020-20:38-Recebe Codigo de Produto e CFOP e exclui relacionamento CST PIS COFINS
-procedure ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pPRODUTO,pCFOP:String);
+procedure ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pPRODUTO,pTPMOV, pCFOP:String);
 //080 29/05/2020-12:06-Recebe um codigo de TPMOV e retorna seu CFOP
 function fTPMOV_CFOP(pCODIGO:String):String;
 //079 29/05/2020-05:29-Recebe um codigo de CST_PIS e retorna sua descrição
@@ -6119,7 +6123,7 @@ begin
    Q.Free;
 end;
 
-procedure ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pPRODUTO,pCFOP:String);
+procedure ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pPRODUTO,pTPMOV, pCFOP:String);
 var Q : tFDQuery;
 begin
    q := TFDQuery.Create(nil);
@@ -6128,15 +6132,18 @@ begin
    Q.Close;
    Q.Sql.Clear;
    Q.SQL.Add('DELETE FROM RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC ');
-   Q.SQL.Add(' WHERE RPC_CFOP    = :RPC_CFOP                        ');
+   Q.SQL.Add(' WHERE RPC_TPMOV   = :RPC_TPMOV                       ');
+   Q.SQL.Add('   AND RPC_CFOP    = :RPC_CFOP                        ');
    Q.SQL.Add('   AND RPC_PRODUTO = :RPC_PRODUTO                     ');
+   Q.ParamByName('RPC_TPMOV'  ).AsString := pTPMOV;
    Q.ParamByName('RPC_CFOP'   ).AsString := pCFOP;
    Q.ParamByName('RPC_PRODUTO').AsString := pPRODUTO;
    Q.ExecSql;
    Q.Free;
 end;
 
-procedure Associar_CFOP_PROD_CST_PISCOFINS(pCFOP: String;
+procedure Associar_CFOP_PROD_CST_PISCOFINS(pTPMOV,
+                                           pCFOP: String;
                                            pPRODUTO: Integer;
                                            pPIS_CST,
                                            pCOFINS_CST: String);
@@ -6157,6 +6164,7 @@ begin
    qLocal.Sql.Clear;
    qLocal.SQL.Add('INSERT INTO RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC');
    qLocal.SQL.Add('     (                                               ');
+   qLocal.SQL.Add('       RPC_TPMOV,                                    ');
    qLocal.SQL.Add('       RPC_CFOP,                                     ');
    qLocal.SQL.Add('       RPC_PRODUTO,                                  ');
    qLocal.SQL.Add('       RPC_PIS,                                      ');
@@ -6164,11 +6172,13 @@ begin
    qLocal.SQL.Add('     )                                               ');
    qLocal.SQL.Add('VALUES                                               ');
    qLocal.SQL.Add('     (                                               ');
+   qLocal.SQL.Add('      :RPC_TPMOV,                                    ');
    qLocal.SQL.Add('      :RPC_CFOP,                                     ');
    qLocal.SQL.Add('      :RPC_PRODUTO,                                  ');
    qLocal.SQL.Add('      :RPC_PIS,                                      ');
    qLocal.SQL.Add('      :RPC_COFINS                                    ');
    qLocal.SQL.Add('     )                                               ');
+   qLocal.ParamByName('RPC_TPMOV'  ).AsString := pTPMOV;
    qLocal.ParamByName('RPC_CFOP'   ).AsString := pCFOP;
    qLocal.ParamByName('RPC_PRODUTO').AsInteger:= pPRODUTO;
    qLocal.ParamByName('RPC_PIS'    ).AsString := pPIS_CST;
@@ -6386,6 +6396,35 @@ begin
    result := xTexto;
 end;
 
+function fRPC_CFOP(pPRODUTO,pTPMOV:String):String;
+var Q : tFDQuery;
+begin
+   q := TFDQuery.Create(nil);
+   q.Connection     := Module.connection;
+   q.ConnectionName := 'connection';
+
+   result := '';
+
+   Q.Close;
+   Q.Sql.Clear;
+   Q.SQL.Add('SELECT RPC_CFOP                                  ');
+   Q.SQL.Add('  FROM RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC ');
+   Q.SQL.Add(' WHERE RPC_TPMOV   = :RPC_TPMOV                  ');
+   Q.SQL.Add('   AND RPC_PRODUTO = :RPC_PRODUTO                ');
+   Q.ParamByName('RPC_TPMOV'  ).AsString := pTPMOV;
+   Q.ParamByName('RPC_PRODUTO').AsString := pPRODUTO;
+   Q.Open;
+   if not Q.Eof then
+   begin
+     //Existe relacionamento: Retorna o CFOP correspondente ao TPMOV
+     result := Q.FieldByName('RPC_CFOP').AsString;
+     Q.Free;
+     Exit;
+   end;
+   Q.Free;
+   //Não existe relacionamento: Retorna o CFOP do TPMOV
+   result := fTPMOV_CFOP(pTPMOV);
+end;
 
 //##############################################################################
 //                FIM DAS FUNCOES DESENVOLVIDAS PELO WANDER

@@ -386,7 +386,8 @@ begin
      Application.ProcessMessages;
 
      //Associar
-     Associar_CFOP_PROD_CST_PISCOFINS(vCFOP,
+     Associar_CFOP_PROD_CST_PISCOFINS('1',
+                                      vCFOP,
                                       qPRODUTO.FieldByName('CODIGO'    ).AsInteger,
                                       qPRODUTO.FieldByName('PIS_CST'   ).AsString,
                                       qPRODUTO.FieldByName('COFINS_CST').AsString);
@@ -2322,6 +2323,13 @@ begin
     //02/06/2020
     if fNaoAtualizado('Produto:Calcular ST ICMS') Then
        Executar('ALTER TABLE PRODUTO ADD NFe_indEscala INTEGER NULL DEFAULT 2 COMMENT "Indicador de Escala Relevante" ');
+
+    //05/06/2020
+    if fNaoAtualizado('RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC->TPMOV...') Then
+    begin
+       Executar('ALTER TABLE RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC ADD RPC_TPMOV VARCHAR(20) NOT NULL COMMENT "Cod do Tipo de Movimento" ');
+       Executar('update RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC set RPC_TPMOV= "1" ');
+    end;
 
 end;
 
