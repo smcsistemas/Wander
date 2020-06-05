@@ -260,6 +260,51 @@ type
     procedure Tratar_ICMSPartilha;
     procedure Tratar_ICMS_ST_devido_para_UF_de_destino;
 
+    procedure Tratar_N11_Produto_Imposto_ICMS_orig;
+    procedure Tratar_N12_Produto_Imposto_ICMS_CST;
+    procedure Tratar_N13_Produto_Imposto_ICMS_modBC;
+    procedure Tratar_N14_Produto_Imposto_ICMS_pRedBC;
+    procedure Tratar_N15_Produto_Imposto_ICMS_vBC;
+    procedure Tratar_N16_Produto_Imposto_ICMS_pICMS;
+    procedure Tratar_N17_Produto_Imposto_ICMS_vICMS;
+    procedure Tratar_N18_Produto_Imposto_ICMS_modBCST;
+    procedure Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+    procedure Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+    procedure Tratar_N21_Produto_Imposto_ICMS_vBCST;
+    procedure Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+    procedure Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+    procedure Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+    procedure Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+    procedure Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
+    procedure Tratar_N24_Produto_Imposto_ICMS_UFST;
+    procedure Tratar_N25_Produto_Imposto_ICMS_pBCOp;
+    procedure Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
+    procedure Tratar_Produto_Imposto_ICMS_pST;
+    procedure Tratar_Produto_Imposto_ICMS_vICMSSubstituto;
+
+    procedure Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
+    procedure Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
+    procedure Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
+    procedure Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
+
+    procedure Tratar_N28_Desoneracao_do_ICMS;
+    procedure Tratar_N31_Produto_Imposto_ICMS_vBCSTDest;
+    procedure Tratar_N32_Produto_Imposto_ICMS_vICMSSTDes;
+
+    procedure Tratar_Produto_Imposto_ICMS_pRedBCEfet;
+    procedure Tratar_Produto_Imposto_ICMS_vBCEfet;
+    procedure Tratar_Produto_Imposto_ICMS_pICMSEfet;
+    procedure Tratar_Produto_Imposto_ICMS_vICMSEfet;
+
+    // Fundo de Combate à Pobreza
+    procedure Tratar_Produto_Imposto_ICMS_vBCFCP;
+    procedure Tratar_Produto_Imposto_ICMS_pFCP;
+    procedure Tratar_Produto_Imposto_ICMS_vFCP;
+
+    procedure Tratar_vICMSOp;
+    procedure Tratar_pDif;
+    procedure Tratar_vICMSDif;
+
     procedure Tratar_CSOSN;
     procedure Tratar_CSOSN_000;
     procedure Tratar_CSOSN_101;
@@ -3376,6 +3421,314 @@ begin
    //---------------------------------------------------------------------------
 end;
 
+procedure TfrmEmissaoDeNFe.Tratar_N11_Produto_Imposto_ICMS_orig;
+begin
+    {N11}
+    //orig
+    //Origem da mercadoria:
+    //     0 – Nacional
+    //     1 – Estrangeira – Importação direta
+    //     2 – Estrangeira – Adquirida no mercado interno
+    //---------------------------------------------------
+    with Produto.Imposto.ICMS do
+    begin
+      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
+         0 : orig := oeNacional;
+         1 : orig := oeEstrangeiraImportacaoDireta;
+         2 : orig := oeEstrangeiraAdquiridaBrasil;
+         3 : orig := oeNacionalConteudoImportacaoSuperior40;
+         4 : orig := oeNacionalProcessosBasicos;
+         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
+         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
+         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
+         8 : orig := oeNacionalConteudoImportacaoSuperior70;
+     end;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N12_Produto_Imposto_ICMS_CST;
+begin
+    {N12}
+    //CST
+    Produto.Imposto.ICMS.CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N13_Produto_Imposto_ICMS_modBC;
+begin
+     {N13}
+     //modBC
+     // Modalidade de determinação da BC do ICMS
+     //        0 - Margem Valor Agregado (%)
+     //        1 - Pauta (Valor)
+     //        2 - Preço Tabelado Máx. (valor)
+     //        3 - valor da operação
+     //------------------------------------------------------------------------
+     //A pauta fiscal informa o valor de mercado de um determinado produto,
+     //auxiliando na definição da base de cálculo do ICMS.
+     //Esse valor referencial é definido pela Secretaria da Fazenda mediante
+     //pesquisa periódica de preços, para ser utilizado como base de cálculo
+     //nas situações previstas na legislação tributária.
+     //Tem por fundamento o princípio da praticidade e, por objetivo,
+     //orientação e controle fiscal, visando adequar o valor sobre o qual são
+     //calculados os impostos aos preços efetivamente praticados no mercado
+     //local.
+     //
+     //Fonte: http://intra.totall.com.br:8080/wiki/index.php/Pauta_Fiscal
+     //------------------------------------------------------------------------
+
+     with Produto.Imposto.ICMS do
+     begin
+         case qVENDA_ITEM.FieldByName('NFe_modBC').AsInteger of
+             0 : modBC := dbiMargemValorAgregado;
+             1 : modBC := dbiPauta;
+             2 : modBC := dbiPrecoTabelado;
+             3 : modBC := dbiValorOperacao;
+             4 : modBC := dbiNenhum;
+         end;
+     end;
+
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N14_Produto_Imposto_ICMS_pRedBC;
+begin
+   {N14}
+   //pRedBC
+   //Percentual da Redução de BC
+   Produto.Imposto.ICMS.pRedBC := qVENDA_ITEM.FieldByName('REDUCAO_ICMS').AsFloat;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N15_Produto_Imposto_ICMS_vBC;
+begin
+   {N15}
+   //vBC
+   //Valor da BC do ICMS
+   {
+   ***                                                               ***
+   *** SE FOR MVA, PRECISARÀ USAR O PREÇO DE CUSTO DO PRODUTO        ***
+   ***    CALCULAR O VALOR DA VENDA = MVA*VALORCUSTO/100+ VALORVUSTO ***
+   ***                                                               ***
+   }
+   With Produto.Imposto.ICMS do
+   begin
+     if modBC = dbiPauta then
+     begin
+        //Usar o valor de pauta
+        vBC := qVENDA_ITEM.FieldByName('VALOR_PAUTA_BC').AsFloat *
+               qVENDA_ITEM.FieldByName('QUANTIDADE'    ).AsFloat;
+     end
+     else
+     begin
+        //Usar o valor do movimento
+        vBC := Produto.Prod.vProd;
+     end;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N16_Produto_Imposto_ICMS_pICMS;
+begin
+   {N16}
+   //pICMS
+   //Alíquota do imposto
+   Produto.Imposto.ICMS.pICMS := qVENDA_ITEM.FieldByName('ALIQ_ICMS').AsFloat;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N17_Produto_Imposto_ICMS_vICMS;
+begin
+   {N17}
+   //vICMS
+   //Valor do ICMS
+   with Produto.Imposto.ICMS do
+   begin
+      vICMS := pICMS / 100 * vBC;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N18_Produto_Imposto_ICMS_modBCST;
+begin
+   {N18}
+   //modBCST
+   //Modalidade de determinação da BC do ICMS ST
+   //       0 – Preço tabelado ou máximo sugerido
+   //       1 - Lista Negativa (valor)
+   //       2 - Lista Positiva (valor)
+   //       3 - Lista Neutra (valor)
+   //       4 - Margem Valor Agregado (%)
+   //       5 - Pauta (valor)
+   With Produto.Imposto.ICMS do
+   begin
+     case qVENDA_ITEM.FieldByName('NFe_modBCST').AsInteger of
+        0 : modBCST := dbisPrecoTabelado;
+        1 : modBCST := dbisListaNegativa;
+        2 : modBCST := dbisListaPositiva;
+        3 : modBCST := dbisListaNeutra;
+        4 : modBCST := dbisMargemValorAgregado;
+        5 : modBCST := dbisPauta;
+        6 : modBCST := dbisValordaOperacao;
+     end;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+begin
+   {N19}
+   //pMVAST
+   //Percentual da margem de valor Adicionado do ICMS ST
+   Produto.Imposto.ICMS.pMVAST := qVENDA_ITEM.FieldByName('NFe_pMVAST').AsFloat;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+begin
+   {N20}
+   //pRedBCST
+   //Percentual da Redução de BC do ICMS ST
+   Produto.Imposto.ICMS.pRedBCST := qVENDA_ITEM.FieldByName('REDUCAO_ICMS_ST').AsFloat;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N21_Produto_Imposto_ICMS_vBCST;
+begin
+   {N21}
+   //vBCST
+   //Valor da BC do ICMS ST
+   With Produto.Imposto.ICMS do
+   begin
+     if modBCST = dbisPauta then
+        vBCST := (pMVAST/100) * (qVENDA_ITEM.FieldByName('VALOR_PAUTA_BC_ST').AsFloat * Produto.Prod.qCom)
+               * ((100-pRedBCST)/100)
+     else
+        vBCST := (pMVAST/100 * Produto.Prod.vProd)
+               * ((100-pRedBCST)/100);
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+begin
+   {N22}
+   //pICMSST
+   //Alíquota do imposto do ICMS ST
+   Produto.Imposto.ICMS.pICMSST := qVENDA_ITEM.FieldByName('ALIQ_ICMS_SUBST').AsFloat;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+begin
+   {N23a}
+   //Base de Cálculo do Fundo de Combate a Pobreza
+   //Retido por Substituição Tributária
+   Produto.Imposto.ICMS.vBCFCPST:=Produto.Prod.vProd;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+begin
+   {N23b}
+   //O Percental do Fundo de Combate a Pobreza depende da UF de destino
+   //Depende da UF - tem que vir do cadastro do destinatário
+   // PRODUTO X UF X UF
+   With Produto.Imposto.ICMS do
+   begin
+       if fCP_PFCPST(qVENDA_ITEM.FieldByName('PROD_CODIGOCALCULOICMS').AsString,
+                     qEMITENTE.FieldByName('FILI_UF').AsString,
+                     qDESTINATARIO.FieldByName('ESTADO').AsString) then
+       begin
+           {N23b}
+           //Percentual do FCP retido por Substituição Tributária
+           //pFCPST := qCFOPPROD_CP.FieldByName('CP_PFCPST').AsFloat;
+       end
+       else
+       begin
+           {N23b}
+           //Percentual do FCP retido por Substituição Tributária
+           pFCPST := 0;
+       end;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
+begin
+   {N23d}
+   //Valor do Fundo de Combate a Pobreza
+   //retido por Substituição Tributária
+   //Aplicado sobre a BC do FB qdo CST <> 00
+   With Produto.Imposto.ICMS do
+   begin
+     vFCPST := pFCPST / 100 * vBCFCPST;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+begin
+   {N23}
+   //vICMSST
+   //Valor do ICMS ST
+   //Valor do ICMS ST retido
+   With Produto.Imposto.ICMS do
+   begin
+      vICMSST := pICMSST / 100 * vBCST;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N24_Produto_Imposto_ICMS_UFST;
+begin
+   {N24}
+   //UFST
+   //UF para qual é devido o ICMS ST
+   //Sigla da UF para qual é devido o ICMS ST da operação. (v2.0)
+   Produto.Imposto.ICMS.UFST := qDESTINATARIO.FieldByName('ESTADO').AsString;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N25_Produto_Imposto_ICMS_pBCOp;
+begin
+   {N25}
+   //pBCOp
+   //Percentual da BC operação própria
+   //Percentual para determinação do valor da Base de Cálculo da operação própria. (v2.0)
+   Produto.Imposto.ICMS.pBCOp := 0;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
+begin
+   {N26}
+   //vBCSTRet
+   //Valor da BC do ICMS ST retido
+   //Valor da BC do ICMS ST cobrado anteriormente por ST (v2.0)
+   Produto.Imposto.ICMS.vBCSTRet := Produto.Prod.vProd;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
+begin
+   {N27a}
+   //Valor da Base de Cálculo do FCP retido anteriormente por ST
+   Produto.Imposto.ICMS.vBCFCPSTRet := Produto.Prod.vProd;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
+begin
+   {N27b}
+   //Percentual do Fundo de Combate à Pobreza (FCP) Retido por ST
+   Produto.Imposto.ICMS.pFCPSTRet := 0;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
+begin
+   {N27d}
+   //Valor do Fundo de Combate à Pobreza (FCP) Retido por ST
+   With Produto.Imposto.ICMS do
+   begin
+      vFCPSTRet:= pFCPSTRet /100 * vBCFCPSTRet;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
+begin
+   {N27}
+   //vICMSSTRet
+   //Valor do ICMS ST retido
+   //Valor do ICMS ST cobrado anteriormente por ST (v2.0)
+   With Produto.Imposto.ICMS do
+   begin
+     if vBCSTRet > 0 then
+        vICMSSTRet := pST / 100 * vBCSTRet;
+   end;
+end;
+
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_N_ICMS_Normal_e_ST;
 var vICMS_CST : Integer;
 begin
@@ -4443,7 +4796,6 @@ begin
                  Lei nº 10.833 de 29.12.2003, arts. 30, 31, 32, 35 e 36
          }
 
-
          {349-W24}
          //vRetPIS
          //Valor Retido de PIS E W23
@@ -4740,11 +5092,6 @@ begin
         end;
      end;
    end;
-
-   // parei aqui 22/04/20 **********
-   // vou tratar grupo Y – Dados da Cobrança
-   // Página 153 de 232
-
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_Y_Dados_da_Cobranca;
@@ -4878,7 +5225,6 @@ begin
    //    2 - Justiça Estadual
    //    3 - Secex/RFB
    //    9 - Outros
-
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_ZA_Informacoes_de_Comercio_Exterior;
@@ -4901,9 +5247,7 @@ begin
    {404-ZA03}
    //xLocEmbarq
    //Local onde ocorrerá o Embarque dos produtos
-
 end;
-
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_ZB_Informacoes_de_Compras;
 begin
@@ -5042,109 +5386,14 @@ begin
    //Tributação do ICMS – 00
    //Tributada integralmente
 
-   With Produto.Imposto.ICMS do
-   begin
-      //<ok>
-      {166-N11}
-      //orig
-      //Origem da mercadoria:
-      //     0 – Nacional
-      //     1 – Estrangeira – Importação direta
-      //     2 – Estrangeira – Adquirida no mercado interno
-      //---------------------------------------------------
-      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-     end;
-
-     //<ok>
-     {167-N12}
-     //CST
-     //Tributação do ICMS 00 – Tributada integralmente
-     CST  := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
-
-     //<ok>
-     {168-N13}
-     //modBC
-     // Modalidade de determinação da BC do ICMS
-     //        0 - Margem Valor Agregado (%)
-     //        1 - Pauta (Valor)
-     //        2 - Preço Tabelado Máx. (valor)
-     //        3 - valor da operação
-     //------------------------------------------------------------------------
-     //A pauta fiscal informa o valor de mercado de um determinado produto,
-     //auxiliando na definição da base de cálculo do ICMS.
-     //Esse valor referencial é definido pela Secretaria da Fazenda mediante
-     //pesquisa periódica de preços, para ser utilizado como base de cálculo
-     //nas situações previstas na legislação tributária.
-     //Tem por fundamento o princípio da praticidade e, por objetivo,
-     //orientação e controle fiscal, visando adequar o valor sobre o qual são
-     //calculados os impostos aos preços efetivamente praticados no mercado
-     //local.
-     //
-     //Fonte: http://intra.totall.com.br:8080/wiki/index.php/Pauta_Fiscal
-     //------------------------------------------------------------------------
-     case qVENDA_ITEM.FieldByName('NFe_modBC').AsInteger of
-         0 : modBC := dbiMargemValorAgregado;
-         1 : modBC := dbiPauta;
-         2 : modBC := dbiPrecoTabelado;
-         3 : modBC := dbiValorOperacao;
-         4 : modBC := dbiNenhum;
-     end;
-
-     //<ok>
-     {169-N15}
-     //vBC
-     //Valor da BC do ICMS
-     {
-     ***                                                               ***
-     *** SE FOR MVA, PRECISARÀ USAR O PREÇO DE CUSTO DO PRODUTO        ***
-     ***    CALCULAR O VALOR DA VENDA = MVA*VALORCUSTO/100+ VALORVUSTO ***
-     ***                                                               ***
-     }
-     if modBC = dbiPauta then
-     begin
-        //Usar o valor de pauta
-        vBC := qVENDA_ITEM.FieldByName('VALOR_PAUTA_BC').AsFloat *
-               qVENDA_ITEM.FieldByName('QUANTIDADE'    ).AsFloat;
-     end
-     else
-     begin
-        //Usar o valor do movimento
-        vBC := Produto.Prod.vProd;
-     end;
-
-     //<ok>
-     {170-N16}
-     //pICMS
-     //Alíquota do imposto
-     pICMS := qVENDA_ITEM.FieldByName('ALIQ_ICMS').AsFloat;
-
-     //<ok>
-     {171-N17}
-     //vICMS
-     //Valor do ICMS
-     vICMS := vBC *
-              qVENDA_ITEM.FieldByName('ALIQ_ICMS').AsFloat / 100;
-
-     //<ok>
-     //Percentual do Fundo de Combate a Pobreza
-     //Depende da UF - tem que vir do cadastro da empresa
-     pFCP := 0;
-
-     //<ok>
-     //Valor do Fundo de Combate a Pobreza
-     //Aplicado sobre a BC do ICMS qdo CST = 00
-     vFCP := pFCP / 100 * vBC;
-
-   end; // with...
+   {166-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
+   {167-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
+   {168-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
+   {169-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
+   {170-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
+   {171-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
+             Tratar_Produto_Imposto_ICMS_pFCP;
+             Tratar_Produto_Imposto_ICMS_vFCP;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS10;
@@ -5168,167 +5417,21 @@ begin
    //Grupo de Tributação do ICMS = 10
    //Tributada e com cobrança do ICMS por substituição tributária
 
-   With Produto.Imposto.ICMS do
-   begin
-     //<ok>
-     {163-N11}
-     //orig
-     //Origem da mercadoria:
-     //     0 – Nacional
-     //     1 – Estrangeira – Importação direta
-     //     2 – Estrangeira – Adquirida no mercado interno
-     //---------------------------------------------------
-     Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-     end;
-
-     //<ok>
-     {174-N12}
-     //CST
-     //Tributação do ICMS 10
-     //Tributada e com cobrança do ICMS por substituição tributária
-     CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
-
-     //<ok>
-     {175-N13}
-     //modBC
-     // Modalidade de determinação da BC do ICMS
-     //        0 - Margem Valor Agregado (%)
-     //        1 - Pauta (Valor)
-     //        2 - Preço Tabelado Máx. (valor)
-     //        3 - valor da operação
-     case qVENDA_ITEM.FieldByName('NFe_modBC').AsInteger of
-         0 : modBC := dbiMargemValorAgregado;
-         1 : modBC := dbiPauta;
-         2 : modBC := dbiPrecoTabelado;
-         3 : modBC := dbiValorOperacao;
-         4 : modBC := dbiNenhum;
-     end;
-
-     //<ok>
-     {176-N15}
-     //vBC
-     //Valor da BC do ICMS
-     {
-     ***                                                               ***
-     *** SE FOR MVA, PRECISARÀ USAR O PREÇO DE CUSTO DO PRODUTO        ***
-     ***    CALCULAR O VALOR DA VENDA = MVA*VALORCUSTO/100+ VALORVUSTO ***
-     ***                                                               ***
-
-     }
-     vBC := Produto.Prod.vProd;
-
-     //<ok>
-     {177-N16}
-     //pICMS
-     //Alíquota do imposto
-     pICMS := qVENDA_ITEM.FieldByName('ALIQ_ICMS').AsFloat;
-
-     //<ok>
-     {178-N17}
-     //vICMS
-     //Valor do ICMS
-     vICMS := vBC * pICMS / 100;
-
-     //<ok>
-     {179-N18}
-     //modBCST
-     //Modalidade de determinação da BC do ICMS ST
-     //       0 – Preço tabelado ou máximo sugerido
-     //       1 - Lista Negativa (valor)
-     //       2 - Lista Positiva (valor)
-     //       3 - Lista Neutra (valor)
-     //       4 - Margem Valor Agregado (%)
-     //       5 - Pauta (valor)
-     case qVENDA_ITEM.FieldByName('NFe_modBCST').AsInteger of
-        0 : modBCST := dbisPrecoTabelado;
-        1 : modBCST := dbisListaNegativa;
-        2 : modBCST := dbisListaPositiva;
-        3 : modBCST := dbisListaNeutra;
-        4 : modBCST := dbisMargemValorAgregado;
-        5 : modBCST := dbisPauta;
-        6 : modBCST := dbisValordaOperacao;
-     end;
-
-     //<ok>
-     {180-N19}
-     //pMVAST
-     //Percentual da margem de valor Adicionado do ICMS ST
-     pMVAST := qVENDA_ITEM.FieldByName('NFe_pMVAST').AsFloat;
-
-     //<ok>
-     {181-N20}
-     //pRedBCST
-     //Percentual da Redução de BC do ICMS ST
-     pRedBCST := qVENDA_ITEM.FieldByName('REDUCAO_ICMS_ST').AsFloat;
-
-     //<ok>
-     {182-N21}
-     //vBCST
-     //Valor da BC do ICMS ST
-     if modBCST = dbisPauta then
-        vBCST := (pMVAST/100) * (qVENDA_ITEM.FieldByName('VALOR_PAUTA_BC_ST').AsFloat * Produto.Prod.qCom)
-               * ((100-pRedBCST)/100)
-     else
-        vBCST := (pMVAST/100 * Produto.Prod.vProd)
-               * ((100-pRedBCST)/100);
-
-     //<ok>
-     {183-N22}
-     //pICMSST
-     //Alíquota do imposto do ICMS ST
-     pICMSST := qVENDA_ITEM.FieldByName('ALIQ_ICMS_SUBST').AsFloat;
-
-     //<ok>
-     {184-N23}
-     //vICMSST
-     //Valor do ICMS ST
-     //Valor do ICMS ST retido
-     vICMSST := pICMSST / 100 * vBCST;
-
-     //<ok>
-     {N23a}
-     //Base de Cálculo do Fundo de Combate a Pobreza
-     //Retido por Substituição Tributária
-     vBCFCPST:=0;
-
-     //<ok>
-     {N23b}
-     //O Percental do Fundo de Combate a Pobreza depende da UF de destino
-     //Depende da UF - tem que vir do cadastro do destinatário
-     // PRODUTO X UF X UF
-     if fCP_PFCPST(qVENDA_ITEM.FieldByName('PROD_CODIGOCALCULOICMS').AsString,
-                   qEMITENTE.FieldByName('FILI_UF').AsString,
-                   qDESTINATARIO.FieldByName('ESTADO').AsString) then
-     begin
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         //pFCPST := qCFOPPROD_CP.FieldByName('CP_PFCPST').AsFloat;
-     end
-     else
-     begin
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         pFCPST := 0;
-     end;
-
-     //<ok>
-     {N23d}
-     //Valor do Fundo de Combate a Pobreza
-     //retido por Substituição Tributária
-     //Aplicado sobre a BC do FB qdo CST <> 00
-     //vFCPST := Produto.Imposto.ICMS.pFCPST/100 * Produto.Imposto.ICMS.vBCFCPST;
-     vFCPST := pFCPST / 100 * vBCFCPST;
-
-   end; // with...
+   {163-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
+   {174-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
+   {175-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
+   {176-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
+   {177-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
+   {178-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
+   {179-N18} Tratar_N18_Produto_Imposto_ICMS_modBCST;
+   {180-N19} Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+   {181-N20} Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+   {182-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
+   {183-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+   {184-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+   {   N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+   {   N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+   {   N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS20;
@@ -5349,89 +5452,16 @@ begin
    //Grupo de Tributação do ICMS = 20
    //Com redução de base de cálculo
 
-   With Produto.Imposto.ICMS do
-   begin
-     //<ok>
-     {186-N11}
-     //orig
-     //Origem da mercadoria
-     //     0 – Nacional
-     //     1 – Estrangeira – Importação direta
-     //     2 – Estrangeira – Adquirida no mercado interno
-     //---------------------------------------------------
-     Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-     end;
-
-     //<ok>
-     {187-N12}
-     //CST
-     //Tributação do ICMS: 20 – Tributada integralmente
-     CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
-
-     //<ok>
-     {188-N13}
-     //modBC
-     // Modalidade de determinação da BC do ICMS
-     //        0 - Margem Valor Agregado (%)
-     //        1 - Pauta (Valor)
-     //        2 - Preço Tabelado Máx. (valor)
-     //        3 - valor da operação
-     case qVENDA_ITEM.FieldByName('NFe_modBC').AsInteger of
-         0 : modBC := dbiMargemValorAgregado;
-         1 : modBC := dbiPauta;
-         2 : modBC := dbiPrecoTabelado;
-         3 : modBC := dbiValorOperacao;
-         4 : modBC := dbiNenhum;
-     end;
-
-     //<ok>
-     {189-N14}
-     //pRedBC
-     //Percentual da Redução de BC
-     pRedBC := qVENDA_ITEM.FieldByName('REDUCAO_ICMS').AsFloat;
-
-     //<ok>
-     {190-N15}
-     //vBC
-     //Valor da BC do ICMS
-     vBC := Produto.Prod.vProd;
-
-     //<ok>
-     {191-N16}
-     //pICMS
-     //Alíquota do imposto
-     pICMS := qVENDA_ITEM.FieldByName('ALIQ_ICMS').AsFloat;
-
-     //<ok>
-     {192-N17}
-     //vICMS
-     //Valor do ICMS
-     vICMS := vBC * (100-pRedBC)/100 * pICMS/100;
-
-     //<ok>
-     //Base de Cálculo do Fundo de Combate a Pobreza
-     vBCFCP := 0;
-
-     //<ok>
-     //Percentual do Fundo de Combate a Pobreza
-     //Depende da UF - tem que vir do cadastro da empresa
-     pFCP := 0;
-
-     //<ok>
-     //Valor do Fundo de Combate a Pobreza
-     //Aplicado sobre a BC do FB qdo CST <> 00
-     vFCP := pFCP / 100 * vBCFCP;
-
-   end; // with...
+   {186-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
+   {187-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
+   {188-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
+   {189-N14} Tratar_N14_Produto_Imposto_ICMS_pRedBC;
+   {190-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
+   {191-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
+   {192-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
+             Tratar_Produto_Imposto_ICMS_vBCFCP;
+             Tratar_Produto_Imposto_ICMS_pFCP;
+             Tratar_Produto_Imposto_ICMS_vFCP;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS30;
@@ -5455,159 +5485,18 @@ begin
    //Grupo de Tributação do ICMS = 30
    //Isenta ou não tributada e com cobrança do ICMS por substituição tributária
 
-   With Produto.Imposto.ICMS do
-   begin
-     //<ok>
-     {194-N11}
-     //orig
-     //Origem da mercadoria:
-     //     0 – Nacional
-     //     1 – Estrangeira – Importação direta
-     //     2 – Estrangeira – Adquirida no mercado interno
-     //---------------------------------------------------
-     Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-     end;
-
-     //<ok>
-     {195-N12}
-     //CST
-     //Tributação do ICMS 30
-     //Isenta ou não tributada e com cobrança do ICMS por substituição tributária
-     CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
-
-     //<ok>
-     {196-N18}
-     //modBCST
-     //Modalidade de determinação da BC do ICMS ST
-     //       0 – Preço tabelado ou máximo sugerido
-     //       1 - Lista Negativa (valor)
-     //       2 - Lista Positiva (valor)
-     //       3 - Lista Neutra (valor)
-     //       4 - Margem Valor Agregado (%)
-     //       5 - Pauta (valor)
-     case qVENDA_ITEM.FieldByName('NFe_modBCST').AsInteger of
-        0 : modBCST := dbisPrecoTabelado;
-        1 : modBCST := dbisListaNegativa;
-        2 : modBCST := dbisListaPositiva;
-        3 : modBCST := dbisListaNeutra;
-        4 : modBCST := dbisMargemValorAgregado;
-        5 : modBCST := dbisPauta;
-        6 : modBCST := dbisValordaOperacao;
-     end;
-
-     //<ok>
-     {197-N19}
-     //pMVAST
-     //Percentual da margem de valor Adicionado do ICMS ST
-     pMVAST := qVENDA_ITEM.FieldByName('NFe_pMVAST').AsFloat;
-
-     //<ok>
-     {198-N20}
-     //pRedBCST
-     //Percentual da Redução de BC do ICMS ST
-     pRedBCST := qVENDA_ITEM.FieldByName('REDUCAO_ICMS_ST').AsFloat;
-
-     //<ok>
-     {199-N21}
-     //vBCST Valor da BC do ICMS ST
-     vBCST :=(1+(pMVAST/100)) * Produto.Prod.vProd
-            * ((100-pRedBCST)/100);
-
-     //<ok>
-     {200-N22}
-     //pICMSST
-     //Alíquota do imposto do ICMS ST
-     pICMSST := qVENDA_ITEM.FieldByName('ALIQ_ICMS_SUBST').AsFloat;
-
-     //<ok>
-     {201-N23}
-     //vICMSST
-     //Valor do ICMS ST
-     //Valor do ICMS ST retido
-     vICMSST := pICMSST / 100 * vBCST;
-
-     //<ok>
-     {N23a}
-     //Base de Cálculo do Fundo de Combate a Pobreza
-     //Retido por Substituição Tributária
-     vBCFCPST:=0;
-
-     //<ok>
-     {N23b}
-     //O Percental do Fundo de Combate a Pobreza depende da UF de destino
-     //Depende da UF - tem que vir do cadastro do destinatário
-     // PRODUTO X UF X UF
-     if fCP_PFCPST(qVENDA_ITEM.FieldByName('PROD_CODIGOCALCULOICMS').AsString,
-                   qEMITENTE.FieldByName('FILI_UF').AsString,
-                   qDESTINATARIO.FieldByName('ESTADO').AsString) then
-     begin
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         //pFCPST := qCFOPPROD_CP.FieldByName('CP_PFCPST').AsFloat;
-     end
-     else
-     begin
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         pFCPST := 0;
-     end;
-
-     //<ok>
-     {N23d}
-     //Valor do Fundo de Combate a Pobreza
-     //retido por Substituição Tributária
-     //Aplicado sobre a BC do FB qdo CST <> 00
-     //vFCPST := Produto.Imposto.ICMS.pFCPST/100 * Produto.Imposto.ICMS.vBCFCPST;
-     vFCPST := pFCPST / 100 * vBCFCPST;
-
-     //<ok>
-     //Valor da Desoneração do ICMS
-     vICMSDeson:=0;
-
-     //<ok>
-      //Motivo da desoneração do ICMS
-      //Este campo será preenchido quando o campo anterior estiver preenchido.
-      //Informar o motivo da desoneração:
-      //       1–Táxi
-      //       2–Deficiente Físico
-      //       3–Produtor Agropecuário
-      //       4–Frotista/Locadora
-      //       5–Diplomático/Consular
-      //       6–Utilitários e Motocicletas da Amazônia Ocidental
-      //         e Áreas de Livre Comércio (Resolução 714/88 e 790/94 – CONTRAN
-      //         e suas alterações)
-      //       7–SUFRAMA
-      //       9–outros. (v2.0)
-      if vICMSDeson <> 0 Then
-      begin
-          case qVENDA_ITEM.FieldByName('NFe_motDesICMS').AsInteger of
-             0 : Produto.Imposto.ICMS.motDesICMS := mdiTaxi;
-             1 : Produto.Imposto.ICMS.motDesICMS := mdiDeficienteFisico;
-             2 : Produto.Imposto.ICMS.motDesICMS := mdiProdutorAgropecuario;
-             3 : Produto.Imposto.ICMS.motDesICMS := mdiFrotistaLocadora;
-             4 : Produto.Imposto.ICMS.motDesICMS := mdiDiplomaticoConsular;
-             5 : Produto.Imposto.ICMS.motDesICMS := mdiAmazoniaLivreComercio;
-             6 : Produto.Imposto.ICMS.motDesICMS := mdiSuframa;
-             7 : Produto.Imposto.ICMS.motDesICMS := mdiVendaOrgaosPublicos;
-             8 : Produto.Imposto.ICMS.motDesICMS := mdiOutros;
-             9 : Produto.Imposto.ICMS.motDesICMS := mdiDeficienteCondutor;
-            10 : Produto.Imposto.ICMS.motDesICMS := mdiDeficienteNaoCondutor;
-            11 : Produto.Imposto.ICMS.motDesICMS := mdiOrgaoFomento;
-            12 : Produto.Imposto.ICMS.motDesICMS := mdiOlimpiadaRio2016;
-            13 : Produto.Imposto.ICMS.motDesICMS := mdiSolicitadoFisco;
-          end;
-      end;
-
-   end; // with...
+   {194-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
+   {195-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
+   {196-N18} Tratar_N18_Produto_Imposto_ICMS_modBCST;
+   {197-N19} Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+   {198-N20} Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+   {199-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
+   {200-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+   {201-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+   {   N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+   {   N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+   {   N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
+   {    N28} Tratar_N28_Desoneracao_do_ICMS;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS40_41_50;
@@ -5633,85 +5522,17 @@ begin
    //Grupo de Tributação do ICMS = 40, 41 e 50
    //40-Isenta, 41-Não tributada, 50-Suspensão
 
-   With Produto.Imposto.ICMS do
-   begin
-      //<ok>
-      {203-N11}
-      //orig
-      //Origem da mercadoria:
-      //     0 – Nacional
-      //     1 – Estrangeira – Importação direta
-      //     2 – Estrangeira – Adquirida no mercado interno
-      //---------------------------------------------------
-      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-      end;
+   {203-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
+   {204-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
 
-      //<ok>
-      {204-N12}
-      //CST
-      //Tributação do ICMS 40, 41 e 50
-      //40-Isenta, 41-Não tributada, 50-Suspensão
-      CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
+   //vICMS
+   //Valor do ICMS
+   //O valor do ICMS será informado apenas nas operações com veículos
+   //beneficiados com a desoneração condicional do ICMS. (v2.0)
+   if qVENDA_ITEM.FieldByName('NFe_motDesICMS').AsInteger <> 99 then
+      {204.01-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
 
-      //<ok>
-      {204.01-N17}
-      //vICMS
-      //Valor do ICMS
-      //O valor do ICMS será informado apenas nas operações com veículos
-      //beneficiados com a desoneração condicional do ICMS. (v2.0)
-      //if qVENDA_ITEM.FieldByName('NFe_motDesICMS').AsInteger <> 99 then
-      //   vICMS := vBC * pICMS/100;
-
-      //<ok>
-      //Valor da Desoneração do ICMS
-      if qVENDA_ITEM.FieldByName('NFe_motDesICMS').AsInteger <> 99 then
-         vICMSDeson:=0;
-
-      //<ok>
-      {204.02-N28}
-      //motDesICM
-      //Motivo da desoneração do ICMS
-      //Este campo será preenchido quando o campo anterior estiver preenchido.
-      //Informar o motivo da desoneração:
-      //       1–Táxi
-      //       2–Deficiente Físico
-      //       3–Produtor Agropecuário
-      //       4–Frotista/Locadora
-      //       5–Diplomático/Consular
-      //       6–Utilitários e Motocicletas da Amazônia Ocidental
-      //         e Áreas de Livre Comércio (Resolução 714/88 e 790/94 – CONTRAN
-      //         e suas alterações)
-      //       7–SUFRAMA
-      //       9–outros. (v2.0)
-      if vICMSDeson <> 0 Then
-      begin
-          case qVENDA_ITEM.FieldByName('NFe_motDesICMS').AsInteger of
-             0 : Produto.Imposto.ICMS.motDesICMS := mdiTaxi;
-             1 : Produto.Imposto.ICMS.motDesICMS := mdiDeficienteFisico;
-             2 : Produto.Imposto.ICMS.motDesICMS := mdiProdutorAgropecuario;
-             3 : Produto.Imposto.ICMS.motDesICMS := mdiFrotistaLocadora;
-             4 : Produto.Imposto.ICMS.motDesICMS := mdiDiplomaticoConsular;
-             5 : Produto.Imposto.ICMS.motDesICMS := mdiAmazoniaLivreComercio;
-             6 : Produto.Imposto.ICMS.motDesICMS := mdiSuframa;
-             7 : Produto.Imposto.ICMS.motDesICMS := mdiVendaOrgaosPublicos;
-             8 : Produto.Imposto.ICMS.motDesICMS := mdiOutros;
-             9 : Produto.Imposto.ICMS.motDesICMS := mdiDeficienteCondutor;
-            10 : Produto.Imposto.ICMS.motDesICMS := mdiDeficienteNaoCondutor;
-            11 : Produto.Imposto.ICMS.motDesICMS := mdiOrgaoFomento;
-            12 : Produto.Imposto.ICMS.motDesICMS := mdiOlimpiadaRio2016;
-            13 : Produto.Imposto.ICMS.motDesICMS := mdiSolicitadoFisco;
-          end;
-      end;
-   end; // with...
+   {    N28} Tratar_N28_Desoneracao_do_ICMS;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS51;
@@ -5737,95 +5558,19 @@ begin
    //Grupo de Tributação do ICMS = 51
    //Diferimento
 
-   With Produto.Imposto.ICMS do
-   begin
-      {206-N11}
-      //orig
-      //Origem da mercadoria:
-      //     0 – Nacional
-      //     1 – Estrangeira – Importação direta
-      //     2 – Estrangeira – Adquirida no mercado interno
-      //---------------------------------------------------
-      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-      end;
-
-      {207-N12}
-      //CST
-      //Tributação do ICMS 51
-      //Diferimento
-      CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
-
-      {208-N13}
-      //modBC
-      // Modalidade de determinação da BC do ICMS
-      //        0 - Margem Valor Agregado (%)
-      //        1 - Pauta (Valor)
-      //        2 - Preço Tabelado Máx. (valor)
-      //        3 - valor da operação
-      case qVENDA_ITEM.FieldByName('NFe_modBC').AsInteger of
-         0 : modBC := dbiMargemValorAgregado;
-         1 : modBC := dbiPauta;
-         2 : modBC := dbiPrecoTabelado;
-         3 : modBC := dbiValorOperacao;
-         4 : modBC := dbiNenhum;
-      end;
-
-     {209-N14}
-     //pRedBC
-     //Percentual da Redução de BC
-     pRedBC := qVENDA_ITEM.FieldByName('REDUCAO_ICMS').AsFloat;
-
-     {210-N15}
-     //vBC
-     //Valor da BC do ICMS
-     vBC := Produto.Prod.vProd;
-
-     {211-N16}
-     //pICMS
-     //Alíquota do imposto
-     pICMS := qVENDA_ITEM.FieldByName('ALIQ_ICMS').AsFloat;
-
-     {212-N17}
-     //vICMS
-     //Valor do ICMS
-     vICMS := vBC * (100-pRedBC)/100 + pICMS/100;
-
-     //<ok>
-     vICMSOp:=0;
-
-     //<ok>
-     pDif:=0;
-
-     //<ok>
-     vICMSDif:=0;
-
-     //<ok>
-     vICMS:=0;
-
-     //<ok>
-     //Base de Cálculo do Fundo de Combate a Pobreza
-     vBCFCP := Produto.Prod.vProd;
-
-     //<ok>
-     //Percentual do Fundo de Combate a Pobreza
-     //Depende da UF - tem que vir do cadastro da empresa
-     pFCP := 0;
-
-     //<ok>
-     //Valor do Fundo de Combate a Pobreza
-     //Aplicado sobre a BC do FB qdo CST <> 00
-     vFCP := pFCP / 100 * vBCFCP;
-
-   end; // with...
+   {206-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
+   {207-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
+   {208-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
+   {209-N14} Tratar_N14_Produto_Imposto_ICMS_pRedBC;
+   {210-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
+   {211-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
+             Tratar_vICMSOp;
+             Tratar_pDif;
+             Tratar_vICMSDif;
+   {212-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
+             Tratar_Produto_Imposto_ICMS_vBCFCP;
+             Tratar_Produto_Imposto_ICMS_pFCP;
+             Tratar_Produto_Imposto_ICMS_vFCP;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS60;
@@ -5849,84 +5594,19 @@ begin
    //Grupo de Tributação do ICMS = 60
    //ICMS cobrado anteriormente por substituição tributária
 
-   With Produto.Imposto.ICMS do
-   begin
-      //<ok>
-      {214-N11}
-      //orig
-      //Origem da mercadoria:
-      //     0 – Nacional
-      //     1 – Estrangeira – Importação direta
-      //     2 – Estrangeira – Adquirida no mercado interno
-      //---------------------------------------------------
-      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-      end;
-
-      //<ok>
-      {215-N12}
-      //CST
-      //Tributação do ICMS 60
-      //ICMS cobrado anteriormente por substituição tributária
-      CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
-
-      //<ok>
-      {216-N26}
-      //vBCSTRet
-      //Valor da BC do ICMS ST retido
-      //Valor da BC do ICMS ST cobrado anteriormente por ST (v2.0)
-      vBCSTRet := Produto.Prod.vProd;
-
-      //<ok>
-      pST:=0;
-
-      //<ok>
-      vICMSSubstituto:=0;
-
-      //<ok>
-      {217-N27}
-      //vICMSSTRet
-      //Valor do ICMS ST retido
-      //Valor do ICMS ST cobrado anteriormente por ST (v2.0)
-      if vBCSTRet > 0 then
-         vICMSSTRet := pST / 100 * vBCSTRet;
-
-      //<ok>
-      {N27a}
-      //Valor da Base de Cálculo do FCP retido anteriormente por ST
-      vBCFCPSTRet:=Produto.Prod.vProd;
-
-      //<ok>
-      {N27b}
-      //Percentual do Fundo de Combate à Pobreza (FCP) Retido por ST
-      pFCPSTRet:=0;
-
-      //<ok>
-      {N27d}
-      //Valor do Fundo de Combate à Pobreza (FCP) Retido por ST
-      vFCPSTRet:= pFCPSTRet /100 * vBCFCPSTRet;
-
-      //<ok>
-      pRedBCEfet:=0;
-
-      //<ok>
-      vBCEfet:= (100-pRedBCEfet)/100 * Produto.Prod.vProd;
-
-      //<ok>
-      pICMSEfet:=0;
-
-      //<ok>
-      vICMSEfet:= pICMSEfet / 100 * vBCEfet;
-
-   end; // with...
+    {214-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
+    {215-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
+    {216-N26} Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
+              Tratar_Produto_Imposto_ICMS_pST;
+              Tratar_Produto_Imposto_ICMS_vICMSSubstituto;
+    {217-N27} Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
+    {   N27a} Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
+    {   N27b} Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
+    {   N27d} Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
+              Tratar_Produto_Imposto_ICMS_pRedBCEfet;
+              Tratar_Produto_Imposto_ICMS_vBCEfet;
+              Tratar_Produto_Imposto_ICMS_pICMSEfet;
+              Tratar_Produto_Imposto_ICMS_vICMSEfet;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS70;
@@ -5952,215 +5632,26 @@ begin
    //Com redução de base de cálculo
    //e cobrança do ICMS por substituição tributária
 
-   With Produto.Imposto.ICMS do
-   begin
-      //<ok>
-      {219-N11}
-      //orig
-      //Origem da mercadoria
-      //     0 – Nacional
-      //     1 – Estrangeira – Importação direta
-      //     2 – Estrangeira – Adquirida no mercado interno
-      //---------------------------------------------------
-      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-      end;
-
-      //<ok>
-      {220-N12}
-      //CST
-      //Tributação do ICMS: 70
-      //Com redução de base de cálculo e
-      //cobrança do ICMS por substituição tributária
-      CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
-
-      //<ok>
-      {221-N13}
-      //modBC
-      // Modalidade de determinação da BC do ICMS
-      //        0 - Margem Valor Agregado (%)
-      //        1 - Pauta (Valor)
-      //        2 - Preço Tabelado Máx. (valor)
-      //        3 - valor da operação
-      case qVENDA_ITEM.FieldByName('NFe_modBC').AsInteger of
-         0 : modBC := dbiMargemValorAgregado;
-         1 : modBC := dbiPauta;
-         2 : modBC := dbiPrecoTabelado;
-         3 : modBC := dbiValorOperacao;
-         4 : modBC := dbiNenhum;
-      end;
-
-     //<ok>
-     {222-N14}
-     //pRedBC
-     //Percentual da Redução de BC
-     pRedBC := qVENDA_ITEM.FieldByName('REDUCAO_ICMS').AsFloat;
-
-     //<ok>
-     {223-N15}
-     //vBC
-     //Valor da BC do ICMS
-     vBC := Produto.Prod.vProd;
-
-     //<ok>
-     {224-N16}
-     //pICMS
-     //Alíquota do imposto
-     pICMS := qVENDA_ITEM.FieldByName('ALIQ_ICMS').AsFloat;
-
-     //<ok>
-     {225-N17}
-     //vICMS
-     //Valor do ICMS
-     vICMS := vBC * (100-pRedBC)/100 * pICMS/100;
-
-     //<ok>
-     //Base de Cálculo do Fundo de Combate a Pobreza
-     vBCFCP := Produto.Prod.vProd;
-
-     //<ok>
-     //Percentual do Fundo de Combate a Pobreza
-     //Depende da UF - tem que vir do cadastro da empresa
-     pFCP := 0;
-
-     //<ok>
-     //Valor do Fundo de Combate a Pobreza
-     //Aplicado sobre a BC do FB qdo CST <> 00
-     vFCP := pFCP / 100 * vBCFCP;
-
-     //<ok>
-     {226-N18}
-     //modBCST
-     //Modalidade de determinação da BC do ICMS ST
-     //       0 – Preço tabelado ou máximo sugerido
-     //       1 - Lista Negativa (valor)
-     //       2 - Lista Positiva (valor)
-     //       3 - Lista Neutra (valor)
-     //       4 - Margem Valor Agregado (%)
-     //       5 - Pauta (valor)
-     case qVENDA_ITEM.FieldByName('NFe_modBCST').AsInteger of
-        0 : modBCST := dbisPrecoTabelado;
-        1 : modBCST := dbisListaNegativa;
-        2 : modBCST := dbisListaPositiva;
-        3 : modBCST := dbisListaNeutra;
-        4 : modBCST := dbisMargemValorAgregado;
-        5 : modBCST := dbisPauta;
-        6 : modBCST := dbisValordaOperacao;
-     end;
-
-     //<ok>
-     {227-N19}
-     //pMVAST
-     //Percentual da margem de valor Adicionado do ICMS ST
-     pMVAST := qVENDA_ITEM.FieldByName('NFe_pMVAST').AsFloat;
-
-     //<ok>
-     {228-N20}
-     //pRedBCST
-     //Percentual da Redução de BC do ICMS ST
-     pRedBCST := qVENDA_ITEM.FieldByName('REDUCAO_ICMS_ST').AsFloat;
-
-     //<ok>
-     {229-N21}
-     //vBCST Valor da BC do ICMS ST
-     vBCST := (1+(pMVAST/100)) * Produto.Prod.vProd
-            * ((100-pRedBCST)/100);
-
-     //<ok>
-     {230-N22}
-     //pICMSST
-     //Alíquota do imposto do ICMS ST
-     pICMSST := qVENDA_ITEM.FieldByName('ALIQ_ICMS_SUBST').AsFloat;
-
-     //<ok>
-     {231-N23}
-     //vICMSST
-     //Valor do ICMS ST
-     //Valor do ICMS ST retido
-     vICMSST := pICMSST / 100 * vBCST;
-
-     //<ok>
-     {N23a}
-     //Base de Cálculo do Fundo de Combate a Pobreza
-     //Retido por Substituição Tributária
-     vBCFCPST:=Produto.Prod.vProd;
-
-     //<ok>
-     {N23b}
-     //O Percental do Fundo de Combate a Pobreza depende da UF de destino
-     //Depende da UF - tem que vir do cadastro do destinatário
-     //PRODUTO X UF X UF
-     if fCP_PFCPST(qVENDA_ITEM.FieldByName('PROD_CODIGOCALCULOICMS').AsString,
-                   qEMITENTE.FieldByName('FILI_UF').AsString,
-                   qDESTINATARIO.FieldByName('ESTADO').AsString) then
-     begin
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         //pFCPST := qCFOPPROD_CP.FieldByName('CP_PFCPST').AsFloat;
-     end
-     else
-     begin
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         pFCPST := 0;
-     end;
-
-     //<ok>
-     {N23d}
-     //Valor do Fundo de Combate a Pobreza
-     //retido por Substituição Tributária
-     //Aplicado sobre a BC do FB qdo CST <> 00
-     //vFCPST := Produto.Imposto.ICMS.pFCPST/100 * Produto.Imposto.ICMS.vBCFCPST;
-     vFCPST := pFCPST / 100 * vBCFCPST;
-
-     //<ok>
-     //Valor da Desoneração do ICMS
-     vICMSDeson:=0;
-
-     //<ok>
-      //motDesICM
-      //Motivo da desoneração do ICMS
-      //Este campo será preenchido quando o campo anterior estiver preenchido.
-      //Informar o motivo da desoneração:
-      //       1–Táxi
-      //       2–Deficiente Físico
-      //       3–Produtor Agropecuário
-      //       4–Frotista/Locadora
-      //       5–Diplomático/Consular
-      //       6–Utilitários e Motocicletas da Amazônia Ocidental
-      //         e Áreas de Livre Comércio (Resolução 714/88 e 790/94 – CONTRAN
-      //         e suas alterações)
-      //       7–SUFRAMA
-      //       9–outros. (v2.0)
-      if vICMSDeson <> 0 Then
-      begin
-          case qVENDA_ITEM.FieldByName('NFe_motDesICMS').AsInteger of
-             0 : Produto.Imposto.ICMS.motDesICMS := mdiTaxi;
-             1 : Produto.Imposto.ICMS.motDesICMS := mdiDeficienteFisico;
-             2 : Produto.Imposto.ICMS.motDesICMS := mdiProdutorAgropecuario;
-             3 : Produto.Imposto.ICMS.motDesICMS := mdiFrotistaLocadora;
-             4 : Produto.Imposto.ICMS.motDesICMS := mdiDiplomaticoConsular;
-             5 : Produto.Imposto.ICMS.motDesICMS := mdiAmazoniaLivreComercio;
-             6 : Produto.Imposto.ICMS.motDesICMS := mdiSuframa;
-             7 : Produto.Imposto.ICMS.motDesICMS := mdiVendaOrgaosPublicos;
-             8 : Produto.Imposto.ICMS.motDesICMS := mdiOutros;
-             9 : Produto.Imposto.ICMS.motDesICMS := mdiDeficienteCondutor;
-            10 : Produto.Imposto.ICMS.motDesICMS := mdiDeficienteNaoCondutor;
-            11 : Produto.Imposto.ICMS.motDesICMS := mdiOrgaoFomento;
-            12 : Produto.Imposto.ICMS.motDesICMS := mdiOlimpiadaRio2016;
-            13 : Produto.Imposto.ICMS.motDesICMS := mdiSolicitadoFisco;
-          end;
-      end;
-
-   end; // with...
+   {219-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
+   {220-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
+   {221-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
+   {222-N14} Tratar_N14_Produto_Imposto_ICMS_pRedBC;
+   {223-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
+   {224-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
+   {225-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
+             Tratar_Produto_Imposto_ICMS_vBCFCP;
+             Tratar_Produto_Imposto_ICMS_pFCP;
+             Tratar_Produto_Imposto_ICMS_vFCP;
+   {226-N18} Tratar_N18_Produto_Imposto_ICMS_modBCST;
+   {227-N19} Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+   {228-N20} Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+   {229-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
+   {230-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+   {231-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+   {   N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+   {   N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+   {   N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
+   {    N28} Tratar_N28_Desoneracao_do_ICMS;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS90;
@@ -6183,214 +5674,26 @@ begin
    //Grupo de Tributação do ICMS = 90
    //Outros
 
-   With Produto.Imposto.ICMS do
-   begin
-      //<ok>
-      {233-N11}
-      //orig
-      //Origem da mercadoria
-      //     0 – Nacional
-      //     1 – Estrangeira – Importação direta
-      //     2 – Estrangeira – Adquirida no mercado interno
-      //---------------------------------------------------
-      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-      end;
-
-      //<ok>
-      {234-N12}
-      //CST
-      //Tributação do ICMS: 90
-      //Outros
-      CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
-
-      //<ok>
-      {235-N13}
-      //modBC
-      // Modalidade de determinação da BC do ICMS
-      //        0 - Margem Valor Agregado (%)
-      //        1 - Pauta (Valor)
-      //        2 - Preço Tabelado Máx. (valor)
-      //        3 - valor da operação
-      case qVENDA_ITEM.FieldByName('NFe_modBC').AsInteger of
-         0 : modBC := dbiMargemValorAgregado;
-         1 : modBC := dbiPauta;
-         2 : modBC := dbiPrecoTabelado;
-         3 : modBC := dbiValorOperacao;
-         4 : modBC := dbiNenhum;
-      end;
-
-     //<ok>
-     {236-N15}
-     //vBC
-     //Valor da BC do ICMS
-     vBC := Produto.Prod.vProd;
-
-     //<ok>
-     {237-N14}
-     //pRedBC
-     //Percentual da Redução de BC
-     pRedBC := qVENDA_ITEM.FieldByName('REDUCAO_ICMS').AsFloat;
-
-     //<ok>
-     {238-N16}
-     //pICMS
-     //Alíquota do imposto
-     pICMS := qVENDA_ITEM.FieldByName('ALIQ_ICMS').AsFloat;
-
-     //<ok>
-     {239-N17}
-     //vICMS
-     //Valor do ICMS
-     vICMS := vBC * (100-pRedBC)/100 * pICMS/100;
-
-     //<ok>
-     //Base de Cálculo do Fundo de Combate a Pobreza
-     vBCFCP := Produto.Prod.vProd;
-
-     //<ok>
-     //Percentual do Fundo de Combate a Pobreza
-     //Depende da UF - tem que vir do cadastro da empresa
-     pFCP := 0;
-
-     //<ok>
-     //Valor do Fundo de Combate a Pobreza
-     //Aplicado sobre a BC do FB qdo CST <> 00
-     vFCP := pFCP / 100 * vBCFCP;
-
-     //<ok>
-     {240-N18}
-     //modBCST
-     //Modalidade de determinação da BC do ICMS ST
-     //       0 – Preço tabelado ou máximo sugerido
-     //       1 - Lista Negativa (valor)
-     //       2 - Lista Positiva (valor)
-     //       3 - Lista Neutra (valor)
-     //       4 - Margem Valor Agregado (%)
-     //       5 - Pauta (valor)
-     case qVENDA_ITEM.FieldByName('NFe_modBCST').AsInteger of
-        0 : modBCST := dbisPrecoTabelado;
-        1 : modBCST := dbisListaNegativa;
-        2 : modBCST := dbisListaPositiva;
-        3 : modBCST := dbisListaNeutra;
-        4 : modBCST := dbisMargemValorAgregado;
-        5 : modBCST := dbisPauta;
-        6 : modBCST := dbisValordaOperacao;
-     end;
-
-     //<ok>
-     {241-N19}
-     //pMVAST
-     //Percentual da margem de valor Adicionado do ICMS ST
-     pMVAST := qVENDA_ITEM.FieldByName('NFe_pMVAST').AsFloat;
-
-     //<ok>
-     {242-N20}
-     //pRedBCST
-     //Percentual da Redução de BC do ICMS ST
-     pRedBCST := qVENDA_ITEM.FieldByName('REDUCAO_ICMS_ST').AsFloat;
-
-     //<ok>
-     {243-N21}
-     //vBCST Valor da BC do ICMS ST
-     vBCST := (1+(pMVAST/100) * Produto.Prod.vProd)
-            * ((100-pRedBCST)/100);
-
-     //<ok>
-     {244-N22}
-     //pICMSST
-     //Alíquota do imposto do ICMS ST
-     pICMSST := qVENDA_ITEM.FieldByName('ALIQ_ICMS_SUBST').AsFloat;
-
-     //<ok>
-     {245-N23}
-     //vICMSST
-     //Valor do ICMS ST
-     //Valor do ICMS ST retido
-     vICMSST := pICMSST / 100 * vBCST;
-
-     //<ok>
-     {N23a}
-     //Base de Cálculo do Fundo de Combate a Pobreza
-     //Retido por Substituição Tributária
-     vBCFCPST:=Produto.Prod.vProd;
-
-     //<ok>
-     {N23b}
-     //O Percental do Fundo de Combate a Pobreza depende da UF de destino
-     //Depende da UF - tem que vir do cadastro do destinatário
-     // PRODUTO X UF X UF
-     if fCP_PFCPST(qVENDA_ITEM.FieldByName('PROD_CODIGOCALCULOICMS').AsString,
-                   qEMITENTE.FieldByName('FILI_UF').AsString,
-                   qDESTINATARIO.FieldByName('ESTADO').AsString) then
-     begin
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         //pFCPST := qCFOPPROD_CP.FieldByName('CP_PFCPST').AsFloat;
-     end
-     else
-     begin
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         pFCPST := 0;
-     end;
-
-     //<ok>
-     {N23d}
-     //Valor do Fundo de Combate a Pobreza
-     //retido por Substituição Tributária
-     //Aplicado sobre a BC do FB qdo CST <> 00
-     //vFCPST := Produto.Imposto.ICMS.pFCPST/100 * Produto.Imposto.ICMS.vBCFCPST;
-     vFCPST := pFCPST / 100 * vBCFCPST;
-
-     //<ok>
-     //Valor da Desoneração do ICMS
-     vICMSDeson:=0;
-
-     //<ok>
-      //motDesICM
-      //Motivo da desoneração do ICMS
-      //Este campo será preenchido quando o campo anterior estiver preenchido.
-      //Informar o motivo da desoneração:
-      //       1–Táxi
-      //       2–Deficiente Físico
-      //       3–Produtor Agropecuário
-      //       4–Frotista/Locadora
-      //       5–Diplomático/Consular
-      //       6–Utilitários e Motocicletas da Amazônia Ocidental
-      //         e Áreas de Livre Comércio (Resolução 714/88 e 790/94 – CONTRAN
-      //         e suas alterações)
-      //       7–SUFRAMA
-      //       9–outros. (v2.0)
-      if vICMSDeson <> 0 Then
-      begin
-          case qVENDA_ITEM.FieldByName('NFe_motDesICMS').AsInteger of
-             0 : Produto.Imposto.ICMS.motDesICMS := mdiTaxi;
-             1 : Produto.Imposto.ICMS.motDesICMS := mdiDeficienteFisico;
-             2 : Produto.Imposto.ICMS.motDesICMS := mdiProdutorAgropecuario;
-             3 : Produto.Imposto.ICMS.motDesICMS := mdiFrotistaLocadora;
-             4 : Produto.Imposto.ICMS.motDesICMS := mdiDiplomaticoConsular;
-             5 : Produto.Imposto.ICMS.motDesICMS := mdiAmazoniaLivreComercio;
-             6 : Produto.Imposto.ICMS.motDesICMS := mdiSuframa;
-             7 : Produto.Imposto.ICMS.motDesICMS := mdiVendaOrgaosPublicos;
-             8 : Produto.Imposto.ICMS.motDesICMS := mdiOutros;
-             9 : Produto.Imposto.ICMS.motDesICMS := mdiDeficienteCondutor;
-            10 : Produto.Imposto.ICMS.motDesICMS := mdiDeficienteNaoCondutor;
-            11 : Produto.Imposto.ICMS.motDesICMS := mdiOrgaoFomento;
-            12 : Produto.Imposto.ICMS.motDesICMS := mdiOlimpiadaRio2016;
-            13 : Produto.Imposto.ICMS.motDesICMS := mdiSolicitadoFisco;
-          end;
-      end;
-
-   end; // with...
+   {233-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
+   {234-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
+   {235-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
+   {236-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
+   {237-N14} Tratar_N14_Produto_Imposto_ICMS_pRedBC;
+   {238-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
+   {239-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
+             Tratar_Produto_Imposto_ICMS_vBCFCP;
+             Tratar_Produto_Imposto_ICMS_pFCP;
+             Tratar_Produto_Imposto_ICMS_vFCP;
+   {240-N18} Tratar_N18_Produto_Imposto_ICMS_modBCST;
+   {241-N19} Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+   {242-N20} Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+   {243-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
+   {244-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+   {245-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+   {   N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+   {   N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+   {   N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
+   {    N28} Tratar_N28_Desoneracao_do_ICMS;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMSPartilha;
@@ -6421,145 +5724,21 @@ begin
    //(Ex. UF da concessionária de entrega do  veículos) (v2.0)
    //ICMSPart := 0;
 
-   With Produto.Imposto.ICMS do
-   begin
-      //<ok>
-      {245.02-N11}
-      //orig
-      //Origem da mercadoria
-      //     0 – Nacional
-      //     1 – Estrangeira – Importação direta
-      //     2 – Estrangeira – Adquirida no mercado interno
-      //---------------------------------------------------
-      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-      end;
-
-      //<ok>
-      {245.03-N12}
-      //CST
-      //Tributação do ICMS
-      //Tributação pelo ICMS
-      //        10-Tributada e com cobrança do ICMS por substituição tributária
-      //        90–Outros
-      CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
-
-      //<ok>
-      {245.04-N13}
-      //modBC
-      // Modalidade de determinação da BC do ICMS
-      //        0 - Margem Valor Agregado (%)
-      //        1 - Pauta (Valor)
-      //        2 - Preço Tabelado Máx. (valor)
-      //        3 - valor da operação
-      case qVENDA_ITEM.FieldByName('NFe_modBC').AsInteger of
-         0 : modBC := dbiMargemValorAgregado;
-         1 : modBC := dbiPauta;
-         2 : modBC := dbiPrecoTabelado;
-         3 : modBC := dbiValorOperacao;
-         4 : modBC := dbiNenhum;
-      end;
-
-     //<ok>
-     {245.05-N15}
-     //vBC
-     //Valor da BC do ICMS
-     vBC := Produto.Prod.vProd;
-
-     //<ok>
-     {245.06-N14}
-     //pRedBC
-     //Percentual da Redução de BC
-     pRedBC := qVENDA_ITEM.FieldByName('REDUCAO_ICMS').AsFloat;
-
-     //<ok>
-     {245.07-N16}
-     //pICMS
-     //Alíquota do imposto
-     pICMS := qVENDA_ITEM.FieldByName('ALIQ_ICMS').AsFloat;
-
-     //<ok>
-     {245.08-N17}
-     //vICMS
-     //Valor do ICMS
-     vICMS := vBC * (100-pRedBC)/100 *
-              pICMS / 100;
-
-     //<ok>
-     {245.09-N18}
-     //modBCST
-     //Modalidade de determinação da BC do ICMS ST
-     //       0 – Preço tabelado ou máximo sugerido
-     //       1 - Lista Negativa (valor)
-     //       2 - Lista Positiva (valor)
-     //       3 - Lista Neutra (valor)
-     //       4 - Margem Valor Agregado (%)
-     //       5 - Pauta (valor)
-     case qVENDA_ITEM.FieldByName('NFe_modBCST').AsInteger of
-        0 : modBCST := dbisPrecoTabelado;
-        1 : modBCST := dbisListaNegativa;
-        2 : modBCST := dbisListaPositiva;
-        3 : modBCST := dbisListaNeutra;
-        4 : modBCST := dbisMargemValorAgregado;
-        5 : modBCST := dbisPauta;
-        6 : modBCST := dbisValordaOperacao;
-     end;
-
-     //<ok>
-     {245.10-N19}
-     //pMVAST
-     //Percentual da margem de valor Adicionado do ICMS ST
-     pMVAST := qVENDA_ITEM.FieldByName('NFe_pMVAST').AsFloat;
-
-     //<ok>
-     {245.11-N20}
-     //pRedBCST
-     //Percentual da Redução de BC do ICMS ST
-     pRedBCST := qVENDA_ITEM.FieldByName('REDUCAO_ICMS_ST').AsFloat;
-
-     //<ok>
-     {245.12-N21}
-     //vBCST Valor da BC do ICMS ST
-     vBCST := (1+(pMVAST/100) * Produto.Prod.vProd)
-            * ((100-pRedBCST)/100);
-
-     //<ok>
-     {245.13-N22}
-     //pICMSST
-     //Alíquota do imposto do ICMS ST
-     pICMSST := qVENDA_ITEM.FieldByName('ALIQ_ICMS_SUBST').AsFloat;
-
-     //<ok>
-     {245.14-N23}
-     //vICMSST
-     //Valor do ICMS ST
-     //Valor do ICMS ST retido
-     vICMSST := pICMSST / 100 * vBCST;
-
-     //<ok>
-     {245.15-N25}
-     //pBCOp
-     //Percentual da BC operação própria
-     //Percentual para determinação do valor da Base de Cálculo da operação própria. (v2.0)
-     //pBCOp := 0;
-
-     //<ok>
-     {245.16-N24}
-     //UFST
-     //UF para qual é devido o ICMS ST
-     //Sigla da UF para qual é devido o ICMS ST da operação. (v2.0)
-     UFST := qDESTINATARIO.FieldByName('ESTADO').AsString;
-
-   end; // with
-
+   {245.02-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
+   {245.03-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
+   {245.04-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
+   {245.05-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
+   {245.06-N14} Tratar_N14_Produto_Imposto_ICMS_pRedBC;
+   {245.07-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
+   {245.08-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
+   {245.09-N18} Tratar_N18_Produto_Imposto_ICMS_modBCST;
+   {245.10-N19} Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+   {245.11-N20} Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+   {245.12-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
+   {245.13-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+   {245.14-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+   {245.15-N25} Tratar_N25_Produto_Imposto_ICMS_pBCOp;
+   {245.16-N24} Tratar_N24_Produto_Imposto_ICMS_UFST;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS_ST_devido_para_UF_de_destino;
@@ -6577,101 +5756,25 @@ begin
 
      //<ok>
      // Apenas para produtos com ICMS ST retido
-     if (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '10') and
-        (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '30') and
-        (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '70') then
+     if (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '41') then
         exit;
 
-     with produto.Imposto.ICMS do
-     begin
-          //<ok>
-          {245.18-N11}
-          //orig
-          //Origem da mercadoria:
-          //     0 – Nacional
-          //     1 – Estrangeira – Importação direta
-          //     2 – Estrangeira – Adquirida no mercado interno
-          //---------------------------------------------------
-          Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-             0 : orig := oeNacional;
-             1 : orig := oeEstrangeiraImportacaoDireta;
-             2 : orig := oeEstrangeiraAdquiridaBrasil;
-             3 : orig := oeNacionalConteudoImportacaoSuperior40;
-             4 : orig := oeNacionalProcessosBasicos;
-             5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-             6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-             7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-             8 : orig := oeNacionalConteudoImportacaoSuperior70;
-          End;
+     {245.18-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
+     {245.19-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
+     {245.20-N26} Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
+                  Tratar_Produto_Imposto_ICMS_pST;
+                  Tratar_Produto_Imposto_ICMS_vICMSSubstituto;
+     {245.21-N27} Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
+     {      N27a} Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
+     {      N27b} Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
+     {      N27d} Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
+     {245.22-N31} Tratar_N31_Produto_Imposto_ICMS_vBCSTDest;
+     {245.23-N32} Tratar_N32_Produto_Imposto_ICMS_vICMSSTDes;
 
-          //<ok>
-          {245.19-N12}
-          //CST
-          //Tributação do ICMS 41 – Não tributado (v2.0)
-          CST  := ConverteCSTICMS('41');
-
-          //<ok>
-          {245.20-N26}
-          //vBCSTRet
-          //Valor da BC do ICMS ST retido
-          //Valor do BC do ICMS ST retido na UF remetente
-          vBCSTRet := Produto.Prod.vProd;
-
-          //<ok>
-          pST:=0;
-
-          //<ok>
-          vICMSSubstituto:= pST / 100 * vBCSTRet;
-
-          //<ok>
-          {245.21-N27}
-          {217-N27}
-          //vICMSSTRet
-          //Valor do ICMS ST retido na UF remetente (v2.0)
-          vICMSSTRet := pST / 100 * vBCSTRet;
-
-          //<ok>
-          {N27a}
-          //Valor da Base de Cálculo do FCP retido anteriormente por ST
-          vBCFCPSTRet:=Produto.Prod.vProd;
-
-          //<ok>
-          {N27b}
-          //Percentual do Fundo de Combate à Pobreza (FCP)
-          pFCPSTRet:=0;
-
-          //<ok>
-          {N27d}
-          //Valor do Fundo de Combate à Pobreza (FCP)
-          vFCPSTRet:= pFCPSTRet/100 * vBCFCPSTRet;
-
-          //<ok>
-          {245.22-N31}
-          //vBCSTDest
-          //Valor da BC do ICMS ST da UF destino
-          //Informar o valor da BC do ICMS ST da UF destino (v2.0)
-          vBCSTDest := Produto.Prod.vProd;
-
-          //<ok>
-          {245.23-N32}
-          //vICMSSTDes
-          //Valor do ICMS ST da UF destino
-          //Informar o valor da BC do ICMS ST da UF destino (v2.0)
-          vICMSSTDest := 0;
-
-          //<ok>
-          pRedBCEfet:=0;
-
-          //<ok>
-          vBCEfet:= (100-pRedBCEfet)/100 * Produto.Prod.vProd;
-
-          //<ok>
-          pICMSEfet:=0;
-
-          //<ok>
-          vICMSEfet:= pICMSEfet/100 * vBCEfet;
-
-     end;
+                  Tratar_Produto_Imposto_ICMS_pRedBCEfet;
+                  Tratar_Produto_Imposto_ICMS_vBCEfet;
+                  Tratar_Produto_Imposto_ICMS_pICMSEfet;
+                  Tratar_Produto_Imposto_ICMS_vICMSEfet;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_SubGrupo_DI_Declaracao_de_Importacao;
@@ -6784,6 +5887,16 @@ begin
 
 end;
 
+procedure TfrmEmissaoDeNFe.Tratar_vICMSDif;
+begin
+   Produto.Imposto.ICMS.vICMSDif:=0;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_vICMSOp;
+begin
+   Produto.Imposto.ICMS.vICMSOp:=0;
+end;
+
 procedure TfrmEmissaoDeNFe.Tratar_CSOSN;
 var vNFe_CSOSN : Integer;
 begin
@@ -6849,27 +5962,8 @@ begin
 
    with Produto.Imposto.icms do
    begin
-     //<ok>
-     {245.25-N11}
-      //orig
-      //Origem da mercadoria:
-      //     0 – Nacional
-      //     1 – Estrangeira – Importação direta
-      //     2 – Estrangeira – Adquirida no mercado interno
-      //---------------------------------------------------
-      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-      end;
+     {245.25-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
 
-     //<ok>
      {245.26-N12a}
      //CSOSN
      //Código de Situação da Operação – Simples Nacional
@@ -6908,25 +6002,7 @@ begin
    //       400 -
    with Produto.Imposto.ICMS do
    begin
-      //<oK>
-      {245.25-N11}
-      //orig
-      //Origem da mercadoria:
-      //     0 – Nacional
-      //     1 – Estrangeira – Importação direta
-      //     2 – Estrangeira – Adquirida no mercado interno
-      //---------------------------------------------------
-      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-      end;
+      {245.25-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
 
       //<oK>
       {245.26-N12a}
@@ -6963,25 +6039,7 @@ begin
 
    with Produto.Imposto.ICMS do
    begin
-      //<ok>
-      {245.28-N11}
-      //orig
-      //Origem da mercadoria:
-      //     0 – Nacional
-      //     1 – Estrangeira – Importação direta
-      //     2 – Estrangeira – Adquirida no mercado interno
-      //---------------------------------------------------
-      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-      end;
+      {245.28-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
 
      //<ok>
      {245.29-N12a}
@@ -6990,92 +6048,15 @@ begin
      //201- Tributada pelo Simples Nacional com permissão de crédito e com cobrança do ICMS por Substituição Tributária (v.2.0)
      CSOSN := csosn201;
 
-     //<ok>
-     {245.30-N18}
-     //modBCST
-     //Modalidade de determinação da BC do ICMS ST
-     //       0 – Preço tabelado ou máximo sugerido
-     //       1 - Lista Negativa (valor)
-     //       2 - Lista Positiva (valor)
-     //       3 - Lista Neutra (valor)
-     //       4 - Margem Valor Agregado (%)
-     //       5 - Pauta (valor)
-     case qVENDA_ITEM.FieldByName('NFe_modBCST').AsInteger of
-        0 : modBCST := dbisPrecoTabelado;
-        1 : modBCST := dbisListaNegativa;
-        2 : modBCST := dbisListaPositiva;
-        3 : modBCST := dbisListaNeutra;
-        4 : modBCST := dbisMargemValorAgregado;
-        5 : modBCST := dbisPauta;
-        6 : modBCST := dbisValordaOperacao;
-     end;
-
-     //<ok>
-     {245.31-N19}
-     //pMVAST
-     //Percentual da margem de valor Adicionado do ICMS ST
-     pMVAST := qVENDA_ITEM.FieldByName('NFe_pMVAST').AsFloat;
-
-     //<ok>
-     {224.32-N20}
-     //pRedBCST
-     //Percentual da Redução de BC do ICMS ST
-     pRedBCST := qVENDA_ITEM.FieldByName('REDUCAO_ICMS_ST').AsFloat;
-
-     //<ok>
-     {245.33-N21}
-     //vBCST Valor da BC do ICMS ST
-     vBCST := (1+(pMVAST/100)) * Produto.Prod.vProd
-            * ((100-pRedBCST)/100);
-
-     //<ok>
-     {245.34-N22}
-     //pICMSST
-     //Alíquota do imposto do ICMS ST
-     pICMSST := qVENDA_ITEM.FieldByName('ALIQ_ICMS_SUBST').AsFloat;
-
-     //<ok>
-     {245.35-N23}
-     //vICMSST
-     //Valor do ICMS ST
-     //Valor do ICMS ST retido
-     vICMSST := pICMSST / 100 * vBCST;
-
-     //<ok>
-     {N23a}
-     //Base de Cálculo do Fundo de Combate a Pobreza
-     //Retido por Substituição Tributária
-     vBCFCPST:=Produto.Prod.vProd;;
-
-     //<ok>
-     {N23b}
-     //O Percental do Fundo de Combate a Pobreza depende da UF de destino
-     //Depende da UF - tem que vir do cadastro do destinatário
-     // PRODUTO X UF X UF
-     if fCP_PFCPST(qVENDA_ITEM.FieldByName('PROD_CODIGOCALCULOICMS').AsString,
-                   qEMITENTE.FieldByName('FILI_UF').AsString,
-                   qDESTINATARIO.FieldByName('ESTADO').AsString) then
-     begin
-         //<ok>
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         //pFCPST := qCFOPPROD_CP.FieldByName('CP_PFCPST').AsFloat;
-     end
-     else
-     begin
-         //<ok>
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         pFCPST := 0;
-     end;
-
-     //<ok>
-     {N23d}
-     //Valor do Fundo de Combate a Pobreza
-     //retido por Substituição Tributária
-     //Aplicado sobre a BC do FB qdo CST <> 00
-     //vFCPST := Produto.Imposto.ICMS.pFCPST/100 * Produto.Imposto.ICMS.vBCFCPST;
-     vFCPST := pFCPST / 100 * vBCFCPST;
+     {245.30-N18} Tratar_N18_Produto_Imposto_ICMS_modBCST;
+     {245.31-N19} Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+     {224.32-N20} Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+     {245.33-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
+     {245.34-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+     {245.35-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+     {      N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+     {      N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+     {      N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
 
      //<ok>
      {245.36-N29}
@@ -7122,25 +6103,7 @@ begin
 
    with Produto.Imposto.ICMS do
    begin
-     //<ok>
-     {245.39-N11}
-     //orig
-     //Origem da mercadoria:
-     //     0 – Nacional
-     //     1 – Estrangeira – Importação direta
-     //     2 – Estrangeira – Adquirida no mercado interno
-     //---------------------------------------------------
-     Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-     end;
+     {245.39-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
 
      //<ok>
      {245.40 N12a}
@@ -7150,90 +6113,15 @@ begin
      //203-Isenção do ICMS nos Simples Nacional para faixa de receita bruta e com cobrança do ICMS por Substituição Tributária (v.2.0)
      CSOSN := pCSOSN;
 
-     //<ok>
-     {245.41-N18}
-     //modBCST
-     //Modalidade de determinação da BC do ICMS ST
-     //       0 – Preço tabelado ou máximo sugerido
-     //       1 - Lista Negativa (valor)
-     //       2 - Lista Positiva (valor)
-     //       3 - Lista Neutra (valor)
-     //       4 - Margem Valor Agregado (%)
-     //       5 - Pauta (valor)
-     case qVENDA_ITEM.FieldByName('NFe_modBCST').AsInteger of
-        0 : modBCST := dbisPrecoTabelado;
-        1 : modBCST := dbisListaNegativa;
-        2 : modBCST := dbisListaPositiva;
-        3 : modBCST := dbisListaNeutra;
-        4 : modBCST := dbisMargemValorAgregado;
-        5 : modBCST := dbisPauta;
-        6 : modBCST := dbisValordaOperacao;
-     end;
-
-     //<ok>
-     {245.42-N19}
-     //pMVAST
-     //Percentual da margem de valor Adicionado do ICMS ST
-     pMVAST := qVENDA_ITEM.FieldByName('NFe_pMVAST').AsFloat;
-
-     //<ok>
-     {224.43-N20}
-     //pRedBCST
-     //Percentual da Redução de BC do ICMS ST
-     pRedBCST := qVENDA_ITEM.FieldByName('REDUCAO_ICMS_ST').AsFloat;
-
-     //<ok>
-     {245.44-N21}
-     //vBCST Valor da BC do ICMS ST
-     vBCST := (1+(pMVAST/100) * Produto.Prod.vProd)
-            * ((100-pRedBCST)/100);
-
-     //<ok>
-     {245.45-N22}
-     //pICMSST
-     //Alíquota do imposto do ICMS ST
-     pICMSST := qVENDA_ITEM.FieldByName('ALIQ_ICMS_SUBST').AsFloat;
-
-     //<ok>
-     {245.46-N23}
-     //vICMSST
-     //Valor do ICMS ST
-     //Valor do ICMS ST retido
-     vICMSST := pICMSST / 100 * vBCST;
-
-     //<ok>
-     {N23a}
-     //Base de Cálculo do Fundo de Combate a Pobreza
-     //Retido por Substituição Tributária
-     vBCFCPST:=Produto.Prod.vProd;
-
-     //<ok>
-     {N23b}
-     //O Percental do Fundo de Combate a Pobreza depende da UF de destino
-     //Depende da UF - tem que vir do cadastro do destinatário
-     // PRODUTO X UF X UF
-     if fCP_PFCPST(qVENDA_ITEM.FieldByName('PROD_CODIGOCALCULOICMS').AsString,
-                   qEMITENTE.FieldByName('FILI_UF').AsString,
-                   qDESTINATARIO.FieldByName('ESTADO').AsString) then
-     begin
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         //pFCPST := qCFOPPROD_CP.FieldByName('CP_PFCPST').AsFloat;
-     end
-     else
-     begin
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         pFCPST := 0;
-     end;
-
-     //<ok>
-     {N23d}
-     //Valor do Fundo de Combate a Pobreza
-     //retido por Substituição Tributária
-     //Aplicado sobre a BC do FB qdo CST <> 00
-     //vFCPST := Produto.Imposto.ICMS.pFCPST/100 * Produto.Imposto.ICMS.vBCFCPST;
-     vFCPST := pFCPST / 100 * vBCFCPST;
+     {245.41-N18} Tratar_N18_Produto_Imposto_ICMS_modBCST;
+     {245.42-N19} Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+     {224.43-N20} Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+     {245.44-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
+     {245.45-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+     {245.46-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+     {      N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+     {      N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+     {      N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
 
    end; // with
 
@@ -7267,25 +6155,7 @@ begin
 
    with Produto.Imposto.ICMS do
    begin
-      //<ok>
-      {245.48-N11}
-      //orig
-      //Origem da mercadoria:
-      //     0 – Nacional
-      //     1 – Estrangeira – Importação direta
-      //     2 – Estrangeira – Adquirida no mercado interno
-      //---------------------------------------------------
-      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-      end;
+     {245.48-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
 
      //<ok>
      {245.49 N12a}
@@ -7294,53 +6164,18 @@ begin
      //CSOSN = 500 – ICMS cobrado anteriormente por substituição tributária (substituído) ou por antecipação
      CSOSN := csosn500;
 
-     //<ok>
-     {245.50-N26}
-     //vBCSTRet
-     //Valor da BC do ICMS ST retido
-     //Valor da BC do ICMS ST cobrado anteriormente por ST (v2.0)
-     vBCSTRet := Produto.Prod.vProd;
+     {245.50-N26} Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
+                  Tratar_Produto_Imposto_ICMS_pST;
+                  Tratar_Produto_Imposto_ICMS_vICMSSubstituto;
+     {245.51-N27} Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
+     {      N27a} Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
+     {      N27b} Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
+     {      N27d} Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
 
-     //<ok>
-     pST:=0;
-
-     //<ok>
-     vICMSSubstituto:=0;
-
-     //<ok>
-     {245.51-N27}
-     //vICMSSTRet
-     //Valor do ICMS ST retido
-     //Valor do ICMS ST cobrado anteriormente por ST (v2.0)
-     vICMSSTRet := pST / 100 * vBCSTRet;
-
-      //<ok>
-      {N27a}
-      //Valor da Base de Cálculo do FCP retido anteriormente por ST
-      vBCFCPSTRet:=Produto.Prod.vProd;
-
-      //<ok>
-      {N27b}
-      //Percentual do Fundo de Combate à Pobreza (FCP) Retido por ST
-      pFCPSTRet:=0;
-
-      //<ok>
-      {N27d}
-      //Valor do Fundo de Combate à Pobreza (FCP) Retido por ST
-      vFCPSTRet:= pFCPSTRet /100 * vBCFCPSTRet;
-
-      //<ok>
-      pRedBCEfet:=0;
-
-      //<ok>
-      vBCEfet:= (100-pRedBCEfet)/100 * Produto.Prod.vProd;
-
-      //<ok>
-      pICMSEfet:=0;
-
-      //<ok>
-      vICMSEfet:= pICMSEfet / 100 * vBCEfet;
-
+                  Tratar_Produto_Imposto_ICMS_pRedBCEfet;
+                  Tratar_Produto_Imposto_ICMS_vBCEfet;
+                  Tratar_Produto_Imposto_ICMS_pICMSEfet;
+                  Tratar_Produto_Imposto_ICMS_vICMSEfet;
    end; // with
 end;
 
@@ -7358,25 +6193,7 @@ begin
 
    with Produto.Imposto.ICMS do
    begin
-      //<ok>
-      {245.53-N11}
-      //orig
-      //Origem da mercadoria:
-      //     0 – Nacional
-      //     1 – Estrangeira – Importação direta
-      //     2 – Estrangeira – Adquirida no mercado interno
-      //---------------------------------------------------
-      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
-         0 : orig := oeNacional;
-         1 : orig := oeEstrangeiraImportacaoDireta;
-         2 : orig := oeEstrangeiraAdquiridaBrasil;
-         3 : orig := oeNacionalConteudoImportacaoSuperior40;
-         4 : orig := oeNacionalProcessosBasicos;
-         5 : orig := oeNacionalConteudoImportacaoInferiorIgual40;
-         6 : orig := oeEstrangeiraImportacaoDiretaSemSimilar;
-         7 : orig := oeEstrangeiraAdquiridaBrasilSemSimilar;
-         8 : orig := oeNacionalConteudoImportacaoSuperior70;
-      end;
+      {245.53-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
 
       //<ok>
       {245.54-N12a}
@@ -7385,128 +6202,20 @@ begin
       //CSOSN = 500 – Outros
       CSOSN := csosn900;
 
-      //<ok>
-      {245.55-N13}
-      //modBC
-      // Modalidade de determinação da BC do ICMS
-      //        0 - Margem Valor Agregado (%)
-      //        1 - Pauta (Valor)
-      //        2 - Preço Tabelado Máx. (valor)
-      //        3 - valor da operação
-      case qVENDA_ITEM.FieldByName('NFe_modBC').AsInteger of
-         0 : modBC := dbiMargemValorAgregado;
-         1 : modBC := dbiPauta;
-         2 : modBC := dbiPrecoTabelado;
-         3 : modBC := dbiValorOperacao;
-         4 : modBC := dbiNenhum;
-      end;
-
-     //<ok>
-     {245.56-N15}
-     //vBC
-     //Valor da BC do ICMS
-     vBC := Produto.Prod.vProd;
-
-     //<ok>
-     {245.57-N14}
-     //pRedBC
-     //Percentual da Redução de BC
-     pRedBC := qVENDA_ITEM.FieldByName('REDUCAO_ICMS').AsFloat;
-
-     //<ok>
-     {245.58-N16}
-     //pICMS
-     //Alíquota do imposto
-     pICMS := qVENDA_ITEM.FieldByName('ALIQ_ICMS').AsFloat;
-
-     //<ok>
-     {245.59-N17}
-     //vICMS
-     //Valor do ICMS
-     vICMS := vBC * (100-pRedBC)/100 * pICMS/100;
-
-     //<ok>
-     {245.60-N18}
-     //modBCST
-     //Modalidade de determinação da BC do ICMS ST
-     //       0 – Preço tabelado ou máximo sugerido
-     //       1 - Lista Negativa (valor)
-     //       2 - Lista Positiva (valor)
-     //       3 - Lista Neutra (valor)
-     //       4 - Margem Valor Agregado (%)
-     //       5 - Pauta (valor)
-     case qVENDA_ITEM.FieldByName('NFe_modBCST').AsInteger of
-        0 : modBCST := dbisPrecoTabelado;
-        1 : modBCST := dbisListaNegativa;
-        2 : modBCST := dbisListaPositiva;
-        3 : modBCST := dbisListaNeutra;
-        4 : modBCST := dbisMargemValorAgregado;
-        5 : modBCST := dbisPauta;
-        6 : modBCST := dbisValordaOperacao;
-     end;
-
-     //<ok>
-     {245.61-N19}
-     //pMVAST
-     //Percentual da margem de valor Adicionado do ICMS ST
-     pMVAST := qVENDA_ITEM.FieldByName('NFe_pMVAST').AsFloat;
-
-     //<ok>
-     pRedBCST:=0;
-
-     //<ok>
-     {245.63-N21}
-     //vBCST
-     //Valor da BC do ICMS ST
-     vBCST := (1+pMVAST/100) * Produto.Prod.vProd
-            * ((100-pRedBCST)/100);
-
-     //<ok>
-     {245.64-N22}
-     //pICMSST
-     //Alíquota do imposto do ICMS ST
-     pICMSST := qVENDA_ITEM.FieldByName('ALIQ_ICMS_SUBST').AsFloat;
-
-     //<ok>
-     {245.65-N23}
-     //vICMSST
-     //Valor do ICMS ST
-     //Valor do ICMS ST retido
-     vICMSST := pICMSST / 100 * vBCST;
-
-     //<ok>
-     {N23a}
-     //Base de Cálculo do Fundo de Combate a Pobreza
-     //Retido por Substituição Tributária
-     vBCFCPST:=0;
-
-     //<ok>
-     {N23b}
-     //O Percental do Fundo de Combate a Pobreza depende da UF de destino
-     //Depende da UF - tem que vir do cadastro do destinatário
-     // PRODUTO X UF X UF
-     if fCP_PFCPST(qVENDA_ITEM.FieldByName('PROD_CODIGOCALCULOICMS').AsString,
-                   qEMITENTE.FieldByName('FILI_UF').AsString,
-                   qDESTINATARIO.FieldByName('ESTADO').AsString) then
-     begin
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         //pFCPST := qCFOPPROD_CP.FieldByName('CP_PFCPST').AsFloat;
-     end
-     else
-     begin
-         {N23b}
-         //Percentual do FCP retido por Substituição Tributária
-         pFCPST := 0;
-     end;
-
-     //<ok>
-     {N23d}
-     //Valor do Fundo de Combate a Pobreza
-     //retido por Substituição Tributária
-     //Aplicado sobre a BC do FB qdo CST <> 00
-     //vFCPST := Produto.Imposto.ICMS.pFCPST/100 * Produto.Imposto.ICMS.vBCFCPST;
-     vFCPST := pFCPST / 100 * vBCFCPST;
+     {245.55-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
+     {245.56-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
+     {245.57-N14} Tratar_N14_Produto_Imposto_ICMS_pRedBC;
+     {245.58-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
+     {245.59-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
+     {245.60-N18} Tratar_N18_Produto_Imposto_ICMS_modBCST;
+     {245.61-N19} Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+     {245.62-N20} Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+     {245.63-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
+     {245.64-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+     {245.65-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+     {      N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+     {      N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+     {      N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
 
      //<ok>
      {245.52-N29}
@@ -7521,6 +6230,136 @@ begin
      vCredICMSSN := vBC * pCredSN / 100;
 
    end; // with
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N28_Desoneracao_do_ICMS;
+begin
+   {N28}
+   //Valor da Desoneração do ICMS
+
+   With Produto.Imposto.ICMS do
+   begin
+      vICMSDeson:=0;
+
+      //<ok>
+      //Motivo da desoneração do ICMS
+      //Este campo será preenchido quando o campo anterior estiver preenchido.
+      //Informar o motivo da desoneração:
+      //       1–Táxi
+      //       2–Deficiente Físico
+      //       3–Produtor Agropecuário
+      //       4–Frotista/Locadora
+      //       5–Diplomático/Consular
+      //       6–Utilitários e Motocicletas da Amazônia Ocidental
+      //         e Áreas de Livre Comércio (Resolução 714/88 e 790/94 – CONTRAN
+      //         e suas alterações)
+      //       7–SUFRAMA
+      //       9–outros. (v2.0)
+      if vICMSDeson <> 0 Then
+      begin
+          case qVENDA_ITEM.FieldByName('NFe_motDesICMS').AsInteger of
+             0 : motDesICMS := mdiTaxi;
+             1 : motDesICMS := mdiDeficienteFisico;
+             2 : motDesICMS := mdiProdutorAgropecuario;
+             3 : motDesICMS := mdiFrotistaLocadora;
+             4 : motDesICMS := mdiDiplomaticoConsular;
+             5 : motDesICMS := mdiAmazoniaLivreComercio;
+             6 : motDesICMS := mdiSuframa;
+             7 : motDesICMS := mdiVendaOrgaosPublicos;
+             8 : motDesICMS := mdiOutros;
+             9 : motDesICMS := mdiDeficienteCondutor;
+            10 : motDesICMS := mdiDeficienteNaoCondutor;
+            11 : motDesICMS := mdiOrgaoFomento;
+            12 : motDesICMS := mdiOlimpiadaRio2016;
+            13 : motDesICMS := mdiSolicitadoFisco;
+          end;
+      end;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N31_Produto_Imposto_ICMS_vBCSTDest;
+begin
+   {N31}
+   //vBCSTDest
+   //Valor da BC do ICMS ST da UF destino
+   //Informar o valor da BC do ICMS ST da UF destino (v2.0)
+   Produto.Imposto.ICMS.vBCSTDest := Produto.Prod.vProd;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N32_Produto_Imposto_ICMS_vICMSSTDes;
+begin
+   {N32}
+   //vICMSSTDes
+   //Valor do ICMS ST da UF destino
+   //Informar o valor da BC do ICMS ST da UF destino (v2.0)
+   Produto.Imposto.ICMS.vICMSSTDest := 0;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_pDif;
+begin
+   Produto.Imposto.ICMS.pDif:=0;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_pFCP;
+begin
+   //Percentual do Fundo de Combate a Pobreza
+   //Depende da UF - tem que vir do cadastro da empresa
+   Produto.Imposto.ICMS.pFCP := 0;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_pICMSEfet;
+begin
+   Produto.Imposto.ICMS.pICMSEfet := 0;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_pRedBCEfet;
+begin
+   Produto.Imposto.ICMS.pRedBCEfet := 0;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_pST;
+begin
+   Produto.Imposto.ICMS.pST := 0;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_vBCEfet;
+begin
+   With Produto.Imposto.ICMS do
+   begin
+    vBCEfet:= (100-pRedBCEfet)/100 * Produto.Prod.vProd;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_vBCFCP;
+begin
+   //Base de Cálculo do Fundo de Combate a Pobreza
+   Produto.Imposto.ICMS.vBCFCP := Produto.Prod.vProd;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_vFCP;
+begin
+   //Valor do Fundo de Combate a Pobreza
+   //Aplicado sobre a BC do ICMS qdo CST = 00
+   With Produto.Imposto.ICMS do
+   begin
+      vFCP := pFCP / 100 * vBC;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_vICMSEfet;
+begin
+   With Produto.Imposto.ICMS do
+   begin
+     vICMSEfet:= pICMSEfet / 100 * vBCEfet;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_vICMSSubstituto;
+begin
+   With Produto.Imposto.ICMS do
+   begin
+      vICMSSubstituto:= pST / 100 * vBCSTRet;
+   end;
 end;
 
 procedure TfrmEmissaoDeNFe.Trata_NFe;
