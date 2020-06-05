@@ -3256,7 +3256,6 @@ begin
    edRPC_CFOP.Text   := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_CFOP'  ).AsString;
    edRPC_PIS.Text    := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString;
    edRPC_COFINS.Text := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString;
-
 end;
 
 procedure TFrm_Produto.edREFERENCIA_FABRICANTEExit(Sender: TObject);

@@ -1,8 +1,10 @@
 unit EmissaoDeNFe;
 {
+
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+253|05/06/20|14:09|EmissaoDeNFe                |APlicando o CST do PIS da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 249|02/06/20|20:08|EmissaoDeNFe                |Passa a completar com pontos "." as unidades de medida que possuam menos de 3 caracteres (ex: KG -> KG.)
 ========================================================================================================================================
 
@@ -162,6 +164,7 @@ type
     SQL_venda_lacre_vlac: TFDQuery;
     SQL_venda_lacre_vlacVLAC_ID_VENDA: TIntegerField;
     SQL_venda_lacre_vlacVLAC_NLACRE: TStringField;
+    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC: TFDQuery;
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
@@ -189,6 +192,7 @@ type
     procedure Carregar_Transportador(pID:Integer);
     procedure Carregar_Transportador_Veiculo(pCODIGO:Integer);
     procedure Carregar_Venda_Lacre(pCODIGO:Integer);
+    procedure Carregar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pCFOP,pProduto:String);
     function Venda_Possui_Produtos_e_Servicos:Boolean;
     function AlgumProdutoSem_ICMS_ST:Boolean;
     function AlgumProdutoSem_CODIGO_ORIGEM_MERCADORIA:Boolean;
@@ -740,6 +744,19 @@ begin
      Result := True;
    except
    end;
+end;
+
+procedure TfrmEmissaoDeNFe.Carregar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pCFOP,pProduto:String);
+begin
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Close;
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Clear;
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('SELECT *                                         ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('  FROM RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add(' WHERE RPC_CFOP    = :CFOP                       ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('   AND RPC_PRODUTO = :PRODUTO                    ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.ParamByName('CFOP'   ).AsString := pCFOP;
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.ParamByName('PRODUTO').AsString := pPRODUTO;
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Open;
 end;
 
 function TfrmEmissaoDeNFe.Carregar_TipoDeMovimento(
@@ -3352,6 +3369,10 @@ begin
 
    // Para todos os produtos da NFe
 
+   // Recuperar relacionamento entre CFOP x CST
+   Carregar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(Produto.Prod.CFOP,
+                                                      Produto.Prod.cProd);
+
    {163-M01}
    //imposto
    //Grupo de Tributos incidentes no Produto ou Serviço
@@ -4009,7 +4030,11 @@ begin
    //com base valor atribuído ao campo Q06 – CST do PIS
 
    //Apenas produtos com PIS_CST definido em seu cadastro
-   if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '' then
+   //edRPC_PIS.Text    := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString;
+   //edRPC_COFINS.Text := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString;
+
+   if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '' then
+   //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '' then
       exit;
 
        {269-Q06}
@@ -4022,6 +4047,9 @@ begin
        //    02-Operação Tributável
        //      (base de cálculo = valor da operação
        //       (alíquota diferenciada)
+
+       if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString....
+
        if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '01' then CST := pis01 else
        if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '02' then CST := pis02 else
        if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '03' then CST := pis03 else
@@ -4075,8 +4103,10 @@ begin
           //    02-Operação Tributável
           //      (base de cálculo = valor da operação
           //       (alíquota diferenciada)
-          if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '01' then CST := pis01;
-          if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '02' then CST := pis02;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '01' then CST := pis01;
+          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '01' then CST := pis01;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '02' then CST := pis02;
+          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '02' then CST := pis02;
 
           {270-Q07}
           //vBC
@@ -4111,7 +4141,8 @@ begin
           vPIS := vBC * pPIS / 100;
        end;
 
-       if (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '03') then
+       if (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '03') then
+       //if (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '03') then
        begin
           {273-Q03}
           //PISQtde
@@ -4158,11 +4189,17 @@ begin
           vPIS := vAliqProd * qBCProd;
        end;
 
-       if (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '04') or
-          (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '06') or
-          (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '07') or
-          (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '08') or
-          (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '09') then
+       if (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '04') or
+          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '06') or
+          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '07') or
+          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '08') or
+          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '09') then
+
+       //if (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '04') or
+       //   (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '06') or
+       //   (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '07') or
+       //   (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '08') or
+       //   (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '09') then
        begin
           {278-Q04}
           //PISNT
@@ -4178,14 +4215,21 @@ begin
           //    07-Operação Isenta da Contribuição
           //    08-Operação Sem Incidência da Contribuição
           //    09-Operação com Suspensão da Contribuição
-          if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '04' then CST := pis04;
-          if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '06' then CST := pis06;
-          if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '07' then CST := pis07;
-          if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '08' then CST := pis08;
-          if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '09' then CST := pis09;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '04' then CST := pis04;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '06' then CST := pis06;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '07' then CST := pis07;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '08' then CST := pis08;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '09' then CST := pis09;
+
+          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '04' then CST := pis04;
+          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '06' then CST := pis06;
+          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '07' then CST := pis07;
+          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '08' then CST := pis08;
+          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '09' then CST := pis09;
        end;
 
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '99' then
+       if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '99' then
+       //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '99' then
        begin
           {280-Q05}
           //PISOutr

@@ -460,4 +460,11 @@ object frmEmissaoDeNFe: TfrmEmissaoDeNFe
       Size = 60
     end
   end
+  object qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC: TFDQuery
+    Connection = Module.connection
+    SQL.Strings = (
+      'select * from usuario_usu')
+    Left = 339
+    Top = 181
+  end
 end
