@@ -3,6 +3,7 @@ unit venda_pedido;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+258|06/06/20|05:35|venda_pedido                |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 252|03/06/20|05:34|venda_pedido                |Se encontrar algum produto sem o CST do ICMS informado, abre o cadastro do produto para que o usuário corrija.
 251|03/06/20|05:34|venda_pedido                |Passa a criticar e avisar ao usuário se encontrar algum produto sem o CST do ICMS informado
 248|01/06/20|14:16|venda_pedido                |Tratando os novos campos fiscas do cadastro do produto.

@@ -5,6 +5,7 @@ unit cadastro_produto;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+256|06/06/20|05:35|EmissaoDeNFe                |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 250|03/06/20|05:34|cadastro_produto            |Preparada para ser chamada por telas do movimento para acertar o cadastro de algum produto
 247|01/06/20|09:33|cadastro_produto            |Tratando o "Indicador de Escala Relevante" do Produto.
 246|01/06/20|09:33|Atualizador                 |Criada coluna NFe_IndEscala para armazenar o "Indicador de Escala Relevante" do Produto.
@@ -541,7 +542,6 @@ type
     Label19: TLabel;
     Label20: TLabel;
     Label23: TLabel;
-    DBGrid1: TDBGrid;
     Panel1: TPanel;
     bRPC_Delete: TcxButton;
     bRPC_Insert: TcxButton;
@@ -557,6 +557,7 @@ type
     edRPC_TPMOV: TEdit;
     edRPC_TPMOV_Nome: TEdit;
     cxButton13: TcxButton;
+    DBGrid1: TDBGrid;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -813,7 +814,7 @@ uses cadastro_familia, cadastro_sub_grupo, cad_marca, S_Module,
   cadastro_grupo, cadastro_unidade, u_funcoes, m_Etiqueta, vw_etiquetas,
   dados_adicionais, vw_produto_precos, vw_preco_promocional, vw_preco_faixa,
   vw_composicao_preco, vw_estoque_opcoes, rel_comissao, vw_comissao_produtos,
-  vw_balanca, cadastro_fornecedor;
+  vw_balanca, cadastro_fornecedor, vw_tipoDeMovimento;
 
 function TFrm_Produto.RemoveEspaco(const str: String): string;
 const
@@ -1348,9 +1349,13 @@ end;
 
 procedure TFrm_Produto.bRPC_DeleteClick(Sender: TObject);
 begin
+   if edRPC_TPMOV.Text  = '' then exit;
+   if edRPC_CFOP.Text   = '' then exit;
+
    ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(edCodigo.Text,
                                                    edRPC_TPMOV.Text,
                                                    edRPC_CFOP.Text);
+
    Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
 end;
 
@@ -1657,8 +1662,13 @@ end;
 
 procedure TFrm_Produto.ConsultarTPMOV;
 begin
-//  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgTPMOV, edRPC_TPMOV);
-//  Frm_Consulta_Generica.ShowModal;
+   //Pesquisa/Seleciona um tipo de movimento
+   //--------------------------------------------------------------------------
+   frm_tipoDeMovimento := Tfrm_tipoDeMovimento.Create(Self);
+   vfrm_tipoDeMovimentovConsultaExterna:= True; // É uma consulta externa
+   frm_tipoDeMovimento.ShowModal;
+   edRPC_TPMOV.Text := vfrm_tipoDeMovimentoTPMOV_CODIGO;
+   frm_tipoDeMovimento.Free;
 end;
 
 procedure TFrm_Produto.btn_ncmClick(Sender: TObject);
@@ -3159,7 +3169,24 @@ begin
 end;
 
 procedure TFrm_Produto.Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
+var vRegistro : Tbookmark;
 begin
+   //Para que a seleção de um registro
+   //permaneça apontando para ele
+   //após ser alterado...
+   //A posição atual do registro é armazenada no ponteiro vRegistro:
+   //try
+   //  vRegistro:= qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.GetBookmark;
+   //except
+   //end;
+   //
+   //Não foi possível usar o recurso de DataSet BookMarks porque a query
+   //recebe novo select...
+   //
+   //Uma alternativa seria armazenar a chave do registro (TPMOV,PROD,CFOP)
+   //antes da alteração, exclusão, e usar a chave após o select abaixo para
+   //posicionar no registro alterado, se possível... (se não foi excluído)
+
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Close;
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Clear;
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('SELECT *                                          ');
@@ -3172,6 +3199,16 @@ begin
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add(' ORDER BY TPMOV_DESCRICAO, RPC_CFOP                                ');
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.ParamByName('RPC_PRODUTO').AsString := qConsulta.FieldByName('CODIGO').AsString;
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Open;
+
+   //Após a alteração, usamos o ponteiro vRegistro para voltar ao registro alterado
+   //Se o registro foi excluído, irá para o primeiro registro da tabela
+   //try
+   //   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.GotoBookmark(vRegistro);
+   //except
+   //end;
+   //
+   //O recuto acima não é viável pois o SELECT atualiza os bookmarks da query
+   //a solucao está proposta no bloco de comentários acima do SELECT anterior....
 end;
 
 procedure TFrm_Produto.edNCMExit(Sender: TObject);
