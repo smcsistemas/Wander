@@ -26,10 +26,13 @@ ordem decrescente de data....
 |-------|------|
 |  TOTAL| 252  |
 ================
-
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+262|06/06/20|15:22|EmissaoDeNFe                |% PIS Cumulativo e Não Cumulativo estavam fixo no código (0,65% e 1,65%). Passa a tratar as novas colunas pPIS_CUMULATIVO e pPIS_NAOCUMULATIVO da tabela EMPRESA
+261|06/06/20|15:22|cadastro_empresa            |Passa a tratar as novas colunas pPIS_CUMULATIVO e pPIS_NAOCUMULATIVO da tabela EMPRESA
+260|06/06/20|15:22|Atualizador                 |Incluida coluna pPIS_CUMULATIVO (% PIS Cumulativo) na tabela EMPRESA
+259|06/06/20|15:22|Atualizador                 |Incluida coluna pPIS_NAOCUMULATIVO (% PIS Não Cumulativo) na tabela EMPRESA
 258|06/06/20|05:35|venda_pedido                |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 257|06/06/20|05:35|u_funcoes                   |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 256|06/06/20|05:35|EmissaoDeNFe                |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC

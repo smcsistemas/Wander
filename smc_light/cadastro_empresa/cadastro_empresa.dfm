@@ -767,7 +767,7 @@ object Form_Empresa: TForm_Empresa
   end
   object GroupBox1: TGroupBox
     Left = 16
-    Top = 394
+    Top = 389
     Width = 685
     Height = 257
     Caption = '  Parametros de Tributa'#231#227'o'
@@ -890,62 +890,7 @@ object Form_Empresa: TForm_Empresa
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 1
-      object chk_2: TcxCheckBox
-        Left = 3
-        Top = 71
-        Caption = 'N'#227'o Cumulativo'
-        ParentBackground = False
-        ParentColor = False
-        ParentFont = False
-        Properties.OnChange = chk_2PropertiesChange
-        State = cbsChecked
-        Style.BorderColor = clWindow
-        Style.Color = clBtnHighlight
-        Style.Font.Charset = DEFAULT_CHARSET
-        Style.Font.Color = clNone
-        Style.Font.Height = -12
-        Style.Font.Name = 'Tahoma'
-        Style.Font.Style = [fsBold]
-        Style.LookAndFeel.NativeStyle = False
-        Style.LookAndFeel.SkinName = 'Office2013White'
-        Style.Shadow = False
-        Style.IsFontAssigned = True
-        StyleDisabled.LookAndFeel.NativeStyle = False
-        StyleDisabled.LookAndFeel.SkinName = 'Office2013White'
-        StyleFocused.LookAndFeel.NativeStyle = False
-        StyleFocused.LookAndFeel.SkinName = 'Office2013White'
-        StyleHot.LookAndFeel.NativeStyle = False
-        StyleHot.LookAndFeel.SkinName = 'Office2013White'
-        TabOrder = 1
-      end
-      object chk_1: TcxCheckBox
-        Left = 5
-        Top = 38
-        Caption = 'Cumulativo'
-        ParentBackground = False
-        ParentColor = False
-        ParentFont = False
-        Properties.OnChange = chk_1PropertiesChange
-        Style.BorderColor = clWindow
-        Style.Color = clBtnHighlight
-        Style.Font.Charset = DEFAULT_CHARSET
-        Style.Font.Color = clNone
-        Style.Font.Height = -12
-        Style.Font.Name = 'Tahoma'
-        Style.Font.Style = [fsBold]
-        Style.LookAndFeel.NativeStyle = False
-        Style.LookAndFeel.SkinName = 'Office2013White'
-        Style.Shadow = False
-        Style.IsFontAssigned = True
-        StyleDisabled.LookAndFeel.NativeStyle = False
-        StyleDisabled.LookAndFeel.SkinName = 'Office2013White'
-        StyleFocused.LookAndFeel.NativeStyle = False
-        StyleFocused.LookAndFeel.SkinName = 'Office2013White'
-        StyleHot.LookAndFeel.NativeStyle = False
-        StyleHot.LookAndFeel.SkinName = 'Office2013White'
-        TabOrder = 0
-      end
-      object Edit4: TEdit
+      object edpPIS_CUMULATIVO: TEdit
         Left = 125
         Top = 34
         Width = 49
@@ -956,10 +901,10 @@ object Form_Empresa: TForm_Empresa
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        TabOrder = 2
-        Text = 'Edit1'
+        TabOrder = 0
+        Text = '0,00'
       end
-      object Edit5: TEdit
+      object edpPIS_NAOCUMULATIVO: TEdit
         Left = 125
         Top = 66
         Width = 49
@@ -970,8 +915,8 @@ object Form_Empresa: TForm_Empresa
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        TabOrder = 3
-        Text = 'Edit1'
+        TabOrder = 1
+        Text = '0,00'
       end
       object ed_EMPRESA_pCOFINS: TEdit
         Left = 177
@@ -984,7 +929,7 @@ object Form_Empresa: TForm_Empresa
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        TabOrder = 4
+        TabOrder = 2
         Text = '0,00'
       end
       object Edit7: TEdit
@@ -998,8 +943,24 @@ object Form_Empresa: TForm_Empresa
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        TabOrder = 5
-        Text = 'Edit1'
+        TabOrder = 3
+        Text = '0,00'
+      end
+      object rgTRIBUTACAO_PIS_COFINS: TRadioGroup
+        Left = 3
+        Top = 21
+        Width = 118
+        Height = 75
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clNone
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Items.Strings = (
+          'Cumulativo'
+          'N'#227'o Cumulativo')
+        ParentFont = False
+        TabOrder = 4
       end
     end
     object cxCheckBox1: TcxCheckBox
@@ -4331,8 +4292,8 @@ object Form_Empresa: TForm_Empresa
     Connection = Module.connection
     SQL.Strings = (
       'select * from empresa order by codigo desc limit 1')
-    Left = 880
-    Top = 376
+    Left = 336
+    Top = 96
     object SQL_EmpresaCODIGO: TFDAutoIncField
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
@@ -4972,6 +4933,48 @@ object Form_Empresa: TForm_Empresa
       Origin = 'pCOFINS'
       Precision = 6
       Size = 2
+    end
+    object SQL_EmpresaNOME_CONTATO_AD_02: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOME_CONTATO_AD_02'
+      Origin = 'NOME_CONTATO_AD_02'
+      Size = 50
+    end
+    object SQL_EmpresaULTIMO_NSU: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ULTIMO_NSU'
+      Origin = 'ULTIMO_NSU'
+      Size = 15
+    end
+    object SQL_EmpresaTratar_ICMS51: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'Tratar_ICMS51'
+      Origin = 'Tratar_ICMS51'
+    end
+    object SQL_EmpresaNFe_CSOSN: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_CSOSN'
+      Origin = 'NFe_CSOSN'
+      Size = 3
+    end
+    object SQL_EmpresaNFe_ALIQ_CREDITO_ICMS: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_ALIQ_CREDITO_ICMS'
+      Origin = 'NFe_ALIQ_CREDITO_ICMS'
+      Precision = 6
+      Size = 2
+    end
+    object SQL_EmpresapPIS_CUMULATIVO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'pPIS_CUMULATIVO'
+      Origin = 'pPIS_CUMULATIVO'
+      Precision = 6
+    end
+    object SQL_EmpresapPIS_NAOCUMULATIVO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'pPIS_NAOCUMULATIVO'
+      Origin = 'pPIS_NAOCUMULATIVO'
+      Precision = 6
     end
   end
   object DS_Empresa: TDataSource

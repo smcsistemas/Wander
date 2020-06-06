@@ -3,6 +3,8 @@ unit Atualizador;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+260|06/06/20|15:22|Atualizador                 |Incluida coluna pPIS_CUMULATIVO (% PIS Cumulativo) na tabela EMPRESA
+259|06/06/20|15:22|Atualizador                 |Incluida coluna pPIS_NAOCUMULATIVO (% PIS Não Cumulativo) na tabela EMPRESA
 254|05/06/20|14:09|Atualizador                 |Incluida chave RPC_TPMOV na tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 ========================================================================================================================================
 
@@ -2336,6 +2338,12 @@ begin
        Executar('ALTER TABLE RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC ADD RPC_TPMOV VARCHAR(20) NOT NULL COMMENT "Cod do Tipo de Movimento" ');
        Executar('update RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC set RPC_TPMOV= "1" ');
     end;
+
+    //06/06/2020
+    if fNaoAtualizado('EMPRESA: % PIS Cumulativo...') Then
+       Executar('ALTER TABLE EMPRESA ADD pPIS_CUMULATIVO DECIMAL(6,4) NULL DEFAULT 0.65 COMMENT "% PIS Cumulativo" ');
+    if fNaoAtualizado('EMPRESA: % PIS Não Cumulativo...') Then
+       Executar('ALTER TABLE EMPRESA ADD pPIS_NAOCUMULATIVO DECIMAL(6,4) NULL DEFAULT 1.65 COMMENT "% PIS Não Cumulativo" ');
 
 end;
 

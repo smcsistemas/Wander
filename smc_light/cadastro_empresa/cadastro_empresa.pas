@@ -1,6 +1,12 @@
 { v 15.10.16 11:18 }
 unit cadastro_empresa;
 {
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+261|06/06/20|15:22|cadastro_empresa            |Passa a tratar as novas colunas pPIS_CUMULATIVO e pPIS_NAOCUMULATIVO da tabela EMPRESA
+========================================================================================================================================
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
@@ -295,10 +301,8 @@ type
     grpCRT: TGroupBox;
     cxCONTRIBUINTE_ICMS: TcxCheckBox;
     grpPisCofins: TGroupBox;
-    chk_2: TcxCheckBox;
-    chk_1: TcxCheckBox;
-    Edit4: TEdit;
-    Edit5: TEdit;
+    edpPIS_CUMULATIVO: TEdit;
+    edpPIS_NAOCUMULATIVO: TEdit;
     ed_EMPRESA_pCOFINS: TEdit;
     Edit7: TEdit;
     cxCheckBox1: TcxCheckBox;
@@ -311,6 +315,14 @@ type
     rgCODIGO_REGIME_TRIBUTARIO: TRadioGroup;
     rgCONTRIBUINTE_IPI: TRadioGroup;
     chk_9: TcxCheckBox;
+    SQL_EmpresaNOME_CONTATO_AD_02: TStringField;
+    SQL_EmpresaULTIMO_NSU: TStringField;
+    SQL_EmpresaTratar_ICMS51: TIntegerField;
+    SQL_EmpresaNFe_CSOSN: TStringField;
+    SQL_EmpresaNFe_ALIQ_CREDITO_ICMS: TBCDField;
+    SQL_EmpresapPIS_CUMULATIVO: TBCDField;
+    SQL_EmpresapPIS_NAOCUMULATIVO: TBCDField;
+    rgTRIBUTACAO_PIS_COFINS: TRadioGroup;
     procedure BtnIncluirClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BtnGravarClick(Sender: TObject);
@@ -387,8 +399,6 @@ type
     procedure EMPRESA_SKYPEKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure EMPRESA_SITEKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
-    procedure chk_1PropertiesChange(Sender: TObject);
-    procedure chk_2PropertiesChange(Sender: TObject);
     procedure BtnAlterarClick(Sender: TObject);
     procedure CarregarDadosInternos();
     procedure BuscarSocios();
@@ -611,19 +621,22 @@ begin
       exit;
     end;
 
-    if u_funcoes.VerificaEstadoCheck([chk_1, chk_2], false) then
+    //Wander 06/06/20
+    if rgTRIBUTACAO_PIS_COFINS.ItemIndex = -1 then
     begin
       wnAlerta('Cadastro Empresa', 'Por favor, selecione um tipo de trib. PIS/COFINS para a empresa.');
+      rgTRIBUTACAO_PIS_COFINS.SetFocus;
       exit;
     end;
 
     if u_funcoes.RemoverEspacoEmBranco(RemoverCaracteresEspeciais(INICIO_ATIVIDADE.Text)) = '' then
        SQL_EmpresaINICIO_ATIVIDADE.Text := '01/01/0001';
 
-    if chk_1.Checked = True then
-       SQL_EmpresaTRIBUTACAO_PIS_COFINS.Value := 'CUMULATIVO';
-    if chk_2.Checked = True then
-       SQL_EmpresaTRIBUTACAO_PIS_COFINS.Value := 'NAO_CUMULATIVO';
+    //Wander 06/06/20
+    Case rgTRIBUTACAO_PIS_COFINS.ItemIndex of
+       0 : SQL_EmpresaTRIBUTACAO_PIS_COFINS.Value := 'CUMULATIVO';
+       1 : SQL_EmpresaTRIBUTACAO_PIS_COFINS.Value := 'NAO_CUMULATIVO';
+    End;
 
     SQL_Empresa.FieldByName('CODIGO_REGIME_TRIBUTARIO').AsInteger := rgCODIGO_REGIME_TRIBUTARIO.ItemIndex;
 
@@ -666,6 +679,15 @@ begin
       SQL_EmpresaINICIO_ATIVIDADE.Value := strtodate(INICIO_ATIVIDADE.Text)
     else
       SQL_EmpresaINICIO_ATIVIDADE.Value := 0;
+
+    //Wander 06/06/20
+    if not PercentualCorreto(edpPIS_CUMULATIVO.Text,'Percentual PIS Cumulativo') then
+       exit;
+    SQL_EmpresapPIS_CUMULATIVO.AsFloat    := ValorValido(edpPIS_CUMULATIVO.Text);
+
+    if not PercentualCorreto(edpPIS_NAOCUMULATIVO.Text,'Percentual PIS Não Cumulativo') then
+       exit;
+    SQL_EmpresapPIS_NAOCUMULATIVO.AsFloat := ValorValido(edpPIS_NAOCUMULATIVO.Text);
 
     SQL_Empresa.Post;
     MessageDLG('Operação concluída com sucesso', mtInformation, [mbOk], 0);
@@ -759,10 +781,13 @@ begin
   u_funcoes.AlterarEnabled([grpDadosEmpresa, grpOutras, grpLogo, grpContatosAd, grpEndereco, grpEscritorioCont, grpContatos, grpContatosAd,
     grpContatoCont, grpPisCofins, GroupBox1, grpCRT, cxButton5, cxButton1, cxButton2], false);
 
+  //Wander 06/06/20
+  rgTRIBUTACAO_PIS_COFINS.ItemIndex := -1;
   if SQL_EmpresaTRIBUTACAO_PIS_COFINS.Value = 'CUMULATIVO' then
-    chk_1.Checked := True
-  else if SQL_EmpresaTRIBUTACAO_PIS_COFINS.Value = 'NAO_CUMULATIVO' then
-    chk_2.Checked := True;
+     rgTRIBUTACAO_PIS_COFINS.ItemIndex := 0
+  else
+  if SQL_EmpresaTRIBUTACAO_PIS_COFINS.Value = 'NAO_CUMULATIVO' then
+     rgTRIBUTACAO_PIS_COFINS.ItemIndex := 1;
 
   //Wander 25/05/2020
   rgCONTRIBUINTE_IPI.ItemIndex:= 2; // Não contribuinte
@@ -794,6 +819,9 @@ begin
   if SQL_EmpresaNOME_CONTATO_AD.Text <> '' then
     edt_nome_contato.Text := SQL_EmpresaNOME_CONTATO_AD.Text;
 
+  edpPIS_CUMULATIVO.Text    := Float_to_String(SQL_EmpresapPIS_CUMULATIVO.AsFloat);
+  edpPIS_NAOCUMULATIVO.Text := Float_to_String(SQL_EmpresapPIS_NAOCUMULATIVO.AsFloat);
+
   if SQL_EmpresaCODIGO.Text = '' then
   begin
     BtnIncluir.Enabled := True
@@ -824,16 +852,6 @@ end;
 //  if (Key = VK_RETURN) or (Key = VK_TAB) then
 //    dbedt_datavencimento.SetFocus;
 //end;
-
-procedure TForm_Empresa.chk_1PropertiesChange(Sender: TObject);
-begin
-  u_funcoes.AlteraChecks(chk_1, [chk_2]);
-end;
-
-procedure TForm_Empresa.chk_2PropertiesChange(Sender: TObject);
-begin
-  u_funcoes.AlteraChecks(chk_2, [chk_1]);
-end;
 
 procedure TForm_Empresa.CNAEKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin

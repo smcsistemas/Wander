@@ -4,6 +4,7 @@ unit EmissaoDeNFe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+262|06/06/20|15:22|EmissaoDeNFe                |% PIS Cumulativo e Não Cumulativo estavam fixo no código (0,65% e 1,65%). Passa a tratar as novas colunas pPIS_CUMULATIVO e pPIS_NAOCUMULATIVO da tabela EMPRESA
 255|05/06/20|14:09|EmissaoDeNFe                |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 253|05/06/20|14:09|EmissaoDeNFe                |APlicando o CST do PIS da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 249|02/06/20|20:08|EmissaoDeNFe                |Passa a completar com pontos "." as unidades de medida que possuam menos de 3 caracteres (ex: KG -> KG.)
@@ -4149,10 +4150,10 @@ begin
              //
              //*** O correto é que este percentual esteja no cadastro da empresa ***
              //
-             if qVENDA_ITEM.FieldByName('TRIBUTACAO_PIS_COFINS').AsString = 'CUMULATIVO' then
-                pPIS := 0.65
+             if qEMITENTE.FieldByName('TRIBUTACAO_PIS_COFINS').AsString = 'CUMULATIVO' then
+                pPIS := qEMITENTE.FieldByName('pPIS_CUMULATIVO').AsFloat // 0.65
              else
-                pPIS := 1.65;
+                pPIS := qEMITENTE.FieldByName('pPIS_NAOCUMULATIVO').AsFloat; // 1.65;
           end;
 
           {272-Q09}
@@ -4179,7 +4180,7 @@ begin
           {275-Q10}
           //qBCProd
           //Quantidade Vendida
-          qBCProd := qVENDA_ITEM.FieldByName('QUANTIDADE').AsFloat;
+          qBCProd := Produto.Prod.qCom;
 
           {276-Q11}
           //vAliqProd
@@ -4198,9 +4199,9 @@ begin
              //*** O correto é que este percentual esteja no cadastro da empresa ***
              //
              if qVENDA_ITEM.FieldByName('TRIBUTACAO_PIS_COFINS').AsString = 'CUMULATIVO' then
-                vAliqProd := 0.65 / 100 * qVENDA_ITEM.FieldByName('PRECO').AsFloat
+                vAliqProd := 0.65 / 100 * Produto.Prod.vUnCom
              else
-                vAliqProd := 1.65 /100 * qVENDA_ITEM.FieldByName('PRECO').AsFloat;
+                vAliqProd := 1.65 /100 * Produto.Prod.vUnCom;
           end;
 
           {277-Q09}
@@ -4459,12 +4460,12 @@ begin
          {301-S09}
          //qBCProd
          //Quantidade Vendida
-         qBCProd := qVENDA_ITEM.FieldByName('QUANTIDADE').AsFloat;
+         qBCProd := Produto.Prod.qCom;
 
          {302-S10}
          //vAliqProd
          //Alíquota da COFINS (em reais)
-         vAliqProd := pCOFINS / 100 * qVENDA_ITEM.FieldByName('PRECO').AsFloat;
+         vAliqProd := pCOFINS / 100 * Produto.Prod.vUnCom;
 
          {303-S11}
          //vCOFINS
@@ -4527,17 +4528,17 @@ begin
           {310-S09}
           //qBCProd
           //Quantidade Vendida
-          qBCProd := qVENDA_ITEM.FieldByName('QUANTIDADE').AsFloat;
+          qBCProd := Produto.Prod.qCom;
 
           {311-S10}
           //vAliqProd
           //Alíquota da COFINS (em reais)
-          vAliqProd := pCOFINS / 100 * qVENDA_ITEM.FieldByName('PRECO').AsFloat;
+          vAliqProd := pCOFINS / 100 * Produto.Prod.vUnCom;
 
           {312-S11}
           //vCOFINS
           //Valor da COFINS
-          vCOFINS := pCOFINS / 100 * qBCProd * qVENDA_ITEM.FieldByName('PRECO').AsFloat;
+          vCOFINS := pCOFINS / 100 * qBCProd * Produto.Prod.vUnCom;
        end;
    end;
 end;
@@ -4631,12 +4632,12 @@ begin
        {317-T05}
        //vAliqProd
        //Alíquota da COFINS (em reais)
-       vAliqProd := pCOFINS / 100 * qVENDA_ITEM.FieldByName('PRECO').AsFloat;
+       vAliqProd := pCOFINS / 100 * Produto.Prod.vUnCom;
 
        {318-T06}
        //vCOFINS
        //Valor da COFINS
-       vCOFINS := pCOFINS / 100 * qBCProd * qVENDA_ITEM.FieldByName('PRECO').AsFloat;
+       vCOFINS := pCOFINS / 100 * qBCProd * Produto.Prod.vUnCom;
    end;
 
 end;
@@ -6656,3 +6657,4 @@ ZC10|XDed|VDed
 ZD01|CNPJ|xContato|email|fone|
 ZD07|idCSRT|hashCSRT|
 }
+
