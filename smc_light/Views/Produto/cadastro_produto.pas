@@ -5,6 +5,7 @@ unit cadastro_produto;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+264|06/06/20|17:49|cadastro_produto            |Tratando % de Redução Base de Cálculo ICMS ST
 256|06/06/20|05:35|EmissaoDeNFe                |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 250|03/06/20|05:34|cadastro_produto            |Preparada para ser chamada por telas do movimento para acertar o cadastro de algum produto
 247|01/06/20|09:33|cadastro_produto            |Tratando o "Indicador de Escala Relevante" do Produto.
@@ -558,6 +559,8 @@ type
     edRPC_TPMOV_Nome: TEdit;
     cxButton13: TcxButton;
     DBGrid1: TDBGrid;
+    Label24: TLabel;
+    edREDUCAO_ICMS_ST: TEdit;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -751,6 +754,7 @@ type
     procedure edRPC_TPMOVKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edRPC_TPMOVChange(Sender: TObject);
+    procedure edREDUCAO_ICMS_STKeyPress(Sender: TObject; var Key: Char);
 
   private
     { Private declarations }
@@ -1218,6 +1222,9 @@ begin
    if edNFe_pMVAST.Text = '' then
       edNFe_pMVAST.Text := '0';
 
+   if edREDUCAO_ICMS_ST.Text = '' then
+      edREDUCAO_ICMS_ST.Text := '0';
+
    //Indicador de Escala Relevante
    //Padrão = 2-Nenhum
    if rgNFe_indEscala.ItemIndex = -1 then
@@ -1239,6 +1246,12 @@ procedure TFrm_Produto.edREDUCAO_ICMSKeyPress(Sender: TObject;
   var Key: Char);
 begin
   inherited;
+  Key := u_funcoes.ApenasNumeros(Key);
+end;
+
+procedure TFrm_Produto.edREDUCAO_ICMS_STKeyPress(Sender: TObject;
+  var Key: Char);
+begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
@@ -2950,7 +2963,8 @@ begin
    qAUX.sql.add('       VALOR_PAUTA_BC,           ');
    qAUX.sql.add('       VALOR_PAUTA_BC_ST,        ');
    qAUX.sql.add('       NFe_pMVA,                 ');
-   qAUX.sql.add('       NFe_pMVAST                ');
+   qAUX.sql.add('       NFe_pMVAST,               ');
+   qAUX.sql.add('       REDUCAO_ICMS_ST           ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
    qAUX.sql.add('     (:CODIGO,                   ');
@@ -2984,7 +2998,8 @@ begin
    qAUX.sql.add('      :VALOR_PAUTA_BC,           ');
    qAUX.sql.add('      :VALOR_PAUTA_BC_ST,        ');
    qAUX.sql.add('      :NFe_pMVA,                 ');
-   qAUX.sql.add('      :NFe_pMVAST                ');
+   qAUX.sql.add('      :NFe_pMVAST,               ');
+   qAUX.sql.add('      :REDUCAO_ICMS_ST           ');
    qAUX.sql.add('     )                           ');
 
    //Codigo
@@ -3031,6 +3046,7 @@ begin
    qAUX.ParamByName('VALOR_PAUTA_BC_ST'       ).AsFloat   := ValorValido(edVALOR_PAUTA_BC_ST.Text);
    qAUX.ParamByName('NFe_pMVA'                ).AsFloat   := ValorValido(edNFe_pMVA.Text);
    qAUX.ParamByName('NFe_pMVAST'              ).AsFloat   := ValorValido(edNFe_pMVAST.Text);
+   qAUX.ParamByName('REDUCAO_ICMS_ST'         ).AsFloat   := ValorValido(edREDUCAO_ICMS_ST.Text);
    qAUX.ExecSQL;
 
    qAUX.Free;
@@ -3158,6 +3174,9 @@ begin
 
    //Percentual de Margem de Valor Agregado (MVA) (ICMS ST)
    edNFe_pMVAST.Text                    := Float_to_String(qConsulta.FieldByName('NFe_pMVAST').AsFloat);
+
+   //Percentual de Redução da Base de Cálculo do ICMS ST
+   edREDUCAO_ICMS_ST.Text               := Float_to_String(qConsulta.FieldByName('REDUCAO_ICMS_ST').AsFloat);
 
    //Indicador de Escala Relevante
    rgNFe_indEscala.ItemIndex            := qConsulta.FieldByName('NFe_indEscala').AsInteger;

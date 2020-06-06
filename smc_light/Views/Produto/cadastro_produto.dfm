@@ -4477,7 +4477,7 @@ object Frm_Produto: TFrm_Produto
           Left = 388
           Top = 112
           Width = 387
-          Height = 81
+          Height = 95
           BevelKind = bkFlat
           BevelOuter = bvNone
           Enabled = False
@@ -4501,6 +4501,19 @@ object Frm_Produto: TFrm_Produto
             Width = 251
             Height = 18
             Caption = 'Margem do Valor Agregado (MVA) %:'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
+          object Label24: TLabel
+            Left = 11
+            Top = 59
+            Width = 251
+            Height = 18
+            Caption = 'Redu'#231#227'o Base de C'#225'lculo ICMS ST %:'
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -15
@@ -4539,6 +4552,22 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             TabOrder = 1
             OnKeyPress = edNFe_pMVASTKeyPress
+          end
+          object edREDUCAO_ICMS_ST: TEdit
+            Left = 267
+            Top = 55
+            Width = 36
+            Height = 26
+            BiDiMode = bdRightToLeft
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'Helvetica Neue'
+            Font.Style = [fsBold]
+            ParentBiDiMode = False
+            ParentFont = False
+            TabOrder = 2
+            OnKeyPress = edREDUCAO_ICMS_STKeyPress
           end
         end
         object rgNFe_indEscala: TRadioGroup
@@ -5986,8 +6015,8 @@ object Frm_Produto: TFrm_Produto
     Connection = Module.connection
     SQL.Strings = (
       'select max(codigo)+1 as AUTO_INCREMENT from produto')
-    Left = 1128
-    Top = 192
+    Left = 1112
+    Top = 248
     object sql_incrementAUTO_INCREMENT: TLargeintField
       AutoGenerateValue = arDefault
       FieldName = 'AUTO_INCREMENT'
@@ -6001,8 +6030,8 @@ object Frm_Produto: TFrm_Produto
   end
   object DS_CSTIPI: TDataSource
     DataSet = SQL_CSTIPI
-    Left = 976
-    Top = 168
+    Left = 904
+    Top = 248
   end
   object SQL_CSTIPI: TFDQuery
     Connection = Module.connection
@@ -6028,7 +6057,7 @@ object Frm_Produto: TFrm_Produto
   object dsRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC: TDataSource
     DataSet = qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
     Left = 912
-    Top = 168
+    Top = 312
   end
   object SQL_DADOS_ROTINAS: TFDQuery
     Connection = Module.connection

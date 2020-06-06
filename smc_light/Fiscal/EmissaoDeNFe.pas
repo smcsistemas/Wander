@@ -4,6 +4,7 @@ unit EmissaoDeNFe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+263|06/06/20|16:29|EmissaoDeNFe                |APlicando o CST do COFINS da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 262|06/06/20|15:22|EmissaoDeNFe                |% PIS Cumulativo e Não Cumulativo estavam fixo no código (0,65% e 1,65%). Passa a tratar as novas colunas pPIS_CUMULATIVO e pPIS_NAOCUMULATIVO da tabela EMPRESA
 255|05/06/20|14:09|EmissaoDeNFe                |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 253|05/06/20|14:09|EmissaoDeNFe                |APlicando o CST do PIS da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
@@ -194,7 +195,7 @@ type
     procedure Carregar_Transportador(pID:Integer);
     procedure Carregar_Transportador_Veiculo(pCODIGO:Integer);
     procedure Carregar_Venda_Lacre(pCODIGO:Integer);
-    procedure Carregar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pCFOP,pProduto:String);
+    procedure Carregar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pTPMOV,pCFOP,pProduto:String);
     function Venda_Possui_Produtos_e_Servicos:Boolean;
     function AlgumProdutoSem_ICMS_ST:Boolean;
     function AlgumProdutoSem_CODIGO_ORIGEM_MERCADORIA:Boolean;
@@ -751,14 +752,16 @@ begin
    end;
 end;
 
-procedure TfrmEmissaoDeNFe.Carregar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pCFOP,pProduto:String);
+procedure TfrmEmissaoDeNFe.Carregar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pTPMOV,pCFOP,pProduto:String);
 begin
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Close;
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Clear;
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('SELECT *                                         ');
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('  FROM RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC ');
-   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add(' WHERE RPC_CFOP    = :CFOP                       ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add(' WHERE RPC_TPMOV   = :TPMOV                      ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('   AND RPC_CFOP    = :CFOP                       ');
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('   AND RPC_PRODUTO = :PRODUTO                    ');
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.ParamByName('TPMOV'  ).AsString := pTPMOV;
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.ParamByName('CFOP'   ).AsString := pCFOP;
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.ParamByName('PRODUTO').AsString := pPRODUTO;
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Open;
@@ -2930,7 +2933,7 @@ begin
    //(qTrib)
    //Quantidade Tributável
    //Informar a quantidade de tributação do produto (v2.0).
-   Produto.Prod.qTrib := qVENDA_ITEM.FieldByName('QUANTIDADE').AsFloat;
+   Produto.Prod.qTrib := Produto.Prod.qCom;
 
    {113a-I14a}
    //(vUnTrib)
@@ -3023,192 +3026,188 @@ begin
 
    With Produto.Prod.veicProd do
    begin
+     {130-J02}
+     //(tpOp)
+     //Tipo da operação:
+     //   1 – Venda concessionária
+     //   2 – Faturamento direto para consumidor final
+     //   3 – Venda direta para grandes consumidores (frotista, governo, ...)
+     //   0 – Outros
+     case qVENDA_ITEM.FieldByName('NFe_Veiculo_tpOp').AsInteger of
+        0 : tpOP := toOutros;
+        1 : tpOP := toVendaConcessionaria;
+        2 : tpOP := toFaturamentoDireto;
+        3 : tpOP := toVendaDireta;
+     end;
 
+     {131-J03}
+     //(chassi)
+     //Chassi do veículo VIN (código-identificação-Veículo)
+     chassi := qVENDA_ITEM.FieldByName('NFe_Veiculo_Chassi').AsString;
 
-   {130-J02}
-   //(tpOp)
-   //Tipo da operação:
-   //   1 – Venda concessionária
-   //   2 – Faturamento direto para consumidor final
-   //   3 – Venda direta para grandes consumidores (frotista, governo, ...)
-   //   0 – Outros
-   case qVENDA_ITEM.FieldByName('NFe_Veiculo_tpOp').AsInteger of
-      0 : tpOP := toOutros;
-      1 : tpOP := toVendaConcessionaria;
-      2 : tpOP := toFaturamentoDireto;
-      3 : tpOP := toVendaDireta;
-   end;
+     {132-J04}
+     //(cCor)
+     //(Cor)
+     //Código de cada montadora
+     cCor := qVENDA_ITEM.FieldByName('NFe_Veiculo_Cor_Codigo').AsString;
 
-   {131-J03}
-   //(chassi)
-   //Chassi do veículo VIN (código-identificação-Veículo)
-   chassi := qVENDA_ITEM.FieldByName('NFe_Veiculo_Chassi').AsString;
+     {133-J05}
+     //(xCor)
+     //Descrição da Cor
+     xCor := qVENDA_ITEM.FieldByName('NFe_Veiculo_Cor_Descricao').AsString;
 
-   {132-J04}
-   //(cCor)
-   //(Cor)
-   //Código de cada montadora
-   cCor := qVENDA_ITEM.FieldByName('NFe_Veiculo_Cor_Codigo').AsString;
+     {134-J06}
+     //(pot)
+     //Potência Motor (CV)
+     //Potência máxima do motor do veículo em cavalo vapor (CV).
+     //(potência-veículo)
+     pot := qVENDA_ITEM.FieldByName('NFe_Veiculo_Pot').AsString;
 
-   {133-J05}
-   //(xCor)
-   //Descrição da Cor
-   xCor := qVENDA_ITEM.FieldByName('NFe_Veiculo_Cor_Descricao').AsString;
+     {135-J07}
+     //(cilin)
+     //Cilindradas
+     //Capacidade voluntária do motor expressa em centímetros cúbicos (CC).
+     //(cilindradas) (v2.0)
+     Cilin := qVENDA_ITEM.FieldByName('NFe_Veiculo_Cilin').AsString;
 
-   {134-J06}
-   //(pot)
-   //Potência Motor (CV)
-   //Potência máxima do motor do veículo em cavalo vapor (CV).
-   //(potência-veículo)
-   pot := qVENDA_ITEM.FieldByName('NFe_Veiculo_Pot').AsString;
+     {136-J08}
+     //(pesoL)
+     //Peso Líquido
+     //Em toneladas - 4 casas decimais
 
-   {135-J07}
-   //(cilin)
-   //Cilindradas
-   //Capacidade voluntária do motor expressa em centímetros cúbicos (CC).
-   //(cilindradas) (v2.0)
-   Cilin := qVENDA_ITEM.FieldByName('NFe_Veiculo_Cilin').AsString;
+     {137-J09}
+     //(pesoB)
+     //Peso Bruto
+     //Peso Bruto Total - em tonelada - 4 casas decimais
 
-   {136-J08}
-   //(pesoL)
-   //Peso Líquido
-   //Em toneladas - 4 casas decimais
+     {138-J10}
+     //(nSerie)
+     //Serial (série)
 
-   {137-J09}
-   //(pesoB)
-   //Peso Bruto
-   //Peso Bruto Total - em tonelada - 4 casas decimais
+     {139-J11}
+     //(tpComb)
+     //Tipo de combustível
+     //Utilizar Tabela RENAVAM (v2.0)
+     //      01-Álcool
+     //      02-Gasolina
+     //      03-Diesel (...)
+     //      16-Álcool/Gasolina
+     //      17-Gasolina/Álcool/GNV
+     //      18-Gasolina/Elétrico
 
-   {138-J10}
-   //(nSerie)
-   //Serial (série)
+     {140-J12}
+     //(nMotor)
+     //Número de Motor
 
-   {139-J11}
-   //(tpComb)
-   //Tipo de combustível
-   //Utilizar Tabela RENAVAM (v2.0)
-   //      01-Álcool
-   //      02-Gasolina
-   //      03-Diesel (...)
-   //      16-Álcool/Gasolina
-   //      17-Gasolina/Álcool/GNV
-   //      18-Gasolina/Elétrico
+     {141-J13}
+     //(CMT)
+     //Capacidade Máxima de Tração
+     //Em Toneladas 4 casas decimais (v2.0)
 
-   {140-J12}
-   //(nMotor)
-   //Número de Motor
+     {142-J14}
+     //(dist)
+     //Distância entre eixos
+     //em metros - 4 casas decimais
 
-   {141-J13}
-   //(CMT)
-   //Capacidade Máxima de Tração
-   //Em Toneladas 4 casas decimais (v2.0)
+     {144-J16}
+     //(anoMod)
+     //Ano Modelo de Fabricação
 
-   {142-J14}
-   //(dist)
-   //Distância entre eixos
-   //em metros - 4 casas decimais
+     {145-J17}
+     //(anoFab)
+     //Ano de Fabricação
 
-   {144-J16}
-   //(anoMod)
-   //Ano Modelo de Fabricação
+     {146-J18}
+     //(tpPint)
+     //Tipo de Pintura
 
-   {145-J17}
-   //(anoFab)
-   //Ano de Fabricação
+     {147-I19}
+     //(tpVeic)
+     //Tipo de Veículo
+     //Utilizar Tabela RENAVAM
+     //      06-AUTOMÓVEL
+     //      14-CAMINHÃO
+     //      13-CAMINHONETA
+     //      24-CARGA / CAM
+     //      02-CICLOMOTO
+     //      22-ESP / ÔNIBUS
+     //      07-MICROÔNIBUS
+     //      23-MISTO / CAM
+     //      04-MOTOCICLO
+     //      03-MOTONETA
+     //      08-ÔNIBUS
+     //      10-REBOQUE
+     //      05-TRICICLO
+     //      17-C. TRATOR
+     //      *Lista exemplificativa.
 
-   {146-J18}
-   //(tpPint)
-   //Tipo de Pintura
+     {148-J20}
+     //(espVeic)
+     //Espécie de Veículo
+     //Utilizar Tabela RENAVAM
+     //       1-PASSAGEIRO
+     //       2-CARGA
+     //       3-MISTO
+     //       4-CORRIDA
+     //       5-TRAÇÃO
+     //       6-ESPECIAL
 
-   {147-I19}
-   //(tpVeic)
-   //Tipo de Veículo
-   //Utilizar Tabela RENAVAM
-   //      06-AUTOMÓVEL
-   //      14-CAMINHÃO
-   //      13-CAMINHONETA
-   //      24-CARGA / CAM
-   //      02-CICLOMOTO
-   //      22-ESP / ÔNIBUS
-   //      07-MICROÔNIBUS
-   //      23-MISTO / CAM
-   //      04-MOTOCICLO
-   //      03-MOTONETA
-   //      08-ÔNIBUS
-   //      10-REBOQUE
-   //      05-TRICICLO
-   //      17-C. TRATOR
-   //      *Lista exemplificativa.
+     {149-J21}
+     //VIN
+     //Condição do VIN
+     //Informa-se o veículo tem VIN (chassi) remarcado.
+     //         R-Remarcado
+     //         N-Normal
 
-   {148-J20}
-   //(espVeic)
-   //Espécie de Veículo
-   //Utilizar Tabela RENAVAM
-   //       1-PASSAGEIRO
-   //       2-CARGA
-   //       3-MISTO
-   //       4-CORRIDA
-   //       5-TRAÇÃO
-   //       6-ESPECIAL
+     {150-J22}
+     //condVeic
+     //Condição do Veículo
+     //       1-Acabado
+     //       2-Inacabado
+     //       3-Semi-acabado
 
-   {149-J21}
-   //VIN
-   //Condição do VIN
-   //Informa-se o veículo tem VIN (chassi) remarcado.
-   //         R-Remarcado
-   //         N-Normal
+     {151-J23}
+     //cMod
+     //Código Marca Modelo
+     //Utilizar Tabela RENAVAM
 
-   {150-J22}
-   //condVeic
-   //Condição do Veículo
-   //       1-Acabado
-   //       2-Inacabado
-   //       3-Semi-acabado
+     {151a-J24}
+     //cCorDENATRAN
+     //Código da Cor
+     //Segundo as regras de précadastro do DENATRAN (v2.0)
+     //     01-AMARELO
+     //     02-AZUL
+     //     03-BEGE
+     //     04-BRANCA
+     //     05-CINZA
+     //     06-DOURADA
+     //     07-GRENA
+     //     08-LARANJA
+     //     09-MARROM
+     //     10-PRATA
+     //     11-PRETA
+     //     12-ROSA
+     //     13-ROXA
+     //     14-VERDE
+     //     15-VERMELHA
+     //     16-FANTASIA
 
-   {151-J23}
-   //cMod
-   //Código Marca Modelo
-   //Utilizar Tabela RENAVAM
+     {151b-J25}
+     //lota
+     //Capacidade máxima de lotação
+     //Quantidade máxima permitida de passageiros sentados, inclusive motorista. (v2.0)
 
-   {151a-J24}
-   //cCorDENATRAN
-   //Código da Cor
-   //Segundo as regras de précadastro do DENATRAN (v2.0)
-   //     01-AMARELO
-   //     02-AZUL
-   //     03-BEGE
-   //     04-BRANCA
-   //     05-CINZA
-   //     06-DOURADA
-   //     07-GRENA
-   //     08-LARANJA
-   //     09-MARROM
-   //     10-PRATA
-   //     11-PRETA
-   //     12-ROSA
-   //     13-ROXA
-   //     14-VERDE
-   //     15-VERMELHA
-   //     16-FANTASIA
-
-   {151b-J25}
-   //lota
-   //Capacidade máxima de lotação
-   //Quantidade máxima permitida de passageiros sentados, inclusive motorista. (v2.0)
-
-   {151c-J26}
-   //tpRest
-   //Restrição
-   //    0 - Não há
-   //    1 - Alienação Fiduciária
-   //    2 - Arrendamento Mercantil
-   //    3 - Reserva de Domínio
-   //    4 - Penhor de Veículos
-   //    9 - outras. (v2.0)
-
+     {151c-J26}
+     //tpRest
+     //Restrição
+     //    0 - Não há
+     //    1 - Alienação Fiduciária
+     //    2 - Arrendamento Mercantil
+     //    3 - Reserva de Domínio
+     //    4 - Penhor de Veículos
+     //    9 - outras. (v2.0)
 
    end; // With Produto.Prod.veicProd do
-
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_K_Detalhamento_Especifico_de_Medicamento;
@@ -3374,8 +3373,9 @@ begin
 
    // Para todos os produtos da NFe
 
-   // Recuperar relacionamento entre CFOP x CST
-   Carregar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(Produto.Prod.CFOP,
+   // Recuperar relacionamento entre CFOP x CST para este TPMOV
+   Carregar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(qVENDA.FieldByName('VENDA_TPMOV').AsString,
+                                                      Produto.Prod.CFOP,
                                                       Produto.Prod.cProd);
 
    {163-M01}
@@ -3429,9 +3429,7 @@ begin
    Tratar_Grupo_S_COFINS;
    Tratar_Grupo_T_COFINS_ST;
    Tratar_Fundo_de_Combate_A_Pobreza;
-
    Tratar_Grupo_V_Informacoes_Adicionais_do_Produto;
-
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS;
@@ -3482,45 +3480,43 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N12_Produto_Imposto_ICMS_CST;
 begin
-    {N12}
-    //CST
-    Produto.Imposto.ICMS.CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
+   {N12}
+   //CST
+   Produto.Imposto.ICMS.CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N13_Produto_Imposto_ICMS_modBC;
 begin
-     {N13}
-     //modBC
-     // Modalidade de determinação da BC do ICMS
-     //        0 - Margem Valor Agregado (%)
-     //        1 - Pauta (Valor)
-     //        2 - Preço Tabelado Máx. (valor)
-     //        3 - valor da operação
-     //------------------------------------------------------------------------
-     //A pauta fiscal informa o valor de mercado de um determinado produto,
-     //auxiliando na definição da base de cálculo do ICMS.
-     //Esse valor referencial é definido pela Secretaria da Fazenda mediante
-     //pesquisa periódica de preços, para ser utilizado como base de cálculo
-     //nas situações previstas na legislação tributária.
-     //Tem por fundamento o princípio da praticidade e, por objetivo,
-     //orientação e controle fiscal, visando adequar o valor sobre o qual são
-     //calculados os impostos aos preços efetivamente praticados no mercado
-     //local.
-     //
-     //Fonte: http://intra.totall.com.br:8080/wiki/index.php/Pauta_Fiscal
-     //------------------------------------------------------------------------
-
-     with Produto.Imposto.ICMS do
-     begin
-         case qVENDA_ITEM.FieldByName('NFe_modBC').AsInteger of
-             0 : modBC := dbiMargemValorAgregado;
-             1 : modBC := dbiPauta;
-             2 : modBC := dbiPrecoTabelado;
-             3 : modBC := dbiValorOperacao;
-             4 : modBC := dbiNenhum;
-         end;
-     end;
-
+   {N13}
+   //modBC
+   // Modalidade de determinação da BC do ICMS
+   //        0 - Margem Valor Agregado (%)
+   //        1 - Pauta (Valor)
+   //        2 - Preço Tabelado Máx. (valor)
+   //        3 - valor da operação
+   //------------------------------------------------------------------------
+   //A pauta fiscal informa o valor de mercado de um determinado produto,
+   //auxiliando na definição da base de cálculo do ICMS.
+   //Esse valor referencial é definido pela Secretaria da Fazenda mediante
+   //pesquisa periódica de preços, para ser utilizado como base de cálculo
+   //nas situações previstas na legislação tributária.
+   //Tem por fundamento o princípio da praticidade e, por objetivo,
+   //orientação e controle fiscal, visando adequar o valor sobre o qual são
+   //calculados os impostos aos preços efetivamente praticados no mercado
+   //local.
+   //
+   //Fonte: http://intra.totall.com.br:8080/wiki/index.php/Pauta_Fiscal
+   //------------------------------------------------------------------------
+   with Produto.Imposto.ICMS do
+   begin
+      case qVENDA_ITEM.FieldByName('NFe_modBC').AsInteger of
+         0 : modBC := dbiMargemValorAgregado;
+         1 : modBC := dbiPauta;
+         2 : modBC := dbiPrecoTabelado;
+         3 : modBC := dbiValorOperacao;
+         4 : modBC := dbiNenhum;
+      end;
+   end;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N14_Produto_Imposto_ICMS_pRedBC;
@@ -3548,7 +3544,7 @@ begin
      begin
         //Usar o valor de pauta
         vBC := qVENDA_ITEM.FieldByName('VALOR_PAUTA_BC').AsFloat *
-               qVENDA_ITEM.FieldByName('QUANTIDADE'    ).AsFloat;
+               Produto.Prod.qCom;
      end
      else
      begin
@@ -4124,10 +4120,8 @@ begin
           //    02-Operação Tributável
           //      (base de cálculo = valor da operação
           //       (alíquota diferenciada)
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '01' then CST := pis01;
-          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '01' then CST := pis01;
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '02' then CST := pis02;
-          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '02' then CST := pis02;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '01' then CST := pis01;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '02' then CST := pis02;
 
           {270-Q07}
           //vBC
@@ -4162,8 +4156,7 @@ begin
           vPIS := vBC * pPIS / 100;
        end;
 
-       if (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '03') then
-       //if (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '03') then
+       if (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '03') then
        begin
           {273-Q03}
           //PISQtde
@@ -4210,17 +4203,11 @@ begin
           vPIS := vAliqProd * qBCProd;
        end;
 
-       if (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '04') or
-          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '06') or
-          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '07') or
-          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '08') or
-          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '09') then
-
-       //if (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '04') or
-       //   (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '06') or
-       //   (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '07') or
-       //   (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '08') or
-       //   (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '09') then
+       if (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '04') or
+          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '06') or
+          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '07') or
+          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '08') or
+          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '09') then
        begin
           {278-Q04}
           //PISNT
@@ -4236,21 +4223,14 @@ begin
           //    07-Operação Isenta da Contribuição
           //    08-Operação Sem Incidência da Contribuição
           //    09-Operação com Suspensão da Contribuição
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '04' then CST := pis04;
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '06' then CST := pis06;
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '07' then CST := pis07;
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '08' then CST := pis08;
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '09' then CST := pis09;
-
-          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '04' then CST := pis04;
-          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '06' then CST := pis06;
-          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '07' then CST := pis07;
-          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '08' then CST := pis08;
-          //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '09' then CST := pis09;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '04' then CST := pis04;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '06' then CST := pis06;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '07' then CST := pis07;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '08' then CST := pis08;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '09' then CST := pis09;
        end;
 
        if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '99' then
-       //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '99' then
        begin
           {280-Q05}
           //PISOutr
@@ -4304,7 +4284,6 @@ begin
    {287-R01}
    //PISST
    //Grupo de PIS Substituição Tributária
-
 
    {288-R02}
    //vBC
@@ -4364,48 +4343,48 @@ begin
    //atribuído ao campo S06 – CST do COFINS
 
    // Ignorar produtos sem cst do cofins em seu cadastro
-   if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '' then
+   if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '' then
       exit;
 
 {
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '01' then CST := cof01;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '02' then CST := cof02;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '03' then CST := cof03;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '04' then CST := cof04;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '05' then CST := cof05;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '06' then CST := cof06;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '07' then CST := cof07;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '08' then CST := cof08;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '09' then CST := cof09;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '49' then CST := cof49;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '50' then CST := cof50;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '51' then CST := cof51;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '52' then CST := cof52;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '53' then CST := cof53;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '54' then CST := cof54;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '55' then CST := cof55;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '56' then CST := cof56;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '60' then CST := cof60;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '61' then CST := cof61;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '62' then CST := cof62;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '63' then CST := cof63;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '64' then CST := cof64;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '65' then CST := cof65;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '66' then CST := cof66;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '67' then CST := cof67;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '70' then CST := cof70;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '71' then CST := cof71;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '72' then CST := cof72;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '73' then CST := cof73;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '74' then CST := cof74;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '75' then CST := cof75;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '98' then CST := cof98;
-  if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '99' then CST := cof99;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '01' then CST := cof01;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '02' then CST := cof02;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '03' then CST := cof03;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '04' then CST := cof04;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '05' then CST := cof05;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '06' then CST := cof06;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '07' then CST := cof07;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '08' then CST := cof08;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '09' then CST := cof09;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '49' then CST := cof49;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '50' then CST := cof50;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '51' then CST := cof51;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '52' then CST := cof52;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '53' then CST := cof53;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '54' then CST := cof54;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '55' then CST := cof55;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '56' then CST := cof56;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '60' then CST := cof60;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '61' then CST := cof61;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '62' then CST := cof62;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '63' then CST := cof63;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '64' then CST := cof64;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '65' then CST := cof65;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '66' then CST := cof66;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '67' then CST := cof67;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '70' then CST := cof70;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '71' then CST := cof71;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '72' then CST := cof72;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '73' then CST := cof73;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '74' then CST := cof74;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '75' then CST := cof75;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '98' then CST := cof98;
+  if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '99' then CST := cof99;
 }
    with produto.Imposto.COFINS do
    begin
-       if (qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '01') or
-          (qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '02') then
+       if (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '01') or
+          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '02') then
        begin
            {294-S02}
            //COFINSAliq
@@ -4421,8 +4400,8 @@ begin
            //    02 - Operação Tributável
            //         base de cálculo = valor da operação
            //         (alíquota diferenciada)
-           if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '01' then CST := cof01;
-           if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '02' then CST := cof02;
+           if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '01' then CST := cof01;
+           if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '02' then CST := cof02;
 
            {296-S07}
            //vBC
@@ -4442,7 +4421,7 @@ begin
            vCOFINS := pCOFINS / 100 * vBC;
        end;
 
-       if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '03' then
+       if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '03' then
        begin
          {299-S03}
          //COFINSQtde
@@ -4473,11 +4452,11 @@ begin
          vCOFINS := (pCOFINS / 100) * qBCProd;
        end;
 
-       if (qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '04') or
-          (qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '06') or
-          (qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '07') or
-          (qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '08') or
-          (qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '09') then
+       if (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '04') or
+          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '06') or
+          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '07') or
+          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '08') or
+          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '09') then
        begin
           {304-S04}
           //COFINSNT
@@ -4493,14 +4472,14 @@ begin
           //   07 - Operação Isenta da Contribuição
           //   08 - Operação Sem Incidência da Contribuição
           //   09 - Operação com Suspensão da Contribuição
-          if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '04' then CST := cof04;
-          if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '06' then CST := cof06;
-          if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '07' then CST := cof07;
-          if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '08' then CST := cof08;
-          if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '09' then CST := cof09;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '04' then CST := cof04;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '06' then CST := cof06;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '07' then CST := cof07;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '08' then CST := cof08;
+          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '09' then CST := cof09;
        end;
 
-       if qVENDA_ITEM.FieldByName('COFINS_CST').AsString = '99' then
+       if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString = '99' then
        begin
           {306-S05}
           //COFINSOutr
@@ -4568,7 +4547,7 @@ begin
       exit;
 
    // Operação tributável por substituição tributária (CST 05)
-   if (qVENDA_ITEM.FieldByName('COFINS_CST').AsString <> '05') then
+   if (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString <> '05') then
       exit;
 
    {

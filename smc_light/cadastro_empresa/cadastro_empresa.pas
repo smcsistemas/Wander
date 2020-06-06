@@ -681,6 +681,9 @@ begin
       SQL_EmpresaINICIO_ATIVIDADE.Value := 0;
 
     //Wander 06/06/20
+    if edpPIS_CUMULATIVO.Text    = '' then edpPIS_CUMULATIVO.Text    := '0.00';
+    if edpPIS_NAOCUMULATIVO.Text = '' then edpPIS_NAOCUMULATIVO.Text := '0.00';
+
     if not PercentualCorreto(edpPIS_CUMULATIVO.Text,'Percentual PIS Cumulativo') then
        exit;
     SQL_EmpresapPIS_CUMULATIVO.AsFloat    := ValorValido(edpPIS_CUMULATIVO.Text);
@@ -690,6 +693,7 @@ begin
     SQL_EmpresapPIS_NAOCUMULATIVO.AsFloat := ValorValido(edpPIS_NAOCUMULATIVO.Text);
 
     SQL_Empresa.Post;
+
     MessageDLG('Operação concluída com sucesso', mtInformation, [mbOk], 0);
     u_funcoes.IniciarCadastro([BtnIncluir, BtnCancelar, BtnAlterar], false);
 

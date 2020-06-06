@@ -22,13 +22,16 @@ ordem decrescente de data....
 |-------|------|
 |05/2020| 124  | 244
 |-------|------|
-|06/2020|  08  | 252
+|06/2020|  20  | 264
 |-------|------|
-|  TOTAL| 252  |
+|  TOTAL| 264  |
 ================
+
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+264|06/06/20|17:49|cadastro_produto            |Tratando % de Redução Base de Cálculo ICMS ST
+263|06/06/20|16:29|EmissaoDeNFe                |APlicando o CST do COFINS da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 262|06/06/20|15:22|EmissaoDeNFe                |% PIS Cumulativo e Não Cumulativo estavam fixo no código (0,65% e 1,65%). Passa a tratar as novas colunas pPIS_CUMULATIVO e pPIS_NAOCUMULATIVO da tabela EMPRESA
 261|06/06/20|15:22|cadastro_empresa            |Passa a tratar as novas colunas pPIS_CUMULATIVO e pPIS_NAOCUMULATIVO da tabela EMPRESA
 260|06/06/20|15:22|Atualizador                 |Incluida coluna pPIS_CUMULATIVO (% PIS Cumulativo) na tabela EMPRESA
@@ -344,7 +347,7 @@ ALT|   DATA |HORA |UNIT                        |Descrição                       
 048|27/03/20|06:35|venda_pedido                |Mostrando Vendedor da venda a partir do codigo gravado em venda.cod_vendedor
 049|27/03/20|06:35|venda_pedido                |Mostrando Cliente da venda a partir do codigo gravado em venda.codigo_cliente
 050|28/03/20|06:35|venda_pedido                |Implementada a pesquisa de cliente no padrão do SMC
-000|28/03/20|06:35|FIM                         |FIM
+
 
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
