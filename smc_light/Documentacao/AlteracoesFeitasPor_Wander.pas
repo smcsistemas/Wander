@@ -27,9 +27,11 @@ ordem decrescente de data....
 |  TOTAL| 264  |
 ================
 
+
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+265|06/06/20|22:09|EmissaoDeNFe                |Criada procedure Tratar_Grupo_I80_Rastreabilidade_de_produto
 264|06/06/20|17:49|cadastro_produto            |Tratando % de Redução Base de Cálculo ICMS ST
 263|06/06/20|16:29|EmissaoDeNFe                |APlicando o CST do COFINS da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 262|06/06/20|15:22|EmissaoDeNFe                |% PIS Cumulativo e Não Cumulativo estavam fixo no código (0,65% e 1,65%). Passa a tratar as novas colunas pPIS_CUMULATIVO e pPIS_NAOCUMULATIVO da tabela EMPRESA

@@ -1,9 +1,9 @@
 unit EmissaoDeNFe;
 {
-
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+265|06/06/20|22:09|EmissaoDeNFe                |Criada procedure Tratar_Grupo_I80_Rastreabilidade_de_produto
 263|06/06/20|16:29|EmissaoDeNFe                |APlicando o CST do COFINS da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 262|06/06/20|15:22|EmissaoDeNFe                |% PIS Cumulativo e Não Cumulativo estavam fixo no código (0,65% e 1,65%). Passa a tratar as novas colunas pPIS_CUMULATIVO e pPIS_NAOCUMULATIVO da tabela EMPRESA
 255|05/06/20|14:09|EmissaoDeNFe                |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
@@ -236,6 +236,8 @@ type
     procedure Tratar_Grupo_H_Detalhamento_de_Produtos_e_Serviços_da_NFe;
     // Grupo I
     procedure Tratar_Grupo_I_Produtos_e_Serviços_da_NFe;
+    // Grupo I80
+    procedure Tratar_Grupo_I80_Rastreabilidade_de_produto;
     // SubGrupo DI
     procedure Tratar_SubGrupo_DI_Declaracao_de_Importacao;
     // Grupo J
@@ -1869,7 +1871,9 @@ begin
    //0 – pagamento à vista;
    //1 – pagamento à prazo;
    //2 - outros
-   Nota.Ide.indPag := ipVista;
+   //Nota.Ide.indPag := ipVista;
+   //>>> (Excluído no leiaute 4.0 - NT 2016/002) <<<//
+
 
    {B06}
    //(mod)
@@ -1887,7 +1891,36 @@ begin
    //pelo contribuinte com seu certificado digital, através do site do Fisco
    //(procEmi=2). (v2.0)
    //
+   //===========================================================================
+   //                       >> ANTES <<
+   //===========================================================================
    //Serie 900-999 – uso exclusivo de NF-e emitidas no SCAN. (v2.0)
+   //===========================================================================
+   //                       >> AGORA <<
+   //===========================================================================
+   //Série na faixa:
+   //  - [000-889]: Aplicativo do Contribuinte; Emitente=CNPJ;
+   //               Assinatura pelo e-CNPJ do contribuinte (procEmi<>1,2);
+   //
+   //  - [890-899]: Emissão no site do Fisco (NFA-e - Avulsa);
+   //               Emitente= CNPJ / CPF;
+   //               Assinatura pelo e-CNPJ da SEFAZ (procEmi=1);
+   //
+   //  - [900-909]: Emissão no site do Fisco (NFA-e);
+   //               Emitente= CNPJ;
+   //               Assinatura pelo e-CNPJ da SEFAZ (procEmi=1), ou
+   //               Assinatura pelo e-CNPJ do contribuinte (procEmi=2);
+   //
+   //  - [910-919]: Emissão no site do Fisco (NFA-e);
+   //               Emitente= CPF;
+   //               Assinatura pelo e-CNPJ da SEFAZ (procEmi=1), ou
+   //               Assinatura pelo e-CPF do contribuinte (procEmi=2);
+   //
+   //  - [920-969]: Aplicativo do Contribuinte; Emitente=CPF;
+   //               Assinatura pelo e-CPF do contribuinte (procEmi<>1,2);
+   //
+   //                                                   (Atualizado NT 2018/001)
+   //===========================================================================
    Nota.Ide.serie := qNFE_CONFIGURACAO.FieldByName('NFeC_Serie').AsInteger;
 
    {B08}
@@ -2486,7 +2519,20 @@ begin
    //CPF do destinatário
    //Informar o CNPJ ou o CPF do destinatário,
    //preenchendo os zeros não significativos.
+
+   //===========================================================================
+   //                       >> ANTES <<
+   //===========================================================================
    //Não informar o conteúdo da TAG se a operação for realizada com o exterior
+   //===========================================================================
+   //                       >> AGORA <<
+   //===========================================================================
+   //Informar o CNPJ ou o CPF do destinatário, preenchendo
+   //os zeros não significativos. No caso de operação com o
+   //exterior, ou para comprador estrangeiro informar a tag "idEstrangeiro”.
+   //===========================================================================
+
+
    if qNaturezaOperacao.FieldByName('ESTADO').AsString <> 'EXTERIOR' then
    begin
        if qDESTINATARIO.FieldByName('PESSOA_TIPO').AsString = 'FISICA' then
@@ -2833,12 +2879,23 @@ begin
    //     (antigo código EAN ou código de barras)
    //Preencher com o código GTIN-8, GTIN-12, GTIN-13 ou GTIN14
    //     (antigos códigos EAN, UPC e DUN-14),
+
+   //===========================================================================
+   //                       >> ANTES <<
+   //===========================================================================
    //não informar o conteúdo da TAG em caso de o produto não possuir este código
+   //===========================================================================
+   //                       >> AGORA <<
+   //===========================================================================
+   //Para produtos que não possuem código de barras com
+   //GTIN, deve ser informado o literal “SEM GTIN”;
+   //(atualizado NT 2017/001)   //===========================================================================
 
    //Obrigatória informação do NCM completo (8 dígitos).
    //Nota: Em caso de item de serviço ou item que não tenham produto
    //(ex. transferência de crédito, crédito do ativo imobilizado, etc.),
    //informar o valor 00 (dois zeros). (NT 2014/004)
+
 
    sEAN := qVENDA_ITEM.FieldByName('CODIGO_BARRAS').AsString;
    if Trim(sEAN) = '' then
@@ -2872,6 +2929,60 @@ begin
    //o produto não seja tributado pelo IPI.
    //Em caso de serviço informar o código 99 (v2.0)
    Produto.Prod.NCM := qVENDA_ITEM.FieldByName('NCM').AsString;
+
+   {104a-I05a}
+   //(NVE)
+   //Codificação NVE - Nomenclatura de Valor Aduaneiro e Estatística.
+   //Codificação opcional que detalha alguns NCM.
+   //Formato: duas letras maiúsculas e 4 algarismos.
+   //Se a mercadoria se enquadrar em mais de uma codificação,
+   //informar até 8 codificações principais.
+   //Vide: Anexo XII.03 - Identificador NVE.
+   //Produto.Prod.NVE := qVENDA_ITEM.FieldByName('NVE').AsString;
+
+   {104b-I05b}
+   //-x-
+   //Sequência XML
+   //(NT 2016/002)
+
+   {104d-I05c}
+   //CEST
+   //Código CEST
+   //Campo CEST (Código Especificador da Substituição Tributária),
+   //que estabelece a sistemática de uniformização e identificação das
+   //mercadorias e bens passíveis de sujeição aos regimes de substituição
+   //tributária e de antecipação de recolhimento do ICMS.
+   //(Incluído na NT 2015/003. Atualizado NT 2016/002)
+
+   {104e-I05d}
+   //indEscala
+   //Indicador de Produção em escala relevante, conforme Cláusula 23 do Convenio
+   //ICMS 52/2017:
+   //     S - Produzido em Escala Relevante;
+   //     N – Produzido em Escala NÃO Relevante.
+   //
+   //Nota: preenchimento obrigatório para produtos com NCM relacionado no
+   //      Anexo XXVII do Convenio 52/2017
+   //
+   //(Incluído na NT 2016/002)   Case qVENDA_ITEM.FieldByName('NFe_indEscala').AsInteger of
+      0 : Produto.Prod.indEscala := ieRelevante;
+      1 : Produto.Prod.indEscala := ieNaoRelevante;
+      2 : Produto.Prod.indEscala := ieNenhum;
+   End;
+
+   {104f-105e}
+   //CNPJFab
+   //CNPJ do Fabricante da Mercadoria
+   //Obrigatório para produto em escala NÃO relevante.
+   //(Incluído na NT 2016/002)   //CNPJFab := '';
+
+   {104g-I05f}
+   //cBenef
+   //Código de Benefício Fiscal na UF aplicado ao item.
+   //Código de Benefício Fiscal utilizado pela UF, aplicado ao item.
+   //Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, nas UF que o exigem.
+   //(Incluído na NT 2016/002)
+   //cBenef := '';
 
    {105-I06}
    //(EXTIPI)
@@ -2911,6 +3022,7 @@ begin
    {110-I11}
    //vProd
    //Valor Total Bruto dos Produtos ou Serviços
+   //O valor do ICMS faz parte do Valor Total Bruto
    Produto.Prod.vProd := Produto.Prod.qCom
                        * Produto.Prod.vUnCom;
 
@@ -2920,8 +3032,20 @@ begin
    //antigo código EAN ou código de barras
    //Preencher com o código GTIN8, GTIN-12, GTIN-13 ou GTIN14
    //(antigos códigos EAN, UPC e DUN-14) da unidade tributável do produto,
+   //
+   //===========================================================================
+   //                       >> ANTES <<
+   //===========================================================================
    //não informar o conteúdo da TAG em caso de o produto não possuir este código
-   Produto.Prod.cEANTrib := Produto.Prod.cEAN;
+   //===========================================================================
+   //                       >> AGORA <<
+   //===========================================================================
+   //O GTIN da unidade tributável deve corresponder àquele da menor unidade
+   //comercializável identificada por código GTIN.
+   //
+   //Para produtos que não possuem código de barras com GTIN, deve ser informado
+   //o literal "SEM GTIN”;
+   //                                                   (Atualizado NT 2017/001)   //===========================================================================   Produto.Prod.cEANTrib := Produto.Prod.cEAN;
 
    {112-I13}
    //(uTrib)
@@ -2985,20 +3109,62 @@ begin
       1 : Produto.Prod.IndTot:= itNaoSomaTotalNFe;
    End;
 
-   //Indicador de Escala Relevante não consta no manual que baixei
-   //mas é obrigatório no layout do XML da versão 4.00 da NFe (Wander)
-   Case qVENDA_ITEM.FieldByName('NFe_indEscala').AsInteger of
-      0 : Produto.Prod.indEscala := ieRelevante;
-      1 : Produto.Prod.indEscala := ieNaoRelevante;
-      2 : Produto.Prod.indEscala := ieNenhum;
-   End;
-
+   Tratar_Grupo_I80_Rastreabilidade_de_produto;
    Tratar_SubGrupo_DI_Declaracao_de_Importacao;
    Tratar_Grupo_J_Detalhamento_Especifico_de_Veiculos_Novos;
    Tratar_Grupo_K_Detalhamento_Especifico_de_Medicamento;
    Tratar_Grupo_L_Detalhamento_Especifico_de_Armamentos;
    Tratar_Grupo_L1_Detalhamento_Especifico_de_Combustiveis;
    Tratar_Grupo_M_Tributos_Incidentes_no_Produto_ou_Serviço;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Grupo_I80_Rastreabilidade_de_produto;
+begin
+   //Grupo criado para permitir a rastreabilidade de qualquer produto sujeito a
+   //regulações sanitárias, casos de:
+   //    - recolhimento/recall
+   //    - defensivos agrícolas,
+   //    - produtos veterinários,
+   //    - odontológicos,
+   //    - medicamentos,
+   //    - bebidas,
+   //    - águas envasadas,
+   //    - embalagens,
+   //    - etc.,
+   //a partir da indicação de informações de número de lote,
+   //data de fabricação/produção, data de validade, etc.
+   //
+   //Obrigatório o preenchimento deste grupo no caso de medicamentos e produtos
+   //farmacêuticos.
+
+   {128q-I80}
+   //rastro
+   //Detalhamento de produto sujeito a rastreabilidade
+   //Informar apenas quando se tratar de produto a ser rastreado posteriormente
+   //(Grupo criado na NT/2016/002)
+
+   {128r-I81}
+   //nLote
+   //Número do Lote do produto
+
+   {128s-I82}
+   //qLote
+   //Quantidade de produto no Lote
+
+   {128t-I83}
+   //dFab
+   //Data de fabricação/ Produção
+   //Formato: “AAAA-MM-DD”
+
+   {128u-I84}
+   //dVal
+   //Data de validade
+   //Formato: “AAAA-MM-DD”
+   //Informar o último dia do mês caso a validade não especifique o dia.
+
+   {128v-I85}
+   //cAgreg
+   //Código de Agregação
 
 end;
 
