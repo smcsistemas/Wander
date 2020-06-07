@@ -5852,27 +5852,27 @@ begin
    //Com redução de base de cálculo
    //e cobrança do ICMS por substituição tributária
 
-   {219-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
-   {220-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
-   {221-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
-   {222-N14} Tratar_N14_Produto_Imposto_ICMS_pRedBC;
-   {223-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
-   {224-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
-   {225-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
-             Tratar_Produto_Imposto_ICMS_vBCFCP;
-             Tratar_Produto_Imposto_ICMS_pFCP;
-             Tratar_Produto_Imposto_ICMS_vFCP;
-   {226-N18} Tratar_N18_Produto_Imposto_ICMS_modBCST;
-   {227-N19} Tratar_N19_Produto_Imposto_ICMS_pMVAST;
-   {228-N20} Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
-   {229-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
-   {230-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
-   {231-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
-   {   N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
-   {   N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
-   {   N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
-   {   N28a} Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
-   {   N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
+   {219-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
+   {220-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {221-N13   } Tratar_N13_Produto_Imposto_ICMS_modBC;
+   {222-N14   } Tratar_N14_Produto_Imposto_ICMS_pRedBC;
+   {223-N15   } Tratar_N15_Produto_Imposto_ICMS_vBC;
+   {224-N16   } Tratar_N16_Produto_Imposto_ICMS_pICMS;
+   {225-N17   } Tratar_N17_Produto_Imposto_ICMS_vICMS;
+   {225.1-N17a} Tratar_Produto_Imposto_ICMS_vBCFCP;
+   {225.2-N17b} Tratar_Produto_Imposto_ICMS_pFCP;
+   {225.3-N17c} Tratar_Produto_Imposto_ICMS_vFCP;
+   {226-N18   } Tratar_N18_Produto_Imposto_ICMS_modBCST;
+   {227-N19   } Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+   {228-N20   } Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+   {229-N21   } Tratar_N21_Produto_Imposto_ICMS_vBCST;
+   {230-N22   } Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+   {231-N23   } Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+   {231.w-N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+   {231.x-N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+   {231.y-N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
+   {231.2-N28a} Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
+   {231.3-N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS90;
@@ -5893,27 +5893,27 @@ begin
    //Grupo de Tributação do ICMS = 90
    //Outros
 
-   {233-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
-   {234-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
-   {235-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
-   {236-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
-   {237-N14} Tratar_N14_Produto_Imposto_ICMS_pRedBC;
-   {238-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
-   {239-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
-             Tratar_Produto_Imposto_ICMS_vBCFCP;
-             Tratar_Produto_Imposto_ICMS_pFCP;
-             Tratar_Produto_Imposto_ICMS_vFCP;
-   {240-N18} Tratar_N18_Produto_Imposto_ICMS_modBCST;
-   {241-N19} Tratar_N19_Produto_Imposto_ICMS_pMVAST;
-   {242-N20} Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
-   {243-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
-   {244-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
-   {245-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
-   {   N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
-   {   N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
-   {   N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
-   {   N28a} Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
-   {   N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
+   {233-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
+   {234-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {235-N13   } Tratar_N13_Produto_Imposto_ICMS_modBC;
+   {236-N15   } Tratar_N15_Produto_Imposto_ICMS_vBC;
+   {237-N14   } Tratar_N14_Produto_Imposto_ICMS_pRedBC;
+   {238-N16   } Tratar_N16_Produto_Imposto_ICMS_pICMS;
+   {239-N17   } Tratar_N17_Produto_Imposto_ICMS_vICMS;
+   {239.w-N17a} Tratar_Produto_Imposto_ICMS_vBCFCP;
+   {239.x-N17b} Tratar_Produto_Imposto_ICMS_pFCP;
+   {239.y-N17c} Tratar_Produto_Imposto_ICMS_vFCP;
+   {240-N18   } Tratar_N18_Produto_Imposto_ICMS_modBCST;
+   {241-N19   } Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+   {242-N20   } Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+   {243-N21   } Tratar_N21_Produto_Imposto_ICMS_vBCST;
+   {244-N22   } Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+   {245-N23   } Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+   {245.w-N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+   {245.x-N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+   {245.y-N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
+   {245.2-N28a} Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
+   {245.3-N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMSPartilha;
@@ -6848,4 +6848,20 @@ ZC10|XDed|VDed
 ZD01|CNPJ|xContato|email|fone|
 ZD07|idCSRT|hashCSRT|
 }
+
+
+
+
+   {225.1-N17a} Tratar_Produto_Imposto_ICMS_vBCFCP;
+   {225.2-N17b} Tratar_Produto_Imposto_ICMS_pFCP;
+   {225.3-N17c} Tratar_Produto_Imposto_ICMS_vFCP;
+
+   {217.w-N27a} Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
+   {217.x-N27b} Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
+   {217.y-N27d} Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
+
+   {217.2-N34 } Tratar_Produto_Imposto_ICMS_pRedBCEfet;
+   {217.3-N35 } Tratar_Produto_Imposto_ICMS_vBCEfet;
+   {217.4-N36 } Tratar_Produto_Imposto_ICMS_pICMSEfet;
+   {217.5-N37 } Tratar_Produto_Imposto_ICMS_vICMSEfet;
 
