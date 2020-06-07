@@ -297,7 +297,9 @@ type
     procedure Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
     procedure Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
 
-    procedure Tratar_N28_Desoneracao_do_ICMS;
+    procedure Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
+    procedure Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
+
     procedure Tratar_N29_Produto_Imposto_ICMS_pCredSN;
     procedure Tratar_N30_Produto_Imposto_ICMS_vCredICMSSN;
     procedure Tratar_N31_Produto_Imposto_ICMS_vBCSTDest;
@@ -2896,7 +2898,6 @@ begin
    //(ex. transferência de crédito, crédito do ativo imobilizado, etc.),
    //informar o valor 00 (dois zeros). (NT 2014/004)
 
-
    sEAN := qVENDA_ITEM.FieldByName('CODIGO_BARRAS').AsString;
    if Trim(sEAN) = '' then
       // PRODUTO SEM CODIGO DE BARRAS
@@ -2964,8 +2965,8 @@ begin
    //Nota: preenchimento obrigatório para produtos com NCM relacionado no
    //      Anexo XXVII do Convenio 52/2017
    //
-   //(Incluído na NT 2016/002)   Case qVENDA_ITEM.FieldByName('NFe_indEscala').AsInteger of
-      0 : Produto.Prod.indEscala := ieRelevante;
+   //(Incluido na NT 2016/002)
+   Case qVENDA_ITEM.FieldByName('NFe_indEscala').AsInteger of      0 : Produto.Prod.indEscala := ieRelevante;
       1 : Produto.Prod.indEscala := ieNaoRelevante;
       2 : Produto.Prod.indEscala := ieNenhum;
    End;
@@ -3045,7 +3046,9 @@ begin
    //
    //Para produtos que não possuem código de barras com GTIN, deve ser informado
    //o literal "SEM GTIN”;
-   //                                                   (Atualizado NT 2017/001)   //===========================================================================   Produto.Prod.cEANTrib := Produto.Prod.cEAN;
+   //                                                   (Atualizado NT 2017/001)   //===========================================================================    Produto.Prod.cEANTrib := sEAN;
+    if Produto.Prod.cEANTrib = '' then
+       Produto.Prod.cEANTrib :='SEM GTIN';
 
    {112-I13}
    //(uTrib)
@@ -3395,23 +3398,43 @@ begin
    //Informar apenas quando se tratar de medicamentos ou de matérias-primas
    //farmacêuticas, permite múltiplas ocorrências (ilimitado)
 
+   {152a-K01a}
+   //cProdANVISA
+   //Código de Produto da ANVISA
+   //Utilizar o número do registro ANVISA ou preencher com o literal “ISENTO”,
+   //no caso de medicamento isento de registro na ANVISA.
+   //                                                  (Incluído na NT 2016/002.   //                                                 Atualizado na NT 2018.005)   //cProdANVISA := '';
+
+   {152b-K01b}
+   //xMotivoIsencao
+   //Motivo da isenção da ANVISA
+   //Obs.: Para medicamento isento de registro na ANVISA, informar o número da
+   //decisão que o isenta, como por exemplo o número da Resolução da Diretoria
+   //Colegiada da ANVISA (RDC).
+   //                                                    (Criado na NT 2018.005)
+   //xMotivoIsencao := '';
+
    {153-K02}
    //Lote
    //Número do Lote de medicamentos ou de matérias-primas farmacêuticas
+   //(Excluído no leiaute 4.0 - NT 2016/002)
 
    {154-K03}
    //qLote
    //Quantidade de produto no Lote de medicamentos ou de matérias-primas farmacêuticas
+   //(Excluído no leiaute 4.0 - NT 2016/002)
 
    {155-K04}
    //dFab
    //Data de fabricação
    //Formato “AAAA-MM-DD”
+   //(Excluído no leiaute 4.0 - NT 2016/002)
 
    {156-K05}
    //dVal
    //Data de validade
    //Formato “AAAA-MM-DD”
+   //(Excluído no leiaute 4.0 - NT 2016/002)
 
    {157-K06}
    //vPMC
@@ -3814,7 +3837,7 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
 begin
-   {N23a}
+   {N17a}
    //Base de Cálculo do Fundo de Combate a Pobreza
    //Retido por Substituição Tributária
    Produto.Imposto.ICMS.vBCFCPST:=Produto.Prod.vProd;
@@ -5593,14 +5616,14 @@ begin
    //Tributação do ICMS – 00
    //Tributada integralmente
 
-   {166-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
-   {167-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
-   {168-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
-   {169-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
-   {170-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
-   {171-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
-             Tratar_Produto_Imposto_ICMS_pFCP;
-             Tratar_Produto_Imposto_ICMS_vFCP;
+   {166-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
+   {167-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {168-N13   } Tratar_N13_Produto_Imposto_ICMS_modBC;
+   {169-N15   } Tratar_N15_Produto_Imposto_ICMS_vBC;
+   {170-N16   } Tratar_N16_Produto_Imposto_ICMS_pICMS;
+   {171-N17   } Tratar_N17_Produto_Imposto_ICMS_vICMS;
+   {171.1-N17b} Tratar_Produto_Imposto_ICMS_pFCP;
+   {171.2-N17c} Tratar_Produto_Imposto_ICMS_vFCP;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS10;
@@ -5630,15 +5653,16 @@ begin
    {176-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
    {177-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
    {178-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
+   {178.1-N17a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+   {   N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+   {   N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
+
    {179-N18} Tratar_N18_Produto_Imposto_ICMS_modBCST;
    {180-N19} Tratar_N19_Produto_Imposto_ICMS_pMVAST;
    {181-N20} Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
    {182-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
    {183-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
    {184-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
-   {   N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
-   {   N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
-   {   N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS20;
@@ -5700,10 +5724,11 @@ begin
    {199-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
    {200-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
    {201-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
-   {   N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
-   {   N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
-   {   N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
-   {    N28} Tratar_N28_Desoneracao_do_ICMS;
+   {201.w-N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+   {201.x-N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+   {201.y-N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
+   {201.2-N28a} Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
+   {201.3-N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS40_41_50;
@@ -5729,10 +5754,11 @@ begin
    //Grupo de Tributação do ICMS = 40, 41 e 50
    //40-Isenta, 41-Não tributada, 50-Suspensão
 
-   {203-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
-   {204-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
-   {204.01-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
-   {    N28   } Tratar_N28_Desoneracao_do_ICMS;
+   {203-N11    } Tratar_N11_Produto_Imposto_ICMS_orig;
+   {204-N12    } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {204.01-N17 } Tratar_N17_Produto_Imposto_ICMS_vICMS;
+   {       N28a} Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
+   {       N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS51;
@@ -5845,7 +5871,8 @@ begin
    {   N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
    {   N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
    {   N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
-   {    N28} Tratar_N28_Desoneracao_do_ICMS;
+   {   N28a} Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
+   {   N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS90;
@@ -5885,7 +5912,8 @@ begin
    {   N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
    {   N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
    {   N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
-   {    N28} Tratar_N28_Desoneracao_do_ICMS;
+   {   N28a} Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
+   {   N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMSPartilha;
@@ -6309,15 +6337,16 @@ begin
    {245.53-N30 } Tratar_N30_Produto_Imposto_ICMS_vCredICMSSN;
 end;
 
-procedure TfrmEmissaoDeNFe.Tratar_N28_Desoneracao_do_ICMS;
+procedure TfrmEmissaoDeNFe.Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
+begin
+   {N28a}
+   //Valor da Desoneração do ICMS
+   Produto.Imposto.ICMS.vICMSDeson := 0;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
 begin
    {N28}
-   //Valor da Desoneração do ICMS
-
-   With Produto.Imposto.ICMS do
-   begin
-      vICMSDeson:=0;
-
       //Motivo da desoneração do ICMS
       //Este campo será preenchido quando o campo anterior estiver preenchido.
       //Informar o motivo da desoneração:
@@ -6331,27 +6360,25 @@ begin
       //         e suas alterações)
       //       7–SUFRAMA
       //       9–outros. (v2.0)
-      if vICMSDeson = 0 Then
-         exit;
-
-      case qVENDA_ITEM.FieldByName('NFe_motDesICMS').AsInteger of
-         0 : motDesICMS := mdiTaxi;
-         1 : motDesICMS := mdiDeficienteFisico;
-         2 : motDesICMS := mdiProdutorAgropecuario;
-         3 : motDesICMS := mdiFrotistaLocadora;
-         4 : motDesICMS := mdiDiplomaticoConsular;
-         5 : motDesICMS := mdiAmazoniaLivreComercio;
-         6 : motDesICMS := mdiSuframa;
-         7 : motDesICMS := mdiVendaOrgaosPublicos;
-         8 : motDesICMS := mdiOutros;
-         9 : motDesICMS := mdiDeficienteCondutor;
-        10 : motDesICMS := mdiDeficienteNaoCondutor;
-        11 : motDesICMS := mdiOrgaoFomento;
-        12 : motDesICMS := mdiOlimpiadaRio2016;
-        13 : motDesICMS := mdiSolicitadoFisco;
+      with Produto.Imposto.ICMS do
+      begin
+        case qVENDA_ITEM.FieldByName('NFe_motDesICMS').AsInteger of
+           0 : motDesICMS := mdiTaxi;
+           1 : motDesICMS := mdiDeficienteFisico;
+           2 : motDesICMS := mdiProdutorAgropecuario;
+           3 : motDesICMS := mdiFrotistaLocadora;
+           4 : motDesICMS := mdiDiplomaticoConsular;
+           5 : motDesICMS := mdiAmazoniaLivreComercio;
+           6 : motDesICMS := mdiSuframa;
+           7 : motDesICMS := mdiVendaOrgaosPublicos;
+           8 : motDesICMS := mdiOutros;
+           9 : motDesICMS := mdiDeficienteCondutor;
+          10 : motDesICMS := mdiDeficienteNaoCondutor;
+          11 : motDesICMS := mdiOrgaoFomento;
+          12 : motDesICMS := mdiOlimpiadaRio2016;
+          13 : motDesICMS := mdiSolicitadoFisco;
+        end;
       end;
-
-   end;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N29_Produto_Imposto_ICMS_pCredSN;
