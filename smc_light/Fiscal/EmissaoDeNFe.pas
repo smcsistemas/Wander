@@ -290,7 +290,7 @@ type
     procedure Tratar_N25_Produto_Imposto_ICMS_pBCOp;
     procedure Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
     procedure Tratar_Produto_Imposto_ICMS_pST;
-    procedure Tratar_Produto_Imposto_ICMS_vICMSSubstituto;
+    procedure Tratar_Produto_Imposto_ICMS_vICMSSubstituto; //{N26b}
 
     procedure Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
     procedure Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
@@ -308,7 +308,7 @@ type
     procedure Tratar_Produto_Imposto_ICMS_pRedBCEfet;
     procedure Tratar_Produto_Imposto_ICMS_vBCEfet;
     procedure Tratar_Produto_Imposto_ICMS_pICMSEfet;
-    procedure Tratar_Produto_Imposto_ICMS_vICMSEfet;
+    procedure Tratar_Produto_Imposto_ICMS_vICMSEfet;  //n37
 
     // Fundo de Combate à Pobreza
     procedure Tratar_Produto_Imposto_ICMS_vBCFCP;
@@ -5757,8 +5757,8 @@ begin
    {203-N11    } Tratar_N11_Produto_Imposto_ICMS_orig;
    {204-N12    } Tratar_N12_Produto_Imposto_ICMS_CST;
    {204.01-N17 } Tratar_N17_Produto_Imposto_ICMS_vICMS;
-   {       N28a} Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
-   {       N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
+   {204.01-N28a} Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
+   {204.02-N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS51;
@@ -5784,19 +5784,19 @@ begin
    //Grupo de Tributação do ICMS = 51
    //Diferimento
 
-   {206-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
-   {207-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
-   {208-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
-   {209-N14} Tratar_N14_Produto_Imposto_ICMS_pRedBC;
-   {210-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
-   {211-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
-             Tratar_vICMSOp;
-             Tratar_pDif;
-             Tratar_vICMSDif;
-   {212-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
-             Tratar_Produto_Imposto_ICMS_vBCFCP;
-             Tratar_Produto_Imposto_ICMS_pFCP;
-             Tratar_Produto_Imposto_ICMS_vFCP;
+   {206-N11    } Tratar_N11_Produto_Imposto_ICMS_orig;
+   {207-N12    } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {208-N13    } Tratar_N13_Produto_Imposto_ICMS_modBC;
+   {209-N14    } Tratar_N14_Produto_Imposto_ICMS_pRedBC;
+   {210-N15    } Tratar_N15_Produto_Imposto_ICMS_vBC;
+   {211-N16    } Tratar_N16_Produto_Imposto_ICMS_pICMS;
+   {211.01-N16a} Tratar_vICMSOp;
+   {211.02-N16b} Tratar_pDif;
+   {211.03-N16c} Tratar_vICMSDif;
+   {212-N17    } Tratar_N17_Produto_Imposto_ICMS_vICMS;
+   {212.w-N17a } Tratar_Produto_Imposto_ICMS_vBCFCP;
+   {212.x-N17b } Tratar_Produto_Imposto_ICMS_pFCP;
+   {212.y-N17c } Tratar_Produto_Imposto_ICMS_vFCP;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS60;
@@ -5817,19 +5817,19 @@ begin
    //Grupo de Tributação do ICMS = 60
    //ICMS cobrado anteriormente por substituição tributária
 
-   {214-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
-   {215-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
-   {216-N26} Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
-             Tratar_Produto_Imposto_ICMS_pST;
-             Tratar_Produto_Imposto_ICMS_vICMSSubstituto;
-   {217-N27} Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
-   {   N27a} Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
-   {   N27b} Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
-   {   N27d} Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
-             Tratar_Produto_Imposto_ICMS_pRedBCEfet;
-             Tratar_Produto_Imposto_ICMS_vBCEfet;
-             Tratar_Produto_Imposto_ICMS_pICMSEfet;
-             Tratar_Produto_Imposto_ICMS_vICMSEfet;
+   {214-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
+   {215-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {216-N26   } Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
+   {216.1-N26a} Tratar_Produto_Imposto_ICMS_pST;
+   {216.2-N26b} Tratar_Produto_Imposto_ICMS_vICMSSubstituto;
+   {217-N27   } Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
+   {217.w-N27a} Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
+   {217.x-N27b} Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
+   {217.y-N27d} Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
+   {217.2-N34 } Tratar_Produto_Imposto_ICMS_pRedBCEfet;
+   {217.3-N35 } Tratar_Produto_Imposto_ICMS_vBCEfet;
+   {217.4-N36 } Tratar_Produto_Imposto_ICMS_pICMSEfet;
+   {217.5-N37 } Tratar_Produto_Imposto_ICMS_vICMSEfet;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS70;
@@ -6442,6 +6442,16 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_pST;
 begin
+   {N26a}
+   //Alíquota suportada pelo Consumidor Final
+   //Deve ser informada a alíquota do cálculo do ICMS-ST, já incluso o FCP caso
+   //incida sobre a mercadoria.
+   //Exemplo:
+   //    alíquota da mercadoria na venda ao consumidor final = 18%
+   //    FCP = 2%
+   //    A alíquota a ser informada no campo pST deve ser 20%.
+   //                                                   (Atualizado NT 2016/002)
+   //---------------------------------------------------------------------------
    Produto.Imposto.ICMS.pST := 0;
 end;
 
@@ -6471,14 +6481,23 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_vICMSEfet;
 begin
-   With Produto.Imposto.ICMS do
-   begin
+  {N37}
+  //Obtido pelo produto do valor do campo pICMSEfet pelo valor do campo vBCEfet,
+  //caso esteja submetida ao regime comum de tributação.
+  //Obs.: opcional a critério da UF.
+  //----------------------------------------------------------------------------
+  With Produto.Imposto.ICMS do
+  begin
      vICMSEfet:= pICMSEfet / 100 * vBCEfet;
-   end;
+  end;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_vICMSSubstituto;
 begin
+   {N26b}
+   //Valor do ICMS Próprio do Substituto cobrado em operação anterior.
+   //                                                      Criado na NT 2018.005
+   //                                                  Atualizado na NT 2018.005   //v1.20   //---------------------------------------------------------------------------
    With Produto.Imposto.ICMS do
    begin
       vICMSSubstituto:= pST / 100 * vBCSTRet;
