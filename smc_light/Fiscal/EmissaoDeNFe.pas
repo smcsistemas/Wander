@@ -275,8 +275,16 @@ type
     procedure Tratar_N13_Produto_Imposto_ICMS_modBC;
     procedure Tratar_N14_Produto_Imposto_ICMS_pRedBC;
     procedure Tratar_N15_Produto_Imposto_ICMS_vBC;
+
     procedure Tratar_N16_Produto_Imposto_ICMS_pICMS;
+    procedure Tratar_N16a_vICMSOp;
+    procedure Tratar_N16b_pDif;
+    procedure Tratar_N16c_vICMSDif;
     procedure Tratar_N17_Produto_Imposto_ICMS_vICMS;
+    // Fundo de Combate à Pobreza
+    procedure Tratar_N17a_Produto_Imposto_ICMS_vBCFCP;
+    procedure Tratar_N17b_Produto_Imposto_ICMS_pFCP;
+    procedure Tratar_N17c_Produto_Imposto_ICMS_vFCP;
     procedure Tratar_N18_Produto_Imposto_ICMS_modBCST;
     procedure Tratar_N19_Produto_Imposto_ICMS_pMVAST;
     procedure Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
@@ -289,35 +297,22 @@ type
     procedure Tratar_N24_Produto_Imposto_ICMS_UFST;
     procedure Tratar_N25_Produto_Imposto_ICMS_pBCOp;
     procedure Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
-    procedure Tratar_Produto_Imposto_ICMS_pST;
-    procedure Tratar_Produto_Imposto_ICMS_vICMSSubstituto; //{N26b}
-
+    procedure Tratar_N26a_Produto_Imposto_ICMS_pST;
+    procedure Tratar_N26b_Produto_Imposto_ICMS_vICMSSubstituto;
     procedure Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
     procedure Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
     procedure Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
     procedure Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
-
     procedure Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
     procedure Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
-
     procedure Tratar_N29_Produto_Imposto_ICMS_pCredSN;
     procedure Tratar_N30_Produto_Imposto_ICMS_vCredICMSSN;
     procedure Tratar_N31_Produto_Imposto_ICMS_vBCSTDest;
     procedure Tratar_N32_Produto_Imposto_ICMS_vICMSSTDes;
-
-    procedure Tratar_Produto_Imposto_ICMS_pRedBCEfet;
-    procedure Tratar_Produto_Imposto_ICMS_vBCEfet;
-    procedure Tratar_Produto_Imposto_ICMS_pICMSEfet;
-    procedure Tratar_Produto_Imposto_ICMS_vICMSEfet;  //n37
-
-    // Fundo de Combate à Pobreza
-    procedure Tratar_Produto_Imposto_ICMS_vBCFCP;
-    procedure Tratar_Produto_Imposto_ICMS_pFCP;
-    procedure Tratar_Produto_Imposto_ICMS_vFCP;
-
-    procedure Tratar_vICMSOp;
-    procedure Tratar_pDif;
-    procedure Tratar_vICMSDif;
+    procedure Tratar_N34_Produto_Imposto_ICMS_pRedBCEfet;
+    procedure Tratar_N35_Produto_Imposto_ICMS_vBCEfet;
+    procedure Tratar_N36_Produto_Imposto_ICMS_pICMSEfet;
+    procedure Tratar_N37_Produto_Imposto_ICMS_vICMSEfet;
 
     procedure Tratar_CSOSN;
     procedure Tratar_CSOSN_000;
@@ -1180,6 +1175,8 @@ end;
 
 function TfrmEmissaoDeNFe.ConverteCSOSN(pCSOSN: String): TpcnCSOSNIcms;
 begin
+   //Converte string em constantes CSOSN
+   //---------------------------------------------------------------------------
    if pCSOSN = '101' then result := csosn101;
    if pCSOSN = '102' then result := csosn102;
    if pCSOSN = '103' then result := csosn103;
@@ -1194,6 +1191,8 @@ end;
 
 function TfrmEmissaoDeNFe.ConverteCSTICMS(pPROD_CSTICMS: String): TpcnCSTIcms;
 begin
+   //Converte string em constantes do CST do ICMS
+   //---------------------------------------------------------------------------
    if pPROD_CSTICMS = '00' then Result := cst00;
    if pPROD_CSTICMS = '70' then Result := cst70;
    if pPROD_CSTICMS = '20' then Result := cst20;
@@ -1209,6 +1208,8 @@ end;
 
 function TfrmEmissaoDeNFe.ConverteCSTIPI(pPROD_STIPI: String): TpcnCstIpi;
 begin
+   //Converte string em constantes do CST do IPI
+   //---------------------------------------------------------------------------
    if pPROD_STIPI = '00' then result := ipi00;
    if pPROD_STIPI = '01' then result := ipi01;
    if pPROD_STIPI = '02' then result := ipi02;
@@ -1227,6 +1228,10 @@ end;
 
 function TfrmEmissaoDeNFe.Dados_Corretos: Boolean;
 begin
+   //Valida os dados antes da emissão.
+   //Retorna true se tudo ok
+   //Retorna false se algo está errado
+   //---------------------------------------------------------------------------
    result := false;
    if not Dados_do_Movimento_Corretos then exit;
    if not Dados_do_Destinatario_Corretos then exit;
@@ -1236,13 +1241,18 @@ end;
 
 function TfrmEmissaoDeNFe.Dados_do_Movimento_Corretos: Boolean;
 begin
-   // Critica dados do Movimento
+   //Valida obrigatoriedade do Tipo de Movimento no registro do movimento
+   //Retorna true se tudo ok
+   //Retorna false se algo está errado
+   //---------------------------------------------------------------------------
    result := false;
    if qVENDA.FieldByName('VENDA_TPMOV').AsString = '' then
    begin
      wnAlerta('Erro',
-              'Tipo de Movimento não definido neste movimento.'+slinebreak + slinebreak +
-              'Impossível emitir Documento Fiscal.');
+              'Tipo de Movimento não definido neste movimento.'
+            + slinebreak
+            + slinebreak
+            + 'Impossível emitir Documento Fiscal.');
      exit;
    end;
    result := true;
@@ -1250,6 +1260,10 @@ end;
 
 function TfrmEmissaoDeNFe.Dados_do_TipoDeMovimento_Corretos: Boolean;
 begin
+   //Valida dados do Tipo de Movimento
+   //Retorna true se tudo ok
+   //Retorna false se algo está errado
+   //---------------------------------------------------------------------------
    result := false;
    // A Natureza de Operacao virá da venda...
 
@@ -1299,26 +1313,28 @@ end;
 function TfrmEmissaoDeNFe.Dados_do_Destinatario_Corretos: Boolean;
 var xFone1, xFone2: String;
 begin
-   // Critica dados do Destinatário
-     xFone1 := qDESTINATARIO.FieldByName('TELEFONE').AsString;
-     xFone2 := Trim(COPY(SoNumerosX(qDESTINATARIO.FieldByName('TELEFONE').AsString),1,12));
-     if length(xFone1) = 0 then
-     begin
-       wnAlerta('Erro',
-                'A Sefaz exige o número do telefone do Cliente.'+slinebreak + slinebreak +
-                'Altere o cadastro do Destinatário');
-       exit;
-     end;
-     if length(xFone2) > 12 then
-     begin
-        wnAlerta('Erro',
-                 'A Sefaz limita o número do telefone do Cliente em 12 digitos.'+slinebreak + slinebreak +
-                 'Altere o cadastro do Destinatário (fone='+xFone1+')');
-        exit;
-     end;
+   //Valida dados do Destinatário
+   //Retorna true se tudo ok
+   //Retorna false se algo está errado
+   //---------------------------------------------------------------------------
+   xFone1 := qDESTINATARIO.FieldByName('TELEFONE').AsString;
+   xFone2 := Trim(COPY(SoNumerosX(qDESTINATARIO.FieldByName('TELEFONE').AsString),1,12));
+   if length(xFone1) = 0 then
+   begin
+     wnAlerta('Erro',
+              'A Sefaz exige o número do telefone do Cliente.'+slinebreak + slinebreak +
+              'Altere o cadastro do Destinatário');
+     exit;
+   end;
+   if length(xFone2) > 12 then
+   begin
+      wnAlerta('Erro',
+               'A Sefaz limita o número do telefone do Cliente em 12 digitos.'+slinebreak + slinebreak +
+               'Altere o cadastro do Destinatário (fone='+xFone1+')');
+      exit;
+   end;
    result := true;
 end;
-
 
 procedure TfrmEmissaoDeNFe.DestacarAmbienteEmissao(pAmbiente: Integer);
 begin
@@ -1343,6 +1359,11 @@ end;
 function TfrmEmissaoDeNFe.fCP_PFCPST(pCP_CODIGO, pCP_UFORIGEM,
   pCP_UFDESTINO: String): Boolean;
 begin
+    //Verifica se o produto possui parametrização definindo
+    //o CFOP em função da origem e destino do movimento
+    //Retorna true  se possui.
+    //Retorna false se não possui.
+    //--------------------------------------------------------------------------
     Result := False;
     if pCP_CODIGO = '' then
       Exit;
@@ -1367,8 +1388,16 @@ end;
 
 procedure TfrmEmissaoDeNFe.FormShow(Sender: TObject);
 begin
+   //Procedimentos automátios realizados quando a tela abre
+   //---------------------------------------------------------------------------
+
+   //Configurar o componente Acbr e variáveis de ambiente
    Configura_Componentes_Locais;
+
+   //Tentar emitir a NFe
    Trata_NFe;
+
+   //Fechar a tela
    Close;
 end;
 
@@ -1442,9 +1471,12 @@ var vPED_NRPEDIDO,a,b : integer;
     vPED_DTENTREGA: tDateTime;
     VetProdutos:Array[0..100] of String;
 begin
-    exit;
+   //Tratamento para reemissão
+   //---------------------------------------------------------------------------
+     exit;
+
     vPED_NRPEDIDO := g_Numero_do_Movimento;
-     //
+
     qVENDA_ITEM.close;
     qVENDA_ITEM.sql.clear;
     qVENDA_ITEM.sql.add('SELECT * FROM ITENSPEDIDO_IPED,      ');
@@ -1532,7 +1564,8 @@ end;
 procedure TfrmEmissaoDeNFe.MarcaVendaComoNotaEmitidaOK(pPEDIDO: Integer;
   pNumNFe: String);
 begin
-   // ALTERAR O STATuS DA VENDA PARA NOTA FISCAL FMITIDA
+   //ALTERAR O STATUS DA VENDA PARA NOTA FISCAL FMITIDA
+   //---------------------------------------------------------------------------
    Query1.close;
    Query1.sql.clear;
    Query1.sql.add('UPDATE VENDA                            ');
@@ -1805,6 +1838,9 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Fundo_de_Combate_A_Pobreza;
 begin
+   //Tratamento do FCP - Fundo de Combate à Pobreza
+   //---------------------------------------------------------------------------
+
     With Produto.Imposto.ICMSUFDest do
     begin
       // partilha do ICMS e fundo de probreza
@@ -1876,7 +1912,6 @@ begin
    //Nota.Ide.indPag := ipVista;
    //>>> (Excluído no leiaute 4.0 - NT 2016/002) <<<//
 
-
    {B06}
    //(mod)
    //Código do Modelo do Documento Fiscal
@@ -1891,7 +1926,7 @@ begin
    //
    //Série 890-899 de uso exclusivo para emissão de NF-e avulsa,
    //pelo contribuinte com seu certificado digital, através do site do Fisco
-   //(procEmi=2). (v2.0)
+   //                                                        (procEmi=2). (v2.0)
    //
    //===========================================================================
    //                       >> ANTES <<
@@ -1940,13 +1975,13 @@ begin
    //(dSaiEnt)
    //Data de Saída ou da Entrada da Mercadoria/Produto
    //Formato “AAAA-MM-DD”
-   Nota.Ide.dSaiEnt   := Date;
+   Nota.Ide.dSaiEnt := Date;
 
    {B11}
    //(hSaiEnt)
    //Hora de Saída ou da Entrada da Mercadoria/Produto
    //Formato “HH:MM:SS” (v.2.0)
-   Nota.Ide.hSaiEnt   := Now;
+   Nota.Ide.hSaiEnt := Now;
 
    {B11}
    //(tpNF)
@@ -2131,11 +2166,13 @@ begin
    // (v.2.0)
    //---------------------------------------------------------------------------
 
-   // NFe de finalidade "Normal" não trata NFe referenciada
+   //NFe de finalidade "Normal" não trata NFe referenciada
    if qTPMOV.FieldByName('TPMOV_FINALIDADE').AsInteger = 0 then exit;
+
    //NFe de finalidade "Ajuste" não trata NFe referenciada
    if qTPMOV.FieldByName('TPMOV_FINALIDADE').AsInteger = 2 then exit;
 
+   {
       //NFe de finalidade "Complementar" trata NFe referenciada
    if (qTPMOV.FieldByName('TPMOV_FINALIDADE').AsInteger = 1) or
       //NFe de finalidade "Devolução" trata NFe referenciada
@@ -2143,7 +2180,7 @@ begin
    begin
 
    end;
-
+   }
 
    // Criar TAG Nota Referenciada
    //---------------------------------------------------------------------------
@@ -2494,10 +2531,11 @@ begin
    // TRATAMENTO DO GRUPO D - Identificação do Fisco Emitente da NF-e
    //---------------------------------------------------------------------------
 
-  {50-D01}
-  //(avulsa)
-  //Informações do fisco emitente, grupo de uso exclusivo do fisco.
+   {50-D01}
+   //(avulsa)
+   //Informações do fisco emitente, grupo de uso exclusivo do fisco.
 
+   exit;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_E_Identificacao_do_Destinatario_da_NFe;
@@ -2533,7 +2571,6 @@ begin
    //os zeros não significativos. No caso de operação com o
    //exterior, ou para comprador estrangeiro informar a tag "idEstrangeiro”.
    //===========================================================================
-
 
    if qNaturezaOperacao.FieldByName('ESTADO').AsString <> 'EXTERIOR' then
    begin
@@ -2695,7 +2732,7 @@ begin
    //Grupo de identificação do Local de retirada
    //Informar apenas quando for diferente do endereço do remetente.
 
-   // Não implementado ainda...
+   // AINDA NÂO IMPLEMENTADO
    exit;
 
    {81-F02}
@@ -2838,6 +2875,7 @@ begin
    nItem := 0;
    While NOT qVENDA_ITEM.eof do
    begin
+     //Para cada item do movimento/venda...
      inc(nItem);
      Produto := Nota.Det.Add;
 
@@ -2849,9 +2887,9 @@ begin
 
      Tratar_Grupo_I_Produtos_e_Serviços_da_NFe;
 
+     //Próximo item do movimento/venda
      qVENDA_ITEM.Next;
     end;
-
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_I_Produtos_e_Serviços_da_NFe;
@@ -3563,9 +3601,10 @@ begin
    // Para todos os produtos da NFe
 
    // Recuperar relacionamento entre CFOP x CST para este TPMOV
-   Carregar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(qVENDA.FieldByName('VENDA_TPMOV').AsString,
-                                                      Produto.Prod.CFOP,
-                                                      Produto.Prod.cProd);
+   Carregar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(
+                                     qVENDA.FieldByName('VENDA_TPMOV').AsString,
+                                                              Produto.Prod.CFOP,
+                                                            Produto.Prod.cProd);
 
    {163-M01}
    //imposto
@@ -3664,6 +3703,12 @@ procedure TfrmEmissaoDeNFe.Tratar_N12_Produto_Imposto_ICMS_CSOSN(
 begin
    {N12a}
    //CSOSN
+   // Código de Situação da Operação – Simples Nacional
+   //        102 = Tributada pelo Simples Nacional sem permissão de crédito.
+   //        103 = Isenção do ICMS no Simples Nacional para faixa de receita bruta.
+   //        300 = Imune.
+   //        400 = Não tributada pelo Simples Nacional (v2.0) (v2.0)
+   //---------------------------------------------------------------------------
    Produto.Imposto.ICMS.CSOSN := pCSOSN;
 end;
 
@@ -3671,6 +3716,8 @@ procedure TfrmEmissaoDeNFe.Tratar_N12_Produto_Imposto_ICMS_CST;
 begin
    {N12}
    //CST
+   //Tributação do ICMS
+   //---------------------------------------------------------------------------
    Produto.Imposto.ICMS.CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
 end;
 
@@ -3751,6 +3798,32 @@ begin
    Produto.Imposto.ICMS.pICMS := qVENDA_ITEM.FieldByName('ALIQ_ICMS').AsFloat;
 end;
 
+procedure TfrmEmissaoDeNFe.Tratar_N16a_vICMSOp;
+begin
+   {N16a}
+   //Valor do ICMS da Operação
+   //Valor sem o diferimento
+   //---------------------------------------------------------------------------
+   Produto.Imposto.ICMS.vICMSOp := 0;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N16b_pDif;
+begin
+   {N16b}
+   //Percentual do diferimento
+   //No caso de diferimento total, informar o percentual de diferimento "100"
+   //---------------------------------------------------------------------------
+   Produto.Imposto.ICMS.pDif:=0;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N16c_vICMSDif;
+begin
+   {N16c}
+   //Valor do ICMS diferido
+   //---------------------------------------------------------------------------
+   Produto.Imposto.ICMS.vICMSDif := 0;
+end;
+
 procedure TfrmEmissaoDeNFe.Tratar_N17_Produto_Imposto_ICMS_vICMS;
 begin
    {N17}
@@ -3767,6 +3840,35 @@ begin
    with Produto.Imposto.ICMS do
    begin
       vICMS := pICMS / 100 * vBC;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N17a_Produto_Imposto_ICMS_vBCFCP;
+begin
+   {N17a}
+   //Base de Cálculo do Fundo de Combate a Pobreza
+   //---------------------------------------------------------------------------
+   Produto.Imposto.ICMS.vBCFCP := Produto.Prod.vProd;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N17b_Produto_Imposto_ICMS_pFCP;
+begin
+   {N17b}
+   //Percentual do Fundo de Combate a Pobreza
+   //Depende da UF - tem que vir do cadastro da empresa emitente
+   //---------------------------------------------------------------------------
+   Produto.Imposto.ICMS.pFCP := 0;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_N17c_Produto_Imposto_ICMS_vFCP;
+begin
+   {N17c}
+   //Valor do Fundo de Combate a Pobreza
+   //Aplicado sobre a BC do ICMS qdo CST = 00
+   //---------------------------------------------------------------------------
+   With Produto.Imposto.ICMS do
+   begin
+      vFCP := pFCP / 100 * vBC;
    end;
 end;
 
@@ -5622,8 +5724,8 @@ begin
    {169-N15   } Tratar_N15_Produto_Imposto_ICMS_vBC;
    {170-N16   } Tratar_N16_Produto_Imposto_ICMS_pICMS;
    {171-N17   } Tratar_N17_Produto_Imposto_ICMS_vICMS;
-   {171.1-N17b} Tratar_Produto_Imposto_ICMS_pFCP;
-   {171.2-N17c} Tratar_Produto_Imposto_ICMS_vFCP;
+   {171.1-N17b} Tratar_N17b_Produto_Imposto_ICMS_pFCP;
+   {171.2-N17c} Tratar_N17c_Produto_Imposto_ICMS_vFCP;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS10;
@@ -5683,16 +5785,16 @@ begin
    //Grupo de Tributação do ICMS = 20
    //Com redução de base de cálculo
 
-   {186-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
-   {187-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
-   {188-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
-   {189-N14} Tratar_N14_Produto_Imposto_ICMS_pRedBC;
-   {190-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
-   {191-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
-   {192-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
-             Tratar_Produto_Imposto_ICMS_vBCFCP;
-             Tratar_Produto_Imposto_ICMS_pFCP;
-             Tratar_Produto_Imposto_ICMS_vFCP;
+   {186-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
+   {187-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {188-N13   } Tratar_N13_Produto_Imposto_ICMS_modBC;
+   {189-N14   } Tratar_N14_Produto_Imposto_ICMS_pRedBC;
+   {190-N15   } Tratar_N15_Produto_Imposto_ICMS_vBC;
+   {191-N16   } Tratar_N16_Produto_Imposto_ICMS_pICMS;
+   {192-N17   } Tratar_N17_Produto_Imposto_ICMS_vICMS;
+   {192.w-N17a} Tratar_N17a_Produto_Imposto_ICMS_vBCFCP;
+   {192.x-N17b} Tratar_N17b_Produto_Imposto_ICMS_pFCP;
+   {192.y-N17c} Tratar_N17c_Produto_Imposto_ICMS_vFCP;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS30;
@@ -5790,20 +5892,21 @@ begin
    {209-N14    } Tratar_N14_Produto_Imposto_ICMS_pRedBC;
    {210-N15    } Tratar_N15_Produto_Imposto_ICMS_vBC;
    {211-N16    } Tratar_N16_Produto_Imposto_ICMS_pICMS;
-   {211.01-N16a} Tratar_vICMSOp;
-   {211.02-N16b} Tratar_pDif;
-   {211.03-N16c} Tratar_vICMSDif;
+   {211.01-N16a} Tratar_N16a_vICMSOp;
+   {211.02-N16b} Tratar_N16b_pDif;
+   {211.03-N16c} Tratar_N16c_vICMSDif;
    {212-N17    } Tratar_N17_Produto_Imposto_ICMS_vICMS;
-   {212.w-N17a } Tratar_Produto_Imposto_ICMS_vBCFCP;
-   {212.x-N17b } Tratar_Produto_Imposto_ICMS_pFCP;
-   {212.y-N17c } Tratar_Produto_Imposto_ICMS_vFCP;
+   {212.w-N17a } Tratar_N17a_Produto_Imposto_ICMS_vBCFCP;
+   {212.x-N17b } Tratar_N17b_Produto_Imposto_ICMS_pFCP;
+   {212.y-N17c } Tratar_N17c_Produto_Imposto_ICMS_vFCP;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS60;
 begin
    //Somentes se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 60
-   if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '60' then
+   //                                                     (Incluído NT 2016/002)
+   //---------------------------------------------------------------------------   if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '60' then
       exit;
 
    // Trata impostos de produtos
@@ -5820,22 +5923,23 @@ begin
    {214-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
    {215-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
    {216-N26   } Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
-   {216.1-N26a} Tratar_Produto_Imposto_ICMS_pST;
-   {216.2-N26b} Tratar_Produto_Imposto_ICMS_vICMSSubstituto;
+   {216.1-N26a} Tratar_N26a_Produto_Imposto_ICMS_pST;
+   {216.2-N26b} Tratar_N26b_Produto_Imposto_ICMS_vICMSSubstituto;
    {217-N27   } Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
    {217.w-N27a} Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
    {217.x-N27b} Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
    {217.y-N27d} Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
-   {217.2-N34 } Tratar_Produto_Imposto_ICMS_pRedBCEfet;
-   {217.3-N35 } Tratar_Produto_Imposto_ICMS_vBCEfet;
-   {217.4-N36 } Tratar_Produto_Imposto_ICMS_pICMSEfet;
-   {217.5-N37 } Tratar_Produto_Imposto_ICMS_vICMSEfet;
+   {217.2-N34 } Tratar_N34_Produto_Imposto_ICMS_pRedBCEfet;
+   {217.3-N35 } Tratar_N35_Produto_Imposto_ICMS_vBCEfet;
+   {217.4-N36 } Tratar_N36_Produto_Imposto_ICMS_pICMSEfet;;
+   {217.5-N37 } Tratar_N37_Produto_Imposto_ICMS_vICMSEfet;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS70;
 begin
    //Somentes se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 70
+   //---------------------------------------------------------------------------
    if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '70' then
       exit;
 
@@ -5859,9 +5963,9 @@ begin
    {223-N15   } Tratar_N15_Produto_Imposto_ICMS_vBC;
    {224-N16   } Tratar_N16_Produto_Imposto_ICMS_pICMS;
    {225-N17   } Tratar_N17_Produto_Imposto_ICMS_vICMS;
-   {225.1-N17a} Tratar_Produto_Imposto_ICMS_vBCFCP;
-   {225.2-N17b} Tratar_Produto_Imposto_ICMS_pFCP;
-   {225.3-N17c} Tratar_Produto_Imposto_ICMS_vFCP;
+   {225.1-N17a} Tratar_N17a_Produto_Imposto_ICMS_vBCFCP;
+   {225.2-N17b} Tratar_N17b_Produto_Imposto_ICMS_pFCP;
+   {225.3-N17c} Tratar_N17c_Produto_Imposto_ICMS_vFCP;
    {226-N18   } Tratar_N18_Produto_Imposto_ICMS_modBCST;
    {227-N19   } Tratar_N19_Produto_Imposto_ICMS_pMVAST;
    {228-N20   } Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
@@ -5879,6 +5983,7 @@ procedure TfrmEmissaoDeNFe.Tratar_ICMS90;
 begin
    //Somentes se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 90
+   //---------------------------------------------------------------------------
    if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '90' then
       exit;
 
@@ -5900,9 +6005,9 @@ begin
    {237-N14   } Tratar_N14_Produto_Imposto_ICMS_pRedBC;
    {238-N16   } Tratar_N16_Produto_Imposto_ICMS_pICMS;
    {239-N17   } Tratar_N17_Produto_Imposto_ICMS_vICMS;
-   {239.w-N17a} Tratar_Produto_Imposto_ICMS_vBCFCP;
-   {239.x-N17b} Tratar_Produto_Imposto_ICMS_pFCP;
-   {239.y-N17c} Tratar_Produto_Imposto_ICMS_vFCP;
+   {239.w-N17a} Tratar_N17a_Produto_Imposto_ICMS_vBCFCP;
+   {239.x-N17b} Tratar_N17b_Produto_Imposto_ICMS_pFCP;
+   {239.y-N17c} Tratar_N17c_Produto_Imposto_ICMS_vFCP;
    {240-N18   } Tratar_N18_Produto_Imposto_ICMS_modBCST;
    {241-N19   } Tratar_N19_Produto_Imposto_ICMS_pMVAST;
    {242-N20   } Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
@@ -5921,6 +6026,7 @@ begin
    // Somente CST ICMS = '10' e '90'
    //        10-Tributada e com cobrança do ICMS por substituição tributária
    //        90–Outros
+   //---------------------------------------------------------------------------
    if (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '10') and
       (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '90') Then
       exit;
@@ -5965,6 +6071,7 @@ begin
    //de produtos que tiveram retenção antecipada de ICMS por ST
    //na UF do remetente.
    //Repasse via Substituto Tributário. (v2.0)
+   //---------------------------------------------------------------------------
 
    // Apenas para operações interestaduais
    if Nota.Ide.idDest <> doInterestadual then exit;
@@ -5973,22 +6080,21 @@ begin
    if (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '41') then
       exit;
 
-   {245.18-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
-   {245.19-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
-   {245.20-N26} Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
-                Tratar_Produto_Imposto_ICMS_pST;
-                Tratar_Produto_Imposto_ICMS_vICMSSubstituto;
-   {245.21-N27} Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
-   {      N27a} Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
-   {      N27b} Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
-   {      N27d} Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
-   {245.22-N31} Tratar_N31_Produto_Imposto_ICMS_vBCSTDest;
-   {245.23-N32} Tratar_N32_Produto_Imposto_ICMS_vICMSSTDes;
-
-                Tratar_Produto_Imposto_ICMS_pRedBCEfet;
-                Tratar_Produto_Imposto_ICMS_vBCEfet;
-                Tratar_Produto_Imposto_ICMS_pICMSEfet;
-                Tratar_Produto_Imposto_ICMS_vICMSEfet;
+   {245.18-N11  } Tratar_N11_Produto_Imposto_ICMS_orig;
+   {245.19-N12  } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {245.20-N26  } Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
+   {245.20a-N26a} Tratar_N26a_Produto_Imposto_ICMS_pST;
+   {245.20b-N26b} Tratar_N26b_Produto_Imposto_ICMS_vICMSSubstituto;
+   {245.21-N27  } Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
+   {      N27a  } Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
+   {      N27b  } Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
+   {      N27d  } Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
+   {245.22-N31  } Tratar_N31_Produto_Imposto_ICMS_vBCSTDest;
+   {245.23-N32  } Tratar_N32_Produto_Imposto_ICMS_vICMSSTDes;
+   {245.23b-N34 } Tratar_N34_Produto_Imposto_ICMS_pRedBCEfet;
+   {245.23c-N35 } Tratar_N35_Produto_Imposto_ICMS_vBCEfet;
+   {245.23d-N36 } Tratar_N36_Produto_Imposto_ICMS_pICMSEfet;;
+   {245.23e-N37 } Tratar_N37_Produto_Imposto_ICMS_vICMSEfet;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_SubGrupo_DI_Declaracao_de_Importacao;
@@ -6098,16 +6204,6 @@ begin
 
    end; // (DI)
 
-end;
-
-procedure TfrmEmissaoDeNFe.Tratar_vICMSDif;
-begin
-   Produto.Imposto.ICMS.vICMSDif := 0;
-end;
-
-procedure TfrmEmissaoDeNFe.Tratar_vICMSOp;
-begin
-   Produto.Imposto.ICMS.vICMSOp := 0;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_CSOSN;
@@ -6222,13 +6318,14 @@ begin
    {      N23b } Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
    {      N23d } Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
    {245.36-N29 } Tratar_N29_Produto_Imposto_ICMS_pCredSN;
-   {245.37-N30 }  Tratar_N30_Produto_Imposto_ICMS_vCredICMSSN;
+   {245.37-N30 } Tratar_N30_Produto_Imposto_ICMS_vCredICMSSN;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_CSOSN_202;
 begin
    //CRT   =   1 – Simples Nacional
    //CSOSN = 202
+   //---------------------------------------------------------------------------
    Tratar_CSOSN_202_203(csosn202);
 end;
 
@@ -6236,6 +6333,7 @@ procedure TfrmEmissaoDeNFe.Tratar_CSOSN_203;
 begin
    //CRT   =   1 – Simples Nacional
    //CSOSN = 203
+   //---------------------------------------------------------------------------
    Tratar_CSOSN_202_203(csosn203);
 end;
 
@@ -6255,23 +6353,24 @@ begin
    //   202-Tributada pelo Simples Nacional sem permissão de crédito e com cobrança do ICMS por Substituição Tributária
    //   203-Isenção do ICMS nos Simples Nacional para faixa de receita bruta e com cobrança do ICMS por Substituição Tributária (v.2.0)
 
-   {245.39-N11 } Tratar_N11_Produto_Imposto_ICMS_orig;
-   {245.40 N12a} Tratar_N12_Produto_Imposto_ICMS_CSOSN(pCSOSN);
-   {245.41-N18 } Tratar_N18_Produto_Imposto_ICMS_modBCST;
-   {245.42-N19 } Tratar_N19_Produto_Imposto_ICMS_pMVAST;
-   {224.43-N20 } Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
-   {245.44-N21 } Tratar_N21_Produto_Imposto_ICMS_vBCST;
-   {245.45-N22 } Tratar_N22_Produto_Imposto_ICMS_pICMSST;
-   {245.46-N23 } Tratar_N23_Produto_Imposto_ICMS_vICMSST;
-   {      N23a } Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
-   {      N23b } Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
-   {      N23d } Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
+   {245.39-N11  } Tratar_N11_Produto_Imposto_ICMS_orig;
+   {245.40 N12a } Tratar_N12_Produto_Imposto_ICMS_CSOSN(pCSOSN);
+   {245.41-N18  } Tratar_N18_Produto_Imposto_ICMS_modBCST;
+   {245.42-N19  } Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+   {224.43-N20  } Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+   {245.44-N21  } Tratar_N21_Produto_Imposto_ICMS_vBCST;
+   {245.45-N22  } Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+   {245.46-N23  } Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+   {245.46w-N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+   {245.46x-N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+   {245.46y-N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_CSOSN_300;
 begin
    //CRT  =  1 – Simples Nacional
    //CSOSN=300 - Imune
+   //---------------------------------------------------------------------------
    Tratar_CSOSN_102_103_300_400(csosn300);
 end;
 
@@ -6279,38 +6378,42 @@ procedure TfrmEmissaoDeNFe.Tratar_CSOSN_400;
 begin
    //CRT  =  1 – Simples Nacional
    //CSOSN=400 - Não tributada pelo Simples Nacional (v.2.0) (v.2.0)
+   //---------------------------------------------------------------------------
    Tratar_CSOSN_102_103_300_400(csosn400);
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_CSOSN_500;
 begin
    //CRT   = 1 – Simples Nacional
-   //CSOSN = 500 – ICMS cobrado anteriormente por substituição tributária (substituído) ou por antecipação
+   //CSOSN = 500 – ICMS cobrado anteriormente por substituição tributária
+   //(substituído) ou por antecipação
+   //---------------------------------------------------------------------------
 
    {245.47-N10g}
    //ICMSSN500
    //Grupo CRT=1 – Simples Nacional e CSOSN = 500
    //Tributação do ICMS pelo SIMPLES NACIONAL e  CSOSN=500 (v.2.0)
 
-   {245.48-N11 } Tratar_N11_Produto_Imposto_ICMS_orig;
-   {245.49 N12a} Tratar_N12_Produto_Imposto_ICMS_CSOSN(csosn500);
-   {245.50-N26 } Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
-                 Tratar_Produto_Imposto_ICMS_pST;
-                 Tratar_Produto_Imposto_ICMS_vICMSSubstituto;
-   {245.51-N27 } Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
-   {      N27a } Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
-   {      N27b } Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
-   {      N27d } Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
-                 Tratar_Produto_Imposto_ICMS_pRedBCEfet;
-                 Tratar_Produto_Imposto_ICMS_vBCEfet;
-                 Tratar_Produto_Imposto_ICMS_pICMSEfet;
-                 Tratar_Produto_Imposto_ICMS_vICMSEfet;
+   {245.48-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
+   {245.49 N12a  } Tratar_N12_Produto_Imposto_ICMS_CSOSN(csosn500);
+   {245.50-N26   } Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
+   {245.50.0-N26a} Tratar_N26a_Produto_Imposto_ICMS_pST;
+   {245.50.1-N26b} Tratar_N26b_Produto_Imposto_ICMS_vICMSSubstituto;
+   {245.51-N27   } Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
+   {245.51w-N27a } Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
+   {245.51x-N27b } Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
+   {245.51y-N27d } Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
+   {245.51.2-N34 } Tratar_N34_Produto_Imposto_ICMS_pRedBCEfet;
+   {245.51.3-N35 } Tratar_N35_Produto_Imposto_ICMS_vBCEfet;
+   {245.51.4-N36 } Tratar_N36_Produto_Imposto_ICMS_pICMSEfet;
+   {245.51.5-N37 } Tratar_N37_Produto_Imposto_ICMS_vICMSEfet;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_CSOSN_900;
 begin
    //CRT   =   1 – Simples Nacional
    //CSOSN = 900 - Outros
+   //---------------------------------------------------------------------------
 
    {245.52-N10h}
    //ICMSSN900
@@ -6341,44 +6444,46 @@ procedure TfrmEmissaoDeNFe.Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
 begin
    {N28a}
    //Valor da Desoneração do ICMS
+   //---------------------------------------------------------------------------
    Produto.Imposto.ICMS.vICMSDeson := 0;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
 begin
    {N28}
-      //Motivo da desoneração do ICMS
-      //Este campo será preenchido quando o campo anterior estiver preenchido.
-      //Informar o motivo da desoneração:
-      //       1–Táxi
-      //       2–Deficiente Físico
-      //       3–Produtor Agropecuário
-      //       4–Frotista/Locadora
-      //       5–Diplomático/Consular
-      //       6–Utilitários e Motocicletas da Amazônia Ocidental
-      //         e Áreas de Livre Comércio (Resolução 714/88 e 790/94 – CONTRAN
-      //         e suas alterações)
-      //       7–SUFRAMA
-      //       9–outros. (v2.0)
-      with Produto.Imposto.ICMS do
-      begin
-        case qVENDA_ITEM.FieldByName('NFe_motDesICMS').AsInteger of
-           0 : motDesICMS := mdiTaxi;
-           1 : motDesICMS := mdiDeficienteFisico;
-           2 : motDesICMS := mdiProdutorAgropecuario;
-           3 : motDesICMS := mdiFrotistaLocadora;
-           4 : motDesICMS := mdiDiplomaticoConsular;
-           5 : motDesICMS := mdiAmazoniaLivreComercio;
-           6 : motDesICMS := mdiSuframa;
-           7 : motDesICMS := mdiVendaOrgaosPublicos;
-           8 : motDesICMS := mdiOutros;
-           9 : motDesICMS := mdiDeficienteCondutor;
-          10 : motDesICMS := mdiDeficienteNaoCondutor;
-          11 : motDesICMS := mdiOrgaoFomento;
-          12 : motDesICMS := mdiOlimpiadaRio2016;
-          13 : motDesICMS := mdiSolicitadoFisco;
-        end;
+   //Motivo da desoneração do ICMS
+   //Este campo será preenchido quando o campo anterior estiver preenchido.
+   //Informar o motivo da desoneração:
+   //       1–Táxi
+   //       2–Deficiente Físico
+   //       3–Produtor Agropecuário
+   //       4–Frotista/Locadora
+   //       5–Diplomático/Consular
+   //       6–Utilitários e Motocicletas da Amazônia Ocidental
+   //         e Áreas de Livre Comércio (Resolução 714/88 e 790/94 – CONTRAN
+   //         e suas alterações)
+   //       7–SUFRAMA
+   //       9–outros. (v2.0)
+   //---------------------------------------------------------------------------
+   with Produto.Imposto.ICMS do
+   begin
+      case qVENDA_ITEM.FieldByName('NFe_motDesICMS').AsInteger of
+         0 : motDesICMS := mdiTaxi;
+         1 : motDesICMS := mdiDeficienteFisico;
+         2 : motDesICMS := mdiProdutorAgropecuario;
+         3 : motDesICMS := mdiFrotistaLocadora;
+         4 : motDesICMS := mdiDiplomaticoConsular;
+         5 : motDesICMS := mdiAmazoniaLivreComercio;
+         6 : motDesICMS := mdiSuframa;
+         7 : motDesICMS := mdiVendaOrgaosPublicos;
+         8 : motDesICMS := mdiOutros;
+         9 : motDesICMS := mdiDeficienteCondutor;
+        10 : motDesICMS := mdiDeficienteNaoCondutor;
+        11 : motDesICMS := mdiOrgaoFomento;
+        12 : motDesICMS := mdiOlimpiadaRio2016;
+        13 : motDesICMS := mdiSolicitadoFisco;
       end;
+   end;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N29_Produto_Imposto_ICMS_pCredSN;
@@ -6386,6 +6491,7 @@ begin
    {N29}
    //pCredSN
    //Alíquota aplicável de cálculo do crédito (Simples Nacional
+   //---------------------------------------------------------------------------
    Produto.Imposto.ICMS.pCredSN := qEMITENTE.FieldByName('NFe_ALIQ_CREDITO_ICMS').AsFloat;
 end;
 
@@ -6393,7 +6499,9 @@ procedure TfrmEmissaoDeNFe.Tratar_N30_Produto_Imposto_ICMS_vCredICMSSN;
 begin
    {N30}
    //vCredICMSSN
-   //Valor crédito do ICMS que pode ser aproveitado nos termos do art. 23 da LC 123 (Simples Nacional)
+   //Valor crédito do ICMS que pode ser aproveitado
+   //nos termos do art. 23 da LC 123 (Simples Nacional)
+   //---------------------------------------------------------------------------
    with Produto.Imposto.ICMS do
    begin
       vCredICMSSN := pCredSN / 100 * vBC;
@@ -6406,6 +6514,7 @@ begin
    //vBCSTDest
    //Valor da BC do ICMS ST da UF destino
    //Informar o valor da BC do ICMS ST da UF destino (v2.0)
+   //---------------------------------------------------------------------------
    Produto.Imposto.ICMS.vBCSTDest := Produto.Prod.vProd;
 end;
 
@@ -6415,32 +6524,32 @@ begin
    //vICMSSTDes
    //Valor do ICMS ST da UF destino
    //Informar o valor da BC do ICMS ST da UF destino (v2.0)
+   //---------------------------------------------------------------------------
    Produto.Imposto.ICMS.vICMSSTDest := 0;
 end;
 
-procedure TfrmEmissaoDeNFe.Tratar_pDif;
+procedure TfrmEmissaoDeNFe.Tratar_N36_Produto_Imposto_ICMS_pICMSEfet;;
 begin
-   Produto.Imposto.ICMS.pDif:=0;
-end;
-
-procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_pFCP;
-begin
-   //Percentual do Fundo de Combate a Pobreza
-   //Depende da UF - tem que vir do cadastro da empresa
-   Produto.Imposto.ICMS.pFCP := 0;
-end;
-
-procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_pICMSEfet;
-begin
+   {N36}
+   //Alíquota do ICMS na operação a consumidor final, caso esteja submetido ao
+   //regime comum de tributação.
+   //Obs.: opcional a critério da UF
+   //                                             (Criado na NT 2018.005 v1.10).
+   //---------------------------------------------------------------------------
    Produto.Imposto.ICMS.pICMSEfet := 0;
 end;
 
-procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_pRedBCEfet;
+procedure TfrmEmissaoDeNFe.Tratar_N34_Produto_Imposto_ICMS_pRedBCEfet;
 begin
+   {N34}
+   //Percentual de redução, caso esteja submetido ao regime comum de
+   //tributação, para obtenção da base de cálculo efetiva (vBCEfet).
+   //Obs.: opcional a critério da UF.
+   //---------------------------------------------------------------------------
    Produto.Imposto.ICMS.pRedBCEfet := 0;
 end;
 
-procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_pST;
+procedure TfrmEmissaoDeNFe.Tratar_N26a_Produto_Imposto_ICMS_pST;
 begin
    {N26a}
    //Alíquota suportada pelo Consumidor Final
@@ -6455,36 +6564,25 @@ begin
    Produto.Imposto.ICMS.pST := 0;
 end;
 
-procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_vBCEfet;
+procedure TfrmEmissaoDeNFe.Tratar_N35_Produto_Imposto_ICMS_vBCEfet;
 begin
-   With Produto.Imposto.ICMS do
+   {N35}
+   //Valor da base de cálculo que seria atribuída à operação própria do
+   //contribuinte substituído, caso esteja submetido ao regime comum de
+   //tributação, obtida pelo produto do Vprod por (1-pRedBCEfet).
+   //Obs.: opcional a critério da UF.   //---------------------------------------------------------------------------   With Produto.Imposto.ICMS do
    begin
     vBCEfet:= (100-pRedBCEfet)/100 * Produto.Prod.vProd;
    end;
 end;
 
-procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_vBCFCP;
-begin
-   //Base de Cálculo do Fundo de Combate a Pobreza
-   Produto.Imposto.ICMS.vBCFCP := Produto.Prod.vProd;
-end;
-
-procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_vFCP;
-begin
-   //Valor do Fundo de Combate a Pobreza
-   //Aplicado sobre a BC do ICMS qdo CST = 00
-   With Produto.Imposto.ICMS do
-   begin
-      vFCP := pFCP / 100 * vBC;
-   end;
-end;
-
-procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_vICMSEfet;
+procedure TfrmEmissaoDeNFe.Tratar_N37_Produto_Imposto_ICMS_vICMSEfet;
 begin
   {N37}
   //Obtido pelo produto do valor do campo pICMSEfet pelo valor do campo vBCEfet,
   //caso esteja submetida ao regime comum de tributação.
   //Obs.: opcional a critério da UF.
+  //                                               (Criado na NT 2018.005 v1.10)
   //----------------------------------------------------------------------------
   With Produto.Imposto.ICMS do
   begin
@@ -6492,7 +6590,7 @@ begin
   end;
 end;
 
-procedure TfrmEmissaoDeNFe.Tratar_Produto_Imposto_ICMS_vICMSSubstituto;
+procedure TfrmEmissaoDeNFe.Tratar_N26b_Produto_Imposto_ICMS_vICMSSubstituto;
 begin
    {N26b}
    //Valor do ICMS Próprio do Substituto cobrado em operação anterior.
@@ -6506,6 +6604,10 @@ end;
 
 procedure TfrmEmissaoDeNFe.Trata_NFe;
 begin
+   //Processa todos os passos da emissão da Nota Fiscal Eletrônica modelo 55
+   //e emite a NFe
+   //---------------------------------------------------------------------------
+
    //Inicializar variáveis somadoras que alimentarão os totalizadores da NFe
    Zerar_Somadores_NFe;
 
@@ -6566,6 +6668,7 @@ begin
   // Percorrer qVENDA_ITEM a procura de serviços e produtos
   // Se a venda possui produtos e serviços, retorna true
   // Se a venda só possui produtos, e não possui serviços, retorna false
+  //----------------------------------------------------------------------------
   result := false;
 end;
 
@@ -6573,39 +6676,39 @@ procedure TfrmEmissaoDeNFe.Zerar_Somadores_NFe;
 begin
    //Inicializar variáveis somadoras que alimentarão os totalizadores da NFe
    //---------------------------------------------------------------------------
-    vNota_Total_ICMSTot_vBC       := 0;
-    vNota_Total_ICMSTot_vICMS     := 0;
-    vNota_Total_ICMSTot_vBCST     := 0;
-    vNota_Total_ICMSTot_vST       := 0;
-    vNota_Total_ICMSTot_vProd     := 0;
-    vNota_Total_ICMSTot_vFrete    := 0;
-    vNota_Total_ICMSTot_vSeg      := 0;
-    vNota_Total_ICMSTot_vDesc     := 0;
-    vNota_Total_ICMSTot_vII       := 0;
-    vNota_Total_ICMSTot_vIPI      := 0;
-    vNota_Total_ICMSTot_vPIS      := 0;
-    vNota_Total_ICMSTot_vCOFINS   := 0;
-    vNota_Total_ICMSTot_vOutro    := 0;
-    vNota_Total_ICMSTot_vNF       := 0;
+   vNota_Total_ICMSTot_vBC       := 0;
+   vNota_Total_ICMSTot_vICMS     := 0;
+   vNota_Total_ICMSTot_vBCST     := 0;
+   vNota_Total_ICMSTot_vST       := 0;
+   vNota_Total_ICMSTot_vProd     := 0;
+   vNota_Total_ICMSTot_vFrete    := 0;
+   vNota_Total_ICMSTot_vSeg      := 0;
+   vNota_Total_ICMSTot_vDesc     := 0;
+   vNota_Total_ICMSTot_vII       := 0;
+   vNota_Total_ICMSTot_vIPI      := 0;
+   vNota_Total_ICMSTot_vPIS      := 0;
+   vNota_Total_ICMSTot_vCOFINS   := 0;
+   vNota_Total_ICMSTot_vOutro    := 0;
+   vNota_Total_ICMSTot_vNF       := 0;
 
-    vNota_Total_ISSQNtot_vServ    := 0;
-    vNota_Total_ISSQNtot_vBC      := 0;
-    vNota_Total_ISSQNtot_vISS     := 0;
-    vNota_Total_ISSQNtot_vPIS     := 0;
-    vNota_Total_ISSQNtot_vCOFINS  := 0;
+   vNota_Total_ISSQNtot_vServ    := 0;
+   vNota_Total_ISSQNtot_vBC      := 0;
+   vNota_Total_ISSQNtot_vISS     := 0;
+   vNota_Total_ISSQNtot_vPIS     := 0;
+   vNota_Total_ISSQNtot_vCOFINS  := 0;
 
-    vNota_Total_retTrib_vRetPIS   := 0;
-    vNota_Total_retTrib_vRetCOFINS:= 0;
-    vNota_Total_retTrib_vRetCSLL  := 0;
-    vNota_Total_retTrib_vBCIRRF   := 0;
-    vNota_Total_retTrib_vIRRF     := 0;
-    vNota_Total_retTrib_vBCRetPrev:= 0;
-    vNota_Total_retTrib_vRetPrev  := 0;
+   vNota_Total_retTrib_vRetPIS   := 0;
+   vNota_Total_retTrib_vRetCOFINS:= 0;
+   vNota_Total_retTrib_vRetCSLL  := 0;
+   vNota_Total_retTrib_vBCIRRF   := 0;
+   vNota_Total_retTrib_vIRRF     := 0;
+   vNota_Total_retTrib_vBCRetPrev:= 0;
+   vNota_Total_retTrib_vRetPrev  := 0;
 end;
 
 end.
 
-
+{
 -<ICMSTot>
 
 <vBC>0.00</vBC>
@@ -6653,33 +6756,33 @@ Base de Cálculo dos itens (Campo: vBC - ID: N15) que fazem parte do cálculo,
 será retornado a rejeição "531 - Total da BC ICMS difere do somatório dos itens".
 
 
-
-
-UF	Sigla	Percentual do FCP	Legislação Interna
-Alagoas	FECOEP	Percentuais fixos em 1% e 2%	Art. 2º do Decreto nº 2.845/2005
-Amazonas	FPS	Percentuais fixos em 1.90% e 2%	Art. 1° da Lei n° 4.454/2017
-Bahia	FECP	Percentual único fixo em 2%	Art. 16-A da Lei nº 7.014/96
-Ceará	FECOP	Percentual único fixo em 2%	Lei Complementar n° 37/2007
-Distrito Federal	FCEP	Percentual único fixo em 2%	Art. 46-A do RICMS/DF
-Espírito Santo	FUNCOP	Percentual único fixo em 2%	Art. 71-A do RICMS/ES
-Goiás	PROTEGE	Percentual máximo de 2%	Art. 20, §6º, do RCTE/GO e/c com o Anexo XIV, do RCTE/GO
-Maranhão	FUMACOP	Percentual único fixo em 2%	Art. 5º da Lei nº 8.205/2004
-Mato Grosso	FECEP	Percentual único fixo em 2%	Art. 95, § 7º, do RICMS/MT e/c Lei Complementar 144/2003
-Mato Grosso do Sul	FECOMP	Percentual único fixo em 2%	Art. 41-A da Lei nº 1.810/97
-Minas Gerais	FEM	Percentual único fixo em 2%	Art. 2°, inciso II, do Decreto n° 46.927/2015
-Paraíba	FUNCEP	Percentual único fixo em 2%	Art. 2º do Decreto nº 25.618/2004
-Paraná	FECOP	Percentual único fixo em 2%	Art. 14-A da Lei n° 11.580/96 e/c Anexo XII do RICMS/PR
-Pernambuco	FECEP	Percentual único fixo em 2%	Lei n° 12.523/2003
-Piauí	FECOP	Percentuais fixos em 1% e 2%	Art. 23-D da Lei n° 4.257/89
-Rio de Janeiro	FECP	Percentuais fixos de 2% e 4%	Lei n° 4.056/2002
-Rio Grande do Norte	FECOP	Percentual único fixo em 2%	Art. 104-A do RICMS/RN
-Rio Grande do Sul	AMPARA	Percentual único fixo em 2%	Art. 27, § único, do RICMS/RS e/c Art. 28, § único, do RICMS/RS
-Rondônia	FECOEP	Percentual máximo de 2%	Art. 13 do RICMS/RO
-São Paulo	FECOEP	Percentual único fixo em 2%	Art. 56-C do RICMS/SP
-Sergipe	FECP	Percentual único fixo em 2%	Art. 40-A do RICMS/SE
-Tocantins	FECOEP	Percentual único fixo em 2%	Art. 513-I do RICMS/TO
+================================================================================
+UF	         Sigla	 Percentual do FCP	         Legislação Interna
+--------------------------------------------------------------------------------
+Alagoas	         FECOEP	 Percentuais fixos em 1% e 2%	 Art. 2º do Decreto nº 2.845/2005
+Amazonas         FPS	 Percentuais fixos em 1.90% e 2% Art. 1° da Lei n° 4.454/2017
+Bahia	         FECP	 Percentual único fixo em 2%	 Art. 16-A da Lei nº 7.014/96
+Ceará	         FECOP	 Percentual único fixo em 2%	 Lei Complementar n° 37/2007
+Distrito Federal FCEP	 Percentual único fixo em 2%	 Art. 46-A do RICMS/DF
+Espírito Santo	 FUNCOP	 Percentual único fixo em 2%	 Art. 71-A do RICMS/ES
+Goiás	         PROTEGE Percentual máximo de 2%	 Art. 20, §6º, do RCTE/GO e/c com o Anexo XIV, do RCTE/GO
+Maranhão	 FUMACOP Percentual único fixo em 2%	 Art. 5º da Lei nº 8.205/2004
+Mato Grosso	 FECEP   Percentual único fixo em 2%	 Art. 95, § 7º, do RICMS/MT e/c Lei Complementar 144/2003
+MS       	 FECOMP	 Percentual único fixo em 2%	 Art. 41-A da Lei nº 1.810/97
+Minas Gerais	 FEM	 Percentual único fixo em 2%	 Art. 2°, inciso II, do Decreto n° 46.927/2015
+Paraíba	         FUNCEP	 Percentual único fixo em 2%     Art. 2º do Decreto nº 25.618/2004
+Paraná	         FECOP	 Percentual único fixo em 2%	 Art. 14-A da Lei n° 11.580/96 e/c Anexo XII do RICMS/PR
+Pernambuco	 FECEP	 Percentual único fixo em 2%	 Lei n° 12.523/2003
+Piauí	         FECOP	 Percentuais fixos em 1% e 2%	 Art. 23-D da Lei n° 4.257/89
+Rio de Janeiro	 FECP	 Percentuais fixos de 2% e 4%	 Lei n° 4.056/2002
+RN	         FECOP	 Percentual único fixo em 2%	 Art. 104-A do RICMS/RN
+RS	         AMPARA	 Percentual único fixo em 2%	 Art. 27, § único, do RICMS/RS e/c Art. 28, § único, do RICMS/RS
+Rondônia	 FECOEP	 Percentual máximo de 2%	 Art. 13 do RICMS/RO
+São Paulo	 FECOEP	 Percentual único fixo em 2%	 Art. 56-C do RICMS/SP
+Sergipe	         FECP	 Percentual único fixo em 2%	 Art. 40-A do RICMS/SE
+Tocantins	 FECOEP	 Percentual único fixo em 2%	 Art. 513-I do RICMS/TO
 ** As UFs AC, AP, PA, RR e SC não possuem o adicional do FCP.
-
+================================================================================
 
 {
 A|versao|Id|
@@ -6849,19 +6952,4 @@ ZD01|CNPJ|xContato|email|fone|
 ZD07|idCSRT|hashCSRT|
 }
 
-
-
-
-   {225.1-N17a} Tratar_Produto_Imposto_ICMS_vBCFCP;
-   {225.2-N17b} Tratar_Produto_Imposto_ICMS_pFCP;
-   {225.3-N17c} Tratar_Produto_Imposto_ICMS_vFCP;
-
-   {217.w-N27a} Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
-   {217.x-N27b} Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
-   {217.y-N27d} Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
-
-   {217.2-N34 } Tratar_Produto_Imposto_ICMS_pRedBCEfet;
-   {217.3-N35 } Tratar_Produto_Imposto_ICMS_vBCEfet;
-   {217.4-N36 } Tratar_Produto_Imposto_ICMS_pICMSEfet;
-   {217.5-N37 } Tratar_Produto_Imposto_ICMS_vICMSEfet;
 
