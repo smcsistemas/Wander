@@ -3,6 +3,8 @@ unit Atualizador;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+267|08/06/20|06:49|Atualizador                 |Criada tabela de característica de UFs (UF_UF)
+266|08/06/20|05:51|Atualizador                 |Criada tabela de rastreabilidade do produto (RASTRRO_RAS)
 260|06/06/20|15:22|Atualizador                 |Incluida coluna pPIS_CUMULATIVO (% PIS Cumulativo) na tabela EMPRESA
 259|06/06/20|15:22|Atualizador                 |Incluida coluna pPIS_NAOCUMULATIVO (% PIS Não Cumulativo) na tabela EMPRESA
 254|05/06/20|14:09|Atualizador                 |Incluida chave RPC_TPMOV na tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
@@ -2345,6 +2347,43 @@ begin
     if fNaoAtualizado('EMPRESA: % PIS Não Cumulativo...') Then
        Executar('ALTER TABLE EMPRESA ADD pPIS_NAOCUMULATIVO DECIMAL(6,4) NULL DEFAULT 1.65 COMMENT "% PIS Não Cumulativo" ');
 
+    //08/06/2020
+    if fNaoAtualizado('Tabela Rastro do Produto...') Then
+    begin
+       With Module.Query do
+       begin
+          Sql.Clear;
+          Sql.Add('CREATE TABLE RASTRO_RAS ( ');
+          Sql.Add('	  RAS_NRPEDIDO  INTEGER      NOT  NULL COMMENT "Nro do movimento (pedido)",           ');
+          Sql.Add('	  RAS_CDPRODUTO varchar(20)  NOT  NULL COMMENT "Cod do Produto rastreado",            ');
+          Sql.Add('	  RAS_NLOTE     varchar(20)  NULL      COMMENT "Nro do lote do produto",              ');
+          Sql.Add('	  RAS_QLOTE     DECIMAL(8,3) NULL      COMMENT "Qtde do produto no lote",             ');
+          Sql.Add('	  RAS_DFAB      datetime     NULL      COMMENT "Data de Fabricação do produto/lote",  ');
+          Sql.Add('	  RAS_DVAL      datetime     NULL      COMMENT "Data de Validade do produto/lote",    ');
+          Sql.Add('	  RAS_CAGREG    varchar(20)  NULL      COMMENT "Código de Agregação"                  ');
+          Sql.Add('     )                                                                                     ');
+          Sql.Add('COMMENT="Registro de Rastreabilidade de produtos"');
+          ExecSql;
+       end;
+    end;
+
+    //08/06/2020
+    if fNaoAtualizado('Tabela de UF...') Then
+    begin
+       With Module.Query do
+       begin
+          Sql.Clear;
+          Sql.Add('CREATE TABLE UF_UF ( ');
+          Sql.Add('	  UF_CODIGO     VARCHAR(02)  NOT  NULL COMMENT "Cod / Sigla da UF (Unidade da Federação)(Estado)",');
+          Sql.Add('	  UF_ICMS       DECIMAL(4,2) NULL      COMMENT "% Alíquota ICMS",                                 ');
+          Sql.Add('	  UF_ICMSST     DECIMAL(4,2) NULL      COMMENT "% Alíquota ICMS ST",                              ');
+          Sql.Add('	  UF_PFCP       DECIMAL(4,2) NULL      COMMENT "% Fundo de Combate a Pobreza (FCP)",              ');
+          Sql.Add('	  UF_IBGE       VARCHAR(02)  NULL      COMMENT "Cod IBGE da UF% Fundo de Combate a Pobreza (FCP)" ');
+          Sql.Add('     )                                                                                                 ');
+          Sql.Add('COMMENT="Tabela de UFs e suas características fiscais"');
+          ExecSql;
+       end;
+    end;
 end;
 
 end.

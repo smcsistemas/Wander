@@ -2949,11 +2949,17 @@ begin
        If copy(sEan,1,1) = '0' then
           sEAN := copy(sEAN,2,13);
        IF EAN13Valido(sEAN) {esta função está na ACBrUtil} then
+       begin
           Produto.Prod.cEAN := sEAN;
+          Produto.Prod.cEANTrib := sEAN;
+       end;
     end;
 
     if Produto.Prod.cEAN = '' then
+    begin
        Produto.Prod.cEAN :='SEM GTIN';
+       Produto.Prod.cEANTrib :='SEM GTIN';
+    end;
 
    {103-I04}
    //(xProd)
@@ -3084,9 +3090,9 @@ begin
    //
    //Para produtos que não possuem código de barras com GTIN, deve ser informado
    //o literal "SEM GTIN”;
-   //                                                   (Atualizado NT 2017/001)   //===========================================================================    Produto.Prod.cEANTrib := sEAN;
-    if Produto.Prod.cEANTrib = '' then
-       Produto.Prod.cEANTrib :='SEM GTIN';
+   //                                                   (Atualizado NT 2017/001)   //===========================================================================    //Produto.Prod.cEANTrib := sEAN;
+    //if Produto.Prod.cEANTrib = '' then
+    //   Produto.Prod.cEANTrib :='SEM GTIN';
 
    {112-I13}
    //(uTrib)
@@ -5931,7 +5937,7 @@ begin
    {217.y-N27d} Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
    {217.2-N34 } Tratar_N34_Produto_Imposto_ICMS_pRedBCEfet;
    {217.3-N35 } Tratar_N35_Produto_Imposto_ICMS_vBCEfet;
-   {217.4-N36 } Tratar_N36_Produto_Imposto_ICMS_pICMSEfet;;
+   {217.4-N36 } Tratar_N36_Produto_Imposto_ICMS_pICMSEfet;
    {217.5-N37 } Tratar_N37_Produto_Imposto_ICMS_vICMSEfet;
 end;
 
@@ -6093,7 +6099,7 @@ begin
    {245.23-N32  } Tratar_N32_Produto_Imposto_ICMS_vICMSSTDes;
    {245.23b-N34 } Tratar_N34_Produto_Imposto_ICMS_pRedBCEfet;
    {245.23c-N35 } Tratar_N35_Produto_Imposto_ICMS_vBCEfet;
-   {245.23d-N36 } Tratar_N36_Produto_Imposto_ICMS_pICMSEfet;;
+   {245.23d-N36 } Tratar_N36_Produto_Imposto_ICMS_pICMSEfet;
    {245.23e-N37 } Tratar_N37_Produto_Imposto_ICMS_vICMSEfet;
 end;
 
@@ -6528,7 +6534,7 @@ begin
    Produto.Imposto.ICMS.vICMSSTDest := 0;
 end;
 
-procedure TfrmEmissaoDeNFe.Tratar_N36_Produto_Imposto_ICMS_pICMSEfet;;
+procedure TfrmEmissaoDeNFe.Tratar_N36_Produto_Imposto_ICMS_pICMSEfet;
 begin
    {N36}
    //Alíquota do ICMS na operação a consumidor final, caso esteja submetido ao
@@ -6570,10 +6576,9 @@ begin
    //Valor da base de cálculo que seria atribuída à operação própria do
    //contribuinte substituído, caso esteja submetido ao regime comum de
    //tributação, obtida pelo produto do Vprod por (1-pRedBCEfet).
-   //Obs.: opcional a critério da UF.   //---------------------------------------------------------------------------   With Produto.Imposto.ICMS do
-   begin
-    vBCEfet:= (100-pRedBCEfet)/100 * Produto.Prod.vProd;
-   end;
+   //Obs.: opcional a critério da UF.   //---------------------------------------------------------------------------   //With Produto.Imposto.ICMS do   //begin
+    //vBCEfet := (100-pRedBCEfet)/100 * Produto.Prod.vProd;
+   //end;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N37_Produto_Imposto_ICMS_vICMSEfet;

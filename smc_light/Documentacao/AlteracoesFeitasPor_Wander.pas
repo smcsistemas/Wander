@@ -27,10 +27,11 @@ ordem decrescente de data....
 |  TOTAL| 264  |
 ================
 
-
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+267|08/06/20|06:49|Atualizador                 |Criada tabela de característica de UFs (UF_UF)
+266|08/06/20|05:51|Atualizador                 |Criada tabela de rastreabilidade do produto (RASTRRO_RAS)
 265|06/06/20|22:09|EmissaoDeNFe                |Criada procedure Tratar_Grupo_I80_Rastreabilidade_de_produto
 264|06/06/20|17:49|cadastro_produto            |Tratando % de Redução Base de Cálculo ICMS ST
 263|06/06/20|16:29|EmissaoDeNFe                |APlicando o CST do COFINS da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
