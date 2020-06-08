@@ -5,6 +5,7 @@ unit cadastro_produto;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+269|08/06/20|08:35|cadastro_produto            |Passa a tratar a coluna PROD_RASTREAVEL (indicador de rastreabilidade) da tabela PRODUTO
 264|06/06/20|17:49|cadastro_produto            |Tratando % de Redução Base de Cálculo ICMS ST
 256|06/06/20|05:35|EmissaoDeNFe                |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 250|03/06/20|05:34|cadastro_produto            |Preparada para ser chamada por telas do movimento para acertar o cadastro de algum produto
@@ -561,6 +562,8 @@ type
     DBGrid1: TDBGrid;
     Label24: TLabel;
     edREDUCAO_ICMS_ST: TEdit;
+    qConsultaPROD_RASTREAVEL: TIntegerField;
+    rgPROD_RASTREAVEL: TRadioGroup;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -1230,6 +1233,10 @@ begin
    if rgNFe_indEscala.ItemIndex = -1 then
       rgNFe_indEscala.ItemIndex := 2;
 
+   //Indicador de Rastreabilidade
+   //Padrão = 0-Não Rastreável
+   if rgPROD_RASTREAVEL.ItemIndex = -1 then
+      rgPROD_RASTREAVEL.ItemIndex := 0;
 end;
 
 procedure TFrm_Produto.edREDUCAO_ICMSExit(Sender: TObject);
@@ -2960,6 +2967,7 @@ begin
    qAUX.sql.add('       NFe_modBC,                ');
    qAUX.sql.add('       NFe_modBCST,              ');
    qAUX.sql.add('       NFe_indEscala,            ');
+   qAUX.sql.add('       PROD_RASTREAVEL,          ');
    qAUX.sql.add('       VALOR_PAUTA_BC,           ');
    qAUX.sql.add('       VALOR_PAUTA_BC_ST,        ');
    qAUX.sql.add('       NFe_pMVA,                 ');
@@ -2995,6 +3003,7 @@ begin
    qAUX.sql.add('      :NFe_modBC,                ');
    qAUX.sql.add('      :NFe_modBCST,              ');
    qAUX.sql.add('      :NFe_indEscala,            ');
+   qAUX.sql.add('      :PROD_RASTREAVEL,          ');
    qAUX.sql.add('      :VALOR_PAUTA_BC,           ');
    qAUX.sql.add('      :VALOR_PAUTA_BC_ST,        ');
    qAUX.sql.add('      :NFe_pMVA,                 ');
@@ -3042,6 +3051,7 @@ begin
    qAUX.ParamByName('NFe_modBC'               ).AsInteger := rgNFe_modBC.ItemIndex;
    qAUX.ParamByName('NFe_modBCST'             ).AsInteger := rgNFe_modBCST.ItemIndex;
    qAUX.ParamByName('NFe_indEscala'           ).AsInteger := rgNFe_indEscala.ItemIndex;
+   qAUX.ParamByName('PROD_RASTREAVEL'         ).AsInteger := rgPROD_RASTREAVEL.ItemIndex;
    qAUX.ParamByName('VALOR_PAUTA_BC'          ).AsFloat   := ValorValido(edVALOR_PAUTA_BC.Text);
    qAUX.ParamByName('VALOR_PAUTA_BC_ST'       ).AsFloat   := ValorValido(edVALOR_PAUTA_BC_ST.Text);
    qAUX.ParamByName('NFe_pMVA'                ).AsFloat   := ValorValido(edNFe_pMVA.Text);
@@ -3180,6 +3190,9 @@ begin
 
    //Indicador de Escala Relevante
    rgNFe_indEscala.ItemIndex            := qConsulta.FieldByName('NFe_indEscala').AsInteger;
+
+   //Indicador de Rastreabilidade
+   rgPROD_RASTREAVEL.ItemIndex          := qConsulta.FieldByName('PROD_RASTREAVEL').AsInteger;
 
    Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
 

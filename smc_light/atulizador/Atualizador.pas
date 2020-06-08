@@ -1,10 +1,12 @@
 unit Atualizador;
 {
+PRODUTO ADD PROD_RASTREAVEL
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+268|08/06/20|08:35|Atualizador                 |Criada coluna PROD_RASTREAVEL (indicador de rastreabilidade) na tabela PRODUTO
 267|08/06/20|06:49|Atualizador                 |Criada tabela de característica de UFs (UF_UF)
-266|08/06/20|05:51|Atualizador                 |Criada tabela de rastreabilidade do produto (RASTRRO_RAS)
+266|08/06/20|05:51|Atualizador                 |Criada tabela de rastreabilidade do produto (RASTRO_RAS)
 260|06/06/20|15:22|Atualizador                 |Incluida coluna pPIS_CUMULATIVO (% PIS Cumulativo) na tabela EMPRESA
 259|06/06/20|15:22|Atualizador                 |Incluida coluna pPIS_NAOCUMULATIVO (% PIS Não Cumulativo) na tabela EMPRESA
 254|05/06/20|14:09|Atualizador                 |Incluida chave RPC_TPMOV na tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
@@ -2384,6 +2386,10 @@ begin
           ExecSql;
        end;
     end;
+
+    if fNaoAtualizado('PRODUTO: Parâmetro de Rastreabilidade...') Then
+       Executar('ALTER TABLE PRODUTO ADD PROD_RASTREAVEL INTEGER NULL DEFAULT 0 COMMENT "Flag de Rastreabilidade (0=Não)(1=Sim)" ');
+
 end;
 
 end.

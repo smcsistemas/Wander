@@ -4588,6 +4588,23 @@ object Frm_Produto: TFrm_Produto
           ParentFont = False
           TabOrder = 4
         end
+        object rgPROD_RASTREAVEL: TRadioGroup
+          Left = 170
+          Top = 176
+          Width = 103
+          Height = 71
+          Caption = 'Rastreabilidade'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Items.Strings = (
+            'N'#227'o Rastre'#225'vel'
+            'Rastre'#225'vel')
+          ParentFont = False
+          TabOrder = 5
+        end
       end
       object pnControles2: TPanel
         Left = 883
@@ -6330,6 +6347,7 @@ object Frm_Produto: TFrm_Produto
     Top = 160
   end
   object qConsulta: TFDQuery
+    Active = True
     Connection = Module.connection
     SQL.Strings = (
       'SELECT * FROM produto')
@@ -7051,6 +7069,11 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'NFe_indEscala'
       Origin = 'NFe_indEscala'
+    end
+    object qConsultaPROD_RASTREAVEL: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_RASTREAVEL'
+      Origin = 'PROD_RASTREAVEL'
     end
   end
   object tConsulta: TTimer
