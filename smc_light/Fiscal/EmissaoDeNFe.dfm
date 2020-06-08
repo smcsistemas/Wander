@@ -467,4 +467,22 @@ object frmEmissaoDeNFe: TfrmEmissaoDeNFe
     Left = 339
     Top = 181
   end
+  object qRASTRO_RAS: TFDQuery
+    Connection = Module.connection
+    SQL.Strings = (
+      'select * from RASTRO_RAS')
+    Left = 448
+    Top = 53
+    object IntegerField1: TIntegerField
+      FieldName = 'VLAC_ID_VENDA'
+      Origin = 'VLAC_ID_VENDA'
+      Required = True
+    end
+    object StringField1: TStringField
+      FieldName = 'VLAC_NLACRE'
+      Origin = 'VLAC_NLACRE'
+      Required = True
+      Size = 60
+    end
+  end
 end

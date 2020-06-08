@@ -3,6 +3,7 @@ unit EmissaoDeNFe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+271|08/06/20|11:03|EmissaoDeNFe                |Consumindo a tabela RASTRO_RAS (Dados de rastreabilidade)
 270|08/06/20|08:35|EmissaoDeNFe                |Passa a tratar a coluna PROD_RASTREAVEL (indicador de rastreabilidade) da tabela PRODUTO
 265|06/06/20|22:09|EmissaoDeNFe                |Criada procedure Tratar_Grupo_I80_Rastreabilidade_de_produto
 263|06/06/20|16:29|EmissaoDeNFe                |APlicando o CST do COFINS da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
@@ -169,6 +170,9 @@ type
     SQL_venda_lacre_vlacVLAC_ID_VENDA: TIntegerField;
     SQL_venda_lacre_vlacVLAC_NLACRE: TStringField;
     qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC: TFDQuery;
+    qRASTRO_RAS: TFDQuery;
+    IntegerField1: TIntegerField;
+    StringField1: TStringField;
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
@@ -196,6 +200,7 @@ type
     procedure Carregar_Transportador(pID:Integer);
     procedure Carregar_Transportador_Veiculo(pCODIGO:Integer);
     procedure Carregar_Venda_Lacre(pCODIGO:Integer);
+    procedure Carregar_RASTRO_RAS(pPedido:Integer;pPRODUTO:String);
     procedure Carregar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pTPMOV,pCFOP,pProduto:String);
     function Venda_Possui_Produtos_e_Servicos:Boolean;
     function AlgumProdutoSem_ICMS_ST:Boolean;
@@ -374,7 +379,7 @@ var
 
   vAvisarQueNaoEncontrou: Boolean;
 
-  vValor,                      vMostraValor,
+  vValor,         vMostraValor,
   vValorAuxiliar, vValorDaBaseDeCalculoDoICMS, vBrenanfe_ValorTotalDoICMS : real;
 
   vNumNota,
@@ -399,9 +404,9 @@ var
   Rastro            : TrastroCollectionItem;
   Medicamento       : TmedCollectionItem;
   Pagamento         : TpagCollectionItem;
-//------------------------------------------------------------------------------
-// Bloco de Somadores da NFe
-//------------------------------------------------------------------------------
+  //----------------------------------------------------------------------------
+  // Bloco de Somadores da NFe
+  //----------------------------------------------------------------------------
     vNota_Total_ICMSTot_vBC       ,
     vNota_Total_ICMSTot_vICMS     ,
     vNota_Total_ICMSTot_vBCST     ,
@@ -430,7 +435,7 @@ var
     vNota_Total_retTrib_vIRRF     ,
     vNota_Total_retTrib_vBCRetPrev,
     vNota_Total_retTrib_vRetPrev  : Real;
-//------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
 implementation
 
 uses global_variables, u_funcoes, S_Module;
@@ -491,23 +496,23 @@ begin
    // TRATAR A NFE...
    // ------------------------------------------
 
-
    // CONDICAO DE PAGAMENTO
    // Depois tratarei isto.... ***
    {
    qCONDICAOPGTO_CPG.Close;
    qCONDICAOPGTO_CPG.Sql.Clear;
-   qCONDICAOPGTO_CPG.Sql.Add('SELECT TIPO_PAGAMENTO as CPG_NOME,                ');
-   qCONDICAOPGTO_CPG.Sql.Add('       0              as CPG_VALORMINIMO,         ');
-   qCONDICAOPGTO_CPG.Sql.Add('       ''             as CPG_TIPO,                ');
-   qCONDICAOPGTO_CPG.Sql.Add('       ''             as CPG_DETALHAMENTO,        ');
-   qCONDICAOPGTO_CPG.Sql.Add('       0              as CPG_P1,                  ');
-   qCONDICAOPGTO_CPG.Sql.Add('       COD_TIPO_PAGAMENT,                         ');
-   qCONDICAOPGTO_CPG.Sql.Add('       TOTAL_PAGO,                                ');
-   qCONDICAOPGTO_CPG.Sql.Add('       VALOR_DEBITADO                             ');
-   qCONDICAOPGTO_CPG.Sql.Add('  FROM venda_pagamento                            ');
-   qCONDICAOPGTO_CPG.Sql.Add(' WHERE CODIGO = :CPG_CODIGO                       ');
-   qCONDICAOPGTO_CPG.ParamByName('CPG_CODIGO').AsInteger := qVENDA.FieldbyName('CODIGO_VENDA').AsInteger;
+   qCONDICAOPGTO_CPG.Sql.Add('SELECT TIPO_PAGAMENTO as CPG_NOME,             ');
+   qCONDICAOPGTO_CPG.Sql.Add('       0              as CPG_VALORMINIMO,      ');
+   qCONDICAOPGTO_CPG.Sql.Add('       ''             as CPG_TIPO,             ');
+   qCONDICAOPGTO_CPG.Sql.Add('       ''             as CPG_DETALHAMENTO,     ');
+   qCONDICAOPGTO_CPG.Sql.Add('       0              as CPG_P1,               ');
+   qCONDICAOPGTO_CPG.Sql.Add('       COD_TIPO_PAGAMENT,                      ');
+   qCONDICAOPGTO_CPG.Sql.Add('       TOTAL_PAGO,                             ');
+   qCONDICAOPGTO_CPG.Sql.Add('       VALOR_DEBITADO                          ');
+   qCONDICAOPGTO_CPG.Sql.Add('  FROM venda_pagamento                         ');
+   qCONDICAOPGTO_CPG.Sql.Add(' WHERE CODIGO = :CPG_CODIGO                    ');
+   qCONDICAOPGTO_CPG.ParamByName('CPG_CODIGO').AsInteger :=
+                                   qVENDA.FieldbyName('CODIGO_VENDA').AsInteger;
    qCONDICAOPGTO_CPG.Open;
    }
 
@@ -871,15 +876,30 @@ end;
 
 procedure TfrmEmissaoDeNFe.Carregar_Venda_Lacre(pCODIGO: Integer);
 begin
-    //Recupera os dados dos Lacres associados ao movimento
-    //--------------------------------------------------------------------------
-    SQL_venda_lacre_vlac.Close;
-    SQL_venda_lacre_vlac.SQL.Clear;
-    SQL_venda_lacre_vlac.SQL.Add('SELECT *                             ');
-    SQL_venda_lacre_vlac.SQL.Add('  FROM venda_lacre_vlac              ');
-    SQL_venda_lacre_vlac.SQL.Add(' WHERE VLAC_ID_VENDA = :VLAC_ID_VENDA');
-    SQL_venda_lacre_vlac.ParamByName('VLAC_ID_VENDA').AsInteger := pCodigo;
-    SQL_venda_lacre_vlac.Open;
+   //Recupera os dados dos Lacres associados ao movimento
+   //--------------------------------------------------------------------------
+   SQL_venda_lacre_vlac.Close;
+   SQL_venda_lacre_vlac.SQL.Clear;
+   SQL_venda_lacre_vlac.SQL.Add('SELECT *                             ');
+   SQL_venda_lacre_vlac.SQL.Add('  FROM venda_lacre_vlac              ');
+   SQL_venda_lacre_vlac.SQL.Add(' WHERE VLAC_ID_VENDA = :VLAC_ID_VENDA');
+   SQL_venda_lacre_vlac.ParamByName('VLAC_ID_VENDA').AsInteger := pCodigo;
+   SQL_venda_lacre_vlac.Open;
+end;
+
+procedure TfrmEmissaoDeNFe.Carregar_RASTRO_RAS(pPedido:Integer;pPRODUTO:String);
+begin
+   //Recupera os dados dos RASTREABILIDADE associados ao Produto
+   //--------------------------------------------------------------------------
+   qRASTRO_RAS.Close;
+   qRASTRO_RAS.SQL.Clear;
+   qRASTRO_RAS.SQL.Add('SELECT *                             ');
+   qRASTRO_RAS.SQL.Add('  FROM RASTRO_RAS                    ');
+   qRASTRO_RAS.SQL.Add(' WHERE RAS_NRPEDIDO  = :RAS_NRPEDIDO ');
+   qRASTRO_RAS.SQL.Add(' WHERE RAS_CDPRODUTO = :RAS_CDPRODUTO');
+   qRASTRO_RAS.ParamByName('RAS_NRPEDIDO' ).AsInteger := pPedido;
+   qRASTRO_RAS.ParamByName('RAS_CDPRODUTO').AsString  := pProduto;
+   qRASTRO_RAS.Open;
 end;
 
 function TfrmEmissaoDeNFe.AlgumProdutoSem_ICMS_ST: Boolean;
@@ -3182,8 +3202,9 @@ begin
    //a partir da indicação de informações de número de lote,
    //data de fabricação/produção, data de validade, etc.
    //
-   //Obrigatório o preenchimento deste grupo no caso de medicamentos e produtos
-   //farmacêuticos.
+   //Informar apenas quando se tratar de produto a ser rastreado
+   //posteriormente
+   //                                              (Grupo criado na NT/2016/002)
 
    //Somente se o produto estiver parametrizado como rastreável
    if qVENDA_ITEM.FieldByName('PROD_RASTREAVEL').AsInteger = 0 then
@@ -3195,29 +3216,39 @@ begin
    //Informar apenas quando se tratar de produto a ser rastreado posteriormente
    //(Grupo criado na NT/2016/002)
 
-   {128r-I81}
-   //nLote
-   //Número do Lote do produto
+   Carregar_RASTRO_RAS(g_Numero_do_Movimento,Produto.Prod.cProd);
 
-   {128s-I82}
-   //qLote
-   //Quantidade de produto no Lote
+   With Rastro do
+   begin
+      {128r-I81}
+      //nLote
+      //Número do Lote do produto
+      nLote := qRASTRO_RAS.FieldByName('RAS_NLOTE').AsString;
 
-   {128t-I83}
-   //dFab
-   //Data de fabricação/ Produção
-   //Formato: “AAAA-MM-DD”
+      {128s-I82}
+      //qLote
+      //Quantidade de produto no Lote
+      qLote := qRASTRO_RAS.FieldByName('RAS_QLOTE').AsFloat;
 
-   {128u-I84}
-   //dVal
-   //Data de validade
-   //Formato: “AAAA-MM-DD”
-   //Informar o último dia do mês caso a validade não especifique o dia.
+      {128t-I83}
+      //dFab
+      //Data de fabricação/ Produção
+      //Formato: “AAAA-MM-DD”
+      dFab := qRASTRO_RAS.FieldByName('RAS_DFAB').AsDateTime;
 
-   {128v-I85}
-   //cAgreg
-   //Código de Agregação
+      {128u-I84}
+      //dVal
+      //Data de validade
+      //Formato: “AAAA-MM-DD”
+      //Informar o último dia do mês caso a validade não especifique o dia.
+      dVal := qRASTRO_RAS.FieldByName('RAS_DVAL').AsDateTime;
 
+      {128v-I85}
+      //cAgreg
+      //Código de Agregação
+      cAgreg := qRASTRO_RAS.FieldByName('RAS_CAGREG').AsString;
+
+   end;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_J_Detalhamento_Especifico_de_Veiculos_Novos;
@@ -6962,4 +6993,4 @@ ZD01|CNPJ|xContato|email|fone|
 ZD07|idCSRT|hashCSRT|
 }
 
-
+select * from RASTRO_RAS
