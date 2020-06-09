@@ -40,7 +40,7 @@ object Frm_Produto: TFrm_Produto
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    Properties.ActivePage = tabTributacao
+    Properties.ActivePage = tab_Cadastrar
     Properties.ActivateFocusedTab = False
     Properties.CustomButtons.Buttons = <>
     LookAndFeel.NativeStyle = False
@@ -3557,7 +3557,7 @@ object Frm_Produto: TFrm_Produto
           Top = 5
           Width = 120
           Height = 40
-          Hint = 'Cancelar cadastro.'
+          Hint = 'Cancelar a opera'#231#227'o'
           Caption = '&Cancelar'
           Enabled = False
           LookAndFeel.Kind = lfFlat
@@ -6347,7 +6347,6 @@ object Frm_Produto: TFrm_Produto
     Top = 160
   end
   object qConsulta: TFDQuery
-    Active = True
     Connection = Module.connection
     SQL.Strings = (
       'SELECT * FROM produto')

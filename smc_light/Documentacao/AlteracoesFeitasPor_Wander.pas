@@ -26,10 +26,19 @@ ordem decrescente de data....
 |-------|------|
 |  TOTAL| 264  |
 ================
+//092
+//
+function InteiroMenos1_se_Vazio(pString:String):Integer;
 
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+275|09/06/20|06:33|EmissaoDeNFe                |Passa a usar a função VazioSeInteiroMenos1
+274|09/06/20|06:33|EmissaoDeNFe                |Passa a usar a função InteiroMenos1_se_Vazio
+273|09/06/20|06:33|u_funcoes                   |Criada função VazioSeInteiroMenos1 que recebe um inteiro
+273|        |     |                            |e o devolve transformado em string ou vazio se -1 ou inválido
+272|09/06/20|06:33|u_funcoes                   |Criada função InteiroMenos1_se_Vazio que recebe uma string e a devolve transformada em
+272|        |     |                            |inteiro ou -1 se vazia ou inválida
 271|08/06/20|11:03|EmissaoDeNFe                |Consumindo a tabela RASTRO_RAS (Dados de rastreabilidade)
 270|08/06/20|08:35|EmissaoDeNFe                |Passa a tratar a coluna PROD_RASTREAVEL (indicador de rastreabilidade) da tabela PRODUTO
 269|08/06/20|08:35|cadastro_produto            |Passa a tratar a coluna PROD_RASTREAVEL (indicador de rastreabilidade) da tabela PRODUTO

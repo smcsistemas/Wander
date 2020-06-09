@@ -3,6 +3,8 @@ unit EmissaoDeNFe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+275|09/06/20|06:33|EmissaoDeNFe                |Passa a usar a função VazioSeInteiroMenos1
+274|09/06/20|06:33|EmissaoDeNFe                |Passa a usar a função InteiroMenos1_se_Vazio
 271|08/06/20|11:03|EmissaoDeNFe                |Consumindo a tabela RASTRO_RAS (Dados de rastreabilidade)
 270|08/06/20|08:35|EmissaoDeNFe                |Passa a tratar a coluna PROD_RASTREAVEL (indicador de rastreabilidade) da tabela PRODUTO
 265|06/06/20|22:09|EmissaoDeNFe                |Criada procedure Tratar_Grupo_I80_Rastreabilidade_de_produto

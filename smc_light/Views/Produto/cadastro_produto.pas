@@ -654,7 +654,9 @@ type
     procedure CodBalancaCheck(campo: TDBEdit);
     procedure cxButton7Click(Sender: TObject);
     procedure edCODIGO_ALFANUMERICOKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    function CodBarrasRepetido: Boolean;
+    function JaExiste_CODIGO_BARRAS: Boolean;
+    function JaExiste_CODIGO_ALFANUMERICO: Boolean;
+    function JaExiste_DESCRICAO_PRODUTO: Boolean;
     function RefFabricanteRepetido(foco: Boolean = true): Boolean;
     procedure edCESTKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edNCMKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -1535,9 +1537,14 @@ end;
 
 procedure TFrm_Produto.Ir_Para_Cadastro;
 begin
-
    //Posicionar na aba de Cadastro
    cxpageControl1.ActivePageIndex := 1;
+
+  //Permitir edição
+  HabilitarCampos(True);
+
+  //Colocar o cursor no 1o campo editável.
+  edCODIGO_ALFANUMERICO.setfocus;
 
 end;
 
@@ -1581,8 +1588,6 @@ begin
   //Posicionar na aba Cadastro
   Ir_Para_Cadastro;
 
-  HabilitarCampos(True);
-  edDESCRICAO_PRODUTO.SetFocus;
 end;
 
 procedure TFrm_Produto.bControleIncluirClick(Sender: TObject);
@@ -2116,13 +2121,24 @@ begin
 
    result := false;
 
-   if CodBarrasRepetido then
+   if JaExiste_CODIGO_ALFANUMERICO then exit;
+   if JaExiste_CODIGO_BARRAS       then exit;
+
+   if edDESCRICAO_PRODUTO.Text = '' then
+   begin
+      wnAlerta('Cadastrar Produto',
+               'Informe a descrição/nome do Produto');
+      edDESCRICAO_PRODUTO.SetFocus;
       exit;
+   end;
+   if JaExiste_DESCRICAO_PRODUTO then exit;
+
 
    if edPRECO_FINAL_ATACADO.Text <> '' then
       if not NumeroPositivoValido(edPRECO_FINAL_ATACADO.Text) then
       begin
-         wnAlerta('Cadastrar Produto','Preço de Atacado inválido', taLeftJustify, 12);
+         wnAlerta('Cadastrar Produto',
+                  'Preço de Atacado inválido');
          edPRECO_FINAL_ATACADO.SetFocus;
          exit;
       end;
@@ -2359,7 +2375,7 @@ begin
   end;
 end;
 
-function TFrm_Produto.CodBarrasRepetido: Boolean;
+function TFrm_Produto.JaExiste_CODIGO_BARRAS: Boolean;
 var
   qry: TFDQuery;
   x: string;
@@ -2373,10 +2389,7 @@ begin
   x := 'SELECT CODIGO,           '+
        '       DESCRICAO_PRODUTO '+
        '  FROM PRODUTO           '+
-       ' WHERE (     CODIGO_BARRAS IS NOT NULL '+
-       '         AND CODIGO_BARRAS <> ' + QuotedStr(emptystr) +
-       '       )                 '+
-       '   AND CODIGO_BARRAS =' + QuotedStr(edCODIGO_BARRAS.Text) +
+       ' WHERE CODIGO_BARRAS =' + QuotedStr(edCODIGO_BARRAS.Text) +
        '   AND CODIGO  <>     ' + edCODIGO.Text;
     qry := simplequery(x);
     if qry <> nil then
@@ -2390,6 +2403,36 @@ begin
       edCODIGO_BARRAS.SelectAll;
       edCODIGO_BARRAS.SetFocus;
     end;
+end;
+
+function TFrm_Produto.JaExiste_DESCRICAO_PRODUTO: Boolean;
+var
+  qry: TFDQuery;
+  x: string;
+begin
+  result := False;
+  if edDESCRICAO_PRODUTO.Text = '' then
+     exit;
+
+  x := 'SELECT CODIGO, '
+     +        'DESCRICAO_PRODUTO '
+     +   'FROM PRODUTO '
+     +  'WHERE DESCRICAO_PRODUTO = ' + QuotedStr(edDESCRICAO_PRODUTO.Text);
+  if edCODIGO.Text <> '' then
+     x := x + ' AND CODIGO  <> ' + QuotedStr(edCODIGO.Text);
+
+  qry := simplequery(x);
+  if qry <> nil then
+  begin
+      wnAlerta('Cadastrar Produto',
+               'Já existe outro produto com esta descrição: ' + slinebreak
+             + 'Cód: ' + qry.Fields[0].AsString              + slinebreak
+             + 'Descrição: ' + qry.Fields[1].AsString);
+      edDESCRICAO_PRODUTO.SelectAll;
+      edDESCRICAO_PRODUTO.SetFocus;
+      result := True;
+      exit;
+  end;
 end;
 
 procedure TFrm_Produto.edArgumentoDePesquisaKeyPress(Sender: TObject;
@@ -2423,23 +2466,43 @@ begin
 end;
 
 procedure TFrm_Produto.edCODIGO_ALFANUMERICOExit(Sender: TObject);
+begin
+  if bControleCancelar.focused then
+     exit;
+
+  if JaExiste_CODIGO_ALFANUMERICO then
+     exit;
+end;
+
+function TFrm_Produto.JaExiste_CODIGO_ALFANUMERICO:Boolean;
 var
   qry: TFDQuery;
   x: string;
 begin
+  result := False;
   if edCODIGO_ALFANUMERICO.Text = '' then
      exit;
 
-  x := 'SELECT CODIGO, DESCRICAO_PRODUTO FROM PRODUTO WHERE (CODIGO_ALFANUMERICO IS NOT NULL AND CODIGO_ALFANUMERICO <> ' + QuotedStr(emptystr) +
-      ') AND CODIGO_ALFANUMERICO =' + QuotedStr(edCODIGO_ALFANUMERICO.Text) + ' AND CODIGO  <>' + edCODIGO.Text;
-    qry := simplequery(x);
-    if qry <> nil then
-    begin
-      wnAlerta('Cadastrar Produto', 'Código Alfanumérico Alternativo já cadastrado no produto: ' + slinebreak + 'Cód: ' + qry.Fields[0].AsString +
-        slinebreak + 'Descrição: ' + qry.Fields[1].AsString, taLeftJustify, 12);
+  x := 'SELECT CODIGO, '
+     +        'DESCRICAO_PRODUTO '
+     +   'FROM PRODUTO '
+     +  'WHERE CODIGO_ALFANUMERICO = ' + QuotedStr(edCODIGO_ALFANUMERICO.Text);
+  if edCODIGO.Text <> '' then
+     x := x + ' AND CODIGO  <> ' + QuotedStr(edCODIGO.Text);
+
+  qry := simplequery(x);
+  if qry <> nil then
+  begin
+      wnAlerta('Cadastrar Produto',
+               'Código Alfanumérico Alternativo já cadastrado no produto: ' + slinebreak
+             + 'Cód: ' + qry.Fields[0].AsString              + slinebreak
+             + 'Descrição: ' + qry.Fields[1].AsString,
+             taLeftJustify, 12);
+      edCODIGO_ALFANUMERICO.SelectAll;
       edCODIGO_ALFANUMERICO.SetFocus;
+      result := True;
       exit;
-    end;
+  end;
 end;
 
 procedure TFrm_Produto.edCODIGO_ALFANUMERICOKeyPress(Sender: TObject;
@@ -2455,7 +2518,7 @@ procedure TFrm_Produto.edCODIGO_ALFANUMERICOKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   if isKeyNumLetter(Key) and (length(edCODIGO_BARRAS.Text) > 6) then
-    CodBarrasRepetido;
+    JaExiste_CODIGO_BARRAS;
 end;
 
 procedure TFrm_Produto.edCODIGO_ORIGEM_MERCADORIAExit(Sender: TObject);
@@ -3045,7 +3108,7 @@ begin
    qAUX.ParamByName('STATUS_CADASTRAL'        ).AsString  := Ativo_ou_Inativo(cbSTATUS_CADASTRAL.Checked);
    qAUX.ParamByName('ICMS_CST'                ).AsString  := edICMS_CST.Text;
    qAUX.ParamByName('TIPO_ITEM'               ).AsString  := edTIPO_ITEM.Text;
-   qAUX.ParamByName('CODIGO_ORIGEM_MERCADORIA').AsString  := edCODIGO_ORIGEM_MERCADORIA.Text;
+   qAUX.ParamByName('CODIGO_ORIGEM_MERCADORIA').AsInteger := InteiroMenos1_se_Vazio(edCODIGO_ORIGEM_MERCADORIA.Text);
    qAUX.ParamByName('ALIQ_ICMS'               ).AsFloat   := ValorValido(edALIQ_ICMS.Text);
    qAUX.ParamByName('REDUCAO_ICMS'            ).AsFloat   := ValorValido(edREDUCAO_ICMS.Text);
    qAUX.ParamByName('NFe_modBC'               ).AsInteger := rgNFe_modBC.ItemIndex;
@@ -3158,7 +3221,7 @@ begin
    edICMS_CST_NOME.Text            := fCST_ICMS_DESCRICAO(edICMS_CST.Text);
 
    //Origem da Mercadoria
-   edCODIGO_ORIGEM_MERCADORIA.Text      := qConsulta.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsString;
+   edCODIGO_ORIGEM_MERCADORIA.Text := VazioSeInteiroMenos1(qConsulta.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger);
    edCODIGO_ORIGEM_MERCADORIA_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edCODIGO_ORIGEM_MERCADORIA.Text);
 
    //Alíquota do ICMS

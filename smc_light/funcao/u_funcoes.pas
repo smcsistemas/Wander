@@ -4,6 +4,10 @@ unit u_funcoes;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+273|09/06/20|06:33|u_funcoes                   |Criada função VazioSeInteiroMenos1 que recebe um inteiro
+273|        |     |                            |e o devolve transformado em string ou vazio se -1 ou inválido
+272|09/06/20|06:33|u_funcoes                   |Criada função InteiroMenos1_se_Vazio que recebe uma string e a devolve transformada em
+272|        |     |                            |inteiro ou -1 se vazia ou inválida
 257|06/06/20|05:35|u_funcoes                   |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 ========================================================================================================================================
 
@@ -115,12 +119,18 @@ const
    _Cor_ReadOnly        : tColor = clSilver;
    _Cor_CampoObrigatorio: tColor = $00E6E6E6;
 
+//AQUI
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
-
-//Recebe cod PROD e TPMOV e retorna o CFOP associado ao produto.
-//Se não existir associação, retorna o CFOP dp TPMOV
+//093 recebe um inteiro
+//    e o devolve transformado em string ou vazio se -1 ou inválido
+function VazioSeInteiroMenos1(pInteiro:Integer):String;
+//092 recebe uma string
+//    e a devolve transformada em inteiro ou -1 se vazia ou inválida
+function InteiroMenos1_se_Vazio(pString:String):Integer;
+//091 Recebe cod PROD e TPMOV e retorna o CFOP associado ao produto.
+//    Se não existir associação, retorna o CFOP dp TPMOV
 function fRPC_CFOP(pPRODUTO,pTPMOV:String):String;
 //090 02/06/2020-20:04-Recebe um string e completa com "." até atingir o pTamanho
 //Foi para a unit venda_pedido pois precisava invocar "cadastro_produto" que já
@@ -6430,6 +6440,26 @@ begin
    Q.Free;
    //Não existe relacionamento: Retorna o CFOP do TPMOV
    result := fTPMOV_CFOP(pTPMOV);
+end;
+
+function InteiroMenos1_se_Vazio(pString:String):Integer;
+begin
+   result := -1;
+   if pString = '' then
+      exit;
+   try
+     Result := StrToInt(pString);
+   except
+   end;
+end;
+
+function VazioSeInteiroMenos1(pInteiro:Integer):String;
+begin
+  result := '';
+  if pInteiro = -1 then
+     exit;
+
+  result := IntToStr(pInteiro);
 end;
 
 //##############################################################################
