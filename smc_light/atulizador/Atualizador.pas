@@ -1,9 +1,16 @@
 unit Atualizador;
 {
-PRODUTO ADD PROD_RASTREAVEL
+    if fNaoAtualizado('PRODUTO: Parâmetro de Tratamento de Lote...') Then
+       Executar('ALTER TABLE PRODUTO ADD PROD_TRATALOTE INTEGER NULL DEFAULT 0 COMMENT "Flag de Tratamento de Lote (0=Não)(1=Sim)" ');
+
+    if fNaoAtualizado('PRODUTO: Parâmetro de Tratamento de Número de Série...') Then
+       Executar('ALTER TABLE PRODUTO ADD PROD_TRATANUMEROSERIE INTEGER NULL DEFAULT 0 COMMENT "Flag de Tratamento de Número de Série (0=Não)(1=Sim)" ');
+
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+277|09/06/20|13:45|Atualizador                 |Criada coluna PROD_TRATANUMEROSERIE (Parâmetro de Tratamento de Número de Série) na tabela PRODUTO
+276|09/06/20|13:45|Atualizador                 |Criada coluna PROD_TRATALOTE (Parâmetro de Tratamento de Lote) na tabela PRODUTO
 268|08/06/20|08:35|Atualizador                 |Criada coluna PROD_RASTREAVEL (indicador de rastreabilidade) na tabela PRODUTO
 267|08/06/20|06:49|Atualizador                 |Criada tabela de característica de UFs (UF_UF)
 266|08/06/20|05:51|Atualizador                 |Criada tabela de rastreabilidade do produto (RASTRO_RAS)
@@ -2389,6 +2396,13 @@ begin
 
     if fNaoAtualizado('PRODUTO: Parâmetro de Rastreabilidade...') Then
        Executar('ALTER TABLE PRODUTO ADD PROD_RASTREAVEL INTEGER NULL DEFAULT 0 COMMENT "Flag de Rastreabilidade (0=Não)(1=Sim)" ');
+
+    //09/06/2020
+    if fNaoAtualizado('PRODUTO: Parâmetro de Tratamento de Lote...') Then
+       Executar('ALTER TABLE PRODUTO ADD PROD_TRATALOTE INTEGER NULL DEFAULT 0 COMMENT "Flag de Tratamento de Lote (0=Não)(1=Manual)(2-Automático)" ');
+
+    if fNaoAtualizado('PRODUTO: Parâmetro de Tratamento de Número de Série...') Then
+       Executar('ALTER TABLE PRODUTO ADD PROD_TRATANUMEROSERIE INTEGER NULL DEFAULT 0 COMMENT "Flag de Tratamento de Número de Série (0=Não)(1=Sim)" ');
 
 end;
 

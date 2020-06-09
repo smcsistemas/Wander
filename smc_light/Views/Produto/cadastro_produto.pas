@@ -5,12 +5,14 @@ unit cadastro_produto;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+281|09/06/20|14:25|cadastro_produto            |Passa a tratar a coluna PROD_TRATANUMEROSERIE (Parâmetro de Tratamento de Número de Série)
+280|09/06/20|14:25|cadastro_produto            |Passa a tratar a coluna PROD_TRATALOTE (Parâmetro de Tratamento de Lote)
 269|08/06/20|08:35|cadastro_produto            |Passa a tratar a coluna PROD_RASTREAVEL (indicador de rastreabilidade) da tabela PRODUTO
 264|06/06/20|17:49|cadastro_produto            |Tratando % de Redução Base de Cálculo ICMS ST
-256|06/06/20|05:35|EmissaoDeNFe                |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
+256|06/06/20|05:35|cadastro_produto            |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 250|03/06/20|05:34|cadastro_produto            |Preparada para ser chamada por telas do movimento para acertar o cadastro de algum produto
 247|01/06/20|09:33|cadastro_produto            |Tratando o "Indicador de Escala Relevante" do Produto.
-246|01/06/20|09:33|Atualizador                 |Criada coluna NFe_IndEscala para armazenar o "Indicador de Escala Relevante" do Produto.
+246|01/06/20|09:33|cadastro_produto            |Criada coluna NFe_IndEscala para armazenar o "Indicador de Escala Relevante" do Produto.
 ========================================================================================================================================
 
 ================================================================================
@@ -563,7 +565,12 @@ type
     Label24: TLabel;
     edREDUCAO_ICMS_ST: TEdit;
     qConsultaPROD_RASTREAVEL: TIntegerField;
-    rgPROD_RASTREAVEL: TRadioGroup;
+    qConsultaPROD_TRATALOTE: TIntegerField;
+    qConsultaPROD_TRATANUMEROSERIE: TIntegerField;
+    Panel7: TPanel;
+    cbPROD_RASTREAVEL: TCheckBox;
+    cbPROD_TRATANUMEROSERIE: TCheckBox;
+    rgPROD_TRATALOTE: TRadioGroup;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -1235,10 +1242,11 @@ begin
    if rgNFe_indEscala.ItemIndex = -1 then
       rgNFe_indEscala.ItemIndex := 2;
 
-   //Indicador de Rastreabilidade
-   //Padrão = 0-Não Rastreável
-   if rgPROD_RASTREAVEL.ItemIndex = -1 then
-      rgPROD_RASTREAVEL.ItemIndex := 0;
+   //Indicador de Tratamento de Lote
+   //Padrão = 0-Não tratar
+   if rgPROD_TRATALOTE.ItemIndex = -1 then
+      rgPROD_TRATALOTE.ItemIndex := 0;
+
 end;
 
 procedure TFrm_Produto.edREDUCAO_ICMSExit(Sender: TObject);
@@ -1505,6 +1513,9 @@ begin
   bRPC_Insert.Enabled := false;
   bRPC_Delete.Enabled := false;
 
+  //Impedir Edição
+  HabilitarCampos(False);
+
   //Posicionar na aba de consulta
   Ir_Para_Consulta;
 
@@ -1522,13 +1533,15 @@ begin
     Close;
   end;
 
-
   //Ajusta botões de controle
   pode_Alterar_Incluir(Frm_Produto);
 
   //Relação CFOPxProdutoxCSTPIS/COFINS
   bRPC_Insert.Enabled := false;
   bRPC_Delete.Enabled := false;
+
+  //Impedir Edição
+  HabilitarCampos(False);
 
   //Posicionar na aba de consulta
   Ir_Para_Consulta;
@@ -2977,7 +2990,7 @@ begin
    // Pesquisar a cada meio milésimo de segundo
    tConsulta.Interval:= 500;
 
-
+   //Impedir Edição
    HabilitarCampos(False);
 
    // Impedir que haja pesquisas ao aplicar os padrões da tela
@@ -3031,6 +3044,8 @@ begin
    qAUX.sql.add('       NFe_modBCST,              ');
    qAUX.sql.add('       NFe_indEscala,            ');
    qAUX.sql.add('       PROD_RASTREAVEL,          ');
+   qAUX.sql.add('       PROD_TRATALOTE,           ');
+   qAUX.sql.add('       PROD_TRATANUMEROSERIE,    ');
    qAUX.sql.add('       VALOR_PAUTA_BC,           ');
    qAUX.sql.add('       VALOR_PAUTA_BC_ST,        ');
    qAUX.sql.add('       NFe_pMVA,                 ');
@@ -3067,6 +3082,8 @@ begin
    qAUX.sql.add('      :NFe_modBCST,              ');
    qAUX.sql.add('      :NFe_indEscala,            ');
    qAUX.sql.add('      :PROD_RASTREAVEL,          ');
+   qAUX.sql.add('      :PROD_TRATALOTE,           ');
+   qAUX.sql.add('      :PROD_TRATANUMEROSERIE,    ');
    qAUX.sql.add('      :VALOR_PAUTA_BC,           ');
    qAUX.sql.add('      :VALOR_PAUTA_BC_ST,        ');
    qAUX.sql.add('      :NFe_pMVA,                 ');
@@ -3114,7 +3131,9 @@ begin
    qAUX.ParamByName('NFe_modBC'               ).AsInteger := rgNFe_modBC.ItemIndex;
    qAUX.ParamByName('NFe_modBCST'             ).AsInteger := rgNFe_modBCST.ItemIndex;
    qAUX.ParamByName('NFe_indEscala'           ).AsInteger := rgNFe_indEscala.ItemIndex;
-   qAUX.ParamByName('PROD_RASTREAVEL'         ).AsInteger := rgPROD_RASTREAVEL.ItemIndex;
+   qAUX.ParamByName('PROD_RASTREAVEL'         ).AsInteger := Zero_ou_Um(cbPROD_RASTREAVEL.checked);
+   qAUX.ParamByName('PROD_TRATALOTE'          ).AsInteger := rgPROD_TRATALOTE.ItemIndex;
+   qAUX.ParamByName('PROD_TRATANUMEROSERIE'   ).AsInteger := Zero_ou_Um(cbPROD_RASTREAVEL.checked);
    qAUX.ParamByName('VALOR_PAUTA_BC'          ).AsFloat   := ValorValido(edVALOR_PAUTA_BC.Text);
    qAUX.ParamByName('VALOR_PAUTA_BC_ST'       ).AsFloat   := ValorValido(edVALOR_PAUTA_BC_ST.Text);
    qAUX.ParamByName('NFe_pMVA'                ).AsFloat   := ValorValido(edNFe_pMVA.Text);
@@ -3255,7 +3274,13 @@ begin
    rgNFe_indEscala.ItemIndex            := qConsulta.FieldByName('NFe_indEscala').AsInteger;
 
    //Indicador de Rastreabilidade
-   rgPROD_RASTREAVEL.ItemIndex          := qConsulta.FieldByName('PROD_RASTREAVEL').AsInteger;
+   cbPROD_RASTREAVEL.Checked            := True_ou_False(qConsulta.FieldByName('PROD_RASTREAVEL').AsInteger);
+
+   //Tratamento de Lote
+   rgPROD_TRATALOTE.ItemIndex           := qConsulta.FieldByName('PROD_TRATALOTE').AsInteger;
+
+   //Tramento de Número Serial
+   cbPROD_TRATANUMEROSERIE.Checked      := True_ou_False(qConsulta.FieldByName('PROD_TRATANUMEROSERIE').AsInteger);
 
    Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
 

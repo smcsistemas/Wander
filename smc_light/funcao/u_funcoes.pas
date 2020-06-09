@@ -1,15 +1,21 @@
 { v 15.10.16 11:18 }
 unit u_funcoes;
 {
+
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+279|09/06/20|14:25|u_funcoes                   |Criada função True_ou_False que recebe um inteiro (0/1) e retorna true se zero e false se 1
+278|09/06/20|14:25|u_funcoes                   |Criada função Zero_ou_Um que recebe um boolean e retorna 0 se false e 1 se true
 273|09/06/20|06:33|u_funcoes                   |Criada função VazioSeInteiroMenos1 que recebe um inteiro
 273|        |     |                            |e o devolve transformado em string ou vazio se -1 ou inválido
 272|09/06/20|06:33|u_funcoes                   |Criada função InteiroMenos1_se_Vazio que recebe uma string e a devolve transformada em
 272|        |     |                            |inteiro ou -1 se vazia ou inválida
 257|06/06/20|05:35|u_funcoes                   |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 ========================================================================================================================================
+   qAUX.ParamByName('PROD_RASTREAVEL'         ).AsInteger := Zero_ou_Um(cbPROD_RASTREAVEL.checked);
+   qAUX.ParamByName('PROD_TRATALOTE'          ).AsInteger := rgPROD_TRATALOTE.ItemIndex;
+   qAUX.ParamByName('PROD_TRATANUMEROSERIE'   ).AsInteger := Zero_ou_Um(cbPROD_RASTREAVEL);
 
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
@@ -123,6 +129,10 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//095 recebe um inteiro (0/1) e retorna true se zero e false se 1
+function True_ou_False(p0_1:Integer):Boolean;
+//094 recebe um boolean e retorna 0 se false e 1 se true
+function Zero_ou_Um(pTrue_False:Boolean):Integer;
 //093 recebe um inteiro
 //    e o devolve transformado em string ou vazio se -1 ou inválido
 function VazioSeInteiroMenos1(pInteiro:Integer):String;
@@ -6462,6 +6472,18 @@ begin
   result := IntToStr(pInteiro);
 end;
 
+function Zero_ou_Um(pTrue_False:Boolean):Integer;
+begin
+  if pTrue_False then
+     result := 1
+  else
+     result := 0;
+end;
+
+function True_ou_False(p0_1:Integer):Boolean;
+begin
+  result := (p0_1 = 1);
+end;
 //##############################################################################
 //                FIM DAS FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################

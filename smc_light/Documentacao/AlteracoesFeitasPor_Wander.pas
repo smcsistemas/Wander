@@ -28,11 +28,16 @@ ordem decrescente de data....
 ================
 //092
 //
-function InteiroMenos1_se_Vazio(pString:String):Integer;
 
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+281|09/06/20|14:25|cadastro_produto            |Passa a tratar a coluna PROD_TRATANUMEROSERIE (Parâmetro de Tratamento de Número de Série)
+280|09/06/20|14:25|cadastro_produto            |Passa a tratar a coluna PROD_TRATALOTE (Parâmetro de Tratamento de Lote)
+279|09/06/20|14:25|u_funcoes                   |Criada função True_ou_False que recebe um inteiro (0/1) e retorna true se zero e false se 1
+278|09/06/20|14:25|u_funcoes                   |Criada função Zero_ou_Um que recebe um boolean e retorna 0 se false e 1 se true
+277|09/06/20|13:45|Atualizador                 |Criada coluna PROD_TRATANUMEROSERIE (Parâmetro de Tratamento de Número de Série) na tabela PRODUTO
+276|09/06/20|13:45|Atualizador                 |Criada coluna PROD_TRATALOTE (Parâmetro de Tratamento de Lote) na tabela PRODUTO
 275|09/06/20|06:33|EmissaoDeNFe                |Passa a usar a função VazioSeInteiroMenos1
 274|09/06/20|06:33|EmissaoDeNFe                |Passa a usar a função InteiroMenos1_se_Vazio
 273|09/06/20|06:33|u_funcoes                   |Criada função VazioSeInteiroMenos1 que recebe um inteiro

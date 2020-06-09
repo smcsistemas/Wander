@@ -3855,6 +3855,44 @@ object Frm_Produto: TFrm_Produto
           OnClick = bControleGravarClick
         end
       end
+      object Panel7: TPanel
+        Left = 776
+        Top = 8
+        Width = 606
+        Height = 533
+        BevelOuter = bvNone
+        Caption = 'Panel7'
+        TabOrder = 3
+        object cbPROD_RASTREAVEL: TCheckBox
+          Left = 3
+          Top = 1
+          Width = 132
+          Height = 17
+          Caption = 'Produto Rastre'#225'vel'
+          TabOrder = 0
+        end
+        object cbPROD_TRATANUMEROSERIE: TCheckBox
+          Left = 3
+          Top = 17
+          Width = 254
+          Height = 17
+          Caption = 'Tratar N'#250'mero de S'#233'rie ao Movimentar'
+          TabOrder = 1
+        end
+      end
+      object rgPROD_TRATALOTE: TRadioGroup
+        Left = 1131
+        Top = 3
+        Width = 161
+        Height = 93
+        Caption = 'Tratamento de Lote'
+        ItemIndex = 0
+        Items.Strings = (
+          'N'#227'o tratar lote'
+          'Informar manualmente'
+          'Automatizado')
+        TabOrder = 4
+      end
     end
     object tabTributacao: TcxTabSheet
       Caption = ' Tributa'#231#227'o'
@@ -4587,23 +4625,6 @@ object Frm_Produto: TFrm_Produto
             'Nenhum')
           ParentFont = False
           TabOrder = 4
-        end
-        object rgPROD_RASTREAVEL: TRadioGroup
-          Left = 170
-          Top = 176
-          Width = 103
-          Height = 71
-          Caption = 'Rastreabilidade'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          Items.Strings = (
-            'N'#227'o Rastre'#225'vel'
-            'Rastre'#225'vel')
-          ParentFont = False
-          TabOrder = 5
         end
       end
       object pnControles2: TPanel
@@ -6174,7 +6195,7 @@ object Frm_Produto: TFrm_Produto
   object DS_DADOS_ROTINAS: TDataSource
     DataSet = SQL_DADOS_ROTINAS
     Left = 784
-    Top = 88
+    Top = 216
   end
   object popmenu: TPopupMenu
     Left = 1152
@@ -7073,6 +7094,16 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'PROD_RASTREAVEL'
       Origin = 'PROD_RASTREAVEL'
+    end
+    object qConsultaPROD_TRATALOTE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_TRATALOTE'
+      Origin = 'PROD_TRATALOTE'
+    end
+    object qConsultaPROD_TRATANUMEROSERIE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_TRATANUMEROSERIE'
+      Origin = 'PROD_TRATANUMEROSERIE'
     end
   end
   object tConsulta: TTimer
