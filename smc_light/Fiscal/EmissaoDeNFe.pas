@@ -3,6 +3,7 @@ unit EmissaoDeNFe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+284|09/06/20|21:01|EmissaoDeNFe                |Grupo YA - Informações de Pagamento - Explicitado
 283|09/06/20|20:16|EmissaoDeNFe                |Grupo Y - Cobr/Fat/Dup explicitados
 282|09/06/20|16:53|EmissaoDeNFe                |Passa a tratar Grupo LB da NFe = Operações com Papel Imune
 275|09/06/20|06:33|EmissaoDeNFe                |Passa a usar a função VazioSeInteiroMenos1
@@ -384,6 +385,8 @@ type
     procedure Tratar_Grupo_X_Informacoes_do_Transporte_da_NFe;
     // Grupo Y
     procedure Tratar_Grupo_Y_Dados_da_Cobranca;
+    // Grupo YA
+    procedure Tratar_Grupo_YA_Informacoes_de_Pagamento;
     // Grupo Z
     procedure Tratar_Grupo_Z_Informacoes_Adicionais_da_NFe;
     // Grupo ZA
@@ -573,6 +576,7 @@ begin
    Tratar_Grupo_W02_Totalda_NFe_Retencao_de_Tributos;
    Tratar_Grupo_X_Informacoes_do_Transporte_da_NFe;
    Tratar_Grupo_Y_Dados_da_Cobranca;
+   Tratar_Grupo_YA_Informacoes_de_Pagamento;
    Tratar_Grupo_Z_Informacoes_Adicionais_da_NFe;
    Tratar_Grupo_ZA_Informacoes_de_Comercio_Exterior;
    Tratar_Grupo_ZB_Informacoes_de_Compras;
@@ -5810,7 +5814,7 @@ begin
            SQL_venda_lacre_vlac.Next;
         end;
      end;
-end;
+   end;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_Y_Dados_da_Cobranca;
@@ -5874,13 +5878,80 @@ begin
          //vDup
          //Valor da duplicata
      end;
-
    end;
+end;
 
-   Pagamento:= Nota.pag.add;
-   Pagamento.tPag:= fpDinheiro;
-   Pagamento.vPag := Nota.Total.ICMSTot.vNF;
+procedure TfrmEmissaoDeNFe.Tratar_Grupo_YA_Informacoes_de_Pagamento;
+begin
+   //---------------------------------------------------------------------------
+   // LAYOUT FEDERAL
+   //---------------------------------------------------------------------------
+   // TRATAMENTO DO GRUPO YA - Informações de Pagamento
+   //---------------------------------------------------------------------------
 
+   {398a-YA01}
+   //pag
+   //Grupo de Informações de Pagamento
+   //Obrigatório o preenchimento do Grupo Informações de Pagamento para NF-e e
+   //NFC-e.
+   //Para as notas com finalidade de Ajuste ou Devolução o campo Meio de Pagamento
+   //deve ser preenchido com 90=Sem Pagamento.
+
+   {398a1-YA01a}
+   //detPag
+   //Grupo Detalhamento do Pagamento
+
+   //Pagamento:= Nota.pag.add;
+   with Nota.Pag.new do
+   begin
+       {398a2-YA01b}
+       //indPag
+       //Indicador da Forma de Pagamento
+       //    0= Pagamento à Vista
+       //    1= Pagamento à Prazo
+       //                                                  (Incluído na NT 2016/002)
+
+       {398b-YA02}
+       //tPag
+       //Meio de pagamento
+       //  01=Dinheiro
+       //  02=Cheque
+       //  03=Cartão de Crédito
+       //  04=Cartão de Débito
+       //  05=Crédito Loja
+       //  10=Vale Alimentação
+       //  11=Vale Refeição
+       //  12=Vale Presente
+       //  13=Vale Combustível
+       //  15=Boleto Bancário
+       //  90= Sem pagamento
+       //  99=Outros
+       //                                                (Atualizado na NT 2016/002)
+       {
+       Case qContaCorrente.FieldByName('CC_TPAG').AsInteger of
+         00 : tPag := fpDinheiro;
+         01 : tPag := fpCheque;
+         02 : tPag := fpCartaoCredito;
+         03 : tPag := fpCartaoDebito;
+         04 : tPag := fpCreditoLoja,
+         05 : tPag := fpValeAlimentacao;
+         06 : tPag := fpValeRefeicao;
+         07 : tPag := fpValePresente;
+         08 : tPag := fpValeCombustivel;
+         09 : tPag := fpDuplicataMercantil;
+         10 : tPag := fpBoletoBancario;
+         11 : tPag := fpSemPagamento;
+         13 : tPag := fpOutro;
+       End;
+       }
+       //Pagamento:= Nota.pag.add;
+       tPag:= fpDinheiro;
+
+       {398c-YA03}
+       //vPag
+       //Valor do Pagamento
+       vPag := Nota.Total.ICMSTot.vNF;
+   end;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_Z_Informacoes_Adicionais_da_NFe;
