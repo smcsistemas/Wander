@@ -263,10 +263,12 @@ type
     procedure Tratar_Grupo_M_Tributos_Incidentes_no_Produto_ou_Serviço;
     // Grupo N
     procedure Tratar_Grupo_N_ICMS_Normal_e_ST;
-
+    // Grupo NA
+    procedure Tratar_Grupo_NA_ICMS_para_a_UF_de_Destino;
     //
     procedure Tratar_impostos_de_Produtos;
     procedure Tratar_impostos_de_Servicos;
+
     // ICMS
     procedure Tratar_ICMS;
     procedure Tratar_ICMS00;
@@ -279,12 +281,8 @@ type
     procedure Tratar_ICMS70;
     procedure Tratar_ICMS90;
 
-    // Grupo NA
-    procedure Tratar_Grupo_NA_ICMS_para_a_UF_de_Destino;
-
     procedure Tratar_Partilha_do_ICMS;
     procedure Tratar_Repasse_do_ICMS_ST;
-
 
     procedure Tratar_N11_Produto_Imposto_ICMS_orig;
     procedure Tratar_N12_Produto_Imposto_ICMS_CST;
@@ -298,10 +296,13 @@ type
     procedure Tratar_N16b_pDif;
     procedure Tratar_N16c_vICMSDif;
     procedure Tratar_N17_Produto_Imposto_ICMS_vICMS;
+
     // Fundo de Combate à Pobreza
     procedure Tratar_N17a_Produto_Imposto_ICMS_vBCFCP;
     procedure Tratar_N17b_Produto_Imposto_ICMS_pFCP;
     procedure Tratar_N17c_Produto_Imposto_ICMS_vFCP;
+
+    // Substituição Tributária
     procedure Tratar_N18_Produto_Imposto_ICMS_modBCST;
     procedure Tratar_N19_Produto_Imposto_ICMS_pMVAST;
     procedure Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
@@ -316,21 +317,32 @@ type
     procedure Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
     procedure Tratar_N26a_Produto_Imposto_ICMS_pST;
     procedure Tratar_N26b_Produto_Imposto_ICMS_vICMSSubstituto;
+
+    // Retenção de ICMS
     procedure Tratar_N27_Produto_Imposto_ICMS_vICMSSTRet;
     procedure Tratar_N27a_Produto_Imposto_ICMS_vBCFCPSTRet;
     procedure Tratar_N27b_Produto_Imposto_ICMS_pFCPSTRet;
     procedure Tratar_N27d_Produto_Imposto_ICMS_vFCPSTRet;
+
+    // Desoneração de ICMS
     procedure Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
     procedure Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
+
+    // Crédito de ICMS
     procedure Tratar_N29_Produto_Imposto_ICMS_pCredSN;
     procedure Tratar_N30_Produto_Imposto_ICMS_vCredICMSSN;
+
+    // ICMS ST Destinatário
     procedure Tratar_N31_Produto_Imposto_ICMS_vBCSTDest;
     procedure Tratar_N32_Produto_Imposto_ICMS_vICMSSTDes;
+
+    // ICMS Efetivo
     procedure Tratar_N34_Produto_Imposto_ICMS_pRedBCEfet;
     procedure Tratar_N35_Produto_Imposto_ICMS_vBCEfet;
     procedure Tratar_N36_Produto_Imposto_ICMS_pICMSEfet;
     procedure Tratar_N37_Produto_Imposto_ICMS_vICMSEfet;
 
+    // CSOSN
     procedure Tratar_CSOSN;
     procedure Tratar_CSOSN_000;
     procedure Tratar_CSOSN_101;
@@ -411,7 +423,6 @@ var
   Nota              : TNFe;
   NotaDeDevolucao,
   XML_DO_FORNECEDOR : NotaFiscal;
-  Cobranca          : TCobr;
   Duplicata         : TDupCollectionItem;
   Produto,
   ProdutoDevolvido  : TDetCollectionItem;
