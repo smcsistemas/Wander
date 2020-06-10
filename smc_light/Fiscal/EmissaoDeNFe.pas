@@ -1,8 +1,10 @@
 unit EmissaoDeNFe;
 {
+
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+287|10/06/20|11:20|EmissaoDeNFe                |Grupo BA incorporou grupos B20a e B20j (NFe referenciadas produtor rural e cupom fiscal)
 286|09/06/20|22:12|EmissaoDeNFe                |Grupo ZX - Informações Suplemtares da NFe - Explicitado
 285|09/06/20|21:37|EmissaoDeNFe                |Grupo ZD - Informações do Responsável Técnico - Explicitado
 284|09/06/20|21:01|EmissaoDeNFe                |Grupo YA - Informações de Pagamento - Explicitado
@@ -231,9 +233,7 @@ type
     procedure Tratar_Grupo_A_Dados_Da_NFe;
     // Grupo B
     procedure Tratar_Grupo_B_Identificacao_da_NFe;
-    procedure Tratar_Grupo_B12a_Nfe_Referenciada;
-    procedure Tratar_Grupo_B20a_Nfe_Referenciada_ProdutorRural;
-    procedure Tratar_Grupo_B20j_Cupom_Fiscal_Referenciado;
+    procedure Tratar_Grupo_BA_Documento_Fiscal_Referencado;
     // Grupo C
     procedure Tratar_Grupo_C_Identificacao_do_Emitente_da_NFe;
     // Grupo D
@@ -503,8 +503,7 @@ var vPercentualDescontoRateadoItem, // Define percentual de descontos para
     vOlhoNoImpostoImportado,
     vOlhoNoImpostoEstadual   : real;
 begin
-   // Calcula os impostos sobre o movimento,
-   // para a emissão de NFe
+   // Calcula os impostos sobre o movimento, para a emissão de NFe
    //---------------------------------------------------------------------------
    result := false;
 
@@ -558,17 +557,6 @@ begin
    //----------------------------------------------------------------------
    ACBrNFe1.NotasFiscais.Clear;
    Nota := ACBrNFe1.NotasFiscais.Add.NFe;
-
-   if qDESTINATARIO.FieldByName('CONSUMIDOR_FINAL').AsString = 'SIM' then
-      Nota.Ide.indFinal := cfConsumidorFinal
-   else
-      Nota.Ide.indFinal := cfNao;
-
-   //4.00
-   {B25b}
-   //     Indicador de presença do comprador no estabelecimento comercial no momento da operação
-   //     (pcNao, pcPresencial, pcInternet, pcTeleatendimento, pcEntregaDomicilio, pcPresencialForaEstabelecimento, pcOutros);
-   Nota.Ide.indPres := TpcnPresencaComprador(qTPMOV.FieldByName('TPMOV_INDPRES').AsInteger); //4.00
 
    Tratar_Grupo_A_Dados_Da_NFe;
    Tratar_Grupo_B_Identificacao_da_NFe;
@@ -1943,48 +1931,54 @@ begin
    // TRATAMENTO DO GRUPO B - Identificação da Nota Fiscal eletrônica #
    //---------------------------------------------------------------------------
 
-   {B01}
-   //(ide) - Grupo das informações de identificação da NF-e
+   {5-B01}
+   //ide
+   //Grupo das informações de identificação da NF-e
    //---------------------------------------------------------------------------
 
-   {B02}
-   //(cUF) Código da UF do emitente do Documento Fiscal
+   {6-B02}
+   //cUF
+   //Código da UF do emitente do Documento Fiscal
    //Utilizar a Tabela do IBGE de código de unidades da federação
    //(Anexo IV - Tabela de UF, Município e País)
    Nota.Ide.cUF := SoNumeros(qEMITENTE.FieldByName('COD_UF').AsString);
 
-   {B03}
-   //(cNF)
+   {7-B03}
+   //cNF
    //Código numérico que compõe a Chave de Acesso.
    //Número aleatório gerado pelo emitente para cada NF-e para evitar acessos
    //indevidos da NF-e. (v2.0)
    Nota.Ide.cNF := 99559956;
 
-   {B04}
-   //(natOp)
+   {8-B04}
+   //natOp
    //Descrição da Natureza da Operação
    //Informar a natureza da operação de que decorrer a saída ou a entrada,
-   //tais como: venda, compra, transferência
+   //tais como: venda, compra, transferência, devolução, importação, consignação,
+   //remessa (para fins de demonstração, de industrialização ou outra),
+   //conforme previsto na alínea 'i', inciso I, art. 19 do CONVÊNIO S/Nº,
+   //de 15 de dezembro de 1970.
    Nota.Ide.natOp := qNaturezaOperacao.FieldByName('DESCRICAO').AsString;
 
-   {B05}
-   //(indPag)
+   {9-B05} //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+   //indPag
    //Indicador da forma de pagamento
    //0 – pagamento à vista;
    //1 – pagamento à prazo;
    //2 - outros
    //Nota.Ide.indPag := ipVista;
-   //>>> (Excluído no leiaute 4.0 - NT 2016/002) <<<//
+   //                                    (Excluído no leiaute 4.0 - NT 2016/002)
 
-   {B06}
-   //(mod)
+   {10-B06}
+   //mod
    //Código do Modelo do Documento Fiscal
-   //Utilizar o código 55 para identificação da NF-e,
-   //emitida em substituição ao modelo 1 ou 1A.
+   //    55 = NF-e emitida em substituição ao modelo 1 ou 1A;
+   //    65 = NFC-e, utilizada nas operações de venda no varejo
+   //(a critério da UF aceitar este modelo de documento).
    Nota.Ide.modelo := 55;
 
-   {B07}
-   //(serie)
+   {11-B07}
+   //serie
    //Série do Documento Fiscal,
    //Preencher com zeros na hipótese de a NF-e não possuir série. (v2.0)
    //
@@ -2024,65 +2018,63 @@ begin
    //===========================================================================
    Nota.Ide.serie := qNFE_CONFIGURACAO.FieldByName('NFeC_Serie').AsInteger;
 
-   {B08}
-   //(nNF)
+   {12-B08}
+   //nNF
    //Número do Documento Fiscal
    Nota.Ide.nNF := vNumNota; // qVENDA.FieldByName('NF_NUMERO').AsInteger;
 
-   {B09}
-   //(dEmi)
+   {13-B09}
+   //dEmi
    //Data de emissão do Documento Fiscal
-   //Formato “AAAA-MM-DD”
+   //Data e hora no formato UTC (Universal Coordinated Time):
+   //                                                     AAAA-MM-DDThh:mm:ssTZD
    Nota.Ide.dEmi := Date;
 
-   {B10}
-   //(dSaiEnt)
+   //Data e hora no formato UTC (Universal Coordinated Time):
+   //                                                     AAAA-MM-DDThh:mm:ssTZD
+   //Observação: Não informar este campo para a NFC-e.
+
+   {14-B10}
+   //dhSaiEnt
    //Data de Saída ou da Entrada da Mercadoria/Produto
-   //Formato “AAAA-MM-DD”
    Nota.Ide.dSaiEnt := Date;
 
-   {B11}
-   //(hSaiEnt)
+   {14a-B10a}  //?????? -  a confirmar pois data e hora foram substituidos por data+hora
+   //hSaiEnt
    //Hora de Saída ou da Entrada da Mercadoria/Produto
    //Formato “HH:MM:SS” (v.2.0)
    Nota.Ide.hSaiEnt := Now;
 
-   {B11}
-   //(tpNF)
+   {15-B11}
+   //tpNF
    //Tipo de Operação
-   //0-entrada / 1-saída
+   //   0 = entrada
+   //   1 = saída
    if qTPMOV.FieldByName('TPMOV_ES').AsString = 'S' then
       Nota.Ide.tpNF := tnSaida
    else
       Nota.Ide.tpNF := tnEntrada;
 
-   {B12}
-   //(cMunFG)
+   {15-B12}
+   //cMunFG
    //Código do Município de Ocorrência do Fato Gerador
    //Informar o município de ocorrência do fato gerador do ICMS.
    //Utilizar a Tabela do IBGE (Anexo VII - Tabela de UF, Município e País)
    Nota.Ide.cMunFG := SoNumeros(qEMITENTE.FieldByName('CODIGO_MUNICIPIO').AsString);
 
-   {B12a}
-   //(NFref)
-   //Grupo de informação das NF/NF-e referenciadas
-   Tratar_Grupo_B12a_Nfe_Referenciada;
-
-   {B20a}
-   //(refNFP)
-   //Grupo de informações da NF de produtor rural referenciada
-   Tratar_Grupo_B20a_Nfe_Referenciada_ProdutorRural;
-
-   {24J-B20j}
-   //(refECF)
-   //Informações do Cupom Fiscal referenciado
-   Tratar_Grupo_B20j_Cupom_Fiscal_Referenciado;
+   Tratar_Grupo_BA_Documento_Fiscal_Referencado;
 
    {25-B21}
-   //(tpImp)
+   //tpImp
    //Formato de Impressão do DANFE
-   //     1-Retrato
-   //     2-Paisagem
+   //      0 = Sem geração de DANFE;
+   //      1 = DANFE normal, Retrato;
+   //      2 = DANFE normal, Paisagem;
+   //      3 = DANFE Simplificado;
+   //      4 = DANFE NFC-e;
+   //      5 = DANFE NFC-e em mensagem eletrônica (o envio de mensagem eletrônica
+   //          pode ser feita de forma simultânea com a impressão do DANFE;
+   //usar o tpImp=5 quando esta for a única forma de disponibilização do DANFE)
    case qNFE_CONFIGURACAO.FieldByName('NFeC_LayoutDanfe').AsInteger of
       0 : Nota.Ide.tpImp := tiSemGeracao;
       1 : Nota.Ide.tpImp := tiRetrato;
@@ -2096,25 +2088,37 @@ begin
    //(tpEmis)
    //Tipo de Emissão da NF-e
    //   1 – Normal
-   //       Emissão normal
+   //       Emissão normal (Não contingência}
    //
-   //   2 – Contingência FS
+   //   2 – Contingência FS-IA
    //       Emissão em contingência
    //       com impressão do DANFE em Formulário de Segurança
+   //       (Impressor Autônomo)
    //
    //   3 – Contingência SCAN
    //       Emissão em contingência
    //       no Sistema de Contingência do Ambiente Nacional – SCAN
+   //                                                  *Desativado * NT 2015/002
    //
    //   4 – Contingência DPEC
    //       Emissão em contingência
-   //        com envio da Declaração Prévia de Emissão em Contingência – DPEC
+   //       com envio da Declaração Prévia de Emissão em Contingência – DPEC
    //
    //   5 – Contingência FS-DA
    //       Emissão em contingência
    //       com impressão do DANFE em Formulário de Segurança
-   //       para Impressão de Documento Auxiliar de
-   //       Documento Fiscal Eletrônico (FS-DA). 27
+   //       (Documento Auxiliar)
+   //
+   //   6 - Contingência SVC-AN (SEFAZ Virtual de Contingência do AN);
+   //
+   //   7 - Contingência SVC-RS (SEFAZ Virtual de Contingência do RS);
+   //
+   //   9 - Contingência off-line da NFC-e;
+   //
+   //Observação: Para a NFC-e somente é válida a opção de contingência:
+   //                 9 - Contingência Off-Line e, a critério da UF,
+   //                 4 - Contingência EPEC.
+   //                                                              (NT 2015/002)
    case g_NFE_tpEmis of
       0 : Nota.Ide.tpEmis := teNormal;
       1 : Nota.Ide.tpEmis := teContingencia;
@@ -2127,16 +2131,16 @@ begin
       8 : Nota.Ide.tpEmis := teOffLine;
    end;
 
-   {27 - B23}
-   //(cDV)
-   // Dígito Verificador da Chave de Acesso da NF-e
-   // Informar o DV da Chave de Acesso da NF-e.
-   // O DV será calculado com a aplicação do algoritmo módulo 11 (base 2,9)
-   // da Chave de Acesso. (vide item 5 do Manual de Integração)
-   // *** Preenchido pelo componente ACBr ***
+   {27-B23}
+   //cDV
+   //Dígito Verificador da Chave de Acesso da NF-e
+   //Informar o DV da Chave de Acesso da NF-e.
+   //O DV será calculado com a aplicação do algoritmo módulo 11 (base 2,9)
+   //da Chave de Acesso. (vide item 5.4 do MOC_Visão Geral)
+   //*** Preenchido pelo componente ACBr ***
 
    {28-B24}
-   //(tpAmb)
+   //tpAmb
    //Identificação do Ambiente
    //   1-Produção
    //   2-Homologação
@@ -2146,12 +2150,12 @@ begin
    End;
 
    {29-B25}
-   //(finNFe)
+   //finNFe
    //Finalidade de emissão da NFe
    //   1 - NF-e normal
    //   2 - NF-e complementar
    //   3 – NF-e de ajuste
-   //   4 - NF-e de devolução (não tem na 4.0, mas havia nas anteriores)
+   //   4 - NF-e de devolução de mercadoria
    Case qTPMOV.FieldByName('TPMOV_FINALIDADE').AsInteger of
       0 : Nota.Ide.finNFe := fnNormal;
       1 : Nota.Ide.finNFe := fnComplementar;
@@ -2159,8 +2163,31 @@ begin
       3 : Nota.Ide.finNFe := fnDevolucao;
    End;
 
+   {29.1-B25a}
+   //indFinal
+   //Indica operação com Consumidor final
+   //     0 = Normal
+   //     1 = Consumidor final
+   if qDESTINATARIO.FieldByName('CONSUMIDOR_FINAL').AsString = 'SIM' then
+      Nota.Ide.indFinal := cfConsumidorFinal
+   else
+      Nota.Ide.indFinal := cfNao;
+
+   {29.2-B25b}
+   //indPres
+   //Indicador de presença do comprador no estabelecimento comercial no momento da operação
+   //       0=Não se aplica (por exemplo, Nota Fiscal complementar ou de ajuste)
+   //       1=Operação presencial
+   //       2=Operação não presencial, pela Internet
+   //       3=Operação não presencial, Teleatendimento
+   //       4=NFC-e em operação com entrega a domicílio
+   //       5=Operação presencial, fora do estabelecimento
+   //                                                     (incluído NT 2016/002)
+   //       9=Operação não presencial, outros.
+   Nota.Ide.indPres := TpcnPresencaComprador(qTPMOV.FieldByName('TPMOV_INDPRES').AsInteger);
+
    {29a-B26}
-   //(procEmi)
+   //procEmi
    //Processo de emissão da NF-e
    //Identificador do processo de emissão da NF-e:
    //    0 - emissão de NF-e com aplicativo do contribuinte;
@@ -2170,13 +2197,13 @@ begin
    //        através do site do Fisco;
    //    3 - emissão NF-e pelo contribuinte
    //        com aplicativo fornecido pelo Fisco.
-   Nota.Ide.procEmi := peAplicativoContribuinte; {
-                       peAvulsaFisco,
-                       peAvulsaContribuinte,
-                       peContribuinteAplicativoFisco}
+   Nota.Ide.procEmi := peAplicativoContribuinte;
+   //                  peAvulsaFisco,
+   //                  peAvulsaContribuinte,
+   //                  peContribuinteAplicativoFisco
 
    {29b-B27}
-   //(verProc)
+   //verProc
    //Versão do Processo de emissão da NF-e
    //Identificador da versão do processo de emissão
    //(informar a versão do aplicativo emissor de NF-e).
@@ -2186,22 +2213,25 @@ begin
    if Nota.Ide.tpEmis = teContingencia then
    begin
        {29c-B28}
-       //(dhCont)
+       //dhCont
        //Data e Hora da entrada em contingência
        //Informar a data e hora de entrada em contingência
        //no formato AAAA-MMDDTHH:MM:SS (v.2.0).
+       //Data e hora no formato UTC (Universal Coordinated Time):
+       //                                                 AAAA-MM-DDThh:mm:ssTZD
        Nota.Ide.dhCont := g_NFe_Contigencia_dhCont;
 
        {29d-B29}
-       //(xJust)
+       //xJust
        //Justificativa da entrada em contingência
-       //Informar a Justificativa da entrada em (v.2.0)
+       //Informar a Justificativa da entrada em contingência (v.2.0)
        Nota.Ide.xJust := g_NFe_Contigencia_xJust;
    end;
 end;
 
-procedure TfrmEmissaoDeNFe.Tratar_Grupo_B12a_Nfe_Referenciada;
+procedure TfrmEmissaoDeNFe.Tratar_Grupo_BA_Documento_Fiscal_Referencado;
 begin
+
    //Somente se o tipo de movimento está configurado para tratar o grupo B12a
    //---------------------------------------------------------------------------
    if qTPMOV.FieldByName('TPMOV_NFE_TRATAR_GRUPO_B12A_NOTA_REFERENCIADA').AsInteger = 0 then
@@ -2213,8 +2243,8 @@ begin
    // TRATAMENTO DO GRUPO Ba - Identificação da Nota Fiscal eletrônica #
    //---------------------------------------------------------------------------
 
-   {B12a}
-   //(NFref)
+   {29x.1-BA01}
+   //NFref
    //Grupo de informação das NF/NF-e referenciadas
    //Grupo com as informações das:
    //      - NF/NF-e
@@ -2250,183 +2280,176 @@ begin
    //---------------------------------------------------------------------------
    NotaReferenciada := Nota.Ide.NFref.add;
 
-   {B13}
-   //(refNFe)
+   {29x.2-BA02}
+   //refNFe
    //Chave de acesso da NF-e referenciada
    //Utilizar esta TAG para referenciar uma Nota Fiscal Eletrônica emitida
    //anteriormente, vinculada a NF-e atual.
+   //
+   //Referencia uma NF-e (modelo 55) emitida anteriormente,
+   //vinculada a NF-e atual, ou uma NFC-e (modelo 65)
    NotaReferenciada.refNFe := qVENDA.fieldByName('PED_NFREFERENCIA_CHAVENFE').AsString;
 
-   {B14}
-   //(refNF)
-   //Grupo de informação da NF modelo 1/1A referenciada
+   {29x.3-BA03}
+   //refNF
+   //Informação da NF modelo 1/1A ou modelo 2, referenciada
 
-   {B15}
-   //(cUF)
+   {29x.4-BA04}
+   //cUF
    //Código da UF do emitente do Documento Fiscal
    //Utilizar a Tabela do IBGE
-   //(Anexo VII - Tabela de UF, Município e País)
+   //(Anexo IX - Tabela de UF, Município e País)
    NotaReferenciada.RefNF.cUF := SoNumeros(qVENDA.FieldByName('PED_NFREFERENCIA_UF').AsString);
 
-   {B16}
-   //(AAMM)
+   {29x.5-BA05}
+   //AAMM
    //Ano e Mês de emissão da NFe
    //AAMM da emissão da NF
    NotaReferenciada.RefNF.AAMM := DataAAMM(qVENDA.FieldByName('PED_NFREFERENCIA_DTEMISSAO').AsDateTime);
 
-   {B17}
-   //(CNPJ)
+   {29x.6-BA06}
+   //CNPJ
    //CNPJ do emitente
    //Informar o CNPJ do emitente da NF
    NotaReferenciada.RefNF.CNPJ   := SoNumerosX(qVENDA.FieldByName('PED_NFREFERENCIA_CNPJ').AsString);
 
-   {B18}
-   //(mod)
+   {29x.7-BA07}
+   //mod
    //Modelo do Documento Fiscal
-   //Informar o código do modelo do Documento fiscal: 01 – modelo 01
+   //Informar o código do modelo do Documento fiscal:
+   //      01 – modelo 01
+   //      02 - modelo 02
+   //                                                  (incluído na NT 2016/002)
    NotaReferenciada.RefNF.modelo := qVENDA.FieldByName('PED_NFREFERENCIA_MODELO').AsInteger;
 
-   {B19}
-   //(serie)
+   {29x8-BA08}
+   //serie
    //Série do Documento Fiscal
    //Informar a série do documento fiscal (informar zero se inexistente)
    NotaReferenciada.RefNF.serie := qVENDA.FieldByName('PED_NFREFERENCIA_SERIE').AsInteger;
 
-   {B20}
-   //(nNF)
+   {29x.9-BA09}
+   //nNF
    //Número do Documento Fiscal
    //1 – 999999999
    NotaReferenciada.RefNF.nNF := qVENDA.FieldByName('PED_NFREFERENCIA').AsInteger;
-end;
 
-procedure TfrmEmissaoDeNFe.Tratar_Grupo_B20a_Nfe_Referenciada_ProdutorRural;
-begin
    //Somente se o tipo de movimento está configurado para tratar o grupo B20a
    //---------------------------------------------------------------------------
-   if qTPMOV.FieldByName('TPMOV_NFE_TRATAR_GRUPO_B20a_NOTA_REFER_PROD_RURAL').AsInteger = 0 then
-      exit;
+   if qTPMOV.FieldByName('TPMOV_NFE_TRATAR_GRUPO_B20a_NOTA_REFER_PROD_RURAL').AsInteger = 1 then
+   begin
 
-   //---------------------------------------------------------------------------
-   // LAYOUT FEDERAL
-   //---------------------------------------------------------------------------
-   // TRATAMENTO DO GRUPO Ba - Identificação da Nota Fiscal eletrônica #
-   //---------------------------------------------------------------------------
+     // Tratar apenas NFe de produtor rural referenciada
+     if qVENDA.FieldByName('PED_NFREFERENCIA_PRODUTOR_RURAL').AsInteger = 1 then
+     begin
 
-   // Tratar apenas NFe de produtor rural referenciada
-   if qVENDA.FieldByName('PED_NFREFERENCIA_PRODUTOR_RURAL').AsInteger <> 1 then
-      exit;
 
-   {B20a}
-   //(refNFP)
-   //Grupo de informações da NF de produtor rural referenciada
+       {29x.10-BA10}
+       //(refNFP)
+       //Grupo de informações da NF de produtor rural referenciada
 
-   {B20b}
-   //(cUF)
-   //Código da UF do emitente do Documento Fiscal
-   //Utilizar a Tabela do IBGE
-   //(Anexo VII - Tabela de UF, Município e País) (v2.0)
-   NotaReferenciada.refNFP.cUF := SoNumeros(qVENDA.FieldByName('PED_NFREFERENCIA_UF').AsString);
+       {29x.11-BA11}
+       //cUF
+       //Código da UF do emitente do Documento Fiscal
+       //Utilizar a Tabela do IBGE
+       //(Anexo IX - Tabela de UF, Município e País) (v2.0)
+       NotaReferenciada.refNFP.cUF := SoNumeros(qVENDA.FieldByName('PED_NFREFERENCIA_UF').AsString);
 
-   {B20c}
-   //AAMM
-   //Ano e Mês de emissão da NFe
-   //AAMM da emissão da NF de produtor (v2.0)
-   NotaReferenciada.refNFP.AAMM := DataAAMM(qVENDA.FieldByName('PED_NFREFERENCIA_DTEMISSAO').AsDateTime);
+       {29x.12-BA12}
+       //AAMM
+       //Ano e Mês de emissão da NFe
+       //AAMM da emissão da NF de produtor (v2.0)
+       NotaReferenciada.refNFP.AAMM := DataAAMM(qVENDA.FieldByName('PED_NFREFERENCIA_DTEMISSAO').AsDateTime);
 
-   {B20d}
-   //(CNPJ)
-   //CNPJ do emitente
-   //Informar o CNPJ do emitente da NF de produtor (v2.0)
-   if qVENDA.FieldByName('PED_NFREFERENCIA_CNPJ').AsString <> '' then
-      NotaReferenciada.refNFP.CNPJCPF := SoNumerosX(qVENDA.FieldByName('PED_NFREFERENCIA_CNPJ').AsString);
+       {29x.13-BA13}
+       //CNPJ
+       //CNPJ do emitente
+       //Informar o CNPJ do emitente da NF de produtor (v2.0)
+       if qVENDA.FieldByName('PED_NFREFERENCIA_CNPJ').AsString <> '' then
+          NotaReferenciada.refNFP.CNPJCPF := SoNumerosX(qVENDA.FieldByName('PED_NFREFERENCIA_CNPJ').AsString);
 
-   {B20e}
-   //(CPF)
-   //CPF do emitente
-   //Informar o CPF do emitente da NF de produtor (v2.0)
-   if qVENDA.FieldByName('PED_NFREFERENCIA_CPF').AsString <> '' then
-      NotaReferenciada.refNFP.CNPJCPF := SoNumerosX(qVENDA.FieldByName('PED_NFREFERENCIA_CPF').AsString);
+       {29x.14-BA14}
+       //CPF
+       //CPF do emitente
+       //Informar o CPF do emitente da NF de produtor (v2.0)
+       if qVENDA.FieldByName('PED_NFREFERENCIA_CPF').AsString <> '' then
+          NotaReferenciada.refNFP.CNPJCPF := SoNumerosX(qVENDA.FieldByName('PED_NFREFERENCIA_CPF').AsString);
 
-   {24f-B20f}
-   //(IE)
-   //IE do emitente
-   //Informar a IE do emitente da NF de Produtor (v2.0)
-   if qVENDA.FieldByName('PED_NFREFERENCIA_IE').AsString <> '' then
-      NotaReferenciada.refNFP.IE := SoNumerosX(qVENDA.FieldByName('PED_NFREFERENCIA_IE').AsString);
+       {29x.15-BA15}
+       //IE
+       //IE do emitente
+       //Informar a IE do emitente da NF de Produtor (v2.0)
+       //ou o literal “ISENTO”
+       if qVENDA.FieldByName('PED_NFREFERENCIA_IE').AsString <> '' then
+          NotaReferenciada.refNFP.IE := SoNumerosX(qVENDA.FieldByName('PED_NFREFERENCIA_IE').AsString);
 
-   {24g-B20f}
-   //(mod)
-   //Modelo do Documento Fiscal
-   //Informar o código:
-   //     04 – NF de Produtor ou
-   //     01- para NF avulsa  (v2.0)
-   NotaReferenciada.refNFP.modelo := qVENDA.FieldByName('PED_NFREFERENCIA_MODELO').AsString;
+       {29x.16-BA16}
+       //mod
+       //Modelo do Documento Fiscal
+       //Informar o código:
+       //     04 – NF de Produtor ou
+       //     01 - NF avulsa  (v2.0)
+       NotaReferenciada.refNFP.modelo := qVENDA.FieldByName('PED_NFREFERENCIA_MODELO').AsString;
 
-   {24h-B20g}
-   //(serie)
-   //Série do Documento Fiscal
-   NotaReferenciada.refNFP.serie := qVENDA.FieldByName('PED_NFREFERENCIA_SERIE').AsInteger;
+       {29x.17-BA17}
+       //serie
+       //Série do Documento Fiscal
+       //(Informar zero se não existente)(v2.0)
+       NotaReferenciada.refNFP.serie := qVENDA.FieldByName('PED_NFREFERENCIA_SERIE').AsInteger;
 
-   {24h-B20h}
-   //(nNF)
-   //Número do Documento Fiscal
-   //1 – 999999999
-   NotaReferenciada.refNFP.nNF := qVENDA.FieldByName('PED_NFREFERENCIA').AsInteger;
+       {29x18-BA18}
+       //nNF
+       //Número do Documento Fiscal
+       //1 – 999999999
+       NotaReferenciada.refNFP.nNF := qVENDA.FieldByName('PED_NFREFERENCIA').AsInteger;
 
-   {24i-B20i}
-   //(refCTe)
-   //Chave de acesso do CT-e referenciada
-   //Utilizar esta TAG para referenciar um CT-e emitido anteriormente, vinculada a NF-e atual - (v2.0).
-   NotaReferenciada.refCTe := qVENDA.FieldByName('PED_NFREFERENCIA_REFCTE').AsString;
-end;
-
-procedure TfrmEmissaoDeNFe.Tratar_Grupo_B20j_Cupom_Fiscal_Referenciado;
-begin
-   //Somente se o tipo de movimento está configurado para tratar o grupo B20j
-   //---------------------------------------------------------------------------
-   if qTPMOV.FieldByName('TPMOV_NFE_TRATAR_GRUPO_B20j_CUPOM_FISCAL_REFERENCIADO').AsInteger = 0 then
-      exit;
-
-   //---------------------------------------------------------------------------
-   // LAYOUT FEDERAL
-   //---------------------------------------------------------------------------
-   // TRATAMENTO DO GRUPO Ba - Identificação da Nota Fiscal eletrônica #
-   //---------------------------------------------------------------------------
-
-   // Tratar apenas NFe com Cupom Fiscal referenciado
-   if qVENDA.FieldByName('PED_NFREFERENCIA_ECF_NECF').AsString = '000' then
-      exit;
-
-   {24J-B20j}
-   //(refECF)
-   //Informações do Cupom Fiscal referenciado
-   //Grupo do Cupom Fiscal vinculado à NF-e (v2.0).
-
-   {24k-B20k}
-   //(mod)
-   //Modelo do Documento Fiscal
-   //Preencher com:
-   //  "2B", quando se tratar de Cupom Fiscal emitido por máquina registradora (não ECF)
-   //  "2C", quando se tratar de Cupom Fiscal PDV
-   //  "2D", quando se tratar de Cupom Fiscal (emitido por ECF) (v2.0).
-   case qVENDA.FieldByName('PED_NFREFERENCIA_ECF_Modelo').AsInteger of
-      0 : NotaReferenciada.RefECF.modelo := ECFModRefVazio;
-      1 : NotaReferenciada.RefECF.modelo := ECFModRef2B;
-      2 : NotaReferenciada.RefECF.modelo := ECFModRef2C;
-      3 : NotaReferenciada.RefECF.modelo := ECFModRef2D;
+       {29x19-BA19}
+       //refCTe
+       //Chave de acesso do CT-e referenciada
+       //Utilizar esta TAG para referenciar um CT-e emitido anteriormente, vinculada a NF-e atual - (v2.0).
+       NotaReferenciada.refCTe := qVENDA.FieldByName('PED_NFREFERENCIA_REFCTE').AsString;
+     end;
    end;
 
-   {24l-B20l}
-   //(nECF)
-   // Número de ordem seqüencial do ECF
-   //Informar o número de ordem seqüencial do ECF que emitiu o Cupom Fiscal vinculado à NF-e (v2.0).
-   NotaReferenciada.RefECF.nECF := qVENDA.FieldByName('PED_NFREFERENCIA_ECF_NECF').AsString;
+   if qTPMOV.FieldByName('TPMOV_NFE_TRATAR_GRUPO_B20j_CUPOM_FISCAL_REFERENCIADO').AsInteger = 1 then
+   begin
+      // Tratar apenas NFe com Cupom Fiscal referenciado
+      if qVENDA.FieldByName('PED_NFREFERENCIA_ECF_NECF').AsInteger = 1 then
+      begin
+         {29x.20-BA20}
+         //refECF
+         //Informações do Cupom Fiscal referenciado
+         //Grupo do Cupom Fiscal vinculado à NF-e (v2.0).
 
-   {24m-B20m}
-   //(nCOO)
-   //Número do Contador de Ordem de Operação - COO
-   //Informar o Número do Contador de Ordem de Operação - COO vinculado à NF-e (v2.0).
-   NotaReferenciada.RefECF.nCOO := qVENDA.FieldByName('PED_NFREFERENCIA_ECF_NCOO').AsString;
+         {29x.21-BA21}
+         //mod
+         //Modelo do Documento Fiscal
+         //Preencher com:
+         //  "2B" = Cupom Fiscal emitido por máquina registradora (não ECF)
+         //  "2C" = Cupom Fiscal PDV
+         //  "2D" = Cupom Fiscal (emitido por ECF) (v2.0).
+         case qVENDA.FieldByName('PED_NFREFERENCIA_ECF_Modelo').AsInteger of
+            0 : NotaReferenciada.RefECF.modelo := ECFModRefVazio;
+            1 : NotaReferenciada.RefECF.modelo := ECFModRef2B;
+            2 : NotaReferenciada.RefECF.modelo := ECFModRef2C;
+            3 : NotaReferenciada.RefECF.modelo := ECFModRef2D;
+         end;
+
+         {29x.22-BA22}
+         //nECF
+         //Número de ordem seqüencial do ECF
+         //Informar o número de ordem seqüencial do ECF que emitiu o
+         //Cupom Fiscal vinculado à NF-e (v2.0).
+         NotaReferenciada.RefECF.nECF := qVENDA.FieldByName('PED_NFREFERENCIA_ECF_NECF').AsString;
+
+         {29x.23-BA23}
+         //nCOO
+         //Número do Contador de Ordem de Operação - COO
+         //Informar o Número do Contador de Ordem de Operação - COO
+         //vinculado à NF-e (v2.0).
+         NotaReferenciada.RefECF.nCOO := qVENDA.FieldByName('PED_NFREFERENCIA_ECF_NCOO').AsString;
+      end;
+   end;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_C_Identificacao_do_Emitente_da_NFe;
@@ -6327,8 +6350,9 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS00;
 begin
-   //Somentes se o Produto apresentar
+   //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 00
+   //---------------------------------------------------------------------------
    if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '00' then
       exit;
 
@@ -6356,20 +6380,18 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS10;
 begin
-   //<ok>
-   //Somentes se o Produto apresentar
+   //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 10
+   //---------------------------------------------------------------------------
    if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '10' then
       exit;
 
-   //<ok>
    // Trata impostos de produtos
    // com CST (Código da Situação Tributária) do ICMS = '10':
    //---------------------------------------------------------------------------
    // Tributada e com cobrança do ICMS por substituição tributária
    //---------------------------------------------------------------------------
 
-   //<ok>
    {172-N03}
    //ICMS10
    //Grupo de Tributação do ICMS = 10
@@ -6395,8 +6417,9 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS20;
 begin
-   //Somentes se o Produto apresentar
+   //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 20
+   //---------------------------------------------------------------------------
    if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '20' then
       exit;
 
@@ -6427,20 +6450,18 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS30;
 begin
-   //<ok>
-   //Somentes se o Produto apresentar
+   //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 30
+   //---------------------------------------------------------------------------
    if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '30' then
       exit;
 
-   //<ok>
    // Trata impostos de produtos
    // com ST do ICMS = '30':
    //---------------------------------------------------------------------------
    // Isenta ou não tributada e com cobrança do ICMS por substituição tributária
    //---------------------------------------------------------------------------
 
-   //<ok>
    {193-N05}
    //ICMS30
    //Grupo de Tributação do ICMS = 30
@@ -6463,22 +6484,20 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS40_41_50;
 begin
-   //<ok>
-   //Somentes se o Produto apresentar
+   //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 40, 41 ou 50
+   //---------------------------------------------------------------------------
    if (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '40') and
       (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '41') and
       (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '50') then
       exit;
 
-   //<ok>
    // Trata impostos de produtos
    // com ST do ICMS = '40', '41' e '50':
    //---------------------------------------------------------------------------
    // 40-Isenta, 41-Não tributada, 50-Suspensão
    //---------------------------------------------------------------------------
 
-   //<ok>
    {202-N05}
    //ICMS40
    //Grupo de Tributação do ICMS = 40, 41 e 50
@@ -6492,8 +6511,9 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS51;
 begin
-   //Somentes se o Produto apresentar
+   //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 51
+   //---------------------------------------------------------------------------
    if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '51' then
       exit;
 
@@ -6530,7 +6550,7 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS60;
 begin
-   //Somentes se o Produto apresentar
+   //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 60
    //                                                     (Incluído NT 2016/002)
    //---------------------------------------------------------------------------   if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '60' then
@@ -6564,7 +6584,7 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS70;
 begin
-   //Somentes se o Produto apresentar
+   //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 70
    //---------------------------------------------------------------------------
    if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '70' then
@@ -6608,7 +6628,7 @@ end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS90;
 begin
-   //Somentes se o Produto apresentar
+   //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 90
    //---------------------------------------------------------------------------
    if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '90' then
@@ -6899,25 +6919,27 @@ procedure TfrmEmissaoDeNFe.Tratar_CSOSN_102;
 begin
    //CRT  =  1 – Simples Nacional
    //CSOSN=102 - Tributada pelo Simples Nacional sem permissão de crédito.
+   //---------------------------------------------------------------------------
    Tratar_CSOSN_102_103_300_400(csosn102);
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_CSOSN_102_103_300_400(pCSOSN: TpcnCSOSNIcms);
 begin
-   //CRT  =   1 - Simples Nacional
-   //CSOSN= 102 - Tributada pelo Simples Nacional sem permissão de crédito.
-   //       103 – Isenção do ICMS  no Simples Nacional para faixa de receita bruta.
-   //       300 – Imune.
-   //       400 – Não tributada pelo Simples Nacional (v.2.0) (v.2.0)
-
+   //CRT  =   1-Simples Nacional
+   //CSOSN= 102-Tributada pelo Simples Nacional sem permissão de crédito
+   //       103–Isenção do ICMS  no Simples Nacional para faixa de receita bruta
+   //       300–Imune
+   //       400–Não tributada pelo Simples Nacional (v.2.0) (v.2.0)
+   //---------------------------------------------------------------------------
    {245.25-N11 } Tratar_N11_Produto_Imposto_ICMS_orig;
    {245.26-N12a} Tratar_N12_Produto_Imposto_ICMS_CSOSN(pCSOSN);
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_CSOSN_103;
 begin
-   //CRT  =  1 – Simples Nacional
-   //CSOSN=103 - Isenção do ICMS  no Simples Nacional para faixa de receita bruta.
+   //CRT  =  1–Simples Nacional
+   //CSOSN=103-Isenção do ICMS  no Simples Nacional para faixa de receita bruta
+   //---------------------------------------------------------------------------
    Tratar_CSOSN_102_103_300_400(csosn103);
 end;
 
@@ -7198,7 +7220,7 @@ begin
    //contribuinte substituído, caso esteja submetido ao regime comum de
    //tributação, obtida pelo produto do Vprod por (1-pRedBCEfet).
    //Obs.: opcional a critério da UF.   //---------------------------------------------------------------------------   //With Produto.Imposto.ICMS do   //begin
-    //vBCEfet := (100-pRedBCEfet)/100 * Produto.Prod.vProd;
+   //  vBCEfet := (100-pRedBCEfet)/100 * Produto.Prod.vProd;
    //end;
 end;
 
@@ -7461,7 +7483,7 @@ M|vTotTrib|
 
 
 CST=00
-<ok> N02|Orig|CST|modBC|vBC|pICMS|vICMS|pFCP|vFCP|
+N02|Orig|CST|modBC|vBC|pICMS|vICMS|pFCP|vFCP|
 
 CST=10
 N03|Orig|CST|modBC|vBC|pICMS|vICMS|vBCFCP|pFCP|vFCP|modBCST|pMVAST|pRedBCST|vBCST|pICMSST|vICMSST|vBCFCPST|pFCPST|vFCPST|

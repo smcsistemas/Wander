@@ -27,9 +27,14 @@ ordem decrescente de data....
 |  TOTAL| 264  |
 ================
 
+    procedure Tratar_Grupo_BA_Documento_Fiscal_Referencado;
+    procedure Tratar_Grupo_B20a_Nfe_Referenciada_ProdutorRural;
+    procedure Tratar_Grupo_B20j_Cupom_Fiscal_Referenciado;
+
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+287|10/06/20|11:20|EmissaoDeNFe                |Grupo BA incorporou grupos B20a e B20j (NFe referenciadas produtor rural e cupom fiscal)
 286|09/06/20|22:12|EmissaoDeNFe                |Grupo ZX - Informações Suplemtares da NFe - Explicitado
 285|09/06/20|21:37|EmissaoDeNFe                |Grupo ZD - Informações do Responsável Técnico - Explicitado
 284|09/06/20|21:01|EmissaoDeNFe                |Grupo YA - Informações de Pagamento - Explicitado
