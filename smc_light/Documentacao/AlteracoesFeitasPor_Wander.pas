@@ -28,10 +28,10 @@ ordem decrescente de data....
 ================
 //092
 //
-
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+282|09/06/20|16:53|EmissaoDeNFe                |Passa a tratar Grupo LB da NFe = Operações com Papel Imune
 281|09/06/20|14:25|cadastro_produto            |Passa a tratar a coluna PROD_TRATANUMEROSERIE (Parâmetro de Tratamento de Número de Série)
 280|09/06/20|14:25|cadastro_produto            |Passa a tratar a coluna PROD_TRATALOTE (Parâmetro de Tratamento de Lote)
 279|09/06/20|14:25|u_funcoes                   |Criada função True_ou_False que recebe um inteiro (0/1) e retorna true se zero e false se 1

@@ -3,6 +3,7 @@ unit EmissaoDeNFe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+282|09/06/20|16:53|EmissaoDeNFe                |Passa a tratar Grupo LB da NFe = Operações com Papel Imune
 275|09/06/20|06:33|EmissaoDeNFe                |Passa a usar a função VazioSeInteiroMenos1
 274|09/06/20|06:33|EmissaoDeNFe                |Passa a usar a função InteiroMenos1_se_Vazio
 271|08/06/20|11:03|EmissaoDeNFe                |Consumindo a tabela RASTRO_RAS (Dados de rastreabilidade)
@@ -21,7 +22,6 @@ ALT|   DATA |HORA |UNIT                        |Descrição                       
 |  198|25/05/20|wander              |VENDA_ITEM(CFOP) substituido por          |
 |     |   14:37|EmissaoDeNFe        |VENDA_ITEM(VI_CFOP_CSOSN)                 |
 ================================================================================
-
 
 ================================================================================
 |   DATA   |DESENVOLVEDOR|HISTORICO DA ALTERACAO DO CODIGO                     |
@@ -254,12 +254,15 @@ type
     procedure Tratar_Grupo_K_Detalhamento_Especifico_de_Medicamento;
     // Grupo L
     procedure Tratar_Grupo_L_Detalhamento_Especifico_de_Armamentos;
+    // Grupo LB
+    procedure Tratar_Grupo_LB_Detalhamento_Especifico_para_Operacao_com_Papel_Imune;
     // Grupo L1
     procedure Tratar_Grupo_L1_Detalhamento_Especifico_de_Combustiveis;
     // Grupo M
     procedure Tratar_Grupo_M_Tributos_Incidentes_no_Produto_ou_Serviço;
     // Grupo N
     procedure Tratar_Grupo_N_ICMS_Normal_e_ST;
+
     //
     procedure Tratar_impostos_de_Produtos;
     procedure Tratar_impostos_de_Servicos;
@@ -274,8 +277,13 @@ type
     procedure Tratar_ICMS60;
     procedure Tratar_ICMS70;
     procedure Tratar_ICMS90;
-    procedure Tratar_ICMSPartilha;
-    procedure Tratar_ICMS_ST_devido_para_UF_de_destino;
+
+    // Grupo NA
+    procedure Tratar_Grupo_NA_ICMS_para_a_UF_de_Destino;
+
+    procedure Tratar_Partilha_do_ICMS;
+    procedure Tratar_Repasse_do_ICMS_ST;
+
 
     procedure Tratar_N11_Produto_Imposto_ICMS_orig;
     procedure Tratar_N12_Produto_Imposto_ICMS_CST;
@@ -355,6 +363,10 @@ type
     procedure Tratar_Grupo_V_Informacoes_Adicionais_do_Produto;
     // Grupo W
     procedure Tratar_Grupo_W_Valores_Totais_da_NFe;
+    // Grupo W01
+    procedure Tratar_Grupo_W01_Totalda_NFe_ISSQN;
+    // Grupo W02
+    procedure Tratar_Grupo_W02_Totalda_NFe_Retencao_de_Tributos;
     // Grupo X
     procedure Tratar_Grupo_X_Informacoes_do_Transporte_da_NFe;
     // Grupo Y
@@ -544,6 +556,8 @@ begin
    Tratar_Grupo_G_Identificao_do_Local_de_Entrega;
    Tratar_Grupo_H_Detalhamento_de_Produtos_e_Serviços_da_NFe;
    Tratar_Grupo_W_Valores_Totais_da_NFe;
+   Tratar_Grupo_W01_Totalda_NFe_ISSQN;
+   Tratar_Grupo_W02_Totalda_NFe_Retencao_de_Tributos;
    Tratar_Grupo_X_Informacoes_do_Transporte_da_NFe;
    Tratar_Grupo_Y_Dados_da_Cobranca;
    Tratar_Grupo_Z_Informacoes_Adicionais_da_NFe;
@@ -3184,6 +3198,7 @@ begin
    Tratar_Grupo_J_Detalhamento_Especifico_de_Veiculos_Novos;
    Tratar_Grupo_K_Detalhamento_Especifico_de_Medicamento;
    Tratar_Grupo_L_Detalhamento_Especifico_de_Armamentos;
+   Tratar_Grupo_LB_Detalhamento_Especifico_para_Operacao_com_Papel_Imune;
    Tratar_Grupo_L1_Detalhamento_Especifico_de_Combustiveis;
    Tratar_Grupo_M_Tributos_Incidentes_no_Produto_ou_Serviço;
 end;
@@ -3496,32 +3511,32 @@ begin
    //                                                    (Criado na NT 2018.005)
    //xMotivoIsencao := '';
 
-   {153-K02}
+   {153-K02} //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    //Lote
    //Número do Lote de medicamentos ou de matérias-primas farmacêuticas
-   //(Excluído no leiaute 4.0 - NT 2016/002)
+   //                                    (Excluído no leiaute 4.0 - NT 2016/002)
 
-   {154-K03}
+   {154-K03} //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    //qLote
    //Quantidade de produto no Lote de medicamentos ou de matérias-primas farmacêuticas
-   //(Excluído no leiaute 4.0 - NT 2016/002)
+   //                                    (Excluído no leiaute 4.0 - NT 2016/002)
 
-   {155-K04}
+   {155-K04} //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    //dFab
    //Data de fabricação
    //Formato “AAAA-MM-DD”
-   //(Excluído no leiaute 4.0 - NT 2016/002)
+   //                                    (Excluído no leiaute 4.0 - NT 2016/002)
 
-   {156-K05}
+   {156-K05} //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    //dVal
    //Data de validade
    //Formato “AAAA-MM-DD”
-   //(Excluído no leiaute 4.0 - NT 2016/002)
+   //                                    (Excluído no leiaute 4.0 - NT 2016/002)
 
    {157-K06}
    //vPMC
    //Preço máximo consumidor
-
+   //vPMC := 0;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_L_Detalhamento_Especifico_de_Armamentos;
@@ -3564,8 +3579,8 @@ begin
    {162-L05}
    //descr
    //Descrição completa da arma, compreendendo:
-   //calibre, marca, capacidade, tipo de funcionamento, comprimento
-   //e demais elementos que permitam a sua perfeita identificação
+   //          calibre, marca, capacidade, tipo de funcionamento, comprimento
+   //          e demais elementos que permitam a sua perfeita identificação
 
 end;
 
@@ -3594,12 +3609,55 @@ begin
    //Movimentação de produtos - SIMP (http://www.anp.gov.br/simp/ind ex.htm).
    //Informar 999999999 se o produto não possuir código de produto ANP.
 
+   {162b1-LA03} //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+   //pMixGN
+   //Percentual de Gás Natural para o produto GLP (cProdANP=210203001)
+   //                                    (Excluído no leiaute 4.0 - NT 2016/002)
+
+   {162b1-LA03}
+   //descANP
+   //Descrição do produto conforme ANP
+   //Utilizar a descrição de produtos do Sistema de Informações de Movimentação
+   //de Produtos - SIMP (http://www.anp.gov.br/simp/).
+   //                                                  (Incluído na NT 2016/002)
+
+   {162b2-LA03a}
+   //pGLP
+   //Percentual do GLP derivado do petróleo no produto GLP (cProdANP=210203001)
+   //Informar em número decimal o percentual do GLP derivado de petróleo no
+   //produto GLP.
+   //Valores de 0 a 100.
+   //                                                  (Incluído na NT 2016/002)
+
+   {162b3-LA03b}
+   //pGNn
+   //Percentual de Gás Natural Nacional – GLGNn
+   //para o produto GLP (cProdANP=210203001)
+   //Informar em número decimal o percentual do Gás Natural Nacional – GLGNn
+   //para o produto GLP.
+   //Valores de 0 a 100.
+   //                                                  (Incluído na NT 2016/002)
+
+   {162b4-LA03c}
+   //pGNi
+   //Percentual de Gás Natural Importado – GLGNi
+   //para o produto GLP (cProdANP=210203001)
+   //Informar em número decimal o percentual do Gás Natural Importado – GLGNi
+   //para o produto GLP.
+   //Valores de 0 a 100.
+   //                                                  (Incluído na NT 2016/002)
+
+   {162b5-LA03d}
+   //vPart Valor de partida (cProdANP=210203001)
+   //Deve ser informado neste campo o valor por quilograma sem ICMS.
+   //                                                  (Incluído na NT 2016/002)
+
    {162c-L103}
    //CODIF
    //Código de autorização / registro do CODIF
    //Informar apenas quando a UF utilizar o CODIF
    //(Sistema de Controle do Diferimento do Imposto nas Operações com AEAC
-   //- Álcool Etílico Anidro Combustível).
+   //AEAC - Álcool Etílico Anidro Combustível).
 
    {162d-L104}
    //qTemp
@@ -3610,7 +3668,7 @@ begin
    {162e-L120}
    //UFCons
    //Sigla da UF de consumo
-   //Informar a UF de consumo
+   //Informar a UF de consumo. Informar "EX" para Exterior.
 
    {162f-L105}
    //CIDE
@@ -3632,6 +3690,52 @@ begin
    //Valor da CIDE
    //Informar o valor da CIDE
 
+   {162j-LA11}
+   //encerrante
+   //Informações do grupo de “encerrante”
+   //Informações do grupo de “encerrante” disponibilizado por hardware específico
+   //acoplado à bomba de Combustível, definido no controle da venda do Posto
+   //Revendedor de Combustível.
+   //                                            (Grupo incluído na NT 2015/002)
+
+   {162k-LA12}
+   //nBico
+   //Número de identificação do bico utilizado no abastecimento
+   //Informar o número do bico utilizado no abastecimento.
+
+   {162l-LA13}
+   //nBomba
+   //Número de identificação da bomba ao qual o bico está interligado
+   //Caso exista, informar o número da bomba utilizada.
+
+   {162m-LA14}
+   //nTanque
+   //Número de identificação do tanque ao qual o bico está interligado
+   //Informar o número do tanque utilizado.
+
+   {162n-LA15}
+   //vEncIni
+   //Valor do Encerrante no início do abastecimento
+   //Informar o valor da leitura do contador (Encerrante) no início do
+   //abastecimento
+
+   {162o-LA16}
+   //vEncFin
+   //Valor do Encerrante no final do abastecimento
+   //Informar o valor da leitura do contador (Encerrante) no término do
+   //abastecimento
+
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Grupo_LB_Detalhamento_Especifico_para_Operacao_com_Papel_Imune;
+begin
+    //Grupo LB. Detalhamento Específico para Operação com Papel Imune
+    //--------------------------------------------------------------------------
+
+    {162j-LB01}
+    //nRECOPI
+    //Número do RECOPI
+    //Vide: Anexo X.02 - Identificador RECOPI
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_M_Tributos_Incidentes_no_Produto_ou_Serviço;
@@ -3709,6 +3813,7 @@ begin
    // Calcular ICMS e ST
    //---------------------------------------------------------------------------
    Tratar_Grupo_N_ICMS_Normal_e_ST;
+   Tratar_Grupo_NA_ICMS_para_a_UF_de_Destino;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_impostos_de_Servicos;
@@ -4102,13 +4207,96 @@ begin
    end;
 end;
 
+procedure TfrmEmissaoDeNFe.Tratar_Grupo_NA_ICMS_para_a_UF_de_Destino;
+begin
+   //---------------------------------------------------------------------------
+   // LAYOUT FEDERAL
+   //---------------------------------------------------------------------------
+   // TRATAMENTO DO GRUPO NA - ICMS para a UF de Destino
+   //---------------------------------------------------------------------------
+
+   {245a.01-NA01}
+   //ICMSUFDest
+   //Informação do ICMS Interestadual
+   //Grupo a ser informado nas vendas interestaduais para
+   //consumidor final, não contribuinte do ICMS.
+   //Observação: Este grupo não deve ser utilizado nas operações com veículos
+   //automotores novos efetuadas por meio de faturamento direto para o consumidor
+   //(Convênio ICMS 51/00), as quais possuem grupo de campos próprio (ICMSPart)
+   //                                              (Grupo criado na NT 2015/003)
+   {245a.03}
+   //NA03
+   //vBCUFDest
+   //Valor da BC do ICMS na UF de destino
+   //Valor da Base de Cálculo do ICMS na UF de destino.
+
+   {245a.04-NA04}
+   //vBCFCPUFDest
+   //Valor da BC FCP na UF de destino
+   //Valor da Base de Cálculo do FCP na UF de destino.
+   //                                                  (Incluído na NT 2016/002)
+
+   {245a.05-NA05}
+   //pFCPUFDest
+   //Percentual do ICMS relativo ao Fundo de Combate à Pobreza (FCP)
+   //na UF de destino
+   //Percentual adicional inserido na alíquota interna da UF de destino,
+   //relativo ao Fundo de Combate à Pobreza (FCP) naquela UF.
+   //Nota: Percentual máximo de 2%, conforme a legislação.
+
+   {245a.07-NA07}
+   //pICMSUFDest
+   //Alíquota interna da UF de destino
+   //Alíquota adotada nas operações internas na UF de destino para o produto/mercadoria.
+   //A alíquota do Fundo de Combate a Pobreza, se existente para o produto/mercadoria,
+   //deve ser informada no campo próprio (pFCPUFDest) não devendo ser somada à essa
+   //alíquota interna.
+
+   {245a.09-NA09}
+   //pICMSInter
+   //Alíquota interestadual das UF envolvidas
+   //Alíquota interestadual das UF envolvidas:
+   //       - 4% alíquota interestadual para produtos importados;
+   //       - 7% para os Estados de origem do Sul e Sudeste (exceto ES),
+   //            destinado para os Estados do Norte, Nordeste, Centro- Oeste e
+   //            Espírito Santo;
+   //       - 12% para os demais casos.
+
+   {245a.11-NA11}
+   //pICMSInterPart
+   //Percentual provisório de partilha do ICMS Interestadual
+   //Percentual de ICMS Interestadual para a UF de destino:
+   //         -  40% em 2016;
+   //         -  60% em 2017;
+   //         -  80% em 2018;
+   //         - 100% a partir de 2019.
+
+   //245a.13-NA13}
+   //vFCPUFDest
+   //Valor do ICMS relativo ao Fundo de Combate à Pobreza (FCP) da UF de destino
+   //Valor do ICMS relativo ao Fundo de Combate à Pobreza (FCP) da UF de destino.
+   //                                                (Atualizado na NT 2016/002)
+
+   {245a.15-NA15}
+   //vICMSUFDest
+   //Valor do ICMS Interestadual para a UF de destino
+   //Valor do ICMS Interestadual para a UF de destino, já considerando o valor
+   //do ICMS relativo ao Fundo de Combate à Pobreza naquela UF.
+
+   {245a.17-NA17}
+   //vICMSUFRemet
+   //Valor do ICMS Interestadual para a UF do remetente
+   //Valor do ICMS Interestadual para a UF do remetente.
+   //Nota: A partir de 2019, este valor será zero.
+end;
+
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_N_ICMS_Normal_e_ST;
 var vICMS_CST : Integer;
 begin
    //---------------------------------------------------------------------------
    // LAYOUT FEDERAL
    //---------------------------------------------------------------------------
-   // TRATAMENTO DO GRUPO M - Tributos incidentes no Produto ou Serviço
+   // TRATAMENTO DO GRUPO N - Tributos incidentes no Produto ou Serviço
    //---------------------------------------------------------------------------
 
    {164-N01}
@@ -4125,7 +4313,7 @@ begin
      10 : begin
             // 10 - Tributada e com cobrança do ICMS por substituição tributária
             Tratar_ICMS10;
-            Tratar_ICMSPartilha;
+            Tratar_Partilha_do_ICMS;
          end;
      20 : Tratar_ICMS20;
           // 20 - Com redução de base de cálculo
@@ -4148,7 +4336,7 @@ begin
      90 : begin
           // 90 - Outros
              Tratar_ICMS90;
-             Tratar_ICMSPartilha;
+             Tratar_Partilha_do_ICMS;
           end;
    End;
 
@@ -4234,11 +4422,12 @@ begin
    //Grupo do IPI
    //Informar apenas quando o item for sujeito ao IPI
 
-   {247-O02}
+   {247-O02} //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    //clEnq
    //Classe de enquadramento do IPI para Cigarros e Bebidas
    //Preenchimento conforme Atos Normativos editados pela Receita Federal
    //(Observação 2)
+   //                                    (Excluído no leiaute 4.0 - NT 2016/002)
 
    {248-O03}
    //CNPJProd
@@ -4251,7 +4440,17 @@ begin
    //Código do selo de controle IPI
    //Preenchimento conforme Atos Normativos editados pela Receita Federal
    //(Observação 3)
-
+   //Preenchimento conforme Anexo II-A da Instrução Normativa RFB Nº 770/2007
+   //======================================================================================
+   //TIPO DE SELO                                |CÓDIGO |COR DO SELO
+   //--------------------------------------------|-------|---------------------------------
+   //Produto Nacional                            |9710-01|Verde combinado com marrom
+   //Produto Nacional para Exportação - Tipo "1" |9710-10|Verde Escuro combinado com marrom
+   //Produto Nacional para Exportação - Tipo "2" |9710-11|Verde Escuro combinado com marrom
+   //Produto Nacional para Exportação - Tipo "3" |9710-12|Verde Escuro combinado com marrom
+   //Produto Estrangeiro                         |8610-09|Vermelho combinado com azul
+   //======================================================================================
+   //                                                (Atualizado na NT 2016/002)
    {250-O05}
    //qSelo
    //Quantidade de selo de controle
@@ -4259,7 +4458,8 @@ begin
    {251-O06}
    //cEnq
    //Código de Enquadramento Legal do IPI
-   //Tabela a ser criada pela RFB, informar 999 enquanto a tabela não for criada
+   //Preenchimento conforme “Anexo XIII - Código de Enquadramento Legal do IPI”
+   //do MOC – Visão Geral
 
    {252-O07}
    //IPITrib
@@ -4303,7 +4503,18 @@ begin
    {260-O08}
    //IPINT
    //Grupo do CST 01, 02, 03, 04, 51, 52, 53, 54 e 55
-
+   //-------------------------------------------------
+   //          01=Entrada tributada com alíquota zero
+   //          02=Entrada isenta
+   //          03=Entrada não-tributada
+   //          04=Entrada imune
+   //          05=Entrada com suspensão
+   //          51=Saída tributada com alíquota zero
+   //          52=Saída isenta
+   //          53=Saída não-tributada Observação
+   //          54=Saída imune
+   //          55=Saída com suspensão
+   //-------------------------------------------------
    {261-O09}
    //CST
    //Código da situação tributária do IPI
@@ -4363,6 +4574,8 @@ begin
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_Q_PIS;
+var vRPC_PIS: String;
+    nRPC_PIS: Integer;
 begin
    //Somente se o tipo de movimento está configurado para tratar o grupo O
    // Programa de Integração Social
@@ -4389,217 +4602,212 @@ begin
    //if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '' then
       exit;
 
-       {269-Q06}
-{
-       //CST
-       //Código de Situação Tributária do PIS
-       //    01–Operação Tributável
-       //       base de cálculo = valor da operação alíquota normal
-       //       (cumulativo/não cumulativo)
-       //    02-Operação Tributável
-       //      (base de cálculo = valor da operação
-       //       (alíquota diferenciada)
+   vRPC_PIS := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString;
+   nRPC_PIS := StrToInt(vRPC_PIS);
 
-       if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString....
-
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '01' then CST := pis01 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '02' then CST := pis02 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '03' then CST := pis03 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '04' then CST := pis04 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '05' then CST := pis05 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '06' then CST := pis06 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '07' then CST := pis07 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '08' then CST := pis08 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '09' then CST := pis09 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '49' then CST := pis49 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '50' then CST := pis50 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '51' then CST := pis51 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '52' then CST := pis52 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '53' then CST := pis53 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '54' then CST := pis54 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '55' then CST := pis55 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '56' then CST := pis56 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '60' then CST := pis60 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '61' then CST := pis61 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '62' then CST := pis62 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '63' then CST := pis63 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '64' then CST := pis64 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '65' then CST := pis65 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '66' then CST := pis66 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '67' then CST := pis67 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '70' then CST := pis70 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '71' then CST := pis71 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '72' then CST := pis72 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '73' then CST := pis73 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '74' then CST := pis74 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '75' then CST := pis75 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '98' then CST := pis98 else
-       if qVENDA_ITEM.FieldByName('PIS_CST').AsString = '99' then CST := pis99;
-}
    with Produto.Imposto.PIS do
    begin
-       if (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '01') or
-          (qVENDA_ITEM.FieldByName('PIS_CST').AsString = '02') then
-       begin
-          {268-Q02}
-          //PISAliq
-          //Grupo de PIS tributado pela alíquota ( CST = 01 e 02 )
+   {269-Q06}
+   //CST
+   //Código de Situação Tributária do PIS
+   //    01–Operação Tributável
+   //       base de cálculo = valor da operação alíquota normal
+   //       (cumulativo/não cumulativo)
+   //    02-Operação Tributável
+   //      (base de cálculo = valor da operação
+   //       (alíquota diferenciada)
+   Case nRPC_PIS of
+     01 : CST := pis01;
+     02 : CST := pis02;
+     03 : CST := pis03;
+     04 : CST := pis04;
+     05 : CST := pis05;
+     06 : CST := pis06;
+     07 : CST := pis07;
+     08 : CST := pis08;
+     09 : CST := pis09;
+     49 : CST := pis49;
+     50 : CST := pis50;
+     51 : CST := pis51;
+     52 : CST := pis52;
+     53 : CST := pis53;
+     54 : CST := pis54;
+     55 : CST := pis55;
+     56 : CST := pis56;
+     60 : CST := pis60;
+     61 : CST := pis61;
+     62 : CST := pis62;
+     63 : CST := pis63;
+     64 : CST := pis64;
+     65 : CST := pis65;
+     66 : CST := pis66;
+     67 : CST := pis67;
+     70 : CST := pis70;
+     71 : CST := pis71;
+     72 : CST := pis72;
+     73 : CST := pis73;
+     74 : CST := pis74;
+     75 : CST := pis75;
+     98 : CST := pis98;
+     99 : CST := pis99;
+   End;
 
-          {269-Q06}
+   if (vRPC_PIS = '01') or
+      (vRPC_PIS = '02') then
+   begin
+      {268-Q02}
+      //PISAliq
+      //Grupo de PIS tributado pela alíquota ( CST = 01 e 02 )
 
-          //CST
-          //Código de Situação Tributária do PIS
-          //    01–Operação Tributável
-          //       base de cálculo = valor da operação alíquota normal
-          //       (cumulativo/não cumulativo)
-          //    02-Operação Tributável
-          //      (base de cálculo = valor da operação
-          //       (alíquota diferenciada)
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '01' then CST := pis01;
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '02' then CST := pis02;
+      {269-Q06}
 
-          {270-Q07}
-          //vBC
-          //Valor da Base de Cálculo do PIS
-          vBC := Produto.Prod.vProd;
+      //CST
+      //Código de Situação Tributária do PIS
+      //    01–Operação Tributável
+      //       base de cálculo = valor da operação alíquota normal
+      //       (cumulativo/não cumulativo)
+      //    02-Operação Tributável
+      //      (base de cálculo = valor da operação
+      //       (alíquota diferenciada)
+      //Definido anteriormente ***
 
-          {271-Q08}
-          //pPIS
-          //Alíquota do PIS (em percentual)
-          if qEMITENTE.FieldByName('CODIGO_REGIME_TRIBUTARIO').AsInteger = 2 then
-             // Simples Nacional
-             pPIS := 0.0
-          else
-          begin
-             // Lucro Real ou Presumido
-             //------------------------
-             //Lucro Real ou Presumido Cumulativo: 0,65%
-             //Lucro Real Não Cumulativo: 1,65%
-             //Fonte: https://www.jornalcontabil.com.br/aprenda-a-fazer-o-calculo-de-pis-e-cofins-na-nfe-e-nfce/
-             //
-             //*** O correto é que este percentual esteja no cadastro da empresa ***
-             //
-             if qEMITENTE.FieldByName('TRIBUTACAO_PIS_COFINS').AsString = 'CUMULATIVO' then
-                pPIS := qEMITENTE.FieldByName('pPIS_CUMULATIVO').AsFloat // 0.65
-             else
-                pPIS := qEMITENTE.FieldByName('pPIS_NAOCUMULATIVO').AsFloat; // 1.65;
-          end;
+      {270-Q07}
+      //vBC
+      //Valor da Base de Cálculo do PIS
+      vBC := Produto.Prod.vProd;
 
-          {272-Q09}
-          //vPIS
-          //Valor do PIS
-          vPIS := vBC * pPIS / 100;
-       end;
+      {271-Q08}
+      //pPIS
+      //Alíquota do PIS (em percentual)
+      if qEMITENTE.FieldByName('CODIGO_REGIME_TRIBUTARIO').AsInteger = 2 then
+         // Simples Nacional
+         pPIS := 0.0
+      else
+      begin
+         // Lucro Real ou Presumido
+         //------------------------
+         //Lucro Real ou Presumido Cumulativo: 0,65%
+         //Lucro Real Não Cumulativo: 1,65%
+         //Fonte: https://www.jornalcontabil.com.br/aprenda-a-fazer-o-calculo-de-pis-e-cofins-na-nfe-e-nfce/
+         //
+         //*** O correto é que este percentual esteja no cadastro da empresa ***
+         //
+         if qEMITENTE.FieldByName('TRIBUTACAO_PIS_COFINS').AsString = 'CUMULATIVO' then
+            pPIS := qEMITENTE.FieldByName('pPIS_CUMULATIVO').AsFloat // 0.65
+         else
+            pPIS := qEMITENTE.FieldByName('pPIS_NAOCUMULATIVO').AsFloat; // 1.65;
+      end;
 
-       if (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '03') then
-       begin
-          {273-Q03}
-          //PISQtde
-          //Grupo de PIS tributado por Qtde (CST = 03)
+      {272-Q09}
+      //vPIS
+      //Valor do PIS
+      vPIS := vBC * pPIS / 100;
+   end;
 
-          {274-Q06}
-          //CST
-          //Código de Situação Tributária do PIS
-          //   03 - Operação Tributável
-          //        base de cálculo = quantidade vendida x
-          //                          alíquota por unidade de produto
-          CST := pis03;
+   if (vRPC_PIS = '03') then
+   begin
+      {273-Q03}
+      //PISQtde
+      //Grupo de PIS tributado por Qtde (CST = 03)
 
-          {275-Q10}
-          //qBCProd
-          //Quantidade Vendida
-          qBCProd := Produto.Prod.qCom;
+      {274-Q06}
+      //CST
+      //Código de Situação Tributária do PIS
+      //   03 - Operação Tributável
+      //        base de cálculo = quantidade vendida x
+      //                          alíquota por unidade de produto
+      //Definido anteriormente ***
 
-          {276-Q11}
-          //vAliqProd
-          //Alíquota do PIS (em reais)
-          if qEMITENTE.FieldByName('CODIGO_REGIME_TRIBUTARIO').AsInteger = 2 then
-             // Simples Nacional
-             vAliqProd := 0.0
-          else
-          begin
-             // Lucro Real ou Presumido
-             //------------------------
-             //Lucro Real ou Presumido Cumulativo: 0,65%
-             //Lucro Real Não Cumulativo: 1,65%
-             //Fonte: https://www.jornalcontabil.com.br/aprenda-a-fazer-o-calculo-de-pis-e-cofins-na-nfe-e-nfce/
-             //
-             //*** O correto é que este percentual esteja no cadastro da empresa ***
-             //
-             if qVENDA_ITEM.FieldByName('TRIBUTACAO_PIS_COFINS').AsString = 'CUMULATIVO' then
-                vAliqProd := 0.65 / 100 * Produto.Prod.vUnCom
-             else
-                vAliqProd := 1.65 /100 * Produto.Prod.vUnCom;
-          end;
+      {275-Q10}
+      //qBCProd
+      //Quantidade Vendida
+      qBCProd := Produto.Prod.qCom;
 
-          {277-Q09}
-          //vPIS
-          //Valor do PIS
-          vPIS := vAliqProd * qBCProd;
-       end;
+      {276-Q11}
+      //vAliqProd
+      //Alíquota do PIS (em reais)
+      if qEMITENTE.FieldByName('CODIGO_REGIME_TRIBUTARIO').AsInteger = 2 then
+         // Simples Nacional
+         vAliqProd := 0.0
+      else
+      begin
+         // Lucro Real ou Presumido
+         //------------------------
+         //Lucro Real ou Presumido Cumulativo: 0,65%
+         //Lucro Real Não Cumulativo: 1,65%
+         //Fonte: https://www.jornalcontabil.com.br/aprenda-a-fazer-o-calculo-de-pis-e-cofins-na-nfe-e-nfce/
+         //
+         //*** O correto é que este percentual esteja no cadastro da empresa ***
+         //
+         if qVENDA_ITEM.FieldByName('TRIBUTACAO_PIS_COFINS').AsString = 'CUMULATIVO' then
+            vAliqProd := 0.65 / 100 * Produto.Prod.vUnCom
+         else
+            vAliqProd := 1.65 /100 * Produto.Prod.vUnCom;
+      end;
 
-       if (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '04') or
-          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '06') or
-          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '07') or
-          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '08') or
-          (qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '09') then
-       begin
-          {278-Q04}
-          //PISNT
-          //Grupo de PIS não tributado
-          //CST = 04, 06, 07, 08 ou 09
+      {277-Q09}
+      //vPIS
+      //Valor do PIS
+      vPIS := vAliqProd * qBCProd;
+   end;
 
-          {279-Q02}
-          //CST
-          //Código de Situação Tributária do PIS
-          //    04-Operação Tributável
-          //       tributação monofásica (alíquota zero)
-          //    06-Operação Tributável (alíquota zero)
-          //    07-Operação Isenta da Contribuição
-          //    08-Operação Sem Incidência da Contribuição
-          //    09-Operação com Suspensão da Contribuição
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '04' then CST := pis04;
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '06' then CST := pis06;
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '07' then CST := pis07;
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '08' then CST := pis08;
-          if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS').AsString = '09' then CST := pis09;
-       end;
+     if (vRPC_PIS = '04') or
+        (vRPC_PIS = '06') or
+        (vRPC_PIS = '07') or
+        (vRPC_PIS = '08') or
+        (vRPC_PIS = '09') then
+     begin
+        {278-Q04}
+        //PISNT
+        //Grupo de PIS não tributado
+        //CST = 04, 06, 07, 08 ou 09
 
-       if qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_PIS'   ).AsString = '99' then
-       begin
-          {280-Q05}
-          //PISOutr
-          //Grupo de PIS Outras Operações CST = 99
+        {279-Q02}
+        //CST
+        //Código de Situação Tributária do PIS
+        //    04-Operação Tributável
+        //       tributação monofásica (alíquota zero)
+        //    06-Operação Tributável (alíquota zero)
+        //    07-Operação Isenta da Contribuição
+        //    08-Operação Sem Incidência da Contribuição
+        //    09-Operação com Suspensão da Contribuição
+        //Definido anteriormente ***
+     end;
 
-          {281-Q06}
-          //CST
-          //Código de Situação Tributária do PIS
-          //99 - Outras Operações;
-          CST := pis99;
+     if vRPC_PIS = '99' then
+     begin
+        {280-Q05}
+        //PISOutr
+        //Grupo de PIS Outras Operações CST = 99
 
-          {282-Q07}
-          //vBC
-          //Valor da Base de Cálculo do PIS
-          //Informar campos para cálculo do PIS em percentual (P07 e P08)
-          //ou campos para PIS em valor (P10 e P11)
+        {281-Q06}
+        //CST
+        //Código de Situação Tributária do PIS
+        //99 - Outras Operações;
+        //Definido anteriormente ***
 
-          {283-Q08}
-          //pPIS
-          //Alíquota do PIS (em percentual)
+        {282-Q07}
+        //vBC
+        //Valor da Base de Cálculo do PIS
+        //Informar campos para cálculo do PIS em percentual (P07 e P08)
+        //ou campos para PIS em valor (P10 e P11)
 
-          {284-Q10}
-          //qBCProd
-          //Quantidade Vendida
+        {283-Q08}
+        //pPIS
+        //Alíquota do PIS (em percentual)
 
-          {285-Q11}
-          //vAliqProd
-          //Alíquota do PIS (em reais)
+        {284-Q10}
+        //qBCProd
+        //Quantidade Vendida
 
-          {286-Q09}
-          //vPIS
-          //Valor do PIS
+        {285-Q11}
+        //vAliqProd
+        //Alíquota do PIS (em reais)
 
-       end;
+        {286-Q09}
+        //vPIS
+        //Valor do PIS
+     end;
    end;
 end;
 
@@ -5060,6 +5268,38 @@ begin
          //Valor Total do ICMS
          vICMS := vNota_Total_ICMSTot_vICMS;
 
+         {329.01-W04a}
+         //vICMSDeson
+         //Valor Total do ICMS desonerado
+
+         {329.03-W04c}
+         //vFCPUFDest
+         //Valor total do ICMS relativo Fundo de Combate à Pobreza (FCP) da UF
+         //de destino
+         //Valor total do ICMS relativo ao Fundo de Combate à Pobreza (FCP) para
+         //a UF de destino.
+         //                                            (Incluído na NT 2015/003)
+
+         {329.05-W04e}
+         //vICMSUFDest
+         //Valor total do ICMS Interestadual para a UF de destino
+         //Valor total do ICMS Interestadual para a UF de destino, já considerando
+         //o valor do ICMS relativo ao Fundo de Combate à Pobreza naquela UF.
+         //                                            (Incluído na NT 2015/003)
+
+         {329.07-W04g}
+         //vICMSUFRemet
+         //Valor total do ICMS Interestadual para a UF do remetente
+         //Valor total do ICMS Interestadual para a UF do remetente.
+         //Nota: A partir de 2019, este valor será zero.
+         //                                            (Incluído na NT 2015/003)
+
+         {329.08-W04h}
+         //vFCP
+         //Valor Total do FCP (Fundo de Combate à Pobreza)
+         //Corresponde ao total da soma dos campos [N17c]
+         //                                            (Incluído na NT 2016/002)
+
          {330-W05}
          //vBCST
          //Base de Cálculo do ICMS ST
@@ -5070,6 +5310,18 @@ begin
          //Valor Total do ICMS
          vST := vNota_Total_ICMSTot_vST;
 
+         {331.01-W06a}
+         //vFCPST
+         //Valor Total do FCP (Fundo de Combate à Pobreza) retido por
+         //substituição tributária
+         //Corresponde ao total da soma dos campos [N23d]
+         //                                            (Incluído na NT 2016/002)
+
+         {331.02-W06b}
+         //vFCPSTRet
+         //Valor Total do FCP retido anteriormente por Substituição Tributária
+         //Corresponde ao total da soma dos campos [N27d]
+         //                                            (Incluído na NT 2016/002)
          {332-W07}
          //vProd
          //Valor Total dos produtos e serviços
@@ -5100,6 +5352,14 @@ begin
          //Valor Total do IPI
          vIPI := vNota_Total_ICMSTot_vIPI;
 
+         {337.01-W12a}
+         //vIPIDevol
+         //Valor Total do IPI devolvido
+         //Deve ser informado quando preenchido o Grupo Tributos Devolvidos na
+         //emissão de nota finNFe=4 (devolução) nas operações com não-contribuintes
+         //do IPI.
+         //Corresponde ao total da soma dos campos [UA04]
+         //                                            (Incluído na NT 2016/002)
          {338-W13}
          //vPIS
          //Valor do PIS
@@ -5110,16 +5370,34 @@ begin
          //Valor do COFINS
          vCOFINS := vNota_Total_ICMSTot_vCOFINS;
 
-        {340-W15}
-        //vOutro
-        //Outras Despesas acessórias
-        vOutro := vNota_Total_ICMSTot_vOutro;
+         {340-W15}
+         //vOutro
+         //Outras Despesas acessórias
+         vOutro := vNota_Total_ICMSTot_vOutro;
 
-        {341-W16}
-        //vNF
-        //Valor Total da NF-e
-        vNF := vNota_Total_ICMSTot_vNF;
-      end;
+         {341-W16}
+         //vNF
+         //Valor Total da NF-e
+         vNF := vNota_Total_ICMSTot_vNF;
+
+         {341a-W16a}
+         //vTotTrib
+         //Valor aproximado total de tributos federais, estaduais e municipais.
+         //                                                        (NT 2013/003)      end;
+   end;
+end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Grupo_W01_Totalda_NFe_ISSQN;
+begin
+   //---------------------------------------------------------------------------
+   // LAYOUT FEDERAL
+   //---------------------------------------------------------------------------
+   // TRATAMENTO DO GRUPO W - Valores Totais da NF-e
+   //---------------------------------------------------------------------------
+
+   With Nota.Total do
+   begin
 
       {342-W17}
       //ISSQNtot
@@ -5150,7 +5428,56 @@ begin
         //vCOFINS
         //Valor do COFINS sobre serviços
         vCOFINS := vNota_Total_ISSQNtot_vCOFINS;
+
+        {347a-W22a}
+        //dCompet
+        //Data da prestação do serviço
+        //Formato: “AAAA-MM-DD”
+
+        {347b-W22b}
+        //vDeducao
+        //Valor total dedução para redução da Base de Cálculo
+
+        {347c-W22c}
+        //vOutro
+        //Valor total outras retenções
+        //Valor declaratório
+
+        {347d-W22d}
+        //vDescIncond
+        //Valor total desconto
+
+        {347e-W22e}
+        //vDescCond
+        //Valor total desconto condicionado
+
+        {347f-W22f}
+        //vISSRet
+        //Valor total retenção ISS
+
+        {347g-W22g}
+        //cRegTrib
+        //Código do Regime Especial de Tributação
+        //     1 = Microempresa Municipal;
+        //     2 = Estimativa;
+        //     3 = Sociedade de Profissionais;
+        //     4 = Cooperativa;
+        //     5 = Microempresário Individual (MEI);
+        //     6 = Microempresário e Empresa de Pequeno Porte
       end;
+   end;
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Grupo_W02_Totalda_NFe_Retencao_de_Tributos;
+begin
+   //---------------------------------------------------------------------------
+   // LAYOUT FEDERAL
+   //---------------------------------------------------------------------------
+   // TRATAMENTO DO GRUPO W02- Total da NF-e / Retenção de Tributos
+   //---------------------------------------------------------------------------
+
+   With Nota.Total do
+   begin
 
       {348-W23}
       //retTrib
@@ -5233,11 +5560,13 @@ begin
      {357-X02}
      //modFrete
      //Modalidade do frete
-     //         0-Por conta do emitente
-     //         1-Por conta do destinatário/remetente
-     //         2-Por conta de terceiros
-     //         9- Sem frete. (V2.0)
-     //modFrete :=
+     //  0 = Contratação do Frete por conta do Remetente (CIF);
+     //  1 = Contratação do Frete por conta do Destinatário (FOB);
+     //  2 = Contratação do Frete por conta de Terceiros;
+     //  3 = Transporte Próprio por conta do Remetente;
+     //  4 = Transporte Próprio por conta do Destinatário;
+     //  9 = Sem Ocorrência de Transporte.
+     //                                              (Atualizado na NT 2016/002)     //modFrete :=
 
      {358-X03}
      //transporta
@@ -5246,7 +5575,7 @@ begin
      begin
        {359-X04}
        //CNPJ
-       //CNPJ
+       //CNPJ do Transportador
        //Informar o CNPJ ou o CPF do Transportador,
        //preenchendo os zeros não significativos.
        if Sql_Transportador.FieldByName('CNPJ').AsString <> '' then
@@ -5254,7 +5583,7 @@ begin
 
        {360-X05}
        //CPF
-       //CPF
+       //CPF do Transportador
        if Sql_Transportador.FieldByName('CPF').AsString <> '' Then
           CNPJCPF := Sql_Transportador.FieldByName('CPF').AsString;
 
@@ -5265,18 +5594,16 @@ begin
 
        {362-X07}
        //IE
-       //Inscrição Estadual
+       //Inscrição Estadual do Transportador
        //Informar a IE quando o transportador for contribuinte do ICMS.
-       //Informar ISENTO quando o transportador for contribuinte do ICMS,
-       //mas não estiver obrigado à inscrição no cadastro de contribuintes do ICMS.
-       //Não informar o conteúdo da TAG se o transportador não for contribuinte do ICMS.
-       //Esta tag aceita apenas:
-       //     . ausência de conteúdo (<IE></IE> ou <IE/>)
-       //       para transportador não contribuinte do ICMS
-       //     . algarismos para transportador contribuinte do ICMS,
-       //       sem caracteres de formatação (ponto, barra, hífen, etc.)
-       //     . literal “ISENTO” para transportador contribuintes do ICMS que
-       //       são isentos de inscrição no cadastro de contribuintes do ICMS
+       //
+       //Informar:
+       //  - Inscrição Estadual do transportador contribuinte do ICMS,
+       //    sem caracteres de formatação (ponto, barra, hífen, etc.);
+       //  - Literal “ISENTO” para transportador isento de inscrição no cadastro
+       //    de contribuintes ICMS;
+       //  - Não informar a tag para não contribuinte do ICMS.
+       //
        //A UF deve ser informada se informado uma IE. (v2.0)
        if Sql_Transportador.FieldByName('Contribuinte_do_ICMS').AsString = 'S' then
        begin
@@ -5461,7 +5788,7 @@ begin
      With Lacre do
      begin
         SQL_venda_lacre_vlac.First;
-        while SQL_venda_lacre_vlac.Eof do
+        while not SQL_venda_lacre_vlac.Eof do
         begin
            {388-X34}
            //nLacre
@@ -5470,7 +5797,7 @@ begin
            SQL_venda_lacre_vlac.Next;
         end;
      end;
-   end;
+end;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_Y_Dados_da_Cobranca;
@@ -5793,22 +6120,22 @@ begin
    //Grupo de Tributação do ICMS = 10
    //Tributada e com cobrança do ICMS por substituição tributária
 
-   {163-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
-   {174-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
-   {175-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
-   {176-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
-   {177-N16} Tratar_N16_Produto_Imposto_ICMS_pICMS;
-   {178-N17} Tratar_N17_Produto_Imposto_ICMS_vICMS;
+   {163-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
+   {174-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {175-N13   } Tratar_N13_Produto_Imposto_ICMS_modBC;
+   {176-N15   } Tratar_N15_Produto_Imposto_ICMS_vBC;
+   {177-N16   } Tratar_N16_Produto_Imposto_ICMS_pICMS;
+   {178-N17   } Tratar_N17_Produto_Imposto_ICMS_vICMS;
    {178.1-N17a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
-   {   N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
-   {   N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
-
-   {179-N18} Tratar_N18_Produto_Imposto_ICMS_modBCST;
-   {180-N19} Tratar_N19_Produto_Imposto_ICMS_pMVAST;
-   {181-N20} Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
-   {182-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
-   {183-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
-   {184-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+   {179-N18   } Tratar_N18_Produto_Imposto_ICMS_modBCST;
+   {180-N19   } Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+   {181-N20   } Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+   {182-N21   } Tratar_N21_Produto_Imposto_ICMS_vBCST;
+   {183-N22   } Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+   {184-N23   } Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+   {184.1-N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
+   {184.2-N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
+   {184.3-N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS20;
@@ -5839,6 +6166,8 @@ begin
    {192.w-N17a} Tratar_N17a_Produto_Imposto_ICMS_vBCFCP;
    {192.x-N17b} Tratar_N17b_Produto_Imposto_ICMS_pFCP;
    {192.y-N17c} Tratar_N17c_Produto_Imposto_ICMS_vFCP;
+   {192.2-N28a} Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
+   {192.3-N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_ICMS30;
@@ -5862,14 +6191,14 @@ begin
    //Grupo de Tributação do ICMS = 30
    //Isenta ou não tributada e com cobrança do ICMS por substituição tributária
 
-   {194-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
-   {195-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
-   {196-N18} Tratar_N18_Produto_Imposto_ICMS_modBCST;
-   {197-N19} Tratar_N19_Produto_Imposto_ICMS_pMVAST;
-   {198-N20} Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
-   {199-N21} Tratar_N21_Produto_Imposto_ICMS_vBCST;
-   {200-N22} Tratar_N22_Produto_Imposto_ICMS_pICMSST;
-   {201-N23} Tratar_N23_Produto_Imposto_ICMS_vICMSST;
+   {194-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
+   {195-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {196-N18   } Tratar_N18_Produto_Imposto_ICMS_modBCST;
+   {197-N19   } Tratar_N19_Produto_Imposto_ICMS_pMVAST;
+   {198-N20   } Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
+   {199-N21   } Tratar_N21_Produto_Imposto_ICMS_vBCST;
+   {200-N22   } Tratar_N22_Produto_Imposto_ICMS_pICMSST;
+   {201-N23   } Tratar_N23_Produto_Imposto_ICMS_vICMSST;
    {201.w-N23a} Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
    {201.x-N23b} Tratar_N23b_Produto_Imposto_ICMS_pFCPST;
    {201.y-N23d} Tratar_N23d_Produto_Imposto_ICMS_vFCPST;
@@ -5902,7 +6231,6 @@ begin
 
    {203-N11    } Tratar_N11_Produto_Imposto_ICMS_orig;
    {204-N12    } Tratar_N12_Produto_Imposto_ICMS_CST;
-   {204.01-N17 } Tratar_N17_Produto_Imposto_ICMS_vICMS;
    {204.01-N28a} Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
    {204.02-N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
 end;
@@ -6065,7 +6393,7 @@ begin
    {245.3-N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
 end;
 
-procedure TfrmEmissaoDeNFe.Tratar_ICMSPartilha;
+procedure TfrmEmissaoDeNFe.Tratar_Partilha_do_ICMS;
 begin
    // Somente CST ICMS = '10' e '90'
    //        10-Tributada e com cobrança do ICMS por substituição tributária
@@ -6108,7 +6436,7 @@ begin
    {245.16-N24} Tratar_N24_Produto_Imposto_ICMS_UFST;
 end;
 
-procedure TfrmEmissaoDeNFe.Tratar_ICMS_ST_devido_para_UF_de_destino;
+procedure TfrmEmissaoDeNFe.Tratar_Repasse_do_ICMS_ST;
 begin
    //Grupo de informação do ICMS ST devido para a UF de destino,
    //nas operações interestaduais
