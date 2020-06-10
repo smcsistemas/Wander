@@ -30,6 +30,8 @@ ordem decrescente de data....
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+286|09/06/20|22:12|EmissaoDeNFe                |Grupo ZX - Informações Suplemtares da NFe - Explicitado
+285|09/06/20|21:37|EmissaoDeNFe                |Grupo ZD - Informações do Responsável Técnico - Explicitado
 284|09/06/20|21:01|EmissaoDeNFe                |Grupo YA - Informações de Pagamento - Explicitado
 283|09/06/20|20:16|EmissaoDeNFe                |Grupo Y - Cobr/Fat/Dup explicitados
 282|09/06/20|16:53|EmissaoDeNFe                |Passa a tratar Grupo LB da NFe = Operações com Papel Imune

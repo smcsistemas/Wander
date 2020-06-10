@@ -3,6 +3,8 @@ unit EmissaoDeNFe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+286|09/06/20|22:12|EmissaoDeNFe                |Grupo ZX - Informações Suplemtares da NFe - Explicitado
+285|09/06/20|21:37|EmissaoDeNFe                |Grupo ZD - Informações do Responsável Técnico - Explicitado
 284|09/06/20|21:01|EmissaoDeNFe                |Grupo YA - Informações de Pagamento - Explicitado
 283|09/06/20|20:16|EmissaoDeNFe                |Grupo Y - Cobr/Fat/Dup explicitados
 282|09/06/20|16:53|EmissaoDeNFe                |Passa a tratar Grupo LB da NFe = Operações com Papel Imune
@@ -299,6 +301,7 @@ type
     procedure Tratar_N17_Produto_Imposto_ICMS_vICMS;
 
     // Fundo de Combate à Pobreza
+    procedure Tratar_Fundo_de_Combate_A_Pobreza;
     procedure Tratar_N17a_Produto_Imposto_ICMS_vBCFCP;
     procedure Tratar_N17b_Produto_Imposto_ICMS_pFCP;
     procedure Tratar_N17c_Produto_Imposto_ICMS_vFCP;
@@ -395,8 +398,12 @@ type
     procedure Tratar_Grupo_ZB_Informacoes_de_Compras;
     // Grupo ZC
     procedure Tratar_Grupo_ZC_Informacoes_do_Registro_de_Aquisicao_de_Cana;
-
-    procedure Tratar_Fundo_de_Combate_A_Pobreza;
+    // Grupo ZD
+    procedure Tratar_Grupo_ZD_Informacoes_do_Responsavel_Tecnico;
+    // Grupo ZX
+    procedure Tratar_Grupo_ZX_Informacoes_Suplementares_da_Nota_Fiscal;
+    // Grupo ZZ
+    procedure Tratar_Grupo_ZZ_Informacoes_da_Assinatura_Digital;
 
   public
     { Public declarations }
@@ -581,6 +588,9 @@ begin
    Tratar_Grupo_ZA_Informacoes_de_Comercio_Exterior;
    Tratar_Grupo_ZB_Informacoes_de_Compras;
    Tratar_Grupo_ZC_Informacoes_do_Registro_de_Aquisicao_de_Cana;
+   Tratar_Grupo_ZD_Informacoes_do_Responsavel_Tecnico;
+   Tratar_Grupo_ZX_Informacoes_Suplementares_da_Nota_Fiscal;
+   Tratar_Grupo_ZZ_Informacoes_da_Assinatura_Digital;
 
     //
     // O LOTE TEM O MESMO NUMERO DA NFE ENVIADA.
@@ -5951,7 +5961,54 @@ begin
        //vPag
        //Valor do Pagamento
        vPag := Nota.Total.ICMSTot.vNF;
-   end;
+
+     {398d-YA04}
+     //card
+     //Grupo de Cartões
+
+     {398d.1-YA04a}
+     //tpIntegra
+     //Tipo de Integração para pagamento
+     //Tipo de Integração do processo de pagamento com o sistema de automação
+     //da empresa:
+     //   1 = Pagamento integrado com o sistema de automação da empresa
+     //     (Ex.: equipamento TEF, Comércio Eletrônico);
+     //   2= Pagamento não integrado com o sistema de automação da empresa
+     //      (Ex.: equipamento POS);
+
+     {398e-YA05}
+     //CNPJ
+     //CNPJ da Credenciadora de cartão de crédito e/ou débito
+     //Informar o CNPJ da Credenciadora de cartão de crédito/débito
+
+     {398f-YA06}
+     //tBand
+     //Bandeira da operadora de cartão de crédito e/ou débito
+     //         01=Visa
+     //         02=Mastercard
+     //         03=American Express
+     //         04=Sorocred
+     //         05=Diners Club
+     //         06=Elo
+     //         07=Hipercard
+     //         08=Aura
+     //         09=Cabal
+     //         99=Outros
+     //                                              (Atualizado na NT 2016/002)
+
+     {398g-YA07}
+     //cAut
+     //Número de autorização da operação cartão de crédito e/ou débito
+     //Identifica o número da autorização da transação da operação com cartão
+     //de crédito e/ou débito
+
+     {398i-YA09}
+     //vTroco
+     //Valor do troco
+     //Valor do troco
+     //                                                (Incluído na NT 2016/002)
+  end;
+
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_Z_Informacoes_Adicionais_da_NFe;
@@ -6162,6 +6219,109 @@ begin
    //vLiqFor
    //Valor Líquido dos Fornecimentos
    //Valor Líquido dos Fornecimentos v2.0
+
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Grupo_ZD_Informacoes_do_Responsavel_Tecnico;
+begin
+   //---------------------------------------------------------------------------
+   // LAYOUT FEDERAL
+   //---------------------------------------------------------------------------
+   // TRATAMENTO DO GRUPO ZD - Informações do Responsável Técnico
+   //---------------------------------------------------------------------------
+   //                                           Novo grupo criado na NT 2018.005
+
+   {423a-ZD01}
+   //infRespTec
+   //Informações do Responsável Técnico pela emissão do DF-e
+   //Grupo para informações do responsável técnico pelo sistema de emissão do DF-e
+
+   {423b-ZD02}
+   //CNPJ
+   //CNPJ da pessoa jurídica responsável pelo sistema utilizado na emissão do
+   //documento fiscal eletrônico
+   // Informar o CNPJ da pessoa jurídica responsável pelo sistema utilizado na
+   //emissão do documento fiscal eletrônico.
+
+   {423c-ZD04}
+   //xContato
+   //Nome da pessoa a ser contatada
+   //Informar o nome da pessoa a ser contatada na empresa desenvolvedora
+   //do sistema utilizado na emissão do documento fiscal eletrônico.
+
+   {423d-ZD05}
+   //email
+   //E-mail da pessoa jurídica a ser contatada
+   //Informar o e-mail da pessoa a ser contatada na empresa desenvolvedora
+   //do sistema.
+
+   {423e-ZD06}
+   //fone
+   //Telefone da pessoa jurídica/física a ser contatada
+   //Informar o telefone da pessoa a ser contatada na empresa desenvolvedora do
+   //sistema. Preencher com o Código DDD + número do telefone.
+
+   {423f-ZD07}
+   //-x- Sequência XML G ZD0
+   //Grupo de informações do Código de Segurança do Responsável Técnico - CSTR
+
+   {423g-ZD08}
+   //idCSRT
+   //Identificador do CSRT
+   //Identificador do CSRT utilizado para montar o hash do CSRT
+
+   {423h-ZD09}
+   //hashCSRT
+   //Hash do CSRT
+   //O hashCSRT é o resultado da função hash (SHA-1 – Base64) do CSRT
+   //fornecido pelo fisco mais a Chave de Acesso da NFe.
+
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Grupo_ZX_Informacoes_Suplementares_da_Nota_Fiscal;
+begin
+   //---------------------------------------------------------------------------
+   // LAYOUT FEDERAL
+   //---------------------------------------------------------------------------
+   // TRATAMENTO DO GRUPO ZX - Informações Suplementares da Nota Fiscal
+   //---------------------------------------------------------------------------
+
+   {424-ZX01}
+   //infNFeSupl
+   //Informações suplementares da Nota Fiscal
+   //Informações suplementares da Nota Fiscal, não afetando a assinatura digital.
+   //                                                              (NT 2015.002)
+
+   {425-ZX02}
+   //qrCode
+   //Texto com o QR-Code impresso no DANFE NFC-e.
+   //Obs.: URLs, por UF, utilizadas para consulta QR Code acesse:
+   //      http://nfce.encat.org/desenvolvedor/qrcode/
+   //Ver orientações de preenchimento na seção 2.3 deste documento.
+
+   {426-ZX03}
+   //urlChave
+   //Texto com a URL de consulta por chave de acesso a ser impressa no DANFE
+   //NFC-e.
+   //Obs.: URLs, por UF, utilizadas para consulta por chave de acesso acesse:
+   //http://nfce.encat.org/consumidor/consultenota/
+   //Informar a URL da “Consulta por chave de acesso da NFC-e”.
+   //A mesma URL que deve estar informada no DANFE NFC-e para consulta por chave
+   //de acesso.
+
+end;
+
+procedure TfrmEmissaoDeNFe.Tratar_Grupo_ZZ_Informacoes_da_Assinatura_Digital;
+begin
+   //---------------------------------------------------------------------------
+   // LAYOUT FEDERAL
+   //---------------------------------------------------------------------------
+   // TRATAMENTO DO GRUPO ZZ - Informações da Assinatura Digital
+   //---------------------------------------------------------------------------
+
+   {999-ZZ01}
+   //Signature
+   //Assinatura XML da NF-e Segundo o Padrão XML Digital Signature
 
 end;
 
@@ -7417,5 +7577,34 @@ ZC10|XDed|VDed
 ZD01|CNPJ|xContato|email|fone|
 ZD07|idCSRT|hashCSRT|
 }
+{
+===========================================================================================
+   |           |                                          |Tributação do ICMS
+ID |Campo      |Descrição                                 |00 10 20 30 40 41 50 51 60 70 90
+---|-----------|------------------------------------------|--------------------------------
+N11|Orig       |Origem da mercadoria                      | S  S  S  S  S  S  S  S  S  S  ?
+N12|CST        |Tributação do ICMS                        | S  S  S  S  S  S  S  S  S  S  ?
+N13|modBC      |Modalidade de determinação da BC do ICMS  | S  S  S  N  N  N  N  ?  N  S  ?
+N14|pRedBC     |Percentual da Redução de BC               | N  N  S  N  N  N  N  ?  N  S  ?
+N15|vBC        |Valor da BC do ICMS                       | S  S  S  N  N  N  N  ?  N  S  ?
+N16|pICMS      |Alíquota do imposto                       | S  S  S  N  N  N  N  ?  N  S  ?
+N17|vICMS      |Valor do ICMS                             | S  S  S  N  N  N  N  ?  N  S  ?
+N18|modBCST    |Modalidade de determinação da BC do ICMSST| N  S  N  S  N  N  N  N  N  S  ?
+N19|pMVAST     |% da margem de valor Adicionado do ICMS ST| N  S  N  S  N  N  N  N  N  S  ?
+N20|pRedBCST   |Percentual da Redução de BC do ICMS ST    | N  ?  N  ?  N  N  N  N  N  ?  ?
+N21|vBCST      |Valor da BC do ICMS ST                    | N  S  N  S  N  N  N  N  S  S  ?
+N22|pICMSST    |Alíquota do imposto do ICMS ST            | N  S  N  S  N  N  N  N  N  S  ?
+N23|vICMSST    |Valor do ICMS ST                          | N  S  N  S  N  N  N  N  S  S  ?
+N24|UFST       |UF para qual é devido o ICMS ST           | N  N  N  N  N  N  N  N  N  N  ?
+N25|pBCop      |Percentual da BC operação própria         | N  N  N  N  N  N  N  N  N  N  ?
+N26|vBCSTRet   |Valor da BC do ICMS Retido Anteriormente  | N  N  N  N  N  S  N  N  S  N  ?
+N27|vICMSSTRet |Valor do ICMS Retido Anteriormente        | N  N  N  N  N  S  N  N  S  N  ?
+N28|motDesICMS |Motivo da desoneração do ICMS             | N  N  N  N  N  N  N  N  N  N  ?
+N31|vBCSTDest  |Valor da BC do ICMS ST da UF destino      | N  N  N  N  N  S  N  N  N  N  N
+N32|vICMSSTDest|Valor do ICMS ST da UF destino            | N  N  N  N  N  S  N  N  N  N  N
+===========================================================================================
+ “S” – o campo deve ser informado,
+ “N” – o campo não deve ser informado e
+ “?” – a exigência do campo depende da situação fática.
 
-select * from RASTRO_RAS
+
