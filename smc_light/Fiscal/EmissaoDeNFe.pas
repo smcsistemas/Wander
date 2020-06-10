@@ -3,6 +3,7 @@ unit EmissaoDeNFe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+283|09/06/20|20:16|EmissaoDeNFe                |Grupo Y - Cobr/Fat/Dup explicitados
 282|09/06/20|16:53|EmissaoDeNFe                |Passa a tratar Grupo LB da NFe = Operações com Papel Imune
 275|09/06/20|06:33|EmissaoDeNFe                |Passa a usar a função VazioSeInteiroMenos1
 274|09/06/20|06:33|EmissaoDeNFe                |Passa a usar a função InteiroMenos1_se_Vazio
@@ -410,6 +411,7 @@ var
   Nota              : TNFe;
   NotaDeDevolucao,
   XML_DO_FORNECEDOR : NotaFiscal;
+  Cobranca          : TCobr;
   Duplicata         : TDupCollectionItem;
   Produto,
   ProdutoDevolvido  : TDetCollectionItem;
@@ -5815,43 +5817,54 @@ begin
    {389-Y01}
    //cobr
    //Grupo de Cobrança
+   with Nota.cobr do
+   begin
 
-   {390-Y02}
-   //fat
-   //Grupo da Fatura
+      {390-Y02}
+      //fat
+      // Grupo da Fatura
+      with Fat do
+      begin
 
-   {391-Y03}
-   //nFat
-   //Número da Fatura
+         {391-Y03}
+         //nFat
+         //Número da Fatura
+         nFat := '0';
 
-   {392-Y04}
-   //vOrig
-   //Valor Original da Fatura
+         {392-Y04}
+         //vOrig
+         //Valor Original da Fatura
 
-   {393-Y05}
-   //vDesc
-   //Valor do desconto
+         {393-Y05}
+         //vDesc
+         //Valor do desconto
 
-   {394-Y06}
-   //vLiq
-   //Valor Líquido da Fatura
+         {394-Y06}
+         //vLiq
+         //Valor Líquido da Fatura
 
-   {395-Y07}
-   //dup
-   //Grupo da Duplicata
+      end;
 
-   {396-Y08}
-   //nDup
-   //Número da Duplicata
+     {395-Y07}
+     //dup
+     //Grupo da Duplicata *** loop ***
+     with Dup.New do
+     begin
+         {396-Y08}
+         //nDup
+         //Número da Duplicata
 
-   {397-Y09}
-   //dVenc
-   //Data de vencimento
-   //Formato “AAAA-MM-DD”
+         {397-Y09}
+         //dVenc
+         //Data de vencimento
+         //Formato “AAAA-MM-DD”
 
-   {398-Y10}
-   //vDup
-   //Valor da duplicata
+         {398-Y10}
+         //vDup
+         //Valor da duplicata
+     end;
+
+   end;
 
    Pagamento:= Nota.pag.add;
    Pagamento.tPag:= fpDinheiro;
