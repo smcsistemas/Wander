@@ -22,18 +22,17 @@ ordem decrescente de data....
 |-------|------|
 |05/2020| 124  | 244
 |-------|------|
-|06/2020|  20  | 264
+|06/2020|  46  | 290
 |-------|------|
-|  TOTAL| 264  |
+|  TOTAL| 290  |
 ================
-
-    procedure Tratar_Grupo_BA_Documento_Fiscal_Referencado;
-    procedure Tratar_Grupo_B20a_Nfe_Referenciada_ProdutorRural;
-    procedure Tratar_Grupo_B20j_Cupom_Fiscal_Referenciado;
 
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+290|11/06/20|14:00|u_funcoes                   |Automatizada a definicao da estrutura da tabela auxiliar "venda_nomedaestacao"
+289|11/06/20|13:58|venda_pedido                |Incluido campo para informar placa do veículo que transportará a mercadoria da nota
+288|11/06/20|12:10|vw_consulta_generica        |Criada a consulta genérica para a tabela Transportadora_Veiculo
 287|10/06/20|11:20|EmissaoDeNFe                |Grupo BA incorporou grupos B20a e B20j (NFe referenciadas produtor rural e cupom fiscal)
 286|09/06/20|22:12|EmissaoDeNFe                |Grupo ZX - Informações Suplemtares da NFe - Explicitado
 285|09/06/20|21:37|EmissaoDeNFe                |Grupo ZD - Informações do Responsável Técnico - Explicitado

@@ -59,7 +59,8 @@ type
                            cgORIGEM,
                            cgOperadorCaixa,
                            cgCST_ICMS,
-                           cgTIPO_ITEM);
+                           cgTIPO_ITEM,
+                           cgTransportadora_Veiculos);
 
 type
   TDBConn = (dbLocal, dbOnline);

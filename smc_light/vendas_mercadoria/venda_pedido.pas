@@ -3,6 +3,7 @@ unit venda_pedido;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+289|11/06/20|13:58|venda_pedido                |Incluido campo para informar placa do veículo que transportará a mercadoria da nota
 258|06/06/20|05:35|venda_pedido                |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 252|03/06/20|05:34|venda_pedido                |Se encontrar algum produto sem o CST do ICMS informado, abre o cadastro do produto para que o usuário corrija.
 251|03/06/20|05:34|venda_pedido                |Passa a criticar e avisar ao usuário se encontrar algum produto sem o CST do ICMS informado
@@ -325,6 +326,14 @@ type
     SQL_VENDA_ITEMpreco_custo: TBCDField;
     SQL_VENDA_ITEMNFe_Veiculo_Chassi: TStringField;
     SQL_VENDA_ITEMVI_CFOP_CSOSN: TStringField;
+    Label35: TLabel;
+    Shape7: TShape;
+    Label36: TLabel;
+    edPlaca: TEdit;
+    edPLACA_DESCRICAO: TEdit;
+    edTRANSP_RAZAO_SOCIAL: TEdit;
+    Label37: TLabel;
+    btn_Tipo: TcxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cxButton4Click(Sender: TObject);
     procedure BtnNFEClick(Sender: TObject);
@@ -354,6 +363,10 @@ type
     procedure edTPMOVKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure SQL_VENDABeforePost(DataSet: TDataSet);
+    procedure edPlacaExit(Sender: TObject);
+    procedure edPlacaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure btn_TipoClick(Sender: TObject);
   private
     { Private declarations }
     cliente: tcliente;
@@ -431,11 +444,15 @@ type
     procedure Abrir_Tabela_Auxiliar;
     Procedure Criar_Tabela_Auxiliar;
 
+    function Trata_Transportadora:Boolean;
+
     function NomeTabelaAux:String;
 
     procedure Excluir_Da_Venda(pCODIGO_ITEM_VENDA:Integer);
     procedure Ratear_Desconto_Da_Venda_Entre_seus_Itens(pCODIGO_VENDA:Integer);
     procedure Atualiza_Itens;
+
+    procedure ConsultarProduto_Veiculo;
 
     function ProxItemVenda:Integer;
 
@@ -562,6 +579,11 @@ begin
    Emitir_NFe;
 end;
 
+procedure Tfrm_pedido_venda.btn_TipoClick(Sender: TObject);
+begin
+   ConsultarProduto_Veiculo;
+end;
+
 procedure Tfrm_pedido_venda.Emitir_NFe;
 var vNATOP_ID: Integer;
 begin
@@ -571,7 +593,7 @@ begin
   // Natureza da Operacao é obrigatória
   if cxNaturezaOperacao.ItemIndex = -1 Then
   begin
-    ShowMessage('Informe a Natureza de Operação');
+    WnAlerta('Informe a Natureza de Operação');
     cxNaturezaOperacao.Enabled:=true;
     cxNaturezaOperacao.SetFocus;
     exit;
@@ -619,6 +641,8 @@ begin
   edt := TEdit.create(nil);
 
   Frm_Consulta_Generica := tFrm_Consulta_Generica.create(nil, cgCliente, edt);
+  Frm_Consulta_Generica.Height:= 701;
+  Frm_Consulta_Generica.Width := 1287;
   Frm_Consulta_Generica.ShowModal;
 
   if edt.Text <> '' then
@@ -725,7 +749,7 @@ begin
 
    if edCODIGO_VENDA.Text = '' then
    begin
-     ShowMessage('Informe o número do pedido');
+     WnAlerta('Informe o número do pedido');
      edCODIGO_VENDA.SetFocus;
      exit;
    end;
@@ -733,14 +757,14 @@ begin
    // Não pode alterar pedido com NFCe emitida
    if SQL_VENDA.FieldByName('COD_NFCE').AsString <> '' then
    begin
-     ShowMessage('Pedido com NFCe emitida. Impossível alterar.');
+     WnAlerta('Pedido com NFCe emitida. Impossível alterar.');
      exit;
    end;
 
    // Não pode alterar pedido com NFe emitida
    if SQL_VENDA.FieldByName('NOTAFISCAL').AsString <> '' then
    begin
-     ShowMessage('Pedido com NFe emitida. Impossível alterar.');
+     WnAlerta('Pedido com NFe emitida. Impossível alterar.');
      exit;
    end;
 
@@ -755,7 +779,7 @@ begin
    edPRECO.Text             := Float_to_String(SQL_VENDA_ITEM.FieldByName('PRECO' ).AsFloat);
    edQUANTIDADE.Text        := Float_to_String(SQL_VENDA_ITEM.FieldByName('QUANTIDADE' ).AsFloat);
    edUNIDADE_MEDIDA.Text    := SQL_VENDA_ITEM.FieldByName('UNIDADE' ).AsString;
-   edCFOP_Produto.Text      := SQL_VENDA_ITEM.FieldByName('CFOP'    ).AsString;
+   edCFOP_Produto.Text      := SQL_VENDA_ITEM.FieldByName('VI_CFOP_CSOSN').AsString;
    Excluir_Da_Venda(SQL_VENDA_ITEM.FieldByName('CODIGO_ITEM_VENDA').AsInteger);
    Atualiza_Itens;
 end;
@@ -799,7 +823,7 @@ begin
    // Verifica se existe natureza de operação com este CFOP
    if not CFOP_Existe(pCFOP) then
    begin
-     ShowMessage('CFOP não existe');
+     WnAlerta('CFOP não existe');
      edCFOP_Produto.SetFocus;
      exit;
    end;
@@ -808,10 +832,10 @@ begin
    if fTIPO_NF(edCFOP.Text) <> fTIPO_NF(pCFOP) then
    begin
       if fTIPO_NF(pCFOP) = 'ENTRADA' then
-         ShowMessage('Natureza de operação do pedido é de ENTRADA,'+#13+#13+
+         WnAlerta('Natureza de operação do pedido é de ENTRADA,'+#13+#13+
                      'mas a do produto é de SAÌDA')
       else
-         ShowMessage('Natureza de operação do pedido é de SAÌDA,'+#13+#13+
+         WnAlerta('Natureza de operação do pedido é de SAÌDA,'+#13+#13+
                      'mas a do produto é de ENTRADA');
       edCFOP_Produto.SetFocus;
       exit;
@@ -861,7 +885,7 @@ begin
    begin
       if edCODIGO_VENDA.Text = '' then
       begin
-        ShowMessage('Alteração exige que se informe o número do pedido');
+        WnAlerta('Alteração exige que se informe o número do pedido');
         edCODIGO_VENDA.SetFocus;
         exit;
       end;
@@ -872,7 +896,7 @@ begin
    begin
       if edCODIGO_VENDA.Text <> '' then
       begin
-        ShowMessage('Inclusão não permite que se informe o número do pedido'+#13+#13+
+        WnAlerta('Inclusão não permite que se informe o número do pedido'+#13+#13+
                     'pois será gerado pelo sistema');
         edCODIGO_VENDA.Text := '';
         exit;
@@ -882,7 +906,7 @@ begin
    // Data - obrigatória
    if edData.Text = '' then
    begin
-     ShowMessage('Informe a data do movimento');
+     WnAlerta('Informe a data do movimento');
      edData.SetFocus;
      exit;
    end;
@@ -894,7 +918,7 @@ begin
      // Data no futuro
      if vData > Date then
      begin
-       ShowMessage('Data no futuro não é permitido');
+       WnAlerta('Data no futuro não é permitido');
        edData.SetFocus;
        exit;
      end;
@@ -905,14 +929,14 @@ begin
      begin
        if vData > Date then
        begin
-         ShowMessage('Data no passado não é permitido');
+         WnAlerta('Data no passado não é permitido');
          edData.SetFocus;
          exit;
        end;
      end;
 
    except
-     ShowMessage('Data inválida');
+     WnAlerta('Data inválida');
      edData.SetFocus;
      exit;
    end;
@@ -920,7 +944,7 @@ begin
    // Tipo de Movimento - obrigatório
    if edTPMOV.Text = '' then
    begin
-     ShowMessage('Tipo de Movimento não informado');
+     WnAlerta('Tipo de Movimento não informado');
      edTPMOV.SetFocus;
      exit;
    end;
@@ -928,7 +952,7 @@ begin
    // natureza de Operacao - obrigatório
    if cxNaturezaOperacao.ItemIndex = -1 then
    begin
-      ShowMessage('Informe a Natureza da Operação');
+      WnAlerta('Informe a Natureza da Operação');
       cxNaturezaOperacao.SetFocus;
       exit;
    end;
@@ -936,7 +960,7 @@ begin
    // Vendedor - obrigatório
    if cxVendedor.ItemIndex = -1 then
    begin
-      ShowMessage('Informe o Vendedor');
+      WnAlerta('Informe o Vendedor');
       cxVendedor.SetFocus;
       exit;
    end;
@@ -945,7 +969,7 @@ begin
    // Se for orçamento não precisa do cadastro completo - basta o cpf e nome
    if edCodigo_Cliente.Text = '' then
    begin
-      ShowMessage('Informe o Cliente');
+      WnAlerta('Informe o Cliente');
       edCodigo_Cliente.SetFocus;
       exit;
    end;
@@ -955,6 +979,9 @@ begin
 
    // Produto sem CST ICMS - não permitido
    if Produto_sem_CST_ICMS(SQL_C_VENDASCODIGO_VENDA.asinteger) then exit;
+
+   if not Trata_Transportadora then
+      exit;
 
    result := true;
 end;
@@ -1021,12 +1048,12 @@ begin
       vCodigo_Venda_Tratada := StrToInt(edCODIGO_VENDA.Text);
       if vCodigo_Venda_Tratada <= 0 then
       begin
-        ShowMessage('Codigo inválido');
+        WnAlerta('Codigo inválido');
         edCODIGO_VENDA.SetFocus;
         exit;
       end;
    except
-        ShowMessage('Codigo inválido');
+        WnAlerta('Codigo inválido');
         edCODIGO_VENDA.SetFocus;
         exit;
    end;
@@ -1040,6 +1067,18 @@ begin
    //Somar e mostrar dados dos itens
    //e valor liquido do pedido
    SomaDados_Venda;
+end;
+
+procedure Tfrm_pedido_venda.edPlacaExit(Sender: TObject);
+begin
+   Trata_Transportadora;
+end;
+
+procedure Tfrm_pedido_venda.edPlacaKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = vk_F1) then
+    ConsultarProduto_Veiculo;
 end;
 
 procedure Tfrm_pedido_venda.edPROD_CODIGOExit(Sender: TObject);
@@ -1068,7 +1107,7 @@ begin
    edTPMOV_DESCRICAO.Text := fTPMOV_DESCRICAO(edTPMOV.Text);
    if edTPMOV_DESCRICAO.Text = '' then
    begin
-     ShowMessage('Tipo de Movimento não cadastrado.');
+     WnAlerta('Tipo de Movimento não cadastrado.');
      edTPMOV.SetFocus;
      exit;
    end;
@@ -1091,11 +1130,19 @@ begin
    result := false;
    if edPROD_CODIGO.Text = '' then
    begin
-     ShowMessage('Informe o produto');
+     WnAlerta('Informe o produto');
      edPROD_CODIGO.SetFocus;
      exit;
    end;
    result := true;
+end;
+
+procedure Tfrm_pedido_venda.ConsultarProduto_Veiculo;
+begin
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgTransportadora_Veiculos, edPLACA);
+  Frm_Consulta_Generica.ShowModal;
+  Frm_Consulta_Generica.Free;
+  Trata_Transportadora;
 end;
 
 function Tfrm_pedido_venda.Preco_OK(pPreco:String):Boolean;
@@ -1106,7 +1153,7 @@ begin
    result := false;
    if pPRECO = '' then
    begin
-     ShowMessage('Produto sem preço.');
+     WnAlerta('Produto sem preço.');
      edPRECO.SetFocus;
      exit;
    end;
@@ -1115,12 +1162,12 @@ begin
      vValor:= StrToFloat(MascToStr(pPRECO));
      if vValor <= 0 then
      begin
-       ShowMessage('Preço inválido');
+       WnAlerta('Preço inválido');
        edPROD_CODIGO.SetFocus;
        exit;
      end;
    except
-       ShowMessage('Preço inválido');
+       WnAlerta('Preço inválido');
        edPROD_CODIGO.SetFocus;
        exit;
    end;
@@ -1135,7 +1182,7 @@ begin
    result := false;
    if pQtde = '' then
    begin
-     ShowMessage('Informe a Quantidade.');
+     WnAlerta('Informe a Quantidade.');
      edQUANTIDADE.SetFocus;
      exit;
    end;
@@ -1144,12 +1191,12 @@ begin
      vQtde := StrToFloat(edQUANTIDADE.Text);
      if vQtde <=0 then
      begin
-       ShowMessage('Quantidade inválida');
+       WnAlerta('Quantidade inválida');
        edQUANTIDADE.SetFocus;
        exit;
      end;
    except
-     ShowMessage('Quantidade inválida');
+     WnAlerta('Quantidade inválida');
      edQUANTIDADE.SetFocus;
      exit;
    end;
@@ -1264,7 +1311,7 @@ begin
    if (not SQL_VENDA_ITEM.Active     ) or
       (SQL_VENDA_ITEM.RecordCount = 0) then
    begin
-      ShowMessage('Informe o(s) item(s) do pedido');
+      WnAlerta('Informe o(s) item(s) do pedido');
       edPROD_CODIGO.SetFocus;
       exit;
    end;
@@ -1317,7 +1364,7 @@ begin
    Q.SQL.Add('     rateio_desconto,  ');
    Q.SQL.Add('     rateio_acrescimo, ');
    Q.SQL.Add('     preco_custo,      ');
-   Q.SQL.Add('     CFOP)             ');
+   Q.SQL.Add('     VI_CFOP_CSOSN)    ');
    q.SQL.Add('VALUES                 ');
    Q.SQL.Add('   (:CODIGO,           ');
    Q.SQL.Add('    :CODIGO_PRODUTO,   ');
@@ -1333,7 +1380,7 @@ begin
    Q.SQL.Add('    :rateio_desconto,  ');
    Q.SQL.Add('    :rateio_acrescimo, ');
    Q.SQL.Add('    :preco_custo,      ');
-   Q.SQL.Add('    :CFOP)             ');
+   Q.SQL.Add('    :VI_CFOP_CSOSN)    ');
    Q.ParamByName('CODIGO'           ).AsInteger := -1; // Não definido ainda
    Q.ParamByName('CODIGO_PRODUTO'   ).AsInteger := StrToInt(edPROD_CODIGO.Text);
    Q.ParamByName('UNIDADE'          ).AsString  := edUNIDADE_MEDIDA.Text;
@@ -1348,7 +1395,7 @@ begin
    Q.ParamByName('rateio_desconto'  ).AsFloat   := 0;
    Q.ParamByName('rateio_acrescimo' ).AsFloat   := 0;
    Q.ParamByName('preco_custo'      ).AsFloat   := 0;
-   Q.ParamByName('CFOP'             ).AsString  := edCFOP_PRODUTO.Text;
+   Q.ParamByName('VI_CFOP_CSOSN'    ).AsString  := edCFOP_PRODUTO.Text;
    Q.ExecSql;
 
    Q.Free;
@@ -1356,9 +1403,8 @@ end;
 
 Procedure Tfrm_pedido_venda.Criar_Tabela_Auxiliar;
 begin
-   // Se a tabela auxiliar para a digitao da venda nao existir, cria.
-   if not Existe_Tabela(NomeTabelaAux) then
-      Criar_Tabela_Temporaria_de_Venda(NomeTabelaAux);
+   // Criar tabela auxiliar para a digitação da venda
+   Criar_Tabela_Temporaria_de_Venda(NomeTabelaAux);
 
    // Apaga todos os registros da tabela auxiliar
    Executar('truncate TABLE '+NomeTabelaAux);
@@ -1607,12 +1653,12 @@ begin
      SQL_CLIENTE.Open;
      if SQL_CLIENTE.Eof Then
      begin
-       ShowMessage('Não encontrado Cliente: '+ IntToStr(pCodigo));
+       WnAlerta('Não encontrado Cliente: '+ IntToStr(pCodigo));
        exit;
      end;
      result := true;
   except
-    ShowMessage('Erro: Não conseguiu recuperar dados do Cliente');
+    WnAlerta('Erro: Não conseguiu recuperar dados do Cliente');
   end;
 end;
 
@@ -1633,7 +1679,7 @@ begin
        exit;
     Result := True;
    except
-      ShowMessage('Erro: Ao acessar Natureza_Operacao');
+      WnAlerta('Erro: Ao acessar Natureza_Operacao');
    end;
 end;
 
@@ -1653,12 +1699,12 @@ begin
      SQL_Auxiliar.Open;
      if SQL_Auxiliar.Eof Then
      begin
-       ShowMessage('Não encontrada Nat Op: '+ pDescricao);
+       WnAlerta('Não encontrada Nat Op: '+ pDescricao);
        exit;
      end;
      result := SQL_Auxiliar.FieldByName('ID').AsInteger;
   except
-    ShowMessage('Erro: Não conseguiu editar Venda');
+    WnAlerta('Erro: Não conseguiu editar Venda');
   end;
 end;
 
@@ -1679,7 +1725,7 @@ begin
       SQL_Auxiliar.ExecSql;
       result := True
    except
-      ShowMessage('Erro: Não conseguiu editar Venda');
+      WnAlerta('Erro: Não conseguiu editar Venda');
    end;
 end;
 
@@ -1724,7 +1770,7 @@ begin
       end;
       result := true;
   except
-      ShowMessage('Erro: Ao acessar Natureza_Operacao');
+      WnAlerta('Erro: Ao acessar Natureza_Operacao');
   end;
 end;
 
@@ -1751,7 +1797,7 @@ begin
       end;
       result := true;
   except
-      ShowMessage('Erro: Ao acessar Colaborador (Vendedor)');
+      WnAlerta('Erro: Ao acessar Colaborador (Vendedor)');
   end;
 end;
 
@@ -1791,7 +1837,7 @@ begin
      Q.SQL.Add('     rateio_desconto,  ');
      Q.SQL.Add('     rateio_acrescimo, ');
      Q.SQL.Add('     preco_custo,      ');
-     Q.SQL.Add('     CFOP)             ');
+     Q.SQL.Add('     VI_CFOP_CSOSN)    ');
      q.SQL.Add('VALUES                 ');
      Q.SQL.Add('   (:CODIGO,           ');
      Q.SQL.Add('    :CODIGO_PRODUTO,   ');
@@ -1807,7 +1853,7 @@ begin
      Q.SQL.Add('    :rateio_desconto,  ');
      Q.SQL.Add('    :rateio_acrescimo, ');
      Q.SQL.Add('    :preco_custo,      ');
-     Q.SQL.Add('    :CFOP)             ');
+     Q.SQL.Add('    :VI_CFOP_CSOSN)    ');
 
      Q.ParamByName('CODIGO'           ).AsInteger := SQL_VENDA_ITEM.FieldByName('CODIGO'           ).AsInteger;
      Q.ParamByName('CODIGO_PRODUTO'   ).AsInteger := SQL_VENDA_ITEM.FieldByName('CODIGO_PRODUTO'   ).AsInteger;
@@ -1823,7 +1869,7 @@ begin
      Q.ParamByName('rateio_desconto'  ).AsFloat   := SQL_VENDA_ITEM.FieldByName('rateio_desconto'  ).AsFloat;
      Q.ParamByName('rateio_acrescimo' ).AsFloat   := SQL_VENDA_ITEM.FieldByName('rateio_acrescimo' ).AsFloat;
      Q.ParamByName('preco_custo'      ).AsFloat   := SQL_VENDA_ITEM.FieldByName('preco_custo'      ).AsFloat;
-     Q.ParamByName('CFOP'             ).AsString  := SQL_VENDA_ITEM.FieldByName('CFOP'             ).AsString;
+     Q.ParamByName('VI_CFOP_CSOSN'    ).AsString  := SQL_VENDA_ITEM.FieldByName('VI_CFOP_CSOSN'    ).AsString;
      Q.ExecSql;
      SQL_VENDA_ITEM.Next;
    end;
@@ -1875,12 +1921,12 @@ begin
        SQL_PRODUTO.Open;
        if SQL_PRODUTO.Eof then
        begin
-         ShowMessage('Produto não encontrado.');
+         WnAlerta('Produto não encontrado.');
          exit;
        end;
        result := True;
    except
-      ShowMessage('Erro: Ao pesquisar Produto.');
+      WnAlerta('Erro: Ao pesquisar Produto.');
    end;
 end;
 
@@ -2137,7 +2183,7 @@ begin
         vDescontoGeral := StrToFloat(edDescontoGeral.Text);
         if vDescontoGeral < 0 then
         begin
-          ShowMessage('Valor do desconto inválido');
+          WnAlerta('Valor do desconto inválido');
           edDescontoGeral.SetFocus;
           exit;
         end;
@@ -2189,6 +2235,24 @@ end;
 procedure Tfrm_pedido_venda.SQL_VENDABeforePost(DataSet: TDataSet);
 begin
    SQL_VENDA.FieldByName('VENDA_TPMOV').AsString := edTPMOV.Text;
+end;
+
+function Tfrm_pedido_venda.Trata_Transportadora:Boolean;
+begin
+   //Recuperar dados da transportadora pela placa do veículo
+   //Se informado, o Veículo precisa existir
+   //---------------------------------------------------------------------------
+   result := true;
+   if edPlaca.text = '' then
+     exit;
+
+   if not fVEICULOExiste(edPlaca.text,edPLACA_DESCRICAO,edTRANSP_RAZAO_SOCIAL) then
+   begin
+      result := false;
+      WnAlerta('Veículo não cadastrado');
+      edPLACA.SetFocus;
+   end;
+
 end;
 
 procedure Tfrm_pedido_venda.Abrir_Tabela_Auxiliar;

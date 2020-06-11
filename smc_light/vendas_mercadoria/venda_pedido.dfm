@@ -1956,14 +1956,14 @@ object frm_pedido_venda: Tfrm_pedido_venda
       end
       object Shape2: TShape
         Left = 76
-        Top = 583
+        Top = 609
         Width = 1173
         Height = 1
         Pen.Color = clRed
       end
       object Label25: TLabel
         Left = 24
-        Top = 573
+        Top = 595
         Width = 46
         Height = 18
         Caption = 'Totais'
@@ -1978,7 +1978,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
       end
       object Label26: TLabel
         Left = 21
-        Top = 607
+        Top = 619
         Width = 48
         Height = 19
         Caption = 'Itens:'
@@ -1991,7 +1991,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
       end
       object Label28: TLabel
         Left = 613
-        Top = 607
+        Top = 619
         Width = 130
         Height = 19
         Caption = 'Desconto Geral:'
@@ -2004,7 +2004,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
       end
       object Label29: TLabel
         Left = 958
-        Top = 605
+        Top = 617
         Width = 117
         Height = 23
         Caption = 'Valor Pagar:'
@@ -2134,7 +2134,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
       end
       object Label5: TLabel
         Left = 304
-        Top = 607
+        Top = 619
         Width = 127
         Height = 19
         Caption = 'Valor Produtos:'
@@ -2395,6 +2395,54 @@ object frm_pedido_venda: Tfrm_pedido_venda
         Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = []
+        ParentFont = False
+      end
+      object Label35: TLabel
+        Left = 21
+        Top = 571
+        Width = 50
+        Height = 19
+        Caption = 'Placa:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Shape7: TShape
+        Left = 85
+        Top = 560
+        Width = 1164
+        Height = 1
+        Pen.Color = clRed
+      end
+      object Label36: TLabel
+        Left = 0
+        Top = 547
+        Width = 82
+        Height = 18
+        Caption = 'Transporte'
+        Color = clRed
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label37: TLabel
+        Left = 520
+        Top = 571
+        Width = 133
+        Height = 19
+        Caption = 'Transportadora:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
         ParentFont = False
       end
       object BtnGravar: TcxButton
@@ -3596,7 +3644,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
         Left = -2
         Top = 325
         Width = 1225
-        Height = 245
+        Height = 220
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -11
@@ -4941,7 +4989,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
       end
       object edQtdeItens: TEdit
         Left = 75
-        Top = 603
+        Top = 615
         Width = 65
         Height = 26
         Font.Charset = DEFAULT_CHARSET
@@ -4954,7 +5002,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
       end
       object edValorItens: TEdit
         Left = 441
-        Top = 603
+        Top = 615
         Width = 108
         Height = 26
         Font.Charset = DEFAULT_CHARSET
@@ -4967,7 +5015,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
       end
       object edDescontoGeral: TEdit
         Left = 764
-        Top = 603
+        Top = 615
         Width = 108
         Height = 26
         Font.Charset = DEFAULT_CHARSET
@@ -4981,7 +5029,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
       end
       object edValorLiquido: TEdit
         Left = 1081
-        Top = 600
+        Top = 612
         Width = 108
         Height = 32
         Color = clYellow
@@ -5696,6 +5744,114 @@ object frm_pedido_venda: Tfrm_pedido_venda
         ParentFont = False
         OnClick = bPesquisaTPMOVClick
       end
+      object edPlaca: TEdit
+        Left = 75
+        Top = 568
+        Width = 120
+        Height = 26
+        Hint = 'F1 - Pesquisa Ve'#237'culos'
+        CharCase = ecUpperCase
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 42
+        OnExit = edPlacaExit
+        OnKeyDown = edPlacaKeyDown
+      end
+      object edPLACA_DESCRICAO: TEdit
+        Left = 196
+        Top = 568
+        Width = 297
+        Height = 26
+        TabStop = False
+        CharCase = ecUpperCase
+        Color = clSilver
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 43
+      end
+      object edTRANSP_RAZAO_SOCIAL: TEdit
+        Left = 657
+        Top = 568
+        Width = 566
+        Height = 26
+        TabStop = False
+        CharCase = ecUpperCase
+        Color = clSilver
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 44
+      end
+      object btn_Tipo: TcxButton
+        Left = 495
+        Top = 569
+        Width = 22
+        Height = 22
+        Hint = 'Pesquisa Ve'#237'culos'
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'Metropolis'
+        OptionsImage.Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000020000000E0B14308329448DFB1D2F58A5000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000020000000E0D1937883C6DB2FF5BB1F9FF325196F4000000000000
+          00000000000100000004000000090000000D0000000F0000000F0000000C0000
+          00070000000E0F1D3C864A7CBCFF73C4FFFF467CC3FF17254485000000000000
+          0002000000081C130F465A3B31BC7C5043F87F5244FF7B4E42FA57382FC11E14
+          1059112142875686C2FF88D0FFFF5186C7FF142343880000000F000000010302
+          02104A332C91946B5DFDC6ACA1FFE4D1C6FFEDDDD2FFE2D0C5FFC0A599FF855C
+          50FF6E6B7EFF98D4F8FF5B8ECBFF152545840000000D00000002000000076046
+          3DA6B39288FFE9DAD0FFDAC0A1FFCBA87AFFC49B66FFCCAA7EFFDCC2A5FFE5D2
+          C6FF9A766AFF736A77FF162747850000000E00000002000000002A201D4AAE88
+          7CFFEFE6DFFFCDA67CFFCDA26BFFE3C28CFFEDD5A2FFE7CD9EFFD3B182FFD0AE
+          88FFE7D5CAFF885F53FF25181464000000070000000000000000755B53ACDFCE
+          C9FFDDC1A8FFC99865FFE8BE83FFE9C388FFEDCA97FFEFD3A7FFF2D9B0FFD5B1
+          87FFDBBEA6FFC5ACA2FF5A3D33C10000000C0000000000000000A9877CE9F8F4
+          F2FFC79873FFDEAB77FFEFCDABFFF0D0B1FFEDC9A1FFECC69AFFEFCFA9FFE9C9
+          A4FFC89B77FFE6D6CEFF7C5448F10000000F0000000000000000C09C90FFFDFD
+          FCFFBE875FFFEDCFB9FFF5DFD2FFF2D6C1FFF1CFB4FFEDC6A4FFECC19BFFEFC8
+          A6FFC08B67FFF1E6DFFF8B6154FF0000000F0000000000000000AF9186E6F9F5
+          F4FFC69474FFE8CDC3FFF9E8E4FFF6DED2FFF3D4C2FFF0CBB2FFEBB78EFFE5B7
+          92FFC59172FFEBDFD9FF866055EE0000000D0000000000000000876F68B0E7D9
+          D4FFE2C6B7FFC89072FFFAEFF2FFF9E7E4FFF6DDD3FFF1C8B2FFEBAF88FFC98E
+          6CFFDCBBAAFFD3C0B7FF6B4F46BC00000009000000000000000026201E36CCAF
+          A7FAFBF8F7FFCF9F88FFC78E72FFE9CDC6FFEDC7B5FFDD9F79FFC88865FFCE9D
+          84FFF5EFEBFFB39387FF2A201D52000000040000000000000000000000036454
+          4F84D9C2BAFFFDFBFAFFE2C6B8FFCB977EFFC08163FFCB977DFFE0C4B4FFFAF6
+          F5FFC9B0A7FF6B564EA700000009000000010000000000000000000000000202
+          020762534D81CEB2A9FAEADDD8FFF9F5F4FFFFFFFFFFF9F5F4FFE9DCD7FFC8AC
+          A2FC62504B900404031000000002000000000000000000000000000000000000
+          000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
+          1F3E000000060000000100000000000000000000000000000000}
+        PaintStyle = bpsGlyph
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 45
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = btn_TipoClick
+      end
     end
   end
   object DS_C_VENDAS: TDataSource
@@ -6055,7 +6211,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
   end
   object DS_VENDA_ITEM: TDataSource
     DataSet = SQL_VENDA_ITEM
-    Left = 728
+    Left = 752
     Top = 392
   end
   object SQL_CLIENTE: TFDQuery

@@ -1703,8 +1703,8 @@ object Frm_Produto: TFrm_Produto
             OnKeyDown = edGRUPOKeyDown
           end
           object btn_Tipo: TcxButton
-            Left = 730
-            Top = 175
+            Left = 727
+            Top = 173
             Width = 22
             Height = 22
             LookAndFeel.NativeStyle = False

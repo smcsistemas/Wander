@@ -139,6 +139,7 @@ object Frm_Consulta_Generica: TFrm_Consulta_Generica
         TabOrder = 0
         OnKeyDown = edt_consultaKeyDown
         OnKeyUp = edt_consultaKeyUp
+        ExplicitLeft = 12
         Width = 602
       end
       object cb_tipo_consulta: TcxComboBox
@@ -210,6 +211,7 @@ object Frm_Consulta_Generica: TFrm_Consulta_Generica
         StyleHot.LookAndFeel.SkinName = 'Metropolis'
         TabOrder = 1
         OnKeyDown = cb_tipo_consultaKeyDown
+        ExplicitLeft = 620
         Width = 166
       end
     end

@@ -5,6 +5,7 @@ unit u_funcoes;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+290|11/06/20|14:00|u_funcoes                   |Automatizada a definicao da estrutura da tabela auxiliar "venda_nomedaestacao"
 279|09/06/20|14:25|u_funcoes                   |Criada função True_ou_False que recebe um inteiro (0/1) e retorna true se zero e false se 1
 278|09/06/20|14:25|u_funcoes                   |Criada função Zero_ou_Um que recebe um boolean e retorna 0 se false e 1 se true
 273|09/06/20|06:33|u_funcoes                   |Criada função VazioSeInteiroMenos1 que recebe um inteiro
@@ -129,6 +130,13 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//096 Recebe um número de placa e dois objetos Tedit.
+//    Verifica se éxiste veículo cadastrado com esta placa.
+//    Se existir, retorna true e preenche os Tedit com:
+//                                                  - a descrição do veículo
+//                                                  - o código da transportadora
+//    Se não existir, retorna false e os 2 Tedits em branco
+function fVEICULOExiste(pPlaca:String;pDESCRICAO,pTRANSP_COD:tEdit):Boolean;
 //095 recebe um inteiro (0/1) e retorna true se zero e false se 1
 function True_ou_False(p0_1:Integer):Boolean;
 //094 recebe um boolean e retorna 0 se false e 1 se true
@@ -533,6 +541,7 @@ procedure CNPJCPF(Field: TDBEdit); overload;
 function Format_CPF_CNPJ(value: string): string;
 { Procedure to assign a maks value to a field according to his kind, if cnpj or cpf }
 
+procedure WnAlerta(Mensagem: String); overload;
 procedure WnAlerta(Titulo, Mensagem: String); overload;
 procedure WnAlerta(Titulo, Mensagem: String; Font: Integer); overload;
 procedure WnAlerta(Titulo, Mensagem: String; Align: TAlignment; Font: Integer); overload;
@@ -671,6 +680,16 @@ begin
     Valor := StringReplace(Valor, ',', '.', [RFREPLACEALL]);
   end;
   result := Valor;
+end;
+
+procedure WnAlerta(Mensagem: String);
+begin
+  TFunctions.write_log('ERRO!: ' + Mensagem);
+  frm_alerta := tfrm_alerta.Create(nil);
+  frm_alerta.Titulo('ERRO!');
+  frm_alerta.Mensagem(Mensagem);
+  frm_alerta.ShowModal;
+  frm_alerta.Free;
 end;
 
 procedure WnAlerta(Titulo, Mensagem: String);
@@ -4924,39 +4943,15 @@ begin
 end;
 
 procedure Criar_Tabela_Temporaria_de_Venda(pTabela:String);
-var Q : tFDQuery;
 begin
    // Cria tabela auxiliar de venda
    //---------------------------------------------------------------------------
-   //Executar('DROP TABLE '+pTabela);
-
-   q := TFDQuery.Create(nil);
-   q.Connection     := Module.connection;
-   q.ConnectionName := 'connection';
-   try
-     Q.Close;
-     Q.Sql.Clear;
-     Q.SQL.Add('CREATE TABLE '+pTabela                      );
-     Q.SQL.Add('    (CODIGO            INT(11)       NULL, ');
-     Q.SQL.Add('     CODIGO_PRODUTO    INT(11)       NULL, ');
-     Q.SQL.Add('     UNIDADE           varchar(10)   NULL, ');
-     Q.SQL.Add('     QUANTIDADE        FLOAT         NULL, ');
-     Q.SQL.Add('     PRECO             DECIMAL(10,4) NULL, ');
-     Q.SQL.Add('     CODIGO_VENDA      INT(11)       NULL, ');
-     Q.SQL.Add('     CODIGO_ITEM_VENDA INT(11)       NULL, ');
-     Q.SQL.Add('     DESCRICAO         varchar(100)  NULL, ');
-     Q.SQL.Add('     ACRESCIMO         DECIMAL(10,4) NULL, ');
-     Q.SQL.Add('     DESCONTO          DECIMAL(10,4) NULL, ');
-     Q.SQL.Add('     PRECO_TOTAL       DECIMAL(10,4) NULL, ');
-     Q.SQL.Add('     rateio_desconto   DECIMAL(10,4) NULL, ');
-     Q.SQL.Add('     rateio_acrescimo  DECIMAL(10,4) NULL, ');
-     Q.SQL.Add('     preco_custo       DECIMAL(10,4) NULL, ');
-     Q.SQL.Add('     CFOP              INT(04)       NULL) ');
-
-     Q.ExecSql;
-   finally
-     q.Free;
-   end;
+   if Existe_Tabela(pTabela) then
+      Executar('DROP TABLE '+pTabela);
+   //MSSQL Server
+   //Executar('SELECT * INTO '+pTabela + ' FROM VENDA_ITEM WHERE 1=0');
+   //MYSQL
+   Executar('CREATE TABLE '+pTabela + ' SELECT * FROM VENDA_ITEM WHERE 1=0');
 end;
 
 procedure Destruir_Tabela_Temporaria_de_Venda(pTabela:String);
@@ -6440,16 +6435,15 @@ begin
    Q.ParamByName('RPC_TPMOV'  ).AsString := pTPMOV;
    Q.ParamByName('RPC_PRODUTO').AsString := pPRODUTO;
    Q.Open;
+
    if not Q.Eof then
-   begin
      //Existe relacionamento: Retorna o CFOP correspondente ao TPMOV
-     result := Q.FieldByName('RPC_CFOP').AsString;
-     Q.Free;
-     Exit;
-   end;
+     result := Q.FieldByName('RPC_CFOP').AsString
+   else
+     //Não existe relacionamento: Retorna o CFOP do TPMOV
+     result := fTPMOV_CFOP(pTPMOV);
+
    Q.Free;
-   //Não existe relacionamento: Retorna o CFOP do TPMOV
-   result := fTPMOV_CFOP(pTPMOV);
 end;
 
 function InteiroMenos1_se_Vazio(pString:String):Integer;
@@ -6484,9 +6478,92 @@ function True_ou_False(p0_1:Integer):Boolean;
 begin
   result := (p0_1 = 1);
 end;
+
+function fVEICULOExiste(pPlaca:String;pDESCRICAO,pTRANSP_COD:tEdit):Boolean;
+var qLocal : tFDQuery;
+begin
+   pDESCRICAO.text  := '';
+   pTRANSP_COD.text := '';
+   //Se a placa não foi informada, retorna true, pois a tela chamadora
+   //é que deve criticar se o campo é ou não obrigatório
+   if pPlaca = '' then
+   begin
+     result:=true;
+     exit;
+   end;
+
+   //Se informou a placa, tenta localizar o veículo com esta placa
+   qLocal := TFDQuery.Create(nil);
+   qLocal.Connection     := Module.connection;
+   qLocal.ConnectionName := 'connection';
+
+   qLocal.Close;
+   qLocal.Sql.Clear;
+   qLocal.SQL.Add('SELECT a.DESCRICAO,               ');
+   qLocal.SQL.Add('       b.RAZAO_SOCIAL             ');
+   qLocal.SQL.Add('  FROM transportadora_veiculos a, ');
+   qLocal.SQL.Add('       transportador           b  ');
+   qLocal.SQL.Add(' WHERE a.TRANSP_COD = b.ID        ');
+   qLocal.SQL.Add('   AND PLACA   = :PLACA           ');
+   qLocal.ParamByName('PLACA'  ).AsString := pPLACA;
+   qLocal.Open;
+
+   result := not qLocal.Eof;
+
+   if not qLocal.Eof then
+   begin
+      pDESCRICAO.Text  := qLocal.FieldByName('DESCRICAO'  ).AsString;
+      pTRANSP_COD.text := qLocal.FieldByName('RAZAO_SOCIAL').AsString;
+   end;
+
+   qLocal.Free;
+end;
 //##############################################################################
 //                FIM DAS FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
 
 end.
 
+{
+insert into transportadora_veiculos
+(
+	CODIGO,
+	DESCRICAO,
+	PLACA,
+	TRANSP_COD,
+	TRANSP_RAZAO_SOCIAL,
+	UF,
+	RENAVAM,
+	CHASSI,
+	MARCA,
+	COR_FABRICA,
+	COR_DESCRICAO,
+	ANO,
+	MODELO,
+	REBOQUE1,
+	REBOQUE2,
+	REBOQUE3,
+	REBOQUE4,
+	COMBUSTIVEL
+)
+values
+ (
+	2,
+	'Ford Cargo Azul',
+	'XYZ1234',
+	2,
+	'',
+	'RO',
+	'222222',
+	'222BBBBBBBB',
+	'FORD',
+	'C2',
+	'AZUL',
+	'2000',
+	'1210',
+	'',
+	'',
+	'',
+	'',
+	'DIESEL')
+}

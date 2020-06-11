@@ -1,5 +1,12 @@
 unit vw_consulta_generica;
 {
+
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+288|11/06/20|12:10|vw_consulta_generica        |Criada a consulta genérica para a tabela Transportadora_Veiculo
+========================================================================================================================================
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
@@ -83,6 +90,8 @@ type
     procedure FillORIGEM(const QueryString: string);
     procedure FillOperadorCaixa(const QueryString: string);
     procedure FillTIPO_ITEM(const QueryString: string);
+    procedure FillTransportadora_Veiculos(const QueryString: string);
+
 
     procedure SetQuery(const QueryString: string);
     procedure CustomizeGrid(const FontSize: Integer);
@@ -124,6 +133,13 @@ type
     ORIGEM_QUERY_BASE    = 'SELECT CODIGO, DESCRICAO FROM ORIGEM_MERCADORIA';
     OPERADOR_QUERY_BASE  = 'SELECT c.CODIGO, c.NOME, u.USUARIO FROM COLABORADOR c JOIN USUARIO U ON U.CODIGO = C.COD_USUARIO WHERE c.TIPO_COLABORADOR = "8"';
     TIPO_ITEM_QUERY_BASE = 'SELECT CODIGO, DESCRICAO FROM produto_tipo_item';
+    Transportadora_Veiculos_QUERY_BASE = 'SELECT a.PLACA, '
+                                        +      ' LEFT(a.DESCRICAO,   20) as DESCRICAO, '
+                                        +      ' LEFT(b.RAZAO_SOCIAL,20) as RAZAO_SOCIAL '
+                                        +  'FROM Transportadora_Veiculos a, '
+                                        +       'Transportador b '
+                                        + 'WHERE a.TRANSP_COD = b.ID';
+
   const
 
     msk_CPF = '999.999.999-99;0';
@@ -148,6 +164,7 @@ type
     function consultaMarca(campo: TEdit): TFrm_Consulta_Generica;
     function consultaCSOSN(campo: TEdit): TFrm_Consulta_Generica;
     function consultaTIPO_ITEM(campo: TEdit): TFrm_Consulta_Generica;
+    function consultaTransportadora_Veiculos(campo: TEdit): TFrm_Consulta_Generica;
 
   end;
 
@@ -215,6 +232,18 @@ function TFrm_Consulta_Generica.consultaTIPO_ITEM(campo: TEdit): TFrm_Consulta_G
 begin
   self.m_Field_Edit := campo;
   self.cgTable := cgTIPO_ITEM;
+
+  self.SetFormSize;
+  self.query_filled := false;
+
+  result := self;
+end;
+
+function TFrm_Consulta_Generica.consultaTransportadora_Veiculos(
+  campo: TEdit): TFrm_Consulta_Generica;
+begin
+  self.m_Field_Edit := campo;
+  self.cgTable := cgTransportadora_Veiculos;
 
   self.SetFormSize;
   self.query_filled := false;
@@ -305,6 +334,9 @@ begin
       cgTIPO_ITEM:
         if cb_tipo_consulta.SelectedItem = 1 then
           FillTIPO_ITEM(TIPO_ITEM_QUERY_BASE + QRY_WHERE_FULL_LIKE);
+      cgTransportadora_Veiculos:
+        if cb_tipo_consulta.SelectedItem = 1 then
+          FillTransportadora_Veiculos(Transportadora_Veiculos_QUERY_BASE + QRY_WHERE_FULL_LIKE);
 
     end;
     onOpen := false;
@@ -367,7 +399,8 @@ begin
                    cgORIGEM,
                    cgICMS,
                    cgoperadorcaixa,
-                   cgTIPO_ITEM] then
+                   cgTIPO_ITEM,
+                   cgTransportadora_Veiculos] then
       IndexCombo := 1
     else if cgTable in [cgProduto, cgNCM] then
       IndexCombo := 2;
@@ -534,12 +567,16 @@ begin
   if SQL_DATA.RecordCount <> 0 then
   begin
     case cgTable of
+      //Consultas que retornam campos de nome diferente de "CODIGO"
       cgNCM:
         Value := SQL_DATA.FieldByName('NCM').asString + ';' + SQL_DATA.FieldByName('CEST').asString;
       cgFormasPagamento:
         Value := SQL_DATA.FieldByName('COD_TIPO_PAGAMENTO').asString;
       cgMarca:
         Value := SQL_DATA.FieldByName('NOME').asString;
+      cgTransportadora_Veiculos:
+        Value := SQL_DATA.FieldByName('PLACA').asString;
+
     else
       Value := SQL_DATA.FieldByName('CODIGO').asString; { para qualquer outra consulta não especificada acima }
       if cgTable in [cgVendedor, cggerente] then
@@ -774,6 +811,19 @@ begin
   SetGridStyle(1, ArrFieldsTitle[1], 1200, taLeftJustify); { DESCRIÇÃO }
 end;
 
+procedure TFrm_Consulta_Generica.FillTransportadora_Veiculos(const QueryString: string);
+begin
+  SetQuery(QueryString);
+  CustomizeGrid(10);
+  SetLength(ArrFieldsTitle, 3);
+  ArrFieldsTitle[0] := 'PLACA';
+  ArrFieldsTitle[1] := 'DESCRIÇÃO';
+  ArrFieldsTitle[2] := 'TRANSPORTADORA';
+  SetGridStyle(0, ArrFieldsTitle[0], 100, taLeftJustify); { PLACA }
+  SetGridStyle(1, ArrFieldsTitle[1], 200, taLeftJustify); { DESCRIÇÃO }
+  SetGridStyle(2, ArrFieldsTitle[2], 400, taLeftJustify); { RAZÃO SOCIAL }
+end;
+
 procedure TFrm_Consulta_Generica.FillDefaultData;
 begin
   case cgTable of
@@ -813,6 +863,8 @@ begin
       FillOperadorCaixa(OPERADOR_QUERY_BASE);
     cgTIPO_ITEM:
       FillTIPO_ITEM(TIPO_ITEM_QUERY_BASE);
+    cgTransportadora_Veiculos:
+      FillTransportadora_Veiculos(Transportadora_Veiculos_QUERY_BASE);
   end;
 end;
 
@@ -945,6 +997,9 @@ begin
       result := ' ORDER BY ' + f(['c.CODIGO', 'c.NOME', 'u.USUARIO']);
     cgTIPO_ITEM:
       result := ' ORDER BY ' + f(['CODIGO', 'DESCRICAO']);
+    cgTransportadora_Veiculos:
+      result := ' ORDER BY ' + f(['PLACA', 'DESCRICAO','RAZAO_SOCIAL']);
+
   end;
   result := result + ' ';
 end;
@@ -1037,6 +1092,10 @@ begin
     cgTIPO_ITEM:
       configLayout(540, 317, 16, 10, 'Tipo do Item');
 
+    cgTransportadora_Veiculos:
+      configLayout(540, 317, 16, 10, 'Veículos de Transportadoras');
+
+    //DEFINE o tAMANHA dA tELA
   end;
 end;
 

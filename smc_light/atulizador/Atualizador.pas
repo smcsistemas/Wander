@@ -1,11 +1,5 @@
 unit Atualizador;
 {
-    if fNaoAtualizado('PRODUTO: Parâmetro de Tratamento de Lote...') Then
-       Executar('ALTER TABLE PRODUTO ADD PROD_TRATALOTE INTEGER NULL DEFAULT 0 COMMENT "Flag de Tratamento de Lote (0=Não)(1=Sim)" ');
-
-    if fNaoAtualizado('PRODUTO: Parâmetro de Tratamento de Número de Série...') Then
-       Executar('ALTER TABLE PRODUTO ADD PROD_TRATANUMEROSERIE INTEGER NULL DEFAULT 0 COMMENT "Flag de Tratamento de Número de Série (0=Não)(1=Sim)" ');
-
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
