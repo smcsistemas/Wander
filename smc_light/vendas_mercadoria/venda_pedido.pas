@@ -3,6 +3,7 @@ unit venda_pedido;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+291|12/06/20|20:24|venda_pedido                |Gravando VENDA. Falta gravar VENDA_ITEM
 289|11/06/20|13:58|venda_pedido                |Incluido campo para informar placa do veículo que transportará a mercadoria da nota
 258|06/06/20|05:35|venda_pedido                |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 252|03/06/20|05:34|venda_pedido                |Se encontrar algum produto sem o CST do ICMS informado, abre o cadastro do produto para que o usuário corrija.
@@ -427,10 +428,12 @@ type
 
     function Inserir_Produto:Boolean;
     procedure Gravar;
-    function Gravar_Tudo:Boolean;
+    function Gravar_Tudo(pCODIGO_VENDA:Integer):Boolean;
+    function Gravar_venda(pCODIGO_VENDA:Integer): Boolean;
+    function Gravar_venda_item(pCODIGO_VENDA:Integer): Boolean;
 
     procedure Alterar;
-    function Alterar_Tudo:Boolean;
+    function Alterar_Tudo(pCODIGO_VENDA:Integer):Boolean;
     procedure Alterar_Produto;
 
     procedure CancelarProduto;
@@ -505,6 +508,7 @@ begin
 end;
 
 procedure Tfrm_pedido_venda.Gravar;
+var vCODIGO_VENDA: integer;
 begin
    // Grava venda e seus itens
    //---------------------------------------------------------------------------
@@ -512,15 +516,34 @@ begin
    // Verifica integridade e regras...
    if not DadosCorretos then exit;
 
+   if edCODIGO_VENDA.Text = '' then
+      vCODIGO_VENDA := ProximaVENDA
+   else
+      vCODIGO_VENDA := Strtoint(edCODIGO_VENDA.Text);
+
+   //Elimina a venda antes de salvar
+   Apagar_Venda(vCODIGO_VENDA);
+
+
    if vOperacao = 'Inclusão' then
    begin
       // Incluir nova venda
-      if not Gravar_Tudo then exit;
+      while not Gravar_Tudo(vCODIGO_VENDA) do
+      begin
+         //Não conseguiu salvar completamente
+         //Elimina a venda e tenta novamente
+         Apagar_Venda(vCODIGO_VENDA);
+      end;
    end
    else
    begin
       // Alterar venda existente
-      if not Alterar_Tudo then exit;
+      while not Alterar_Tudo(vCODIGO_VENDA) do
+      begin
+         //Não conseguiu salvar completamente
+         //Elimina a venda e tenta novamente
+         Apagar_Venda(vCODIGO_VENDA);
+      end;
    end;
 
    // Venda Gravada
@@ -529,7 +552,7 @@ begin
    Destruir_Tabela_Temporaria_de_Venda(NomeTabelaAux);
 
    // Aplica Desconto da Venda aos Itens do Pedido (Rateio)
-   Ratear_Desconto_Da_Venda_Entre_seus_Itens(vCodigo_Venda_Tratada);
+   Ratear_Desconto_Da_Venda_Entre_seus_Itens(vCODIGO_VENDA);
 
    // Prepara botões
    BtnGravar.Enabled   := False;
@@ -1274,10 +1297,138 @@ begin
    BuscarVenda;
 end;
 
-function Tfrm_pedido_venda.Gravar_Tudo: Boolean;
+function Tfrm_pedido_venda.Gravar_Tudo(pCODIGO_VENDA:Integer): Boolean;
 begin
+   //Grava todos os dados do movimento
+   //---------------------------------------------------------------------------
    result := false;
+
+   if not Gravar_venda(pCODIGO_VENDA)      then exit;
+   if not Gravar_venda_item(pCODIGO_VENDA) then exit;
+
+   //Sucesso
+   result := true;
 end;
+
+function Tfrm_pedido_venda.Gravar_venda(pCODIGO_VENDA:Integer): Boolean;
+var qLocal : tFDQuery;
+    vCODIGO_VENDA:Integer;
+begin
+  //Gravar o cabeçalho do movimento
+  //----------------------------------------------------------------------------
+  result := false;
+
+   qLocal := TFDQuery.Create(nil);
+   qLocal.Connection     := Module.connection;
+   qLocal.ConnectionName := 'connection';
+
+   qLocal.Close;
+   qLocal.Sql.Clear;
+   qLocal.SQL.Add('INSERT INTO VENDA          ');
+   qLocal.SQL.Add('  ( CODIGO_VENDA,          ');
+   qLocal.SQL.Add('    OPERADOR,              ');
+   qLocal.SQL.Add('    CAIXA,                 ');
+   qLocal.SQL.Add('    DATA,                  ');
+   qLocal.SQL.Add('    CODIGO_CLIENTE,        ');
+   qLocal.SQL.Add('    VALOR_VENDA,           ');
+   qLocal.SQL.Add('    ACRESCIMO,             ');
+   qLocal.SQL.Add('    DESCONTO,              ');
+   qLocal.SQL.Add('    TOTAL_VENDA,           ');
+   qLocal.SQL.Add('    VALOR_PAGO,            '); // ???
+   qLocal.SQL.Add('    TROCO,                 ');
+   qLocal.SQL.Add('    STATUS,                '); // ???
+   qLocal.SQL.Add('    COD_NFCE,              '); // tem q estar no cad da nfce
+   qLocal.SQL.Add('    COD_VENDEDOR,          ');
+   qLocal.SQL.Add('    conveniado_id,         ');
+   qLocal.SQL.Add('    comanda,               ');
+   qLocal.SQL.Add('    agrupou_venda,         '); // ??
+   qLocal.SQL.Add('    VENDA_TPMOV,           ');
+   qLocal.SQL.Add('    venda_tipo,            ');
+   qLocal.SQL.Add('    Transportador_Veiculo, ');
+   qLocal.SQL.Add('    NFe_QVOL,              ');
+   qLocal.SQL.Add('    NFe_ESP,               ');
+   qLocal.SQL.Add('    NFe_MARCA,             ');
+   qLocal.SQL.Add('    NFe_NVOL,              ');
+   qLocal.SQL.Add('    NFe_PESOL,             ');
+   qLocal.SQL.Add('    NFe_PESOB              ');
+   qLocal.SQL.Add('              )            ');
+   qLocal.SQL.Add('VALUES                     ');
+   qLocal.SQL.Add('  (:CODIGO_VENDA,          ');
+   qLocal.SQL.Add('   :OPERADOR,              ');
+   qLocal.SQL.Add('   :CAIXA,                 ');
+   qLocal.SQL.Add('   :DATA,                  ');
+   qLocal.SQL.Add('   :HORA,                  ');
+   qLocal.SQL.Add('   :CODIGO_CLIENTE,        ');
+   qLocal.SQL.Add('   :VALOR_VENDA,           ');
+   qLocal.SQL.Add('   :ACRESCIMO,             ');
+   qLocal.SQL.Add('   :DESCONTO,              ');
+   qLocal.SQL.Add('   :TOTAL_VENDA,           ');
+   qLocal.SQL.Add('   :VALOR_PAGO,            '); // ???
+   qLocal.SQL.Add('   :TROCO,                 ');
+   qLocal.SQL.Add('   :STATUS,                '); // ???
+   qLocal.SQL.Add('   :COD_NFCE,              '); // tem q estar no cad da nfce
+   qLocal.SQL.Add('   :COD_VENDEDOR,          ');
+   qLocal.SQL.Add('   :conveniado_id,         ');
+   qLocal.SQL.Add('   :comanda,               ');
+   qLocal.SQL.Add('   :agrupou_venda,         '); // ??
+   qLocal.SQL.Add('   :VENDA_TPMOV,           ');
+   qLocal.SQL.Add('   :venda_tipo,            ');
+   qLocal.SQL.Add('   :Transportador_Veiculo, ');
+   qLocal.SQL.Add('   :NFe_QVOL,              ');
+   qLocal.SQL.Add('   :NFe_ESP,               ');
+   qLocal.SQL.Add('   :NFe_MARCA,             ');
+   qLocal.SQL.Add('   :NFe_NVOL,              ');
+   qLocal.SQL.Add('   :NFe_PESOL,             ');
+   qLocal.SQL.Add('   :NFe_PESOB              ');
+   qLocal.SQL.Add('             )             ');
+   qLocal.ParamByName('CODIGO_VENDA'         ).AsInteger := pCODIGO_VENDA;
+   qLocal.ParamByName('OPERADOR'             ).AsString  := '';
+   qLocal.ParamByName('CAIXA'                ).AsString  := '';
+   qLocal.ParamByName('DATA'                 ).AsDateTime:= DataServidor;
+   qLocal.ParamByName('HORA'                 ).AsDateTime:= DataServidor;
+   qLocal.ParamByName('CODIGO_CLIENTE'       ).AsInteger := -1;
+   qLocal.ParamByName('VALOR_VENDA'          ).AsFloat   := 0;
+   qLocal.ParamByName('ACRESCIMO'            ).AsFloat   := 0;
+   qLocal.ParamByName('DESCONTO'             ).AsFloat   := 0;
+   qLocal.ParamByName('TOTAL_VENDA'          ).AsFloat   := 0;
+   qLocal.ParamByName('VALOR_PAGO'           ).AsFloat   := 0;
+   qLocal.ParamByName('TROCO'                ).AsFloat   := 0;
+   qLocal.ParamByName('STATUS'               ).AsInteger := 1; //FECHADA
+   qLocal.ParamByName('COD_NFCE'             ).AsString  := '';
+   qLocal.ParamByName('COD_VENDEDOR'         ).AsInteger := 0;
+   qLocal.ParamByName('conveniado_id'        ).AsInteger := 0;
+   qLocal.ParamByName('comanda'              ).AsInteger := 0;
+   qLocal.ParamByName('agrupou_venda'        ).AsInteger := 0; //NAO
+   qLocal.ParamByName('VENDA_TPMOV'          ).AsString  := edTPMOV.Text;
+   qLocal.ParamByName('venda_tipo'           ).AsInteger := 1; //??? ESTÁ TUDO ASSIM NA BASE DE DADOS. sERÁ NFCE?
+   qLocal.ParamByName('Transportador_Veiculo').AsInteger := fVEICULOCodigo(edPlaca.Text);
+   qLocal.ParamByName('NFe_QVOL'             ).AsInteger := 1;
+   qLocal.ParamByName('NFe_ESP'              ).AsString  := 'DIVERSOS';
+   qLocal.ParamByName('NFe_MARCA'            ).AsString  := 'DIVERSOS';
+   qLocal.ParamByName('NFe_NVOL'             ).AsInteger := 1;
+   qLocal.ParamByName('NFe_PESOL'            ).AsFloat   := 0;
+   qLocal.ParamByName('NFe_PESOB'            ).AsFloat   := 0;
+
+   qLocal.ExecSql;
+
+   //Libera memória
+   qLocal.Free;
+
+
+  //Sucesso
+  result := true;
+end;
+
+function Tfrm_pedido_venda.Gravar_venda_item(pCODIGO_VENDA:Integer): Boolean;
+begin
+  //Gravar os itens do movimento
+  //----------------------------------------------------------------------------
+  result := false;
+
+  //Sucesso
+  result := true;
+end;
+
 
 procedure Tfrm_pedido_venda.Habilita_Campos(pEnabled: Boolean);
 var i : Integer;
@@ -1318,7 +1469,7 @@ begin
    result := true;
 end;
 
-function Tfrm_pedido_venda.Alterar_Tudo: Boolean;
+function Tfrm_pedido_venda.Alterar_Tudo(pCODIGO_VENDA:Integer): Boolean;
 begin
    result := false;
 end;
@@ -2289,4 +2440,17 @@ end;
 end.
 
 
+**   qLocal.SQL.Add('    CPF_CLIENTE,     ');
+**   qLocal.SQL.Add('    NOME_CLIENTE,    ');
+**   qLocal.SQL.Add('    IE_CLIENTE,      ');
+**   qLocal.SQL.Add('    TELEFONE_CLIENTE,');
+**   qLocal.SQL.Add('    RUA_CLIENTE` VARCHAR(100) NULL DEFAULT NULL,
+**   qLocal.SQL.Add('    NUMERO_CLIENTE` VARCHAR(5) NULL DEFAULT NULL,
+**   qLocal.SQL.Add('    BAIRRO_CLIENTE` VARCHAR(50) NULL DEFAULT NULL,
+**   qLocal.SQL.Add('    IdCaixa,         ');
+**   qLocal.SQL.Add('    STATUSNFe` INT(11) NULL DEFAULT '0',
+**   qLocal.SQL.Add('    NOTAFISCAL` VARCHAR(10) NULL DEFAULT NULL,
+**   qLocal.SQL.Add('    venda_natureza_operacao` INT(11) NULL DEFAULT NULL,
+**   qLocal.SQL.Add('    NFe_Veiculo_tpOp,      ');
+**   qLocal.SQL.Add('    VENDA_FATURADA` VARCHAR(50) NULL DEFAULT NULL,
 

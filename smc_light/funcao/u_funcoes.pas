@@ -130,6 +130,14 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//100: 12/06/20 21:08 Retorna o próximo id de venda (sequencial crescente)
+function ProximaVENDA:Integer;
+//099: 12/06/20 21:00 Recebe uma placa e devolve o codigo do veículo ou -1 se não encontrrar
+function fVEICULOCodigo(pPlaca:String):Integer;
+//098: 12/06/20 18:33 Exclui o cabecalho do movimento do banco de dados
+procedure Apagar_Venda(pNumero:Integer);
+//097: 12/06/20 18:33 Exclui os itens do movimento do banco de dados
+procedure Apagar_Venda_Item(pNumero:Integer);
 //096 Recebe um número de placa e dois objetos Tedit.
 //    Verifica se éxiste veículo cadastrado com esta placa.
 //    Se existir, retorna true e preenche os Tedit com:
@@ -6516,6 +6524,100 @@ begin
       pTRANSP_COD.text := qLocal.FieldByName('RAZAO_SOCIAL').AsString;
    end;
 
+   qLocal.Free;
+end;
+
+function fVEICULOCodigo(pPlaca:String):Integer;
+var qLocal : tFDQuery;
+begin
+   //Se não encontrar retorna -1
+   result := -1;
+
+   if pPlaca = '' then
+      exit;
+
+   //Se informou a placa, tenta localizar o veículo com esta placa
+   qLocal := TFDQuery.Create(nil);
+   qLocal.Connection     := Module.connection;
+   qLocal.ConnectionName := 'connection';
+
+   qLocal.Close;
+   qLocal.Sql.Clear;
+   qLocal.SQL.Add('SELECT CODIGO                 ');
+   qLocal.SQL.Add('  FROM transportadora_veiculos');
+   qLocal.SQL.Add(' WHERE PLACA = :PLACA         ');
+   qLocal.ParamByName('PLACA').AsString := pPLACA;
+   qLocal.Open;
+
+   if not qLocal.Eof then
+      result := qLocal.FieldByName('CODIGO').AsInteger;
+
+   //Libera memória
+   qLocal.Free;
+end;
+
+procedure Apagar_Venda(pNumero:Integer);
+var qLocal : tFDQuery;
+begin
+   //Exclui o cabecalho do movimento do banco de dados
+   //---------------------------------------------------------------------------
+
+   //Excluir os itens do movimento
+   Apagar_Venda_Item(pNumero);
+
+   //Exclui_Movimento
+   qLocal := TFDQuery.Create(nil);
+   qLocal.Connection     := Module.connection;
+   qLocal.ConnectionName := 'connection';
+
+   qLocal.Close;
+   qLocal.Sql.Clear;
+   qLocal.SQL.Add('DELETE FROM VENDA                  ');
+   qLocal.SQL.Add('   AND CODIGO_VENDA = :CODIGO_VENDA');
+   qLocal.ParamByName('CODIGO_VENDA' ).AsInteger := pNumero;
+   qLocal.ExecSql;
+
+   //Libera memória
+   qLocal.Free;
+end;
+
+procedure Apagar_Venda_Item(pNumero:Integer);
+var qLocal : tFDQuery;
+begin
+   //Exclui os itens do movimento do banco de dados
+   //---------------------------------------------------------------------------
+
+   qLocal := TFDQuery.Create(nil);
+   qLocal.Connection     := Module.connection;
+   qLocal.ConnectionName := 'connection';
+
+   qLocal.Close;
+   qLocal.Sql.Clear;
+   qLocal.SQL.Add('DELETE FROM VENDA_ITEM             ');
+   qLocal.SQL.Add('   AND CODIGO_VENDA = :CODIGO_VENDA');
+   qLocal.ParamByName('CODIGO_VENDA' ).AsInteger := pNumero;
+   qLocal.ExecSql;
+
+   //Libera memória
+   qLocal.Free;
+end;
+
+function ProximaVENDA:Integer;
+var qLocal : tFDQuery;
+begin
+   qLocal := TFDQuery.Create(nil);
+   qLocal.Connection     := Module.connection;
+   qLocal.ConnectionName := 'connection';
+
+   qLocal.Close;
+   qLocal.Sql.Clear;
+   qLocal.SQL.Add('SELECT MAX(CODIGO_VENDA) + 1 AS PROXIMO');
+   qLocal.SQL.Add('  FROM VENDA                           ');
+   qLocal.Open;
+
+   result := qLocal.FieldByName('PROXIMO').AsInteger;
+
+   //Libera memória
    qLocal.Free;
 end;
 //##############################################################################
