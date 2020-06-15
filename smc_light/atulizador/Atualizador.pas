@@ -477,7 +477,7 @@ begin
    qCODIGO.Close;
    qCODIGO.Sql.Clear;
    qCODIGO.SQL.Add('SELECT *                   ');
-   qCODIGO.SQL.Add('  FROM PRODUTO             ');
+   qCODIGO.SQL.Add('  FROM PRODUTO_PROD        ');
    qCODIGO.SQL.Add(' ORDER BY DESCRICAO_PRODUTO');
    qCODIGO.Open;
    vContador:=0;
@@ -2743,6 +2743,15 @@ begin
        Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN CODIGO_BARRAS');
     end;
 
+    if fNaoAtualizado('Tabela PRODUTO_PROD - unidade_medida -> PROD_UNIDADE') Then
+    begin
+       Executar('UPDATE produto_prod SET unidade_medida  = "UN" where unidade_medida  = "1"');
+       Executar('ALTER TABLE PRODUTO_PROD ADD PROD_UNIDADE VARCHAR(03) NULL COMMENT "Unidade de Medida"');
+       Executar('UPDATE PRODUTO_PROD SET PROD_UNIDADE = unidade_medida');
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN unidade_medida');
+    end;
+
+    //Criar índices...
     if fNaoAtualizado('Tabela PRODUTO_PROD - Índices.') Then
     begin
        Executar('CREATE INDEX idx_PROD_CODIGO   ON PRODUTO_PROD(PROD_CODIGO)   ');
@@ -2751,6 +2760,9 @@ begin
        //Executar('CREATE INDEX idx_NCM                   ON PRODUTO(NCM)                   ');
        //Executar('CREATE INDEX idx_referencia_fabricante ON PRODUTO(referencia_fabricante) ');
     end;
+
+
+
 
 
     //Sempre por último

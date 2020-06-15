@@ -1230,10 +1230,10 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
           spdNFCeDataSets.campo('cProd_I02').Value := inttostr(SQL_VENDA_ITEMCODIGO_PRODUTO.Value);
           // C骴igo do produto ou servi鏾
 
-          spdNFCeDataSets.campo('cEAN_I03').Value := EanValido(SQL_VENDA_ITEMPROD_EAN.Value);
+          spdNFCeDataSets.campo('cEAN_I03').Value := EanValido(SQL_VENDA_ITEM.FieldByName('PROD_EAN').AsString);
           // GTIN (Global Trade Item Number) do produto, antigo c骴igo EAN ou c骴igo de barras
 
-          spdNFCeDataSets.campo('cEANTrib_I12').Value := EanValido(SQL_VENDA_ITEMPROD_EAN.Value);
+          spdNFCeDataSets.campo('cEANTrib_I12').Value := EanValido(SQL_VENDA_ITEM.FieldByName('PROD_EAN').AsString);
           // GTIN (Global Trade Item Number) da unidade tribut醰el, antigo c骴igo EAN ou c骴igo de barra
 
           if (tpAmbB24 = '2') and (nItemH02 = '1') then

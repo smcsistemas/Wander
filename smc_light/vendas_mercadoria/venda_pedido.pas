@@ -3,6 +3,7 @@ unit venda_pedido;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+343|15/06/20|18:23|venda_pedido                |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(UNIDADE_MEDIDA)
 321|15/06/20|13:35|venda_pedido                |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 316|15/06/20|10:14|venda_pedido                |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 291|12/06/20|20:24|venda_pedido                |Gravando VENDA. Falta gravar VENDA_ITEM

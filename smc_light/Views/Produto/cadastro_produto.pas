@@ -5,6 +5,7 @@ unit cadastro_produto;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+338|15/06/20|18:23|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(UNIDADE_MEDIDA)
 327|15/06/20|13:35|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 313|15/06/20|10:14|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 299|15/06/20|03:16|cadastro_produto            |Utilizando recurso (PINTAR) para destacar objetos focados com amarelo e readonly com cinza
@@ -241,6 +242,7 @@ type
     cxPageControl1: TcxPageControl;
     cxTabSheet1: TcxTabSheet;
     edArgumentoDePesquisa: TEdit;
+    edPROD_EAN: TEdit;
     tab_Cadastrar: TcxTabSheet;
     SQL_CSTIPI: TFDQuery;
     qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC: TFDQuery;
@@ -277,7 +279,7 @@ type
     gdProdsLevel1: TcxGridLevel;
     gdProds: TcxGrid;
     Label28: TLabel;
-    tbViewCODIGO: TcxGridDBColumn;
+    tbViewPROD_CODIGO: TcxGridDBColumn;
     tbViewDESCRICAO_PRODUTO: TcxGridDBColumn;
     tbViewREFERENCIA_FABRICANTE: TcxGridDBColumn;
     tbViewMARCA: TcxGridDBColumn;
@@ -571,6 +573,7 @@ type
     cbPROD_TRATANUMEROSERIE: TCheckBox;
     rgPROD_TRATALOTE: TRadioGroup;
     qConsultaPROD_CODIGO: TStringField;
+    qConsultaPROD_EAN: TStringField;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -2402,10 +2405,8 @@ var
   x: string;
 begin
   result := false;
-  if edPROD_EAN.Text = '' then
-     exit;
-  if edPROD_EAN.Text = 'SEM GTIN' then
-     exit;
+  if edPROD_EAN.Text = ''         then exit;
+  if edPROD_EAN.Text = 'SEM GTIN' then exit;
 
   x := 'SELECT PROD_CODIGO,      '+
        '       DESCRICAO_PRODUTO '+
@@ -2615,21 +2616,22 @@ begin
    begin
      //Esta tela foi aberta pelo usuário.
      //Localizar o produto por qualquer dos atributos previstos abaixo
-     qConsulta.Sql.Add(' WHERE PROD_CODIGO = PROD_CODIGO');
+     //qConsulta.Sql.Add(' WHERE PROD_CODIGO = PROD_CODIGO');
      if edArgumentoDePesquisa.Text <> '' then
      begin
-        qConsulta.sql.add(' AND (                                        ');
+        //qConsulta.sql.add(' AND (                                        ');
+        qConsulta.Sql.Add(' WHERE ');
         qConsulta.sql.add('          (PROD_CODIGO           LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (CODIGO_ALFANUMERICO   LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (PROD_EAN              LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (descricao_produto     LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (ncm                   LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (referencia_fabricante LIKE :TEXTO) ');
-        qConsulta.sql.add('     )                                        ');
+        //qConsulta.sql.add('     )                                        ');
         qConsulta.ParamByName('TEXTO').AsString := '%'+edArgumentoDePesquisa.Text+'%';
      end;
    end;
-
+   qConsulta.sql.add('ORDER BY DESCRICAO_PRODUTO ');
    //Trazer o/os produtos que atendam ao Argumento de Pesquisa
    qConsulta.Open;
 
@@ -3331,7 +3333,7 @@ begin
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('   AND RPC_CFOP    = CODIGO                       ');
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add('   AND RPC_PRODUTO = :RPC_PRODUTO                 ');
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Sql.Add(' ORDER BY TPMOV_DESCRICAO, RPC_CFOP                                ');
-   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.ParamByName('RPC_PRODUTO').AsString := qConsulta.FieldByName('CODIGO').AsString;
+   qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.ParamByName('RPC_PRODUTO').AsString := qConsulta.FieldByName('PROD_CODIGO').AsString;
    qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.Open;
 
    //Após a alteração, usamos o ponteiro vRegistro para voltar ao registro alterado

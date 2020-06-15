@@ -8502,7 +8502,7 @@ object frm_relatorio: Tfrm_relatorio
       'from NFCE n'
       '        join venda v on v.codigo_venda = n.codigo_venda '
       #9'join venda_item vi on vi.codigo_venda = n.codigo_venda '
-      #9'join produto p on p.codigo = vi.CODIGO_PRODUTO'
+      #9'join PRODUTO_PROD p on p.codigo = vi.CODIGO_PRODUTO'
       
         #9'where n.status_nfce = '#39'AUTORIZADA'#39' and n.data_emissao between :' +
         'pdata_emissao_1 and :pdata_emissao_2'
@@ -11365,7 +11365,7 @@ object frm_relatorio: Tfrm_relatorio
       'from NFCE n'
       '        join venda v on v.codigo_venda = n.codigo_venda '
       #9'join venda_item vi on vi.codigo_venda = n.codigo_venda '
-      #9'join produto p on p.codigo = vi.CODIGO_PRODUTO'
+      #9'join PRODUTO_PROD p on p.PROD_CODIGO = vi.CODIGO_PRODUTO'
       
         #9'where n.status_nfce = '#39'AUTORIZADA'#39' and n.data_emissao between :' +
         'pdata_emissao_1 and :pdata_emissao_2'
@@ -12457,7 +12457,7 @@ object frm_relatorio: Tfrm_relatorio
         'ao_comissao_varejo/100)) as "Valor_Comissao"'
       'from venda v'
       'join venda_item vi on vi.CODIGO_VENDA = v.CODIGO_VENDA'
-      'join produto p on p.CODIGO = vi.CODIGO_PRODUTO'
+      'join PRODUTO_PROD p on p.PROD_CODIGO = vi.CODIGO_PRODUTO'
       'join colaborador c on c.CODIGO = v.OPERADOR'
       'where v.operador = :poperador and'
       'v.data between :pdatainicio and :pdatafim')
@@ -14966,7 +14966,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.RightLine.Style = fsSolid
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."CODIGO_BARRAS"]')
+            '[ds_produtos."PROD_EAN"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -14974,7 +14974,7 @@ object frm_relatorio: Tfrm_relatorio
           Left = 305.968770000000000000
           Width = 30.236240000000000000
           Height = 15.118120000000000000
-          DataField = 'UNIDADE_MEDIDA'
+          DataField = 'PROD_UNIDADE'
           DataSet = ds_produtos
           DataSetName = 'ds_produtos'
           Font.Charset = DEFAULT_CHARSET
@@ -14987,7 +14987,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."UNIDADE_MEDIDA"]')
+            '[ds_produtos."PROD_UNIDADE"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -15572,13 +15572,13 @@ object frm_relatorio: Tfrm_relatorio
     UserName = 'ds_produtos'
     CloseDataSource = False
     FieldAliases.Strings = (
-      'codigo=codigo'
+      'PROD_CODIGO=PROD_CODIGO'
       'descricao_produto=descricao_produto'
-      'unidade_medida=unidade_medida'
+      'PROD_UNIDADE=PROD_UNIDADE'
       'saldo=saldo'
       'marca=marca'
       'referencia_fabricante=referencia_fabricante'
-      'codigo_barras=codigo_barras'
+      'PROD_EAN=PROD_EAN'
       'FAMILIA=FAMILIA'
       'GRUPO=GRUPO'
       'SUBGRUPO=SUBGRUPO'
@@ -15600,12 +15600,12 @@ object frm_relatorio: Tfrm_relatorio
   object sql_produtos: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'SELECT * FROM produto')
+      'SELECT * FROM PRODUTO_PROD')
     Left = 516
     Top = 144
     object sql_produtoscodigo: TFDAutoIncField
-      FieldName = 'codigo'
-      Origin = 'CODIGO'
+      FieldName = 'PROD_CODIGO'
+      Origin = 'PROD_CODIGO'
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
@@ -15614,12 +15614,6 @@ object frm_relatorio: Tfrm_relatorio
       FieldName = 'descricao_produto'
       Origin = 'DESCRICAO_PRODUTO'
       Size = 200
-    end
-    object sql_produtosunidade_medida: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'unidade_medida'
-      Origin = 'UNIDADE_MEDIDA'
-      Size = 50
     end
     object sql_produtossaldo: TBCDField
       AutoGenerateValue = arDefault
@@ -15641,8 +15635,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_produtoscodigo_barras: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'codigo_barras'
-      Origin = 'CODIGO_BARRAS'
+      FieldName = 'PROD_EAN'
+      Origin = 'PROD_EAN'
       Size = 50
     end
     object sql_produtosFAMILIA: TStringField
@@ -15723,6 +15717,624 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'BALCAO_COMISSAO_VAREJO'
       Precision = 10
     end
+    object sql_produtosCOD_BARRAS_AUXILIAR: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'COD_BARRAS_AUXILIAR'
+      Origin = 'COD_BARRAS_AUXILIAR'
+      Size = 50
+    end
+    object sql_produtosINFO_ADICIONAIS: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'INFO_ADICIONAIS'
+      Origin = 'INFO_ADICIONAIS'
+      Size = 200
+    end
+    object sql_produtosDATA_CADASTRO: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_CADASTRO'
+      Origin = 'DATA_CADASTRO'
+    end
+    object sql_produtosTIPO_ITEM: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TIPO_ITEM'
+      Origin = 'TIPO_ITEM'
+      Size = 100
+    end
+    object sql_produtosESTOQUE_MINIMO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ESTOQUE_MINIMO'
+      Origin = 'ESTOQUE_MINIMO'
+      Size = 50
+    end
+    object sql_produtosFRETE: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'FRETE'
+      Origin = 'FRETE'
+      Precision = 10
+    end
+    object sql_produtosIMPOSTO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'IMPOSTO'
+      Origin = 'IMPOSTO'
+      Precision = 10
+    end
+    object sql_produtosDESP_OPERACIONAIS: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESP_OPERACIONAIS'
+      Origin = 'DESP_OPERACIONAIS'
+      Precision = 10
+    end
+    object sql_produtosMARGEM_LUCRO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'MARGEM_LUCRO'
+      Origin = 'MARGEM_LUCRO'
+      Precision = 10
+    end
+    object sql_produtosMARGEM_L_ATACADO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'MARGEM_L_ATACADO'
+      Origin = 'MARGEM_L_ATACADO'
+      Precision = 10
+    end
+    object sql_produtosMARGEM_L_DISTRIBUIDOR: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'MARGEM_L_DISTRIBUIDOR'
+      Origin = 'MARGEM_L_DISTRIBUIDOR'
+      Precision = 10
+    end
+    object sql_produtosDESCONTO_MAXIMO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCONTO_MAXIMO'
+      Origin = 'DESCONTO_MAXIMO'
+      Precision = 10
+    end
+    object sql_produtosDESCONTO_M_ATACADO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCONTO_M_ATACADO'
+      Origin = 'DESCONTO_M_ATACADO'
+      Precision = 10
+    end
+    object sql_produtosDESCONTO_M_DISTRIBUIDOR: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCONTO_M_DISTRIBUIDOR'
+      Origin = 'DESCONTO_M_DISTRIBUIDOR'
+      Precision = 10
+    end
+    object sql_produtosDESCONTO_L_VAREJO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCONTO_L_VAREJO'
+      Origin = 'DESCONTO_L_VAREJO'
+      Precision = 10
+    end
+    object sql_produtosDESCONTO_L_ATACADO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCONTO_L_ATACADO'
+      Origin = 'DESCONTO_L_ATACADO'
+      Precision = 10
+    end
+    object sql_produtosDESCONTO_L_DISTRIBUIDOR: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCONTO_L_DISTRIBUIDOR'
+      Origin = 'DESCONTO_L_DISTRIBUIDOR'
+      Precision = 10
+    end
+    object sql_produtosPAGAR_COMISSAO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PAGAR_COMISSAO'
+      Origin = 'PAGAR_COMISSAO'
+      Precision = 10
+    end
+    object sql_produtosCOMISSAO_BALCAO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMISSAO_BALCAO'
+      Origin = 'COMISSAO_BALCAO'
+      Precision = 10
+    end
+    object sql_produtosBALCAO_COMISSAO_ATACADO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'BALCAO_COMISSAO_ATACADO'
+      Origin = 'BALCAO_COMISSAO_ATACADO'
+      Precision = 10
+    end
+    object sql_produtosBALCAO_COMISSAO_DISTRIBUIDOR: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'BALCAO_COMISSAO_DISTRIBUIDOR'
+      Origin = 'BALCAO_COMISSAO_DISTRIBUIDOR'
+      Precision = 10
+    end
+    object sql_produtosCOMISSAO_EXTERNA: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMISSAO_EXTERNA'
+      Origin = 'COMISSAO_EXTERNA'
+      Precision = 10
+    end
+    object sql_produtosEXTERNA_COMISSAO_ATACADO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'EXTERNA_COMISSAO_ATACADO'
+      Origin = 'EXTERNA_COMISSAO_ATACADO'
+      Precision = 10
+    end
+    object sql_produtosEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'EXTERNA_COMISSAO_DISTRIBUIDOR'
+      Origin = 'EXTERNA_COMISSAO_DISTRIBUIDOR'
+      Precision = 10
+    end
+    object sql_produtosPROMO_VAREJO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROMO_VAREJO'
+      Origin = 'PROMO_VAREJO'
+      Precision = 10
+    end
+    object sql_produtosPROMO_ATACADO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROMO_ATACADO'
+      Origin = 'PROMO_ATACADO'
+      Precision = 10
+    end
+    object sql_produtosPROMO_DISTRIBUIDOR: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROMO_DISTRIBUIDOR'
+      Origin = 'PROMO_DISTRIBUIDOR'
+      Precision = 10
+    end
+    object sql_produtosPROMOCAO_INICIO: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROMOCAO_INICIO'
+      Origin = 'PROMOCAO_INICIO'
+    end
+    object sql_produtosPROMOCAO_TERMINO: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROMOCAO_TERMINO'
+      Origin = 'PROMOCAO_TERMINO'
+    end
+    object sql_produtosVALOR_PROMOCIONAL_ATACADO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VALOR_PROMOCIONAL_ATACADO'
+      Origin = 'VALOR_PROMOCIONAL_ATACADO'
+      Precision = 10
+    end
+    object sql_produtosVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VALOR_PROMOCIONAL_DISTRIBUIDOR'
+      Origin = 'VALOR_PROMOCIONAL_DISTRIBUIDOR'
+      Precision = 10
+    end
+    object sql_produtosVALOR_PROMOCIONAL_VAREJO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VALOR_PROMOCIONAL_VAREJO'
+      Origin = 'VALOR_PROMOCIONAL_VAREJO'
+      Precision = 10
+    end
+    object sql_produtosALIQ_ICMS: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'ALIQ_ICMS'
+      Origin = 'ALIQ_ICMS'
+      Precision = 10
+    end
+    object sql_produtosREDUCAO_ICMS: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'REDUCAO_ICMS'
+      Origin = 'REDUCAO_ICMS'
+      Precision = 10
+    end
+    object sql_produtosALIQ_ICMS_SUBST: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ALIQ_ICMS_SUBST'
+      Origin = 'ALIQ_ICMS_SUBST'
+    end
+    object sql_produtosREDUCAO_ICMS_ST: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'REDUCAO_ICMS_ST'
+      Origin = 'REDUCAO_ICMS_ST'
+      Precision = 10
+    end
+    object sql_produtosLUCRO_SUBST_TRIBUTARIA: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'LUCRO_SUBST_TRIBUTARIA'
+      Origin = 'LUCRO_SUBST_TRIBUTARIA'
+      Precision = 10
+    end
+    object sql_produtosVALOR_PAUTA_BC_ST: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VALOR_PAUTA_BC_ST'
+      Origin = 'VALOR_PAUTA_BC_ST'
+      Precision = 10
+    end
+    object sql_produtosLEIS: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'LEIS'
+      Origin = 'LEIS'
+    end
+    object sql_produtosGENERO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'GENERO'
+      Origin = 'GENERO'
+    end
+    object sql_produtosFORNECEDOR_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'FORNECEDOR_NOME'
+      Origin = 'FORNECEDOR_NOME'
+      Size = 100
+    end
+    object sql_produtosCOD_COMB: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'COD_COMB'
+      Origin = 'COD_COMB'
+    end
+    object sql_produtosALIQ_IPI: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ALIQ_IPI'
+      Origin = 'ALIQ_IPI'
+    end
+    object sql_produtosENQUADRAMENTO_IPI: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ENQUADRAMENTO_IPI'
+      Origin = 'ENQUADRAMENTO_IPI'
+    end
+    object sql_produtosCODIGO_LOCALIZACAO: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'CODIGO_LOCALIZACAO'
+      Origin = 'CODIGO_LOCALIZACAO'
+    end
+    object sql_produtosICMS_CST: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ICMS_CST'
+      Origin = 'ICMS_CST'
+      Size = 3
+    end
+    object sql_produtosICMS_IPI: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ICMS_IPI'
+      Origin = 'ICMS_IPI'
+      Size = 2
+    end
+    object sql_produtosPIS_CST: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PIS_CST'
+      Origin = 'PIS_CST'
+      Size = 5
+    end
+    object sql_produtosCOFINS_CST: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'COFINS_CST'
+      Origin = 'COFINS_CST'
+      Size = 5
+    end
+    object sql_produtosCODIGO_ORIGEM_MERCADORIA: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'CODIGO_ORIGEM_MERCADORIA'
+      Origin = 'CODIGO_ORIGEM_MERCADORIA'
+    end
+    object sql_produtosNCM: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NCM'
+      Origin = 'NCM'
+      Size = 8
+    end
+    object sql_produtosCEST: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CEST'
+      Origin = 'CEST'
+      Size = 50
+    end
+    object sql_produtosANP: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ANP'
+      Origin = 'ANP'
+      Size = 9
+    end
+    object sql_produtosEX_IPI: TSingleField
+      AutoGenerateValue = arDefault
+      FieldName = 'EX_IPI'
+      Origin = 'EX_IPI'
+    end
+    object sql_produtosSTATUS_CADASTRAL: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'STATUS_CADASTRAL'
+      Origin = 'STATUS_CADASTRAL'
+      FixedChar = True
+      Size = 7
+    end
+    object sql_produtosPESAVEL: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PESAVEL'
+      Origin = 'PESAVEL'
+      FixedChar = True
+      Size = 3
+    end
+    object sql_produtosUTILIZA_ETIQUETA_BALANCA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UTILIZA_ETIQUETA_BALANCA'
+      Origin = 'UTILIZA_ETIQUETA_BALANCA'
+      FixedChar = True
+      Size = 3
+    end
+    object sql_produtosUSA_LOTE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'USA_LOTE'
+      Origin = 'USA_LOTE'
+      FixedChar = True
+      Size = 3
+    end
+    object sql_produtosCONTROLADO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CONTROLADO'
+      Origin = 'CONTROLADO'
+      FixedChar = True
+      Size = 3
+    end
+    object sql_produtosCODIGO_FORNECEDOR: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'CODIGO_FORNECEDOR'
+      Origin = 'CODIGO_FORNECEDOR'
+    end
+    object sql_produtosQUANT_MINI_VAREJO_P: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'QUANT_MINI_VAREJO_P'
+      Origin = 'QUANT_MINI_VAREJO_P'
+      Precision = 10
+    end
+    object sql_produtosQUANT_MINI_ATACADO_P: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'QUANT_MINI_ATACADO_P'
+      Origin = 'QUANT_MINI_ATACADO_P'
+      Precision = 10
+    end
+    object sql_produtosQUANT_MINI_DISTRIBUIDOR_P: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'QUANT_MINI_DISTRIBUIDOR_P'
+      Origin = 'QUANT_MINI_DISTRIBUIDOR_P'
+      Precision = 10
+    end
+    object sql_produtosQUANT_MINI_VAREJO_Q: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'QUANT_MINI_VAREJO_Q'
+      Origin = 'QUANT_MINI_VAREJO_Q'
+      Precision = 10
+    end
+    object sql_produtosQUANT_MINI_ATACADO_Q: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'QUANT_MINI_ATACADO_Q'
+      Origin = 'QUANT_MINI_ATACADO_Q'
+      Precision = 10
+    end
+    object sql_produtosQUANT_MINI_DISTRIBUIDOR_Q: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'QUANT_MINI_DISTRIBUIDOR_Q'
+      Origin = 'QUANT_MINI_DISTRIBUIDOR_Q'
+      Precision = 10
+    end
+    object sql_produtosQUANT_MINI_VAREJO_D: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'QUANT_MINI_VAREJO_D'
+      Origin = 'QUANT_MINI_VAREJO_D'
+      Precision = 10
+    end
+    object sql_produtosQUANT_MINI_DISTRIBUIDOR_D: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'QUANT_MINI_DISTRIBUIDOR_D'
+      Origin = 'QUANT_MINI_DISTRIBUIDOR_D'
+      Precision = 10
+    end
+    object sql_produtosQUANT_MINI_ATACADO_D: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'QUANT_MINI_ATACADO_D'
+      Origin = 'QUANT_MINI_ATACADO_D'
+      Precision = 10
+    end
+    object sql_produtosCST_IPI: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CST_IPI'
+      Origin = 'CST_IPI'
+      Size = 3
+    end
+    object sql_produtosCOD_BALANCA_2: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'COD_BALANCA_2'
+      Origin = 'COD_BALANCA_2'
+      Size = 8
+    end
+    object sql_produtosCOD_BALANCA_3: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'COD_BALANCA_3'
+      Origin = 'COD_BALANCA_3'
+      Size = 8
+    end
+    object sql_produtosponto_impressao_id: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ponto_impressao_id'
+      Origin = 'ponto_impressao_id'
+    end
+    object sql_produtosNFe_nDI: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_nDI'
+      Origin = 'NFe_nDI'
+      Size = 10
+    end
+    object sql_produtosNFe_dDI: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_dDI'
+      Origin = 'NFe_dDI'
+    end
+    object sql_produtosNFe_xLocDesemb: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_xLocDesemb'
+      Origin = 'NFe_xLocDesemb'
+      Size = 60
+    end
+    object sql_produtosNFe_UFDesemb: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_UFDesemb'
+      Origin = 'NFe_UFDesemb'
+      Size = 2
+    end
+    object sql_produtosNFe_dDesemb: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_dDesemb'
+      Origin = 'NFe_dDesemb'
+    end
+    object sql_produtosNFe_cExportador: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_cExportador'
+      Origin = 'NFe_cExportador'
+      Size = 60
+    end
+    object sql_produtosNFe_nAdicao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_nAdicao'
+      Origin = 'NFe_nAdicao'
+    end
+    object sql_produtosNFe_cFabricante: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_cFabricante'
+      Origin = 'NFe_cFabricante'
+      Size = 60
+    end
+    object sql_produtosNFe_vDescDI: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_vDescDI'
+      Origin = 'NFe_vDescDI'
+      Precision = 10
+    end
+    object sql_produtosNFe_VeiculoNovo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_VeiculoNovo'
+      Origin = 'NFe_VeiculoNovo'
+    end
+    object sql_produtosNFe_Veiculo_Cor_Codigo: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Veiculo_Cor_Codigo'
+      Origin = 'NFe_Veiculo_Cor_Codigo'
+      Size = 4
+    end
+    object sql_produtosNFe_Veiculo_Cor_Descricao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Veiculo_Cor_Descricao'
+      Origin = 'NFe_Veiculo_Cor_Descricao'
+      Size = 40
+    end
+    object sql_produtosNFe_Veiculo_Pot: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Veiculo_Pot'
+      Origin = 'NFe_Veiculo_Pot'
+      Size = 4
+    end
+    object sql_produtosNFe_Veiculo_Cilin: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Veiculo_Cilin'
+      Origin = 'NFe_Veiculo_Cilin'
+      Size = 4
+    end
+    object sql_produtosNFe_Armamento: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Armamento'
+      Origin = 'NFe_Armamento'
+    end
+    object sql_produtosNFe_Combustivel: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Combustivel'
+      Origin = 'NFe_Combustivel'
+    end
+    object sql_produtosNFe_modBC: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_modBC'
+      Origin = 'NFe_modBC'
+    end
+    object sql_produtosNFe_modBCST: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_modBCST'
+      Origin = 'NFe_modBCST'
+    end
+    object sql_produtosNFe_pMVAST: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_pMVAST'
+      Origin = 'NFe_pMVAST'
+      Precision = 6
+      Size = 2
+    end
+    object sql_produtosNFe_motDesICMS: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_motDesICMS'
+      Origin = 'NFe_motDesICMS'
+    end
+    object sql_produtosProduto_ou_Servico: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Produto_ou_Servico'
+      Origin = 'Produto_ou_Servico'
+      FixedChar = True
+      Size = 1
+    end
+    object sql_produtosPagaComissaoSN: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PagaComissaoSN'
+      Origin = 'PagaComissaoSN'
+      FixedChar = True
+      Size = 1
+    end
+    object sql_produtosContaContabil: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ContaContabil'
+      Origin = 'ContaContabil'
+    end
+    object sql_produtosCentroDeCustos: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'CentroDeCustos'
+      Origin = 'CentroDeCustos'
+    end
+    object sql_produtosNFe_indTot: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_indTot'
+      Origin = 'NFe_indTot'
+    end
+    object sql_produtosNFe_Medicamento: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Medicamento'
+      Origin = 'NFe_Medicamento'
+    end
+    object sql_produtosCODIGO_ALFANUMERICO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CODIGO_ALFANUMERICO'
+      Origin = 'CODIGO_ALFANUMERICO'
+    end
+    object sql_produtosVALOR_PAUTA_BC: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VALOR_PAUTA_BC'
+      Origin = 'VALOR_PAUTA_BC'
+      Precision = 10
+    end
+    object sql_produtosNFe_pMVA: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_pMVA'
+      Origin = 'NFe_pMVA'
+      Precision = 6
+    end
+    object sql_produtosNFe_indEscala: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_indEscala'
+      Origin = 'NFe_indEscala'
+    end
+    object sql_produtosPROD_RASTREAVEL: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_RASTREAVEL'
+      Origin = 'PROD_RASTREAVEL'
+    end
+    object sql_produtosPROD_TRATALOTE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_TRATALOTE'
+      Origin = 'PROD_TRATALOTE'
+    end
+    object sql_produtosPROD_TRATANUMEROSERIE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_TRATANUMEROSERIE'
+      Origin = 'PROD_TRATANUMEROSERIE'
+    end
+    object sql_produtosPROD_UNIDADE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_UNIDADE'
+      Origin = 'PROD_UNIDADE'
+      Size = 3
+    end
   end
   object ds_saldo: TfrxDBDataset
     UserName = 'ds_saldo'
@@ -15742,23 +16354,24 @@ object frm_relatorio: Tfrm_relatorio
     Connection = Module.connection
     SQL.Strings = (
       'select'
-      '(select count(codigo) from produto) as qtde_cadastrado'
+      '(select count(PROD_CODIGO) from PRODUTO_PROD) as qtde_cadastrado'
       ','
       
-        '(select count(codigo) from produto where saldo < 0) as qtde_nega' +
-        'tivo'
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where saldo < 0) as' +
+        ' qtde_negativo'
       ','
       
-        '(select count(codigo) from produto where saldo between 1 and if ' +
-        '(estoque_minimo is null ,10,estoque_minimo)) as qtde_minimo'
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where saldo between' +
+        ' 1 and if (estoque_minimo is null ,10,estoque_minimo)) as qtde_m' +
+        'inimo'
       ','
       
-        '(select count(codigo) from produto where saldo = 0) as qtde_zera' +
-        'do'
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where saldo = 0) as' +
+        ' qtde_zerado'
       ','
       
-        '(select count(codigo) from produto where saldo > if (estoque_min' +
-        'imo is null ,10,estoque_minimo)) as qtde_positivo')
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where saldo > if (e' +
+        'stoque_minimo is null ,10,estoque_minimo)) as qtde_positivo')
     Left = 576
     Top = 144
     object sql_saldoqtde_cadastrado: TLargeintField
@@ -15870,7 +16483,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            ' [ds_produtos."CODIGO"]')
+            ' [ds_produtos."PROD_CODIGO"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -15949,7 +16562,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."UNIDADE_MEDIDA"]')
+            '[ds_produtos."PROD_UNIDADE"]')
           ParentFont = False
         end
         object ds_produtosCODIGO_BARRAS: TfrxMemoView
@@ -15969,7 +16582,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."CODIGO_BARRAS"][ds_produtos."COD_BALANCA_1"]')
+            '[ds_produtos."PROD_EAN"][ds_produtos."COD_BALANCA_1"]')
           ParentFont = False
           Formats = <
             item
@@ -33198,7 +33811,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            ' [ds_produtos."CODIGO"]')
+            ' [ds_produtos."PROD_CODIGO"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -33238,7 +33851,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."UNIDADE_MEDIDA"]')
+            '[ds_produtos."PROD_UNIDADE"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -34450,23 +35063,23 @@ object frm_relatorio: Tfrm_relatorio
     Connection = Module.connection
     SQL.Strings = (
       'select'
-      '(select count(codigo) from produto) as qtde_cadastrado'
+      '(select count(PROD_CODIGO) from PRODUTO_PROD) as qtde_cadastrado'
       ','
       
-        '(select count(codigo) from produto where icms_cst = 60) as pro_s' +
-        'ubstituicao'
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where icms_cst = 60' +
+        ') as pro_substituicao'
       ','
       
-        '(select count(codigo) from produto where icms_cst = 00) as pro_t' +
-        'rib_integral '
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where icms_cst = 00' +
+        ') as pro_trib_integral '
       ','
       
-        '(select count(codigo) from produto where icms_cst = 41) as pro_n' +
-        '_trib'
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where icms_cst = 41' +
+        ') as pro_n_trib'
       ','
       
-        '(select count(codigo) from produto where icms_cst = 40) as pro_i' +
-        'sento')
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where icms_cst = 40' +
+        ') as pro_isento')
     Left = 640
     Top = 144
     object sql_pro_tribqtde_cadastrado: TLargeintField
@@ -35404,7 +36017,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."CODIGO"]')
+            '[ds_produtos."PROD_CODIGO"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -35423,7 +36036,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."UNIDADE_MEDIDA"]')
+            '[ds_produtos."PROD_UNIDADE"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -36619,7 +37232,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_pro_prom."CODIGO_BARRAS"]')
+            '[ds_pro_prom."PROD_EAN"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -36640,7 +37253,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_pro_prom."CODIGO"]')
+            '[ds_pro_prom."PROD_CODIGO"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -36680,7 +37293,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_pro_prom."UNIDADE_MEDIDA"]')
+            '[ds_pro_prom."PROD_UNIDADE"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -37351,12 +37964,12 @@ object frm_relatorio: Tfrm_relatorio
     UserName = 'ds_pro_prom'
     CloseDataSource = False
     FieldAliases.Strings = (
-      'CODIGO=CODIGO'
-      'CODIGO_BARRAS=CODIGO_BARRAS'
+      'PROD_CODIGO=PROD_CODIGO'
+      'PROD_EAN=PROD_EAN'
       'DESCRICAO_PRODUTO=DESCRICAO_PRODUTO'
       'REFERENCIA_FABRICANTE=REFERENCIA_FABRICANTE'
       'MARCA=MARCA'
-      'UNIDADE_MEDIDA=UNIDADE_MEDIDA'
+      'PROD_UNIDADE=PROD_UNIDADE'
       'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
       'PROMO_VAREJO=PROMO_VAREJO'
       'PROMOCAO_INICIO=PROMOCAO_INICIO'
@@ -37372,20 +37985,20 @@ object frm_relatorio: Tfrm_relatorio
     Connection = Module.connection
     SQL.Strings = (
       
-        'select * from produto where current_date() between promocao_inic' +
-        'io and promocao_termino')
+        'select * from PRODUTO_PROD where current_date() between promocao' +
+        '_inicio and promocao_termino')
     Left = 516
     Top = 312
     object sql_pro_promCODIGO: TFDAutoIncField
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
+      FieldName = 'PROD_CODIGO'
+      Origin = 'PROD_CODIGO'
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
     object sql_pro_promCODIGO_BARRAS: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_BARRAS'
-      Origin = 'CODIGO_BARRAS'
+      FieldName = 'PROD_EAN'
+      Origin = 'PROD_EAN'
       Size = 50
     end
     object sql_pro_promDESCRICAO_PRODUTO: TStringField
@@ -37408,8 +38021,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_pro_promUNIDADE_MEDIDA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'UNIDADE_MEDIDA'
-      Origin = 'UNIDADE_MEDIDA'
+      FieldName = 'PROD_UNIDADE'
+      Origin = 'PROD_UNIDADE'
       Size = 50
     end
     object sql_pro_promPRECO_FINAL_VAREJO: TBCDField
@@ -37451,12 +38064,12 @@ object frm_relatorio: Tfrm_relatorio
     UserName = 'ds_pro_pesav'
     CloseDataSource = False
     FieldAliases.Strings = (
-      'CODIGO=CODIGO'
+      'PROD_CODIGO=PROD_CODIGO'
       'DESCRICAO_PRODUTO=DESCRICAO_PRODUTO'
       'FAMILIA=FAMILIA'
       'GRUPO=GRUPO'
       'SUBGRUPO=SUBGRUPO'
-      'UNIDADE_MEDIDA=UNIDADE_MEDIDA'
+      'PROD_UNIDADE=PROD_UNIDADE'
       'PRECO_FINAL_ATACADO=PRECO_FINAL_ATACADO'
       'PRECO_FINAL_DISTRIBUIDOR=PRECO_FINAL_DISTRIBUIDOR'
       'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
@@ -37472,12 +38085,12 @@ object frm_relatorio: Tfrm_relatorio
   object sql_pro_pesav: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'select * from produto where unidade_medida = '#39'KG'#39)
+      'select * from PRODUTO_PROD where PROD_UNIDADE = '#39'KG'#39)
     Left = 592
     Top = 312
     object sql_pro_pesavCODIGO: TFDAutoIncField
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
+      FieldName = 'PROD_CODIGO'
+      Origin = 'PROD_CODIGO'
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
@@ -37507,8 +38120,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_pro_pesavUNIDADE_MEDIDA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'UNIDADE_MEDIDA'
-      Origin = 'UNIDADE_MEDIDA'
+      FieldName = 'PROD_UNIDADE'
+      Origin = 'PROD_UNIDADE'
       Size = 50
     end
     object sql_pro_pesavPRECO_FINAL_ATACADO: TBCDField
@@ -37623,7 +38236,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            '[ds_pro_pesav."CODIGO"]')
+            '[ds_pro_pesav."PROD_CODIGO"]')
           ParentFont = False
         end
         object ds_produtosDESCRICAO_PRODUTO: TfrxMemoView
@@ -37698,7 +38311,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_pro_pesav."UNIDADE_MEDIDA"]')
+            '[ds_pro_pesav."PROD_UNIDADE"]')
           ParentFont = False
         end
         object ds_produtosCODIGO_BARRAS: TfrxMemoView
@@ -38394,19 +39007,19 @@ object frm_relatorio: Tfrm_relatorio
     Connection = Module.connection
     SQL.Strings = (
       
-        'SELECT p.DESCRICAO_PRODUTO, p.CODIGO, p.UNIDADE_MEDIDA, p.SALDO ' +
-        'as qtd_atual, p.PRECO_FINAL_VAREJO,'
+        'SELECT p.DESCRICAO_PRODUTO, p.PROD_CODIGO, p.PROD_UNIDADE, p.SAL' +
+        'DO as qtd_atual, p.PRECO_FINAL_VAREJO,'
       '   (SELECT SUM(vd.QUANTIDADE) FROM venda_item vd '
       '   JOIN venda q ON q.CODIGO_VENDA = vd.CODIGO_VENDA '
       
-        '   WHERE vd.CODIGO_PRODUTO = p.CODIGO AND q.`DATA` BETWEEN :pdat' +
-        'a_ini AND :pdata_fim) as qtd_venda,'
+        '   WHERE vd.CODIGO_PRODUTO = p.PROD_CODIGO AND q.`DATA` BETWEEN ' +
+        ':pdata_ini AND :pdata_fim) as qtd_venda,'
       
         'DATE_FORMAT(:pdata_ini,'#39'%d/%m/%Y'#39') as data_ini,DATE_FORMAT(:pdat' +
         'a_fim,'#39'%d/%m/%Y'#39') as data_fim'
       'FROM venda v'
       'JOIN venda_item vi ON vi.CODIGO_VENDA = v.CODIGO_VENDA'
-      'JOIN produto p ON p.CODIGO = vi.CODIGO_PRODUTO'
+      'JOIN PRODUTO_PROD p ON p.PROD_CODIGO = vi.CODIGO_PRODUTO'
       'WHERE v.`DATA` BETWEEN :pdata_ini AND :pdata_fim'
       'GROUP BY vi.CODIGO_PRODUTO;')
     Left = 289
@@ -38430,8 +39043,8 @@ object frm_relatorio: Tfrm_relatorio
     CloseDataSource = False
     FieldAliases.Strings = (
       'DESCRICAO_PRODUTO=DESCRICAO_PRODUTO'
-      'CODIGO=CODIGO'
-      'UNIDADE_MEDIDA=UNIDADE_MEDIDA'
+      'PROD_CODIGO=PROD_CODIGO'
+      'PROD_UNIDADE=PROD_UNIDADE'
       'qtd_atual=qtd_atual'
       'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
       'qtd_venda=qtd_venda'
@@ -38864,7 +39477,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_v_venda_itens."UNIDADE_MEDIDA"]')
+            '[ds_v_venda_itens."PROD_UNIDADE"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -39758,7 +40371,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_estq_comp."CODIGO_BARRAS"]')
+            '[ds_estq_comp."PROD_EAN"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -39784,7 +40397,7 @@ object frm_relatorio: Tfrm_relatorio
           Left = 336.378170000000000000
           Width = 26.456710000000000000
           Height = 11.338590000000000000
-          DataField = 'UNIDADE_MEDIDA'
+          DataField = 'PROD_UNIDADE'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -39795,7 +40408,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_estq_comp."UNIDADE_MEDIDA"]')
+            '[ds_estq_comp."PROD_UNIDADE"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -39830,7 +40443,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            '  [ds_estq_comp."CODIGO"]')
+            '  [ds_estq_comp."PROD_CODIGO"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -40189,15 +40802,15 @@ object frm_relatorio: Tfrm_relatorio
     UserName = 'ds_estq_comp'
     CloseDataSource = False
     FieldAliases.Strings = (
-      'CODIGO=CODIGO'
+      'PROD_CODIGO=PROD_CODIGO'
       'DESCRICAO_PRODUTO=DESCRICAO_PRODUTO'
       'PRECO_CUSTO=PRECO_CUSTO'
       'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
       'SALDO=SALDO'
-      'CODIGO_BARRAS=CODIGO_BARRAS'
+      'PROD_EAN=PROD_EAN'
       'REFERENCIA_FABRICANTE=REFERENCIA_FABRICANTE'
       'MARGEM_L_VAREJO=MARGEM_L_VAREJO'
-      'UNIDADE_MEDIDA=UNIDADE_MEDIDA')
+      'PROD_UNIDADE=PROD_UNIDADE')
     DataSet = sql_estq_comp
     BCDToCurrency = False
     Left = 680
@@ -40206,12 +40819,12 @@ object frm_relatorio: Tfrm_relatorio
   object sql_estq_comp: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'select * from produto')
+      'select * from PRODUTO_PROD')
     Left = 680
     Top = 312
     object sql_estq_compCODIGO: TFDAutoIncField
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
+      FieldName = 'PROD_CODIGO'
+      Origin = 'PROD_CODIGO'
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
@@ -40241,8 +40854,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_estq_compCODIGO_BARRAS: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_BARRAS'
-      Origin = 'CODIGO_BARRAS'
+      FieldName = 'PROD_EAN'
+      Origin = 'PROD_EAN'
       Size = 50
     end
     object sql_estq_compREFERENCIA_FABRICANTE: TStringField
@@ -40259,8 +40872,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_estq_compUNIDADE_MEDIDA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'UNIDADE_MEDIDA'
-      Origin = 'UNIDADE_MEDIDA'
+      FieldName = 'PROD_UNIDADE'
+      Origin = 'PROD_UNIDADE'
       Size = 50
     end
   end
@@ -43468,7 +44081,7 @@ object frm_relatorio: Tfrm_relatorio
       ''
       'from venda_item vi'
       '    join venda v on v.codigo_venda = vi.codigo_venda'
-      '    join produto p on p.codigo = vi.codigo_produto '
+      '    join PRODUTO_PROD p on p.PROD_CODIGO = vi.codigo_produto '
       
         '    join ponto_impressao pi on pi.id = p.ponto_impressao_id and ' +
         'pi.id = :pponto_impressao_id'

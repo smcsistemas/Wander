@@ -4,6 +4,8 @@ unit relatorios;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+340|15/06/20|18:23|relatorios                  |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
+339|15/06/20|18:23|relatorios                  |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(UNIDADE_MEDIDA)
 329|15/06/20|13:35|relatorios                  |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 ========================================================================================================================================
 
@@ -369,7 +371,6 @@ type
     sql_saldoqtde_positivo: TLargeintField;
     sql_produtoscodigo: TFDAutoIncField;
     sql_produtosdescricao_produto: TStringField;
-    sql_produtosunidade_medida: TStringField;
     sql_produtossaldo: TBCDField;
     sql_produtosmarca: TStringField;
     sql_produtosreferencia_fabricante: TStringField;
@@ -661,6 +662,113 @@ type
     qFechaCaixaQuebraCartaoCredito: TBCDField;
     qFechaCaixaQuebraConvenio: TBCDField;
     qFechaCaixaTotalDiferenca: TBCDField;
+    sql_produtosCOD_BARRAS_AUXILIAR: TStringField;
+    sql_produtosINFO_ADICIONAIS: TStringField;
+    sql_produtosDATA_CADASTRO: TDateField;
+    sql_produtosTIPO_ITEM: TStringField;
+    sql_produtosESTOQUE_MINIMO: TStringField;
+    sql_produtosFRETE: TBCDField;
+    sql_produtosIMPOSTO: TBCDField;
+    sql_produtosDESP_OPERACIONAIS: TBCDField;
+    sql_produtosMARGEM_LUCRO: TBCDField;
+    sql_produtosMARGEM_L_ATACADO: TBCDField;
+    sql_produtosMARGEM_L_DISTRIBUIDOR: TBCDField;
+    sql_produtosDESCONTO_MAXIMO: TBCDField;
+    sql_produtosDESCONTO_M_ATACADO: TBCDField;
+    sql_produtosDESCONTO_M_DISTRIBUIDOR: TBCDField;
+    sql_produtosDESCONTO_L_VAREJO: TBCDField;
+    sql_produtosDESCONTO_L_ATACADO: TBCDField;
+    sql_produtosDESCONTO_L_DISTRIBUIDOR: TBCDField;
+    sql_produtosPAGAR_COMISSAO: TBCDField;
+    sql_produtosCOMISSAO_BALCAO: TBCDField;
+    sql_produtosBALCAO_COMISSAO_ATACADO: TBCDField;
+    sql_produtosBALCAO_COMISSAO_DISTRIBUIDOR: TBCDField;
+    sql_produtosCOMISSAO_EXTERNA: TBCDField;
+    sql_produtosEXTERNA_COMISSAO_ATACADO: TBCDField;
+    sql_produtosEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField;
+    sql_produtosPROMO_VAREJO: TBCDField;
+    sql_produtosPROMO_ATACADO: TBCDField;
+    sql_produtosPROMO_DISTRIBUIDOR: TBCDField;
+    sql_produtosPROMOCAO_INICIO: TDateField;
+    sql_produtosPROMOCAO_TERMINO: TDateField;
+    sql_produtosVALOR_PROMOCIONAL_ATACADO: TBCDField;
+    sql_produtosVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
+    sql_produtosVALOR_PROMOCIONAL_VAREJO: TBCDField;
+    sql_produtosALIQ_ICMS: TBCDField;
+    sql_produtosREDUCAO_ICMS: TBCDField;
+    sql_produtosALIQ_ICMS_SUBST: TStringField;
+    sql_produtosREDUCAO_ICMS_ST: TBCDField;
+    sql_produtosLUCRO_SUBST_TRIBUTARIA: TBCDField;
+    sql_produtosVALOR_PAUTA_BC_ST: TBCDField;
+    sql_produtosLEIS: TStringField;
+    sql_produtosGENERO: TStringField;
+    sql_produtosFORNECEDOR_NOME: TStringField;
+    sql_produtosCOD_COMB: TStringField;
+    sql_produtosALIQ_IPI: TStringField;
+    sql_produtosENQUADRAMENTO_IPI: TIntegerField;
+    sql_produtosCODIGO_LOCALIZACAO: TIntegerField;
+    sql_produtosICMS_CST: TStringField;
+    sql_produtosICMS_IPI: TStringField;
+    sql_produtosPIS_CST: TStringField;
+    sql_produtosCOFINS_CST: TStringField;
+    sql_produtosCODIGO_ORIGEM_MERCADORIA: TIntegerField;
+    sql_produtosNCM: TStringField;
+    sql_produtosCEST: TStringField;
+    sql_produtosANP: TStringField;
+    sql_produtosEX_IPI: TSingleField;
+    sql_produtosSTATUS_CADASTRAL: TStringField;
+    sql_produtosPESAVEL: TStringField;
+    sql_produtosUTILIZA_ETIQUETA_BALANCA: TStringField;
+    sql_produtosUSA_LOTE: TStringField;
+    sql_produtosCONTROLADO: TStringField;
+    sql_produtosCODIGO_FORNECEDOR: TIntegerField;
+    sql_produtosQUANT_MINI_VAREJO_P: TBCDField;
+    sql_produtosQUANT_MINI_ATACADO_P: TBCDField;
+    sql_produtosQUANT_MINI_DISTRIBUIDOR_P: TBCDField;
+    sql_produtosQUANT_MINI_VAREJO_Q: TBCDField;
+    sql_produtosQUANT_MINI_ATACADO_Q: TBCDField;
+    sql_produtosQUANT_MINI_DISTRIBUIDOR_Q: TBCDField;
+    sql_produtosQUANT_MINI_VAREJO_D: TBCDField;
+    sql_produtosQUANT_MINI_DISTRIBUIDOR_D: TBCDField;
+    sql_produtosQUANT_MINI_ATACADO_D: TBCDField;
+    sql_produtosCST_IPI: TStringField;
+    sql_produtosCOD_BALANCA_2: TStringField;
+    sql_produtosCOD_BALANCA_3: TStringField;
+    sql_produtosponto_impressao_id: TIntegerField;
+    sql_produtosNFe_nDI: TStringField;
+    sql_produtosNFe_dDI: TDateTimeField;
+    sql_produtosNFe_xLocDesemb: TStringField;
+    sql_produtosNFe_UFDesemb: TStringField;
+    sql_produtosNFe_dDesemb: TDateTimeField;
+    sql_produtosNFe_cExportador: TStringField;
+    sql_produtosNFe_nAdicao: TIntegerField;
+    sql_produtosNFe_cFabricante: TStringField;
+    sql_produtosNFe_vDescDI: TBCDField;
+    sql_produtosNFe_VeiculoNovo: TIntegerField;
+    sql_produtosNFe_Veiculo_Cor_Codigo: TStringField;
+    sql_produtosNFe_Veiculo_Cor_Descricao: TStringField;
+    sql_produtosNFe_Veiculo_Pot: TStringField;
+    sql_produtosNFe_Veiculo_Cilin: TStringField;
+    sql_produtosNFe_Armamento: TIntegerField;
+    sql_produtosNFe_Combustivel: TIntegerField;
+    sql_produtosNFe_modBC: TIntegerField;
+    sql_produtosNFe_modBCST: TIntegerField;
+    sql_produtosNFe_pMVAST: TBCDField;
+    sql_produtosNFe_motDesICMS: TIntegerField;
+    sql_produtosProduto_ou_Servico: TStringField;
+    sql_produtosPagaComissaoSN: TStringField;
+    sql_produtosContaContabil: TIntegerField;
+    sql_produtosCentroDeCustos: TIntegerField;
+    sql_produtosNFe_indTot: TIntegerField;
+    sql_produtosNFe_Medicamento: TIntegerField;
+    sql_produtosCODIGO_ALFANUMERICO: TStringField;
+    sql_produtosVALOR_PAUTA_BC: TBCDField;
+    sql_produtosNFe_pMVA: TBCDField;
+    sql_produtosNFe_indEscala: TIntegerField;
+    sql_produtosPROD_RASTREAVEL: TIntegerField;
+    sql_produtosPROD_TRATALOTE: TIntegerField;
+    sql_produtosPROD_TRATANUMEROSERIE: TIntegerField;
+    sql_produtosPROD_UNIDADE: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
@@ -715,8 +823,8 @@ uses u_diretorios, u_funcoes, v_env, h_Dialogs, h_DB, v_Dir, vw_nfce_pendentes, 
 procedure Tfrm_relatorio.FormCreate(Sender: TObject);
 begin
 
-  frx_xlsx.ExportPageBreaks := False;
-  frx_xlsx.Wysiwyg := False;
+  //frx_xlsx.ExportPageBreaks := False;
+  //frx_xlsx.Wysiwyg := False;
 
   SQL_AUX.close;
   SQL_AUX.parambyname('pusuario').Value := tenv.tuser.name;

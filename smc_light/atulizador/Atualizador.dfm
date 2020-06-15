@@ -59,7 +59,6 @@ object frmAtualizador: TfrmAtualizador
     Height = 17
     Align = alBottom
     BarColor = clHotLight
-    SmoothReverse = True
     TabOrder = 3
   end
 end

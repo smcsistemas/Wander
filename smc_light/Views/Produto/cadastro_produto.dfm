@@ -41,11 +41,12 @@ object Frm_Produto: TFrm_Produto
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    Properties.ActivePage = cxTabSheet1
+    Properties.ActivePage = tab_Cadastrar
     Properties.ActivateFocusedTab = False
     Properties.CustomButtons.Buttons = <>
     LookAndFeel.NativeStyle = False
     LookAndFeel.SkinName = 'Office2013White'
+    ExplicitTop = -24
     ClientRectBottom = 622
     ClientRectLeft = 2
     ClientRectRight = 1387
@@ -60,10 +61,6 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 0
       ParentFont = False
       OnShow = cxTabSheet1Show
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label58: TLabel
         Left = 20
         Top = 555
@@ -226,7 +223,7 @@ object Frm_Produto: TFrm_Produto
           OptionsData.Inserting = False
           OptionsView.NoDataToDisplayInfoText = ' . . .'
           OptionsView.GroupByBox = False
-          object tbViewCODIGO: TcxGridDBColumn
+          object tbViewPROD_CODIGO: TcxGridDBColumn
             Caption = 'C'#243'd.'
             DataBinding.FieldName = 'PROD_CODIGO'
             PropertiesClassName = 'TcxLabelProperties'
@@ -253,7 +250,7 @@ object Frm_Produto: TFrm_Produto
           end
           object tbViewCODIGO_BARRAS: TcxGridDBColumn
             Caption = 'C'#243'd. Barras'
-            DataBinding.FieldName = 'CODIGO_BARRAS'
+            DataBinding.FieldName = 'PROD_EAN'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taCenter
             HeaderAlignmentHorz = taCenter
@@ -743,10 +740,6 @@ object Frm_Produto: TFrm_Produto
     object tab_Cadastrar: TcxTabSheet
       Caption = 'Cadastro'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel6: TPanel
         Left = 3
         Top = 2
@@ -1288,7 +1281,6 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            ReadOnly = True
             TabOrder = 9
             OnExit = edUNIDADE_MEDIDAExit
             OnKeyDown = edUNIDADE_MEDIDAKeyDown
@@ -1449,7 +1441,6 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            ReadOnly = True
             TabOrder = 7
           end
           object cxGroupBox1: TcxGroupBox
@@ -1637,7 +1628,7 @@ object Frm_Produto: TFrm_Produto
             TabOrder = 25
             OnKeyDown = edGRUPOKeyDown
           end
-          object edCODIGO_BARRAS: TEdit
+          object edPROD_EAN: TEdit
             Left = 122
             Top = 136
             Width = 150
@@ -3906,10 +3897,6 @@ object Frm_Produto: TFrm_Produto
     object tabTributacao: TcxTabSheet
       Caption = ' Tributa'#231#227'o'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel4: TPanel
         Left = -1
         Top = 3
@@ -6386,12 +6373,6 @@ object Frm_Produto: TFrm_Produto
       'SELECT * FROM produto_prod')
     Left = 32
     Top = 136
-    object qConsultacodigo_barras: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'codigo_barras'
-      Origin = 'CODIGO_BARRAS'
-      Size = 50
-    end
     object qConsultadescricao_produto: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'descricao_produto'
@@ -7116,6 +7097,11 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'PROD_CODIGO'
       Origin = 'PROD_CODIGO'
+    end
+    object qConsultaPROD_EAN: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_EAN'
+      Origin = 'PROD_EAN'
     end
   end
   object tConsulta: TTimer

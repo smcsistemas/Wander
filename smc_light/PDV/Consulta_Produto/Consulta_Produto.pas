@@ -58,7 +58,6 @@ type
     SQL_ProdutoConsultaFAMILIA: TStringField;
     SQL_ProdutoConsultaGRUPO: TStringField;
     SQL_ProdutoConsultaSUBGRUPO: TStringField;
-    SQL_ProdutoConsultaUNIDADE_MEDIDA: TStringField;
     SQL_ProdutoConsultaDATA_CADASTRO: TDateField;
     SQL_ProdutoConsultaTIPO_ITEM: TStringField;
     SQL_ProdutoConsultaESTOQUE_MINIMO: TStringField;
@@ -139,6 +138,54 @@ type
     SQL_ProdutoConsultaCST_IPI: TStringField;
     Label4: TLabel;
     Label2: TLabel;
+    SQL_ProdutoConsultaBALCAO_COMISSAO_VAREJO2: TBCDField;
+    SQL_ProdutoConsultaBALCAO_COMISSAO_ATACADO2: TBCDField;
+    SQL_ProdutoConsultaBALCAO_COMISSAO_DISTRIBUIDOR2: TBCDField;
+    SQL_ProdutoConsultaEXTERNA_COMISSAO_VAREJO2: TBCDField;
+    SQL_ProdutoConsultaEXTERNA_COMISSAO_ATACADO2: TBCDField;
+    SQL_ProdutoConsultaEXTERNA_COMISSAO_DISTRIBUIDOR2: TBCDField;
+    SQL_ProdutoConsultaREDUCAO_ICMS: TBCDField;
+    SQL_ProdutoConsultaREDUCAO_ICMS_ST: TBCDField;
+    SQL_ProdutoConsultaLUCRO_SUBST_TRIBUTARIA: TBCDField;
+    SQL_ProdutoConsultaCODIGO_ORIGEM_MERCADORIA: TIntegerField;
+    SQL_ProdutoConsultaCOD_BALANCA_1: TStringField;
+    SQL_ProdutoConsultaCOD_BALANCA_2: TStringField;
+    SQL_ProdutoConsultaCOD_BALANCA_3: TStringField;
+    SQL_ProdutoConsultaponto_impressao_id: TIntegerField;
+    SQL_ProdutoConsultaNFe_nDI: TStringField;
+    SQL_ProdutoConsultaNFe_dDI: TDateTimeField;
+    SQL_ProdutoConsultaNFe_xLocDesemb: TStringField;
+    SQL_ProdutoConsultaNFe_UFDesemb: TStringField;
+    SQL_ProdutoConsultaNFe_dDesemb: TDateTimeField;
+    SQL_ProdutoConsultaNFe_cExportador: TStringField;
+    SQL_ProdutoConsultaNFe_nAdicao: TIntegerField;
+    SQL_ProdutoConsultaNFe_cFabricante: TStringField;
+    SQL_ProdutoConsultaNFe_vDescDI: TBCDField;
+    SQL_ProdutoConsultaNFe_VeiculoNovo: TIntegerField;
+    SQL_ProdutoConsultaNFe_Veiculo_Cor_Codigo: TStringField;
+    SQL_ProdutoConsultaNFe_Veiculo_Cor_Descricao: TStringField;
+    SQL_ProdutoConsultaNFe_Veiculo_Pot: TStringField;
+    SQL_ProdutoConsultaNFe_Veiculo_Cilin: TStringField;
+    SQL_ProdutoConsultaNFe_Armamento: TIntegerField;
+    SQL_ProdutoConsultaNFe_Combustivel: TIntegerField;
+    SQL_ProdutoConsultaNFe_modBC: TIntegerField;
+    SQL_ProdutoConsultaNFe_modBCST: TIntegerField;
+    SQL_ProdutoConsultaNFe_pMVAST: TBCDField;
+    SQL_ProdutoConsultaNFe_motDesICMS: TIntegerField;
+    SQL_ProdutoConsultaProduto_ou_Servico: TStringField;
+    SQL_ProdutoConsultaPagaComissaoSN: TStringField;
+    SQL_ProdutoConsultaContaContabil: TIntegerField;
+    SQL_ProdutoConsultaCentroDeCustos: TIntegerField;
+    SQL_ProdutoConsultaNFe_indTot: TIntegerField;
+    SQL_ProdutoConsultaNFe_Medicamento: TIntegerField;
+    SQL_ProdutoConsultaCODIGO_ALFANUMERICO: TStringField;
+    SQL_ProdutoConsultaVALOR_PAUTA_BC: TBCDField;
+    SQL_ProdutoConsultaNFe_pMVA: TBCDField;
+    SQL_ProdutoConsultaNFe_indEscala: TIntegerField;
+    SQL_ProdutoConsultaPROD_RASTREAVEL: TIntegerField;
+    SQL_ProdutoConsultaPROD_TRATALOTE: TIntegerField;
+    SQL_ProdutoConsultaPROD_TRATANUMEROSERIE: TIntegerField;
+    SQL_ProdutoConsultaPROD_UNIDADE: TStringField;
 
     procedure consultar_ref;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -192,7 +239,7 @@ var
   qry, qry_cod: TFDQuery;
 begin
   qry_cod := Tdb.simplequery
-    ('select PROD_CODIGO, PROD_EAN, DESCRICAO_PRODUTO, UNIDADE_MEDIDA, SALDO, REFERENCIA_FABRICANTE, MARCA, PRECO_FINAL_VAREJO from produto_PROD where PROD_codigo = "' +
+    ('select PROD_CODIGO, PROD_EAN, DESCRICAO_PRODUTO, PROD_UNIDADE, SALDO, REFERENCIA_FABRICANTE, MARCA, PRECO_FINAL_VAREJO from produto_PROD where PROD_codigo = "' +
     Edt_codBarras.Text + '" OR REFERENCIA_FABRICANTE = "' + Edt_codBarras.Text + '"');
   if qry_cod <> nil then
   begin

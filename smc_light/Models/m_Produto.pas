@@ -1,8 +1,10 @@
 ﻿unit m_Produto;
+
 {
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+336|15/06/20|18:23|m_Produto                   |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(UNIDADE_MEDIDA)
 328|15/06/20|13:35|m_Produto                   |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 306|15/06/20|10:14|m_Produto                   |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 ========================================================================================================================================
@@ -348,7 +350,7 @@ begin
       Self.Produto_familia := qry.fieldbyname('familia').asString;
       Self.Produto_grupo := qry.fieldbyname('grupo').asString;
       Self.Produto_sub_grupo := qry.fieldbyname('subgrupo').asString;
-      Self.Produto_und := qry.fieldbyname('unidade_medida').asString;
+      Self.Produto_und := qry.fieldbyname('PROD_UNIDADE').asString;
       Self.Produto_tipo_item := qry.fieldbyname('tipo_item').asString;
       Self.Produto_preco_custo := qry.fieldbyname('preco_custo').asExtended;
       Self.Produto_frete := qry.fieldbyname('frete').asExtended;
@@ -426,7 +428,7 @@ end;
 procedure TProduto.Insert;
 begin
   Tdb.ExecQuery('INSERT INTO PRODUTO_PROD (PROD_CODIGO,DESCRICAO_PRODUTO, PROD_EAN, INFO_ADICIONAIS,' +
-    'REFERENCIA_FABRICANTE, MARCA, FAMILIA, GRUPO, SUBGRUPO, UNIDADE_MEDIDA, TIPO_ITEM, PRECO_CUSTO, FRETE, IMPOSTO, DESP_OPERACIONAIS, CUSTO_MEDIO, MARGEM_L_VAREJO,' +
+    'REFERENCIA_FABRICANTE, MARCA, FAMILIA, GRUPO, SUBGRUPO, PROD_UNIDADE, TIPO_ITEM, PRECO_CUSTO, FRETE, IMPOSTO, DESP_OPERACIONAIS, CUSTO_MEDIO, MARGEM_L_VAREJO,' +
     'MARGEM_L_DISTRIBUIDOR, MARGEM_L_ATACADO, PRECO_FINAL_VAREJO, PRECO_FINAL_DISTRIBUIDOR, PRECO_FINAL_ATACADO, BALCAO_COMISSAO_VAREJO,' +
     'BALCAO_COMISSAO_DISTRIBUIDOR, BALCAO_COMISSAO_ATACADO, EXTERNA_COMISSAO_VAREJO, EXTERNA_COMISSAO_DISTRIBUIDOR, EXTERNA_COMISSAO_ATACADO,' +
     'SALDO, ESTOQUE_MINIMO, DESCONTO_M_VAREJO, DESCONTO_M_DISTRIBUIDOR, DESCONTO_M_ATACADO, STATUS_CADASTRAL, COD_BALANCA_1, COD_BALANCA_2,' +
@@ -472,7 +474,7 @@ procedure TProduto.Update(pUk: TUpdateKind);
 begin
 
   Tdb.ExecQuery('UPDATE produto SET PROD_CODIGO=?, DESCRICAO_PRODUTO=?, PROD_EAN=?, INFO_ADICIONAIS=?,' +
-    'REFERENCIA_FABRICANTE=?, MARCA=?, FAMILIA=?, GRUPO=?, SUBGRUPO=?, UNIDADE_MEDIDA=?, TIPO_ITEM=?,' +
+    'REFERENCIA_FABRICANTE=?, MARCA=?, FAMILIA=?, GRUPO=?, SUBGRUPO=?, PROD_UNIDADE=?, TIPO_ITEM=?,' +
     'PRECO_CUSTO=?, FRETE=?, IMPOSTO=?, DESP_OPERACIONAIS=?, CUSTO_MEDIO=?, MARGEM_L_VAREJO=?,' +
     'MARGEM_L_DISTRIBUIDOR=?, MARGEM_L_ATACADO=?, PRECO_FINAL_VAREJO=?, PRECO_FINAL_DISTRIBUIDOR=?,' +
     'PRECO_FINAL_ATACADO=?, BALCAO_COMISSAO_VAREJO=?, BALCAO_COMISSAO_DISTRIBUIDOR=?, BALCAO_COMISSAO_ATACADO=?,' +

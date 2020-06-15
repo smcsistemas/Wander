@@ -4,6 +4,7 @@ unit EmissaoDeNFe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+344|15/06/20|18:23|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(UNIDADE_MEDIDA)
 322|15/06/20|13:35|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 315|15/06/20|10:14|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 287|10/06/20|11:20|EmissaoDeNFe                |Grupo BA incorporou grupos B20a e B20j (NFe referenciadas produtor rural e cupom fiscal)
