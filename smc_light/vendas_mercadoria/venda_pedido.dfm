@@ -1767,6 +1767,10 @@ object frm_pedido_venda: Tfrm_pedido_venda
       Font.Style = [fsBold]
       ImageIndex = 1
       ParentFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label23: TLabel
         Left = 18
         Top = 7

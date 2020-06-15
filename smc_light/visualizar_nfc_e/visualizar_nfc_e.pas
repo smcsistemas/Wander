@@ -1,5 +1,12 @@
 { 21.11.16 16:59 }
 unit visualizar_nfc_e;
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+335|15/06/20|14:28|visualizar_nfc_e            |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+========================================================================================================================================
+}
 
 interface
 
@@ -61,7 +68,6 @@ type
     SQL_NFCE_ITENSCODIGO_ITEM_VENDA: TIntegerField;
     SQL_NFCE_ITENSCODIGO_PRODUTO: TIntegerField;
     SQL_NFCE_ITENSDESCRICAO_PRODUTO: TStringField;
-    SQL_NFCE_ITENSCODIGO_BARRAS: TStringField;
     SQL_NFCE_ITENSNCM: TStringField;
     SQL_NFCE_ITENSCEST: TStringField;
     SQL_NFCE_ITENSCFOP: TStringField;

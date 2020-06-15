@@ -3,6 +3,8 @@ unit venda_pedido;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+321|15/06/20|13:35|venda_pedido                |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+316|15/06/20|10:14|venda_pedido                |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 291|12/06/20|20:24|venda_pedido                |Gravando VENDA. Falta gravar VENDA_ITEM
 289|11/06/20|13:58|venda_pedido                |Incluido campo para informar placa do veículo que transportará a mercadoria da nota
 258|06/06/20|05:35|venda_pedido                |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
@@ -2065,8 +2067,8 @@ begin
        SQL_PRODUTO.SQL.Clear;
        SQL_PRODUTO.SQL.Add('SELECT *                            ');
        SQL_PRODUTO.SQL.Add('  FROM PRODUTO                      ');
-       SQL_PRODUTO.SQL.Add(' WHERE CODIGO              = :CODIGO');
-       SQL_PRODUTO.SQL.Add('    OR CODIGO_BARRAS       = :CODIGO');
+       SQL_PRODUTO.SQL.Add(' WHERE PROD_CODIGO         = :CODIGO');
+       SQL_PRODUTO.SQL.Add('    OR PROD_EAN            = :CODIGO');
        SQL_PRODUTO.SQL.Add('    OR COD_BARRAS_AUXILIAR = :CODIGO');
        SQL_PRODUTO.ParamByName('CODIGO').AsString := pCodigo;
        SQL_PRODUTO.Open;

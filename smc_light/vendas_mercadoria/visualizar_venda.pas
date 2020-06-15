@@ -1,5 +1,11 @@
 unit visualizar_venda;
-
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+334|15/06/20|14:28|visualizar_venda            |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+========================================================================================================================================
+}
 interface
 
 uses
@@ -53,7 +59,6 @@ type
     SQL_VENDA_ITENSCODIGO_ITEM_VENDA: TIntegerField;
     SQL_VENDA_ITENSCODIGO_PRODUTO: TIntegerField;
     SQL_VENDA_ITENSDESCRICAO_PRODUTO: TStringField;
-    SQL_VENDA_ITENSCODIGO_BARRAS: TStringField;
     SQL_VENDA_ITENSNCM: TStringField;
     SQL_VENDA_ITENSCEST: TStringField;
     SQL_VENDA_ITENSCFOP: TStringField;

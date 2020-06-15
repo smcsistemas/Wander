@@ -1,6 +1,12 @@
 { v 17.10.16 09:43 }
 unit relatorios;
 {
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+329|15/06/20|13:35|relatorios                  |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+========================================================================================================================================
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
@@ -367,7 +373,6 @@ type
     sql_produtossaldo: TBCDField;
     sql_produtosmarca: TStringField;
     sql_produtosreferencia_fabricante: TStringField;
-    sql_produtoscodigo_barras: TStringField;
     SQL_OP_NFCETOTAL_AUT: TFMTBCDField;
     grp1: TGroupBox;
     fr_produtos: TfrxReport;
@@ -496,7 +501,6 @@ type
     ds_pro_prom: TfrxDBDataset;
     sql_pro_prom: TFDQuery;
     sql_pro_promCODIGO: TFDAutoIncField;
-    sql_pro_promCODIGO_BARRAS: TStringField;
     sql_pro_promDESCRICAO_PRODUTO: TStringField;
     sql_pro_promREFERENCIA_FABRICANTE: TStringField;
     sql_pro_promMARCA: TStringField;
@@ -534,7 +538,6 @@ type
     sql_estq_compPRECO_CUSTO: TBCDField;
     sql_estq_compPRECO_FINAL_VAREJO: TBCDField;
     sql_estq_compSALDO: TBCDField;
-    sql_estq_compCODIGO_BARRAS: TStringField;
     sql_estq_compREFERENCIA_FABRICANTE: TStringField;
     sql_estq_compMARGEM_L_VAREJO: TBCDField;
     sql_estq_compUNIDADE_MEDIDA: TStringField;
@@ -628,7 +631,6 @@ type
     sql_imp_test65: TFDQuery;
     sql_imp_test65nome: TStringField;
     sql_imp_test65impressora: TStringField;
-    frx_xlsx: TfrxXLSXExport;
     sql_caixa_detalhe: TFDQuery;
     sql_caixa_detalheLancamento: TDateTimeField;
     sql_caixa_detalheDescricaoOperacao: TStringField;

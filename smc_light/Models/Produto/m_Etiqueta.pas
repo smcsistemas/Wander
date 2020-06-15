@@ -1,5 +1,11 @@
 unit m_Etiqueta;
-
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+302|15/06/20|10:14|m_Etiqueta                  |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
+========================================================================================================================================
+}
 interface
 
 uses m_Produto, firedac.comp.client, system.SysUtils, I_Crud, c_Globals, h_Checks, m_Usuario;
@@ -71,7 +77,7 @@ begin
 
       self.m_id := qry.FieldByName('ID').AsInteger;
       self.m_descricao_produto := qry.FieldByName('DESCRICAO').AsString;
-      self.produto := TProduto.create(qry.FieldByName('ID_PRODUTO').AsInteger);
+      self.produto := TProduto.create(qry.FieldByName('ID_PRODUTO').AsString);
       self.usuario := TUsuario.create(qry.FieldByName('ID_USUARIO').AsInteger);
 
     end
@@ -123,9 +129,9 @@ end;
 
 procedure TEtiqueta.Insert;
 begin
-  TDB.ExecQuery('INSERT INTO ' + table_name + '(DESCRICAO,ID_PRODUTO,ID_USUARIO) values(?,?,?)', [self.m_descricao_produto, produto.CODIGO, usuario.id]);
+  TDB.ExecQuery('INSERT INTO ' + table_name + '(DESCRICAO,ID_PRODUTO,ID_USUARIO) values(?,?,?)', [self.m_descricao_produto, produto.PROD_CODIGO, usuario.id]);
 
-  self.m_id := TDB.SimpleQuery('select id from ' + table_name + ' where DESCRICAO=? and ID_PRODUTO=? and ID_USUARIO=?', [self.m_descricao_produto, produto.CODIGO, usuario.id])
+  self.m_id := TDB.SimpleQuery('select id from ' + table_name + ' where DESCRICAO=? and ID_PRODUTO=? and ID_USUARIO=?', [self.m_descricao_produto, produto.PROD_CODIGO, usuario.id])
     .FieldByName('ID').AsInteger;
 
 end;
@@ -160,7 +166,7 @@ end;
 
 procedure TEtiqueta.Update(pUk: TUpdateKind);
 begin
-  TDB.ExecQuery('UPDATE ' + table_name + ' SET DESCRICAO=?, ID_PRODUTO=?, ID_USUARIO=? WHERE ID=?', [self.m_descricao_produto, self.produto.CODIGO, self.usuario.id, self.m_id])
+  TDB.ExecQuery('UPDATE ' + table_name + ' SET DESCRICAO=?, ID_PRODUTO=?, ID_USUARIO=? WHERE ID=?', [self.m_descricao_produto, self.produto.PROD_CODIGO, self.usuario.id, self.m_id])
 end;
 
 end.

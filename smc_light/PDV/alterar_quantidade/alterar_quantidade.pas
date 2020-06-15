@@ -1,20 +1,17 @@
 unit alterar_quantidade;
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+311|15/06/20|10:14|alterar_quantidade          |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
+========================================================================================================================================
+}
 
 interface
 
 uses
   Winapi.Windows, System.SysUtils, System.Variants, System.Classes,
   Vcl.Controls, Vcl.Forms,
-
-
-
-
-
-
-
-
-
-
   Vcl.StdCtrls,
   cxButtons, u_funcoes, FireDAC.Stan.Param,
   Data.DB,

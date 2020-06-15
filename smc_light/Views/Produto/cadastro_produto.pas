@@ -5,6 +5,8 @@ unit cadastro_produto;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+327|15/06/20|13:35|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+313|15/06/20|10:14|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 299|15/06/20|03:16|cadastro_produto            |Utilizando recurso (PINTAR) para destacar objetos focados com amarelo e readonly com cinza
 281|09/06/20|14:25|cadastro_produto            |Passa a tratar a coluna PROD_TRATANUMEROSERIE (Parâmetro de Tratamento de Número de Série)
 280|09/06/20|14:25|cadastro_produto            |Passa a tratar a coluna PROD_TRATALOTE (Parâmetro de Tratamento de Lote)
@@ -276,7 +278,6 @@ type
     gdProds: TcxGrid;
     Label28: TLabel;
     tbViewCODIGO: TcxGridDBColumn;
-    tbViewCODIGO_BARRAS: TcxGridDBColumn;
     tbViewDESCRICAO_PRODUTO: TcxGridDBColumn;
     tbViewREFERENCIA_FABRICANTE: TcxGridDBColumn;
     tbViewMARCA: TcxGridDBColumn;
@@ -322,8 +323,6 @@ type
     bControleGravar: TcxButton;
     pnContador: TPanel;
     qConsulta: TFDQuery;
-    qConsultaCodigo: TFDAutoIncField;
-    qConsultacodigo_barras: TStringField;
     qConsultadescricao_produto: TStringField;
     qConsultaunidade_medida: TStringField;
     qConsultapreco_final_varejo: TBCDField;
@@ -529,7 +528,6 @@ type
     edMARCA_NOME: TEdit;
     edUNIDADE_MEDIDA_NOME: TEdit;
     edFAMILIA_NOME: TEdit;
-    edCODIGO_BARRAS: TEdit;
     cbSTATUS_CADASTRAL: TcxCheckBox;
     edTIPO_ITEM: TEdit;
     edTIPO_ITEM_NOME: TEdit;
@@ -572,6 +570,7 @@ type
     cbPROD_RASTREAVEL: TCheckBox;
     cbPROD_TRATANUMEROSERIE: TCheckBox;
     rgPROD_TRATALOTE: TRadioGroup;
+    qConsultaPROD_CODIGO: TStringField;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -662,7 +661,7 @@ type
     procedure CodBalancaCheck(campo: TDBEdit);
     procedure cxButton7Click(Sender: TObject);
     procedure edCODIGO_ALFANUMERICOKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    function JaExiste_CODIGO_BARRAS: Boolean;
+    function JaExiste_PROD_EAN: Boolean;
     function JaExiste_CODIGO_ALFANUMERICO: Boolean;
     function JaExiste_DESCRICAO_PRODUTO: Boolean;
     function RefFabricanteRepetido(foco: Boolean = true): Boolean;
@@ -868,7 +867,7 @@ procedure TFrm_Produto.sClick(Sender: TObject);
 begin
 //  s.SelectAll;
 end;
-
+{
 procedure ConsultarCODBARRAS(Consulta: TFDQuery; Texto: TDBEdit; Tabela, Coluna, Parametro: String);
 var
   QueryTemp: TFDQuery;
@@ -880,7 +879,7 @@ begin
     Close;
     sql.Clear;
     sql.Add('SELECT * FROM ' + Tabela);
-    sql.Add(' WHERE ' + Coluna + ' LIKE :' + Parametro + ' AND CODIGO <> ' + QuotedStr(Consulta.FieldByName('codigo').value));
+    sql.Add(' WHERE ' + Coluna + ' LIKE :' + Parametro + ' AND CODIGO <> ' + QuotedStr(Consulta.FieldByName('PROD_CODIGO').value));
     Params[0].value := '%' + Texto.Text + '%';
     Open;
     if RecordCount <> 0 then
@@ -892,7 +891,7 @@ begin
   end;
   QueryTemp.Destroy;
 end;
-
+}
 procedure TFrm_Produto.btn_cad_faixaClick(Sender: TObject);
 var
   qtde, preco: extended;
@@ -1201,8 +1200,8 @@ begin
 
    qAUX.close;
    qAUX.sql.clear;
-   qAUX.sql.add('DELETE FROM PRODUTO    ');
-   qAUX.sql.add(' WHERE CODIGO = :CODIGO');
+   qAUX.sql.add('DELETE FROM PRODUTO_PROD');
+   qAUX.sql.add(' WHERE PROD_CODIGO = :CODIGO');
    qAUX.ParamByName('CODIGO').AsString := edCODIGO.Text;
    qAUX.ExecSql;
 
@@ -1561,6 +1560,9 @@ begin
   //Colocar o cursor no 1o campo editável.
   edCODIGO_ALFANUMERICO.setfocus;
 
+  //Destacar campos
+  Pintar(Frm_Produto);
+
 end;
 
 procedure TFrm_Produto.Ir_Para_Consulta;
@@ -1574,6 +1576,10 @@ begin
 
    //Posicionar o cursor no campo de argumento de pesquisa
    edArgumentoDePesquisa.SetFocus;
+
+   //Destacar campos
+   Pintar(Frm_Produto);
+
 end;
 
 procedure TFrm_Produto.bControleAlterarClick(Sender: TObject);
@@ -2137,7 +2143,7 @@ begin
    result := false;
 
    if JaExiste_CODIGO_ALFANUMERICO then exit;
-   if JaExiste_CODIGO_BARRAS       then exit;
+   if JaExiste_PROD_EAN            then exit;
 
    if edDESCRICAO_PRODUTO.Text = '' then
    begin
@@ -2377,12 +2383,12 @@ var
 begin
   if campo.Text <> '' then
   begin
-    qry := simplequery('SELECT * FROM PRODUTO WHERE (COD_BALANCA_1 = ' + QuotedStr(campo.Text) + ' OR COD_BALANCA_2 = ' +
-      QuotedStr(campo.Text) + ' OR COD_BALANCA_3 = ' + QuotedStr(campo.Text) + ') AND CODIGO <> ' + QuotedStr(edCODIGO.Text));
+    qry := simplequery('SELECT * FROM PRODUTO_PROD WHERE (COD_BALANCA_1 = ' + QuotedStr(campo.Text) + ' OR COD_BALANCA_2 = ' +
+      QuotedStr(campo.Text) + ' OR COD_BALANCA_3 = ' + QuotedStr(campo.Text) + ') AND PROD_CODIGO <> ' + QuotedStr(edCODIGO.Text));
     if qry <> nil then
     begin
       wnAlerta('Código Balança', 'Código da balança ' + campo.Text + ' já está cadastrado no produto ' + slinebreak + 'Cód: ' +
-        qry.FieldByName('CODIGO').AsString + ' - Descrição: ' + qry.FieldByName('DESCRICAO_PRODUTO').AsString);
+        qry.FieldByName('PROD_CODIGO').AsString + ' - Descrição: ' + qry.FieldByName('DESCRICAO_PRODUTO').AsString);
       campo.SelectAll;
       campo.SetFocus;
       qry.Destroy;
@@ -2390,22 +2396,22 @@ begin
   end;
 end;
 
-function TFrm_Produto.JaExiste_CODIGO_BARRAS: Boolean;
+function TFrm_Produto.JaExiste_PROD_EAN: Boolean;
 var
   qry: TFDQuery;
   x: string;
 begin
   result := false;
-  if edCODIGO_BARRAS.Text = '' then
+  if edPROD_EAN.Text = '' then
      exit;
-  if edCODIGO_BARRAS.Text = 'SEM GTIN' then
+  if edPROD_EAN.Text = 'SEM GTIN' then
      exit;
 
-  x := 'SELECT CODIGO,           '+
+  x := 'SELECT PROD_CODIGO,      '+
        '       DESCRICAO_PRODUTO '+
-       '  FROM PRODUTO           '+
-       ' WHERE CODIGO_BARRAS =' + QuotedStr(edCODIGO_BARRAS.Text) +
-       '   AND CODIGO  <>     ' + edCODIGO.Text;
+       '  FROM PRODUTO_PROD      '+
+       ' WHERE PROD_EAN     =' + QuotedStr(edPROD_EAN.Text) +
+       '   AND PROD_CODIGO  <> ' + edCODIGO.Text;
     qry := simplequery(x);
     if qry <> nil then
     begin
@@ -2415,8 +2421,8 @@ begin
              + 'Cód: ' + qry.Fields[0].AsString              + slinebreak
              + 'Descrição: ' + qry.Fields[1].AsString,
              taLeftJustify, 12);
-      edCODIGO_BARRAS.SelectAll;
-      edCODIGO_BARRAS.SetFocus;
+      edPROD_EAN.SelectAll;
+      edPROD_EAN.SetFocus;
     end;
 end;
 
@@ -2429,12 +2435,12 @@ begin
   if edDESCRICAO_PRODUTO.Text = '' then
      exit;
 
-  x := 'SELECT CODIGO, '
+  x := 'SELECT PROD_CODIGO, '
      +        'DESCRICAO_PRODUTO '
-     +   'FROM PRODUTO '
+     +   'FROM PRODUTO_PROD '
      +  'WHERE DESCRICAO_PRODUTO = ' + QuotedStr(edDESCRICAO_PRODUTO.Text);
   if edCODIGO.Text <> '' then
-     x := x + ' AND CODIGO  <> ' + QuotedStr(edCODIGO.Text);
+     x := x + ' AND PROD_CODIGO  <> ' + QuotedStr(edCODIGO.Text);
 
   qry := simplequery(x);
   if qry <> nil then
@@ -2498,12 +2504,12 @@ begin
   if edCODIGO_ALFANUMERICO.Text = '' then
      exit;
 
-  x := 'SELECT CODIGO, '
+  x := 'SELECT PROD_CODIGO, '
      +        'DESCRICAO_PRODUTO '
-     +   'FROM PRODUTO '
+     +   'FROM PRODUTO_PROD '
      +  'WHERE CODIGO_ALFANUMERICO = ' + QuotedStr(edCODIGO_ALFANUMERICO.Text);
   if edCODIGO.Text <> '' then
-     x := x + ' AND CODIGO  <> ' + QuotedStr(edCODIGO.Text);
+     x := x + ' AND PROD_CODIGO  <> ' + QuotedStr(edCODIGO.Text);
 
   qry := simplequery(x);
   if qry <> nil then
@@ -2532,8 +2538,8 @@ procedure TFrm_Produto.edCODIGO_ALFANUMERICOKeyUp(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
-  if isKeyNumLetter(Key) and (length(edCODIGO_BARRAS.Text) > 6) then
-    JaExiste_CODIGO_BARRAS;
+  if isKeyNumLetter(Key) and (length(edPROD_EAN.Text) > 6) then
+    JaExiste_PROD_EAN;
 end;
 
 procedure TFrm_Produto.edCODIGO_ORIGEM_MERCADORIAExit(Sender: TObject);
@@ -2593,8 +2599,8 @@ begin
 
    qConsulta.Close;
    qConsulta.Sql.Clear;
-   qConsulta.Sql.Add('SELECT *              ');
-   qConsulta.Sql.Add('  FROM produto        ');
+   qConsulta.Sql.Add('SELECT *            ');
+   qConsulta.Sql.Add('  FROM PRODUTO_PROD ');
 
    if vFrm_ProdutoPesquisarCodigoDoProduto then
    begin
@@ -2602,20 +2608,20 @@ begin
      //Localizar o produto e, se encontrar, abrir para edição.
      //Informar o usuário caso não encontre o produto e deixar que o usuário
      //proceda como desejar.
-     qConsulta.Sql.Add(' WHERE Codigo = :Codigo');
+     qConsulta.Sql.Add(' WHERE PROD_CODIGO = :Codigo');
      qConsulta.ParamByName('Codigo').AsString := edArgumentoDePesquisa.Text;
    end
    else
    begin
      //Esta tela foi aberta pelo usuário.
      //Localizar o produto por qualquer dos atributos previstos abaixo
-     qConsulta.Sql.Add(' WHERE Codigo = Codigo');
+     qConsulta.Sql.Add(' WHERE PROD_CODIGO = PROD_CODIGO');
      if edArgumentoDePesquisa.Text <> '' then
      begin
         qConsulta.sql.add(' AND (                                        ');
-        qConsulta.sql.add('          (CODIGO                LIKE :TEXTO) ');
+        qConsulta.sql.add('          (PROD_CODIGO           LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (CODIGO_ALFANUMERICO   LIKE :TEXTO) ');
-        qConsulta.sql.add('       OR (codigo_barras         LIKE :TEXTO) ');
+        qConsulta.sql.add('       OR (PROD_EAN              LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (descricao_produto     LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (ncm                   LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (referencia_fabricante LIKE :TEXTO) ');
@@ -2697,7 +2703,7 @@ begin
   bControleCancelar.Click;
   bControleIncluir.Click;
   Duplicarcadastro(SQL_PRODUTO, 'PRODUTO', SQL_LISTACODIGO.Text);
-  CODIGO_BARRAS.Text := '';
+  PROD_EAN.Text := '';
   tab_Cadastrar.show;
   }
 end;
@@ -2986,7 +2992,7 @@ begin
      if edCODIGO.Text = '' then
         exit;
 
-     frm_etiquetas.produto := tproduto.create(StrToInt(edCODIGO.Text));
+     frm_etiquetas.produto := tproduto.create(edCODIGO.Text);
      frm_etiquetas.preencher_dados_produto2;
      frm_etiquetas.showmodal;
 end;
@@ -3014,7 +3020,7 @@ end;
 
 procedure TFrm_Produto.InserirRegistro;
 var qAUX   : tFDQuery;
-    vCodigo: Integer;
+    vCodigo: String;
 begin
    qAUX := TFDQuery.Create(nil);
    qAUX.Connection := Module.connection;
@@ -3022,13 +3028,13 @@ begin
 
    qAUX.close;
    qAUX.sql.clear;
-   qAUX.sql.add('INSERT INTO PRODUTO              ');
-   qAUX.sql.add('     ( CODIGO,                   ');
+   qAUX.sql.add('INSERT INTO PRODUTO_PROD         ');
+   qAUX.sql.add('     ( PROD_CODIGO,              ');
    qAUX.sql.add('       CODIGO_ALFANUMERICO,      ');
    qAUX.sql.add('       NFe_nDI,                  ');
    qAUX.sql.add('       DESCRICAO_PRODUTO,        ');
    qAUX.sql.add('       INFO_ADICIONAIS,          ');
-   qAUX.sql.add('       CODIGO_BARRAS,            ');
+   qAUX.sql.add('       PROD_EAN,                 ');
    qAUX.sql.add('       REFERENCIA_FABRICANTE,    ');
    qAUX.sql.add('       UNIDADE_MEDIDA,           ');
    qAUX.sql.add('       MARCA,                    ');
@@ -3061,12 +3067,12 @@ begin
    qAUX.sql.add('       REDUCAO_ICMS_ST           ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
-   qAUX.sql.add('     (:CODIGO,                   ');
+   qAUX.sql.add('     (:PROD_CODIGO,              ');
    qAUX.sql.add('      :CODIGO_ALFANUMERICO,      ');
    qAUX.sql.add('      :NFe_nDI,                  ');
    qAUX.sql.add('      :DESCRICAO_PRODUTO,        ');
    qAUX.sql.add('      :INFO_ADICIONAIS,          ');
-   qAUX.sql.add('      :CODIGO_BARRAS,            ');
+   qAUX.sql.add('      :PROD_EAN,                 ');
    qAUX.sql.add('      :REFERENCIA_FABRICANTE,    ');
    qAUX.sql.add('      :UNIDADE_MEDIDA,           ');
    qAUX.sql.add('      :MARCA,                    ');
@@ -3102,21 +3108,21 @@ begin
    //Codigo
    if edCodigo.Text = '' then
    begin
-      vCodigo := ProximoProdutoCODIGO;
-      RegistraLog('Cadastrou Produto '+IntToStr(vCodigo)+'-'+edDESCRICAO_PRODUTO.Text);
+      vCodigo := fProximoCodigo('PRODUTO_PROD','PROD_CODIGO');
+      RegistraLog('Cadastrou Produto '+vCodigo+'-'+edDESCRICAO_PRODUTO.Text);
    end
    else
    begin
-      vCodigo := StrToInt(edCodigo.Text);
-      RegistraLog('Alterou Produto '+IntToStr(vCodigo)+'-'+edDESCRICAO_PRODUTO.Text);
+      vCodigo := edCodigo.Text;
+      RegistraLog('Alterou Produto '+vCodigo+'-'+edDESCRICAO_PRODUTO.Text);
    end;
 
-   qAUX.ParamByName('CODIGO'                  ).AsInteger := vCodigo;
+   qAUX.ParamByName('PROD_CODIGO'             ).AsString := vCodigo;
    qAUX.ParamByName('CODIGO_ALFANUMERICO'     ).AsString  := edCODIGO_ALFANUMERICO.Text;
    qAUX.ParamByName('NFe_nDI'                 ).AsString  := edNFe_nDI.Text;
    qAUX.ParamByName('DESCRICAO_PRODUTO'       ).AsString  := edDESCRICAO_PRODUTO.Text;
    qAUX.ParamByName('INFO_ADICIONAIS'         ).AsString  := mmINFO_ADICIONAIS.Text;
-   qAUX.ParamByName('CODIGO_BARRAS'           ).AsString  := edCODIGO_BARRAS.Text;
+   qAUX.ParamByName('PROD_EAN'                ).AsString  := edPROD_EAN.Text;
    qAUX.ParamByName('REFERENCIA_FABRICANTE'   ).AsString  := edREFERENCIA_FABRICANTE.Text;
    qAUX.ParamByName('UNIDADE_MEDIDA'          ).AsString  := edUNIDADE_MEDIDA.Text;
    qAUX.ParamByName('MARCA'                   ).AsString  := edMARCA.Text;
@@ -3183,12 +3189,12 @@ begin
    LimpaTela(Frm_Produto);
 
    //Preencher a tela com dados do produto
-   edCODIGO.Text                   := qConsulta.FieldByName('CODIGO'               ).AsString;
+   edCODIGO.Text                   := qConsulta.FieldByName('PROD_CODIGO'          ).AsString;
    edCODIGO_ALFANUMERICO.Text      := qConsulta.FieldByName('CODIGO_ALFANUMERICO'  ).AsString;
    edNFe_nDI.Text                  := qConsulta.FieldByName('NFe_nDI'              ).AsString;
    edDESCRICAO_PRODUTO.Text        := qConsulta.FieldByName('DESCRICAO_PRODUTO'    ).AsString;
    mmINFO_ADICIONAIS.Text          := qConsulta.FieldByName('INFO_ADICIONAIS'      ).AsString;
-   edCODIGO_BARRAS.Text            := qConsulta.FieldByName('CODIGO_BARRAS'        ).AsString;
+   edPROD_EAN.Text                 := qConsulta.FieldByName('PROD_EAN'             ).AsString;
    edREFERENCIA_FABRICANTE.Text    := qConsulta.FieldByName('REFERENCIA_FABRICANTE').AsString;
 
    //Unidade de Medida
@@ -3548,8 +3554,8 @@ begin
 
   if edREFERENCIA_FABRICANTE.Text <> '' then
   begin
-    x := 'SELECT CODIGO, DESCRICAO_PRODUTO FROM PRODUTO WHERE (REFERENCIA_FABRICANTE IS NOT NULL AND REFERENCIA_FABRICANTE <> ' + QuotedStr(emptystr) +
-      ') AND REFERENCIA_FABRICANTE =' + QuotedStr(edREFERENCIA_FABRICANTE.Text) + ' AND CODIGO  <>' + edCODIGO.Text;
+    x := 'SELECT PROD_CODIGO, DESCRICAO_PRODUTO FROM PRODUTO_PROD WHERE (REFERENCIA_FABRICANTE IS NOT NULL AND REFERENCIA_FABRICANTE <> ' + QuotedStr(emptystr) +
+      ') AND REFERENCIA_FABRICANTE =' + QuotedStr(edREFERENCIA_FABRICANTE.Text) + ' AND PROD_CODIGO  <>' + edCODIGO.Text;
     qry := simplequery(x);
     if qry <> nil then
     begin
@@ -3836,8 +3842,6 @@ CSOSN é utilizado pelos contribuintes optantes pelo regime do Simples Nacional.
 }
 {
 CREATE TABLE `produto` (
-	`CODIGO` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'código gerado pelo sistema',
-	`CODIGO_BARRAS` VARCHAR(50) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
 	`COD_BARRAS_AUXILIAR` VARCHAR(50) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
 	`DESCRICAO_PRODUTO` VARCHAR(200) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
 	`INFO_ADICIONAIS` VARCHAR(200) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
@@ -3960,7 +3964,6 @@ CREATE TABLE `produto` (
 	PRIMARY KEY (`CODIGO`),
 	INDEX `ponto_impressao_id` (`ponto_impressao_id`),
 	INDEX `idx_CODIGO_ALFANUMERICO` (`CODIGO_ALFANUMERICO`),
-	INDEX `idx_codigo_barras` (`CODIGO_BARRAS`),
 	INDEX `idx_descricao_produto` (`DESCRICAO_PRODUTO`),
 	INDEX `idx_NCM` (`NCM`),
 	INDEX `idx_referencia_fabricante` (`REFERENCIA_FABRICANTE`),

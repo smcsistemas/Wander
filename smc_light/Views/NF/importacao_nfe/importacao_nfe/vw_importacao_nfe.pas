@@ -1,4 +1,12 @@
 unit vw_importacao_nfe;
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+331|15/06/20|13:35|vw_importacao_nfe           |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+303|15/06/20|10:14|vw_importacao_nfe           |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
+========================================================================================================================================
+}
 
 interface
 
@@ -1171,15 +1179,15 @@ begin
     if xEdit.Text <> '' then
     begin
       try
-        objProduto := TProduto.Create(strtoint(xEdit.Text));
+        objProduto := TProduto.Create(xEdit.Text);
 
         if tdialogs.wnConfirmacao('Vincular Produtos', format('Deseja vincular as informações do produto "%s" cadastrado' + slinebreak + 'com o Item: %s - "%s" da nota fiscal?',
           [objProduto.DESCRICAO, dbtvMainITEM.EditValue, dbtvMainDESCRICAO.EditValue]), 11, taLeftJustify) then
         begin
 
-          dbtvMainCODIGO.EditValue := objProduto.CODIGO;
+          dbtvMainCODIGO.EditValue := objProduto.PROD_CODIGO;
           dbtvMainDESCRICAO.EditValue := objProduto.DESCRICAO;
-          dbtvMainCOD_BARRAS.EditValue := objProduto.CODIGO_BARRAS;
+          dbtvMainCOD_BARRAS.EditValue := objProduto.PROD_EAN;
           dbtvMainTIPO.EditValue := objProduto.TIPO_ITEM;
           dbtvMainMARCA.EditValue := objProduto.MARCA;
 

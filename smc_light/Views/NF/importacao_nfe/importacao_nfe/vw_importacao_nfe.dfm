@@ -47,6 +47,10 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
       Caption = 'Consultar NF-e'
       ImageIndex = 1
       OnShow = tsConsultaShow
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object cxPageControl3: TcxPageControl
         Left = 0
         Top = 0
@@ -1066,6 +1070,10 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
     object tsImportacao: TcxTabSheet
       Caption = 'Importar NF-e'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object btn_retomar: TcxButton
         Left = 1097
         Top = 82
@@ -2153,6 +2161,10 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
         object tsFornecedor: TcxTabSheet
           Caption = 'Fornecedor'
           ImageIndex = 0
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lbl5: TLabel
             Left = 16
             Top = 3
@@ -2335,6 +2347,10 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
         object tsTransportador: TcxTabSheet
           Caption = 'Transportador'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Label19: TLabel
             Left = 16
             Top = 3
@@ -2505,6 +2521,10 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
         object tsCarga: TcxTabSheet
           Caption = 'Carga'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Label27: TLabel
             Left = 48
             Top = 41

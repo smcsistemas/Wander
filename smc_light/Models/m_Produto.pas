@@ -1,4 +1,12 @@
 ﻿unit m_Produto;
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+328|15/06/20|13:35|m_Produto                   |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+306|15/06/20|10:14|m_Produto                   |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
+========================================================================================================================================
+}
 
 interface
 
@@ -10,9 +18,9 @@ type
   TProduto = class(TInterfacedObject, Icrud)
   private
 
-    Produto_codigo: integer;
+    Produto_PROD_CODIGO: String;
     Produto_descricao: string;
-    Produto_codigo_barras: string;
+    Produto_PROD_EAN: string;
     Produto_info_adicionais: string;
     Produto_referencia_fabricante: string;
     Produto_marca: string;
@@ -65,9 +73,9 @@ type
     Produto_pis_cst: string;
     Produto_cofins_cst: string;
 
-    function getProduto_codigo: integer;
+    function getProduto_PROD_CODIGO: String;
     function getProduto_descricao: string;
-    function getProduto_codigo_barras: string;
+    function getProduto_PROD_EAN: string;
     function getProduto_info_adicionais: string;
     function getProduto_referencia_fabricante: string;
     function getProduto_marca: string;
@@ -120,9 +128,9 @@ type
     function getProduto_pis_cst: string;
     function getProduto_cofins_cst: string;
 
-    procedure setProduto_codigo(value: integer);
+    procedure setProduto_PROD_CODIGO(value: String);
     procedure setProduto_Descricao(value: string);
-    Procedure setProduto_codigo_barras(value: string);
+    Procedure setProduto_PROD_EAN(value: string);
     Procedure setProduto_info_adicionais(value: string);
     Procedure setProduto_referencia_fabricante(value: string);
     Procedure setProduto_marca(value: string);
@@ -185,9 +193,9 @@ type
 
   public
 
-    property CODIGO: integer read getProduto_codigo write setProduto_codigo;
+    property PROD_CODIGO: String read getProduto_PROD_CODIGO write setProduto_PROD_CODIGO;
     property DESCRICAO: string read getProduto_descricao write setProduto_Descricao;
-    property CODIGO_BARRAS: string read getProduto_codigo_barras write setProduto_codigo_barras;
+    property PROD_EAN: string read getProduto_PROD_EAN write setProduto_PROD_EAN;
     property INFO_ADICIONAIS: string read getProduto_info_adicionais write setProduto_info_adicionais;
     property REFERENCIA_FABRICANTE: string read getProduto_referencia_fabricante write setProduto_referencia_fabricante;
     property MARCA: string read getProduto_marca write setProduto_marca;
@@ -240,7 +248,7 @@ type
     property PIS_CST: string read getProduto_pis_cst write setProduto_pis_cst;
     property COFINS_CST: string read getProduto_cofins_cst write setProduto_cofins_cst;
 
-    constructor Create(pCodigo: integer = 0); overload;
+    constructor Create(pCodigo: String = ''); overload;
     class function countAll: variant;
     class function find(Fields: array of String; Values: array of variant): tArray<TProduto>;
     class function get(Fields: array of String; Values: array of variant): TProduto;
@@ -254,9 +262,9 @@ implementation
 
 procedure TProduto.ClearData;
 begin
-  Produto_codigo := 0;
-  Produto_descricao := '';
-  Produto_codigo_barras := '';
+  Produto_PROD_CODIGO := '';
+  Produto_descricao   := '';
+  Produto_PROD_EAN    := '';
   Produto_info_adicionais := '';
   Produto_referencia_fabricante := '';
   Produto_marca := '';
@@ -312,10 +320,10 @@ end;
 
 class function TProduto.countAll: variant;
 begin
-  result := Tdb.SimpleQuery('select count(*) as countAll from produto').Fields[0].value;
+  result := Tdb.SimpleQuery('select count(*) as countAll from produto_prod').Fields[0].value;
 end;
 
-constructor TProduto.Create(pCodigo: integer = 0);
+constructor TProduto.Create(pCodigo: String = '');
 var
   qry: tfdquery;
 begin
@@ -323,16 +331,17 @@ begin
   inherited Create;
   ClearData;
 
-  if pCodigo <> 0 then
+  if pCodigo <> '' then
   begin
-    qry := Tdb.SimpleQuery('SELECT * FROM PRODUTO WHERE CODIGO = ?', [pCodigo]);
+    qry := Tdb.SimpleQuery('SELECT * FROM PRODUTO_PROD WHERE PROD_CODIGO = ?', [pCodigo]);
     if qry = nil then
       raise Exception.Create(Format('Produto %d não encontrado.', [pCodigo]))
     else
     begin
-      Self.Produto_codigo := qry.fieldbyname('codigo').AsInteger;
-      Self.Produto_descricao := qry.fieldbyname('descricao_produto').asString;
-      Self.Produto_codigo_barras := qry.fieldbyname('codigo_barras').asString;
+      Self.Produto_PROD_CODIGO := qry.fieldbyname('PROD_CODIGO'      ).AsString;
+      Self.Produto_descricao   := qry.fieldbyname('descricao_produto').asString;
+      Self.Produto_PROD_EAN    := qry.fieldbyname('PROD_EAN'         ).asString;
+      //------------------------------------------------------------------------
       Self.Produto_info_adicionais := qry.fieldbyname('info_adicionais').asString;
       Self.Produto_referencia_fabricante := qry.fieldbyname('referencia_fabricante').asString;
       Self.Produto_marca := qry.fieldbyname('marca').asString;
@@ -391,7 +400,7 @@ end;
 
 procedure TProduto.Delete(const pID: integer);
 begin
-  Tdb.ExecQuery('DELETE FROM produto WHERE codigo=?', [pID]);
+  Tdb.ExecQuery('DELETE FROM PRODUTO_PROD WHERE PROD_CODIGO=?', [pID]);
 end;
 
 class function TProduto.find(Fields: array of String; Values: array of variant): tArray<TProduto>;
@@ -407,7 +416,7 @@ begin
     setLength(arrProdutos, qry.RecordCount);
     while not qry.eof do
     begin
-      arrProdutos[qry.RecNo - 1] := TProduto.Create(qry.fieldbyname('codigo').AsInteger);
+      arrProdutos[qry.RecNo - 1] := TProduto.Create(qry.fieldbyname('PROD_CODIGO').AsString);
       qry.next;
     end;
     result := arrProdutos;
@@ -416,15 +425,15 @@ end;
 
 procedure TProduto.Insert;
 begin
-  Tdb.ExecQuery('INSERT INTO produto (DESCRICAO_PRODUTO, CODIGO_BARRAS, INFO_ADICIONAIS,' +
+  Tdb.ExecQuery('INSERT INTO PRODUTO_PROD (PROD_CODIGO,DESCRICAO_PRODUTO, PROD_EAN, INFO_ADICIONAIS,' +
     'REFERENCIA_FABRICANTE, MARCA, FAMILIA, GRUPO, SUBGRUPO, UNIDADE_MEDIDA, TIPO_ITEM, PRECO_CUSTO, FRETE, IMPOSTO, DESP_OPERACIONAIS, CUSTO_MEDIO, MARGEM_L_VAREJO,' +
     'MARGEM_L_DISTRIBUIDOR, MARGEM_L_ATACADO, PRECO_FINAL_VAREJO, PRECO_FINAL_DISTRIBUIDOR, PRECO_FINAL_ATACADO, BALCAO_COMISSAO_VAREJO,' +
     'BALCAO_COMISSAO_DISTRIBUIDOR, BALCAO_COMISSAO_ATACADO, EXTERNA_COMISSAO_VAREJO, EXTERNA_COMISSAO_DISTRIBUIDOR, EXTERNA_COMISSAO_ATACADO,' +
     'SALDO, ESTOQUE_MINIMO, DESCONTO_M_VAREJO, DESCONTO_M_DISTRIBUIDOR, DESCONTO_M_ATACADO, STATUS_CADASTRAL, COD_BALANCA_1, COD_BALANCA_2,' +
     'COD_BALANCA_3, USA_LOTE, CONTROLADO, ICMS_CST, CODIGO_ORIGEM_MERCADORIA, ALIQ_ICMS, REDUCAO_ICMS_ST, COD_COMB, VALOR_PAUTA_BC_ST, GENERO, ' +
     'LUCRO_SUBST_TRIBUTARIA, LEIS, CSOSN, NCM, CEST, ANP, PIS_CST, COFINS_CST)' +
-    'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [Self.Produto_descricao, Self.Produto_codigo_barras, Self.Produto_info_adicionais, Self.Produto_referencia_fabricante, Self.Produto_marca, Self.Produto_familia,
+    'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [Self.Produto_PROD_CODIGO,Self.Produto_descricao, Self.Produto_PROD_EAN, Self.Produto_info_adicionais, Self.Produto_referencia_fabricante, Self.Produto_marca, Self.Produto_familia,
     Self.Produto_grupo, Self.Produto_sub_grupo, Self.Produto_und, Self.Produto_tipo_item, Self.Produto_preco_custo, Self.Produto_frete, Self.Produto_imposto,
     Self.Produto_desp_operacionais, Self.Produto_custo_medio, Self.Produto_margem_l_varejo, Self.Produto_margem_l_distribuidor, Self.Produto_margem_l_atacado,
     Self.Produto_preco_final_varejo, Self.Produto_preco_final_distribuidor, Self.Produto_preco_final_atacado, Self.Produto_comissao_balcao_varejo,
@@ -436,18 +445,18 @@ begin
     Self.Produto_lucro_subst_tributaria, Self.Produto_leis, Self.Produto_csosn, Self.Produto_ncm, Self.Produto_cest, Self.Produto_anp, Self.Produto_pis_cst,
     Self.Produto_cofins_cst]);
 
-  Self.Produto_codigo := Tdb.SimpleQuery('select codigo from produto order by codigo desc limit 1').Fields[0].AsInteger;
+  Self.Produto_PROD_CODIGO := Tdb.SimpleQuery('select PROD_CODIGO from PRODUTO_PROD order by PROD_CODIGO desc limit 1').Fields[0].AsString;
 end;
 
 function TProduto.Select(FieldNames: array of String; const Values: array of variant): tfdquery;
 begin
-  result := Tdb.SimpleQuery('select * from produto ' + Tdb.GenWhere(FieldNames), Values);
+  result := Tdb.SimpleQuery('select * from produto_prod ' + Tdb.GenWhere(FieldNames), Values);
 end;
 
 procedure TProduto.save;
 begin
 
-  if Self.Produto_codigo = 0 then
+  if Self.Produto_PROD_CODIGO = '' then
     Self.Insert
   else
     Self.Update(TUpdateKind.ukHard);
@@ -456,13 +465,13 @@ end;
 
 function TProduto.Select(const pID: integer): tfdquery;
 begin
-  result := Self.Select(['CODIGO'], [pID]);
+  result := Self.Select(['PROD_CODIGO'], [pID]);
 end;
 
 procedure TProduto.Update(pUk: TUpdateKind);
 begin
 
-  Tdb.ExecQuery('UPDATE produto SET DESCRICAO_PRODUTO=?, CODIGO_BARRAS=?, INFO_ADICIONAIS=?,' +
+  Tdb.ExecQuery('UPDATE produto SET PROD_CODIGO=?, DESCRICAO_PRODUTO=?, PROD_EAN=?, INFO_ADICIONAIS=?,' +
     'REFERENCIA_FABRICANTE=?, MARCA=?, FAMILIA=?, GRUPO=?, SUBGRUPO=?, UNIDADE_MEDIDA=?, TIPO_ITEM=?,' +
     'PRECO_CUSTO=?, FRETE=?, IMPOSTO=?, DESP_OPERACIONAIS=?, CUSTO_MEDIO=?, MARGEM_L_VAREJO=?,' +
     'MARGEM_L_DISTRIBUIDOR=?, MARGEM_L_ATACADO=?, PRECO_FINAL_VAREJO=?, PRECO_FINAL_DISTRIBUIDOR=?,' +
@@ -471,7 +480,7 @@ begin
     'ESTOQUE_MINIMO=?, DESCONTO_M_VAREJO=?, DESCONTO_M_DISTRIBUIDOR=?, DESCONTO_M_ATACADO=?, STATUS_CADASTRAL=?, COD_BALANCA_1=?,' +
     'COD_BALANCA_2=?, COD_BALANCA_3=?, USA_LOTE=?, CONTROLADO=?, ICMS_CST=?, CODIGO_ORIGEM_MERCADORIA=?, ALIQ_ICMS=?, REDUCAO_ICMS_ST=?,' +
     'COD_COMB=?, VALOR_PAUTA_BC_ST=?, GENERO=?, LUCRO_SUBST_TRIBUTARIA=?, LEIS=?, CSOSN=?, NCM=?, CEST=?, ANP=?, PIS_CST=?, COFINS_CST=?' + 'WHERE codigo=?',
-    [Self.Produto_descricao, Self.Produto_codigo_barras, Self.Produto_info_adicionais, Self.Produto_referencia_fabricante, Self.Produto_marca, Self.Produto_familia,
+    [Self.PROD_CODIGO, Self.Produto_descricao, Self.Produto_PROD_EAN, Self.Produto_info_adicionais, Self.Produto_referencia_fabricante, Self.Produto_marca, Self.Produto_familia,
     Self.Produto_grupo, Self.Produto_sub_grupo, Self.Produto_und, Self.Produto_tipo_item, Self.Produto_preco_custo, Self.Produto_frete, Self.Produto_imposto,
     Self.Produto_desp_operacionais, Self.Produto_custo_medio, Self.Produto_margem_l_varejo, Self.Produto_margem_l_distribuidor, Self.Produto_margem_l_atacado,
     Self.Produto_preco_final_varejo, Self.Produto_preco_final_distribuidor, Self.Produto_preco_final_atacado, Self.Produto_comissao_balcao_varejo,
@@ -481,7 +490,7 @@ begin
     Self.Produto_cod_balanca_3, TFunctions.ifthen(Self.Produto_usa_lote, 'SIM', 'NAO'), TFunctions.ifthen(Self.Produto_controlado, 'SIM', 'NAO'), Self.Produto_icms_cst,
     Self.Produto_codigo_origem_mercadoria, Self.Produto_aliq_icms, Self.Produto_reducao_icms_st, Self.Produto_cod_comb, Self.Produto_valor_pauta_bc_st, Self.Produto_genero,
     Self.Produto_lucro_subst_tributaria, Self.Produto_leis, Self.Produto_csosn, Self.Produto_ncm, Self.Produto_cest, Self.Produto_anp, Self.Produto_pis_cst,
-    Self.Produto_cofins_cst, Self.Produto_codigo]);
+    Self.Produto_cofins_cst, Self.Produto_PROD_CODIGO]);
 
 end;
 
@@ -510,14 +519,14 @@ begin
   result := Self.Produto_cest;
 end;
 
-function TProduto.getProduto_codigo: integer;
+function TProduto.getProduto_PROD_CODIGO: String;
 begin
-  result := Self.Produto_codigo;
+  result := Self.Produto_PROD_CODIGO;
 end;
 
-function TProduto.getProduto_codigo_barras: string;
+function TProduto.getProduto_PROD_EAN: string;
 begin
-  result := Self.Produto_codigo_barras;
+  result := Self.Produto_PROD_EAN;
 end;
 
 function TProduto.getProduto_codigo_origem_mercadoria: integer;
@@ -780,20 +789,20 @@ begin
   Self.Produto_cest := value;
 end;
 
-procedure TProduto.setProduto_codigo(value: integer);
+procedure TProduto.setProduto_PROD_CODIGO(value: String);
 begin
-  if NOT tChecks.Positive(value) then
+  if value = '' then
     raise Exception.Create('O Código do produto deve ser informado!');
 
-  Self.Produto_codigo := value;
+  Self.Produto_PROD_CODIGO := value;
 end;
 
-procedure TProduto.setProduto_codigo_barras(value: string);
+procedure TProduto.setProduto_PROD_EAN(value: string);
 begin
   if (value <> '') AND (length(value) < 6) then
     raise Exception.Create('O código de barras deve ter mais de 6 dígitos!');
 
-  Self.Produto_codigo_barras := value;
+  Self.Produto_PROD_EAN := value;
 end;
 
 procedure TProduto.setProduto_codigo_origem_mercadoria(value: integer);

@@ -1,4 +1,12 @@
 unit m_NFe;
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+326|15/06/20|13:35|m_NFe                       |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+304|15/06/20|10:14|m_NFe                       |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
+========================================================================================================================================
+}
 
 interface
 
@@ -1261,11 +1269,11 @@ begin
 
       if xItem.COD_BARRAS <> '' then
       begin
-        produto := tproduto.get(['codigo_barras'], [xItem.COD_BARRAS]);
+        produto := tproduto.get(['PROD_EAN'], [xItem.COD_BARRAS]);
         if produto <> nil then
         begin
 
-          xItem.CODIGO := inttostr(produto.CODIGO);
+          xItem.CODIGO := produto.PROD_CODIGO;
           xItem.DESCRICAO := produto.DESCRICAO;
           xItem.MARCA := produto.MARCA;
           xItem.TIPO := produto.TIPO_ITEM;
@@ -1280,7 +1288,7 @@ begin
           xItem.CST_ICMS := produto.ICMS_CST;
           xItem.CST_PIS := produto.PIS_CST;
           xItem.CST_COFINS := produto.COFINS_CST;
-          xItem.CSOSN := produto.CSOSN;
+          xItem.CSOSN := '';//produto.CSOSN;
           xItem.EDITADO := '1';
 
         end;

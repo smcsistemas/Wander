@@ -4498,15 +4498,9 @@ object frm_pdv: Tfrm_pdv
   object SQL_ProdutoConsulta: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'Select * from produto')
+      'Select * from produto_prod')
     Left = 864
     Top = 280
-    object SQL_ProdutoConsultaCODIGO: TFDAutoIncField
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
-    end
     object SQL_ProdutoConsultaCODIGO_BARRAS: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'CODIGO_BARRAS'
@@ -5050,6 +5044,199 @@ object frm_pdv: Tfrm_pdv
       FieldName = 'VALOR_PAUTA_BC_ST'
       Origin = 'VALOR_PAUTA_BC_ST'
       Precision = 10
+    end
+    object SQL_ProdutoConsultaponto_impressao_id: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ponto_impressao_id'
+      Origin = 'ponto_impressao_id'
+    end
+    object SQL_ProdutoConsultaNFe_Veiculo_Cor_Codigo: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Veiculo_Cor_Codigo'
+      Origin = 'NFe_Veiculo_Cor_Codigo'
+      Size = 4
+    end
+    object SQL_ProdutoConsultaNFe_Veiculo_Cor_Descricao: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Veiculo_Cor_Descricao'
+      Origin = 'NFe_Veiculo_Cor_Descricao'
+      Size = 40
+    end
+    object SQL_ProdutoConsultaNFe_Veiculo_Pot: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Veiculo_Pot'
+      Origin = 'NFe_Veiculo_Pot'
+      Size = 4
+    end
+    object SQL_ProdutoConsultaNFe_Veiculo_Cilin: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Veiculo_Cilin'
+      Origin = 'NFe_Veiculo_Cilin'
+      Size = 4
+    end
+    object SQL_ProdutoConsultaNFe_Armamento: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Armamento'
+      Origin = 'NFe_Armamento'
+    end
+    object SQL_ProdutoConsultaNFe_Combustivel: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Combustivel'
+      Origin = 'NFe_Combustivel'
+    end
+    object SQL_ProdutoConsultaNFe_modBC: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_modBC'
+      Origin = 'NFe_modBC'
+    end
+    object SQL_ProdutoConsultaNFe_modBCST: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_modBCST'
+      Origin = 'NFe_modBCST'
+    end
+    object SQL_ProdutoConsultaNFe_pMVAST: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_pMVAST'
+      Origin = 'NFe_pMVAST'
+      Precision = 6
+      Size = 2
+    end
+    object SQL_ProdutoConsultaNFe_motDesICMS: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_motDesICMS'
+      Origin = 'NFe_motDesICMS'
+    end
+    object SQL_ProdutoConsultaProduto_ou_Servico: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Produto_ou_Servico'
+      Origin = 'Produto_ou_Servico'
+      FixedChar = True
+      Size = 1
+    end
+    object SQL_ProdutoConsultaPagaComissaoSN: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PagaComissaoSN'
+      Origin = 'PagaComissaoSN'
+      FixedChar = True
+      Size = 1
+    end
+    object SQL_ProdutoConsultaContaContabil: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ContaContabil'
+      Origin = 'ContaContabil'
+    end
+    object SQL_ProdutoConsultaCentroDeCustos: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'CentroDeCustos'
+      Origin = 'CentroDeCustos'
+    end
+    object SQL_ProdutoConsultaNFe_indTot: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_indTot'
+      Origin = 'NFe_indTot'
+    end
+    object SQL_ProdutoConsultaNFe_Medicamento: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Medicamento'
+      Origin = 'NFe_Medicamento'
+    end
+    object SQL_ProdutoConsultaCODIGO_ALFANUMERICO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CODIGO_ALFANUMERICO'
+      Origin = 'CODIGO_ALFANUMERICO'
+    end
+    object SQL_ProdutoConsultaVALOR_PAUTA_BC: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VALOR_PAUTA_BC'
+      Origin = 'VALOR_PAUTA_BC'
+      Precision = 10
+    end
+    object SQL_ProdutoConsultaNFe_pMVA: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_pMVA'
+      Origin = 'NFe_pMVA'
+      Precision = 6
+    end
+    object SQL_ProdutoConsultaNFe_indEscala: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_indEscala'
+      Origin = 'NFe_indEscala'
+    end
+    object SQL_ProdutoConsultaPROD_RASTREAVEL: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_RASTREAVEL'
+      Origin = 'PROD_RASTREAVEL'
+    end
+    object SQL_ProdutoConsultaPROD_TRATALOTE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_TRATALOTE'
+      Origin = 'PROD_TRATALOTE'
+    end
+    object SQL_ProdutoConsultaPROD_TRATANUMEROSERIE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_TRATANUMEROSERIE'
+      Origin = 'PROD_TRATANUMEROSERIE'
+    end
+    object SQL_ProdutoConsultaNFe_VeiculoNovo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_VeiculoNovo'
+      Origin = 'NFe_VeiculoNovo'
+    end
+    object SQL_ProdutoConsultaNFe_nDI: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_nDI'
+      Origin = 'NFe_nDI'
+      Size = 10
+    end
+    object SQL_ProdutoConsultaNFe_dDI: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_dDI'
+      Origin = 'NFe_dDI'
+    end
+    object SQL_ProdutoConsultaNFe_xLocDesemb: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_xLocDesemb'
+      Origin = 'NFe_xLocDesemb'
+      Size = 60
+    end
+    object SQL_ProdutoConsultaNFe_UFDesemb: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_UFDesemb'
+      Origin = 'NFe_UFDesemb'
+      Size = 2
+    end
+    object SQL_ProdutoConsultaNFe_dDesemb: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_dDesemb'
+      Origin = 'NFe_dDesemb'
+    end
+    object SQL_ProdutoConsultaNFe_cExportador: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_cExportador'
+      Origin = 'NFe_cExportador'
+      Size = 60
+    end
+    object SQL_ProdutoConsultaNFe_nAdicao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_nAdicao'
+      Origin = 'NFe_nAdicao'
+    end
+    object SQL_ProdutoConsultaNFe_cFabricante: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_cFabricante'
+      Origin = 'NFe_cFabricante'
+      Size = 60
+    end
+    object SQL_ProdutoConsultaNFe_vDescDI: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_vDescDI'
+      Origin = 'NFe_vDescDI'
+      Precision = 10
+    end
+    object SQL_ProdutoConsultaPROD_CODIGO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_CODIGO'
+      Origin = 'PROD_CODIGO'
     end
   end
   object SQL_Venda: TFDQuery

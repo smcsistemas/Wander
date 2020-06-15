@@ -1,6 +1,13 @@
 ﻿{ 21.11.16 16:59 }
 unit U_ConfNFCE;
 {
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+330|15/06/20|13:35|U_ConfNFCE                  |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+========================================================================================================================================
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
@@ -212,7 +219,6 @@ type
     SQL_VENDA_ITEMALIQ_ICMS: TBCDField;
     SQL_VENDA_ITEMCSOSN: TStringField;
     SQL_VENDA_ITEMCEST: TStringField;
-    SQL_VENDA_ITEMCODIGO_BARRAS: TStringField;
     SQL_VENDA_ITEMPIS_CST: TStringField;
     SQL_VENDA_ITEMCOFINS_CST: TStringField;
     SQL_VENDACODIGO_VENDA: TFDAutoIncField;
@@ -1224,10 +1230,10 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
           spdNFCeDataSets.campo('cProd_I02').Value := inttostr(SQL_VENDA_ITEMCODIGO_PRODUTO.Value);
           // C骴igo do produto ou servi鏾
 
-          spdNFCeDataSets.campo('cEAN_I03').Value := EanValido(SQL_VENDA_ITEMCODIGO_BARRAS.Value);
+          spdNFCeDataSets.campo('cEAN_I03').Value := EanValido(SQL_VENDA_ITEMPROD_EAN.Value);
           // GTIN (Global Trade Item Number) do produto, antigo c骴igo EAN ou c骴igo de barras
 
-          spdNFCeDataSets.campo('cEANTrib_I12').Value := EanValido(SQL_VENDA_ITEMCODIGO_BARRAS.Value);
+          spdNFCeDataSets.campo('cEANTrib_I12').Value := EanValido(SQL_VENDA_ITEMPROD_EAN.Value);
           // GTIN (Global Trade Item Number) da unidade tribut醰el, antigo c骴igo EAN ou c骴igo de barra
 
           if (tpAmbB24 = '2') and (nItemH02 = '1') then

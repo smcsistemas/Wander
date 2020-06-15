@@ -1,5 +1,13 @@
 { v 29.10.16 12:06 }
 unit Consulta_Produto;
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+324|15/06/20|13:35|Consulta_Produto            |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+310|15/06/20|10:14|Consulta_Produto            |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
+========================================================================================================================================
+}
 
 interface
 
@@ -41,8 +49,7 @@ type
     Label6: TLabel;
     Label7: TLabel;
     lbl_unidademedida: TLabel;
-    SQL_ProdutoConsultaCODIGO: TFDAutoIncField;
-    SQL_ProdutoConsultaCODIGO_BARRAS: TStringField;
+    SQL_ProdutoConsultaPROD_EAN: TStringField;
     SQL_ProdutoConsultaCOD_BARRAS_AUXILIAR: TStringField;
     SQL_ProdutoConsultaDESCRICAO_PRODUTO: TStringField;
     SQL_ProdutoConsultaINFO_ADICIONAIS: TStringField;
@@ -110,9 +117,7 @@ type
     SQL_ProdutoConsultaPIS_CST: TStringField;
     SQL_ProdutoConsultaCOFINS_CST: TStringField;
     SQL_ProdutoConsultaORIGEM_MERCADORIA: TStringField;
-    SQL_ProdutoConsultaCSOSN: TStringField;
     SQL_ProdutoConsultaNCM: TStringField;
-    SQL_ProdutoConsultaCFOP: TStringField;
     SQL_ProdutoConsultaCEST: TStringField;
     SQL_ProdutoConsultaANP: TStringField;
     SQL_ProdutoConsultaEX_IPI: TSingleField;
@@ -187,7 +192,7 @@ var
   qry, qry_cod: TFDQuery;
 begin
   qry_cod := Tdb.simplequery
-    ('select CODIGO, CODIGO_BARRAS, DESCRICAO_PRODUTO, UNIDADE_MEDIDA, SALDO, REFERENCIA_FABRICANTE, MARCA, PRECO_FINAL_VAREJO from produto where codigo = "' +
+    ('select PROD_CODIGO, PROD_EAN, DESCRICAO_PRODUTO, UNIDADE_MEDIDA, SALDO, REFERENCIA_FABRICANTE, MARCA, PRECO_FINAL_VAREJO from produto_PROD where PROD_codigo = "' +
     Edt_codBarras.Text + '" OR REFERENCIA_FABRICANTE = "' + Edt_codBarras.Text + '"');
   if qry_cod <> nil then
   begin
@@ -201,7 +206,7 @@ begin
       exit;
     end;
   end;
-  qry := Tdb.simplequery('select codigo from produto where referencia_fabricante = "' + Edt_codBarras.Text + '"');
+  qry := Tdb.simplequery('select prod_codigo from produto_PROD where referencia_fabricante = "' + Edt_codBarras.Text + '"');
   if (qry <> nil) then
     Edt_codBarras.Text := qry.Fields[0].Text;
 end;

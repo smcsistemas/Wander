@@ -2,7 +2,7 @@ object frmAtualizador: TfrmAtualizador
   Left = 0
   Top = 0
   Caption = 'Atualizador'
-  ClientHeight = 403
+  ClientHeight = 411
   ClientWidth = 756
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -51,5 +51,15 @@ object frmAtualizador: TfrmAtualizador
     ParentFont = False
     TabOrder = 2
     OnClick = Button1Click
+  end
+  object ProgressBar1: TProgressBar
+    Left = 0
+    Top = 394
+    Width = 756
+    Height = 17
+    Align = alBottom
+    BarColor = clHotLight
+    SmoothReverse = True
+    TabOrder = 3
   end
 end

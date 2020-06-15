@@ -4,6 +4,8 @@ unit EmissaoDeNFe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+322|15/06/20|13:35|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+315|15/06/20|10:14|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 287|10/06/20|11:20|EmissaoDeNFe                |Grupo BA incorporou grupos B20a e B20j (NFe referenciadas produtor rural e cupom fiscal)
 286|09/06/20|22:12|EmissaoDeNFe                |Grupo ZX - Informações Suplemtares da NFe - Explicitado
 285|09/06/20|21:37|EmissaoDeNFe                |Grupo ZD - Informações do Responsável Técnico - Explicitado
@@ -894,8 +896,8 @@ begin
      qVENDA_ITEM.Sql.Clear;
      qVENDA_ITEM.Sql.Add('SELECT *                                ');
      qVENDA_ITEM.Sql.Add('  FROM VENDA_ITEM V,                    ');
-     qVENDA_ITEM.Sql.Add('       PRODUTO    P                     ');
-     qVENDA_ITEM.Sql.Add(' WHERE V.CODIGO_PRODUTO = P.CODIGO      ');
+     qVENDA_ITEM.Sql.Add('       PRODUTO_PROD P                   ');
+     qVENDA_ITEM.Sql.Add(' WHERE V.CODIGO_PRODUTO = P.PROD_CODIGO ');
      qVENDA_ITEM.Sql.Add('   AND V.CODIGO_VENDA   = :IPED_NRPEDIDO');
      qVENDA_ITEM.ParamByName('IPED_NRPEDIDO').AsInteger := pPEDIDO;
      qVENDA_ITEM.Open;
@@ -3023,7 +3025,7 @@ begin
    //(ex. transferência de crédito, crédito do ativo imobilizado, etc.),
    //informar o valor 00 (dois zeros). (NT 2014/004)
 
-   sEAN := qVENDA_ITEM.FieldByName('CODIGO_BARRAS').AsString;
+   sEAN := qVENDA_ITEM.FieldByName('PROD_EAN').AsString;
    if Trim(sEAN) = '' then
       // PRODUTO SEM CODIGO DE BARRAS
       Produto.Prod.cEAN := 'SEM GTIN'

@@ -43,6 +43,10 @@ object frm_etiquetas: Tfrm_etiquetas
     object cxTabSheet2: TcxTabSheet
       Caption = 'Etiquetas'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object gridEtiquetas: TcxGrid
         Left = 0
         Top = 37
@@ -953,30 +957,6 @@ object frm_etiquetas: Tfrm_etiquetas
   object frxBarCode: TfrxBarCodeObject
     Left = 40
     Top = 160
-  end
-  object frxPDF: TfrxPDFExport
-    FileName = 'C:\Users\kernel\Desktop\sdfsdfdf.pdf'
-    UseFileCache = True
-    ShowProgress = True
-    OverwritePrompt = False
-    CreationTime = 43018.594969548610000000
-    DataOnly = False
-    PrintOptimized = False
-    Outline = False
-    Background = False
-    HTMLTags = True
-    Quality = 100
-    Author = 'FastReport'
-    Subject = 'FastReport PDF export'
-    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
-    HideToolbar = False
-    HideMenubar = False
-    HideWindowUI = False
-    FitWindow = False
-    CenterWindow = False
-    PrintScaling = False
-    Left = 42
-    Top = 278
   end
   object frxGradient: TfrxGradientObject
     Left = 522

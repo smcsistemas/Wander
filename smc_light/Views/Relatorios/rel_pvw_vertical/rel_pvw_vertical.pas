@@ -62,7 +62,7 @@ procedure Tfrm_rel_pvw_vertical.Button1Click(Sender: TObject);
 begin
   SQL_REPORT.Close;
   SQL_REPORT.SQL.Clear;
-  SQL_REPORT.Open('select codigo, descricao_produto, preco_final_varejo from produto where codigo=?', [Edit1.Text]);
+  SQL_REPORT.Open('select PROD_CODIGO, descricao_produto, preco_final_varejo from PRODUTO_PROD where PROD_CODIGO=?', [Edit1.Text]);
 
   FR_REPORT.LoadFromFile('D:\SMC_LIGHT\relatorios\produto.fr3');
   FR_REPORT.PrepareReport(true);

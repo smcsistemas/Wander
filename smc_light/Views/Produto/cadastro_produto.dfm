@@ -41,7 +41,7 @@ object Frm_Produto: TFrm_Produto
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    Properties.ActivePage = tab_Cadastrar
+    Properties.ActivePage = cxTabSheet1
     Properties.ActivateFocusedTab = False
     Properties.CustomButtons.Buttons = <>
     LookAndFeel.NativeStyle = False
@@ -216,7 +216,7 @@ object Frm_Produto: TFrm_Produto
           OnCellDblClick = tbViewCellDblClick
           OnCustomDrawCell = tbViewCustomDrawCell
           DataController.DataSource = DS_Lista
-          DataController.DetailKeyFieldNames = 'CODIGO'
+          DataController.DetailKeyFieldNames = 'PROD_CODIGO'
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
@@ -228,7 +228,7 @@ object Frm_Produto: TFrm_Produto
           OptionsView.GroupByBox = False
           object tbViewCODIGO: TcxGridDBColumn
             Caption = 'C'#243'd.'
-            DataBinding.FieldName = 'CODIGO'
+            DataBinding.FieldName = 'PROD_CODIGO'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taCenter
             HeaderAlignmentHorz = taCenter
@@ -743,6 +743,10 @@ object Frm_Produto: TFrm_Produto
     object tab_Cadastrar: TcxTabSheet
       Caption = 'Cadastro'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel6: TPanel
         Left = 3
         Top = 2
@@ -3902,6 +3906,10 @@ object Frm_Produto: TFrm_Produto
     object tabTributacao: TcxTabSheet
       Caption = ' Tributa'#231#227'o'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel4: TPanel
         Left = -1
         Top = 3
@@ -6375,15 +6383,9 @@ object Frm_Produto: TFrm_Produto
   object qConsulta: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'SELECT * FROM produto')
+      'SELECT * FROM produto_prod')
     Left = 32
     Top = 136
-    object qConsultaCodigo: TFDAutoIncField
-      FieldName = 'Codigo'
-      Origin = 'CODIGO'
-      ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
-    end
     object qConsultacodigo_barras: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'codigo_barras'
@@ -7109,6 +7111,11 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'PROD_TRATANUMEROSERIE'
       Origin = 'PROD_TRATANUMEROSERIE'
+    end
+    object qConsultaPROD_CODIGO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_CODIGO'
+      Origin = 'PROD_CODIGO'
     end
   end
   object tConsulta: TTimer

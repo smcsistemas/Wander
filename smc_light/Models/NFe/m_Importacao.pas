@@ -1,4 +1,12 @@
 unit m_Importacao;
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+325|15/06/20|13:35|m_Importacao                |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+305|15/06/20|10:14|m_Importacao                |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
+========================================================================================================================================
+}
 
 interface
 
@@ -444,19 +452,19 @@ begin
       *)
 
       // Produto vinculado
-      if tchecks.CanStrToNumber(fieldbyname('codigo').asString) then
-        produto := Tproduto.create(fieldbyname('codigo').asInteger)
+      if tchecks.CanStrToNumber(fieldbyname('PROD_CODIGO').asString) then
+        produto := Tproduto.create(fieldbyname('PROD_CODIGO').asString)
       else
       begin
         if not(fieldbyname('cod_barras').asString = '') then
-          produto := Tproduto.get(['codigo_barras'], [fieldbyname('cod_barras').asString]);
+          produto := Tproduto.get(['PROD_EAN'], [fieldbyname('cod_barras').asString]);
 
         if produto = nil then // Produto não Cadastrado
           produto := Tproduto.create;
       end;
 
       produto.DESCRICAO := TFormats.uc(fieldbyname('descricao').asString);
-      produto.CODIGO_BARRAS := fieldbyname('cod_barras').asString;
+      produto.PROD_EAN := fieldbyname('cod_barras').asString;
       produto.MARCA := TFormats.uc(fieldbyname('marca').asString);
       produto.UNIDADE := TFormats.uc(fieldbyname('um').asString);
       produto.ESTOQUE := produto.ESTOQUE + fieldbyname('qtde').asExtended;
@@ -523,7 +531,7 @@ begin
 
       // Atualizando o código do item na table importacao_produtos
       Edit;
-      fieldbyname('codigo').asString := inttostr(produto.CODIGO);
+      fieldbyname('codigo').asString := produto.PROD_CODIGO;
       Post;
 
       produto := nil;

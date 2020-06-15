@@ -1,4 +1,11 @@
 unit vw_etiquetas;
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+309|15/06/20|10:14|vw_etiquetas                |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
+========================================================================================================================================
+}
 
 interface
 
@@ -59,7 +66,6 @@ type
     edtQtde: TcxTextEdit;
     cxLabel2: TcxLabel;
     edtPreco: TcxCurrencyEdit;
-    frxPDF: TfrxPDFExport;
     sql_etiquetasid: TFDAutoIncField;
     sql_etiquetasdescricao: TStringField;
     sql_etiquetaspreco_final_varejo: TBCDField;
@@ -112,7 +118,7 @@ var
 begin
   try
 
-    etiqueta := tetiqueta.get(['id_produto'], [produto.codigo]);
+    etiqueta := tetiqueta.get(['id_produto'], [produto.PROD_CODIGO]);
 
     if etiqueta = nil then
       etiqueta := tetiqueta.create;
@@ -174,7 +180,7 @@ begin
     if edt.Text <> '' then
     begin
 
-      produto := tproduto.create(strtoint(edt.Text));
+      produto := tproduto.create(edt.Text);
       preencher_dados_produto;
 
     end;
@@ -198,7 +204,7 @@ var
 begin
   TfrxMemoView(frPreview.FindObject('mmProduto')).Text := edtProduto.Text;
   TfrxMemoView(frPreview.FindObject('mmPreco')).Text := TFormats.Money(edtPreco.editvalue);
-  cod := inttostr(produto.codigo);
+  cod := produto.PROD_CODIGO;
   len := 7 - length(cod);
   TfrxBarCodeview(frPreview.FindObject('barcode')).Expression := prefix_etiqueta + StringOfChar('0', len) + cod;
   TfrxMemoView(frPreview.FindObject('mmRef')).Text := tfunctions.ifthen(chkRef.Checked, produto.REFERENCIA_FABRICANTE, '');
@@ -233,7 +239,7 @@ end;
 
 procedure Tfrm_etiquetas.preencher_dados_produto;
 begin
-  edtProduto.Text := inttostr(produto.codigo) + ' - ' + produto.descricao;
+  edtProduto.Text := produto.PROD_CODIGO + ' - ' + produto.descricao;
   edtPreco.editvalue := produto.PRECO_FINAL_VAREJO;
   edtRefFabr.Text := produto.REFERENCIA_FABRICANTE;
   tabGerar.Show;
@@ -244,7 +250,7 @@ end;
 
 procedure Tfrm_etiquetas.preencher_dados_produto2;
 begin
-  edtProduto.Text := inttostr(produto.codigo) + ' - ' + produto.descricao;
+  edtProduto.Text := produto.PROD_CODIGO + ' - ' + produto.descricao;
   edtPreco.editvalue := produto.PRECO_FINAL_VAREJO;
   edtRefFabr.Text := produto.REFERENCIA_FABRICANTE;
   btnPreview.Click;

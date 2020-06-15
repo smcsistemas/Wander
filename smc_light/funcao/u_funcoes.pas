@@ -5,6 +5,8 @@ unit u_funcoes;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+320|15/06/20|13:35|u_funcoes                   |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+318|15/06/20|10:14|u_funcoes                   |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 297|15/06/20|03:16|u_funcoes                   |Criado recurso (PINTAR) para destacar objetos focados com amarelo e readonly com cinza
 296|15/06/20|00:59|u_funcoes                   |Criadas funções de manipulação da tabela SEQUENCIAIS_SEQ incluindo bloqueio/desbloqueio
 295|15/06/20|00:59|u_funcoes                   |Criadas funções de controle de uso da tabela SEQUENCIAIS_SEQ
@@ -130,6 +132,12 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//107
+function fProximoCodigo(pTabela,pColuna:String):String;
+//106 15/06/20 06:34 Recebe sigla da unidade e retorna seu codigo
+//function fCodUnidadeMedida(pSigla:String):Integer;
+//105 Troca sigla da Unidade de medida do produto pelo codigo da unidade de medida
+//procedure TrocaUND(pCODIGO,pUnidade:String);
 //104 Destaca objetos focados com amarelo e readonly com cinza
 procedure Pintar(Tela:tForm);
 //103 15/06/20 00:33 Retorna True se a tabela de sequenciais está sendo usada e false se nao
@@ -264,7 +272,7 @@ procedure Registrar_Historico_Bloqueios(pCliente:Integer;pEvento:String);
 //048 Recebe um codigo de Ramo de Ativiadde retorna sua descricao
 function DescricaoCAD_RAMO_ATIVIDADE(pCODIGO:String):String;
 //047 Retorna o próximo código sequencial para um produto novo
-function ProximoProdutoCODIGO:Integer;
+//function ProximoProdutoCODIGO:Integer;
 //046 Retorna o próximo código sequencial para uma nova região
 function ProximoREG_CODIGO:Integer;
 //045 Recebe um codigo de centro de custos e retorna sua classificacao e descricao
@@ -758,7 +766,7 @@ begin
     begin
       qry_temp_aux.Close;
       qry_temp_aux.sql.Clear;
-      qry_temp_aux.sql.Add('SELECT CODIGO,SALDO FROM PRODUTO WHERE CODIGO = ' + quotedstr(FieldByName('CODIGO_PRODUTO').value));
+      qry_temp_aux.sql.Add('SELECT PROD_CODIGO,SALDO FROM PRODUTO_PROD WHERE PROD_CODIGO = ' + quotedstr(FieldByName('CODIGO_PRODUTO').value));
       qry_temp_aux.open;
       qry_temp_aux.Edit;
       if Remover then
@@ -4457,6 +4465,7 @@ begin
 end;
 
 procedure Executar(pTexto:String);
+var i:Integer;
 begin
   // Executa o script contido no parãmetro pTexto
   //----------------------------------------------------------------------------
@@ -4465,7 +4474,13 @@ begin
      Module.Query.sql.clear;
      Module.Query.sql.add(pTexto);
      Module.Query.ExecSql;
-  FINALLY
+  Except
+    on e: exception do
+    begin
+      //WnErro('Erro', e.Message + slinebreak);
+      i:=0;
+    end;
+
   END;
 end;
 
@@ -5178,26 +5193,6 @@ begin
    end;
    result := Q.FieldByName('Classificacao').AsString+'-'+
              Q.FieldByName('Descricao'    ).AsString;
-   Q.Free;
-end;
-
-function ProximoProdutoCODIGO:Integer;
-var Q : tFDQuery;
-begin
-   result := 1;
-
-   q := TFDQuery.Create(nil);
-   q.Connection     := Module.connection;
-   q.ConnectionName := 'connection';
-
-   Q.Close;
-   Q.Sql.Clear;
-   Q.SQL.Add('SELECT MAX(CODIGO) AS ULTIMO');
-   Q.SQL.Add(' FROM PRODUTO               ');
-   Q.Open;
-   if not Q.Eof Then
-      result := Q.FieldByName('ULTIMO').AsInteger + 1;
-
    Q.Free;
 end;
 
@@ -6805,10 +6800,30 @@ begin
      end;
      Tela.Refresh;
      Application.ProcessMessages
-
 end;
 
+{
+procedure TrocaUND(pCODIGO,pUnidade:String);
+var qLocal:TFDQuery;
+begin
+   qLocal := TFDQuery.Create(nil);
+   qLocal.Connection     := Module.connection;
+   qLocal.ConnectionName := 'connection';
 
+   qLocal.Close;
+   qLocal.Sql.clear;
+   qLocal.Sql.Add('UPDATE PRODUTO                      ');
+   qLocal.Sql.Add('   SET UNIDADE_MEDIDA = :COD_UNIDADE');
+   qLocal.Sql.Add(' WHERE CODIGO         = :COD_PRODUTO');
+   qLocal.ParamByName('COD_UNIDADE').AsInteger := fCodUnidadeMedida(pUnidade);
+   qLocal.ParamByName('COD_PRODUTO').AsInteger := pCODIGO;
+
+   qLocal.ExecSql;
+
+   //Libera memória
+   qLocal.free;
+end;
+}
 //##############################################################################
 //                FIM DAS FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################

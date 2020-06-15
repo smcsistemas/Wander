@@ -1,5 +1,11 @@
 unit cad_servico;
 {
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+323|15/06/20|13:35|cad_servico                 |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+========================================================================================================================================
+
 ================================================================================
 |ITEM |DATA |DESENVOLVEDOR       |HISTORICO                                    |
 |-----|-----|--------------------|---------------------------------------------|
@@ -584,9 +590,9 @@ begin
 
    Q.Close;
    Q.Sql.Clear;
-   Q.SQL.Add('DELETE FROM PRODUTO    ');
-   Q.SQL.Add(' WHERE CODIGO = :CODIGO');
-   Q.ParamByName('CODIGO').AsInteger := StrToInt(edCODIGO.Text);
+   Q.SQL.Add('DELETE FROM PRODUTO_PROD         ');
+   Q.SQL.Add(' WHERE PROD_CODIGO = :PROD_CODIGO');
+   Q.ParamByName('PROD_CODIGO').AsString := edCODIGO.Text;
    Q.ExecSql;
 
    Q.Free;
@@ -640,12 +646,12 @@ begin
    SQL_C_Servico.Close;
    SQL_C_Servico.sql.Clear;
    SQL_C_Servico.sql.Add('SELECT *                          ');
-   SQL_C_Servico.sql.Add('  FROM PRODUTO                    ');
+   SQL_C_Servico.sql.Add('  FROM PRODUTO_PROD               ');
    SQL_C_Servico.sql.Add(' WHERE Produto_ou_Servico = ''S'' ');
    if edPESQUISA.Text <> '' then
    begin
       SQL_C_Servico.sql.Add('AND (   (DESCRICAO_PRODUTO LIKE :DESCRICAO_PRODUTO) ');
-      SQL_C_Servico.sql.Add('     OR (CODIGO            LIKE :DESCRICAO_PRODUTO) ');
+      SQL_C_Servico.sql.Add('     OR (PROD_CODIGO       LIKE :DESCRICAO_PRODUTO) ');
       SQL_C_Servico.sql.Add('    )                                               ');
       SQL_C_Servico.ParamByName('DESCRICAO_PRODUTO').AsString := '%'+edPESQUISA.Text+'%';
    end;
@@ -668,17 +674,17 @@ end;
 
 procedure TFrm_cad_servico.Incluir_Registro;
 var Q : tFDQuery;
-    vCODIGO:Integer;
+    vCODIGO:String;
 begin
    if edCODIGO.Text = '' then
    begin
-      vCODIGO := ProximoProdutoCODIGO;
-      RegistraLog('Cadastrou SERVICO: '+IntToStr(vCODIGO)+'-'+edDESCRICAO_PRODUTO.Text);
+      vCODIGO := fProximoCodigo('PRODUTO_PROD','PROD_CODIGO');
+      RegistraLog('Cadastrou SERVICO: '+vCODIGO+'-'+edDESCRICAO_PRODUTO.Text);
    end
    else
    begin
-      vCODIGO := StrToInt(edCODIGO.Text);
-      RegistraLog('Alterou SERVICO: '+IntToStr(vCODIGO)+'-'+edDESCRICAO_PRODUTO.Text);
+      vCODIGO := edCODIGO.Text;
+      RegistraLog('Alterou SERVICO: '+vCODIGO+'-'+edDESCRICAO_PRODUTO.Text);
    end;
 
    q := TFDQuery.Create(nil);
@@ -687,9 +693,9 @@ begin
 
    Q.Close;
    Q.Sql.Clear;
-   Q.SQL.Add('INSERT INTO PRODUTO      ');
+   Q.SQL.Add('INSERT INTO PRODUTO_PROD ');
    Q.SQL.Add('     (                   ');
-   Q.SQL.Add('      CODIGO,            ');
+   Q.SQL.Add('      PROD_CODIGO,       ');
    Q.SQL.Add('      DESCRICAO_PRODUTO, ');
    Q.SQL.Add('      UNIDADE_MEDIDA,    ');
    Q.SQL.Add('      DATA_CADASTRO,     ');
@@ -702,7 +708,7 @@ begin
    Q.SQL.Add('     )                   ');
    Q.SQL.Add('VALUES                   ');
    Q.SQL.Add('     (                   ');
-   Q.SQL.Add('     :CODIGO,            ');
+   Q.SQL.Add('     :PROD_CODIGO,       ');
    Q.SQL.Add('     :DESCRICAO_PRODUTO, ');
    Q.SQL.Add('     :UNIDADE_MEDIDA,    ');
    Q.SQL.Add('     :DATA_CADASTRO,     ');
@@ -713,7 +719,7 @@ begin
    Q.SQL.Add('     :ContaContabil,     ');
    Q.SQL.Add('     :CentroDeCustos     ');
    Q.SQL.Add('     )                   ');
-   Q.ParamByName('CODIGO'            ).AsInteger := vCODIGO;
+   Q.ParamByName('PROD_CODIGO'       ).AsString  := vCODIGO;
    Q.ParamByName('DESCRICAO_PRODUTO' ).AsString  := edDESCRICAO_PRODUTO.Text;
    Q.ParamByName('UNIDADE_MEDIDA'    ).AsString  := cxUNIDADE_MEDIDA.Text;
    Q.ParamByName('DATA_CADASTRO'     ).AsDateTime:= Date;

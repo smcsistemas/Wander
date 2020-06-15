@@ -1,21 +1,17 @@
 unit desconto_acrescimo;
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+308|15/06/20|10:14|desconto_acrescimo          |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
+========================================================================================================================================
+}
 
 interface
 
 uses
   Winapi.Windows, System.SysUtils, System.Variants, System.Classes,
   Vcl.Controls, Vcl.Forms,
-
-
-
-
-
-
-
-
-
-
-
   cxDropDownEdit,
   Vcl.StdCtrls, cxButtons, u_funcoes,
   FireDAC.Stan.Param,
@@ -88,7 +84,7 @@ var
     result := false;
     if Simplequery('select desconto_max_produto from parametros_venda').Fields[0].asString = m_true then
     begin
-      qry_produto := Simplequery('select desconto_m_varejo from produto where codigo = ' + SQL_ITENSCODIGO_PRODUTO.asString);
+      qry_produto := Simplequery('select desconto_m_varejo from produto_prod where prod_codigo = ' + SQL_ITENSCODIGO_PRODUTO.asString);
       if qry_produto <> nil then
       begin
         valor_desc_max := (qry_produto.Fields[0].asExtended / 100) * SQL_ITENSPRECO.asExtended;

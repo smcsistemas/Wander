@@ -1,6 +1,12 @@
 { v 16.11.16 17:44 }
 unit vw_pdv;
-
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+332|15/06/20|13:35|vw_pdv                      |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+========================================================================================================================================
+}
 interface
 
 uses
@@ -155,8 +161,6 @@ type
     lbl_vendedor: TLabel;
     SQL_VendaCOD_NFCE: TStringField;
     SQL_VendaCOD_VENDEDOR: TIntegerField;
-    SQL_ProdutoConsultaCODIGO: TFDAutoIncField;
-    SQL_ProdutoConsultaCODIGO_BARRAS: TStringField;
     SQL_ProdutoConsultaCOD_BARRAS_AUXILIAR: TStringField;
     SQL_ProdutoConsultaDESCRICAO_PRODUTO: TStringField;
     SQL_ProdutoConsultaINFO_ADICIONAIS: TStringField;
@@ -267,6 +271,41 @@ type
     qCaixaDetLancamento: TDateTimeField;
     qCaixaDetCodigoUsuario: TIntegerField;
     qCaixaDetCodigoVenda: TIntegerField;
+    SQL_ProdutoConsultaponto_impressao_id: TIntegerField;
+    SQL_ProdutoConsultaNFe_Veiculo_Cor_Codigo: TStringField;
+    SQL_ProdutoConsultaNFe_Veiculo_Cor_Descricao: TStringField;
+    SQL_ProdutoConsultaNFe_Veiculo_Pot: TStringField;
+    SQL_ProdutoConsultaNFe_Veiculo_Cilin: TStringField;
+    SQL_ProdutoConsultaNFe_Armamento: TIntegerField;
+    SQL_ProdutoConsultaNFe_Combustivel: TIntegerField;
+    SQL_ProdutoConsultaNFe_modBC: TIntegerField;
+    SQL_ProdutoConsultaNFe_modBCST: TIntegerField;
+    SQL_ProdutoConsultaNFe_pMVAST: TBCDField;
+    SQL_ProdutoConsultaNFe_motDesICMS: TIntegerField;
+    SQL_ProdutoConsultaProduto_ou_Servico: TStringField;
+    SQL_ProdutoConsultaPagaComissaoSN: TStringField;
+    SQL_ProdutoConsultaContaContabil: TIntegerField;
+    SQL_ProdutoConsultaCentroDeCustos: TIntegerField;
+    SQL_ProdutoConsultaNFe_indTot: TIntegerField;
+    SQL_ProdutoConsultaNFe_Medicamento: TIntegerField;
+    SQL_ProdutoConsultaCODIGO_ALFANUMERICO: TStringField;
+    SQL_ProdutoConsultaVALOR_PAUTA_BC: TBCDField;
+    SQL_ProdutoConsultaNFe_pMVA: TBCDField;
+    SQL_ProdutoConsultaNFe_indEscala: TIntegerField;
+    SQL_ProdutoConsultaPROD_RASTREAVEL: TIntegerField;
+    SQL_ProdutoConsultaPROD_TRATALOTE: TIntegerField;
+    SQL_ProdutoConsultaPROD_TRATANUMEROSERIE: TIntegerField;
+    SQL_ProdutoConsultaNFe_VeiculoNovo: TIntegerField;
+    SQL_ProdutoConsultaNFe_nDI: TStringField;
+    SQL_ProdutoConsultaNFe_dDI: TDateTimeField;
+    SQL_ProdutoConsultaNFe_xLocDesemb: TStringField;
+    SQL_ProdutoConsultaNFe_UFDesemb: TStringField;
+    SQL_ProdutoConsultaNFe_dDesemb: TDateTimeField;
+    SQL_ProdutoConsultaNFe_cExportador: TStringField;
+    SQL_ProdutoConsultaNFe_nAdicao: TIntegerField;
+    SQL_ProdutoConsultaNFe_cFabricante: TStringField;
+    SQL_ProdutoConsultaNFe_vDescDI: TBCDField;
+    SQL_ProdutoConsultaPROD_CODIGO: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Edt_codBarrasKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure BtnFecharVendaClick(Sender: TObject);
@@ -876,7 +915,7 @@ var
   qry, qry_cod: TFDQuery;
 begin
   qry_cod := Tdb.simplequery
-    ('select CODIGO, CODIGO_BARRAS, DESCRICAO_PRODUTO, UNIDADE_MEDIDA, SALDO, REFERENCIA_FABRICANTE, MARCA, PRECO_FINAL_VAREJO from produto where codigo = "' +
+    ('select PROD_CODIGO, PROD_EAN, DESCRICAO_PRODUTO, UNIDADE_MEDIDA, SALDO, REFERENCIA_FABRICANTE, MARCA, PRECO_FINAL_VAREJO from PRODUTO_PROD where PROD_CODIGO = "' +
     Edt_codBarras.Text + '" OR REFERENCIA_FABRICANTE = "' + Edt_codBarras.Text + '"');
   if qry_cod <> nil then
   begin
@@ -890,7 +929,7 @@ begin
       exit;
     end;
   end;
-  qry := Tdb.simplequery('select codigo from produto where referencia_fabricante = "' + Edt_codBarras.Text + '"');
+  qry := Tdb.simplequery('select PROD_CODIGO from PRODUTO_PROD where referencia_fabricante = "' + Edt_codBarras.Text + '"');
   if (qry <> nil) then
     Edt_codBarras.Text := qry.Fields[0].Text;
 end;
@@ -959,18 +998,18 @@ begin
     querytmp := TFDQuery.create(nil);
     querytmp.connection := module.connection;
     Close;
-    SQL.Add('SELECT * FROM PRODUTO');
+    SQL.Add('SELECT * FROM PRODUTO_PROD');
     if (length(Cod_CodBarras_Descricao.Text) >= 8) and IsNumber(Cod_CodBarras_Descricao.Text) then // Código de barras
-      SQL.Add('WHERE CODIGO_BARRAS = ' + quotedstr(Cod_CodBarras_Descricao.Text));
+      SQL.Add('WHERE PROD_EAN = ' + quotedstr(Cod_CodBarras_Descricao.Text));
     if (length(Cod_CodBarras_Descricao.Text) < 8) and IsNumber(Cod_CodBarras_Descricao.Text) then // Código do produto
-      SQL.Add(' WHERE CODIGO = ' + quotedstr(Cod_CodBarras_Descricao.Text));
+      SQL.Add(' WHERE PROD_CODIGO = ' + quotedstr(Cod_CodBarras_Descricao.Text));
     if not IsNumber(Cod_CodBarras_Descricao.Text) then // Descrição do produto
       SQL.Add(' WHERE DESCRICAO_PRODUTO LIKE ''%' + Cod_CodBarras_Descricao.Text + '%''');
     open;
     if RecordCount = 1 then
     // Encontra apenas um produto
     begin
-      result := FieldByName('CODIGO').Value // Retorna apenas o céª´igo
+      result := FieldByName('PROD_CODIGO').Value // Retorna apenas o codigo
     end
     else if RecordCount > 1 then
     // Encontra mais de um produto com a mesma descrição
@@ -1078,7 +1117,7 @@ var
         if simplequery('select preco_promocional from parametros_venda').Fields[0].AsString = m_true then
         begin
           qry := Tdb.simplequery
-            ('SELECT PRECO_FINAL_VAREJO, VALOR_PROMOCIONAL_VAREJO,PROMOCAO_INICIO, PROMOCAO_TERMINO FROM PRODUTO WHERE ? BETWEEN PROMOCAO_INICIO AND PROMOCAO_TERMINO AND CODIGO = ?',
+            ('SELECT PRECO_FINAL_VAREJO, VALOR_PROMOCIONAL_VAREJO,PROMOCAO_INICIO, PROMOCAO_TERMINO FROM PRODUTO_PROD WHERE ? BETWEEN PROMOCAO_INICIO AND PROMOCAO_TERMINO AND PROD_CODIGO = ?',
             [now, cod_prod]);
           if qry <> nil then
           begin
@@ -1110,7 +1149,7 @@ var
 
 begin
   cod_prod := BuscarCodigo(Cod_CodBarras_Descricao);
-  ConsultaEstoque := simplequery('SELECT CODIGO, SALDO, DESCRICAO_PRODUTO, PRECO_FINAL_VAREJO, UNIDADE_MEDIDA, STATUS_CADASTRAL FROM PRODUTO WHERE CODIGO = ?',
+  ConsultaEstoque := simplequery('SELECT PROD_CODIGO, SALDO, DESCRICAO_PRODUTO, PRECO_FINAL_VAREJO, UNIDADE_MEDIDA, STATUS_CADASTRAL FROM PRODUTO_PROD WHERE CODIGO = ?',
     [cod_prod]);
   if ConsultaEstoque <> nil then
   begin
@@ -1173,14 +1212,14 @@ begin
       qtdecasas := FieldByName('COD_PRODUTO_BALANCA').asInteger;
       CodProdBal := copy(Edt_codBarras.Text, 2, qtdecasas);
       FinalPesoPreco := copy(Edt_codBarras.Text, 2 + qtdecasas, -2 - qtdecasas + length(Edt_codBarras.Text));
-      qry := simplequery('SELECT CODIGO, PRECO_FINAL_VAREJO FROM PRODUTO WHERE LPAD(COD_BALANCA_1,' + IntToStr(qtdecasas) + ',0) = ' + quotedstr(CodProdBal));
+      qry := simplequery('SELECT PROD_CODIGO, PRECO_FINAL_VAREJO FROM PRODUTO_PROD WHERE LPAD(COD_BALANCA_1,' + IntToStr(qtdecasas) + ',0) = ' + quotedstr(CodProdBal));
       if qry = nil then
-        qry := simplequery('SELECT CODIGO, PRECO_FINAL_VAREJO FROM PRODUTO WHERE LPAD(COD_BALANCA_2,' + IntToStr(qtdecasas) + ',0) = ' + quotedstr(CodProdBal));
+        qry := simplequery('SELECT PROD_CODIGO, PRECO_FINAL_VAREJO FROM PRODUTO_PROD WHERE LPAD(COD_BALANCA_2,' + IntToStr(qtdecasas) + ',0) = ' + quotedstr(CodProdBal));
       if qry = nil then
-        qry := simplequery('SELECT CODIGO, PRECO_FINAL_VAREJO FROM PRODUTO WHERE LPAD(COD_BALANCA_3,' + IntToStr(qtdecasas) + ',0) = ' + quotedstr(CodProdBal));
+        qry := simplequery('SELECT PROD_CODIGO, PRECO_FINAL_VAREJO FROM PRODUTO_PROD WHERE LPAD(COD_BALANCA_3,' + IntToStr(qtdecasas) + ',0) = ' + quotedstr(CodProdBal));
       if qry <> nil then
       begin
-        codProd := FieldByName('CODIGO').AsString;
+        codProd := FieldByName('PROD_CODIGO').AsString;
         PrecoProduto := FieldByName('PRECO_FINAL_VAREJO').Value;
         if TpEtiqueta = 'PESO' then
         begin
@@ -1223,7 +1262,7 @@ begin
   _qtde := strtofloat(Qtde.Text);
   if simplequery('select VENDA_SEM_ESTOQUE from parametros_venda').Fields[0].AsString = m_false then
   begin
-    qry := simplequery('select saldo, unidade_medida from produto where codigo = ' + cod_produto);
+    qry := simplequery('select saldo, unidade_medida from PRODUTO_PROD where PROD_CODIGO = ' + cod_produto);
     estoque_cad := qry.Fields[0].asextended;
     um := qry.Fields[1].AsString;
     if cod_venda <> emptystr then
@@ -1341,7 +1380,7 @@ var
 begin
 
   if aplica_preco_promo then
-    preco_produto := Tdb.simplequery('SELECT VALOR_PROMOCIONAL_VAREJO from PRODUTO where codigo = ?', [SQL_ProdutoConsultaCODIGO.Value]).Fields[0].asextended
+    preco_produto := Tdb.simplequery('SELECT VALOR_PROMOCIONAL_VAREJO from PRODUTO_PROD where PROD_CODIGO = ?', [SQL_ProdutoConsultaPROD_CODIGO.Value]).Fields[0].asextended
   else
   begin
     if simplequery('select produto_preco_faixa from parametros_sistema').Fields[0].AsString = m_false then
@@ -1351,7 +1390,7 @@ begin
     begin
       //qry := simplequery('select preco from produto_preco_faixa where :p1 >= qtde and id_produto = :p2 and tipo="VAREJO" order by preco desc limit 1',
       qry := simplequery('select preco from produto_preco_faixa where :p1 >= qtde and id_produto = :p2 and tipo="VAREJO" order by qtde desc limit 1',
-        [strtofloat(Qtde.Text), SQL_ProdutoConsultaCODIGO.Value]);
+        [strtofloat(Qtde.Text), SQL_ProdutoConsultaPROD_CODIGO.Value]);
       if qry <> nil then
         preco_produto := qry.Fields[0].asextended
       else
@@ -1371,14 +1410,14 @@ begin
     SQL.Add(' values (DEFAULT, :pcodigo_venda, :pcodigo_item_venda, :pcodigo_produto, :pdescricao, :punidade, :pquantidade, :ppreco, :pacrescimo, :pdesconto, :ppreco_custo, :ppreco_total)');
     Params.ParamByName('pcodigo_venda').Value := lbl_cod_venda.Caption;
     Params.ParamByName('pcodigo_item_venda').Value := FORM_PDV.item;
-    Params.ParamByName('pcodigo_produto').Value := SQL_ProdutoConsultaCODIGO.Value;
+    Params.ParamByName('pcodigo_produto').Value := SQL_ProdutoConsultaPROD_CODIGO.Value;
     Params.ParamByName('pdescricao').Value := SQL_ProdutoConsultaDESCRICAO_PRODUTO.Value;
     Params.ParamByName('punidade').Value := SQL_ProdutoConsultaUNIDADE_MEDIDA.Value;
     Params.ParamByName('pquantidade').asextended := strtofloat(Qtde.Text);
     Params.ParamByName('ppreco').asextended := preco_produto;
     Params.ParamByName('pacrescimo').asextended := 0.00;
     Params.ParamByName('pdesconto').asextended := 0.00;
-    Params.ParamByName('ppreco_custo').asextended := simplequery('SELECT CUSTO_MEDIO FROM PRODUTO WHERE CODIGO=' + SQL_ProdutoConsultaCODIGO.AsString)
+    Params.ParamByName('ppreco_custo').asextended := simplequery('SELECT CUSTO_MEDIO FROM PRODUTO_PROD WHERE PROD_CODIGO=' + SQL_ProdutoConsultaPROD_CODIGO.AsString)
       .Fields[0].asextended;
     Params.ParamByName('ppreco_total').asextended := precototal;
     ExecSQL;
@@ -1403,12 +1442,12 @@ begin
   cod_prod := BuscarCodigo(edt_alterar_preco);
   if cod_prod <> emptystr then
   begin
-    qry := simplequery('SELECT PRECO_FINAL_VAREJO FROM PRODUTO WHERE CODIGO=' + cod_prod);
+    qry := simplequery('SELECT PRECO_FINAL_VAREJO FROM PRODUTO_PROD WHERE PROD_CODIGO=' + cod_prod);
     if qry <> nil then
     begin
       if not(ansimatchstr(frm_alterar_preco_pdv.edt_novo_preco.Text, [emptystr, '0'])) then
       begin
-        EXECQUERY('UPDATE PRODUTO SET PRECO_FINAL_VAREJO = ' + TrocaVirgPPto(frm_alterar_preco_pdv.edt_novo_preco.Text) + ' WHERE CODIGO = ' + cod_prod);
+        EXECQUERY('UPDATE PRODUTO_PROD SET PRECO_FINAL_VAREJO = ' + TrocaVirgPPto(frm_alterar_preco_pdv.edt_novo_preco.Text) + ' WHERE PROD_CODIGO = ' + cod_prod);
         modal_result_ap := mrOk;
         frm_alterar_preco_pdv.Close;
         PreencherDadosProduto(edt_alterar_preco, edt_qtde_alterar_preco, lbl_descricao_produto, lbl_preco_unitario, lbl_unidade_medida);
@@ -1422,7 +1461,7 @@ var
   qry: TFDQuery;
   ds: TDataSource;
 begin
-  qry := simplequery('SELECT CODIGO as CODIGO_ITEM_VENDA, DESCRICAO_PRODUTO as DESCRICAO, PRECO_FINAL_VAREJO as PRECO FROM PRODUTO WHERE CODIGO = ' +
+  qry := simplequery('SELECT PROD_CODIGO as CODIGO_ITEM_VENDA, DESCRICAO_PRODUTO as DESCRICAO, PRECO_FINAL_VAREJO as PRECO FROM PRODUTO_PROD WHERE PROD_CODIGO = ' +
     BuscarCodigo(edt_alterar_preco));
   if qry <> nil then
   begin
@@ -1474,7 +1513,7 @@ begin
       if simplequery('select produto_preco_faixa from parametros_sistema').Fields[0].AsString = m_true then
       begin
         qry := simplequery('select preco from produto_preco_faixa where :p1 >= qtde and id_produto = :p2 and tipo="VAREJO" order by qtde desc limit 1',
-          [NovaQuantidade, SQL_ProdutoConsultaCODIGO.Value]);
+          [NovaQuantidade, SQL_ProdutoConsultaPROD_CODIGO.Value]);
         if qry <> nil then
           PrecoItem := qry.Fields[0].asextended
         else
@@ -2113,8 +2152,8 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Select * from produto');
-    SQL.Add('WHERE CODIGO = :pcodigo');
+    SQL.Add('Select * from PRODUTO_PROD');
+    SQL.Add('WHERE PROD_CODIGO = :pcodigo');
     ParamByName('pcodigo').Value := BuscarCodigo(Cod_CodBarras_Descricao);
     open;
   end;

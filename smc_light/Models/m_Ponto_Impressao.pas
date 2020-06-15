@@ -73,7 +73,7 @@ var
   arrProdutoImpressao: TArray<TProdutoImpressao>;
 begin
   result := nil;
-  qry := tdb.simplequery('select * from produto ' + tdb.GenWhere(Fields), Values);
+  qry := tdb.simplequery('select * from PRODUTO_PROD ' + tdb.GenWhere(Fields), Values);
   if qry <> nil then
   begin
     qry.first;

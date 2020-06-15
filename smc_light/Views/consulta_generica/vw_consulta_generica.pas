@@ -4,6 +4,8 @@ unit vw_consulta_generica;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+333|15/06/20|14:28|vw_consulta_generica        |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
+314|15/06/20|10:14|vw_consulta_generica        |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 288|11/06/20|12:10|vw_consulta_generica        |Criada a consulta genérica para a tabela Transportadora_Veiculo
 ========================================================================================================================================
 
@@ -113,7 +115,7 @@ type
   const
     DEFAULT_LIMIT = ' LIMIT 1000';
     PRODUTO_QUERY_BASE =
-      'SELECT CODIGO, CODIGO_BARRAS, DESCRICAO_PRODUTO, UNIDADE_MEDIDA, SALDO, REFERENCIA_FABRICANTE, MARCA, PRECO_FINAL_VAREJO FROM PRODUTO WHERE STATUS_CADASTRAL <> "INATIVO"';
+      'SELECT PROD_CODIGO, PROD_EAN, DESCRICAO_PRODUTO, UNIDADE_MEDIDA, SALDO, REFERENCIA_FABRICANTE, MARCA, PRECO_FINAL_VAREJO FROM PRODUTO_PROD WHERE STATUS_CADASTRAL <> "INATIVO"';
     FORNECEDOR_QUERY_BASE = 'SELECT CODIGO, RAZAO_SOCIAL, NOME_FANTASIA, CNPJ_CPF FROM FORNECEDOR';
     USUARIO_QUERY_BASE = 'SELECT CODIGO, USUARIO FROM USUARIO WHERE TIPO_USUARIO <> "SISTEMA"';
     CLIENTE_QUERY_BASE = 'SELECT CODIGO, RAZAO_SOCIAL, FANTASIA, CPF, CNPJ, PESSOA_TIPO FROM CLIENTE WHERE STATUS_CADASTRAL = "ATIVO"';
@@ -961,7 +963,7 @@ function TFrm_Consulta_Generica.GetOrderBy: string;
 begin
   case cgTable of
     cgProduto:
-      result := ' ORDER BY ' + f(['CODIGO', 'CODIGO_BARRAS', 'DESCRICAO_PRODUTO', 'UNIDADE_MEDIDA', 'SALDO', 'REFERENCIA_FABRICANTE',
+      result := ' ORDER BY ' + f(['CODIGO', 'PROD_EAN', 'DESCRICAO_PRODUTO', 'UNIDADE_MEDIDA', 'SALDO', 'REFERENCIA_FABRICANTE',
         'MARCA', 'PRECO_FINAL_VAREJO']);
     cgFornecedor:
       result := ' ORDER BY ' + f(['CODIGO', 'RAZAO_SOCIAL', 'NOME_FANTASIA', 'CNPJ_CPF']);

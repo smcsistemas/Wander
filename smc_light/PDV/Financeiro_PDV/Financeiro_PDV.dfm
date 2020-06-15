@@ -25,8 +25,6 @@ object Frm_Recebimento: TFrm_Recebimento
   OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
   OnShow = FormShow
-  ExplicitWidth = 320
-  ExplicitHeight = 240
   PixelsPerInch = 96
   TextHeight = 13
   object GroupBox2: TGroupBox
@@ -1409,177 +1407,8 @@ object Frm_Recebimento: TFrm_Recebimento
   end
   object SQL_Venda_Item: TFDQuery
     Connection = Module.connection
-    SQL.Strings = (
-      'select '
-      ''
-      
-        '     vi.CODIGO_PRODUTO, vi.CODIGO_VENDA,vi.QUANTIDADE,vi.PRECO,v' +
-        'i.PRECO_TOTAL,vi.ACRESCIMO,vi.DESCONTO,vi.CODIGO_ITEM_VENDA,'
-      
-        '     p.CODIGO,p.DESCRICAO_PRODUTO,p.NCM,p.FRETE,p.ICMS_CST,p.UNI' +
-        'DADE_MEDIDA,p.CODIGO_ORIGEM_MERCADORIA,p.ALIQ_ICMS, p.CSOSN,'
-      '     p.CEST, p.CODIGO_BARRAS, p.PIS_CST, p.COFINS_CST'
-      ''
-      'from venda_item vi'
-      ''
-      'inner join produto p ON (vi.CODIGO_PRODUTO = p.CODIGO)'
-      ''
-      'WHERE vi.CODIGO_VENDA = :pcodigo')
     Left = 376
     Top = 288
-    ParamData = <
-      item
-        Name = 'PCODIGO'
-        DataType = ftWideString
-        ParamType = ptInput
-        Value = Null
-      end>
-    object SQL_Venda_ItemCODIGO_PRODUTO: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_PRODUTO'
-      Origin = 'CODIGO_PRODUTO'
-    end
-    object SQL_Venda_ItemCODIGO_VENDA: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_VENDA'
-      Origin = 'CODIGO_VENDA'
-    end
-    object SQL_Venda_ItemQUANTIDADE: TSingleField
-      AutoGenerateValue = arDefault
-      FieldName = 'QUANTIDADE'
-      Origin = 'QUANTIDADE'
-    end
-    object SQL_Venda_ItemPRECO: TBCDField
-      FieldName = 'PRECO'
-      Origin = 'PRECO'
-      currency = True
-      Precision = 10
-    end
-    object SQL_Venda_ItemPRECO_TOTAL: TBCDField
-      FieldName = 'PRECO_TOTAL'
-      Origin = 'PRECO_TOTAL'
-      currency = True
-      Precision = 10
-    end
-    object SQL_Venda_ItemACRESCIMO: TBCDField
-      FieldName = 'ACRESCIMO'
-      Origin = 'ACRESCIMO'
-      currency = True
-      Precision = 10
-    end
-    object SQL_Venda_ItemDESCONTO: TBCDField
-      FieldName = 'DESCONTO'
-      Origin = 'DESCONTO'
-      currency = True
-      Precision = 10
-    end
-    object SQL_Venda_ItemCODIGO_ITEM_VENDA: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_ITEM_VENDA'
-      Origin = 'CODIGO_ITEM_VENDA'
-    end
-    object SQL_Venda_ItemCODIGO: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      ProviderFlags = [pfInKey]
-      ReadOnly = True
-    end
-    object SQL_Venda_ItemDESCRICAO_PRODUTO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO_PRODUTO'
-      Origin = 'DESCRICAO_PRODUTO'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 200
-    end
-    object SQL_Venda_ItemNCM: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'NCM'
-      Origin = 'NCM'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 50
-    end
-    object SQL_Venda_ItemFRETE: TBCDField
-      FieldName = 'FRETE'
-      Origin = 'FRETE'
-      ProviderFlags = []
-      ReadOnly = True
-      currency = True
-      Precision = 10
-    end
-    object SQL_Venda_ItemICMS_CST: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'ICMS_CST'
-      Origin = 'ICMS_CST'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 2
-    end
-    object SQL_Venda_ItemUNIDADE_MEDIDA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'UNIDADE_MEDIDA'
-      Origin = 'UNIDADE_MEDIDA'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 50
-    end
-    object SQL_Venda_ItemALIQ_ICMS: TBCDField
-      FieldName = 'ALIQ_ICMS'
-      Origin = 'ALIQ_ICMS'
-      ProviderFlags = []
-      ReadOnly = True
-      currency = True
-      Precision = 10
-    end
-    object SQL_Venda_ItemCSOSN: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CSOSN'
-      Origin = 'CSOSN'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 200
-    end
-    object SQL_Venda_ItemCEST: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CEST'
-      Origin = 'CEST'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 50
-    end
-    object SQL_Venda_ItemCODIGO_BARRAS: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_BARRAS'
-      Origin = 'CODIGO_BARRAS'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 50
-    end
-    object SQL_Venda_ItemPIS_CST: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'PIS_CST'
-      Origin = 'PIS_CST'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 2
-    end
-    object SQL_Venda_ItemCOFINS_CST: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'COFINS_CST'
-      Origin = 'COFINS_CST'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 2
-    end
-    object SQL_Venda_ItemCODIGO_ORIGEM_MERCADORIA: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_ORIGEM_MERCADORIA'
-      Origin = 'CODIGO_ORIGEM_MERCADORIA'
-      ProviderFlags = []
-      ReadOnly = True
-    end
   end
   object SQL_NFCE: TFDQuery
     Connection = Module.connection
@@ -1940,6 +1769,198 @@ object Frm_Recebimento: TFrm_Recebimento
       FieldName = 'COD_NFCE'
       Origin = 'COD_NFCE'
       Size = 10
+    end
+    object SQL_VENDATELEFONE_CLIENTE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TELEFONE_CLIENTE'
+      Origin = 'TELEFONE_CLIENTE'
+      Size = 50
+    end
+    object SQL_VENDARUA_CLIENTE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'RUA_CLIENTE'
+      Origin = 'RUA_CLIENTE'
+      Size = 100
+    end
+    object SQL_VENDANUMERO_CLIENTE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NUMERO_CLIENTE'
+      Origin = 'NUMERO_CLIENTE'
+      Size = 5
+    end
+    object SQL_VENDABAIRRO_CLIENTE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'BAIRRO_CLIENTE'
+      Origin = 'BAIRRO_CLIENTE'
+      Size = 50
+    end
+    object SQL_VENDACOD_VENDEDOR: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'COD_VENDEDOR'
+      Origin = 'COD_VENDEDOR'
+    end
+    object SQL_VENDAconveniado_id: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'conveniado_id'
+      Origin = 'conveniado_id'
+    end
+    object SQL_VENDAcomanda: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'comanda'
+      Origin = 'comanda'
+    end
+    object SQL_VENDAagrupou_venda: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'agrupou_venda'
+      Origin = 'agrupou_venda'
+    end
+    object SQL_VENDAIdCaixa: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'IdCaixa'
+      Origin = 'IdCaixa'
+    end
+    object SQL_VENDASTATUSNFe: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'STATUSNFe'
+      Origin = 'STATUSNFe'
+    end
+    object SQL_VENDANOTAFISCAL: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOTAFISCAL'
+      Origin = 'NOTAFISCAL'
+      Size = 10
+    end
+    object SQL_VENDAVENDA_TPMOV: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_TPMOV'
+      Origin = 'VENDA_TPMOV'
+      Size = 10
+    end
+    object SQL_VENDAvenda_natureza_operacao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'venda_natureza_operacao'
+      Origin = 'venda_natureza_operacao'
+    end
+    object SQL_VENDAvenda_tipo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'venda_tipo'
+      Origin = 'venda_tipo'
+    end
+    object SQL_VENDAPED_NFREFERENCIA_PRODUTOR_RURAL: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PED_NFREFERENCIA_PRODUTOR_RURAL'
+      Origin = 'PED_NFREFERENCIA_PRODUTOR_RURAL'
+    end
+    object SQL_VENDAPED_NFREFERENCIA_UF: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PED_NFREFERENCIA_UF'
+      Origin = 'PED_NFREFERENCIA_UF'
+    end
+    object SQL_VENDAPED_NFREFERENCIA_DTEMISSAO: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'PED_NFREFERENCIA_DTEMISSAO'
+      Origin = 'PED_NFREFERENCIA_DTEMISSAO'
+    end
+    object SQL_VENDAPED_NFREFERENCIA_CNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PED_NFREFERENCIA_CNPJ'
+      Origin = 'PED_NFREFERENCIA_CNPJ'
+      Size = 14
+    end
+    object SQL_VENDAPED_NFREFERENCIA_CPF: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PED_NFREFERENCIA_CPF'
+      Origin = 'PED_NFREFERENCIA_CPF'
+      Size = 11
+    end
+    object SQL_VENDAPED_NFREFERENCIA_IE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PED_NFREFERENCIA_IE'
+      Origin = 'PED_NFREFERENCIA_IE'
+      Size = 14
+    end
+    object SQL_VENDAPED_NFREFERENCIA_MODELO: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PED_NFREFERENCIA_MODELO'
+      Origin = 'PED_NFREFERENCIA_MODELO'
+    end
+    object SQL_VENDAPED_NFREFERENCIA_SERIE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PED_NFREFERENCIA_SERIE'
+      Origin = 'PED_NFREFERENCIA_SERIE'
+    end
+    object SQL_VENDAPED_NFREFERENCIA_REFCTE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PED_NFREFERENCIA_REFCTE'
+      Origin = 'PED_NFREFERENCIA_REFCTE'
+      Size = 40
+    end
+    object SQL_VENDAPED_NFREFERENCIA_ECF_NECF: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PED_NFREFERENCIA_ECF_NECF'
+      Origin = 'PED_NFREFERENCIA_ECF_NECF'
+      Size = 3
+    end
+    object SQL_VENDAPED_NFREFERENCIA_ECF_Modelo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PED_NFREFERENCIA_ECF_Modelo'
+      Origin = 'PED_NFREFERENCIA_ECF_Modelo'
+    end
+    object SQL_VENDAPED_NFREFERENCIA_ECF_NCOO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PED_NFREFERENCIA_ECF_NCOO'
+      Origin = 'PED_NFREFERENCIA_ECF_NCOO'
+      Size = 6
+    end
+    object SQL_VENDANFe_Veiculo_tpOp: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Veiculo_tpOp'
+      Origin = 'NFe_Veiculo_tpOp'
+    end
+    object SQL_VENDATransportador: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'Transportador'
+      Origin = 'Transportador'
+    end
+    object SQL_VENDATransportador_Veiculo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'Transportador_Veiculo'
+      Origin = 'Transportador_Veiculo'
+    end
+    object SQL_VENDANFe_QVOL: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_QVOL'
+      Origin = 'NFe_QVOL'
+    end
+    object SQL_VENDANFe_ESP: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_ESP'
+      Origin = 'NFe_ESP'
+      Size = 60
+    end
+    object SQL_VENDANFe_MARCA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_MARCA'
+      Origin = 'NFe_MARCA'
+      Size = 60
+    end
+    object SQL_VENDANFe_NVOL: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_NVOL'
+      Origin = 'NFe_NVOL'
+      Size = 60
+    end
+    object SQL_VENDANFe_PESOL: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_PESOL'
+      Origin = 'NFe_PESOL'
+      Precision = 10
+    end
+    object SQL_VENDANFe_PESOB: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_PESOB'
+      Origin = 'NFe_PESOB'
+      Precision = 10
     end
   end
 end

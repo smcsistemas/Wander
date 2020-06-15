@@ -621,8 +621,8 @@ object Frm_Consultar_Preco: TFrm_Consultar_Preco
   object SQL_ProdutoConsulta: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'Select * from produto'
-      'WHERE CODIGO_BARRAS LIKE :pcodigobarras')
+      'Select * from PRODUTO_PROD'
+      'WHERE PROD_EAN LIKE :pcodigobarras')
     Left = 598
     Top = 15
     ParamData = <
@@ -633,15 +633,15 @@ object Frm_Consultar_Preco: TFrm_Consultar_Preco
         Value = '1'
       end>
     object SQL_ProdutoConsultaCODIGO: TFDAutoIncField
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
+      FieldName = 'PROD_CODIGO'
+      Origin = 'PROD_CODIGO'
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
-    object SQL_ProdutoConsultaCODIGO_BARRAS: TStringField
+    object SQL_ProdutoConsultaPROD_EAN: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_BARRAS'
-      Origin = 'CODIGO_BARRAS'
+      FieldName = 'PROD_EAN'
+      Origin = 'PROD_EAN'
       Size = 50
     end
     object SQL_ProdutoConsultaCOD_BARRAS_AUXILIAR: TStringField
@@ -1034,23 +1034,11 @@ object Frm_Consultar_Preco: TFrm_Consultar_Preco
       Origin = 'ORIGEM_MERCADORIA'
       Size = 100
     end
-    object SQL_ProdutoConsultaCSOSN: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CSOSN'
-      Origin = 'CSOSN'
-      Size = 200
-    end
     object SQL_ProdutoConsultaNCM: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'NCM'
       Origin = 'NCM'
       Size = 50
-    end
-    object SQL_ProdutoConsultaCFOP: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CFOP'
-      Origin = 'CFOP'
-      Size = 5
     end
     object SQL_ProdutoConsultaCEST: TStringField
       AutoGenerateValue = arDefault

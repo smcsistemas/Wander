@@ -3,6 +3,9 @@ unit Atualizador;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+319|15/06/20|13:35|atualizador                 |CODIGO_BARRAS tamanho 50 Substituído PROD_EAN tamanho 20
+301|15/06/20|08:48|atualizador                 |CODiGO numérico 11 do produto substituído por PROD_CODIGO alfanumérico 20
+300|15/06/20|08:48|atualizador                 |Tabela PRODUTO substituída por PRODUTO_PROD
 294|15/06/20|00:59|Atualizador                 |Criada tabela CONTROLE_CTRL: Tabela de Controles diversos do sistema
 293|15/06/20|00:59|Atualizador                 |Criada tabela SEQUENCIAIS_SEQ para armazenas os sequenciais de códigos das demais tabelas do sistema
 292|15/06/20|00:59|Atualizador                 |Criada tabela PASSOS_PAS para registrar passos internos do sistema em busca de motivos de bugs
@@ -200,17 +203,19 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DBXMySQL,
   Data.DBXPool, Data.DB, Data.SqlExpr, Data.Win.ADODB, cxClasses,
   dxServerModeData, dxServerModeADODataSource, liberacao, v_Env,
-  FireDAC.Comp.Client;
+  FireDAC.Comp.Client, Vcl.ComCtrls;
 
 type
   TfrmAtualizador = class(TForm)
     bAtualizar: TButton;
     mmExecutado: TMemo;
     Button1: TButton;
+    ProgressBar1: TProgressBar;
     procedure bAtualizarClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
+   procedure Avisa(pFrase:String);
    procedure AtualizarBancoDeDados;
    procedure Atualizacao01;
    procedure DesconectarBancoDeDados;
@@ -224,6 +229,8 @@ type
                                                              pRCC_CSOSN,
                                                              pRCC_CFOP      :String);
    procedure Converte_PROD_CST_PISCOFINS_em_RELACAO_RPC_Para_TPMOV_igual_a_1;
+   procedure Converte_PRODUTO_em_PRODUTO_PROD;
+   procedure Converte_PRODUTO_CODIGO_em_PROD_CODIGO;
 
   public
     { Public declarations }
@@ -272,6 +279,11 @@ end;
 procedure TfrmAtualizador.Button1Click(Sender: TObject);
 begin
    Close;
+end;
+
+procedure TfrmAtualizador.Avisa(pFrase:String);
+begin
+  mmExecutado.Lines.Add(pFrase);
 end;
 
 procedure TfrmAtualizador.AtualizarBancoDeDados;
@@ -335,7 +347,7 @@ begin
    // Se não foi executado, Informa no Memo e retorna true, caso contrário, retorna false
    if NaoAtualizado(pScript) then
    begin
-      mmExecutado.Lines.Add(pScript);
+      Avisa(pScript);
       Result := True;
    end
    else
@@ -397,7 +409,7 @@ begin
    while not qPRODUTO.eof do
    begin
      //Mostra o nome do produto que irá associar
-     mmExecutado.Lines.Add(qPRODUTO.FieldByName('DESCRICAO_PRODUTO').AsString);
+     Avisa('CST/CSOSN/TPMOV: '+qPRODUTO.FieldByName('DESCRICAO_PRODUTO').AsString);
      frmAtualizador.Refresh;
      Application.ProcessMessages;
 
@@ -437,6 +449,227 @@ begin
        Module.Query.ExecSQL;
     end;
 end;
+
+procedure TfrmAtualizador.Converte_PRODUTO_CODIGO_em_PROD_CODIGO;
+var qCODIGO,     // Trata estrutura antiga
+    qPROD_CODIGO // Trata nova estrutura
+                : tFDQuery;
+    vContador:Integer;
+begin
+   //Torna o código do produto alfanumérico e sequencial... (se usuário desejar)
+   // --------------------------------------------------------------------------
+
+   mmExecutado.Lines.Clear;
+   //Cria coluna PROD_CODIGO (nova chave da tabela)
+   Executar('ALTER TABLE PRODUTO_PROD ADD PROD_CODIGO VARCHAR(20) NULL COMMENT "Codigo alfanumérico do produto"');
+
+   //Criar Query para tratar produtos
+   qCODIGO := TFDQuery.Create(nil);
+   qCODIGO.Connection     := Module.connection;
+   qCODIGO.ConnectionName := 'connection';
+
+   //Criar Query para tratar Relacionamento CFOP x PRODUTO x CST_PISCOFINS
+   qPROD_CODIGO := TFDQuery.Create(nil);
+   qPROD_CODIGO.Connection     := Module.connection;
+   qPROD_CODIGO.ConnectionName := 'connection';
+
+   //Recuperar todos os produtos cadastrados...
+   qCODIGO.Close;
+   qCODIGO.Sql.Clear;
+   qCODIGO.SQL.Add('SELECT *                   ');
+   qCODIGO.SQL.Add('  FROM PRODUTO             ');
+   qCODIGO.SQL.Add(' ORDER BY DESCRICAO_PRODUTO');
+   qCODIGO.Open;
+   vContador:=0;
+   ProgressBar1.Max := qCODIGO.RecordCount;
+   mmExecutado.Lines.Clear;
+   while not qCODIGO.eof do
+   begin
+     inc(vContador);
+     ProgressBar1.Position := vContador;
+     //Mostra o nome do produto que irá associar
+     Avisa('PROD_CODIGO: '+qCODIGO.FieldByName('DESCRICAO_PRODUTO').AsString);
+     frmAtualizador.Refresh;
+     Application.ProcessMessages;
+
+     //Converter o codigo do produto numerico para alganumérico
+     qPROD_CODIGO.Close;
+     qPROD_CODIGO.sql.clear;
+     qPROD_CODIGO.sql.add('UPDATE PRODUTO_PROD        ');
+     qPROD_CODIGO.sql.add('   SET PROD_CODIGO = :NOVO ');
+     qPROD_CODIGO.sql.add(' WHERE CODIGO      = :ATUAL');
+     qPROD_CODIGO.ParamByname('NOVO' ).AsString  := IntToStr(qCODIGO.FieldByName('CODIGO').AsInteger);
+     qPROD_CODIGO.ParamByname('ATUAL').AsInteger := qCODIGO.FieldByName('CODIGO').AsInteger;
+     qPROD_CODIGO.ExecSql;
+
+     //Próximo Produto
+     qCODIGO.Next;
+   end;
+
+   //Destroi as Queries para liberar espaço em memória
+   qCODIGO.Free;
+   qPROD_CODIGO.Free;
+end;
+
+procedure TfrmAtualizador.Converte_PRODUTO_em_PRODUTO_PROD;
+begin
+   // Substitui a tabela PRODUTO por PRODUTO_PROD
+   //---------------------------------------------------------------------------
+
+   //Criar a tabela PRODUTO_PROD com a estrutura da antiga PRODUTO
+   //E com todos os seus itens
+   Avisa('Criando tabela PRODUTO_PROD');
+   Executar('CREATE TABLE PRODUTO_PROD SELECT * FROM PRODUTO WHERE 1=1');
+end;
+
+{
+CREATE TABLE `produto` (
+	`CODIGO` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'código gerado pelo sistema',
+	`COD_BARRAS_AUXILIAR` VARCHAR(50) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
+	`DESCRICAO_PRODUTO` VARCHAR(200) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
+	`INFO_ADICIONAIS` VARCHAR(200) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
+	`REFERENCIA_FABRICANTE` VARCHAR(50) NULL DEFAULT NULL COMMENT 'informa a referência do fabricante do produto',
+	`MARCA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de marcas',
+	`FAMILIA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de familia',
+	`GRUPO` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de grupos',
+	`SUBGRUPO` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de subgrupo',
+	`UNIDADE_MEDIDA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de medidas',
+	`DATA_CADASTRO` DATE NULL DEFAULT '0000-00-00' COMMENT 'informa a data e hora do cadastramento do produto',
+	`TIPO_ITEM` VARCHAR(100) NULL DEFAULT NULL COMMENT 'determina a finalidade do produto',
+	`ESTOQUE_MINIMO` VARCHAR(50) NULL DEFAULT NULL,
+	`PRECO_CUSTO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`FRETE` DECIMAL(10,4) NULL DEFAULT NULL,
+	`IMPOSTO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESP_OPERACIONAIS` DECIMAL(10,4) NULL DEFAULT NULL,
+	`CUSTO_MEDIO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`MARGEM_LUCRO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`MARGEM_L_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`MARGEM_L_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`MARGEM_L_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_MAXIMO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_M_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_M_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_M_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_L_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_L_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`DESCONTO_L_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PAGAR_COMISSAO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`COMISSAO_BALCAO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`BALCAO_COMISSAO_VAREJO` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`BALCAO_COMISSAO_ATACADO` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`BALCAO_COMISSAO_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`COMISSAO_EXTERNA` DECIMAL(10,4) NULL DEFAULT NULL,
+	`EXTERNA_COMISSAO_VAREJO` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`EXTERNA_COMISSAO_ATACADO` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`EXTERNA_COMISSAO_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`PRECO_FINAL_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PRECO_FINAL_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PRECO_FINAL_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROMO_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROMO_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROMO_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROMOCAO_INICIO` DATE NULL DEFAULT NULL,
+	`PROMOCAO_TERMINO` DATE NULL DEFAULT NULL,
+	`VALOR_PROMOCIONAL_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`VALOR_PROMOCIONAL_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`VALOR_PROMOCIONAL_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`SALDO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`ALIQ_ICMS` DECIMAL(10,4) NULL DEFAULT NULL,
+	`REDUCAO_ICMS` DECIMAL(10,4) NULL DEFAULT NULL,
+	`ALIQ_ICMS_SUBST` VARCHAR(20) NULL DEFAULT NULL,
+	`REDUCAO_ICMS_ST` DECIMAL(10,4) NULL DEFAULT NULL,
+	`LUCRO_SUBST_TRIBUTARIA` DECIMAL(10,4) NULL DEFAULT NULL,
+	`VALOR_PAUTA_BC_ST` DECIMAL(10,4) NULL DEFAULT NULL,
+	`LEIS` VARCHAR(20) NULL DEFAULT NULL,
+	`GENERO` VARCHAR(20) NULL DEFAULT NULL,
+	`FORNECEDOR_NOME` VARCHAR(100) NULL DEFAULT NULL,
+	`COD_COMB` VARCHAR(20) NULL DEFAULT NULL,
+	`ALIQ_IPI` VARCHAR(20) NULL DEFAULT NULL,
+	`ENQUADRAMENTO_IPI` INT(11) NULL DEFAULT NULL,
+	`CODIGO_LOCALIZACAO` INT(11) NULL DEFAULT NULL,
+	`ICMS_CST` VARCHAR(3) NULL DEFAULT NULL,
+	`ICMS_IPI` VARCHAR(2) NULL DEFAULT NULL,
+	`PIS_CST` VARCHAR(5) NULL DEFAULT NULL,
+	`COFINS_CST` VARCHAR(5) NULL DEFAULT NULL,
+	`CODIGO_ORIGEM_MERCADORIA` INT(11) NULL DEFAULT NULL,
+	`NCM` VARCHAR(8) NULL DEFAULT NULL COMMENT 'código do NCM_SH',
+	`CEST` VARCHAR(50) NULL DEFAULT NULL,
+	`ANP` VARCHAR(9) NULL DEFAULT NULL COMMENT 'Código Agencia Nacional de Petróleo',
+	`EX_IPI` FLOAT NULL DEFAULT NULL,
+	`STATUS_CADASTRAL` ENUM('ATIVO','INATIVO') NULL DEFAULT 'ATIVO',
+	`PESAVEL` ENUM('SIM','NAO') NULL DEFAULT NULL,
+	`UTILIZA_ETIQUETA_BALANCA` ENUM('SIM','NAO') NULL DEFAULT NULL,
+	`USA_LOTE` ENUM('SIM','NAO') NULL DEFAULT NULL,
+	`CONTROLADO` ENUM('SIM','NAO') NULL DEFAULT NULL,
+	`CODIGO_FORNECEDOR` INT(11) NULL DEFAULT NULL,
+	`QUANT_MINI_VAREJO_P` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_ATACADO_P` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_DISTRIBUIDOR_P` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_VAREJO_Q` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_ATACADO_Q` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_DISTRIBUIDOR_Q` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_VAREJO_D` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_DISTRIBUIDOR_D` DECIMAL(10,4) NULL DEFAULT NULL,
+	`QUANT_MINI_ATACADO_D` DECIMAL(10,4) NULL DEFAULT NULL,
+	`CST_IPI` VARCHAR(3) NULL DEFAULT NULL,
+	`COD_BALANCA_1` VARCHAR(8) NULL DEFAULT NULL,
+	`COD_BALANCA_2` VARCHAR(8) NULL DEFAULT NULL,
+	`COD_BALANCA_3` VARCHAR(8) NULL DEFAULT NULL,
+	`ponto_impressao_id` INT(11) NULL DEFAULT NULL,
+	`NFe_Veiculo_Cor_Codigo` VARCHAR(4) NULL DEFAULT NULL COMMENT 'Nfe: (Veículo) Cor - código na montadora',
+	`NFe_Veiculo_Cor_Descricao` VARCHAR(40) NULL DEFAULT NULL COMMENT 'Nfe: (Veículo) Cor - descrição',
+	`NFe_Veiculo_Pot` VARCHAR(4) NULL DEFAULT NULL COMMENT 'Nfe: (Veículo) Potência motor em cavalo vapor (CV).',
+	`NFe_Veiculo_Cilin` VARCHAR(4) NULL DEFAULT NULL COMMENT 'Nfe: (Veículo) Cilindradas.',
+	`NFe_Armamento` INT(11) NULL DEFAULT NULL COMMENT 'Nfe: Indicador Armamento (0-Não)(1-Sim)',
+	`NFe_Combustivel` INT(11) NULL DEFAULT NULL COMMENT 'Nfe: Indicador Combustivel (0-Não)(1-Sim)',
+	`NFe_modBC` INT(11) NULL DEFAULT NULL COMMENT 'Nfe: Indicador modalidade de base de cálculo',
+	`NFe_modBCST` INT(11) NULL DEFAULT NULL COMMENT 'Nfe: Indicador modalidade de base de cálculo da ST',
+	`NFe_pMVAST` DECIMAL(6,2) NULL DEFAULT NULL COMMENT '% da MV Adicionado do ICMS ST',
+	`NFe_motDesICMS` INT(11) NULL DEFAULT NULL COMMENT 'Indicador Motivo da desoneração do ICMS',
+	`Produto_ou_Servico` ENUM('P','S') NULL DEFAULT 'P' COMMENT 'P=Produto e S=Serviço',
+	`PagaComissaoSN` ENUM('S','N') NULL DEFAULT 'S' COMMENT 'S=Paga Comissão e N=Não paga',
+	`ContaContabil` INT(11) NULL DEFAULT NULL COMMENT 'Código da Conta Contábil no Plano de Contas',
+	`CentroDeCustos` INT(11) NULL DEFAULT NULL COMMENT 'Código do Centro de Custos',
+	`NFe_indTot` INT(11) NULL DEFAULT '1' COMMENT 'Indicador de participacao do Total da NFe',
+	`NFe_Medicamento` INT(11) NULL DEFAULT NULL COMMENT 'Nfe: Indicador Medicamento (0-Não)(1-Sim)',
+	`CODIGO_ALFANUMERICO` VARCHAR(20) NULL DEFAULT NULL COMMENT 'Codigo Alfanumerico Alternativo',
+	`VALOR_PAUTA_BC` DECIMAL(10,4) NULL DEFAULT '0.0000' COMMENT 'Valor de Pauta do produto',
+	`NFe_pMVA` DECIMAL(6,4) NULL DEFAULT '0.0000' COMMENT 'Margem de Valor Agregado ICMS (MVA)',
+	`NFe_indEscala` INT(11) NULL DEFAULT '2' COMMENT 'Indicador de Escala Relevante',
+	`PROD_RASTREAVEL` INT(11) NULL DEFAULT '0' COMMENT 'Flag de Rastreabilidade (0=Não)(1=Sim)',
+	`PROD_TRATALOTE` INT(11) NULL DEFAULT '0' COMMENT 'Flag de Tratamento de Lote (0=Não)(1=Manual)(2-Automático)',
+	`PROD_TRATANUMEROSERIE` INT(11) NULL DEFAULT '0' COMMENT 'Flag de Tratamento de Número de Série (0=Não)(1=Sim)',
+	`NFe_VeiculoNovo` INT(11) NULL DEFAULT NULL COMMENT 'Nf ndicador de Veículo Novo (0-Não)(1-Sim)',
+	`NFe_nDI` VARCHAR(10) NULL DEFAULT NULL COMMENT 'Nfe: Número do Documento de Importação DI/DSI/DA',
+	`NFe_dDI` DATETIME NULL DEFAULT NULL COMMENT 'Nfe: Data de registro do Documento de Importação DI/DSI/DA',
+	`NFe_xLocDesemb` VARCHAR(60) NULL DEFAULT NULL COMMENT 'Nfe: Local de Desembaraço',
+	`NFe_UFDesemb` VARCHAR(2) NULL DEFAULT NULL COMMENT 'Nfe: UF onde ocorreu o Desembaraço Aduaneiro',
+	`NFe_dDesemb` DATETIME NULL DEFAULT NULL COMMENT 'Nfe: Data do Desembaraço Aduaneiro',
+	`NFe_cExportador` VARCHAR(60) NULL DEFAULT NULL COMMENT 'Nfe: Código do exportador',
+	`NFe_nAdicao` INT(3) NULL DEFAULT NULL COMMENT 'Nfe: Numero da adição',
+	`NFe_cFabricante` VARCHAR(60) NULL DEFAULT NULL COMMENT 'Nfe: Código do fabricante estrangeiro',
+	`NFe_vDescDI` DECIMAL(10,4) NULL DEFAULT NULL COMMENT 'Nfe: Valor do desconto do item da  DI – adição',
+	PRIMARY KEY (`CODIGO`),
+	INDEX `ponto_impressao_id` (`ponto_impressao_id`),
+	INDEX `idx_CODIGO_ALFANUMERICO` (`CODIGO_ALFANUMERICO`),
+	INDEX `idx_codigo_barras` (`CODIGO_BARRAS`),
+	INDEX `idx_descricao_produto` (`DESCRICAO_PRODUTO`),
+	INDEX `idx_NCM` (`NCM`),
+	INDEX `idx_referencia_fabricante` (`REFERENCIA_FABRICANTE`),
+	CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`ponto_impressao_id`) REFERENCES `ponto_impressao` (`id`)
+)
+COMMENT='onde encontram-se os produtos cadastrados\r\n'
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=44157
+;
+}
+
+   //Destroi as Queries para liberar espaço em memória
+//   qPRODUTO.Free;
+//   qRPC.Free;
+//end;
+
 
 procedure TfrmAtualizador.CriaF(pFuncao, pDescricao: String);
 begin
@@ -1671,29 +1904,35 @@ begin
        // Produto: Número do Documento de Importação DI/DSI/DA
        Executar('ALTER TABLE produto ADD NFe_nDI VARCHAR(10) COMMENT ''Nfe: Número do Documento de Importação DI/DSI/DA''');
 
-       // Produto: Data de registro do Documento de Importação DI/DSI/DA
+     end;
+     if fNaoAtualizado('Produto: Data de registro do Documento de Importação dDI') then
        Executar('ALTER TABLE produto ADD NFe_dDI DATETIME COMMENT ''Nfe: Data de registro do Documento de Importação DI/DSI/DA''');
-       // Produto: Local de Desembaraço
+
+     if fNaoAtualizado('Produto: Local de Desembaraço') then
        Executar('ALTER TABLE produto ADD NFe_xLocDesemb VARCHAR(60) COMMENT ''Nfe: Local de Desembaraço''');
 
-       // Produto: Sigla da UF onde ocorreu o Desembaraço Aduaneiro
+     if fNaoAtualizado('Produto: Sigla da UF onde ocorreu o Desembaraço Aduaneiro') then
        Executar('ALTER TABLE produto ADD NFe_UFDesemb VARCHAR(2) COMMENT ''Nfe: UF onde ocorreu o Desembaraço Aduaneiro''');
-       // Produto: Data do Desembaraço Aduaneiro
+
+     if fNaoAtualizado('Produto: Data do Desembaraço Aduaneiro') then
        Executar('ALTER TABLE produto ADD NFe_dDesemb DATETIME COMMENT ''Nfe: Data do Desembaraço Aduaneiro''');
 
-       // Produto: Código do exportador
+     if fNaoAtualizado('Produto: Código do exportador') then
        Executar('ALTER TABLE produto ADD NFe_cExportador VARCHAR(60) COMMENT ''Nfe: Código do exportador''');
 
-       // Produto: Numero da adição
+     if fNaoAtualizado('Produto: Numero da adição') then
        Executar('ALTER TABLE produto ADD NFe_nAdicao INT(3) COMMENT ''Nfe: Numero da adição''');
-       // Produto: Código do fabricante estrangeiro
-       Executar('ALTER TABLE produto ADD NFe_cFabricante VARCHAR(60) COMMENT ''Nfe: Código do fabricante estrangeiro''');
-       // Produto: Valor do desconto do item da  DI – adição
-       Executar('ALTER TABLE produto ADD NFe_vDescDI DECIMAL(10,4) COMMENT ''Nfe: Valor do desconto do item da  DI – adição''');
-       // Produto: Indicador de Veículo Novo
-       Executar('ALTER TABLE produto ADD NFe_VeiculoNovo INTEGER COMMENT ''Nf ndicador de Veículo Novo (0-Não)(1-Sim)''');
-       Executar('UPDATE produto SET NFe_VeiculoNovo = 0 WHERE NFe_VeiculoNovo IS NULL');
 
+     if fNaoAtualizado('Produto: Código do fabricante estrangeiro') then
+       Executar('ALTER TABLE produto ADD NFe_cFabricante VARCHAR(60) COMMENT ''Nfe: Código do fabricante estrangeiro''');
+
+     if fNaoAtualizado('Produto: Valor do desconto do item da  DI – adição') then
+       Executar('ALTER TABLE produto ADD NFe_vDescDI DECIMAL(10,4) COMMENT ''Nfe: Valor do desconto do item da  DI – adição''');
+
+     if fNaoAtualizado('Produto: Indicador de Veículo Novo') then
+     begin
+       Executar('ALTER TABLE produto ADD NFe_VeiculoNovo INTEGER COMMENT ''Nf ndicador de Veículo Novo (0-Não)(1-Sim)''');
+        Executar('UPDATE produto SET NFe_VeiculoNovo = 0 WHERE NFe_VeiculoNovo IS NULL');
     end;
     if fNaoAtualizado('+Campos NFe...') then
     begin
@@ -1702,7 +1941,6 @@ begin
 
        // Produto: Veículo - Cor - Código
        Executar('ALTER TABLE Produto ADD NFe_Veiculo_Cor_Codigo VARCHAR(4) NULL COMMENT ''Nfe: (Veículo) Cor - código na montadora''');
-
 
        // Produto: Veículo - Cor - Descrição
        Executar('ALTER TABLE Produto ADD NFe_Veiculo_Cor_Descricao VARCHAR(40) NULL COMMENT ''Nfe: (Veículo) Cor - descrição''');
@@ -2214,14 +2452,7 @@ begin
        Executar('ALTER TABLE PRODUTO_FAMILIA ADD DATA_CADASTRO DATE NULL COMMENT "Data do cadastro" ');
     end;
 
-    if fNaoAtualizado('Tabela PRODUTO - Índices') Then
-    begin
-       Executar('CREATE INDEX idx_CODIGO_ALFANUMERICO   ON PRODUTO(CODIGO_ALFANUMERICO)   ');
-       Executar('CREATE INDEX idx_codigo_barras         ON PRODUTO(codigo_barras)         ');
-       Executar('CREATE INDEX idx_descricao_produto     ON PRODUTO(descricao_produto)     ');
-       Executar('CREATE INDEX idx_NCM                   ON PRODUTO(NCM)                   ');
-       Executar('CREATE INDEX idx_referencia_fabricante ON PRODUTO(referencia_fabricante) ');
-    end;
+
     if fNaoAtualizado('Tabela RELACAO_CRT_CST_CSOSN_CFOP_RCCCC') Then
     begin
        Module.Query.Close;
@@ -2490,7 +2721,43 @@ begin
        Executar('ALTER TABLE produto ADD NFe_VeiculoNovo INTEGER COMMENT ''Nf ndicador de Veículo Novo (0-Não)(1-Sim)''');
        Executar('UPDATE produto SET NFe_VeiculoNovo = 0 WHERE NFe_VeiculoNovo IS NULL');
     end;
+
+    if fNaoAtualizado('Produto: Converter PRODUTO em PRODUTO_PROD.') then
+       Converte_PRODUTO_em_PRODUTO_PROD;
+
+    if fNaoAtualizado('Produto: Converter CODIGO em PROD_CODIGO.') then
+       Converte_PRODUTO_CODIGO_em_PROD_CODIGO;
+
+    if fNaoAtualizado('Produto: abandonar CODIGO exclusivamente numérico.') then
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN CODIGO');
+
+    Executar('SET FOREIGN_KEY_CHECKS = 0');
+
+    if fNaoAtualizado('Produto: tabela antiga de produtos...') then
+       Executar('DROP TABLE PRODUTO');
+
+    if fNaoAtualizado('Produto: CODIGO_BARRAS -> PROD_EAN.........') then
+    begin
+       Executar('ALTER TABLE PRODUTO_PROD ADD PROD_EAN VARCHAR(20) NULL COMMENT "CODIGO GTIN/EAN Antigo cod barras"');
+       Executar('UPDATE PRODUTO_PROD SET PROD_EAN = CODIGO_BARRAS');
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN CODIGO_BARRAS');
+    end;
+
+    if fNaoAtualizado('Tabela PRODUTO_PROD - Índices.') Then
+    begin
+       Executar('CREATE INDEX idx_PROD_CODIGO   ON PRODUTO_PROD(PROD_CODIGO)   ');
+       Executar('CREATE INDEX idx_PROD_EAN      ON PRODUTO_PROD(PROD_EAN)      ');
+       //Executar('CREATE INDEX idx_descricao_produto     ON PRODUTO(descricao_produto)     ');
+       //Executar('CREATE INDEX idx_NCM                   ON PRODUTO(NCM)                   ');
+       //Executar('CREATE INDEX idx_referencia_fabricante ON PRODUTO(referencia_fabricante) ');
+    end;
+
+
+    //Sempre por último
+    Executar('SET FOREIGN_KEY_CHECKS = 1');
+
 end;
+
 
 end.
 
