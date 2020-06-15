@@ -27,9 +27,9 @@ ordem decrescente de data....
 |  TOTAL| 290  |
 ================
 
-========================================================================================================================================
-ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
----|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+299|15/06/20|03:16|cadastro_produto            |Utilizando recurso (PINTAR) para destacar objetos focados com amarelo e readonly com cinza
+298|15/06/20|03:16|vw_tipoDeMovimento          |Utilizando recurso (PINTAR) para destacar objetos focados com amarelo e readonly com cinza
+297|15/06/20|03:16|u_funcoes                   |Criado recurso (PINTAR) para destacar objetos focados com amarelo e readonly com cinza
 296|15/06/20|00:59|u_funcoes                   |Criadas funções de manipulação da tabela SEQUENCIAIS_SEQ incluindo bloqueio/desbloqueio
 295|15/06/20|00:59|u_funcoes                   |Criadas funções de controle de uso da tabela SEQUENCIAIS_SEQ
 294|15/06/20|00:59|Atualizador                 |Criada tabela CONTROLE_CTRL: Tabela de Controles diversos do sistema

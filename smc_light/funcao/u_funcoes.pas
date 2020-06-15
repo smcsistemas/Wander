@@ -5,6 +5,7 @@ unit u_funcoes;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+297|15/06/20|03:16|u_funcoes                   |Criado recurso (PINTAR) para destacar objetos focados com amarelo e readonly com cinza
 296|15/06/20|00:59|u_funcoes                   |Criadas funções de manipulação da tabela SEQUENCIAIS_SEQ incluindo bloqueio/desbloqueio
 295|15/06/20|00:59|u_funcoes                   |Criadas funções de controle de uso da tabela SEQUENCIAIS_SEQ
 290|11/06/20|14:00|u_funcoes                   |Automatizada a definicao da estrutura da tabela auxiliar "venda_nomedaestacao"
@@ -129,6 +130,8 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//104 Destaca objetos focados com amarelo e readonly com cinza
+procedure Pintar(Tela:tForm);
 //103 15/06/20 00:33 Retorna True se a tabela de sequenciais está sendo usada e false se nao
 function SEQUENCIAIS_SEQ_Em_Uso:Boolean;
 //102 15/06/20 00:33 Bloqueia a tabela de sequenciais
@@ -6735,6 +6738,75 @@ begin
    Executar('UPDATE CONTROLE_CTRL SET CTRL_SEQUENCIAIS_EM_USO = 0');
 end;
 
+procedure Pintar(Tela:tForm);
+var i : integer;    xNome:String;
+begin
+     //for i := 0 to (Tela as tForm).ComponentCount - 1 Do
+     for i := 0 to Tela.ComponentCount - 1 Do
+     begin
+       // TEdit
+       if (Tela.Components[i] is tEdit) then
+       begin
+          if (Tela.Components[i] as tEdit).Focused then
+             (Tela.Components[i] as tEdit).Color := clYellow
+          else
+          if (Tela.Components[i] as tEdit).ReadOnly then
+             (Tela.Components[i] as tEdit).Color:= clSilver
+          else
+            (Tela.Components[i] as tEdit).Color := clwhite;
+       end;
+       //tMaskEdit
+       if (Tela.Components[i] is tMaskEdit) then
+       begin
+          if (Tela.Components[i] as tMaskEdit).Focused then
+             (Tela.Components[i] as tMaskEdit).Color := clYellow
+          else
+          if (Tela.Components[i] as tMaskEdit).ReadOnly then
+             (Tela.Components[i] as tMaskEdit).Color := clSilver
+          else
+            (Tela.Components[i] as tMaskEdit).Color := clwhite;
+       end;
+       // TMemo
+       if (Tela.Components[i] is tmemo) then
+       begin
+          if (Tela.Components[i] as tmemo).Focused then
+             (Tela.Components[i] as tmemo).Color := clYellow
+          else
+          if (Tela.Components[i] as tmemo).ReadOnly then
+             (Tela.Components[i] as tmemo).Color:= clSilver
+          else
+            (Tela.Components[i] as tmemo).Color := clwhite;
+       end;
+       // TBotton
+       if (Tela.Components[i] is TButton) then
+       begin
+          if (Tela.Components[i] as TButton).Focused then
+             (Tela.Components[i] as TButton).Font.Color := clBlue
+          else
+             (Tela.Components[i] as TButton).Font.Color:= clBlack;
+       end;
+
+       //tRadioGroup
+       if (Tela.Components[i] is tRadioGroup) then
+       begin
+          if (Tela.Components[i] as tRadioGroup).Focused then
+             (Tela.Components[i] as tRadioGroup).Font.Color := clBlue
+          else
+             (Tela.Components[i] as tRadioGroup).Font.Color := clBlack;
+       end;
+       //tCheckBox
+       if (Tela.Components[i] is tCheckBox) then
+       begin
+          if (Tela.Components[i] as tCheckBox).Focused then
+             (Tela.Components[i] as tCheckBox).Font.Color := clBlue
+          else
+             (Tela.Components[i] as tCheckBox).Font.Color := clBlack;
+       end;
+     end;
+     Tela.Refresh;
+     Application.ProcessMessages
+
+end;
 
 
 //##############################################################################

@@ -1691,8 +1691,8 @@ begin
        // Produto: Valor do desconto do item da  DI – adição
        Executar('ALTER TABLE produto ADD NFe_vDescDI DECIMAL(10,4) COMMENT ''Nfe: Valor do desconto do item da  DI – adição''');
        // Produto: Indicador de Veículo Novo
-//       Executar('ALTER TABLE produto ADD NFe_VeiculoNovo INTEGER COMMENT ''Nfe: Indicador de Veículo Novo (0-Não)(1-Sim)''');
-//       Executar('UPDATE produto SET NFe_VeiculoNovo = 0 WHERE NFe_VeiculoNovo IS NULL');
+       Executar('ALTER TABLE produto ADD NFe_VeiculoNovo INTEGER COMMENT ''Nf ndicador de Veículo Novo (0-Não)(1-Sim)''');
+       Executar('UPDATE produto SET NFe_VeiculoNovo = 0 WHERE NFe_VeiculoNovo IS NULL');
 
     end;
     if fNaoAtualizado('+Campos NFe...') then
@@ -2484,6 +2484,11 @@ begin
           SQL.Add('       PAS_PASSO   VARCHAR(99) NULL) ');
           EXECSQL;
        end;
+    end;
+    if fNaoAtualizado('Produto: Indicador de Veículo Novo') Then
+    begin
+       Executar('ALTER TABLE produto ADD NFe_VeiculoNovo INTEGER COMMENT ''Nf ndicador de Veículo Novo (0-Não)(1-Sim)''');
+       Executar('UPDATE produto SET NFe_VeiculoNovo = 0 WHERE NFe_VeiculoNovo IS NULL');
     end;
 end;
 

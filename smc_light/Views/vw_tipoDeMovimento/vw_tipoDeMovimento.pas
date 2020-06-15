@@ -1,6 +1,12 @@
 ﻿{ v 22.03.20 06:34 }
 unit vw_tipoDeMovimento;
 {
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+298|15/06/20|03:16|vw_tipoDeMovimento          |Utilizando recurso (PINTAR) para destacar objetos focados com amarelo e readonly com cinza
+========================================================================================================================================
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
@@ -179,6 +185,7 @@ type
     procedure bControleAlterarClick(Sender: TObject);
     procedure bControleCancelarClick(Sender: TObject);
     procedure bControleGravarClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     procedure dlConsulta;
@@ -389,6 +396,12 @@ begin
       key := #0;
       Perform(Wm_NextDlgCtl,0,0); //unit Winapi.Messages;
    end;
+end;
+
+procedure Tfrm_tipoDeMovimento.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   Pintar(frm_tipoDeMovimento);
 end;
 
 procedure Tfrm_tipoDeMovimento.FormShow(Sender: TObject);

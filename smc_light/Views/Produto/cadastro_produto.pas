@@ -5,6 +5,7 @@ unit cadastro_produto;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+299|15/06/20|03:16|cadastro_produto            |Utilizando recurso (PINTAR) para destacar objetos focados com amarelo e readonly com cinza
 281|09/06/20|14:25|cadastro_produto            |Passa a tratar a coluna PROD_TRATANUMEROSERIE (Parâmetro de Tratamento de Número de Série)
 280|09/06/20|14:25|cadastro_produto            |Passa a tratar a coluna PROD_TRATALOTE (Parâmetro de Tratamento de Lote)
 269|08/06/20|08:35|cadastro_produto            |Passa a tratar a coluna PROD_RASTREAVEL (indicador de rastreabilidade) da tabela PRODUTO
@@ -767,6 +768,7 @@ type
       Shift: TShiftState);
     procedure edRPC_TPMOVChange(Sender: TObject);
     procedure edREDUCAO_ICMS_STKeyPress(Sender: TObject; var Key: Char);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 
   private
     { Private declarations }
@@ -2873,6 +2875,12 @@ begin
       key := #0;
       Perform(Wm_NextDlgCtl, 0, 0); // unit Winapi.Messages;
     end;
+end;
+
+procedure TFrm_Produto.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   Pintar(Frm_Produto);
 end;
 
 procedure TFrm_Produto.FormShow(Sender: TObject);
