@@ -3,6 +3,9 @@ unit Atualizador;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+294|15/06/20|00:59|Atualizador                 |Criada tabela CONTROLE_CTRL: Tabela de Controles diversos do sistema
+293|15/06/20|00:59|Atualizador                 |Criada tabela SEQUENCIAIS_SEQ para armazenas os sequenciais de códigos das demais tabelas do sistema
+292|15/06/20|00:59|Atualizador                 |Criada tabela PASSOS_PAS para registrar passos internos do sistema em busca de motivos de bugs
 277|09/06/20|13:45|Atualizador                 |Criada coluna PROD_TRATANUMEROSERIE (Parâmetro de Tratamento de Número de Série) na tabela PRODUTO
 276|09/06/20|13:45|Atualizador                 |Criada coluna PROD_TRATALOTE (Parâmetro de Tratamento de Lote) na tabela PRODUTO
 268|08/06/20|08:35|Atualizador                 |Criada coluna PROD_RASTREAVEL (indicador de rastreabilidade) na tabela PRODUTO
@@ -2355,6 +2358,7 @@ begin
     begin
        With Module.Query do
        begin
+          Close;
           Sql.Clear;
           Sql.Add('CREATE TABLE RASTRO_RAS ( ');
           Sql.Add('	  RAS_NRPEDIDO  INTEGER      NOT  NULL COMMENT "Nro do movimento (pedido)",           ');
@@ -2375,6 +2379,7 @@ begin
     begin
        With Module.Query do
        begin
+          Close;
           Sql.Clear;
           Sql.Add('CREATE TABLE UF_UF ( ');
           Sql.Add('	  UF_CODIGO     VARCHAR(02)  NOT  NULL COMMENT "Cod / Sigla da UF (Unidade da Federação)(Estado)",');
@@ -2398,6 +2403,88 @@ begin
     if fNaoAtualizado('PRODUTO: Parâmetro de Tratamento de Número de Série...') Then
        Executar('ALTER TABLE PRODUTO ADD PROD_TRATANUMEROSERIE INTEGER NULL DEFAULT 0 COMMENT "Flag de Tratamento de Número de Série (0=Não)(1=Sim)" ');
 
+    //15/06/2020
+    if fNaoAtualizado('Tabela CONTROLE_CTRL') Then
+    begin
+       With Module.Query do
+       begin
+          Close;
+          Sql.Clear;
+          Sql.Add('CREATE TABLE CONTROLE_CTRL (                                                                                                        ');
+          Sql.Add('	  CTRL_SEQUENCIAIS_EM_USO INTEGER NOT NULL DEFAULT 0 COMMENT "Status de uso da tabela de SEQUENCIAL_SEQ (0-liberada, 1-em uso)"');
+          Sql.Add('     )                                                                                                                              ');
+          Sql.Add('COMMENT="Tabela de Controles diversos do sistema"');
+          ExecSql;
+       end;
+    end;
+
+    if fNaoAtualizado('Tabela CTRL_SEQUENCIAIS_EM_USO') Then
+    begin
+       With Module.Query do
+       begin
+          Close;
+          Sql.Clear;
+          Sql.Add('INSERT INTO CONTROLE_CTRL (   ');
+          Sql.Add('	  CTRL_SEQUENCIAIS_EM_USO');
+          Sql.Add('     )                        ');
+          Sql.Add('VALUES (                      ');
+          Sql.Add('	  0                      ');
+          Sql.Add('     )                        ');
+          ExecSql;
+       end;
+    end;
+
+    if fNaoAtualizado('Tabela SEQUENCIAIS_SEQ') Then
+    begin
+       With Module.Query do
+       begin
+          Close;
+          Sql.Clear;
+          Sql.Add('CREATE TABLE SEQUENCIAIS_SEQ (                                                                   ');
+          Sql.Add('	  SEQ_PEDIDO_PED     INTEGER NOT NULL DEFAULT 0 COMMENT "Sequencial da tabela PEDIDO_PED",  ');
+          Sql.Add('	  SEQ_PRODUTO_PROD   INTEGER NOT NULL DEFAULT 0 COMMENT "Sequencial da tabela PRODUTO_PROD",');
+          Sql.Add('	  SEQ_CLIENTE_CLI    INTEGER NOT NULL DEFAULT 0 COMMENT "Sequencial da tabela CLIENTE_CLI", ');
+          Sql.Add('	  SEQ_FORNECEDOR_FOR INTEGER NOT NULL DEFAULT 0 COMMENT "Sequencial da tabela CLIENTE_CLI"  ');
+          Sql.Add('     )                                                                                           ');
+          Sql.Add('COMMENT="Tabela de Codigos Sequenciais das tabelas do sistema"');
+          ExecSql;
+
+          Close;
+          Sql.Clear;
+          Sql.Add('INSERT INTO SEQUENCIAIS_SEQ ( ');
+          Sql.Add('	  SEQ_PEDIDO_PED,        ');
+          Sql.Add('	  SEQ_PRODUTO_PROD,      ');
+          Sql.Add('	  SEQ_CLIENTE_CLI,       ');
+          Sql.Add('	  SEQ_FORNECEDOR_FOR     ');
+          Sql.Add('     )                        ');
+          Sql.Add('VALUES (                      ');
+          Sql.Add('	  0,                     ');
+          Sql.Add('	  0,                     ');
+          Sql.Add('	  0,                     ');
+          Sql.Add('	  0                      ');
+          Sql.Add('     )                                                                                           ');
+          ExecSql;
+
+       end;
+    end;
+
+    if fNaoAtualizado('Tabela PASSOS_PAS') Then
+    begin
+       With Module.Query do
+       begin
+          Close;
+          Sql.Clear;
+          SQL.Add('CREATE TABLE PASSOS_PAS (            ');
+          SQL.Add('       PAS_PEDIDO  INTEGER     NULL, ');
+          SQL.Add('       PAS_DATA    DATETIME    NULL, ');
+          SQL.Add('       PAS_HORA    VARCHAR(05) NULL, ');
+          SQL.Add('       PAS_TELA    VARCHAR(30) NULL, ');
+          SQL.Add('       PAS_ESTACAO VARCHAR(20) NULL, ');
+          SQL.Add('       PAS_USUARIO VARCHAR(10) NULL, ');
+          SQL.Add('       PAS_PASSO   VARCHAR(99) NULL) ');
+          EXECSQL;
+       end;
+    end;
 end;
 
 end.

@@ -5,6 +5,8 @@ unit u_funcoes;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+296|15/06/20|00:59|u_funcoes                   |Criadas funções de manipulação da tabela SEQUENCIAIS_SEQ incluindo bloqueio/desbloqueio
+295|15/06/20|00:59|u_funcoes                   |Criadas funções de controle de uso da tabela SEQUENCIAIS_SEQ
 290|11/06/20|14:00|u_funcoes                   |Automatizada a definicao da estrutura da tabela auxiliar "venda_nomedaestacao"
 279|09/06/20|14:25|u_funcoes                   |Criada função True_ou_False que recebe um inteiro (0/1) e retorna true se zero e false se 1
 278|09/06/20|14:25|u_funcoes                   |Criada função Zero_ou_Um que recebe um boolean e retorna 0 se false e 1 se true
@@ -14,9 +16,6 @@ ALT|   DATA |HORA |UNIT                        |Descrição                       
 272|        |     |                            |inteiro ou -1 se vazia ou inválida
 257|06/06/20|05:35|u_funcoes                   |Passa a usar a nova chave RPC_TPMOV da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
 ========================================================================================================================================
-   qAUX.ParamByName('PROD_RASTREAVEL'         ).AsInteger := Zero_ou_Um(cbPROD_RASTREAVEL.checked);
-   qAUX.ParamByName('PROD_TRATALOTE'          ).AsInteger := rgPROD_TRATALOTE.ItemIndex;
-   qAUX.ParamByName('PROD_TRATANUMEROSERIE'   ).AsInteger := Zero_ou_Um(cbPROD_RASTREAVEL);
 
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
@@ -130,6 +129,13 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//103 15/06/20 00:33 Retorna True se a tabela de sequenciais está sendo usada e false se nao
+function SEQUENCIAIS_SEQ_Em_Uso:Boolean;
+//102 15/06/20 00:33 Bloqueia a tabela de sequenciais
+procedure BloquearSEQUENCIAIS_SEQ;
+//101 15/06/20 00:33 Desbloqueia a tabela de sequenciais
+procedure LiberarSEQUENCIAIS_SEQ;
+
 //100: 12/06/20 21:08 Retorna o próximo id de venda (sequencial crescente)
 function ProximaVENDA:Integer;
 //099: 12/06/20 21:00 Recebe uma placa e devolve o codigo do veículo ou -1 se não encontrrar
@@ -6620,9 +6626,122 @@ begin
    //Libera memória
    qLocal.Free;
 end;
+
+function fProximoCodigo(pTabela,pColuna:String):String;
+var qLocal: tFDQuery;
+    vProximo:Integer;
+    vChaveDisponivel:Boolean;
+begin
+  //Recebe :
+  //       pTabela: o nome de uma tabela
+  //       pColuna: o nome da coluna chave desta tabela
+  //Retorna:
+  //       O proximo código sequencial vago desta tabela
+  //----------------------------------------------------
+  //Baseado no número de registros + 1 ou mais....
+  //----------------------------------------------------
+  Executar('ALTER TABLE SEQUENCIAIS_SEQ ADD SEQ_'+pTabela+' INTEGER NOT NULL DEFAULT 0 ');
+  Executar('UPDATE SEQUENCIAIS_SEQ SET SEQ_'+pTabela+' = 0 WHERE SEQ_'+pTabela+' IS NULL');
+
+  //----------------------------------------------------------------------------
+  //SOMENTE UMA ESTAÇÃO POR VEZ IRÁ USAR ESTA ROTINA...
+  //----------------------------------------------------------------------------
+
+  //Enquanto algum terminal estiver usando a tabela de sequenciais, aguarda
+  //sua liberação...
+  While SEQUENCIAIS_SEQ_Em_Uso do;
+     //delay(100);
+
+  qLocal := TFDQuery.Create(nil);
+  qLocal.Connection     := Module.connection;
+  qLocal.ConnectionName := 'connection';
+
+  //Marcar a tabela de sequenciais com status "em uso"
+  BloquearSEQUENCIAIS_SEQ;
+
+  vChaveDisponivel:=false;
+  While not not vChaveDisponivel do
+  begin
+     //Abre as tabelas de forma exclusiva
+     // isolando a transação
+     Module.connection.StartTransaction;
+
+     //Recupera o último sequencial da chave da tabela
+     qLocal.Close;
+     qLocal.Sql.Clear;
+     qLocal.Sql.Add('SELECT SEQ_'+pTabela+' AS ULTIMO FROM SEQUENCIAIS_SEQ');
+     qLocal.Open;
+
+     //Acrescenta uma unidade
+     vProximo := qLocal.FieldByName('ULTIMO').AsInteger + 1;
+
+     //Atualiza o último sequencial da chave da tabela
+     qLocal.close;
+     qLocal.sql.clear;
+     qLocal.Sql.Add('UPDATE SEQUENCIAIS_SEQ SET SEQ_'+pTabela+' = :ULTIMO');
+     qLocal.ParamByName('ULTIMO').AsInteger := vProximo;
+     qLocal.ExecSql;
+
+     //Salva os dados e libera as tabelas
+     // commitando a transação
+     Module.connection.Commit;
+
+     //Verifica se a chave realmente está livre
+     qLocal.close;
+     qLocal.sql.clear;
+     qLocal.sql.add('SELECT 1 FROM FROM '+pTabela+' WHERE ' + pColuna + ' = :ULTIMO');
+     qLocal.ParamByName('ULTIMO').AsInteger := vProximo;
+     qLocal.Open;
+
+     //Se não encontrou, a chave está disponivel. Se não, não está.
+     vChaveDisponivel:=qLocal.Eof;
+  end;
+
+  //Libera memória
+  qLocal.Free;
+
+  //Marcar a tabela de sequenciais com status "liberada"
+  LiberarSEQUENCIAIS_SEQ;
+
+  //Retorna o próximo código Sequencial
+  result := IntToStr(vproximo);
+end;
+
+function SEQUENCIAIS_SEQ_Em_Uso:Boolean;
+var qLocal:TFDQuery;
+begin
+   qLocal := TFDQuery.Create(nil);
+   qLocal.Connection     := Module.connection;
+   qLocal.ConnectionName := 'connection';
+
+   qLocal.Close;
+   qLocal.Sql.clear;
+   qLocal.Sql.Add('SELECT CTRL_SEQUENCIAIS_EM_USO FROM CONTROLE_CTRL');
+   qLocal.open;
+
+   result := (qLocal.FieldByName('CTRL_SEQUENCIAIS_EM_USO').AsInteger = 1);
+
+   //Libera memória
+   qLocal.Free;
+end;
+
+procedure BloquearSEQUENCIAIS_SEQ;
+begin
+   Executar('UPDATE CONTROLE_CTRL SET CTRL_SEQUENCIAIS_EM_USO = 1');
+end;
+
+procedure LiberarSEQUENCIAIS_SEQ;
+begin
+   Executar('UPDATE CONTROLE_CTRL SET CTRL_SEQUENCIAIS_EM_USO = 0');
+end;
+
+
+
 //##############################################################################
 //                FIM DAS FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+
+
 
 end.
 

@@ -30,6 +30,11 @@ ordem decrescente de data....
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+296|15/06/20|00:59|u_funcoes                   |Criadas funções de manipulação da tabela SEQUENCIAIS_SEQ incluindo bloqueio/desbloqueio
+295|15/06/20|00:59|u_funcoes                   |Criadas funções de controle de uso da tabela SEQUENCIAIS_SEQ
+294|15/06/20|00:59|Atualizador                 |Criada tabela CONTROLE_CTRL: Tabela de Controles diversos do sistema
+293|15/06/20|00:59|Atualizador                 |Criada tabela SEQUENCIAIS_SEQ para armazenas os sequenciais de códigos das demais tabelas do sistema
+292|15/06/20|00:59|Atualizador                 |Criada tabela PASSOS_PAS para registrar passos internos do sistema em busca de motivos de bugs
 291|12/06/20|20:24|venda_pedido                |Gravando VENDA. Falta gravar VENDA_ITEM
 290|11/06/20|14:00|u_funcoes                   |Automatizada a definicao da estrutura da tabela auxiliar "venda_nomedaestacao"
 289|11/06/20|13:58|venda_pedido                |Incluido campo para informar placa do veículo que transportará a mercadoria da nota
