@@ -87,7 +87,7 @@ ALT|   DATA |HORA |UNIT                        |Descrição                       
 |     |   15:09|u_funcoes           |para controlar a Filial ativa (em uso)    |
 |-----|--------|--------------------|------------------------------------------|
 |  130|11/05/20|wander              |A função RegistraLog passou a criar a     |
-|     |   19:12|u_funcoes           |coluna LOG_EMPRESA na taleba LOG_LOG      |
+|     |   19:12|u_funcoes           |coluna LOG_EMPRESA na tabela LOG_LOG      |
 |     |        |                    |caso não exista. Esta coluna armazenará o |
 |     |        |                    |luna O CÓDIGO                             |
 |-----|--------|--------------------|------------------------------------------|
@@ -686,7 +686,7 @@ var
 implementation
 
 uses carregando_dados, alerta, confirmacao, informacao, u_diretorios,
-  desenvolvimento, v_Env, v_Dir, h_DB, c_Globals;
+     desenvolvimento, v_Env, v_Dir, h_DB, c_Globals, global_variables;
 
 const
    _constante_VersaoDoSistema = '1.00';
@@ -4390,11 +4390,14 @@ end;
 procedure RegistraLog(pEvento:String);
 var qLocal : tFDQuery;
 begin
+   if g_Base_de_Dados_Antiga_e_Nunca_Atualizada then
+      exit;
+
    qLocal := TFDQuery.Create(nil);
    qLocal.Connection     := Module.connection;
    qLocal.ConnectionName := 'connection';
 
-    if NaoAtualizado('LOG_EMPRESA') then
+   if NaoAtualizado('LOG_EMPRESA') then
        Executar('ALTER TABLE LOG_LOG ADD LOG_EMPRESA VARCHAR(020) NOT NULL DEFAULT "0" COMMENT "Codigo da empresa/filial" ');
 
    qLocal.Close;
@@ -5580,12 +5583,13 @@ begin
    //Cria a tabela de empresa/filial
    Q.Close;
    Q.Sql.Clear;
-   Q.SQL.Add('CREATE TABLE EMPRESA_EMP                                                       ');
-   Q.SQL.Add('  (                                                                            ');
-   Q.SQL.Add('    EMP_CODIGO    VARCHAR(020) NOT NULL COMMENT "Codigo da empresa/filial",    ');
-   Q.SQL.Add('    EMP_DESCRICAO VARCHAR(100) NOT NULL COMMENT "Descricao da empresa/filial", ');
-   Q.SQL.Add('    EMP_ATIVA     INTEGER      NOT NULL COMMENT "Status (1-Ativa, 2-Inativa)"  ');
-   Q.SQL.Add('  )                                                                            ');
+   Q.SQL.Add('CREATE TABLE EMPRESA_EMP                                                              ');
+   Q.SQL.Add('  (                                                                                   ');
+   Q.SQL.Add('    EMP_CODIGO    VARCHAR(020) NOT NULL UNIQUE COMMENT "Codigo da empresa/filial",    ');
+   Q.SQL.Add('    EMP_DESCRICAO VARCHAR(100) NOT NULL UNIQUE COMMENT "Descricao da empresa/filial", ');
+   Q.SQL.Add('    EMP_ATIVA     INTEGER      NOT NULL        COMMENT "Status (1-Ativa, 2-Inativa)"  ');
+   Q.SQL.Add('  )                                                                                   ');
+   Q.SQL.Add('COMMENT="Tabela de Empresas do Sistema"                                               ');
    Q.ExecSQL;
 
    //Incluir a Empresa Matriz (0-Zero)

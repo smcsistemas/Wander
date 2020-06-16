@@ -14946,7 +14946,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            ' [ds_produtos."DESCRICAO_PRODUTO"]')
+            ' [ds_produtos."PROD_DESCRICAO"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -15573,7 +15573,7 @@ object frm_relatorio: Tfrm_relatorio
     CloseDataSource = False
     FieldAliases.Strings = (
       'PROD_CODIGO=PROD_CODIGO'
-      'descricao_produto=descricao_produto'
+      'PROD_DESCRICAO=PROD_DESCRICAO'
       'PROD_UNIDADE=PROD_UNIDADE'
       'saldo=saldo'
       'marca=marca'
@@ -15611,8 +15611,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_produtosdescricao_produto: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'descricao_produto'
-      Origin = 'DESCRICAO_PRODUTO'
+      FieldName = 'PROD_DESCRICAO'
+      Origin = 'PROD_DESCRICAO'
       Size = 200
     end
     object sql_produtossaldo: TBCDField
@@ -16503,7 +16503,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            ' [ds_produtos."DESCRICAO_PRODUTO"]')
+            ' [ds_produtos."PROD_DESCRICAO"]')
           ParentFont = False
         end
         object ds_produtosPRECO_FINAL_VAREJO: TfrxMemoView
@@ -33774,7 +33774,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            '  [ds_produtos."DESCRICAO_PRODUTO"]')
+            '  [ds_produtos."PROD_DESCRICAO"]')
           ParentFont = False
         end
         object ds_produtosPRECO_FINAL_VAREJO: TfrxMemoView
@@ -35987,7 +35987,7 @@ object frm_relatorio: Tfrm_relatorio
           Left = 37.724490000000000000
           Width = 222.508040000000000000
           Height = 11.338590000000000000
-          DataField = 'DESCRICAO_PRODUTO'
+          DataField = 'PROD_DESCRICAO'
           DataSet = ds_produtos
           DataSetName = 'ds_produtos'
           Font.Charset = DEFAULT_CHARSET
@@ -35999,7 +35999,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            '[ds_produtos."DESCRICAO_PRODUTO"]')
+            '[ds_produtos."PROD_DESCRICAO"]')
           ParentFont = False
         end
         object ds_produtosCODIGO: TfrxMemoView
@@ -37211,7 +37211,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            '[ds_pro_prom."DESCRICAO_PRODUTO"]')
+            '[ds_pro_prom."PROD_DESCRICAO"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -37966,7 +37966,7 @@ object frm_relatorio: Tfrm_relatorio
     FieldAliases.Strings = (
       'PROD_CODIGO=PROD_CODIGO'
       'PROD_EAN=PROD_EAN'
-      'DESCRICAO_PRODUTO=DESCRICAO_PRODUTO'
+      'PROD_DESCRICAO=PROD_DESCRICAO'
       'REFERENCIA_FABRICANTE=REFERENCIA_FABRICANTE'
       'MARCA=MARCA'
       'PROD_UNIDADE=PROD_UNIDADE'
@@ -38003,8 +38003,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_pro_promDESCRICAO_PRODUTO: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO_PRODUTO'
-      Origin = 'DESCRICAO_PRODUTO'
+      FieldName = 'PROD_DESCRICAO'
+      Origin = 'PROD_DESCRICAO'
       Size = 200
     end
     object sql_pro_promREFERENCIA_FABRICANTE: TStringField
@@ -38065,7 +38065,7 @@ object frm_relatorio: Tfrm_relatorio
     CloseDataSource = False
     FieldAliases.Strings = (
       'PROD_CODIGO=PROD_CODIGO'
-      'DESCRICAO_PRODUTO=DESCRICAO_PRODUTO'
+      'PROD_DESCRICAO=PROD_DESCRICAO'
       'FAMILIA=FAMILIA'
       'GRUPO=GRUPO'
       'SUBGRUPO=SUBGRUPO'
@@ -38096,8 +38096,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_pro_pesavDESCRICAO_PRODUTO: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO_PRODUTO'
-      Origin = 'DESCRICAO_PRODUTO'
+      FieldName = 'PROD_DESCRICAO'
+      Origin = 'PROD_DESCRICAO'
       Size = 200
     end
     object sql_pro_pesavFAMILIA: TStringField
@@ -38255,7 +38255,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            '[ds_pro_pesav."DESCRICAO_PRODUTO"]')
+            '[ds_pro_pesav."PROD_DESCRICAO"]')
           ParentFont = False
         end
         object ds_produtosPRECO_FINAL_VAREJO: TfrxMemoView
@@ -39007,7 +39007,7 @@ object frm_relatorio: Tfrm_relatorio
     Connection = Module.connection
     SQL.Strings = (
       
-        'SELECT p.DESCRICAO_PRODUTO, p.PROD_CODIGO, p.PROD_UNIDADE, p.SAL' +
+        'SELECT p.PROD_DESCRICAO, p.PROD_CODIGO, p.PROD_UNIDADE, p.SAL' +
         'DO as qtd_atual, p.PRECO_FINAL_VAREJO,'
       '   (SELECT SUM(vd.QUANTIDADE) FROM venda_item vd '
       '   JOIN venda q ON q.CODIGO_VENDA = vd.CODIGO_VENDA '
@@ -39042,7 +39042,7 @@ object frm_relatorio: Tfrm_relatorio
     UserName = 'ds_v_venda_itens'
     CloseDataSource = False
     FieldAliases.Strings = (
-      'DESCRICAO_PRODUTO=DESCRICAO_PRODUTO'
+      'PROD_DESCRICAO=DESCRICAO_PRODUTO'
       'PROD_CODIGO=PROD_CODIGO'
       'PROD_UNIDADE=PROD_UNIDADE'
       'qtd_atual=qtd_atual'
@@ -39421,7 +39421,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft]
           HAlign = haRight
           Memo.UTF8W = (
-            
+
               '[(<ds_v_venda_itens."PRECO_FINAL_VAREJO"> * <ds_v_venda_itens."q' +
               'td_venda">) / <ds_v_venda_itens."qtd_venda">]')
           ParentFont = False
@@ -39496,7 +39496,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftLeft]
           Memo.UTF8W = (
-            '  [ds_v_venda_itens."DESCRICAO_PRODUTO"]')
+            '  [ds_v_venda_itens."PROD_DESCRICAO"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -40426,7 +40426,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            '[ds_estq_comp."DESCRICAO_PRODUTO"]')
+            '[ds_estq_comp."PROD_DESCRICAO"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -40803,7 +40803,7 @@ object frm_relatorio: Tfrm_relatorio
     CloseDataSource = False
     FieldAliases.Strings = (
       'PROD_CODIGO=PROD_CODIGO'
-      'DESCRICAO_PRODUTO=DESCRICAO_PRODUTO'
+      'PROD_DESCRICAO=PROD_DESCRICAO'
       'PRECO_CUSTO=PRECO_CUSTO'
       'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
       'SALDO=SALDO'
@@ -40830,8 +40830,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_estq_compDESCRICAO_PRODUTO: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO_PRODUTO'
-      Origin = 'DESCRICAO_PRODUTO'
+      FieldName = 'PROD_DESCRICAO'
+      Origin = 'PROD_DESCRICAO'
       Size = 200
     end
     object sql_estq_compPRECO_CUSTO: TBCDField

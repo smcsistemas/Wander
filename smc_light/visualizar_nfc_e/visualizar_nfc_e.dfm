@@ -2563,20 +2563,18 @@ object FRM_visualizar_nfc_e: TFRM_visualizar_nfc_e
     FetchOptions.DetailServerCascade = True
     SQL.Strings = (
       'select '
-      
-        '     vi.CODIGO_VENDA, vi.CODIGO_ITEM_VENDA, vi.CODIGO_PRODUTO, v' +
-        'i.QUANTIDADE, vi.PRECO,vi.ACRESCIMO, vi.DESCONTO, vi.PRECO_TOTAL' +
-        ','
-      
-        '     P.UNIDADE_MEDIDA, p.DESCRICAO_PRODUTO, p.CODIGO_BARRAS, p.N' +
-        'CM, p.CEST, '
+      '     vi.CODIGO_VENDA, vi.CODIGO_ITEM_VENDA, vi.CODIGO_PRODUTO, '
+      '     vi.QUANTIDADE, vi.PRECO,vi.ACRESCIMO, vi.DESCONTO, '
+      '     vi.PRECO_TOTAL,'
+      '     P.PROD_UNIDADE, p.PROD_DESCRICAO, p.PROD_EAN, '
+      '     p.NCM, p.CEST, '
       
         '     if(p.ICMS_CST <> '#39#39',IF(p.ICMS_CST='#39'60'#39', (SELECT CFOP_ST FRO' +
         'M NATUREZA_OPERACAO WHERE ID = 1),(SELECT CFOP_TI FROM NATUREZA_' +
         'OPERACAO WHERE ID = 1)), '#39#39') as CFOP,'
       '     p.CSOSN, p.ICMS_CST, p.ALIQ_ICMS, p.PIS_CST, p.COFINS_CST'
       'from venda_item vi'
-      'join produto p on vi.codigo_produto = p.codigo'
+      'join produto_PROD p on vi.codigo_produto = p.PROD_codigo'
       'where vi.codigo_venda = :pcodigo')
     Left = 894
     Top = 367

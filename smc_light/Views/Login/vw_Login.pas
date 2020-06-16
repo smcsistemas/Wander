@@ -85,7 +85,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_funcoes;
+uses u_funcoes, global_variables, S_Module;
 
 procedure Tfrm_Login.FormClick(Sender: TObject);
 begin
@@ -100,35 +100,57 @@ end;
 
 procedure Tfrm_Login.FormShow(Sender: TObject);
 begin
+  //Se o sistema nunca foi atualizado (base de dados antiga)....
+  //Precisa eviar alguns tratamentos que nao serão possíveis, como tratar
+  //empresa
+  //----------------------------------------------------------------------------
+  //Um sistema antigo não possui a tabela ATUALIZADO_ATU, por exemplo...
+  //E será usado este fato para saber se a base de dados é antiga ou nova...
+  //----------------------------------------------------------------------------
+  g_Base_de_Dados_Antiga_e_Nunca_Atualizada := False;
+  try
+    //Verifica se a tabela ATUALIZADO_ATU existe...
+    Module.Query.close;
+    Module.Query.sql.clear;
+    Module.Query.sql.add('SELECT 1 FROM ATUALIZADO_ATU ');
+    Module.Query.Open;
+  except
+    // Nao existe: Marcar como base de dados antiga
+    g_Base_de_Dados_Antiga_e_Nunca_Atualizada := True;
+  end;
+
   self.edt_usuario.SetFocus;
   self.lbl_versao.Caption := tenv.Version.Version;
 
-  //Se não possui filiais cadastradas:
-  // - não solicita a empresa
-  // - ajusta o layout de botões
-  // - não mostra campo nem label de empresa
-  if PossuiFiliais then
+  if not g_Base_de_Dados_Antiga_e_Nunca_Atualizada then
   begin
-     lbEmpresa.Visible := True;
-     edEmpresa.Visible := True;
-     GroupBox1.Height  := 164;
-     btn_Entrar.Top    := 227;
-     bSair.Top         := 227;
-  end
-  else
-  begin
-     lbEmpresa.Visible := False;
-     edEmpresa.Visible := False;
-     GroupBox1.Height  := 113;
-     btn_Entrar.Top    := 171;
-     bSair.Top         := 171;
-  end;
-  if MachineName = 'DEV_PC' then
-  begin
-    edt_usuario.Text := '1';
-    edt_Senha.Text   := '1';
-    edEmpresa.Text   := '0';
-    Logar;
+      //Se não possui filiais cadastradas:
+      // - não solicita a empresa
+      // - ajusta o layout de botões
+      // - não mostra campo nem label de empresa
+      if PossuiFiliais then
+      begin
+         lbEmpresa.Visible := True;
+         edEmpresa.Visible := True;
+         GroupBox1.Height  := 164;
+         btn_Entrar.Top    := 227;
+         bSair.Top         := 227;
+      end
+      else
+      begin
+         lbEmpresa.Visible := False;
+         edEmpresa.Visible := False;
+         GroupBox1.Height  := 113;
+         btn_Entrar.Top    := 171;
+         bSair.Top         := 171;
+      end;
+      if MachineName = 'DEV_PC' then
+      begin
+        edt_usuario.Text := '1';
+        edt_Senha.Text   := '1';
+        edEmpresa.Text   := '0';
+        Logar;
+      end;
   end;
 end;
 
@@ -142,30 +164,34 @@ var
   User: TUSuario;
 begin
   try
-
-    //Trata Empresa/Filial
-    //--------------------------------------------------------------------------
-    // Empresa é obrigatório.
-    // Mas se o cliente não possui filiais, pode deixar em branco e o sistema
-    // assimirá empresa = '0' (matriz)
-    //--------------------------------------------------------------------------
-    if edEmpresa.text = '' then
+    if not g_Base_de_Dados_Antiga_e_Nunca_Atualizada then
     begin
-      // Não informou a Empresa/Filial
-      if PossuiFiliais then
-      begin
-         //Como possui mais de uma empresa/Filial,
-         //o usuário deve informar qual deseja acessar
-         ShowMessage('Informe a Empresa/Filial.'+#13+#13+
-                     'Use [0] para a Matriz');
-         edEmpresa.SetFocus;
-         exit;
-      end
-      else
-        //Como só tem uma empresa cadastrada,
-        //o SMS assume que é a matriz ('0')
-        edEmpresa.text := '0';
-    end;
+        //Trata Empresa/Filial
+        //--------------------------------------------------------------------------
+        // Empresa é obrigatório.
+        // Mas se o cliente não possui filiais, pode deixar em branco e o sistema
+        // assimirá empresa = '0' (matriz)
+        //--------------------------------------------------------------------------
+        if edEmpresa.text = '' then
+        begin
+          // Não informou a Empresa/Filial
+          if PossuiFiliais then
+          begin
+             //Como possui mais de uma empresa/Filial,
+             //o usuário deve informar qual deseja acessar
+             ShowMessage('Informe a Empresa/Filial.'+#13+#13+
+                         'Use [0] para a Matriz');
+             edEmpresa.SetFocus;
+             exit;
+          end
+          else
+            //Como só tem uma empresa cadastrada,
+            //o SMS assume que é a matriz ('0')
+            edEmpresa.text := '0';
+        end;
+    end
+    else
+       edEmpresa.text := '0';
 
     if edEmpresa.text = '0' then
        Criar_Empresa_Matriz
@@ -188,6 +214,11 @@ begin
     Global_Usuario_Logado := edt_usuario.text;
     Global_Filial_Em_Uso  := edEmpresa.text;
     //----------------------------------------
+    if g_Base_de_Dados_Antiga_e_Nunca_Atualizada then
+    begin
+      wnAlerta('Esta Base de Dados nunca foi atualizada!'+slinebreak+slinebreak+
+               'De OK para Começar a atualização automática...');
+    end;
     if User.login then
     begin
       tenv.TUser.name     := User.NOME;

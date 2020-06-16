@@ -201,26 +201,6 @@ type
     SQL_VENDA_ITEM: TFDQuery;
     SQL_VENDA: TFDQuery;
     SQL_VENDA_PAGAMENTO: TFDQuery;
-    SQL_VENDA_ITEMCODIGO_PRODUTO: TIntegerField;
-    SQL_VENDA_ITEMCODIGO_VENDA: TIntegerField;
-    SQL_VENDA_ITEMQUANTIDADE: TSingleField;
-    SQL_VENDA_ITEMPRECO: TBCDField;
-    SQL_VENDA_ITEMPRECO_TOTAL: TBCDField;
-    SQL_VENDA_ITEMACRESCIMO: TBCDField;
-    SQL_VENDA_ITEMDESCONTO: TBCDField;
-    SQL_VENDA_ITEMCODIGO_ITEM_VENDA: TIntegerField;
-    SQL_VENDA_ITEMCODIGO: TIntegerField;
-    SQL_VENDA_ITEMDESCRICAO_PRODUTO: TStringField;
-    SQL_VENDA_ITEMNCM: TStringField;
-    SQL_VENDA_ITEMFRETE: TBCDField;
-    SQL_VENDA_ITEMICMS_CST: TStringField;
-    SQL_VENDA_ITEMUNIDADE_MEDIDA: TStringField;
-    SQL_VENDA_ITEMCODIGO_ORIGEM_MERCADORIA: TIntegerField;
-    SQL_VENDA_ITEMALIQ_ICMS: TBCDField;
-    SQL_VENDA_ITEMCSOSN: TStringField;
-    SQL_VENDA_ITEMCEST: TStringField;
-    SQL_VENDA_ITEMPIS_CST: TStringField;
-    SQL_VENDA_ITEMCOFINS_CST: TStringField;
     SQL_VENDACODIGO_VENDA: TFDAutoIncField;
     SQL_VENDAOPERADOR: TStringField;
     SQL_VENDACAIXA: TStringField;
@@ -258,6 +238,27 @@ type
     SQL_EmpresaNOME_CONTATO_AD: TMemoField;
     spdNFCe: TspdNFCe;
     spdNFCeDataSets: TspdNFCeDataSets;
+    SQL_VENDA_ITEMCODIGO_PRODUTO: TIntegerField;
+    SQL_VENDA_ITEMCODIGO_VENDA: TIntegerField;
+    SQL_VENDA_ITEMQUANTIDADE: TSingleField;
+    SQL_VENDA_ITEMPRECO: TBCDField;
+    SQL_VENDA_ITEMPRECO_TOTAL: TBCDField;
+    SQL_VENDA_ITEMACRESCIMO: TBCDField;
+    SQL_VENDA_ITEMDESCONTO: TBCDField;
+    SQL_VENDA_ITEMCODIGO_ITEM_VENDA: TIntegerField;
+    SQL_VENDA_ITEMPROD_CODIGO: TStringField;
+    SQL_VENDA_ITEMPROD_DESCRICAO: TStringField;
+    SQL_VENDA_ITEMNCM: TStringField;
+    SQL_VENDA_ITEMFRETE: TBCDField;
+    SQL_VENDA_ITEMICMS_CST: TStringField;
+    SQL_VENDA_ITEMprod_UNIDADE: TStringField;
+    SQL_VENDA_ITEMCODIGO_ORIGEM_MERCADORIA: TIntegerField;
+    SQL_VENDA_ITEMALIQ_ICMS: TBCDField;
+    SQL_VENDA_ITEMVI_CFOP_CSOSN: TStringField;
+    SQL_VENDA_ITEMCEST: TStringField;
+    SQL_VENDA_ITEMPROD_EAN: TStringField;
+    SQL_VENDA_ITEMPIS_CST: TStringField;
+    SQL_VENDA_ITEMCOFINS_CST: TStringField;
     function configurarcomponente(const Certficado: string = ''): boolean;
     procedure PagamentoTroco(Pagamento, Troco: string);
     function EnviarNFCe(NumeroLote, Chave, Caminho, ErroRotina: String; data_op: tdatetime = 0): String;
@@ -1241,7 +1242,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
             spdNFCeDataSets.campo('xProd_I04').Value := NF_PRODUTO_HOMOLOGACAO
             // MSG PRODUTO EM HOMOLOGACAO
           else
-            spdNFCeDataSets.campo('xProd_I04').Value := FormatarTagDescricao(SQL_VENDA_ITEMDESCRICAO_PRODUTO.asString);
+            spdNFCeDataSets.campo('xProd_I04').Value := FormatarTagDescricao(SQL_VENDA_ITEMPROD_DESCRICAO.asString);
           // Descri玢o do produto ou servi鏾
 
           NCMI05 := SQL_VENDA_ITEMNCM.Text;

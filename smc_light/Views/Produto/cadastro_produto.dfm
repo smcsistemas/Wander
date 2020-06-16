@@ -272,9 +272,9 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 120
           end
-          object tbViewDESCRICAO_PRODUTO: TcxGridDBColumn
+          object tbViewPROD_DESCRICAO: TcxGridDBColumn
             Caption = 'Produto'
-            DataBinding.FieldName = 'DESCRICAO_PRODUTO'
+            DataBinding.FieldName = 'PROD_DESCRICAO'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taLeftJustify
             HeaderGlyphAlignmentHorz = taCenter
@@ -743,15 +743,15 @@ object Frm_Produto: TFrm_Produto
         Left = 3
         Top = 2
         Width = 758
-        Height = 368
+        Height = 488
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 2
         object GroupBox4: TGroupBox
           Left = -11
-          Top = 5
+          Top = -19
           Width = 750
-          Height = 356
+          Height = 507
           Caption = '  Produto  '
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -788,7 +788,7 @@ object Frm_Produto: TFrm_Produto
           end
           object Label4: TLabel
             Left = 53
-            Top = 64
+            Top = 62
             Width = 67
             Height = 18
             Caption = 'Descri'#231#227'o:'
@@ -800,8 +800,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object A: TLabel
-            Left = 25
-            Top = 94
+            Left = 23
+            Top = 123
             Width = 95
             Height = 18
             Caption = 'Inf. Adicionais:'
@@ -813,8 +813,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object Label5: TLabel
-            Left = 275
-            Top = 141
+            Left = 267
+            Top = 163
             Width = 104
             Height = 18
             Caption = 'Ref. Fabricante:'
@@ -826,8 +826,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object Label7: TLabel
-            Left = 48
-            Top = 204
+            Left = 71
+            Top = 272
             Width = 48
             Height = 18
             Caption = 'Fam'#237'lia:'
@@ -839,8 +839,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object Label37: TLabel
-            Left = 23
-            Top = 262
+            Left = 46
+            Top = 329
             Width = 73
             Height = 18
             Caption = 'Sub-Grupo:'
@@ -852,8 +852,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object Label15: TLabel
-            Left = 543
-            Top = 175
+            Left = 82
+            Top = 216
             Width = 33
             Height = 18
             Caption = 'Tipo:'
@@ -865,8 +865,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object Label6: TLabel
-            Left = 275
-            Top = 176
+            Left = 59
+            Top = 189
             Width = 57
             Height = 18
             Caption = 'Unidade:'
@@ -878,8 +878,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object Label8: TLabel
-            Left = 51
-            Top = 176
+            Left = 74
+            Top = 244
             Width = 45
             Height = 18
             Caption = 'Marca:'
@@ -891,8 +891,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object Label36: TLabel
-            Left = 52
-            Top = 234
+            Left = 75
+            Top = 302
             Width = 44
             Height = 18
             Caption = 'Grupo:'
@@ -904,8 +904,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object lbl2: TLabel
-            Left = 470
-            Top = 240
+            Left = 32
+            Top = 355
             Width = 86
             Height = 18
             Caption = 'Imprime em:'
@@ -917,8 +917,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object Label18: TLabel
-            Left = 588
-            Top = 139
+            Left = 587
+            Top = 162
             Width = 76
             Height = 18
             Caption = 'DI/DSI/DA:'
@@ -930,8 +930,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object Label11: TLabel
-            Left = 25
-            Top = 139
+            Left = 24
+            Top = 162
             Width = 95
             Height = 18
             Caption = 'C'#243'digo Barras:'
@@ -942,9 +942,22 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
           end
+          object Label25: TLabel
+            Left = 11
+            Top = 91
+            Width = 109
+            Height = 18
+            Caption = 'Descr Impressa:'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
           object btn_familia: TcxButton
-            Left = 431
-            Top = 202
+            Left = 720
+            Top = 270
             Width = 22
             Height = 22
             LookAndFeel.NativeStyle = False
@@ -995,8 +1008,8 @@ object Frm_Produto: TFrm_Produto
             OnClick = btn_familiaClick
           end
           object btn_sub: TcxButton
-            Left = 431
-            Top = 258
+            Left = 720
+            Top = 326
             Width = 22
             Height = 24
             LookAndFeel.NativeStyle = False
@@ -1047,8 +1060,8 @@ object Frm_Produto: TFrm_Produto
             OnClick = btn_subClick
           end
           object btn_grupo: TcxButton
-            Left = 431
-            Top = 230
+            Left = 720
+            Top = 298
             Width = 22
             Height = 22
             LookAndFeel.NativeStyle = False
@@ -1099,8 +1112,8 @@ object Frm_Produto: TFrm_Produto
             OnClick = btn_grupoClick
           end
           object btn_und: TcxButton
-            Left = 511
-            Top = 174
+            Left = 720
+            Top = 187
             Width = 22
             Height = 22
             LookAndFeel.NativeStyle = False
@@ -1151,8 +1164,8 @@ object Frm_Produto: TFrm_Produto
             OnClick = btn_undClick
           end
           object btn_marca: TcxButton
-            Left = 246
-            Top = 174
+            Left = 720
+            Top = 242
             Width = 22
             Height = 22
             Caption = '-'
@@ -1203,7 +1216,7 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             OnClick = btn_marcaClick
           end
-          object edDESCRICAO_PRODUTO: TEdit
+          object edPROD_DESCRICAO: TEdit
             Left = 122
             Top = 58
             Width = 621
@@ -1217,11 +1230,11 @@ object Frm_Produto: TFrm_Produto
             MaxLength = 200
             ParentFont = False
             TabOrder = 3
-            OnExit = edDESCRICAO_PRODUTOExit
+            OnExit = edPROD_DESCRICAOExit
           end
           object edREFERENCIA_FABRICANTE: TEdit
-            Left = 383
-            Top = 136
+            Left = 375
+            Top = 158
             Width = 199
             Height = 25
             CharCase = ecUpperCase
@@ -1237,9 +1250,9 @@ object Frm_Produto: TFrm_Produto
             OnKeyUp = edREFERENCIA_FABRICANTEKeyUp
           end
           object edFAMILIA: TEdit
-            Left = 98
-            Top = 201
-            Width = 36
+            Left = 121
+            Top = 269
+            Width = 71
             Height = 25
             CharCase = ecUpperCase
             Font.Charset = ANSI_CHARSET
@@ -1253,9 +1266,9 @@ object Frm_Produto: TFrm_Produto
             OnKeyDown = edFAMILIAKeyDown
           end
           object edSUBGRUPO: TEdit
-            Left = 98
-            Top = 257
-            Width = 36
+            Left = 121
+            Top = 324
+            Width = 71
             Height = 25
             CharCase = ecUpperCase
             Font.Charset = ANSI_CHARSET
@@ -1269,9 +1282,9 @@ object Frm_Produto: TFrm_Produto
             OnKeyDown = edSUBGRUPOKeyDown
           end
           object edPROD_UNIDADE: TEdit
-            Left = 338
-            Top = 173
-            Width = 36
+            Left = 121
+            Top = 186
+            Width = 71
             Height = 25
             CharCase = ecUpperCase
             Font.Charset = ANSI_CHARSET
@@ -1280,14 +1293,14 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 9
+            TabOrder = 8
             OnExit = edPROD_UNIDADEExit
             OnKeyDown = edPROD_UNIDADEKeyDown
           end
           object edGRUPO: TEdit
-            Left = 98
-            Top = 229
-            Width = 36
+            Left = 121
+            Top = 296
+            Width = 71
             Height = 25
             CharCase = ecUpperCase
             Font.Charset = ANSI_CHARSET
@@ -1301,9 +1314,9 @@ object Frm_Produto: TFrm_Produto
             OnKeyDown = edGRUPOKeyDown
           end
           object edMARCA: TEdit
-            Left = 98
-            Top = 173
-            Width = 36
+            Left = 121
+            Top = 241
+            Width = 71
             Height = 25
             CharCase = ecUpperCase
             Font.Charset = ANSI_CHARSET
@@ -1312,13 +1325,13 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 8
+            TabOrder = 10
             OnExit = edMARCAExit
             OnKeyDown = edMARCAKeyDown
           end
           object mmINFO_ADICIONAIS: TMemo
-            Left = 123
-            Top = 88
+            Left = 121
+            Top = 117
             Width = 621
             Height = 39
             Font.Charset = ANSI_CHARSET
@@ -1362,8 +1375,8 @@ object Frm_Produto: TFrm_Produto
             TabOrder = 0
           end
           object cb_ponto_impressao: TcxDBLookupComboBox
-            Left = 559
-            Top = 236
+            Left = 121
+            Top = 351
             DataBinding.DataField = 'ponto_impressao_id'
             ParentFont = False
             Properties.ButtonGlyph.Data = {
@@ -1429,8 +1442,8 @@ object Frm_Produto: TFrm_Produto
             Width = 188
           end
           object edNFe_nDI: TEdit
-            Left = 669
-            Top = 135
+            Left = 668
+            Top = 158
             Width = 74
             Height = 26
             CharCase = ecUpperCase
@@ -1444,7 +1457,7 @@ object Frm_Produto: TFrm_Produto
           end
           object cxGroupBox1: TcxGroupBox
             Left = 22
-            Top = 288
+            Top = 384
             Caption = '  Pre'#231'os'
             TabOrder = 15
             Height = 62
@@ -1538,9 +1551,9 @@ object Frm_Produto: TFrm_Produto
             end
           end
           object edGRUPO_NOME: TEdit
-            Left = 135
-            Top = 229
-            Width = 292
+            Left = 195
+            Top = 297
+            Width = 522
             Height = 25
             TabStop = False
             CharCase = ecUpperCase
@@ -1556,9 +1569,9 @@ object Frm_Produto: TFrm_Produto
             OnKeyDown = edGRUPOKeyDown
           end
           object edSUBGRUPO_NOME: TEdit
-            Left = 135
-            Top = 257
-            Width = 292
+            Left = 195
+            Top = 324
+            Width = 522
             Height = 25
             TabStop = False
             CharCase = ecUpperCase
@@ -1574,9 +1587,9 @@ object Frm_Produto: TFrm_Produto
             OnKeyDown = edGRUPOKeyDown
           end
           object edMARCA_NOME: TEdit
-            Left = 135
-            Top = 173
-            Width = 108
+            Left = 195
+            Top = 241
+            Width = 522
             Height = 25
             TabStop = False
             CharCase = ecUpperCase
@@ -1592,9 +1605,9 @@ object Frm_Produto: TFrm_Produto
             OnKeyDown = edGRUPOKeyDown
           end
           object edUNIDADE_MEDIDA_NOME: TEdit
-            Left = 374
-            Top = 173
-            Width = 136
+            Left = 195
+            Top = 186
+            Width = 522
             Height = 25
             TabStop = False
             CharCase = ecUpperCase
@@ -1610,9 +1623,9 @@ object Frm_Produto: TFrm_Produto
             OnKeyDown = edGRUPOKeyDown
           end
           object edFAMILIA_NOME: TEdit
-            Left = 135
-            Top = 201
-            Width = 292
+            Left = 195
+            Top = 269
+            Width = 522
             Height = 25
             TabStop = False
             CharCase = ecUpperCase
@@ -1628,8 +1641,8 @@ object Frm_Produto: TFrm_Produto
             OnKeyDown = edGRUPOKeyDown
           end
           object edPROD_EAN: TEdit
-            Left = 122
-            Top = 136
+            Left = 121
+            Top = 159
             Width = 150
             Height = 25
             CharCase = ecUpperCase
@@ -1668,9 +1681,9 @@ object Frm_Produto: TFrm_Produto
             TabOrder = 2
           end
           object edTIPO_ITEM: TEdit
-            Left = 582
-            Top = 172
-            Width = 36
+            Left = 121
+            Top = 213
+            Width = 71
             Height = 25
             CharCase = ecUpperCase
             Font.Charset = ANSI_CHARSET
@@ -1679,14 +1692,14 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 10
+            TabOrder = 9
             OnExit = edTIPO_ITEMExit
             OnKeyDown = edTIPO_ITEMKeyDown
           end
           object edTIPO_ITEM_NOME: TEdit
-            Left = 619
-            Top = 172
-            Width = 108
+            Left = 195
+            Top = 213
+            Width = 522
             Height = 25
             TabStop = False
             CharCase = ecUpperCase
@@ -1702,8 +1715,8 @@ object Frm_Produto: TFrm_Produto
             OnKeyDown = edGRUPOKeyDown
           end
           object btn_Tipo: TcxButton
-            Left = 727
-            Top = 173
+            Left = 720
+            Top = 216
             Width = 22
             Height = 22
             LookAndFeel.NativeStyle = False
@@ -1753,18 +1766,34 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             OnClick = btn_TipoClick
           end
+          object edPROD_DESCRICAO_IMPRESSA: TEdit
+            Left = 121
+            Top = 87
+            Width = 621
+            Height = 25
+            CharCase = ecUpperCase
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'Helvetica Neue'
+            Font.Style = []
+            MaxLength = 200
+            ParentFont = False
+            TabOrder = 28
+            OnExit = edPROD_DESCRICAOExit
+          end
         end
       end
       object Panel3: TPanel
         Left = 14
-        Top = 366
+        Top = 497
         Width = 747
         Height = 91
         BevelOuter = bvNone
         TabOrder = 0
         object cxButton3: TcxButton
           Left = 22
-          Top = 1
+          Top = -1
           Width = 120
           Height = 40
           Caption = 'Pre'#231'os'
@@ -1912,7 +1941,7 @@ object Frm_Produto: TFrm_Produto
         end
         object cxButton11: TcxButton
           Left = 147
-          Top = 1
+          Top = -1
           Width = 120
           Height = 40
           Caption = 'Estoque'
@@ -2060,7 +2089,7 @@ object Frm_Produto: TFrm_Produto
         end
         object cxButton12: TcxButton
           Left = 272
-          Top = 1
+          Top = -1
           Width = 120
           Height = 40
           Caption = 'Dados'#13'Especificos'
@@ -2208,7 +2237,7 @@ object Frm_Produto: TFrm_Produto
         end
         object cxButton9: TcxButton
           Left = 397
-          Top = 1
+          Top = -1
           Width = 120
           Height = 40
           Caption = 'Comiss'#245'es %'
@@ -2356,7 +2385,7 @@ object Frm_Produto: TFrm_Produto
         end
         object cxButton14: TcxButton
           Left = 522
-          Top = 1
+          Top = -1
           Width = 120
           Height = 40
           Caption = 'Imagem'
@@ -2504,7 +2533,7 @@ object Frm_Produto: TFrm_Produto
         end
         object cxButton1: TcxButton
           Left = 22
-          Top = 46
+          Top = 44
           Width = 120
           Height = 40
           Caption = 'Garrafas'
@@ -2652,7 +2681,7 @@ object Frm_Produto: TFrm_Produto
         end
         object cxButton17: TcxButton
           Left = 147
-          Top = 45
+          Top = 43
           Width = 120
           Height = 40
           Caption = 'Etiquetas'
@@ -2800,7 +2829,7 @@ object Frm_Produto: TFrm_Produto
         end
         object cxButton4: TcxButton
           Left = 521
-          Top = 46
+          Top = 44
           Width = 120
           Height = 40
           Caption = 'Hist Vendas'
@@ -2947,7 +2976,7 @@ object Frm_Produto: TFrm_Produto
         end
         object cxButton2: TcxButton
           Left = 397
-          Top = 45
+          Top = 43
           Width = 120
           Height = 40
           Caption = 'Hist.Compras'
@@ -3094,7 +3123,7 @@ object Frm_Produto: TFrm_Produto
         end
         object cxButton18: TcxButton
           Left = 272
-          Top = 46
+          Top = 44
           Width = 120
           Height = 40
           Caption = 'Grade'
@@ -3855,10 +3884,10 @@ object Frm_Produto: TFrm_Produto
         end
       end
       object Panel7: TPanel
-        Left = 776
+        Left = 744
         Top = 8
-        Width = 606
-        Height = 533
+        Width = 622
+        Height = 514
         BevelOuter = bvNone
         Caption = 'Panel7'
         TabOrder = 3
@@ -6088,8 +6117,8 @@ object Frm_Produto: TFrm_Produto
       'WHERE RPC_CFOP    = CODIGO'
       'AND RPC_TPMOV = TPMOV_CODIGO '
       'ORDER BY TPMOV_DESCRICAO,  RPC_CFOP')
-    Left = 408
-    Top = 392
+    Left = 640
+    Top = 336
   end
   object dsRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC: TDataSource
     DataSet = qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
@@ -6372,12 +6401,6 @@ object Frm_Produto: TFrm_Produto
       'SELECT * FROM produto_prod')
     Left = 32
     Top = 136
-    object qConsultadescricao_produto: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'descricao_produto'
-      Origin = 'DESCRICAO_PRODUTO'
-      Size = 200
-    end
     object qConsultapreco_final_varejo: TBCDField
       AutoGenerateValue = arDefault
       FieldName = 'preco_final_varejo'
@@ -6418,12 +6441,6 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'referencia_fabricante'
       Origin = 'REFERENCIA_FABRICANTE'
-      Size = 50
-    end
-    object qConsultaCOD_BARRAS_AUXILIAR: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'COD_BARRAS_AUXILIAR'
-      Origin = 'COD_BARRAS_AUXILIAR'
       Size = 50
     end
     object qConsultaINFO_ADICIONAIS: TStringField
@@ -7101,6 +7118,18 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'PROD_UNIDADE'
       Origin = 'PROD_UNIDADE'
       Size = 3
+    end
+    object qConsultaPROD_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_DESCRICAO'
+      Origin = 'PROD_DESCRICAO'
+      Size = 100
+    end
+    object qConsultaPROD_DESCRICAO_IMPRESSA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_DESCRICAO_IMPRESSA'
+      Origin = 'PROD_DESCRICAO_IMPRESSA'
+      Size = 100
     end
   end
   object tConsulta: TTimer

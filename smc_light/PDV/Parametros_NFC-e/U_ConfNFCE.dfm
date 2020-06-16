@@ -1070,13 +1070,14 @@ object Frm_ConfNFCE: TFrm_ConfNFCE
         '     vi.CODIGO_PRODUTO, vi.CODIGO_VENDA,vi.QUANTIDADE,vi.PRECO,v' +
         'i.PRECO_TOTAL,vi.ACRESCIMO,vi.DESCONTO,vi.CODIGO_ITEM_VENDA,'
       
-        '     p.CODIGO,p.DESCRICAO_PRODUTO,p.NCM,p.FRETE,p.ICMS_CST,p.UNI' +
-        'DADE_MEDIDA,p.CODIGO_ORIGEM_MERCADORIA,p.ALIQ_ICMS, p.CSOSN,'
-      '     p.CEST, p.CODIGO_BARRAS, p.PIS_CST, p.COFINS_CST'
+        '     p.PROD_CODIGO,p.PROD_DESCRICAO,p.NCM,p.FRETE,p.ICMS_CST,p.p' +
+        'rod_UNIDADE,p.CODIGO_ORIGEM_MERCADORIA,p.ALIQ_ICMS, VI.VI_CFOP_C' +
+        'SOSN,'
+      '     p.CEST, p.PROD_EAN, p.PIS_CST, p.COFINS_CST'
       ''
       'from venda_item vi'
       ''
-      'inner join produto p ON (vi.CODIGO_PRODUTO = p.CODIGO)'
+      'inner join produto_PROD p ON (vi.CODIGO_PRODUTO = p.PROD_CODIGO)'
       ''
       'WHERE vi.CODIGO_VENDA = :pcodigo')
     Left = 224
@@ -1132,20 +1133,20 @@ object Frm_ConfNFCE: TFrm_ConfNFCE
       FieldName = 'CODIGO_ITEM_VENDA'
       Origin = 'CODIGO_ITEM_VENDA'
     end
-    object SQL_VENDA_ITEMCODIGO: TIntegerField
+    object SQL_VENDA_ITEMPROD_CODIGO: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      ProviderFlags = [pfInKey]
-      ReadOnly = True
-    end
-    object SQL_VENDA_ITEMDESCRICAO_PRODUTO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO_PRODUTO'
-      Origin = 'DESCRICAO_PRODUTO'
+      FieldName = 'PROD_CODIGO'
+      Origin = 'PROD_CODIGO'
       ProviderFlags = []
       ReadOnly = True
-      Size = 200
+    end
+    object SQL_VENDA_ITEMPROD_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_DESCRICAO'
+      Origin = 'PROD_DESCRICAO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
     end
     object SQL_VENDA_ITEMNCM: TStringField
       AutoGenerateValue = arDefault
@@ -1153,7 +1154,7 @@ object Frm_ConfNFCE: TFrm_ConfNFCE
       Origin = 'NCM'
       ProviderFlags = []
       ReadOnly = True
-      Size = 50
+      Size = 8
     end
     object SQL_VENDA_ITEMFRETE: TBCDField
       AutoGenerateValue = arDefault
@@ -1169,15 +1170,15 @@ object Frm_ConfNFCE: TFrm_ConfNFCE
       Origin = 'ICMS_CST'
       ProviderFlags = []
       ReadOnly = True
-      Size = 2
+      Size = 3
     end
-    object SQL_VENDA_ITEMUNIDADE_MEDIDA: TStringField
+    object SQL_VENDA_ITEMprod_UNIDADE: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'UNIDADE_MEDIDA'
-      Origin = 'UNIDADE_MEDIDA'
+      FieldName = 'prod_UNIDADE'
+      Origin = 'PROD_UNIDADE'
       ProviderFlags = []
       ReadOnly = True
-      Size = 50
+      Size = 3
     end
     object SQL_VENDA_ITEMCODIGO_ORIGEM_MERCADORIA: TIntegerField
       AutoGenerateValue = arDefault
@@ -1194,13 +1195,11 @@ object Frm_ConfNFCE: TFrm_ConfNFCE
       ReadOnly = True
       Precision = 10
     end
-    object SQL_VENDA_ITEMCSOSN: TStringField
+    object SQL_VENDA_ITEMVI_CFOP_CSOSN: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CSOSN'
-      Origin = 'CSOSN'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 200
+      FieldName = 'VI_CFOP_CSOSN'
+      Origin = 'VI_CFOP_CSOSN'
+      Size = 4
     end
     object SQL_VENDA_ITEMCEST: TStringField
       AutoGenerateValue = arDefault
@@ -1210,13 +1209,12 @@ object Frm_ConfNFCE: TFrm_ConfNFCE
       ReadOnly = True
       Size = 50
     end
-    object SQL_VENDA_ITEMCODIGO_BARRAS: TStringField
+    object SQL_VENDA_ITEMPROD_EAN: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_BARRAS'
-      Origin = 'CODIGO_BARRAS'
+      FieldName = 'PROD_EAN'
+      Origin = 'PROD_EAN'
       ProviderFlags = []
       ReadOnly = True
-      Size = 50
     end
     object SQL_VENDA_ITEMPIS_CST: TStringField
       AutoGenerateValue = arDefault

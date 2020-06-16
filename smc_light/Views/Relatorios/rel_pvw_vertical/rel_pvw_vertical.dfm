@@ -5,7 +5,7 @@ object frm_rel_pvw_vertical: Tfrm_rel_pvw_vertical
   BorderStyle = bsNone
   Caption = 'frm_rel_pvw_vertical'
   ClientHeight = 300
-  ClientWidth = 486
+  ClientWidth = 505
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23,7 +23,7 @@ object frm_rel_pvw_vertical: Tfrm_rel_pvw_vertical
   object GridPanel1: TGridPanel
     Left = 0
     Top = 0
-    Width = 486
+    Width = 505
     Height = 300
     Align = alClient
     Caption = 'GridPanel1'
@@ -50,21 +50,24 @@ object frm_rel_pvw_vertical: Tfrm_rel_pvw_vertical
         Value = 100.000000000000000000
       end>
     TabOrder = 0
+    ExplicitWidth = 486
     object pvw_report: TfrxPreview
-      Left = 122
+      Left = 126
       Top = 1
-      Width = 363
+      Width = 378
       Height = 298
       Align = alClient
       OutlineVisible = True
       OutlineWidth = 121
       ThumbnailVisible = False
       UseReportHints = True
+      ExplicitLeft = 122
+      ExplicitWidth = 363
     end
     object GridPanel2: TGridPanel
       Left = 1
       Top = 1
-      Width = 121
+      Width = 125
       Height = 298
       Align = alClient
       Caption = 'GridPanel2'
@@ -99,30 +102,33 @@ object frm_rel_pvw_vertical: Tfrm_rel_pvw_vertical
           Value = 9.999999999999998000
         end>
       TabOrder = 1
+      ExplicitWidth = 121
       DesignSize = (
-        121
+        125
         298)
       object cxButton3: TcxButton
         Left = 1
         Top = 267
-        Width = 119
+        Width = 123
         Height = 30
         Align = alClient
         Caption = 'cxButton1'
         TabOrder = 0
         OnClick = cxButton3Click
+        ExplicitWidth = 119
       end
       object Edit1: TEdit
-        Left = 1
+        Left = 3
         Top = 57
         Width = 119
         Height = 21
         Anchors = []
         TabOrder = 1
         Text = 'Edit1'
+        ExplicitLeft = 1
       end
       object Button1: TButton
-        Left = 23
+        Left = 25
         Top = 188
         Width = 75
         Height = 25
@@ -130,6 +136,7 @@ object frm_rel_pvw_vertical: Tfrm_rel_pvw_vertical
         Caption = 'Button1'
         TabOrder = 2
         OnClick = Button1Click
+        ExplicitLeft = 23
       end
     end
   end
@@ -299,8 +306,11 @@ object frm_rel_pvw_vertical: Tfrm_rel_pvw_vertical
   object SQL_REPORT: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'select codigo, descricao_produto, preco_final_varejo'
-      'from produto'
+      'select '
+      'PROD_CODIGO AS codigo, '
+      'PROD_DESCRCICAO AS descricao_produto, '
+      'preco_final_varejo'
+      'from PRODUTO_PROD'
       'limit 100')
     Left = 216
     Top = 136

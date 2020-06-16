@@ -12,6 +12,9 @@ unit global_variables;
 interface
 
 var
+   // Flag de versao de base de dados antiga
+   g_Base_de_Dados_Antiga_e_Nunca_Atualizada:Boolean;
+
    // Número de um movimento
    g_Numero_do_Movimento:Integer;
 

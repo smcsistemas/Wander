@@ -1221,6 +1221,7 @@ type
 
 //    procedure dxBarButton125Click(Sender: TObject);
   private
+     procedure Atualizar_Base_De_Dados;
   var
     TamanhoTotal: integer;
 
@@ -1265,7 +1266,9 @@ uses
   gerar_boletos, cad_sistemas, cad_bairro,
   vw_tipoDeMovimento, arquivos_fiscais, cad_vacina, animais, os_cursos,
   os_fotografia, cad_servico, cad_veiculos_clientes, os_mecanica, cad_cliente_2,
-  estoque_localizacao, movimenta_estoque;
+  estoque_localizacao, movimenta_estoque,
+
+  global_variables;
 
   //historico_caixas, correcao_fiscal_tributacao_produtos, atulizar_ncm_cest, cad_juros_multas;
 
@@ -2358,6 +2361,11 @@ end;
 
 procedure Tfrm_main.dxBarLargeButton478Click(Sender: TObject);
 begin
+  Atualizar_Base_De_Dados;
+end;
+
+procedure Tfrm_main.Atualizar_Base_De_Dados;
+begin
   if not TFunctions.CheckOpen(frmAtualizador) then
   begin
     dxRibbon1.ShowTabGroups := false;
@@ -3284,6 +3292,17 @@ procedure Tfrm_main.FormShow(Sender: TObject);
 var
   meuini: tinifile;
 begin
+
+   //Se a base de dados é antiga e nunca foi atualizada...
+   //Está rodando um exe novo numa base de dados antiga
+   //abrir a tela de atualizações e obrigar a atualizar...
+
+   if g_Base_de_Dados_Antiga_e_Nunca_Atualizada then
+   begin
+      Atualizar_Base_De_Dados;
+   end;
+
+
      dxRibbon1.ActiveTab := dxRibbon1Tab1;
      try
         try
