@@ -30,6 +30,21 @@ ordem decrescente de data....
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+410|16/06/20|16:23|vw_pdv.dfm                  |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
+409|16/06/20|16:22|cadastro_produto.dfm        |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
+408|16/06/20|16:22|cadastro_produto2.dfm       |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
+407|16/06/20|16:22|vw_importacao_nfe.dfm       |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
+406|16/06/20|16:22|relatorios.dfm              |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
+405|16/06/20|16:21|Consulta_Produto.dfm        |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
+404|16/06/20|16:21|cad_servico.dfm             |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
+403|16/06/20|16:21|EmissaoDeNFe.dfm            |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
+402|16/06/20|16:21|cad_veiculos_transportadora.|Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
+401|16/06/20|16:21|cad_veiculos_clientes.dfm   |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
+400|16/06/20|16:21|cad_veiculos.dfm            |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
+399|16/06/20|16:21|cadastro_produto.dfm        |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
+398|16/06/20|16:09|cadastro_produto.pas        |Trocado ('MARCA' por ('PROD_MARCA'
+397|16/06/20|16:09|m_Importacao.pas            |Trocado ('MARCA' por ('PROD_MARCA'
+396|16/06/20|16:09|m_Produto.pas               |Trocado ('MARCA' por ('PROD_MARCA'
 395|16/06/20|15:07|vw_pdv.dfm                  |Trocado INFO_ADICIONAIS por PROD_DETALHES
 394|16/06/20|15:07|cadastro_produto.dfm        |Trocado INFO_ADICIONAIS por PROD_DETALHES
 393|16/06/20|15:07|cadastro_produto2.dfm       |Trocado INFO_ADICIONAIS por PROD_DETALHES

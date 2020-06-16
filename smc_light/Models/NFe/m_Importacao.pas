@@ -466,7 +466,7 @@ begin
 
       produto.DESCRICAO := TFormats.uc(fieldbyname('descricao').asString);
       produto.PROD_EAN := fieldbyname('cod_barras').asString;
-      produto.MARCA := TFormats.uc(fieldbyname('marca').asString);
+      produto.MARCA := TFormats.uc(fieldbyname('PROD_MARCA').asString);
       produto.UNIDADE := TFormats.uc(fieldbyname('um').asString);
       produto.ESTOQUE := produto.ESTOQUE + fieldbyname('qtde').asExtended;
       produto.PRECO_FINAL_VAREJO := fieldbyname('preco_venda').asExtended;
@@ -701,7 +701,7 @@ begin
       self.COD_ITEM := qry.fieldbyname('Item').asInteger;
       self.DESTINO := qry.fieldbyname('Destino').asString;
       self.COD_BARRAS := qry.fieldbyname('Cod_Barras').asString;
-      self.MARCA := qry.fieldbyname('Marca').asString;
+      self.MARCA := qry.fieldbyname('PROD_MARCA').asString;
       self.UM := qry.fieldbyname('UM').asString;
       self.QTDE := qry.fieldbyname('Qtde').asExtended;
       self.PRECO_UNI := qry.fieldbyname('Preco_Uni').asExtended;
@@ -1349,3 +1349,6 @@ begin
 end;
 
 end.
+Trocou ('MARCA por ('PROD_MARCA : automaticamente em 16/06/2020 16:08
+Trocou ('PROD_MARCA por ('MARCA : automaticamente em 16/06/2020 16:08
+Trocou ('MARCA' por ('PROD_MARCA' : automaticamente em 16/06/2020 16:09

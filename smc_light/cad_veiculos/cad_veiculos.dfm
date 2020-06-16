@@ -1557,7 +1557,7 @@ object FRM_cad_veiculos: TFRM_cad_veiculos
     end
     object SQL_veiculosMARCA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'MARCA'
+      FieldName = 'PROD_MARCA'
       Origin = 'MARCA'
       Size = 50
     end
@@ -1667,7 +1667,7 @@ object FRM_cad_veiculos: TFRM_cad_veiculos
     end
     object SQL_LISTAMARCA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'MARCA'
+      FieldName = 'PROD_MARCA'
       Origin = 'MARCA'
       Size = 50
     end
@@ -1708,3 +1708,4 @@ object FRM_cad_veiculos: TFRM_cad_veiculos
     end
   end
 end
+Trocou FieldName = 'MARCA' por FieldName = 'PROD_MARCA' : automaticamente em 16/06/2020 16:21

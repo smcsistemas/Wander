@@ -1793,3 +1793,5 @@ end;
 
 end.
 
+Trocou ('MARCA por ('PROD_MARCA : automaticamente em 16/06/2020 16:08
+Trocou ('PROD_MARCA por ('MARCA : automaticamente em 16/06/2020 16:08

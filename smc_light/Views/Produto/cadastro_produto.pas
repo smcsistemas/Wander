@@ -244,6 +244,7 @@ type
     cxPageControl1: TcxPageControl;
     cxTabSheet1: TcxTabSheet;
     edArgumentoDePesquisa: TEdit;
+    edUNIDADE_MEDIDA_NOME: TEdit;
     edPROD_EAN: TEdit;
     tab_Cadastrar: TcxTabSheet;
     SQL_CSTIPI: TFDQuery;
@@ -327,122 +328,7 @@ type
     bControleGravar: TcxButton;
     pnContador: TPanel;
     qConsulta: TFDQuery;
-    qConsultapreco_final_varejo: TBCDField;
-    qConsultavalor_promocional_varejo: TBCDField;
-    qConsultagrupo: TStringField;
-    qConsultamarca: TStringField;
-    qConsultaicms_cst: TStringField;
-    qConsultancm: TStringField;
-    qConsultaPROD_REFERENCIASFABRICA: TStringField;
     Label45: TLabel;
-    qConsultaPROD_DETALHES: TStringField;
-    qConsultaFAMILIA: TStringField;
-    qConsultaSUBGRUPO: TStringField;
-    qConsultaDATA_CADASTRO: TDateField;
-    qConsultaTIPO_ITEM: TStringField;
-    qConsultaESTOQUE_MINIMO: TStringField;
-    qConsultaPRECO_CUSTO: TBCDField;
-    qConsultaFRETE: TBCDField;
-    qConsultaIMPOSTO: TBCDField;
-    qConsultaDESP_OPERACIONAIS: TBCDField;
-    qConsultaCUSTO_MEDIO: TBCDField;
-    qConsultaMARGEM_LUCRO: TBCDField;
-    qConsultaMARGEM_L_VAREJO: TBCDField;
-    qConsultaMARGEM_L_ATACADO: TBCDField;
-    qConsultaMARGEM_L_DISTRIBUIDOR: TBCDField;
-    qConsultaDESCONTO_MAXIMO: TBCDField;
-    qConsultaDESCONTO_M_VAREJO: TBCDField;
-    qConsultaDESCONTO_M_ATACADO: TBCDField;
-    qConsultaDESCONTO_M_DISTRIBUIDOR: TBCDField;
-    qConsultaDESCONTO_L_VAREJO: TBCDField;
-    qConsultaDESCONTO_L_ATACADO: TBCDField;
-    qConsultaDESCONTO_L_DISTRIBUIDOR: TBCDField;
-    qConsultaPAGAR_COMISSAO: TBCDField;
-    qConsultaCOMISSAO_BALCAO: TBCDField;
-    qConsultaBALCAO_COMISSAO_VAREJO: TBCDField;
-    qConsultaBALCAO_COMISSAO_ATACADO: TBCDField;
-    qConsultaBALCAO_COMISSAO_DISTRIBUIDOR: TBCDField;
-    qConsultaCOMISSAO_EXTERNA: TBCDField;
-    qConsultaEXTERNA_COMISSAO_VAREJO: TBCDField;
-    qConsultaEXTERNA_COMISSAO_ATACADO: TBCDField;
-    qConsultaEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField;
-    qConsultaPRECO_FINAL_ATACADO: TBCDField;
-    qConsultaPRECO_FINAL_DISTRIBUIDOR: TBCDField;
-    qConsultaPROMO_VAREJO: TBCDField;
-    qConsultaPROMO_ATACADO: TBCDField;
-    qConsultaPROMO_DISTRIBUIDOR: TBCDField;
-    qConsultaPROMOCAO_INICIO: TDateField;
-    qConsultaPROMOCAO_TERMINO: TDateField;
-    qConsultaVALOR_PROMOCIONAL_ATACADO: TBCDField;
-    qConsultaVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
-    qConsultaSALDO: TBCDField;
-    qConsultaALIQ_ICMS: TBCDField;
-    qConsultaREDUCAO_ICMS: TBCDField;
-    qConsultaALIQ_ICMS_SUBST: TStringField;
-    qConsultaREDUCAO_ICMS_ST: TBCDField;
-    qConsultaLUCRO_SUBST_TRIBUTARIA: TBCDField;
-    qConsultaVALOR_PAUTA_BC_ST: TBCDField;
-    qConsultaLEIS: TStringField;
-    qConsultaGENERO: TStringField;
-    qConsultaFORNECEDOR_NOME: TStringField;
-    qConsultaCOD_COMB: TStringField;
-    qConsultaALIQ_IPI: TStringField;
-    qConsultaENQUADRAMENTO_IPI: TIntegerField;
-    qConsultaCODIGO_LOCALIZACAO: TIntegerField;
-    qConsultaICMS_IPI: TStringField;
-    qConsultaPIS_CST: TStringField;
-    qConsultaCOFINS_CST: TStringField;
-    qConsultaCODIGO_ORIGEM_MERCADORIA: TIntegerField;
-    qConsultaCEST: TStringField;
-    qConsultaANP: TStringField;
-    qConsultaEX_IPI: TSingleField;
-    qConsultaSTATUS_CADASTRAL: TStringField;
-    qConsultaPESAVEL: TStringField;
-    qConsultaUTILIZA_ETIQUETA_BALANCA: TStringField;
-    qConsultaUSA_LOTE: TStringField;
-    qConsultaCONTROLADO: TStringField;
-    qConsultaCODIGO_FORNECEDOR: TIntegerField;
-    qConsultaQUANT_MINI_VAREJO_P: TBCDField;
-    qConsultaQUANT_MINI_ATACADO_P: TBCDField;
-    qConsultaQUANT_MINI_DISTRIBUIDOR_P: TBCDField;
-    qConsultaQUANT_MINI_VAREJO_Q: TBCDField;
-    qConsultaQUANT_MINI_ATACADO_Q: TBCDField;
-    qConsultaQUANT_MINI_DISTRIBUIDOR_Q: TBCDField;
-    qConsultaQUANT_MINI_VAREJO_D: TBCDField;
-    qConsultaQUANT_MINI_DISTRIBUIDOR_D: TBCDField;
-    qConsultaQUANT_MINI_ATACADO_D: TBCDField;
-    qConsultaCST_IPI: TStringField;
-    qConsultaCOD_BALANCA_1: TStringField;
-    qConsultaCOD_BALANCA_2: TStringField;
-    qConsultaCOD_BALANCA_3: TStringField;
-    qConsultaponto_impressao_id: TIntegerField;
-    qConsultaProduto_ou_Servico: TStringField;
-    qConsultaPagaComissaoSN: TStringField;
-    qConsultaContaContabil: TIntegerField;
-    qConsultaCentroDeCustos: TIntegerField;
-    qConsultaNFe_indTot: TIntegerField;
-    qConsultaNFe_VeiculoNovo: TIntegerField;
-    qConsultaNFe_nDI: TStringField;
-    qConsultaNFe_dDI: TDateTimeField;
-    qConsultaNFe_xLocDesemb: TStringField;
-    qConsultaNFe_UFDesemb: TStringField;
-    qConsultaNFe_dDesemb: TDateTimeField;
-    qConsultaNFe_cExportador: TStringField;
-    qConsultaNFe_nAdicao: TIntegerField;
-    qConsultaNFe_cFabricante: TStringField;
-    qConsultaNFe_vDescDI: TBCDField;
-    qConsultaNFe_Veiculo_Cor_Codigo: TStringField;
-    qConsultaNFe_Veiculo_Cor_Descricao: TStringField;
-    qConsultaNFe_Veiculo_Pot: TStringField;
-    qConsultaNFe_Veiculo_Cilin: TStringField;
-    qConsultaNFe_Medicamento: TIntegerField;
-    qConsultaNFe_Armamento: TIntegerField;
-    qConsultaNFe_Combustivel: TIntegerField;
-    qConsultaNFe_modBC: TIntegerField;
-    qConsultaNFe_modBCST: TIntegerField;
-    qConsultaNFe_pMVAST: TBCDField;
-    qConsultaNFe_motDesICMS: TIntegerField;
-    qConsultaCODIGO_ALFANUMERICO: TStringField;
     tConsulta: TTimer;
     tabTributacao: TcxTabSheet;
     Panel4: TPanel;
@@ -474,7 +360,6 @@ type
     pnValorPautaBC_ICMS: TPanel;
     Label56: TLabel;
     edVALOR_PAUTA_BC: TEdit;
-    qConsultaVALOR_PAUTA_BC: TBCDField;
     pnControles2: TPanel;
     bControleCancelar2: TcxButton;
     bControleGravar2: TcxButton;
@@ -511,7 +396,7 @@ type
     edSUBGRUPO: TEdit;
     edPROD_UNIDADE: TEdit;
     edGRUPO: TEdit;
-    edMARCA: TEdit;
+    edPROD_CDMARCA: TEdit;
     mmPROD_DETALHES: TMemo;
     edCODIGO_ALFANUMERICO: TEdit;
     edCODIGO: TEdit;
@@ -527,7 +412,6 @@ type
     edGRUPO_NOME: TEdit;
     edSUBGRUPO_NOME: TEdit;
     edMARCA_NOME: TEdit;
-    edPROD_UNIDADE_NOME: TEdit;
     edFAMILIA_NOME: TEdit;
     cbSTATUS_CADASTRAL: TcxCheckBox;
     edTIPO_ITEM: TEdit;
@@ -538,9 +422,7 @@ type
     edLEIS: TEdit;
     Label21: TLabel;
     edNFe_pMVA: TEdit;
-    qConsultaNFe_pMVA: TBCDField;
     rgNFe_indEscala: TRadioGroup;
-    qConsultaNFe_indEscala: TIntegerField;
     Panel2: TPanel;
     Label14: TLabel;
     Label19: TLabel;
@@ -564,20 +446,138 @@ type
     DBGrid1: TDBGrid;
     Label24: TLabel;
     edREDUCAO_ICMS_ST: TEdit;
-    qConsultaPROD_RASTREAVEL: TIntegerField;
-    qConsultaPROD_TRATALOTE: TIntegerField;
-    qConsultaPROD_TRATANUMEROSERIE: TIntegerField;
     Panel7: TPanel;
     cbPROD_RASTREAVEL: TCheckBox;
     cbPROD_TRATANUMEROSERIE: TCheckBox;
     rgPROD_TRATALOTE: TRadioGroup;
+    Label25: TLabel;
+    edPROD_DESCRICAO_IMPRESSA: TEdit;
+    qConsultaPROD_DESCRICAO: TStringField;
+    qConsultaPROD_DETALHES: TStringField;
+    qConsultaPROD_REFERENCIASFABRICA: TStringField;
+    qConsultaPROD_CDMARCA: TStringField;
+    qConsultaFAMILIA: TStringField;
+    qConsultaGRUPO: TStringField;
+    qConsultaSUBGRUPO: TStringField;
+    qConsultaDATA_CADASTRO: TDateField;
+    qConsultaTIPO_ITEM: TStringField;
+    qConsultaESTOQUE_MINIMO: TStringField;
+    qConsultaPRECO_CUSTO: TBCDField;
+    qConsultaFRETE: TBCDField;
+    qConsultaIMPOSTO: TBCDField;
+    qConsultaDESP_OPERACIONAIS: TBCDField;
+    qConsultaCUSTO_MEDIO: TBCDField;
+    qConsultaMARGEM_LUCRO: TBCDField;
+    qConsultaMARGEM_L_VAREJO: TBCDField;
+    qConsultaMARGEM_L_ATACADO: TBCDField;
+    qConsultaMARGEM_L_DISTRIBUIDOR: TBCDField;
+    qConsultaDESCONTO_MAXIMO: TBCDField;
+    qConsultaDESCONTO_M_VAREJO: TBCDField;
+    qConsultaDESCONTO_M_ATACADO: TBCDField;
+    qConsultaDESCONTO_M_DISTRIBUIDOR: TBCDField;
+    qConsultaDESCONTO_L_VAREJO: TBCDField;
+    qConsultaDESCONTO_L_ATACADO: TBCDField;
+    qConsultaDESCONTO_L_DISTRIBUIDOR: TBCDField;
+    qConsultaPAGAR_COMISSAO: TBCDField;
+    qConsultaCOMISSAO_BALCAO: TBCDField;
+    qConsultaBALCAO_COMISSAO_VAREJO: TBCDField;
+    qConsultaBALCAO_COMISSAO_ATACADO: TBCDField;
+    qConsultaBALCAO_COMISSAO_DISTRIBUIDOR: TBCDField;
+    qConsultaCOMISSAO_EXTERNA: TBCDField;
+    qConsultaEXTERNA_COMISSAO_VAREJO: TBCDField;
+    qConsultaEXTERNA_COMISSAO_ATACADO: TBCDField;
+    qConsultaEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField;
+    qConsultaPRECO_FINAL_ATACADO: TBCDField;
+    qConsultaPRECO_FINAL_DISTRIBUIDOR: TBCDField;
+    qConsultaPRECO_FINAL_VAREJO: TBCDField;
+    qConsultaPROMO_VAREJO: TBCDField;
+    qConsultaPROMO_ATACADO: TBCDField;
+    qConsultaPROMO_DISTRIBUIDOR: TBCDField;
+    qConsultaPROMOCAO_INICIO: TDateField;
+    qConsultaPROMOCAO_TERMINO: TDateField;
+    qConsultaVALOR_PROMOCIONAL_ATACADO: TBCDField;
+    qConsultaVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
+    qConsultaVALOR_PROMOCIONAL_VAREJO: TBCDField;
+    qConsultaSALDO: TBCDField;
+    qConsultaALIQ_ICMS: TBCDField;
+    qConsultaREDUCAO_ICMS: TBCDField;
+    qConsultaALIQ_ICMS_SUBST: TStringField;
+    qConsultaREDUCAO_ICMS_ST: TBCDField;
+    qConsultaLUCRO_SUBST_TRIBUTARIA: TBCDField;
+    qConsultaVALOR_PAUTA_BC_ST: TBCDField;
+    qConsultaLEIS: TStringField;
+    qConsultaGENERO: TStringField;
+    qConsultaFORNECEDOR_NOME: TStringField;
+    qConsultaCOD_COMB: TStringField;
+    qConsultaALIQ_IPI: TStringField;
+    qConsultaENQUADRAMENTO_IPI: TIntegerField;
+    qConsultaCODIGO_LOCALIZACAO: TIntegerField;
+    qConsultaICMS_CST: TStringField;
+    qConsultaICMS_IPI: TStringField;
+    qConsultaPIS_CST: TStringField;
+    qConsultaCOFINS_CST: TStringField;
+    qConsultaCODIGO_ORIGEM_MERCADORIA: TIntegerField;
+    qConsultaNCM: TStringField;
+    qConsultaCEST: TStringField;
+    qConsultaANP: TStringField;
+    qConsultaEX_IPI: TSingleField;
+    qConsultaSTATUS_CADASTRAL: TStringField;
+    qConsultaPESAVEL: TStringField;
+    qConsultaUTILIZA_ETIQUETA_BALANCA: TStringField;
+    qConsultaUSA_LOTE: TStringField;
+    qConsultaCONTROLADO: TStringField;
+    qConsultaCODIGO_FORNECEDOR: TIntegerField;
+    qConsultaQUANT_MINI_VAREJO_P: TBCDField;
+    qConsultaQUANT_MINI_ATACADO_P: TBCDField;
+    qConsultaQUANT_MINI_DISTRIBUIDOR_P: TBCDField;
+    qConsultaQUANT_MINI_VAREJO_Q: TBCDField;
+    qConsultaQUANT_MINI_ATACADO_Q: TBCDField;
+    qConsultaQUANT_MINI_DISTRIBUIDOR_Q: TBCDField;
+    qConsultaQUANT_MINI_VAREJO_D: TBCDField;
+    qConsultaQUANT_MINI_DISTRIBUIDOR_D: TBCDField;
+    qConsultaQUANT_MINI_ATACADO_D: TBCDField;
+    qConsultaCST_IPI: TStringField;
+    qConsultaCOD_BALANCA_1: TStringField;
+    qConsultaCOD_BALANCA_2: TStringField;
+    qConsultaCOD_BALANCA_3: TStringField;
+    qConsultaponto_impressao_id: TIntegerField;
+    qConsultaNFe_nDI: TStringField;
+    qConsultaNFe_dDI: TDateTimeField;
+    qConsultaNFe_xLocDesemb: TStringField;
+    qConsultaNFe_UFDesemb: TStringField;
+    qConsultaNFe_dDesemb: TDateTimeField;
+    qConsultaNFe_cExportador: TStringField;
+    qConsultaNFe_nAdicao: TIntegerField;
+    qConsultaNFe_cFabricante: TStringField;
+    qConsultaNFe_vDescDI: TBCDField;
+    qConsultaNFe_VeiculoNovo: TIntegerField;
+    qConsultaNFe_Veiculo_Cor_Codigo: TStringField;
+    qConsultaNFe_Veiculo_Cor_Descricao: TStringField;
+    qConsultaNFe_Veiculo_Pot: TStringField;
+    qConsultaNFe_Veiculo_Cilin: TStringField;
+    qConsultaNFe_Armamento: TIntegerField;
+    qConsultaNFe_Combustivel: TIntegerField;
+    qConsultaNFe_modBC: TIntegerField;
+    qConsultaNFe_modBCST: TIntegerField;
+    qConsultaNFe_pMVAST: TBCDField;
+    qConsultaNFe_motDesICMS: TIntegerField;
+    qConsultaProduto_ou_Servico: TStringField;
+    qConsultaPagaComissaoSN: TStringField;
+    qConsultaContaContabil: TIntegerField;
+    qConsultaCentroDeCustos: TIntegerField;
+    qConsultaNFe_indTot: TIntegerField;
+    qConsultaNFe_Medicamento: TIntegerField;
+    qConsultaCODIGO_ALFANUMERICO: TStringField;
+    qConsultaVALOR_PAUTA_BC: TBCDField;
+    qConsultaNFe_pMVA: TBCDField;
+    qConsultaNFe_indEscala: TIntegerField;
+    qConsultaPROD_RASTREAVEL: TIntegerField;
+    qConsultaPROD_TRATALOTE: TIntegerField;
+    qConsultaPROD_TRATANUMEROSERIE: TIntegerField;
     qConsultaPROD_CODIGO: TStringField;
     qConsultaPROD_EAN: TStringField;
     qConsultaPROD_UNIDADE: TStringField;
-    qConsultaPROD_DESCRICAO: TStringField;
     qConsultaPROD_DESCRICAO_IMPRESSA: TStringField;
-    Label25: TLabel;
-    edPROD_DESCRICAO_IMPRESSA: TEdit;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -636,7 +636,7 @@ type
     procedure cxDBTextEdit59KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit60KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit61KeyPress(Sender: TObject; var Key: Char);
-    procedure edMARCAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edPROD_CDMARCAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edFAMILIAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edGRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edSUBGRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -720,7 +720,7 @@ type
     procedure bControleCancelarClick(Sender: TObject);
     procedure bControleGravarClick(Sender: TObject);
     procedure edCODIGO_ALFANUMERICOExit(Sender: TObject);
-    procedure edMARCAExit(Sender: TObject);
+    procedure edPROD_CDMARCAExit(Sender: TObject);
     procedure edFAMILIAExit(Sender: TObject);
     procedure edGRUPOExit(Sender: TObject);
     procedure edSUBGRUPOExit(Sender: TObject);
@@ -1496,7 +1496,8 @@ begin
   Frm_unidade.Free;
 
   //Exibe a sigla (o símbolo) da unidade de medida, ou limpa o campo
-  edPROD_UNIDADE_NOME.Text := fUNI_DESCRICAO(edPROD_UNIDADE.Text);
+  edUNIDADE_MEDIDA_NOME.Text := fUNI_DESCRICAO(edPROD_UNIDADE.Text);
+
 end;
 
 procedure TFrm_Produto.bControleGravarClick(Sender: TObject);
@@ -1687,13 +1688,13 @@ begin
   Frm_Marca.ShowModal;
 
   //Selecionou uma marca ou não
-  edMARCA.Text := Frm_Marca_CODIGO;
+  edPROD_CDMARCA.Text := Frm_Marca_CODIGO;
 
   //Destroi tela de consulta de marcas
   Frm_Marca.Free;
 
   //Exibe o nome da marca, ou limpa o campo
-  edMARCA_NOME.Text := fProdutoMarca_NOME(edMARCA.Text);
+  edMARCA_NOME.Text := fProdutoMarca_NOME(edPROD_CDMARCA.Text);
 end;
 
 procedure TFrm_Produto.ConsultarProduto_tipo_item;
@@ -2745,13 +2746,13 @@ end;
 
 procedure TFrm_Produto.edPROD_UNIDADEExit(Sender: TObject);
 begin
-  edPROD_UNIDADE_NOME.Text := '';
+  edUNIDADE_MEDIDA_NOME.Text := '';
   if edPROD_UNIDADE.Text = '' then
      exit;
 
   //Exibe o nome da PROD_UNIDADE, ou limpa o campo
-  edPROD_UNIDADE_NOME.Text := fUNI_DESCRICAO(edPROD_UNIDADE.Text);
-  if edPROD_UNIDADE_NOME.Text = '' then
+  edUNIDADE_MEDIDA_NOME.Text := fUNI_DESCRICAO(edPROD_UNIDADE.Text);
+  if edUNIDADE_MEDIDA_NOME.Text = '' then
   begin
     wnAlerta('Cadastrar Produto','Unidade de Medida não cadastrada');
     edPROD_UNIDADE.SetFocus;
@@ -3044,7 +3045,7 @@ begin
    qAUX.sql.add('       PROD_EAN,                 ');
    qAUX.sql.add('       PROD_REFERENCIASFABRICA,  ');
    qAUX.sql.add('       PROD_UNIDADE,             ');
-   qAUX.sql.add('       MARCA,                    ');
+   qAUX.sql.add('       PROD_CDMARCA,             ');
    qAUX.sql.add('       FAMILIA,                  ');
    qAUX.sql.add('       GRUPO,                    ');
    qAUX.sql.add('       SUBGRUPO,                 ');
@@ -3083,7 +3084,7 @@ begin
    qAUX.sql.add('      :PROD_EAN,                 ');
    qAUX.sql.add('      :PROD_REFERENCIASFABRICA,  ');
    qAUX.sql.add('      :PROD_UNIDADE,             ');
-   qAUX.sql.add('      :MARCA,                    ');
+   qAUX.sql.add('      :PROD_CDMARCA,             ');
    qAUX.sql.add('      :FAMILIA,                  ');
    qAUX.sql.add('      :GRUPO,                    ');
    qAUX.sql.add('      :SUBGRUPO,                 ');
@@ -3134,7 +3135,7 @@ begin
    qAUX.ParamByName('PROD_EAN'                ).AsString  := edPROD_EAN.Text;
    qAUX.ParamByName('PROD_REFERENCIASFABRICA' ).AsString  := edPROD_REFERENCIASFABRICA.Text;
    qAUX.ParamByName('PROD_UNIDADE'            ).AsString  := edPROD_UNIDADE.Text;
-   qAUX.ParamByName('MARCA'                   ).AsString  := edMARCA.Text;
+   qAUX.ParamByName('PROD_CDMARCA'            ).AsString  := edPROD_CDMARCA.Text;
    qAUX.ParamByName('FAMILIA'                 ).AsString  := edFAMILIA.Text;
    qAUX.ParamByName('GRUPO'                   ).AsString  := edGRUPO.Text;
    qAUX.ParamByName('SUBGRUPO'                ).AsString  := edSUBGRUPO.Text;
@@ -3167,22 +3168,22 @@ begin
    qAUX.Free;
 end;
 
-procedure TFrm_Produto.edMARCAExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_CDMARCAExit(Sender: TObject);
 begin
   edMARCA_NOME.Text := '';
-  if edMARCA.Text = '' then
+  if edPROD_CDMARCA.Text = '' then
      exit;
 
   //Exibe o nome da marca, ou limpa o campo
-  edMARCA_NOME.Text := fProdutoMarca_NOME(edMARCA.Text);
+  edMARCA_NOME.Text := fProdutoMarca_NOME(edPROD_CDMARCA.Text);
   if edMARCA_NOME.Text = '' then
   begin
     wnAlerta('Cadastrar Produto','Marca não cadastrada');
-    edMARCA.SetFocus;
+    edPROD_CDMARCA.SetFocus;
   end;
 end;
 
-procedure TFrm_Produto.edMARCAKeyDown(Sender: TObject;
+procedure TFrm_Produto.edPROD_CDMARCAKeyDown(Sender: TObject;
 var Key: Word; Shift: TShiftState);
 begin
   if (Key = vk_F1) then
@@ -3209,15 +3210,15 @@ begin
 
    //Unidade de Medida
    edPROD_UNIDADE.Text             := qConsulta.FieldByName('PROD_UNIDADE'           ).AsString;
-   edPROD_UNIDADE_NOME.Text        := fUNI_DESCRICAO(qConsulta.FieldByName('PROD_UNIDADE').AsString);
+   edUNIDADE_MEDIDA_NOME.Text      := fUNI_DESCRICAO(qConsulta.FieldByName('PROD_UNIDADE').AsString);
 
    //Tipo
    edTIPO_ITEM.Text                := qConsulta.FieldByName('TIPO_ITEM').AsString;
    edTIPO_ITEM_NOME.Text           := fProduto_tipo_item_NOME(edTIPO_ITEM.Text);
 
    //Marca
-   edMARCA.Text                    := qConsulta.FieldByName('MARCA').AsString;
-   edMARCA_NOME.Text               := fProdutoMarca_NOME(edMARCA.Text);
+   edPROD_CDMARCA.Text             := qConsulta.FieldByName('PROD_CDMARCA').AsString;
+   edMARCA_NOME.Text               := fProdutoMarca_NOME(edPROD_CDMARCA.Text);
 
    //Família
    edFAMILIA.Text                  := qConsulta.FieldByName('FAMILIA').AsString;
@@ -3986,3 +3987,6 @@ Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:08
 Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:39
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:14
+Trocou ('MARCA por ('PROD_MARCA : automaticamente em 16/06/2020 16:08
+Trocou ('PROD_MARCA por ('MARCA : automaticamente em 16/06/2020 16:08
+Trocou ('MARCA' por ('PROD_MARCA' : automaticamente em 16/06/2020 16:09

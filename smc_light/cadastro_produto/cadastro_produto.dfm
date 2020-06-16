@@ -501,7 +501,7 @@ object Frm_Produto: TFrm_Produto
           end
           object tbViewMARCA: TcxGridDBColumn
             Caption = 'Marca'
-            DataBinding.FieldName = 'MARCA'
+            DataBinding.FieldName = 'PROD_MARCA'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taCenter
             HeaderAlignmentHorz = taCenter
@@ -6155,7 +6155,7 @@ object Frm_Produto: TFrm_Produto
     end
     object SQL_LISTAMARCA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'MARCA'
+      FieldName = 'PROD_MARCA'
       Origin = 'MARCA'
       Size = 50
     end
@@ -6720,7 +6720,7 @@ object Frm_Produto: TFrm_Produto
     end
     object SQL_PRODUTOMARCA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'MARCA'
+      FieldName = 'PROD_MARCA'
       Origin = 'MARCA'
       Size = 50
     end
@@ -7636,3 +7636,4 @@ object Frm_Produto: TFrm_Produto
 end
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:04
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 15:06
+Trocou FieldName = 'MARCA' por FieldName = 'PROD_MARCA' : automaticamente em 16/06/2020 16:21

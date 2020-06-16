@@ -3479,7 +3479,7 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
             Width = 215
           end
           object grid_prodsDBTableView1MARCA: TcxGridDBColumn
-            DataBinding.FieldName = 'MARCA'
+            DataBinding.FieldName = 'PROD_MARCA'
             HeaderAlignmentHorz = taCenter
             HeaderGlyphAlignmentHorz = taCenter
             Width = 100
@@ -3739,7 +3739,7 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
           end
           object dbtvMainMARCA: TcxGridDBBandedColumn
             Caption = 'Marca'
-            DataBinding.FieldName = 'MARCA'
+            DataBinding.FieldName = 'PROD_MARCA'
             PropertiesClassName = 'TcxButtonEditProperties'
             Properties.Alignment.Horz = taCenter
             Properties.Buttons = <
@@ -4786,7 +4786,7 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
     end
     object SQL_PRODUTOSMARCA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'MARCA'
+      FieldName = 'PROD_MARCA'
       Origin = 'MARCA'
       Size = 50
     end
@@ -5903,3 +5903,4 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
     Top = 360
   end
 end
+Trocou FieldName = 'MARCA' por FieldName = 'PROD_MARCA' : automaticamente em 16/06/2020 16:22

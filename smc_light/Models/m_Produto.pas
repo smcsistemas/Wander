@@ -347,7 +347,7 @@ begin
       //------------------------------------------------------------------------
       Self.Produto_PROD_DETALHES := qry.fieldbyname('PROD_DETALHES').asString;
       Self.Produto_PROD_REFERENCIASFABRICA := qry.fieldbyname('PROD_REFERENCIASFABRICA').asString;
-      Self.Produto_marca := qry.fieldbyname('marca').asString;
+      Self.Produto_marca := qry.fieldbyname('PROD_MARCA').asString;
       Self.Produto_familia := qry.fieldbyname('familia').asString;
       Self.Produto_grupo := qry.fieldbyname('grupo').asString;
       Self.Produto_sub_grupo := qry.fieldbyname('subgrupo').asString;
@@ -1085,3 +1085,6 @@ Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:03
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:07
 Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:38
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:07
+Trocou ('MARCA por ('PROD_MARCA : automaticamente em 16/06/2020 16:08
+Trocou ('PROD_MARCA por ('MARCA : automaticamente em 16/06/2020 16:08
+Trocou ('MARCA' por ('PROD_MARCA' : automaticamente em 16/06/2020 16:09

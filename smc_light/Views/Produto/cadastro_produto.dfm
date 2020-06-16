@@ -60,10 +60,6 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 0
       ParentFont = False
       OnShow = cxTabSheet1Show
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label58: TLabel
         Left = 20
         Top = 555
@@ -476,7 +472,7 @@ object Frm_Produto: TFrm_Produto
           end
           object tbViewMARCA: TcxGridDBColumn
             Caption = 'Marca'
-            DataBinding.FieldName = 'MARCA'
+            DataBinding.FieldName = 'PROD_MARCA'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taCenter
             HeaderAlignmentHorz = taCenter
@@ -1317,7 +1313,7 @@ object Frm_Produto: TFrm_Produto
             OnExit = edGRUPOExit
             OnKeyDown = edGRUPOKeyDown
           end
-          object edMARCA: TEdit
+          object edPROD_CDMARCA: TEdit
             Left = 121
             Top = 241
             Width = 71
@@ -1330,8 +1326,8 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             TabOrder = 10
-            OnExit = edMARCAExit
-            OnKeyDown = edMARCAKeyDown
+            OnExit = edPROD_CDMARCAExit
+            OnKeyDown = edPROD_CDMARCAKeyDown
           end
           object mmPROD_DETALHES: TMemo
             Left = 121
@@ -3929,10 +3925,6 @@ object Frm_Produto: TFrm_Produto
     object tabTributacao: TcxTabSheet
       Caption = ' Tributa'#231#227'o'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel4: TPanel
         Left = -1
         Top = 3
@@ -6409,47 +6401,11 @@ object Frm_Produto: TFrm_Produto
       'SELECT * FROM produto_prod')
     Left = 32
     Top = 136
-    object qConsultapreco_final_varejo: TBCDField
+    object qConsultaPROD_DESCRICAO: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'preco_final_varejo'
-      Origin = 'PRECO_FINAL_VAREJO'
-      Precision = 10
-    end
-    object qConsultavalor_promocional_varejo: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'valor_promocional_varejo'
-      Origin = 'VALOR_PROMOCIONAL_VAREJO'
-      Precision = 10
-    end
-    object qConsultagrupo: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'grupo'
-      Origin = 'GRUPO'
-      Size = 50
-    end
-    object qConsultamarca: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'marca'
-      Origin = 'MARCA'
-      Size = 50
-    end
-    object qConsultaicms_cst: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'icms_cst'
-      Origin = 'ICMS_CST'
-      Size = 3
-    end
-    object qConsultancm: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'ncm'
-      Origin = 'NCM'
-      Size = 8
-    end
-    object qConsultaPROD_REFERENCIASFABRICA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'PROD_REFERENCIASFABRICA'
-      Origin = 'PROD_REFERENCIASFABRICA'
-      Size = 50
+      FieldName = 'PROD_DESCRICAO'
+      Origin = 'PROD_DESCRICAO'
+      Size = 100
     end
     object qConsultaPROD_DETALHES: TStringField
       AutoGenerateValue = arDefault
@@ -6457,10 +6413,28 @@ object Frm_Produto: TFrm_Produto
       Origin = 'PROD_DETALHES'
       Size = 200
     end
+    object qConsultaPROD_REFERENCIASFABRICA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_REFERENCIASFABRICA'
+      Origin = 'PROD_REFERENCIASFABRICA'
+      Size = 200
+    end
+    object qConsultaPROD_CDMARCA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_CDMARCA'
+      Origin = 'PROD_CDMARCA'
+      Size = 10
+    end
     object qConsultaFAMILIA: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'FAMILIA'
       Origin = 'FAMILIA'
+      Size = 50
+    end
+    object qConsultaGRUPO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'GRUPO'
+      Origin = 'GRUPO'
       Size = 50
     end
     object qConsultaSUBGRUPO: TStringField
@@ -6648,6 +6622,12 @@ object Frm_Produto: TFrm_Produto
       Origin = 'PRECO_FINAL_DISTRIBUIDOR'
       Precision = 10
     end
+    object qConsultaPRECO_FINAL_VAREJO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PRECO_FINAL_VAREJO'
+      Origin = 'PRECO_FINAL_VAREJO'
+      Precision = 10
+    end
     object qConsultaPROMO_VAREJO: TBCDField
       AutoGenerateValue = arDefault
       FieldName = 'PROMO_VAREJO'
@@ -6686,6 +6666,12 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_PROMOCIONAL_DISTRIBUIDOR'
       Origin = 'VALOR_PROMOCIONAL_DISTRIBUIDOR'
+      Precision = 10
+    end
+    object qConsultaVALOR_PROMOCIONAL_VAREJO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VALOR_PROMOCIONAL_VAREJO'
+      Origin = 'VALOR_PROMOCIONAL_VAREJO'
       Precision = 10
     end
     object qConsultaSALDO: TBCDField
@@ -6765,6 +6751,12 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'CODIGO_LOCALIZACAO'
       Origin = 'CODIGO_LOCALIZACAO'
     end
+    object qConsultaICMS_CST: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ICMS_CST'
+      Origin = 'ICMS_CST'
+      Size = 3
+    end
     object qConsultaICMS_IPI: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'ICMS_IPI'
@@ -6787,6 +6779,12 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'CODIGO_ORIGEM_MERCADORIA'
       Origin = 'CODIGO_ORIGEM_MERCADORIA'
+    end
+    object qConsultaNCM: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NCM'
+      Origin = 'NCM'
+      Size = 8
     end
     object qConsultaCEST: TStringField
       AutoGenerateValue = arDefault
@@ -6928,40 +6926,6 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'ponto_impressao_id'
       Origin = 'ponto_impressao_id'
     end
-    object qConsultaProduto_ou_Servico: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'Produto_ou_Servico'
-      Origin = 'Produto_ou_Servico'
-      FixedChar = True
-      Size = 1
-    end
-    object qConsultaPagaComissaoSN: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'PagaComissaoSN'
-      Origin = 'PagaComissaoSN'
-      FixedChar = True
-      Size = 1
-    end
-    object qConsultaContaContabil: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'ContaContabil'
-      Origin = 'ContaContabil'
-    end
-    object qConsultaCentroDeCustos: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'CentroDeCustos'
-      Origin = 'CentroDeCustos'
-    end
-    object qConsultaNFe_indTot: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'NFe_indTot'
-      Origin = 'NFe_indTot'
-    end
-    object qConsultaNFe_VeiculoNovo: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'NFe_VeiculoNovo'
-      Origin = 'NFe_VeiculoNovo'
-    end
     object qConsultaNFe_nDI: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'NFe_nDI'
@@ -7013,6 +6977,11 @@ object Frm_Produto: TFrm_Produto
       Origin = 'NFe_vDescDI'
       Precision = 10
     end
+    object qConsultaNFe_VeiculoNovo: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_VeiculoNovo'
+      Origin = 'NFe_VeiculoNovo'
+    end
     object qConsultaNFe_Veiculo_Cor_Codigo: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'NFe_Veiculo_Cor_Codigo'
@@ -7036,11 +7005,6 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'NFe_Veiculo_Cilin'
       Origin = 'NFe_Veiculo_Cilin'
       Size = 4
-    end
-    object qConsultaNFe_Medicamento: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'NFe_Medicamento'
-      Origin = 'NFe_Medicamento'
     end
     object qConsultaNFe_Armamento: TIntegerField
       AutoGenerateValue = arDefault
@@ -7073,6 +7037,40 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'NFe_motDesICMS'
       Origin = 'NFe_motDesICMS'
+    end
+    object qConsultaProduto_ou_Servico: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Produto_ou_Servico'
+      Origin = 'Produto_ou_Servico'
+      FixedChar = True
+      Size = 1
+    end
+    object qConsultaPagaComissaoSN: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PagaComissaoSN'
+      Origin = 'PagaComissaoSN'
+      FixedChar = True
+      Size = 1
+    end
+    object qConsultaContaContabil: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ContaContabil'
+      Origin = 'ContaContabil'
+    end
+    object qConsultaCentroDeCustos: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'CentroDeCustos'
+      Origin = 'CentroDeCustos'
+    end
+    object qConsultaNFe_indTot: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_indTot'
+      Origin = 'NFe_indTot'
+    end
+    object qConsultaNFe_Medicamento: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'NFe_Medicamento'
+      Origin = 'NFe_Medicamento'
     end
     object qConsultaCODIGO_ALFANUMERICO: TStringField
       AutoGenerateValue = arDefault
@@ -7127,12 +7125,6 @@ object Frm_Produto: TFrm_Produto
       Origin = 'PROD_UNIDADE'
       Size = 3
     end
-    object qConsultaPROD_DESCRICAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'PROD_DESCRICAO'
-      Origin = 'PROD_DESCRICAO'
-      Size = 100
-    end
     object qConsultaPROD_DESCRICAO_IMPRESSA: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'PROD_DESCRICAO_IMPRESSA'
@@ -7146,4 +7138,3 @@ object Frm_Produto: TFrm_Produto
     Top = 28
   end
 end
-Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 15:07

@@ -1185,7 +1185,7 @@ begin
 
     self.Carga.QUANTIDADE := TNF_Formats.Decimal(campo('qVol_X27').asString);
     self.Carga.ESPECIE := campo('esp_X28').asString;
-    self.Carga.MARCA := campo('marca_X29').asString;
+    self.Carga.MARCA := campo('MARCA_X29').asString;
     self.Carga.NUMERO_VOLUME := campo('nVol_X30').asString;
     self.Carga.PESO_BRUTO := TNF_Formats.Decimal(campo('pesoB_X32').asString);
     self.Carga.PESO_LIQUIDO := TNF_Formats.Decimal(campo('pesoL_X31').asString);
@@ -1549,3 +1549,5 @@ begin
 end;
 
 end.
+Trocou ('MARCA por ('PROD_MARCA : automaticamente em 16/06/2020 16:08
+Trocou ('PROD_MARCA por ('MARCA : automaticamente em 16/06/2020 16:08

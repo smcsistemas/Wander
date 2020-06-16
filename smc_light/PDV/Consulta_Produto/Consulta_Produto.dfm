@@ -670,7 +670,7 @@ object Frm_Consultar_Preco: TFrm_Consultar_Preco
     end
     object SQL_ProdutoConsultaMARCA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'MARCA'
+      FieldName = 'PROD_MARCA'
       Origin = 'MARCA'
       Size = 50
     end
@@ -1426,3 +1426,4 @@ object Frm_Consultar_Preco: TFrm_Consultar_Preco
 end
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:07
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 15:06
+Trocou FieldName = 'MARCA' por FieldName = 'PROD_MARCA' : automaticamente em 16/06/2020 16:21

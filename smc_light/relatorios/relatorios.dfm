@@ -15623,7 +15623,7 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_produtosmarca: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'marca'
+      FieldName = 'PROD_MARCA'
       Origin = 'MARCA'
       Size = 50
     end
@@ -38015,7 +38015,7 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_pro_promMARCA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'MARCA'
+      FieldName = 'PROD_MARCA'
       Origin = 'MARCA'
       Size = 50
     end
@@ -46496,3 +46496,4 @@ object frm_relatorio: Tfrm_relatorio
 end
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:09
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 15:06
+Trocou FieldName = 'MARCA' por FieldName = 'PROD_MARCA' : automaticamente em 16/06/2020 16:22
