@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:29
 ﻿{ 09.01.2017 }
 unit vw_main;
 {

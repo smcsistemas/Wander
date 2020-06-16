@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:26
 { v 15.10.16 11:18 }
 unit u_funcoes;
 {

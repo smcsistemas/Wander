@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 { 22.11.16 10:58 }
 unit consul_nfce;
 

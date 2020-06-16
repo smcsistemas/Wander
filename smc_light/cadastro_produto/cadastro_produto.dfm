@@ -449,9 +449,9 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 100
           end
-          object tbViewREFERENCIA_FABRICANTE: TcxGridDBColumn
+          object tbViewPROD_REFERENCIASFABRICA: TcxGridDBColumn
             Caption = 'Ref Fabricante'
-            DataBinding.FieldName = 'REFERENCIA_FABRICANTE'
+            DataBinding.FieldName = 'PROD_REFERENCIASFABRICA'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taCenter
             HeaderAlignmentHorz = taCenter
@@ -1306,13 +1306,13 @@ object Frm_Produto: TFrm_Produto
           OnExit = DESCRICAO_PRODUTOExit
           OnKeyDown = DESCRICAO_PRODUTOKeyDown
         end
-        object REFERENCIA_FABRICANTE: TDBEdit
+        object PROD_REFERENCIASFABRICA: TDBEdit
           Left = 124
           Top = 130
           Width = 162
           Height = 22
           CharCase = ecUpperCase
-          DataField = 'REFERENCIA_FABRICANTE'
+          DataField = 'PROD_REFERENCIASFABRICA'
           DataSource = DS_PRODUTO
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -1321,8 +1321,8 @@ object Frm_Produto: TFrm_Produto
           Font.Style = []
           ParentFont = False
           TabOrder = 4
-          OnKeyDown = REFERENCIA_FABRICANTEKeyDown
-          OnKeyUp = REFERENCIA_FABRICANTEKeyUp
+          OnKeyDown = PROD_REFERENCIASFABRICAKeyDown
+          OnKeyUp = PROD_REFERENCIASFABRICAKeyUp
         end
         object FAMILIA: TDBEdit
           Left = 648
@@ -1413,7 +1413,7 @@ object Frm_Produto: TFrm_Produto
         object cxDBMemo1: TcxDBMemo
           Left = 124
           Top = 85
-          DataBinding.DataField = 'INFO_ADICIONAIS'
+          DataBinding.DataField = 'PROD_DETALHES'
           DataBinding.DataSource = DS_PRODUTO
           ParentFont = False
           Properties.CharCase = ecUpperCase
@@ -6141,16 +6141,16 @@ object Frm_Produto: TFrm_Produto
       Origin = 'DESCRICAO_PRODUTO'
       Size = 200
     end
-    object SQL_LISTAINFO_ADICIONAIS: TStringField
+    object SQL_LISTAPROD_DETALHES: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'INFO_ADICIONAIS'
-      Origin = 'INFO_ADICIONAIS'
+      FieldName = 'PROD_DETALHES'
+      Origin = 'PROD_DETALHES'
       Size = 200
     end
-    object SQL_LISTAREFERENCIA_FABRICANTE: TStringField
+    object SQL_LISTAPROD_REFERENCIASFABRICA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'REFERENCIA_FABRICANTE'
-      Origin = 'REFERENCIA_FABRICANTE'
+      FieldName = 'PROD_REFERENCIASFABRICA'
+      Origin = 'PROD_REFERENCIASFABRICA'
       Size = 50
     end
     object SQL_LISTAMARCA: TStringField
@@ -6706,16 +6706,16 @@ object Frm_Produto: TFrm_Produto
       Origin = 'DESCRICAO_PRODUTO'
       Size = 200
     end
-    object SQL_PRODUTOINFO_ADICIONAIS: TStringField
+    object SQL_PRODUTOPROD_DETALHES: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'INFO_ADICIONAIS'
-      Origin = 'INFO_ADICIONAIS'
+      FieldName = 'PROD_DETALHES'
+      Origin = 'PROD_DETALHES'
       Size = 200
     end
-    object SQL_PRODUTOREFERENCIA_FABRICANTE: TStringField
+    object SQL_PRODUTOPROD_REFERENCIASFABRICA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'REFERENCIA_FABRICANTE'
-      Origin = 'REFERENCIA_FABRICANTE'
+      FieldName = 'PROD_REFERENCIASFABRICA'
+      Origin = 'PROD_REFERENCIASFABRICA'
       Size = 50
     end
     object SQL_PRODUTOMARCA: TStringField
@@ -7634,3 +7634,5 @@ object Frm_Produto: TFrm_Produto
     Top = 632
   end
 end
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:04
+Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 15:06

@@ -1,10 +1,11 @@
+//Verificado automaticamente em 16/06/2020 09:27
 unit EmissaoDeNFe;
 {
 
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
-344|15/06/20|18:23|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(UNIDADE_MEDIDA)
+344|15/06/20|18:23|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(PROD_UNIDADE)
 322|15/06/20|13:35|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 315|15/06/20|10:14|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 287|10/06/20|11:20|EmissaoDeNFe                |Grupo BA incorporou grupos B20a e B20j (NFe referenciadas produtor rural e cupom fiscal)
@@ -3019,7 +3020,7 @@ begin
    //===========================================================================
    //Para produtos que não possuem código de barras com
    //GTIN, deve ser informado o literal “SEM GTIN”;
-   //(atualizado NT 2017/001)   //===========================================================================
+   //(atualizado NT 2017/001)   //===========================================================================
 
    //Obrigatória informação do NCM completo (8 dígitos).
    //Nota: Em caso de item de serviço ou item que não tenham produto
@@ -3100,7 +3101,7 @@ begin
    //      Anexo XXVII do Convenio 52/2017
    //
    //(Incluido na NT 2016/002)
-   Case qVENDA_ITEM.FieldByName('NFe_indEscala').AsInteger of      0 : Produto.Prod.indEscala := ieRelevante;
+   Case qVENDA_ITEM.FieldByName('NFe_indEscala').AsInteger of      0 : Produto.Prod.indEscala := ieRelevante;
       1 : Produto.Prod.indEscala := ieNaoRelevante;
       2 : Produto.Prod.indEscala := ieNenhum;
    End;
@@ -3109,7 +3110,7 @@ begin
    //CNPJFab
    //CNPJ do Fabricante da Mercadoria
    //Obrigatório para produto em escala NÃO relevante.
-   //(Incluído na NT 2016/002)   //CNPJFab := '';
+   //(Incluído na NT 2016/002)   //CNPJFab := '';
 
    {104g-I05f}
    //cBenef
@@ -3137,7 +3138,7 @@ begin
    //Unidade Comercial
    //Informar a unidade de comercialização do produto
    //Informar a sigla (o símbolo) da unidade de medida
-   Produto.Prod.uCom := CompletarComPontos(fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('UNIDADE_MEDIDA').AsString),3);
+   Produto.Prod.uCom := CompletarComPontos(fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('PROD_UNIDADE').AsString),3);
 
    {109-I10}
    //(qCom)
@@ -3180,7 +3181,7 @@ begin
    //
    //Para produtos que não possuem código de barras com GTIN, deve ser informado
    //o literal "SEM GTIN”;
-   //                                                   (Atualizado NT 2017/001)   //===========================================================================    //Produto.Prod.cEANTrib := sEAN;
+   //                                                   (Atualizado NT 2017/001)   //===========================================================================    //Produto.Prod.cEANTrib := sEAN;
     //if Produto.Prod.cEANTrib = '' then
     //   Produto.Prod.cEANTrib :='SEM GTIN';
 
@@ -3188,7 +3189,7 @@ begin
    //(uTrib)
    //Unidade Tributável
    //Exibe a sigla (o símbolo) da unidade de medida, ou limpa o campo
-   Produto.Prod.uTrib := CompletarComPontos(fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('UNIDADE_MEDIDA').AsString),03);
+   Produto.Prod.uTrib := CompletarComPontos(fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('PROD_UNIDADE').AsString),03);
 
    {113-I14}
    //(qTrib)
@@ -3553,7 +3554,7 @@ begin
    //Código de Produto da ANVISA
    //Utilizar o número do registro ANVISA ou preencher com o literal “ISENTO”,
    //no caso de medicamento isento de registro na ANVISA.
-   //                                                  (Incluído na NT 2016/002.   //                                                 Atualizado na NT 2018.005)   //cProdANVISA := '';
+   //                                                  (Incluído na NT 2016/002.   //                                                 Atualizado na NT 2018.005)   //cProdANVISA := '';
 
    {152b-K01b}
    //xMotivoIsencao
@@ -4276,7 +4277,7 @@ begin
    //Observação: Este grupo não deve ser utilizado nas operações com veículos
    //automotores novos efetuadas por meio de faturamento direto para o consumidor
    //(Convênio ICMS 51/00), as quais possuem grupo de campos próprio (ICMSPart)
-   //                                              (Grupo criado na NT 2015/003)
+   //                                              (Grupo criado na NT 2015/003)
    {245a.03}
    //NA03
    //vBCUFDest
@@ -5290,7 +5291,7 @@ begin
    //infAdProd
    //Informações Adicionais do Produto
    //Norma referenciada, informações complementares, etc.
-   produto.infAdProd := qVENDA_ITEM.FieldByName('INFO_ADICIONAIS').AsString;
+   produto.infAdProd := qVENDA_ITEM.FieldByName('PROD_DETALHES').AsString;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_W_Valores_Totais_da_NFe;
@@ -5374,7 +5375,7 @@ begin
          //vFCPSTRet
          //Valor Total do FCP retido anteriormente por Substituição Tributária
          //Corresponde ao total da soma dos campos [N27d]
-         //                                            (Incluído na NT 2016/002)
+         //                                            (Incluído na NT 2016/002)
          {332-W07}
          //vProd
          //Valor Total dos produtos e serviços
@@ -5412,7 +5413,7 @@ begin
          //emissão de nota finNFe=4 (devolução) nas operações com não-contribuintes
          //do IPI.
          //Corresponde ao total da soma dos campos [UA04]
-         //                                            (Incluído na NT 2016/002)
+         //                                            (Incluído na NT 2016/002)
          {338-W13}
          //vPIS
          //Valor do PIS
@@ -5436,7 +5437,7 @@ begin
          {341a-W16a}
          //vTotTrib
          //Valor aproximado total de tributos federais, estaduais e municipais.
-         //                                                        (NT 2013/003)      end;
+         //                                                        (NT 2013/003)      end;
    end;
 end;
 end;
@@ -5619,7 +5620,7 @@ begin
      //  3 = Transporte Próprio por conta do Remetente;
      //  4 = Transporte Próprio por conta do Destinatário;
      //  9 = Sem Ocorrência de Transporte.
-     //                                              (Atualizado na NT 2016/002)     //modFrete :=
+     //                                              (Atualizado na NT 2016/002)     //modFrete :=
 
      {358-X03}
      //transporta
@@ -6556,7 +6557,7 @@ begin
    //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 60
    //                                                     (Incluído NT 2016/002)
-   //---------------------------------------------------------------------------   if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '60' then
+   //---------------------------------------------------------------------------   if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '60' then
       exit;
 
    // Trata impostos de produtos
@@ -7222,7 +7223,7 @@ begin
    //Valor da base de cálculo que seria atribuída à operação própria do
    //contribuinte substituído, caso esteja submetido ao regime comum de
    //tributação, obtida pelo produto do Vprod por (1-pRedBCEfet).
-   //Obs.: opcional a critério da UF.   //---------------------------------------------------------------------------   //With Produto.Imposto.ICMS do   //begin
+   //Obs.: opcional a critério da UF.   //---------------------------------------------------------------------------   //With Produto.Imposto.ICMS do   //begin
    //  vBCEfet := (100-pRedBCEfet)/100 * Produto.Prod.vProd;
    //end;
 end;
@@ -7246,7 +7247,7 @@ begin
    {N26b}
    //Valor do ICMS Próprio do Substituto cobrado em operação anterior.
    //                                                      Criado na NT 2018.005
-   //                                                  Atualizado na NT 2018.005   //v1.20   //---------------------------------------------------------------------------
+   //                                                  Atualizado na NT 2018.005   //v1.20   //---------------------------------------------------------------------------
    With Produto.Imposto.ICMS do
    begin
       vICMSSubstituto:= pST / 100 * vBCSTRet;
@@ -7633,3 +7634,5 @@ N32|vICMSSTDest|Valor do ICMS ST da UF destino            | N  N  N  N  N  S  N 
  “?” – a exigência do campo depende da situação fática.
 
 
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:02
+Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:06

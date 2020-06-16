@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:29
 { v 30.09.16 10:15 }
 unit estoque_2;
 
@@ -188,7 +189,7 @@ procedure TFrm_Estoque2.btnCancelarMovClick(Sender: TObject);
 var
   qry: TFDQuery;
 begin
-  qry := simplequery('SELECT DESCRICAO_PRODUTO, UNIDADE_MEDIDA FROM PRODUTO WHERE CODIGO=' + SQL_ESTOQUE_MOVIMENTACAOCODIGO_PRODUTO.AsString);
+  qry := simplequery('SELECT PROD_DESCRICAO, PROD_UNIDADE FROM PRODUTO WHERE CODIGO=' + SQL_ESTOQUE_MOVIMENTACAOCODIGO_PRODUTO.AsString);
   if WnConfirmacao('Cancelar Movimentação ' + SQL_ESTOQUE_MOVIMENTACAOCODIGO.AsString, 'Ao cancelar movimentação do Produto.: ' +
     qry.Fields[0].AsString + slinebreak + 'Quantidade retornará para.: ' + SQL_ESTOQUE_MOVIMENTACAOQUANTIDADE_ANTERIOR.AsString + ' ' +
     qry.Fields[1].AsString + slinebreak + 'Preço retornará para.: R$' + SQL_ESTOQUE_MOVIMENTACAOPRECO_ANTERIOR.AsString + slinebreak +
@@ -450,18 +451,18 @@ procedure TFrm_Estoque.ConsultarProduto(Cadastro: boolean);
 var
   qry: TFDQuery;
 begin
-  qry := simplequery('SELECT CODIGO, DESCRICAO_PRODUTO, UNIDADE_MEDIDA, PRECO_FINAL_VAREJO, SALDO FROM PRODUTO WHERE CODIGO = ' + COD_PROD.Text);
+  qry := simplequery('SELECT CODIGO, PROD_DESCRICAO, PROD_UNIDADE, PRECO_FINAL_VAREJO, SALDO FROM PRODUTO WHERE CODIGO = ' + COD_PROD.Text);
   with qry do
   begin
     if Cadastro then
     begin
       if qry <> nil then
       begin
-        Edit3.Text := FieldByName('DESCRICAO_PRODUTO').Text;
+        Edit3.Text := FieldByName('PROD_DESCRICAO').Text;
         Edit15.Text := FieldByName('PRECO_FINAL_VAREJO').Text;
         SQL_ESTOQUE_MOVIMENTACAOPRECO_ANTERIOR.value := FieldByName('PRECO_FINAL_VAREJO').AsCurrency;
         DBEdit2.Text := FieldByName('SALDO').Text;
-        lbl_unidade_medida.caption := FieldByName('UNIDADE_MEDIDA').Text;
+        lbl_PROD_UNIDADE.caption := FieldByName('PROD_UNIDADE').Text;
         Edit14.SetFocus;
       end
       else
@@ -625,7 +626,7 @@ begin
     Key := LimitOccurences(Edit14.Text, Char(','), 1, Key);
   inherited;
   Key := ApenasNumeros(Key);
-  if lbl_unidade_medida.caption = 'KG' then
+  if lbl_PROD_UNIDADE.caption = 'KG' then
     Key := FormatarQuantidadeKG(Edit14, Key);
 end;
 }
@@ -755,10 +756,10 @@ begin
           END;
           cxDateEdit1.OnExit := VerificarDatas;
           cxDateEdit2.OnExit := VerificarDatas;
-          qry := simplequery('SELECT DESCRICAO_PRODUTO, UNIDADE_MEDIDA, SALDO, PRECO_FINAL_VAREJO FROM PRODUTO WHERE CODIGO = ' +
+          qry := simplequery('SELECT PROD_DESCRICAO, PROD_UNIDADE, SALDO, PRECO_FINAL_VAREJO FROM PRODUTO WHERE CODIGO = ' +
             SQL_ESTOQUE_MOVIMENTACAOCODIGO_PRODUTO.AsString);
           if qry <> nil then
-            Edit3.Text := qry.FieldByName('DESCRICAO_PRODUTO').AsString;
+            Edit3.Text := qry.FieldByName('PROD_DESCRICAO').AsString;
           qry := simplequery('SELECT RAZAO_SOCIAL FROM FORNECEDOR WHERE CODIGO = ' + SQL_ESTOQUE_MOVIMENTACAOCODIGO_FORNECEDOR.AsString);
           if qry <> nil then
             Edit4.Text := qry.FieldByName('RAZAO_SOCIAL').AsString;
@@ -821,3 +822,6 @@ end;
 
 
 end.
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:16
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:23
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04

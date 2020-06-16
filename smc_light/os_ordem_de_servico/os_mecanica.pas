@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 unit os_mecanica;
 
 interface
@@ -82,10 +83,10 @@ type
     Shape1: TShape;
     edPROD_CODIGO: TEdit;
     cxButton7: TcxButton;
-    edDESCRICAO_PRODUTO: TEdit;
+    edPROD_DESCRICAO: TEdit;
     edPRECO: TEdit;
     edQUANTIDADE: TEdit;
-    edUNIDADE_MEDIDA: TEdit;
+    edPROD_UNIDADE: TEdit;
     edCFOP_Produto: TEdit;
     cxGrid1: TcxGrid;
     cxGridDBTableView1: TcxGridDBTableView;
@@ -295,3 +296,4 @@ end;
 
 
 end.
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:03

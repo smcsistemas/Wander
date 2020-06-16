@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 { v 17.10.16 09:43 }
 unit relatorios;
 {
@@ -5,7 +6,7 @@ unit relatorios;
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
 340|15/06/20|18:23|relatorios                  |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
-339|15/06/20|18:23|relatorios                  |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(UNIDADE_MEDIDA)
+339|15/06/20|18:23|relatorios                  |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(PROD_UNIDADE)
 329|15/06/20|13:35|relatorios                  |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 ========================================================================================================================================
 
@@ -372,7 +373,7 @@ type
     sql_produtosdescricao_produto: TStringField;
     sql_produtossaldo: TBCDField;
     sql_produtosmarca: TStringField;
-    sql_produtosreferencia_fabricante: TStringField;
+    sql_produtosPROD_REFERENCIASFABRICA: TStringField;
     SQL_OP_NFCETOTAL_AUT: TFMTBCDField;
     grp1: TGroupBox;
     fr_produtos: TfrxReport;
@@ -501,10 +502,10 @@ type
     ds_pro_prom: TfrxDBDataset;
     sql_pro_prom: TFDQuery;
     sql_pro_promCODIGO: TFDAutoIncField;
-    sql_pro_promDESCRICAO_PRODUTO: TStringField;
-    sql_pro_promREFERENCIA_FABRICANTE: TStringField;
+    sql_pro_promPROD_DESCRICAO: TStringField;
+    sql_pro_promPROD_REFERENCIASFABRICA: TStringField;
     sql_pro_promMARCA: TStringField;
-    sql_pro_promUNIDADE_MEDIDA: TStringField;
+    sql_pro_promPROD_UNIDADE: TStringField;
     sql_pro_promPRECO_FINAL_VAREJO: TBCDField;
     sql_pro_promPROMO_VAREJO: TBCDField;
     sql_pro_promPROMOCAO_INICIO: TDateField;
@@ -514,11 +515,11 @@ type
     ds_pro_pesav: TfrxDBDataset;
     sql_pro_pesav: TFDQuery;
     sql_pro_pesavCODIGO: TFDAutoIncField;
-    sql_pro_pesavDESCRICAO_PRODUTO: TStringField;
+    sql_pro_pesavPROD_DESCRICAO: TStringField;
     sql_pro_pesavFAMILIA: TStringField;
     sql_pro_pesavGRUPO: TStringField;
     sql_pro_pesavSUBGRUPO: TStringField;
-    sql_pro_pesavUNIDADE_MEDIDA: TStringField;
+    sql_pro_pesavPROD_UNIDADE: TStringField;
     sql_pro_pesavPRECO_FINAL_ATACADO: TBCDField;
     sql_pro_pesavPRECO_FINAL_DISTRIBUIDOR: TBCDField;
     sql_pro_pesavPRECO_FINAL_VAREJO: TBCDField;
@@ -534,13 +535,13 @@ type
     ds_estq_comp: TfrxDBDataset;
     sql_estq_comp: TFDQuery;
     sql_estq_compCODIGO: TFDAutoIncField;
-    sql_estq_compDESCRICAO_PRODUTO: TStringField;
+    sql_estq_compPROD_DESCRICAO: TStringField;
     sql_estq_compPRECO_CUSTO: TBCDField;
     sql_estq_compPRECO_FINAL_VAREJO: TBCDField;
     sql_estq_compSALDO: TBCDField;
-    sql_estq_compREFERENCIA_FABRICANTE: TStringField;
+    sql_estq_compPROD_REFERENCIASFABRICA: TStringField;
     sql_estq_compMARGEM_L_VAREJO: TBCDField;
-    sql_estq_compUNIDADE_MEDIDA: TStringField;
+    sql_estq_compPROD_UNIDADE: TStringField;
     sql_mov_caixa_periodo: TFDQuery;
     ds_mov_caixa_periodo: TfrxDBDataset;
     sql_mov_caixa_periodoabertura_inicio: TStringField;
@@ -662,7 +663,7 @@ type
     qFechaCaixaQuebraConvenio: TBCDField;
     qFechaCaixaTotalDiferenca: TBCDField;
     sql_produtosCOD_BARRAS_AUXILIAR: TStringField;
-    sql_produtosINFO_ADICIONAIS: TStringField;
+    sql_produtosPROD_DETALHES: TStringField;
     sql_produtosDATA_CADASTRO: TDateField;
     sql_produtosTIPO_ITEM: TStringField;
     sql_produtosESTOQUE_MINIMO: TStringField;
@@ -1876,3 +1877,9 @@ begin
 end;
 
 end.
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:16
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:23
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:03
+Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:07
+Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:39
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:09

@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 { v 29.10.16 12:06 }
 unit Consulta_Produto;
 {
@@ -51,9 +52,9 @@ type
     lbl_unidademedida: TLabel;
     SQL_ProdutoConsultaPROD_EAN: TStringField;
     SQL_ProdutoConsultaCOD_BARRAS_AUXILIAR: TStringField;
-    SQL_ProdutoConsultaDESCRICAO_PRODUTO: TStringField;
-    SQL_ProdutoConsultaINFO_ADICIONAIS: TStringField;
-    SQL_ProdutoConsultaREFERENCIA_FABRICANTE: TStringField;
+    SQL_ProdutoConsultaPROD_DESCRICAO: TStringField;
+    SQL_ProdutoConsultaPROD_DETALHES: TStringField;
+    SQL_ProdutoConsultaPROD_REFERENCIASFABRICA: TStringField;
     SQL_ProdutoConsultaMARCA: TStringField;
     SQL_ProdutoConsultaFAMILIA: TStringField;
     SQL_ProdutoConsultaGRUPO: TStringField;
@@ -239,8 +240,8 @@ var
   qry, qry_cod: TFDQuery;
 begin
   qry_cod := Tdb.simplequery
-    ('select PROD_CODIGO, PROD_EAN, DESCRICAO_PRODUTO, PROD_UNIDADE, SALDO, REFERENCIA_FABRICANTE, MARCA, PRECO_FINAL_VAREJO from produto_PROD where PROD_codigo = "' +
-    Edt_codBarras.Text + '" OR REFERENCIA_FABRICANTE = "' + Edt_codBarras.Text + '"');
+    ('select PROD_CODIGO, PROD_EAN, PROD_DESCRICAO, PROD_UNIDADE, SALDO, PROD_REFERENCIASFABRICA, MARCA, PRECO_FINAL_VAREJO from produto_PROD where PROD_codigo = "' +
+    Edt_codBarras.Text + '" OR PROD_REFERENCIASFABRICA = "' + Edt_codBarras.Text + '"');
   if qry_cod <> nil then
   begin
     qry_cod.fetchall;
@@ -253,7 +254,7 @@ begin
       exit;
     end;
   end;
-  qry := Tdb.simplequery('select prod_codigo from produto_PROD where referencia_fabricante = "' + Edt_codBarras.Text + '"');
+  qry := Tdb.simplequery('select prod_codigo from produto_PROD where PROD_REFERENCIASFABRICA = "' + Edt_codBarras.Text + '"');
   if (qry <> nil) then
     Edt_codBarras.Text := qry.Fields[0].Text;
 end;
@@ -312,3 +313,6 @@ begin
 end;
 
 end.
+Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:07
+Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:38
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:07

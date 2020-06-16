@@ -51,10 +51,6 @@ object frm_pedido_venda: Tfrm_pedido_venda
       Font.Style = [fsBold]
       ImageIndex = 0
       ParentFont = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lbl_qtde: TLabel
         Left = 537
         Top = 603
@@ -1767,10 +1763,6 @@ object frm_pedido_venda: Tfrm_pedido_venda
       Font.Style = [fsBold]
       ImageIndex = 1
       ParentFont = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label23: TLabel
         Left = 18
         Top = 7
@@ -5175,7 +5167,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
         TabOrder = 14
         OnExit = edQUANTIDADEExit
       end
-      object edUNIDADE_MEDIDA: TEdit
+      object edPROD_UNIDADE: TEdit
         Left = 662
         Top = 299
         Width = 65

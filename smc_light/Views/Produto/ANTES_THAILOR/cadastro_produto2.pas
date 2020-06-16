@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:29
 ﻿{ v 21.10.16 17:18 }
 unit cadastro_produto2;
 
@@ -103,21 +104,21 @@ type
     Label8: TLabel;
     btn_und: TcxButton;
     btn_marca: TcxButton;
-    DESCRICAO_PRODUTO: TDBEdit;
-    REFERENCIA_FABRICANTE: TDBEdit;
-    UNIDADE_MEDIDA: TDBEdit;
+    PROD_DESCRICAO: TDBEdit;
+    PROD_REFERENCIASFABRICA: TDBEdit;
+    PROD_UNIDADE: TDBEdit;
     MARCA: TDBEdit;
     CODIGO_BARRAS: TDBEdit;
     SQL_PRODUTOCODIGO: TFDAutoIncField;
     SQL_PRODUTOCODIGO_BARRAS: TStringField;
-    SQL_PRODUTODESCRICAO_PRODUTO: TStringField;
-    SQL_PRODUTOINFO_ADICIONAIS: TStringField;
-    SQL_PRODUTOREFERENCIA_FABRICANTE: TStringField;
+    SQL_PRODUTOPROD_DESCRICAO: TStringField;
+    SQL_PRODUTOPROD_DETALHES: TStringField;
+    SQL_PRODUTOPROD_REFERENCIASFABRICA: TStringField;
     SQL_PRODUTOMARCA: TStringField;
     SQL_PRODUTOFAMILIA: TStringField;
     SQL_PRODUTOGRUPO: TStringField;
     SQL_PRODUTOSUBGRUPO: TStringField;
-    SQL_PRODUTOUNIDADE_MEDIDA: TStringField;
+    SQL_PRODUTOPROD_UNIDADE: TStringField;
     SQL_PRODUTODATA_CADASTRO: TDateField;
     SQL_PRODUTOTIPO_ITEM: TStringField;
     SQL_PRODUTOLEIS: TStringField;
@@ -223,14 +224,14 @@ type
     SQL_LISTACODIGO: TFDAutoIncField;
     SQL_LISTACODIGO_BARRAS: TStringField;
     SQL_LISTACOD_BARRAS_AUXILIAR: TStringField;
-    SQL_LISTADESCRICAO_PRODUTO: TStringField;
-    SQL_LISTAINFO_ADICIONAIS: TStringField;
-    SQL_LISTAREFERENCIA_FABRICANTE: TStringField;
+    SQL_LISTAPROD_DESCRICAO: TStringField;
+    SQL_LISTAPROD_DETALHES: TStringField;
+    SQL_LISTAPROD_REFERENCIASFABRICA: TStringField;
     SQL_LISTAMARCA: TStringField;
     SQL_LISTAFAMILIA: TStringField;
     SQL_LISTAGRUPO: TStringField;
     SQL_LISTASUBGRUPO: TStringField;
-    SQL_LISTAUNIDADE_MEDIDA: TStringField;
+    SQL_LISTAPROD_UNIDADE: TStringField;
     SQL_LISTADATA_CADASTRO: TDateField;
     SQL_LISTATIPO_ITEM: TStringField;
     SQL_LISTAESTOQUE_MINIMO: TStringField;
@@ -339,11 +340,11 @@ type
     Label34: TLabel;
     tbViewCODIGO: TcxGridDBColumn;
     tbViewCODIGO_BARRAS: TcxGridDBColumn;
-    tbViewDESCRICAO_PRODUTO: TcxGridDBColumn;
-    tbViewREFERENCIA_FABRICANTE: TcxGridDBColumn;
+    tbViewPROD_DESCRICAO: TcxGridDBColumn;
+    tbViewPROD_REFERENCIASFABRICA: TcxGridDBColumn;
     tbViewMARCA: TcxGridDBColumn;
     tbViewGRUPO: TcxGridDBColumn;
-    tbViewUNIDADE_MEDIDA: TcxGridDBColumn;
+    tbViewPROD_UNIDADE: TcxGridDBColumn;
     tbViewTIPO_ITEM: TcxGridDBColumn;
     tbViewSALDO: TcxGridDBColumn;
     tbViewALIQ_ICMS: TcxGridDBColumn;
@@ -453,3 +454,7 @@ end;
 end.
 
 
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04
+Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:08
+Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:39
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:13

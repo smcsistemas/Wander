@@ -1,4 +1,5 @@
-﻿{ v 21.10.16 17:18 }
+﻿//Verificado automaticamente em 16/06/2020 09:29
+{ v 21.10.16 17:18 }
 unit cadastro_produto;
 { Feito por Wander
 
@@ -6,7 +7,7 @@ unit cadastro_produto;
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
 347|15/06/20|21:39|cadastro_produto            |Tratando tabela UNIDADE_UNI ao invés de PRODUTO_UNIDADE
-338|15/06/20|18:23|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(UNIDADE_MEDIDA)
+338|15/06/20|18:23|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(PROD_UNIDADE)
 327|15/06/20|13:35|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 313|15/06/20|10:14|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 299|15/06/20|03:16|cadastro_produto            |Utilizando recurso (PINTAR) para destacar objetos focados com amarelo e readonly com cinza
@@ -282,7 +283,7 @@ type
     Label28: TLabel;
     tbViewPROD_CODIGO: TcxGridDBColumn;
     tbViewPROD_DESCRICAO: TcxGridDBColumn;
-    tbViewREFERENCIA_FABRICANTE: TcxGridDBColumn;
+    tbViewPROD_REFERENCIASFABRICA: TcxGridDBColumn;
     tbViewMARCA: TcxGridDBColumn;
     tbViewGRUPO: TcxGridDBColumn;
     tbViewPROD_UNIDADE: TcxGridDBColumn;
@@ -332,9 +333,9 @@ type
     qConsultamarca: TStringField;
     qConsultaicms_cst: TStringField;
     qConsultancm: TStringField;
-    qConsultareferencia_fabricante: TStringField;
+    qConsultaPROD_REFERENCIASFABRICA: TStringField;
     Label45: TLabel;
-    qConsultaINFO_ADICIONAIS: TStringField;
+    qConsultaPROD_DETALHES: TStringField;
     qConsultaFAMILIA: TStringField;
     qConsultaSUBGRUPO: TStringField;
     qConsultaDATA_CADASTRO: TDateField;
@@ -505,13 +506,13 @@ type
     btn_und: TcxButton;
     btn_marca: TcxButton;
     edPROD_DESCRICAO: TEdit;
-    edREFERENCIA_FABRICANTE: TEdit;
+    edPROD_REFERENCIASFABRICA: TEdit;
     edFAMILIA: TEdit;
     edSUBGRUPO: TEdit;
     edPROD_UNIDADE: TEdit;
     edGRUPO: TEdit;
     edMARCA: TEdit;
-    mmINFO_ADICIONAIS: TMemo;
+    mmPROD_DETALHES: TMemo;
     edCODIGO_ALFANUMERICO: TEdit;
     edCODIGO: TEdit;
     cb_ponto_impressao: TcxDBLookupComboBox;
@@ -526,7 +527,7 @@ type
     edGRUPO_NOME: TEdit;
     edSUBGRUPO_NOME: TEdit;
     edMARCA_NOME: TEdit;
-    edUNIDADE_MEDIDA_NOME: TEdit;
+    edPROD_UNIDADE_NOME: TEdit;
     edFAMILIA_NOME: TEdit;
     cbSTATUS_CADASTRAL: TcxCheckBox;
     edTIPO_ITEM: TEdit;
@@ -704,7 +705,7 @@ type
     procedure cbTipoItemConsultaPropertiesEditValueChanged(Sender: TObject);
 
     procedure updateEstoque;
-    procedure edREFERENCIA_FABRICANTEKeyUp(Sender: TObject; var Key: Word;
+    procedure edPROD_REFERENCIASFABRICAKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure ImprimirEtiqueta1Click(Sender: TObject);
     procedure cxButton11Click(Sender: TObject);
@@ -737,7 +738,7 @@ type
     procedure edTIPO_ITEMKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edTIPO_ITEMExit(Sender: TObject);
-    procedure edREFERENCIA_FABRICANTEExit(Sender: TObject);
+    procedure edPROD_REFERENCIASFABRICAExit(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edCODIGO_ORIGEM_MERCADORIAKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -1121,7 +1122,7 @@ begin
   sql_ponto_impressao.Active := true;
 
   //edCODIGO.Text := inttostr(SQL_PRODUTOCODIGO.value);
-  //u_funcoes.CamposObrigatorios_CorPadrao([PROD_DESCRICAO, UNIDADE_MEDIDA, {PRECO_FINAL_VAREJO,} NCM], [], [TcxComboBox(dbcsticms)]);
+  //u_funcoes.CamposObrigatorios_CorPadrao([PROD_DESCRICAO, PROD_UNIDADE, {PRECO_FINAL_VAREJO,} NCM], [], [TcxComboBox(dbcsticms)]);
 //  u_funcoes.CamposObrigatorios_CorPadrao([{edt_qtde_min, edt_preco, TEdit(cb_tipo}], []);
   carregar_faixa;
 
@@ -1495,7 +1496,7 @@ begin
   Frm_unidade.Free;
 
   //Exibe a sigla (o símbolo) da unidade de medida, ou limpa o campo
-  edUNIDADE_MEDIDA_NOME.Text := fUNI_DESCRICAO(edPROD_UNIDADE.Text);
+  edPROD_UNIDADE_NOME.Text := fUNI_DESCRICAO(edPROD_UNIDADE.Text);
 end;
 
 procedure TFrm_Produto.bControleGravarClick(Sender: TObject);
@@ -2629,7 +2630,7 @@ begin
         qConsulta.sql.add('       OR (PROD_EAN              LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (PROD_DESCRICAO     LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (ncm                   LIKE :TEXTO) ');
-        qConsulta.sql.add('       OR (referencia_fabricante LIKE :TEXTO) ');
+        qConsulta.sql.add('       OR (PROD_REFERENCIASFABRICA LIKE :TEXTO) ');
         //qConsulta.sql.add('     )                                        ');
         qConsulta.ParamByName('TEXTO').AsString := '%'+edArgumentoDePesquisa.Text+'%';
      end;
@@ -2744,13 +2745,13 @@ end;
 
 procedure TFrm_Produto.edPROD_UNIDADEExit(Sender: TObject);
 begin
-  edUNIDADE_MEDIDA_NOME.Text := '';
+  edPROD_UNIDADE_NOME.Text := '';
   if edPROD_UNIDADE.Text = '' then
      exit;
 
-  //Exibe o nome da UNIDADE_MEDIDA, ou limpa o campo
-  edUNIDADE_MEDIDA_NOME.Text := fUNI_DESCRICAO(edPROD_UNIDADE.Text);
-  if edUNIDADE_MEDIDA_NOME.Text = '' then
+  //Exibe o nome da PROD_UNIDADE, ou limpa o campo
+  edPROD_UNIDADE_NOME.Text := fUNI_DESCRICAO(edPROD_UNIDADE.Text);
+  if edPROD_UNIDADE_NOME.Text = '' then
   begin
     wnAlerta('Cadastrar Produto','Unidade de Medida não cadastrada');
     edPROD_UNIDADE.SetFocus;
@@ -3039,9 +3040,9 @@ begin
    qAUX.sql.add('       NFe_nDI,                  ');
    qAUX.sql.add('       PROD_DESCRICAO,           ');
    qAUX.sql.add('       PROD_DESCRICAO_IMPRESSA,  ');
-   qAUX.sql.add('       INFO_ADICIONAIS,          ');
+   qAUX.sql.add('       PROD_DETALHES,            ');
    qAUX.sql.add('       PROD_EAN,                 ');
-   qAUX.sql.add('       REFERENCIA_FABRICANTE,    ');
+   qAUX.sql.add('       PROD_REFERENCIASFABRICA,  ');
    qAUX.sql.add('       PROD_UNIDADE,             ');
    qAUX.sql.add('       MARCA,                    ');
    qAUX.sql.add('       FAMILIA,                  ');
@@ -3078,9 +3079,9 @@ begin
    qAUX.sql.add('      :NFe_nDI,                  ');
    qAUX.sql.add('      :PROD_DESCRICAO,           ');
    qAUX.sql.add('      :PROD_DESCRICAO_IMPRESSA,  ');
-   qAUX.sql.add('      :INFO_ADICIONAIS,          ');
+   qAUX.sql.add('      :PROD_DETALHES,            ');
    qAUX.sql.add('      :PROD_EAN,                 ');
-   qAUX.sql.add('      :REFERENCIA_FABRICANTE,    ');
+   qAUX.sql.add('      :PROD_REFERENCIASFABRICA,  ');
    qAUX.sql.add('      :PROD_UNIDADE,             ');
    qAUX.sql.add('      :MARCA,                    ');
    qAUX.sql.add('      :FAMILIA,                  ');
@@ -3129,9 +3130,9 @@ begin
    qAUX.ParamByName('NFe_nDI'                 ).AsString  := edNFe_nDI.Text;
    qAUX.ParamByName('PROD_DESCRICAO'          ).AsString  := edPROD_DESCRICAO.Text;
    qAUX.ParamByName('PROD_DESCRICAO_IMPRESSA' ).AsString  := edPROD_DESCRICAO_IMPRESSA.Text;
-   qAUX.ParamByName('INFO_ADICIONAIS'         ).AsString  := mmINFO_ADICIONAIS.Text;
+   qAUX.ParamByName('PROD_DETALHES'           ).AsString  := mmPROD_DETALHES.Text;
    qAUX.ParamByName('PROD_EAN'                ).AsString  := edPROD_EAN.Text;
-   qAUX.ParamByName('REFERENCIA_FABRICANTE'   ).AsString  := edREFERENCIA_FABRICANTE.Text;
+   qAUX.ParamByName('PROD_REFERENCIASFABRICA' ).AsString  := edPROD_REFERENCIASFABRICA.Text;
    qAUX.ParamByName('PROD_UNIDADE'            ).AsString  := edPROD_UNIDADE.Text;
    qAUX.ParamByName('MARCA'                   ).AsString  := edMARCA.Text;
    qAUX.ParamByName('FAMILIA'                 ).AsString  := edFAMILIA.Text;
@@ -3202,13 +3203,13 @@ begin
    edNFe_nDI.Text                  := qConsulta.FieldByName('NFe_nDI'                ).AsString;
    edPROD_DESCRICAO.Text           := qConsulta.FieldByName('PROD_DESCRICAO'         ).AsString;
    edPROD_DESCRICAO_IMPRESSA.Text  := qConsulta.FieldByName('PROD_DESCRICAO_IMPRESSA').AsString;
-   mmINFO_ADICIONAIS.Text          := qConsulta.FieldByName('INFO_ADICIONAIS'        ).AsString;
+   mmPROD_DETALHES.Text            := qConsulta.FieldByName('PROD_DETALHES'          ).AsString;
    edPROD_EAN.Text                 := qConsulta.FieldByName('PROD_EAN'               ).AsString;
-   edREFERENCIA_FABRICANTE.Text    := qConsulta.FieldByName('REFERENCIA_FABRICANTE'  ).AsString;
+   edPROD_REFERENCIASFABRICA.Text  := qConsulta.FieldByName('PROD_REFERENCIASFABRICA').AsString;
 
    //Unidade de Medida
    edPROD_UNIDADE.Text             := qConsulta.FieldByName('PROD_UNIDADE'           ).AsString;
-   edUNIDADE_MEDIDA_NOME.Text      := fUNI_DESCRICAO(qConsulta.FieldByName('PROD_UNIDADE').AsString);
+   edPROD_UNIDADE_NOME.Text        := fUNI_DESCRICAO(qConsulta.FieldByName('PROD_UNIDADE').AsString);
 
    //Tipo
    edTIPO_ITEM.Text                := qConsulta.FieldByName('TIPO_ITEM').AsString;
@@ -3465,16 +3466,16 @@ begin
    edRPC_COFINS.Text := qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC.FieldByName('RPC_COFINS').AsString;
 end;
 
-procedure TFrm_Produto.edREFERENCIA_FABRICANTEExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_REFERENCIASFABRICAExit(Sender: TObject);
 begin
    RefFabricanteRepetido;
 end;
 
-procedure TFrm_Produto.edREFERENCIA_FABRICANTEKeyUp(Sender: TObject;
+procedure TFrm_Produto.edPROD_REFERENCIASFABRICAKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   if key <> VK_RETURN then
-    if length(edREFERENCIA_FABRICANTE.Text) > 0 then
+    if length(edPROD_REFERENCIASFABRICA.Text) > 0 then
        RefFabricanteRepetido;
 end;
 
@@ -3561,10 +3562,10 @@ begin
   //
   //Vai avisar mas não vai impedir
 
-  if edREFERENCIA_FABRICANTE.Text <> '' then
+  if edPROD_REFERENCIASFABRICA.Text <> '' then
   begin
-    x := 'SELECT PROD_CODIGO, PROD_DESCRICAO FROM PRODUTO_PROD WHERE (REFERENCIA_FABRICANTE IS NOT NULL AND REFERENCIA_FABRICANTE <> ' + QuotedStr(emptystr) +
-      ') AND REFERENCIA_FABRICANTE =' + QuotedStr(edREFERENCIA_FABRICANTE.Text) + ' AND PROD_CODIGO  <>' + edCODIGO.Text;
+    x := 'SELECT PROD_CODIGO, PROD_DESCRICAO FROM PRODUTO_PROD WHERE (PROD_REFERENCIASFABRICA IS NOT NULL AND PROD_REFERENCIASFABRICA <> ' + QuotedStr(emptystr) +
+      ') AND PROD_REFERENCIASFABRICA =' + QuotedStr(edPROD_REFERENCIASFABRICA.Text) + ' AND PROD_CODIGO  <>' + edCODIGO.Text;
     qry := simplequery(x);
     if qry <> nil then
     begin
@@ -3575,8 +3576,8 @@ begin
       {Não impedir
       if foco then
       begin
-         edREFERENCIA_FABRICANTE.SelectAll;
-         edREFERENCIA_FABRICANTE.SetFocus;
+         edPROD_REFERENCIASFABRICA.SelectAll;
+         edPROD_REFERENCIASFABRICA.SetFocus;
       end;
       }
     end;
@@ -3851,8 +3852,7 @@ CSOSN é utilizado pelos contribuintes optantes pelo regime do Simples Nacional.
 }
 {
 CREATE TABLE `produto` (
-	`INFO_ADICIONAIS` VARCHAR(200) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
-	`REFERENCIA_FABRICANTE` VARCHAR(50) NULL DEFAULT NULL COMMENT 'informa a referência do fabricante do produto',
+	`PROD_REFERENCIASFABRICA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'informa a referência do fabricante do produto',
 	`MARCA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de marcas',
 	`FAMILIA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de familia',
 	`GRUPO` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de grupos',
@@ -3971,7 +3971,7 @@ CREATE TABLE `produto` (
 	INDEX `ponto_impressao_id` (`ponto_impressao_id`),
 	INDEX `idx_CODIGO_ALFANUMERICO` (`CODIGO_ALFANUMERICO`),
 	INDEX `idx_NCM` (`NCM`),
-	INDEX `idx_referencia_fabricante` (`REFERENCIA_FABRICANTE`),
+	INDEX `idx_PROD_REFERENCIASFABRICA` (`PROD_REFERENCIASFABRICA`),
 	CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`ponto_impressao_id`) REFERENCES `ponto_impressao` (`id`)
 )
 COMMENT='onde encontram-se os produtos cadastrados\r\n'
@@ -3982,3 +3982,7 @@ AUTO_INCREMENT=34052
 }
 
 
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04
+Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:08
+Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:39
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:14

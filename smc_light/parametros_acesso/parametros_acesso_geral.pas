@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 { v 11.10.16 09:31 }
 unit parametros_acesso_geral;
 {

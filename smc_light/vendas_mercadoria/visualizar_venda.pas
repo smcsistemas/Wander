@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 unit visualizar_venda;
 {
 ========================================================================================================================================
@@ -58,7 +59,7 @@ type
     SQL_VENDA_ITENSCODIGO_VENDA: TIntegerField;
     SQL_VENDA_ITENSCODIGO_ITEM_VENDA: TIntegerField;
     SQL_VENDA_ITENSCODIGO_PRODUTO: TIntegerField;
-    SQL_VENDA_ITENSDESCRICAO_PRODUTO: TStringField;
+    SQL_VENDA_ITENSPROD_DESCRICAO: TStringField;
     SQL_VENDA_ITENSNCM: TStringField;
     SQL_VENDA_ITENSCEST: TStringField;
     SQL_VENDA_ITENSCFOP: TStringField;
@@ -67,7 +68,7 @@ type
     SQL_VENDA_ITENSALIQ_ICMS: TBCDField;
     SQL_VENDA_ITENSPIS_CST: TStringField;
     SQL_VENDA_ITENSCOFINS_CST: TStringField;
-    SQL_VENDA_ITENSUNIDADE_MEDIDA: TStringField;
+    SQL_VENDA_ITENSPROD_UNIDADE: TStringField;
     SQL_VENDA_ITENSQUANTIDADE: TSingleField;
     SQL_VENDA_ITENSPRECO: TBCDField;
     SQL_VENDA_ITENSACRESCIMO: TBCDField;
@@ -316,3 +317,4 @@ begin
 end;
 
 end.
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04

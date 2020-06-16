@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:26
 ﻿{ v 21.10.16 17:18 }
 unit cadastro_produto;
 
@@ -112,25 +113,25 @@ type
     btn_grupo: TcxButton;
     btn_und: TcxButton;
     btn_marca: TcxButton;
-    DESCRICAO_PRODUTO: TDBEdit;
-    REFERENCIA_FABRICANTE: TDBEdit;
+    PROD_DESCRICAO: TDBEdit;
+    PROD_REFERENCIASFABRICA: TDBEdit;
     FAMILIA: TDBEdit;
     SUBGRUPO: TDBEdit;
-    UNIDADE_MEDIDA: TDBEdit;
+    PROD_UNIDADE: TDBEdit;
     GRUPO: TDBEdit;
     MARCA: TDBEdit;
     cxDBMemo1: TcxDBMemo;
     CODIGO_BARRAS: TDBEdit;
     SQL_PRODUTOCODIGO: TFDAutoIncField;
     SQL_PRODUTOCODIGO_BARRAS: TStringField;
-    SQL_PRODUTODESCRICAO_PRODUTO: TStringField;
-    SQL_PRODUTOINFO_ADICIONAIS: TStringField;
-    SQL_PRODUTOREFERENCIA_FABRICANTE: TStringField;
+    SQL_PRODUTOPROD_DESCRICAO: TStringField;
+    SQL_PRODUTOPROD_DETALHES: TStringField;
+    SQL_PRODUTOPROD_REFERENCIASFABRICA: TStringField;
     SQL_PRODUTOMARCA: TStringField;
     SQL_PRODUTOFAMILIA: TStringField;
     SQL_PRODUTOGRUPO: TStringField;
     SQL_PRODUTOSUBGRUPO: TStringField;
-    SQL_PRODUTOUNIDADE_MEDIDA: TStringField;
+    SQL_PRODUTOPROD_UNIDADE: TStringField;
     SQL_PRODUTODATA_CADASTRO: TDateField;
     SQL_PRODUTOTIPO_ITEM: TStringField;
     SQL_PRODUTOLEIS: TStringField;
@@ -282,14 +283,14 @@ type
     SQL_LISTACODIGO: TFDAutoIncField;
     SQL_LISTACODIGO_BARRAS: TStringField;
     SQL_LISTACOD_BARRAS_AUXILIAR: TStringField;
-    SQL_LISTADESCRICAO_PRODUTO: TStringField;
-    SQL_LISTAINFO_ADICIONAIS: TStringField;
-    SQL_LISTAREFERENCIA_FABRICANTE: TStringField;
+    SQL_LISTAPROD_DESCRICAO: TStringField;
+    SQL_LISTAPROD_DETALHES: TStringField;
+    SQL_LISTAPROD_REFERENCIASFABRICA: TStringField;
     SQL_LISTAMARCA: TStringField;
     SQL_LISTAFAMILIA: TStringField;
     SQL_LISTAGRUPO: TStringField;
     SQL_LISTASUBGRUPO: TStringField;
-    SQL_LISTAUNIDADE_MEDIDA: TStringField;
+    SQL_LISTAPROD_UNIDADE: TStringField;
     SQL_LISTADATA_CADASTRO: TDateField;
     SQL_LISTATIPO_ITEM: TStringField;
     SQL_LISTAESTOQUE_MINIMO: TStringField;
@@ -478,11 +479,11 @@ type
     Label34: TLabel;
     tbViewCODIGO: TcxGridDBColumn;
     tbViewCODIGO_BARRAS: TcxGridDBColumn;
-    tbViewDESCRICAO_PRODUTO: TcxGridDBColumn;
-    tbViewREFERENCIA_FABRICANTE: TcxGridDBColumn;
+    tbViewPROD_DESCRICAO: TcxGridDBColumn;
+    tbViewPROD_REFERENCIASFABRICA: TcxGridDBColumn;
     tbViewMARCA: TcxGridDBColumn;
     tbViewGRUPO: TcxGridDBColumn;
-    tbViewUNIDADE_MEDIDA: TcxGridDBColumn;
+    tbViewPROD_UNIDADE: TcxGridDBColumn;
     tbViewTIPO_ITEM: TcxGridDBColumn;
     tbViewSALDO: TcxGridDBColumn;
     tbViewALIQ_ICMS: TcxGridDBColumn;
@@ -609,8 +610,8 @@ type
     procedure cxDBTextEdit60KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit61KeyPress(Sender: TObject; var Key: Char);
     procedure CODIGO_BARRASKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure DESCRICAO_PRODUTOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure REFERENCIA_FABRICANTEKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure PROD_DESCRICAOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure PROD_REFERENCIASFABRICAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure MARCAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FAMILIAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure GRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -654,7 +655,7 @@ type
     procedure BtnAlterarClick(Sender: TObject);
     procedure duplicar_cadastroClick(Sender: TObject);
     function RemoveEspaco(const str: String): string;
-    procedure DESCRICAO_PRODUTOExit(Sender: TObject);
+    procedure PROD_DESCRICAOExit(Sender: TObject);
     procedure MARGEM_LUCROExit(Sender: TObject);
     procedure MARGEM_L_DISTRIBUIDORExit(Sender: TObject);
     procedure MARGEM_L_ATACADOExit(Sender: TObject);
@@ -684,7 +685,7 @@ type
     procedure DBEdit13Change(Sender: TObject);
     procedure DBEdit16KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBEdit13KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure UNIDADE_MEDIDAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure PROD_UNIDADEKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure calcular_preco_produtos(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure PRECO_FINAL_ATACADOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBEdit13KeyPress(Sender: TObject; var Key: Char);
@@ -750,7 +751,7 @@ type
     procedure updateEstoque;
     procedure btn_csosnClick(Sender: TObject);
     procedure tbViewKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure REFERENCIA_FABRICANTEKeyUp(Sender: TObject; var Key: Word;
+    procedure PROD_REFERENCIASFABRICAKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure ImprimirEtiqueta1Click(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
@@ -866,7 +867,7 @@ begin
     cbTipoItem.itemindex := 0;
     cb_origem.itemindex := 0;
     IniciarCadastro([BtnIncluir, BtnCancelar, BtnAlterar], true);
-    DESCRICAO_PRODUTO.SetFocus;
+    PROD_DESCRICAO.SetFocus;
     chk_ativocadastro.Checked := true;
     DBEdit13.Text := '0';
     ESTOQUE_MINIMO.Text := '0';
@@ -1119,7 +1120,7 @@ begin
   sql_ponto_impressao.Active := true;
 
   dbedt_codigo.Text := inttostr(SQL_PRODUTOCODIGO.value);
-  u_funcoes.CamposObrigatorios_CorPadrao([DESCRICAO_PRODUTO, UNIDADE_MEDIDA, PRECO_FINAL_VAREJO, NCM], [], [TcxComboBox(dbcsticms)]);
+  u_funcoes.CamposObrigatorios_CorPadrao([PROD_DESCRICAO, PROD_UNIDADE, PRECO_FINAL_VAREJO, NCM], [], [TcxComboBox(dbcsticms)]);
   u_funcoes.CamposObrigatorios_CorPadrao([edt_qtde_min, edt_preco, TEdit(cb_tipo)], []);
   carregar_faixa;
 
@@ -1330,7 +1331,7 @@ end;
 
 procedure TFrm_Produto.BtnAlterarClick(Sender: TObject);
 begin
-  if ((dbedt_codigo.Text = '') or (dbedt_codigo.Text = '0')) and (DESCRICAO_PRODUTO.Text = '') then
+  if ((dbedt_codigo.Text = '') or (dbedt_codigo.Text = '0')) and (PROD_DESCRICAO.Text = '') then
   begin
     Application.MessageBox('Nenhum produto foi selecionado.', 'Alterar', MB_ICONWARNING + MB_OK);
     exit;
@@ -1344,7 +1345,7 @@ begin
       btn_cad_faixa], true);
     IniciarCadastro([BtnIncluir, BtnCancelar, BtnAlterar], true);
     BtnIncluir.Visible := false;
-    DESCRICAO_PRODUTO.SetFocus;
+    PROD_DESCRICAO.SetFocus;
     carregar_nat_op;
   end;
 end;
@@ -1380,7 +1381,7 @@ begin
     RefFabricanteRepetido(false);
     if (not CodBarrasRepetido) then
     begin
-      if u_funcoes.CamposObrigatorios([DESCRICAO_PRODUTO, UNIDADE_MEDIDA, PRECO_FINAL_VAREJO, NCM],
+      if u_funcoes.CamposObrigatorios([PROD_DESCRICAO, PROD_UNIDADE, PRECO_FINAL_VAREJO, NCM],
         ['Descrição do Produto', 'Unidade de Medida', 'Preço de Varejo', 'NCM'], [], [], [TcxComboBox(dbcsticms)], ['CST ICMS']) then
         exit
       else
@@ -1484,7 +1485,7 @@ begin
 
   Frm_unidade := TFrm_unidade.CREATE(Application);
   Frm_unidade.ShowModal;
-  UNIDADE_MEDIDA.Text := Frm_unidade.SQL_LISTASIGLA.value;
+  PROD_UNIDADE.Text := Frm_unidade.SQL_LISTASIGLA.value;
   ESTOQUE_MINIMO.SetFocus;
 
 end;
@@ -2107,7 +2108,7 @@ begin
     if qry <> nil then
     begin
       wnAlerta('Código Balança', 'Código da balança ' + campo.Text + ' já está cadastrado no produto ' + slinebreak + 'Cód: ' +
-        qry.FieldByName('CODIGO').AsString + ' - Descrição: ' + qry.FieldByName('DESCRICAO_PRODUTO').AsString);
+        qry.FieldByName('CODIGO').AsString + ' - Descrição: ' + qry.FieldByName('PROD_DESCRICAO').AsString);
       campo.SelectAll;
       campo.SetFocus;
       qry.Destroy;
@@ -2122,7 +2123,7 @@ var
 begin
   if (CODIGO_BARRAS.Text <> '') and (CODIGO_BARRAS.Text <> 'SEM GTIN') then
   begin
-    x := 'SELECT CODIGO, DESCRICAO_PRODUTO FROM PRODUTO WHERE (CODIGO_BARRAS IS NOT NULL AND CODIGO_BARRAS <> ' + QuotedStr(emptystr) +
+    x := 'SELECT CODIGO, PROD_DESCRICAO FROM PRODUTO WHERE (CODIGO_BARRAS IS NOT NULL AND CODIGO_BARRAS <> ' + QuotedStr(emptystr) +
       ') AND CODIGO_BARRAS =' + QuotedStr(CODIGO_BARRAS.Text) + ' AND CODIGO  <>' + dbedt_codigo.Text;
     qry := simplequery(x);
     if qry <> nil then
@@ -2144,7 +2145,7 @@ procedure TFrm_Produto.CODIGO_BARRASKeyDown(Sender: TObject;
 begin
   if (Key = vk_return) or (Key = vk_tab) then
   begin
-    DESCRICAO_PRODUTO.SetFocus;
+    PROD_DESCRICAO.SetFocus;
   end;
 end;
 
@@ -2221,8 +2222,8 @@ begin
   if edtBuscar.Text <> '' then
   begin
     fld := TFunctions.ifthen(cbFiltro.SelectedItem, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ['codigo', 'codigo_barras', 'descricao_produto',
-      'unidade_medida', 'preco_final_varejo', 'valor_promocional_varejo', 'grupo', 'marca', 'icms_cst', 'ncm', 'csosn',
-      'referencia_fabricante']);
+      'PROD_UNIDADE', 'preco_final_varejo', 'valor_promocional_varejo', 'grupo', 'marca', 'icms_cst', 'ncm', 'csosn',
+      'PROD_REFERENCIASFABRICA']);
     sql_x := 'select * from produto where tipo_item = ' + tp_item + ' and ' + fld + ' like "%' + TFunctions.replace(edtBuscar.Text, '"') +
       '%" limit 500';
   end
@@ -2319,18 +2320,18 @@ begin
   end;
 end;
 
-procedure TFrm_Produto.DESCRICAO_PRODUTOExit(Sender: TObject);
+procedure TFrm_Produto.PROD_DESCRICAOExit(Sender: TObject);
 begin
-  DESCRICAO_PRODUTO.Text := RemoveEspaco(DESCRICAO_PRODUTO.Text);
+  PROD_DESCRICAO.Text := RemoveEspaco(PROD_DESCRICAO.Text);
 end;
 
-procedure TFrm_Produto.DESCRICAO_PRODUTOKeyDown(Sender: TObject;
+procedure TFrm_Produto.PROD_DESCRICAOKeyDown(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
   if (Key = vk_return) or (Key = vk_tab) then
   begin
-    REFERENCIA_FABRICANTE.SetFocus;
+    PROD_REFERENCIASFABRICA.SetFocus;
   end;
 end;
 
@@ -2953,7 +2954,7 @@ begin
   end;
 end;
 
-procedure TFrm_Produto.REFERENCIA_FABRICANTEKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+procedure TFrm_Produto.PROD_REFERENCIASFABRICAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   if (Key = vk_return) or (Key = vk_tab) then
   begin
@@ -2961,11 +2962,11 @@ begin
   end;
 end;
 
-procedure TFrm_Produto.REFERENCIA_FABRICANTEKeyUp(Sender: TObject;
+procedure TFrm_Produto.PROD_REFERENCIASFABRICAKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   if key <> VK_RETURN then
-    if length(REFERENCIA_FABRICANTE.Text) > 0 then
+    if length(PROD_REFERENCIASFABRICA.Text) > 0 then
        RefFabricanteRepetido;
 end;
 
@@ -2974,10 +2975,10 @@ var
   qry: TFDQuery;
   x: string;
 begin
-  if REFERENCIA_FABRICANTE.Text <> '' then
+  if PROD_REFERENCIASFABRICA.Text <> '' then
   begin
-    x := 'SELECT CODIGO, DESCRICAO_PRODUTO FROM PRODUTO WHERE (REFERENCIA_FABRICANTE IS NOT NULL AND REFERENCIA_FABRICANTE <> ' + QuotedStr(emptystr) +
-      ') AND REFERENCIA_FABRICANTE =' + QuotedStr(REFERENCIA_FABRICANTE.Text) + ' AND CODIGO  <>' + dbedt_codigo.Text;
+    x := 'SELECT CODIGO, PROD_DESCRICAO FROM PRODUTO WHERE (PROD_REFERENCIASFABRICA IS NOT NULL AND PROD_REFERENCIASFABRICA <> ' + QuotedStr(emptystr) +
+      ') AND PROD_REFERENCIASFABRICA =' + QuotedStr(PROD_REFERENCIASFABRICA.Text) + ' AND CODIGO  <>' + dbedt_codigo.Text;
     qry := simplequery(x);
     if qry <> nil then
     begin
@@ -2986,8 +2987,8 @@ begin
         slinebreak + 'Descrição: ' + qry.Fields[1].AsString, taLeftJustify, 12);
       if foco then
       begin
-           REFERENCIA_FABRICANTE.SelectAll;
-           REFERENCIA_FABRICANTE.SetFocus;
+           PROD_REFERENCIASFABRICA.SelectAll;
+           PROD_REFERENCIASFABRICA.SetFocus;
       end;
     end
     else
@@ -3129,7 +3130,7 @@ procedure TFrm_Produto.SUBGRUPOKeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   if (Key = vk_return) or (Key = vk_tab) then
-    UNIDADE_MEDIDA.SetFocus;
+    PROD_UNIDADE.SetFocus;
 
 end;
 
@@ -3167,7 +3168,7 @@ begin
     consultaparacadastro;
 end;
 
-procedure TFrm_Produto.UNIDADE_MEDIDAKeyDown(Sender: TObject;
+procedure TFrm_Produto.PROD_UNIDADEKeyDown(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
@@ -3203,3 +3204,9 @@ begin
 end;
 
 end.
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:10
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:21
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:02
+Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:06
+Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:36
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:04

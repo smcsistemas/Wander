@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 unit rel_vw_movimentacao_caixa;
 
 interface

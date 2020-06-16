@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:30
 { 21.11.16 16:59 }
 unit visualizar_nfc_e;
 {
@@ -67,7 +68,7 @@ type
     SQL_NFCE_ITENSCODIGO_VENDA: TIntegerField;
     SQL_NFCE_ITENSCODIGO_ITEM_VENDA: TIntegerField;
     SQL_NFCE_ITENSCODIGO_PRODUTO: TIntegerField;
-    SQL_NFCE_ITENSDESCRICAO_PRODUTO: TStringField;
+    SQL_NFCE_ITENSPROD_DESCRICAO: TStringField;
     SQL_NFCE_ITENSNCM: TStringField;
     SQL_NFCE_ITENSCEST: TStringField;
     SQL_NFCE_ITENSCFOP: TStringField;
@@ -94,7 +95,7 @@ type
     SQL_NFCEHORA_VENDA: TTimeField;
     SQL_NFCE_ITENSPIS_CST: TStringField;
     SQL_NFCE_ITENSCOFINS_CST: TStringField;
-    SQL_NFCE_ITENSUNIDADE_MEDIDA: TStringField;
+    SQL_NFCE_ITENSPROD_UNIDADE: TStringField;
     SQL_NFCE_ITENSQUANTIDADE: TSingleField;
     SQL_NFCE_ITENSPRECO: TBCDField;
     SQL_NFCE_ITENSACRESCIMO: TBCDField;
@@ -295,3 +296,4 @@ begin
 end;
 
 end.
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:05

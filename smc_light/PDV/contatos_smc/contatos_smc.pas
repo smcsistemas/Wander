@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 { v 29.10.16 12:06 }
 unit contatos_smc;
 

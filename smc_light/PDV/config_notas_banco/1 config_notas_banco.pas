@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 unit config_notas_banco;
 
 interface

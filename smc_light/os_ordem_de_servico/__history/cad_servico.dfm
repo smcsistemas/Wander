@@ -1434,10 +1434,10 @@ object Frm_cad_servico: TFrm_cad_servico
       Origin = 'INFO_ADICIONAIS'
       Size = 200
     end
-    object SQL_C_ServicoREFERENCIA_FABRICANTE: TStringField
+    object SQL_C_ServicoPROD_REFERENCIASFABRICA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'REFERENCIA_FABRICANTE'
-      Origin = 'REFERENCIA_FABRICANTE'
+      FieldName = 'PROD_REFERENCIASFABRICA'
+      Origin = 'PROD_REFERENCIASFABRICA'
       Size = 50
     end
     object SQL_C_ServicoMARCA: TStringField
@@ -2133,3 +2133,4 @@ object Frm_cad_servico: TFrm_cad_servico
     Top = 349
   end
 end
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:07

@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 unit vw_consulta_generica;
 {
 
@@ -115,7 +116,7 @@ type
   const
     DEFAULT_LIMIT = ' LIMIT 1000';
     PRODUTO_QUERY_BASE =
-      'SELECT PROD_CODIGO, PROD_EAN, DESCRICAO_PRODUTO, UNIDADE_MEDIDA, SALDO, REFERENCIA_FABRICANTE, MARCA, PRECO_FINAL_VAREJO FROM PRODUTO_PROD WHERE STATUS_CADASTRAL <> "INATIVO"';
+      'SELECT PROD_CODIGO, PROD_EAN, PROD_DESCRICAO, PROD_UNIDADE, SALDO, PROD_REFERENCIASFABRICA, MARCA, PRECO_FINAL_VAREJO FROM PRODUTO_PROD WHERE STATUS_CADASTRAL <> "INATIVO"';
     FORNECEDOR_QUERY_BASE = 'SELECT CODIGO, RAZAO_SOCIAL, NOME_FANTASIA, CNPJ_CPF FROM FORNECEDOR';
     USUARIO_QUERY_BASE = 'SELECT CODIGO, USUARIO FROM USUARIO WHERE TIPO_USUARIO <> "SISTEMA"';
     CLIENTE_QUERY_BASE = 'SELECT CODIGO, RAZAO_SOCIAL, FANTASIA, CPF, CNPJ, PESSOA_TIPO FROM CLIENTE WHERE STATUS_CADASTRAL = "ATIVO"';
@@ -459,7 +460,7 @@ begin
     case cgTable of
       cgProduto:
         begin
-          if (Column.FieldName = 'CODIGO') or (Column.FieldName = 'REFERENCIA_FABRICANTE') then
+          if (Column.FieldName = 'CODIGO') or (Column.FieldName = 'PROD_REFERENCIASFABRICA') then
             if Column.Field.Value = data_differ_search then
             begin
               db_grid.Canvas.Brush.Color := clMoneyGreen;
@@ -963,7 +964,7 @@ function TFrm_Consulta_Generica.GetOrderBy: string;
 begin
   case cgTable of
     cgProduto:
-      result := ' ORDER BY ' + f(['CODIGO', 'PROD_EAN', 'DESCRICAO_PRODUTO', 'UNIDADE_MEDIDA', 'SALDO', 'REFERENCIA_FABRICANTE',
+      result := ' ORDER BY ' + f(['CODIGO', 'PROD_EAN', 'PROD_DESCRICAO', 'PROD_UNIDADE', 'SALDO', 'PROD_REFERENCIASFABRICA',
         'MARCA', 'PRECO_FINAL_VAREJO']);
     cgFornecedor:
       result := ' ORDER BY ' + f(['CODIGO', 'RAZAO_SOCIAL', 'NOME_FANTASIA', 'CNPJ_CPF']);
@@ -1140,3 +1141,6 @@ begin
 end;
 
 end.
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04
+Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:39
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:12

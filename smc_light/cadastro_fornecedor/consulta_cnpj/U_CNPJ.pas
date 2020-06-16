@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:26
 { v 06.10.16 14:12 }
 unit U_CNPJ;
 

@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:29
 { v 16.11.16 17:44 }
 unit vw_pdv;
 {
@@ -162,14 +163,14 @@ type
     SQL_VendaCOD_NFCE: TStringField;
     SQL_VendaCOD_VENDEDOR: TIntegerField;
     SQL_ProdutoConsultaCOD_BARRAS_AUXILIAR: TStringField;
-    SQL_ProdutoConsultaDESCRICAO_PRODUTO: TStringField;
-    SQL_ProdutoConsultaINFO_ADICIONAIS: TStringField;
-    SQL_ProdutoConsultaREFERENCIA_FABRICANTE: TStringField;
+    SQL_ProdutoConsultaPROD_DESCRICAO: TStringField;
+    SQL_ProdutoConsultaPROD_DETALHES: TStringField;
+    SQL_ProdutoConsultaPROD_REFERENCIASFABRICA: TStringField;
     SQL_ProdutoConsultaMARCA: TStringField;
     SQL_ProdutoConsultaFAMILIA: TStringField;
     SQL_ProdutoConsultaGRUPO: TStringField;
     SQL_ProdutoConsultaSUBGRUPO: TStringField;
-    SQL_ProdutoConsultaUNIDADE_MEDIDA: TStringField;
+    SQL_ProdutoConsultaPROD_UNIDADE: TStringField;
     SQL_ProdutoConsultaDATA_CADASTRO: TDateField;
     SQL_ProdutoConsultaTIPO_ITEM: TStringField;
     SQL_ProdutoConsultaESTOQUE_MINIMO: TStringField;
@@ -388,7 +389,7 @@ type
     cpfcnpjcliente, nomecliente, Rua, Numero, Bairro, Municipio, Celular, IE, COD_VENDEDOR: string;
     KeyControl: boolean;
     edt_alterar_preco, edt_qtde_alterar_preco: TEdit;
-    lbl_preco_unitario, lbl_unidade_medida, lbl_descricao_produto: TLabel;
+    lbl_preco_unitario, lbl_PROD_UNIDADE, lbl_descricao_produto: TLabel;
     combinacaoQtde, etiqueta: boolean;
 
   public
@@ -915,8 +916,8 @@ var
   qry, qry_cod: TFDQuery;
 begin
   qry_cod := Tdb.simplequery
-    ('select PROD_CODIGO, PROD_EAN, DESCRICAO_PRODUTO, UNIDADE_MEDIDA, SALDO, REFERENCIA_FABRICANTE, MARCA, PRECO_FINAL_VAREJO from PRODUTO_PROD where PROD_CODIGO = "' +
-    Edt_codBarras.Text + '" OR REFERENCIA_FABRICANTE = "' + Edt_codBarras.Text + '"');
+    ('select PROD_CODIGO, PROD_EAN, PROD_DESCRICAO, PROD_UNIDADE, SALDO, PROD_REFERENCIASFABRICA, MARCA, PRECO_FINAL_VAREJO from PRODUTO_PROD where PROD_CODIGO = "' +
+    Edt_codBarras.Text + '" OR PROD_REFERENCIASFABRICA = "' + Edt_codBarras.Text + '"');
   if qry_cod <> nil then
   begin
     qry_cod.fetchall;
@@ -929,7 +930,7 @@ begin
       exit;
     end;
   end;
-  qry := Tdb.simplequery('select PROD_CODIGO from PRODUTO_PROD where referencia_fabricante = "' + Edt_codBarras.Text + '"');
+  qry := Tdb.simplequery('select PROD_CODIGO from PRODUTO_PROD where PROD_REFERENCIASFABRICA = "' + Edt_codBarras.Text + '"');
   if (qry <> nil) then
     Edt_codBarras.Text := qry.Fields[0].Text;
 end;
@@ -1004,7 +1005,7 @@ begin
     if (length(Cod_CodBarras_Descricao.Text) < 8) and IsNumber(Cod_CodBarras_Descricao.Text) then // Código do produto
       SQL.Add(' WHERE PROD_CODIGO = ' + quotedstr(Cod_CodBarras_Descricao.Text));
     if not IsNumber(Cod_CodBarras_Descricao.Text) then // Descrição do produto
-      SQL.Add(' WHERE DESCRICAO_PRODUTO LIKE ''%' + Cod_CodBarras_Descricao.Text + '%''');
+      SQL.Add(' WHERE PROD_DESCRICAO LIKE ''%' + Cod_CodBarras_Descricao.Text + '%''');
     open;
     if RecordCount = 1 then
     // Encontra apenas um produto
@@ -1053,7 +1054,7 @@ var
     begin
       if TChecks.LessEquals(FieldByName('PRECO_FINAL_VAREJO').asextended, 0) then
       begin
-        if wnConfirmacao('Produto Sem Preço', 'Produto ' + FieldByName('DESCRICAO_PRODUTO').AsString + ' está sem preço no cadastro!' + slinebreak +
+        if wnConfirmacao('Produto Sem Preço', 'Produto ' + FieldByName('PROD_DESCRICAO').AsString + ' está sem preço no cadastro!' + slinebreak +
           'Deseja alterar o preço do produto ?') then
         begin
           frm_alterar_preco_pdv := Tfrm_alterar_preco_pdv.create(nil);
@@ -1062,7 +1063,7 @@ var
           edt_qtde_alterar_preco := Qtde;
           lbl_descricao_produto := DescricaoLabel;
           lbl_preco_unitario := PrecoUnitario;
-          lbl_unidade_medida := UnidadeMedida;
+          lbl_PROD_UNIDADE := UnidadeMedida;
           frm_alterar_preco_pdv.OnShow := OnShowAlterarPreco;
           frm_alterar_preco_pdv.BtnGravar.onclick := OnConcluirClickAlterarPreco;
           frm_alterar_preco_pdv.cxButton1.onclick := OnCancelClickAlterarPreco;
@@ -1086,7 +1087,7 @@ var
         begin
           if BloquearSemEstoque then
           begin
-            msg := 'Produto: ' + ConsultaEstoque.FieldByName('DESCRICAO_PRODUTO').Value + slinebreak + 'Quantidade em Estoque: ' +
+            msg := 'Produto: ' + ConsultaEstoque.FieldByName('PROD_DESCRICAO').Value + slinebreak + 'Quantidade em Estoque: ' +
               floattostr(ConsultaEstoque.FieldByName('SALDO').Value) + slinebreak + 'Não é permitida a venda de produto com estoque zerado ou negativo!';
             wnAlerta('Venda Produto', msg);
             Cod_CodBarras_Descricao.selectall;
@@ -1102,9 +1103,9 @@ var
           lbl_estoque.Font.Color := clGreen;
         lbl_estoque.Caption := ConsultaEstoque.FieldByName('SALDO').Text;
       end;
-      if ConsultaEstoque.FieldByName('DESCRICAO_PRODUTO').Text <> '' then
+      if ConsultaEstoque.FieldByName('PROD_DESCRICAO').Text <> '' then
       begin
-        DescricaoLabel.Caption := ConsultaEstoque.FieldByName('DESCRICAO_PRODUTO').Text;
+        DescricaoLabel.Caption := ConsultaEstoque.FieldByName('PROD_DESCRICAO').Text;
       end;
       if PrecoUnitario <> nil then
       begin
@@ -1133,9 +1134,9 @@ var
 
       end;
 
-      if ConsultaEstoque.FieldByName('UNIDADE_MEDIDA').Text <> '' then
+      if ConsultaEstoque.FieldByName('PROD_UNIDADE').Text <> '' then
       begin
-        UnidadeMedida.Caption := ConsultaEstoque.FieldByName('UNIDADE_MEDIDA').Text;
+        UnidadeMedida.Caption := ConsultaEstoque.FieldByName('PROD_UNIDADE').Text;
         if not combinacaoQtde then
           if UnidadeMedida.Caption = 'UN' then
             Qtde.Text := '1'
@@ -1149,13 +1150,13 @@ var
 
 begin
   cod_prod := BuscarCodigo(Cod_CodBarras_Descricao);
-  ConsultaEstoque := simplequery('SELECT PROD_CODIGO, SALDO, DESCRICAO_PRODUTO, PRECO_FINAL_VAREJO, UNIDADE_MEDIDA, STATUS_CADASTRAL FROM PRODUTO_PROD WHERE CODIGO = ?',
+  ConsultaEstoque := simplequery('SELECT PROD_CODIGO, SALDO, PROD_DESCRICAO, PRECO_FINAL_VAREJO, PROD_UNIDADE, STATUS_CADASTRAL FROM PRODUTO_PROD WHERE CODIGO = ?',
     [cod_prod]);
   if ConsultaEstoque <> nil then
   begin
     if ConsultaEstoque.FieldByName('STATUS_CADASTRAL').AsString = 'INATIVO' then
     begin
-      if wnConfirmacao('Produto Inativo', 'Produto "' + ConsultaEstoque.FieldByName('DESCRICAO_PRODUTO').AsString + '" está como INATIVO no cadastro!' +
+      if wnConfirmacao('Produto Inativo', 'Produto "' + ConsultaEstoque.FieldByName('PROD_DESCRICAO').AsString + '" está como INATIVO no cadastro!' +
         slinebreak + 'Deseja ativá-lo para utilizações futuras?') then
       begin
         if TEnv.Tuser.IsAdmin then
@@ -1262,7 +1263,7 @@ begin
   _qtde := strtofloat(Qtde.Text);
   if simplequery('select VENDA_SEM_ESTOQUE from parametros_venda').Fields[0].AsString = m_false then
   begin
-    qry := simplequery('select saldo, unidade_medida from PRODUTO_PROD where PROD_CODIGO = ' + cod_produto);
+    qry := simplequery('select saldo, PROD_UNIDADE from PRODUTO_PROD where PROD_CODIGO = ' + cod_produto);
     estoque_cad := qry.Fields[0].asextended;
     um := qry.Fields[1].AsString;
     if cod_venda <> emptystr then
@@ -1411,8 +1412,8 @@ begin
     Params.ParamByName('pcodigo_venda').Value := lbl_cod_venda.Caption;
     Params.ParamByName('pcodigo_item_venda').Value := FORM_PDV.item;
     Params.ParamByName('pcodigo_produto').Value := SQL_ProdutoConsultaPROD_CODIGO.Value;
-    Params.ParamByName('pdescricao').Value := SQL_ProdutoConsultaDESCRICAO_PRODUTO.Value;
-    Params.ParamByName('punidade').Value := SQL_ProdutoConsultaUNIDADE_MEDIDA.Value;
+    Params.ParamByName('pdescricao').Value := SQL_ProdutoConsultaPROD_DESCRICAO.Value;
+    Params.ParamByName('punidade').Value := SQL_ProdutoConsultaPROD_UNIDADE.Value;
     Params.ParamByName('pquantidade').asextended := strtofloat(Qtde.Text);
     Params.ParamByName('ppreco').asextended := preco_produto;
     Params.ParamByName('pacrescimo').asextended := 0.00;
@@ -1450,7 +1451,7 @@ begin
         EXECQUERY('UPDATE PRODUTO_PROD SET PRECO_FINAL_VAREJO = ' + TrocaVirgPPto(frm_alterar_preco_pdv.edt_novo_preco.Text) + ' WHERE PROD_CODIGO = ' + cod_prod);
         modal_result_ap := mrOk;
         frm_alterar_preco_pdv.Close;
-        PreencherDadosProduto(edt_alterar_preco, edt_qtde_alterar_preco, lbl_descricao_produto, lbl_preco_unitario, lbl_unidade_medida);
+        PreencherDadosProduto(edt_alterar_preco, edt_qtde_alterar_preco, lbl_descricao_produto, lbl_preco_unitario, lbl_PROD_UNIDADE);
       end;
     end;
   end;
@@ -1461,7 +1462,7 @@ var
   qry: TFDQuery;
   ds: TDataSource;
 begin
-  qry := simplequery('SELECT PROD_CODIGO as CODIGO_ITEM_VENDA, DESCRICAO_PRODUTO as DESCRICAO, PRECO_FINAL_VAREJO as PRECO FROM PRODUTO_PROD WHERE PROD_CODIGO = ' +
+  qry := simplequery('SELECT PROD_CODIGO as CODIGO_ITEM_VENDA, PROD_DESCRICAO as DESCRICAO, PRECO_FINAL_VAREJO as PRECO FROM PRODUTO_PROD WHERE PROD_CODIGO = ' +
     BuscarCodigo(edt_alterar_preco));
   if qry <> nil then
   begin
@@ -2180,3 +2181,9 @@ begin
 end;
 
 end.
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:17
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:24
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:05
+Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:09
+Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:40
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:27

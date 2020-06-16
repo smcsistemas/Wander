@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:27
 { v 15.10.16 11:18 }
 unit u_funcoes;
 {
@@ -6845,7 +6846,7 @@ begin
    qLocal.Close;
    qLocal.Sql.clear;
    qLocal.Sql.Add('UPDATE PRODUTO                      ');
-   qLocal.Sql.Add('   SET UNIDADE_MEDIDA = :COD_UNIDADE');
+   qLocal.Sql.Add('   SET PROD_UNIDADE = :COD_UNIDADE');
    qLocal.Sql.Add(' WHERE CODIGO         = :COD_PRODUTO');
    qLocal.ParamByName('COD_UNIDADE').AsInteger := fCodUnidadeMedida(pUnidade);
    qLocal.ParamByName('COD_PRODUTO').AsInteger := pCODIGO;
@@ -6907,3 +6908,4 @@ values
 	'',
 	'DIESEL')
 }
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:02

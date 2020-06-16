@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:26
 { v 18.10.16 12:01 }
 unit cadastro_fornecedor;
 

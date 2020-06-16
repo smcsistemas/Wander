@@ -15005,7 +15005,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft, ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."REFERENCIA_FABRICANTE"]')
+            '[ds_produtos."PROD_REFERENCIASFABRICA"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -15577,7 +15577,7 @@ object frm_relatorio: Tfrm_relatorio
       'PROD_UNIDADE=PROD_UNIDADE'
       'saldo=saldo'
       'marca=marca'
-      'referencia_fabricante=referencia_fabricante'
+      'PROD_REFERENCIASFABRICA=PROD_REFERENCIASFABRICA'
       'PROD_EAN=PROD_EAN'
       'FAMILIA=FAMILIA'
       'GRUPO=GRUPO'
@@ -15627,10 +15627,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'MARCA'
       Size = 50
     end
-    object sql_produtosreferencia_fabricante: TStringField
+    object sql_produtosPROD_REFERENCIASFABRICA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'referencia_fabricante'
-      Origin = 'REFERENCIA_FABRICANTE'
+      FieldName = 'PROD_REFERENCIASFABRICA'
+      Origin = 'PROD_REFERENCIASFABRICA'
       Size = 50
     end
     object sql_produtoscodigo_barras: TStringField
@@ -15723,10 +15723,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'COD_BARRAS_AUXILIAR'
       Size = 50
     end
-    object sql_produtosINFO_ADICIONAIS: TStringField
+    object sql_produtosPROD_DETALHES: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'INFO_ADICIONAIS'
-      Origin = 'INFO_ADICIONAIS'
+      FieldName = 'PROD_DETALHES'
+      Origin = 'PROD_DETALHES'
       Size = 200
     end
     object sql_produtosDATA_CADASTRO: TDateField
@@ -16524,7 +16524,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."REFERENCIA_FABRICANTE"]')
+            '[ds_produtos."PROD_REFERENCIASFABRICA"]')
           ParentFont = False
         end
         object ds_produtosSALDO: TfrxMemoView
@@ -37448,7 +37448,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_pro_prom."REFERENCIA_FABRICANTE"]')
+            '[ds_pro_prom."PROD_REFERENCIASFABRICA"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -37967,7 +37967,7 @@ object frm_relatorio: Tfrm_relatorio
       'PROD_CODIGO=PROD_CODIGO'
       'PROD_EAN=PROD_EAN'
       'PROD_DESCRICAO=PROD_DESCRICAO'
-      'REFERENCIA_FABRICANTE=REFERENCIA_FABRICANTE'
+      'PROD_REFERENCIASFABRICA=PROD_REFERENCIASFABRICA'
       'MARCA=MARCA'
       'PROD_UNIDADE=PROD_UNIDADE'
       'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
@@ -38007,10 +38007,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'PROD_DESCRICAO'
       Size = 200
     end
-    object sql_pro_promREFERENCIA_FABRICANTE: TStringField
+    object sql_pro_promPROD_REFERENCIASFABRICA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'REFERENCIA_FABRICANTE'
-      Origin = 'REFERENCIA_FABRICANTE'
+      FieldName = 'PROD_REFERENCIASFABRICA'
+      Origin = 'PROD_REFERENCIASFABRICA'
       Size = 50
     end
     object sql_pro_promMARCA: TStringField
@@ -39007,8 +39007,8 @@ object frm_relatorio: Tfrm_relatorio
     Connection = Module.connection
     SQL.Strings = (
       
-        'SELECT p.PROD_DESCRICAO, p.PROD_CODIGO, p.PROD_UNIDADE, p.SAL' +
-        'DO as qtd_atual, p.PRECO_FINAL_VAREJO,'
+        'SELECT p.PROD_DESCRICAO, p.PROD_CODIGO, p.PROD_UNIDADE, p.SALDO ' +
+        'as qtd_atual, p.PRECO_FINAL_VAREJO,'
       '   (SELECT SUM(vd.QUANTIDADE) FROM venda_item vd '
       '   JOIN venda q ON q.CODIGO_VENDA = vd.CODIGO_VENDA '
       
@@ -39421,7 +39421,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft]
           HAlign = haRight
           Memo.UTF8W = (
-
+            
               '[(<ds_v_venda_itens."PRECO_FINAL_VAREJO"> * <ds_v_venda_itens."q' +
               'td_venda">) / <ds_v_venda_itens."qtd_venda">]')
           ParentFont = False
@@ -40389,7 +40389,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '  [ds_estq_comp."REFERENCIA_FABRICANTE"]')
+            '  [ds_estq_comp."PROD_REFERENCIASFABRICA"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -40808,7 +40808,7 @@ object frm_relatorio: Tfrm_relatorio
       'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
       'SALDO=SALDO'
       'PROD_EAN=PROD_EAN'
-      'REFERENCIA_FABRICANTE=REFERENCIA_FABRICANTE'
+      'PROD_REFERENCIASFABRICA=PROD_REFERENCIASFABRICA'
       'MARGEM_L_VAREJO=MARGEM_L_VAREJO'
       'PROD_UNIDADE=PROD_UNIDADE')
     DataSet = sql_estq_comp
@@ -40858,10 +40858,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'PROD_EAN'
       Size = 50
     end
-    object sql_estq_compREFERENCIA_FABRICANTE: TStringField
+    object sql_estq_compPROD_REFERENCIASFABRICA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'REFERENCIA_FABRICANTE'
-      Origin = 'REFERENCIA_FABRICANTE'
+      FieldName = 'PROD_REFERENCIASFABRICA'
+      Origin = 'PROD_REFERENCIASFABRICA'
       Size = 50
     end
     object sql_estq_compMARGEM_L_VAREJO: TBCDField
@@ -46494,3 +46494,5 @@ object frm_relatorio: Tfrm_relatorio
     Top = 24
   end
 end
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:09
+Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 15:06

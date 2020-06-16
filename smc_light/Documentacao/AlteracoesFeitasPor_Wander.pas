@@ -26,10 +26,55 @@ ordem decrescente de data....
 |-------|------|
 |  TOTAL| 290  |
 ================
-"Atua_350_UNIDADE_UNI"
+
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+395|16/06/20|15:07|vw_pdv.dfm                  |Trocado INFO_ADICIONAIS por PROD_DETALHES
+394|16/06/20|15:07|cadastro_produto.dfm        |Trocado INFO_ADICIONAIS por PROD_DETALHES
+393|16/06/20|15:07|cadastro_produto2.dfm       |Trocado INFO_ADICIONAIS por PROD_DETALHES
+392|16/06/20|15:06|relatorios.dfm              |Trocado INFO_ADICIONAIS por PROD_DETALHES
+391|16/06/20|15:06|Consulta_Produto.dfm        |Trocado INFO_ADICIONAIS por PROD_DETALHES
+390|16/06/20|15:06|cad_servico.dfm             |Trocado INFO_ADICIONAIS por PROD_DETALHES
+389|16/06/20|15:06|cadastro_produto.dfm        |Trocado INFO_ADICIONAIS por PROD_DETALHES
+388|16/06/20|14:27|vw_pdv                      |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+387|16/06/20|14:27|vw_pdv                      |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+386|16/06/20|14:14|cadastro_produto            |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+385|16/06/20|14:14|vw_etiquetas                |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+384|16/06/20|14:14|vw_etiquetas                |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+383|16/06/20|14:14|cadastro_produto            |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+382|16/06/20|14:14|cadastro_produto            |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+381|16/06/20|14:13|cadastro_produto2           |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+380|16/06/20|14:13|cadastro_produto2           |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+379|16/06/20|14:12|vw_consulta_generica        |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+378|16/06/20|14:10|relatorios                  |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+377|16/06/20|14:10|relatorios                  |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+376|16/06/20|14:09|relatorios                  |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+375|16/06/20|14:09|relatorios                  |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+374|16/06/20|14:07|Consulta_Produto            |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+373|16/06/20|14:07|Consulta_Produto            |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+372|16/06/20|14:07|cad_servico                 |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+371|16/06/20|14:07|cad_servico                 |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+370|16/06/20|14:07|cad_servico                 |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+369|16/06/20|14:07|cad_servico                 |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+368|16/06/20|14:07|m_Produto                   |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+367|16/06/20|14:07|m_Produto                   |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+366|16/06/20|14:04|cadastro_produto            |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+365|16/06/20|14:04|cadastro_produto            |Trocado REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA
+364|16/06/20|12:40|vw_pdv                      |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
+363|16/06/20|12:39|cadastro_produto            |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
+362|16/06/20|12:39|vw_etiquetas                |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
+361|16/06/20|12:39|cadastro_produto            |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
+360|16/06/20|12:39|cadastro_produto2           |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
+359|16/06/20|12:39|vw_consulta_generica        |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
+358|16/06/20|12:39|relatorios                  |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
+357|16/06/20|12:39|relatorios                  |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
+356|16/06/20|12:38|Consulta_Produto            |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
+355|16/06/20|12:38|cad_servico                 |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
+354|16/06/20|12:38|cad_servico                 |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
+353|16/06/20|12:38|m_Produto                   |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
+352|16/06/20|12:38|m_Produto                   |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
+351|16/06/20|12:37|cadastro_produto            |Usando PROD_REFERENCIASFABRICA ao invés de REFERENCIA_FABRICANTE
 350|15/06/20|21:56|m_Unidade_Medida            |Tratando tabela UNIDADE_UNI ao invés de PRODUTO_UNIDADE
 349|15/06/20|21:39|u_funcoes                   |Tratando tabela UNIDADE_UNI ao invés de PRODUTO_UNIDADE
 348|15/06/20|21:39|cadastro_unidade            |Tratando tabela UNIDADE_UNI ao invés de PRODUTO_UNIDADE

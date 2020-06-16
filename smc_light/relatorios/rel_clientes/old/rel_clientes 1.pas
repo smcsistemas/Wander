@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 { v 21.10.16 16:47 }
 unit relatorio_clientes;
 

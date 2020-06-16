@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:26
 unit nfe_consulta_carta_correcao;
 
 interface

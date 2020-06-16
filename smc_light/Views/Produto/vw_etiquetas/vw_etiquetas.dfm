@@ -94,9 +94,9 @@ object frm_etiquetas: Tfrm_etiquetas
             Options.Moving = False
             Width = 367
           end
-          object tbvwEtiquetasreferencia_fabricante: TcxGridDBColumn
+          object tbvwEtiquetasPROD_REFERENCIASFABRICA: TcxGridDBColumn
             Caption = 'Ref. Fabricante'
-            DataBinding.FieldName = 'referencia_fabricante'
+            DataBinding.FieldName = 'PROD_REFERENCIASFABRICA'
             PropertiesClassName = 'TcxTextEditProperties'
             Properties.Alignment.Horz = taCenter
             FooterAlignmentHorz = taCenter
@@ -813,10 +813,10 @@ object frm_etiquetas: Tfrm_etiquetas
       ReadOnly = True
       Precision = 10
     end
-    object sql_etiquetasreferencia_fabricante: TStringField
+    object sql_etiquetasPROD_REFERENCIASFABRICA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'referencia_fabricante'
-      Origin = 'REFERENCIA_FABRICANTE'
+      FieldName = 'PROD_REFERENCIASFABRICA'
+      Origin = 'PROD_REFERENCIASFABRICA'
       ProviderFlags = []
       ReadOnly = True
       Size = 50
@@ -963,3 +963,4 @@ object frm_etiquetas: Tfrm_etiquetas
     Top = 158
   end
 end
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:14

@@ -1,10 +1,11 @@
-﻿unit m_Produto;
+﻿//Verificado automaticamente em 16/06/2020 09:28
+unit m_Produto;
 
 {
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
-336|15/06/20|18:23|m_Produto                   |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(UNIDADE_MEDIDA)
+336|15/06/20|18:23|m_Produto                   |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(PROD_UNIDADE)
 328|15/06/20|13:35|m_Produto                   |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 306|15/06/20|10:14|m_Produto                   |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 ========================================================================================================================================
@@ -23,8 +24,8 @@ type
     Produto_PROD_CODIGO: String;
     Produto_descricao: string;
     Produto_PROD_EAN: string;
-    Produto_info_adicionais: string;
-    Produto_referencia_fabricante: string;
+    Produto_PROD_DETALHES: string;
+    Produto_PROD_REFERENCIASFABRICA: string;
     Produto_marca: string;
     Produto_familia: string;
     Produto_grupo: string;
@@ -78,8 +79,8 @@ type
     function getProduto_PROD_CODIGO: String;
     function getProduto_descricao: string;
     function getProduto_PROD_EAN: string;
-    function getProduto_info_adicionais: string;
-    function getProduto_referencia_fabricante: string;
+    function getProduto_PROD_DETALHES: string;
+    function getProduto_PROD_REFERENCIASFABRICA: string;
     function getProduto_marca: string;
     function getProduto_familia: string;
     function getProduto_grupo: string;
@@ -133,8 +134,8 @@ type
     procedure setProduto_PROD_CODIGO(value: String);
     procedure setProduto_Descricao(value: string);
     Procedure setProduto_PROD_EAN(value: string);
-    Procedure setProduto_info_adicionais(value: string);
-    Procedure setProduto_referencia_fabricante(value: string);
+    Procedure setProduto_PROD_DETALHES(value: string);
+    Procedure setProduto_PROD_REFERENCIASFABRICA(value: string);
     Procedure setProduto_marca(value: string);
     Procedure setProduto_familia(value: string);
     Procedure setProduto_grupo(value: string);
@@ -198,8 +199,8 @@ type
     property PROD_CODIGO: String read getProduto_PROD_CODIGO write setProduto_PROD_CODIGO;
     property DESCRICAO: string read getProduto_descricao write setProduto_Descricao;
     property PROD_EAN: string read getProduto_PROD_EAN write setProduto_PROD_EAN;
-    property INFO_ADICIONAIS: string read getProduto_info_adicionais write setProduto_info_adicionais;
-    property REFERENCIA_FABRICANTE: string read getProduto_referencia_fabricante write setProduto_referencia_fabricante;
+    property PROD_DETALHES: string read getProduto_PROD_DETALHES write setProduto_PROD_DETALHES;
+    property PROD_REFERENCIASFABRICA: string read getProduto_PROD_REFERENCIASFABRICA write setProduto_PROD_REFERENCIASFABRICA;
     property MARCA: string read getProduto_marca write setProduto_marca;
     property FAMILIA: string read getProduto_familia write setProduto_familia;
     property GRUPO: string read getProduto_grupo write setProduto_grupo;
@@ -267,8 +268,8 @@ begin
   Produto_PROD_CODIGO := '';
   Produto_descricao   := '';
   Produto_PROD_EAN    := '';
-  Produto_info_adicionais := '';
-  Produto_referencia_fabricante := '';
+  Produto_PROD_DETALHES := '';
+  Produto_PROD_REFERENCIASFABRICA := '';
   Produto_marca := '';
   Produto_familia := '';
   Produto_grupo := '';
@@ -344,8 +345,8 @@ begin
       Self.Produto_descricao   := qry.fieldbyname('descricao_produto').asString;
       Self.Produto_PROD_EAN    := qry.fieldbyname('PROD_EAN'         ).asString;
       //------------------------------------------------------------------------
-      Self.Produto_info_adicionais := qry.fieldbyname('info_adicionais').asString;
-      Self.Produto_referencia_fabricante := qry.fieldbyname('referencia_fabricante').asString;
+      Self.Produto_PROD_DETALHES := qry.fieldbyname('PROD_DETALHES').asString;
+      Self.Produto_PROD_REFERENCIASFABRICA := qry.fieldbyname('PROD_REFERENCIASFABRICA').asString;
       Self.Produto_marca := qry.fieldbyname('marca').asString;
       Self.Produto_familia := qry.fieldbyname('familia').asString;
       Self.Produto_grupo := qry.fieldbyname('grupo').asString;
@@ -427,15 +428,15 @@ end;
 
 procedure TProduto.Insert;
 begin
-  Tdb.ExecQuery('INSERT INTO PRODUTO_PROD (PROD_CODIGO,DESCRICAO_PRODUTO, PROD_EAN, INFO_ADICIONAIS,' +
-    'REFERENCIA_FABRICANTE, MARCA, FAMILIA, GRUPO, SUBGRUPO, PROD_UNIDADE, TIPO_ITEM, PRECO_CUSTO, FRETE, IMPOSTO, DESP_OPERACIONAIS, CUSTO_MEDIO, MARGEM_L_VAREJO,' +
+  Tdb.ExecQuery('INSERT INTO PRODUTO_PROD (PROD_CODIGO,PROD_DESCRICAO, PROD_EAN, PROD_DETALHES,' +
+    'PROD_REFERENCIASFABRICA, MARCA, FAMILIA, GRUPO, SUBGRUPO, PROD_UNIDADE, TIPO_ITEM, PRECO_CUSTO, FRETE, IMPOSTO, DESP_OPERACIONAIS, CUSTO_MEDIO, MARGEM_L_VAREJO,' +
     'MARGEM_L_DISTRIBUIDOR, MARGEM_L_ATACADO, PRECO_FINAL_VAREJO, PRECO_FINAL_DISTRIBUIDOR, PRECO_FINAL_ATACADO, BALCAO_COMISSAO_VAREJO,' +
     'BALCAO_COMISSAO_DISTRIBUIDOR, BALCAO_COMISSAO_ATACADO, EXTERNA_COMISSAO_VAREJO, EXTERNA_COMISSAO_DISTRIBUIDOR, EXTERNA_COMISSAO_ATACADO,' +
     'SALDO, ESTOQUE_MINIMO, DESCONTO_M_VAREJO, DESCONTO_M_DISTRIBUIDOR, DESCONTO_M_ATACADO, STATUS_CADASTRAL, COD_BALANCA_1, COD_BALANCA_2,' +
     'COD_BALANCA_3, USA_LOTE, CONTROLADO, ICMS_CST, CODIGO_ORIGEM_MERCADORIA, ALIQ_ICMS, REDUCAO_ICMS_ST, COD_COMB, VALOR_PAUTA_BC_ST, GENERO, ' +
     'LUCRO_SUBST_TRIBUTARIA, LEIS, CSOSN, NCM, CEST, ANP, PIS_CST, COFINS_CST)' +
     'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [Self.Produto_PROD_CODIGO,Self.Produto_descricao, Self.Produto_PROD_EAN, Self.Produto_info_adicionais, Self.Produto_referencia_fabricante, Self.Produto_marca, Self.Produto_familia,
+    [Self.Produto_PROD_CODIGO,Self.Produto_descricao, Self.Produto_PROD_EAN, Self.Produto_PROD_DETALHES, Self.Produto_PROD_REFERENCIASFABRICA, Self.Produto_marca, Self.Produto_familia,
     Self.Produto_grupo, Self.Produto_sub_grupo, Self.Produto_und, Self.Produto_tipo_item, Self.Produto_preco_custo, Self.Produto_frete, Self.Produto_imposto,
     Self.Produto_desp_operacionais, Self.Produto_custo_medio, Self.Produto_margem_l_varejo, Self.Produto_margem_l_distribuidor, Self.Produto_margem_l_atacado,
     Self.Produto_preco_final_varejo, Self.Produto_preco_final_distribuidor, Self.Produto_preco_final_atacado, Self.Produto_comissao_balcao_varejo,
@@ -473,8 +474,8 @@ end;
 procedure TProduto.Update(pUk: TUpdateKind);
 begin
 
-  Tdb.ExecQuery('UPDATE produto SET PROD_CODIGO=?, DESCRICAO_PRODUTO=?, PROD_EAN=?, INFO_ADICIONAIS=?,' +
-    'REFERENCIA_FABRICANTE=?, MARCA=?, FAMILIA=?, GRUPO=?, SUBGRUPO=?, PROD_UNIDADE=?, TIPO_ITEM=?,' +
+  Tdb.ExecQuery('UPDATE produto SET PROD_CODIGO=?, PROD_DESCRICAO=?, PROD_EAN=?, PROD_DETALHES=?,' +
+    'PROD_REFERENCIASFABRICA=?, MARCA=?, FAMILIA=?, GRUPO=?, SUBGRUPO=?, PROD_UNIDADE=?, TIPO_ITEM=?,' +
     'PRECO_CUSTO=?, FRETE=?, IMPOSTO=?, DESP_OPERACIONAIS=?, CUSTO_MEDIO=?, MARGEM_L_VAREJO=?,' +
     'MARGEM_L_DISTRIBUIDOR=?, MARGEM_L_ATACADO=?, PRECO_FINAL_VAREJO=?, PRECO_FINAL_DISTRIBUIDOR=?,' +
     'PRECO_FINAL_ATACADO=?, BALCAO_COMISSAO_VAREJO=?, BALCAO_COMISSAO_DISTRIBUIDOR=?, BALCAO_COMISSAO_ATACADO=?,' +
@@ -482,7 +483,7 @@ begin
     'ESTOQUE_MINIMO=?, DESCONTO_M_VAREJO=?, DESCONTO_M_DISTRIBUIDOR=?, DESCONTO_M_ATACADO=?, STATUS_CADASTRAL=?, COD_BALANCA_1=?,' +
     'COD_BALANCA_2=?, COD_BALANCA_3=?, USA_LOTE=?, CONTROLADO=?, ICMS_CST=?, CODIGO_ORIGEM_MERCADORIA=?, ALIQ_ICMS=?, REDUCAO_ICMS_ST=?,' +
     'COD_COMB=?, VALOR_PAUTA_BC_ST=?, GENERO=?, LUCRO_SUBST_TRIBUTARIA=?, LEIS=?, CSOSN=?, NCM=?, CEST=?, ANP=?, PIS_CST=?, COFINS_CST=?' + 'WHERE codigo=?',
-    [Self.PROD_CODIGO, Self.Produto_descricao, Self.Produto_PROD_EAN, Self.Produto_info_adicionais, Self.Produto_referencia_fabricante, Self.Produto_marca, Self.Produto_familia,
+    [Self.PROD_CODIGO, Self.Produto_descricao, Self.Produto_PROD_EAN, Self.Produto_PROD_DETALHES, Self.Produto_PROD_REFERENCIASFABRICA, Self.Produto_marca, Self.Produto_familia,
     Self.Produto_grupo, Self.Produto_sub_grupo, Self.Produto_und, Self.Produto_tipo_item, Self.Produto_preco_custo, Self.Produto_frete, Self.Produto_imposto,
     Self.Produto_desp_operacionais, Self.Produto_custo_medio, Self.Produto_margem_l_varejo, Self.Produto_margem_l_distribuidor, Self.Produto_margem_l_atacado,
     Self.Produto_preco_final_varejo, Self.Produto_preco_final_distribuidor, Self.Produto_preco_final_atacado, Self.Produto_comissao_balcao_varejo,
@@ -666,9 +667,9 @@ begin
   result := tformats.coin(Self.Produto_imposto);
 end;
 
-function TProduto.getProduto_info_adicionais: string;
+function TProduto.getProduto_PROD_DETALHES: string;
 begin
-  result := Self.Produto_info_adicionais;
+  result := Self.Produto_PROD_DETALHES;
 end;
 
 function TProduto.getProduto_leis: string;
@@ -736,9 +737,9 @@ begin
   result := tformats.coin(Self.Produto_reducao_icms_st);
 end;
 
-function TProduto.getProduto_referencia_fabricante: string;
+function TProduto.getProduto_PROD_REFERENCIASFABRICA: string;
 begin
-  result := Self.Produto_referencia_fabricante;
+  result := Self.Produto_PROD_REFERENCIASFABRICA;
 end;
 
 function TProduto.getProduto_estoque: extended;
@@ -948,9 +949,9 @@ begin
   Self.Produto_imposto := value;
 end;
 
-procedure TProduto.setProduto_info_adicionais(value: string);
+procedure TProduto.setProduto_PROD_DETALHES(value: string);
 begin
-  Self.Produto_info_adicionais := value;
+  Self.Produto_PROD_DETALHES := value;
 end;
 
 procedure TProduto.setProduto_leis(value: string);
@@ -1033,9 +1034,9 @@ begin
   Self.Produto_reducao_icms_st := tformats.coin(value);
 end;
 
-procedure TProduto.setProduto_referencia_fabricante(value: string);
+procedure TProduto.setProduto_PROD_REFERENCIASFABRICA(value: string);
 begin
-  Self.Produto_referencia_fabricante := value;
+  Self.Produto_PROD_REFERENCIASFABRICA := value;
 end;
 
 procedure TProduto.setProduto_estoque(value: extended);
@@ -1078,3 +1079,9 @@ begin
 end;
 
 end.
+//Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:11
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:22
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:03
+Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:07
+Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:38
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:07

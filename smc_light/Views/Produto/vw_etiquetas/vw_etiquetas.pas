@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:29
 unit vw_etiquetas;
 {
 ========================================================================================================================================
@@ -69,11 +70,11 @@ type
     sql_etiquetasid: TFDAutoIncField;
     sql_etiquetasdescricao: TStringField;
     sql_etiquetaspreco_final_varejo: TBCDField;
-    sql_etiquetasreferencia_fabricante: TStringField;
+    sql_etiquetasPROD_REFERENCIASFABRICA: TStringField;
     tbvwEtiquetasid: TcxGridDBColumn;
     tbvwEtiquetasdescricao: TcxGridDBColumn;
     tbvwEtiquetaspreco_final_varejo: TcxGridDBColumn;
-    tbvwEtiquetasreferencia_fabricante: TcxGridDBColumn;
+    tbvwEtiquetasPROD_REFERENCIASFABRICA: TcxGridDBColumn;
     frxGradient: TfrxGradientObject;
     procedure btnSearchClick(Sender: TObject);
     procedure btnPreviewClick(Sender: TObject);
@@ -207,7 +208,7 @@ begin
   cod := produto.PROD_CODIGO;
   len := 7 - length(cod);
   TfrxBarCodeview(frPreview.FindObject('barcode')).Expression := prefix_etiqueta + StringOfChar('0', len) + cod;
-  TfrxMemoView(frPreview.FindObject('mmRef')).Text := tfunctions.ifthen(chkRef.Checked, produto.REFERENCIA_FABRICANTE, '');
+  TfrxMemoView(frPreview.FindObject('mmRef')).Text := tfunctions.ifthen(chkRef.Checked, produto.PROD_REFERENCIASFABRICA, '');
   TfrxReportPage(frPreview.FindObject('page')).PageCount := strtoint(edtQtde.Text);
   frPreview.PrepareReport(true);
 end;
@@ -241,7 +242,7 @@ procedure Tfrm_etiquetas.preencher_dados_produto;
 begin
   edtProduto.Text := produto.PROD_CODIGO + ' - ' + produto.descricao;
   edtPreco.editvalue := produto.PRECO_FINAL_VAREJO;
-  edtRefFabr.Text := produto.REFERENCIA_FABRICANTE;
+  edtRefFabr.Text := produto.PROD_REFERENCIASFABRICA;
   tabGerar.Show;
   edtPreco.SETFOCUS;
   edtPreco.SelectAll;
@@ -252,13 +253,13 @@ procedure Tfrm_etiquetas.preencher_dados_produto2;
 begin
   edtProduto.Text := produto.PROD_CODIGO + ' - ' + produto.descricao;
   edtPreco.editvalue := produto.PRECO_FINAL_VAREJO;
-  edtRefFabr.Text := produto.REFERENCIA_FABRICANTE;
+  edtRefFabr.Text := produto.PROD_REFERENCIASFABRICA;
   btnPreview.Click;
 end;
 
 procedure Tfrm_etiquetas.reloadFilter;
 const
-  _sql = 'select e.id, e.descricao, p.preco_final_varejo, p.referencia_fabricante from etiqueta e join produto p on p.codigo = e.id_produto ';
+  _sql = 'select e.id, e.descricao, p.preco_final_varejo, p.PROD_REFERENCIASFABRICA from etiqueta e join produto p on p.codigo = e.id_produto ';
   _order = ' order by created_at desc ';
 var
   _filter: string;
@@ -268,7 +269,7 @@ begin
 
     _filter := tdb.removeSqlInjection(edtConsulta.Text);
     _filter := ' where ' + tfunctions.getIndex(cbFiltro.SelectedItem, ['e.descricao LIKE "%' + _filter + '%"', 'p.preco_final_varejo LIKE "' + _filter + '%"',
-      'p.referencia_fabricante LIKE "' + _filter + '%"']);
+      'p.PROD_REFERENCIASFABRICA LIKE "' + _filter + '%"']);
 
   end;
 
@@ -306,3 +307,5 @@ begin
 end;
 
 end.
+Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:39
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:14

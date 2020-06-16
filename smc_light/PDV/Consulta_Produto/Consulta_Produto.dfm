@@ -656,16 +656,16 @@ object Frm_Consultar_Preco: TFrm_Consultar_Preco
       Origin = 'DESCRICAO_PRODUTO'
       Size = 200
     end
-    object SQL_ProdutoConsultaINFO_ADICIONAIS: TStringField
+    object SQL_ProdutoConsultaPROD_DETALHES: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'INFO_ADICIONAIS'
-      Origin = 'INFO_ADICIONAIS'
+      FieldName = 'PROD_DETALHES'
+      Origin = 'PROD_DETALHES'
       Size = 200
     end
-    object SQL_ProdutoConsultaREFERENCIA_FABRICANTE: TStringField
+    object SQL_ProdutoConsultaPROD_REFERENCIASFABRICA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'REFERENCIA_FABRICANTE'
-      Origin = 'REFERENCIA_FABRICANTE'
+      FieldName = 'PROD_REFERENCIASFABRICA'
+      Origin = 'PROD_REFERENCIASFABRICA'
       Size = 50
     end
     object SQL_ProdutoConsultaMARCA: TStringField
@@ -1424,3 +1424,5 @@ object Frm_Consultar_Preco: TFrm_Consultar_Preco
     end
   end
 end
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:07
+Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 15:06

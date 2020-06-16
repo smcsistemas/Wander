@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:26
 { v 03.10.16 17:53 }
 unit U_consulta_fornecedor;
 

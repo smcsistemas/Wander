@@ -1,6 +1,6 @@
-﻿{ 21.11.16 16:59 }
+﻿//Verificado automaticamente em 16/06/2020 09:28
+{ 21.11.16 16:59 }
 unit U_ConfNFCE;
-{
 {
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
@@ -1252,7 +1252,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
           spdNFCeDataSets.campo('CEST_I05c').Value := FormatarTagDescricao(SQL_VENDA_ITEMCEST.asString);
           // C骴igo CEST
 
-          spdNFCeDataSets.campo('uCom_I09').Value := SQL_VENDA_ITEMUNIDADE_MEDIDA.asString;
+          spdNFCeDataSets.campo('uCom_I09').Value := SQL_VENDA_ITEMprod_UNIDADE.asString;
           // Unidade Comercial
 
           qComI10 := SQL_VENDA_ITEMQUANTIDADE.Value;
@@ -1275,7 +1275,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
 
           // Valor Unit醨io de Comercializa玢o
 
-          spdNFCeDataSets.campo('uTrib_I13').Value := SQL_VENDA_ITEMUNIDADE_MEDIDA.Value;
+          spdNFCeDataSets.campo('uTrib_I13').Value := SQL_VENDA_ITEMPROD_UNIDADE.Value;
           // Unidade Tribut醰el
 
           qTribI14 := SQL_VENDA_ITEMQUANTIDADE.Value;
@@ -1326,7 +1326,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
           if CRTC21 = '1' then // Se CRT = 1, informar apenas CSOSN e n鉶 CST
           begin
 
-            CSOSNN12a := FormatarTagDescricao(SQL_VENDA_ITEMCSOSN.Value);
+            CSOSNN12a := FormatarTagDescricao(SQL_VENDA_ITEM.FieldByName('CSOSN').AsString);
 
             if CSOSNN12a <> '' then
               if CSOSNN12a = '500' then
@@ -2363,3 +2363,4 @@ begin
 end;
 
 end.
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:03

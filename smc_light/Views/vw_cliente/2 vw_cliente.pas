@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:29
 ﻿{ v 18.10.16 14:50 }
 unit vw_cliente;
 

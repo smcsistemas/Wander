@@ -2931,15 +2931,22 @@ begin
         RegistraLog('Torna a descrição do produto obrigatoriamente única');
     end;
 
+    if fNaoAtualizado('PROD_DETALHES') Then
+       Executar('ALTER TABLE PRODUTO_PROD CHANGE INFO_ADICIONAIS PROD_DETALHES VARCHAR(200) NULL COMMENT "Detalhes do Produto"');
+
+    if fNaoAtualizado('PROD_REFERENCIASFABRICA') Then
+       Executar('ALTER TABLE PRODUTO_PROD CHANGE REFERENCIA_FABRICANTE PROD_REFERENCIASFABRICA VARCHAR(200) NULL COMMENT "Referências do Fabricante"');
+
+    if fNaoAtualizado('PROD_MARCA') Then
+       Executar('ALTER TABLE PRODUTO_PROD CHANGE MARCA PROD_CDMARCA VARCHAR(10) NULL COMMENT "Cod marca do produto (forein key) "');
+
     Executar('SET FOREIGN_KEY_CHECKS = 1');
 
 end;
 
 
     {
-	`DESCRICAO_PRODUTO` VARCHAR(200) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
-	`INFO_ADICIONAIS` VARCHAR(200) NULL DEFAULT NULL COMMENT 'informa o código de barras do produto',
-	`REFERENCIA_FABRICANTE` VARCHAR(50) NULL DEFAULT NULL COMMENT 'informa a referência do fabricante do produto',
+
 	`MARCA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de marcas',
 	`FAMILIA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de familia',
 	`GRUPO` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de grupos',

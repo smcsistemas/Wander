@@ -29,7 +29,7 @@ uses
   v_Env, h_Formats, m_Importacao, h_Files, cxCalendar, strutils,
   cxMemo, vw_consulta_generica, c_Globals,
   m_Tipo_Produto, cxEditRepositoryItems, m_Produto, cxGroupBox,
-  m_Unidade_Medida, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
+  m_UNIDADE_MEDIDA, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinBlueprint, dxSkinCaramel,
   dxSkinCoffee, dxSkinDarkRoom,
   dxSkinDarkSide,
@@ -1792,3 +1792,4 @@ begin
 end;
 
 end.
+

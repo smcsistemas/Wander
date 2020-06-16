@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 unit m_Etiqueta;
 {
 ========================================================================================================================================
@@ -170,3 +171,6 @@ begin
 end;
 
 end.
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:15
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:22
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:03

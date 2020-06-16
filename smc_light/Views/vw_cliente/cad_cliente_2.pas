@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:29
 { v 05.05.20 18:28 }
 unit cad_cliente_2;
 {

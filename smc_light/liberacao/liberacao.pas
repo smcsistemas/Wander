@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:27
 { v 14.10.16 16:52 }
 unit liberacao;
 {

@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 { v 21.11.16 15:53 }
 unit Financeiro_PDV;
 

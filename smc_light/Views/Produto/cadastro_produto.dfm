@@ -60,6 +60,10 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 0
       ParentFont = False
       OnShow = cxTabSheet1Show
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label58: TLabel
         Left = 20
         Top = 555
@@ -420,9 +424,9 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 100
           end
-          object tbViewREFERENCIA_FABRICANTE: TcxGridDBColumn
+          object tbViewPROD_REFERENCIASFABRICA: TcxGridDBColumn
             Caption = 'Ref Fabricante'
-            DataBinding.FieldName = 'REFERENCIA_FABRICANTE'
+            DataBinding.FieldName = 'PROD_REFERENCIASFABRICA'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taCenter
             HeaderAlignmentHorz = taCenter
@@ -1232,7 +1236,7 @@ object Frm_Produto: TFrm_Produto
             TabOrder = 3
             OnExit = edPROD_DESCRICAOExit
           end
-          object edREFERENCIA_FABRICANTE: TEdit
+          object edPROD_REFERENCIASFABRICA: TEdit
             Left = 375
             Top = 158
             Width = 199
@@ -1246,8 +1250,8 @@ object Frm_Produto: TFrm_Produto
             MaxLength = 50
             ParentFont = False
             TabOrder = 6
-            OnExit = edREFERENCIA_FABRICANTEExit
-            OnKeyUp = edREFERENCIA_FABRICANTEKeyUp
+            OnExit = edPROD_REFERENCIASFABRICAExit
+            OnKeyUp = edPROD_REFERENCIASFABRICAKeyUp
           end
           object edFAMILIA: TEdit
             Left = 121
@@ -1329,7 +1333,7 @@ object Frm_Produto: TFrm_Produto
             OnExit = edMARCAExit
             OnKeyDown = edMARCAKeyDown
           end
-          object mmINFO_ADICIONAIS: TMemo
+          object mmPROD_DETALHES: TMemo
             Left = 121
             Top = 117
             Width = 621
@@ -1515,7 +1519,7 @@ object Frm_Produto: TFrm_Produto
               Font.Style = [fsBold]
               ParentFont = False
               TabOrder = 0
-              OnKeyUp = edREFERENCIA_FABRICANTEKeyUp
+              OnKeyUp = edPROD_REFERENCIASFABRICAKeyUp
             end
             object edPRECO_FINAL_DISTRIBUIDOR: TEdit
               Left = 356
@@ -1531,7 +1535,7 @@ object Frm_Produto: TFrm_Produto
               Font.Style = [fsBold]
               ParentFont = False
               TabOrder = 1
-              OnKeyUp = edREFERENCIA_FABRICANTEKeyUp
+              OnKeyUp = edPROD_REFERENCIASFABRICAKeyUp
             end
             object edPRECO_FINAL_ATACADO: TEdit
               Left = 584
@@ -1547,7 +1551,7 @@ object Frm_Produto: TFrm_Produto
               Font.Style = [fsBold]
               ParentFont = False
               TabOrder = 2
-              OnKeyUp = edREFERENCIA_FABRICANTEKeyUp
+              OnKeyUp = edPROD_REFERENCIASFABRICAKeyUp
             end
           end
           object edGRUPO_NOME: TEdit
@@ -3925,6 +3929,10 @@ object Frm_Produto: TFrm_Produto
     object tabTributacao: TcxTabSheet
       Caption = ' Tributa'#231#227'o'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel4: TPanel
         Left = -1
         Top = 3
@@ -6437,16 +6445,16 @@ object Frm_Produto: TFrm_Produto
       Origin = 'NCM'
       Size = 8
     end
-    object qConsultareferencia_fabricante: TStringField
+    object qConsultaPROD_REFERENCIASFABRICA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'referencia_fabricante'
-      Origin = 'REFERENCIA_FABRICANTE'
+      FieldName = 'PROD_REFERENCIASFABRICA'
+      Origin = 'PROD_REFERENCIASFABRICA'
       Size = 50
     end
-    object qConsultaINFO_ADICIONAIS: TStringField
+    object qConsultaPROD_DETALHES: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'INFO_ADICIONAIS'
-      Origin = 'INFO_ADICIONAIS'
+      FieldName = 'PROD_DETALHES'
+      Origin = 'PROD_DETALHES'
       Size = 200
     end
     object qConsultaFAMILIA: TStringField
@@ -7138,3 +7146,4 @@ object Frm_Produto: TFrm_Produto
     Top = 28
   end
 end
+Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 15:07

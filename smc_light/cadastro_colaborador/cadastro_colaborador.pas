@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:26
 { v 19.10.16 17:21 }
 unit cadastro_colaborador;
 {

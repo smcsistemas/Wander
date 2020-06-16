@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:26
 unit emissao_de_nfe;
 
 interface

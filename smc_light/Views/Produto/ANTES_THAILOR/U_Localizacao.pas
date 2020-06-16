@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:29
 unit U_Localizacao;
 
 interface
@@ -148,7 +149,7 @@ begin
   SQL_Localizacao.Active := True;
   SQL_Localizacao.Insert;
  // cxDBTextEdit10.Text := Frm_Produto.dbedt_codigo.Text;
- // cxDBTextEdit1.Text := Frm_Produto.DESCRICAO_PRODUTO.Text;
+ // cxDBTextEdit1.Text := Frm_Produto.PROD_DESCRICAO.Text;
   cxDBTextEdit2.SetFocus;
   BtnIncluir.Visible := False;
   BtnGravar.Visible := True;

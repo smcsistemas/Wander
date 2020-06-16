@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:28
 unit cad_servico;
 {
 ================================================================================
@@ -78,25 +79,25 @@ type
     btPesquisaCentroDeCusto_Descricao: TcxButton;
     cxButton8: TcxButton;
     cxPagaComissaoSN: TcxComboBox;
-    cxUNIDADE_MEDIDA: TcxComboBox;
+    cxPROD_UNIDADE: TcxComboBox;
     edCODIGO: TEdit;
-    edDESCRICAO_PRODUTO: TEdit;
+    edPROD_DESCRICAO: TEdit;
     edPRECO_FINAL_VAREJO: TEdit;
     edCentroDeCusto: TEdit;
     edContaContabil: TEdit;
     DS_C_Servico: TDataSource;
     SQL_C_ServicoCODIGO: TFDAutoIncField;
-    SQL_C_ServicoDESCRICAO_PRODUTO: TStringField;
+    SQL_C_ServicoPROD_DESCRICAO: TStringField;
     SQL_C_Servico: TFDQuery;
     SQL_C_ServicoCODIGO_BARRAS: TStringField;
     SQL_C_ServicoCOD_BARRAS_AUXILIAR: TStringField;
-    SQL_C_ServicoINFO_ADICIONAIS: TStringField;
-    SQL_C_ServicoREFERENCIA_FABRICANTE: TStringField;
+    SQL_C_ServicoPROD_DETALHES: TStringField;
+    SQL_C_ServicoPROD_REFERENCIASFABRICA: TStringField;
     SQL_C_ServicoMARCA: TStringField;
     SQL_C_ServicoFAMILIA: TStringField;
     SQL_C_ServicoGRUPO: TStringField;
     SQL_C_ServicoSUBGRUPO: TStringField;
-    SQL_C_ServicoUNIDADE_MEDIDA: TStringField;
+    SQL_C_ServicoPROD_UNIDADE: TStringField;
     SQL_C_ServicoDATA_CADASTRO: TDateField;
     SQL_C_ServicoTIPO_ITEM: TStringField;
     SQL_C_ServicoESTOQUE_MINIMO: TStringField;
@@ -307,7 +308,7 @@ begin
    BtnCancelar.Enabled:= True;
 
    edCODIGO.ReadOnly := True;
-   edDESCRICAO_PRODUTO.SetFocus;
+   edPROD_DESCRICAO.SetFocus;
 end;
 
 procedure TFrm_cad_servico.BtnCancelarClick(Sender: TObject);
@@ -340,7 +341,7 @@ procedure TFrm_cad_servico.BtnExcluirClick(Sender: TObject);
 begin
    if not TemAcesso(Global_Usuario_Logado,'DELSERV') then
    begin
-     RegistraLog('Acesso negado para excluir SERVICO: '+edCODIGO.Text+'-'+edDESCRICAO_PRODUTO.Text);
+     RegistraLog('Acesso negado para excluir SERVICO: '+edCODIGO.Text+'-'+edPROD_DESCRICAO.Text);
      exit;
    end;
    if not PodeExcluir then
@@ -351,7 +352,7 @@ begin
 
    Excluir_Registro;
 
-   RegistraLog('Excluiu SERVICO: '+edCODIGO.Text+'-'+edDESCRICAO_PRODUTO.Text);
+   RegistraLog('Excluiu SERVICO: '+edCODIGO.Text+'-'+edPROD_DESCRICAO.Text);
 
    Limpar_Tela;
    Listar_Servicos;
@@ -394,14 +395,14 @@ begin
    Limpar_Tela;
    edCODIGO.Text     := '';
    edCODIGO.ReadOnly := True;
-   edDESCRICAO_PRODUTO.SetFocus;
+   edPROD_DESCRICAO.SetFocus;
 end;
 
 procedure TFrm_cad_servico.Carrega_Unidades_De_Medida;
 var Q : tFDQuery;
 begin
    // Preenche o combo box de unidades de medida castradas
-   cxUNIDADE_MEDIDA.Properties.Items.Clear;
+   cxPROD_UNIDADE.Properties.Items.Clear;
 
    q := TFDQuery.Create(nil);
    q.Connection     := Module.connection;
@@ -415,7 +416,7 @@ begin
    Q.Open;
    while not Q.Eof do
    begin
-     cxUNIDADE_MEDIDA.Properties.Items.Add(Q.FieldByName('SIGLA').AsString);
+     cxPROD_UNIDADE.Properties.Items.Add(Q.FieldByName('SIGLA').AsString);
      Q.Next;
    end;
    Q.Free;
@@ -429,17 +430,17 @@ begin
    //---------------------------------------------------------------------------
    result := false;
 
-   if edDESCRICAO_PRODUTO.Text = '' then
+   if edPROD_DESCRICAO.Text = '' then
    begin
      ShowMessage('Informe a descrição do serviço');
-     edDESCRICAO_PRODUTO.SetFocus;
+     edPROD_DESCRICAO.SetFocus;
      exit;
    end;
 
-   if cxUNIDADE_MEDIDA.Text = '' then
+   if cxPROD_UNIDADE.Text = '' then
    begin
      ShowMessage('Informe a unidade de medida');
-     cxUNIDADE_MEDIDA.SetFocus;
+     cxPROD_UNIDADE.SetFocus;
      exit;
    end;
 
@@ -655,10 +656,10 @@ begin
    SQL_C_Servico.sql.Add(' WHERE Produto_ou_Servico = ''S'' ');
    if edPESQUISA.Text <> '' then
    begin
-      SQL_C_Servico.sql.Add('AND (   (DESCRICAO_PRODUTO LIKE :DESCRICAO_PRODUTO) ');
-      SQL_C_Servico.sql.Add('     OR (CODIGO            LIKE :DESCRICAO_PRODUTO) ');
+      SQL_C_Servico.sql.Add('AND (   (PROD_DESCRICAO LIKE :PROD_DESCRICAO) ');
+      SQL_C_Servico.sql.Add('     OR (CODIGO            LIKE :PROD_DESCRICAO) ');
       SQL_C_Servico.sql.Add('    )                                               ');
-      SQL_C_Servico.ParamByName('DESCRICAO_PRODUTO').AsString := '%'+edPESQUISA.Text+'%';
+      SQL_C_Servico.ParamByName('PROD_DESCRICAO').AsString := '%'+edPESQUISA.Text+'%';
    end;
    case rgSTATUS_CADASTRAL.ItemIndex of
       0 : SQL_C_Servico.sql.Add('AND STATUS_CADASTRAL = ''ATIVO''   ');
@@ -684,12 +685,12 @@ begin
    if edCODIGO.Text = '' then
    begin
       vCODIGO := ProximoProdutoCODIGO;
-      RegistraLog('Cadastrou SERVICO: '+IntToStr(vCODIGO)+'-'+edDESCRICAO_PRODUTO.Text);
+      RegistraLog('Cadastrou SERVICO: '+IntToStr(vCODIGO)+'-'+edPROD_DESCRICAO.Text);
    end
    else
    begin
       vCODIGO := StrToInt(edCODIGO.Text);
-      RegistraLog('Alterou SERVICO: '+IntToStr(vCODIGO)+'-'+edDESCRICAO_PRODUTO.Text);
+      RegistraLog('Alterou SERVICO: '+IntToStr(vCODIGO)+'-'+edPROD_DESCRICAO.Text);
    end;
 
    q := TFDQuery.Create(nil);
@@ -701,8 +702,8 @@ begin
    Q.SQL.Add('INSERT INTO PRODUTO      ');
    Q.SQL.Add('     (                   ');
    Q.SQL.Add('      CODIGO,            ');
-   Q.SQL.Add('      DESCRICAO_PRODUTO, ');
-   Q.SQL.Add('      UNIDADE_MEDIDA,    ');
+   Q.SQL.Add('      PROD_DESCRICAO, ');
+   Q.SQL.Add('      PROD_UNIDADE,    ');
    Q.SQL.Add('      DATA_CADASTRO,     ');
    Q.SQL.Add('      PRECO_FINAL_VAREJO,');
    Q.SQL.Add('      STATUS_CADASTRAL,  ');
@@ -714,8 +715,8 @@ begin
    Q.SQL.Add('VALUES                   ');
    Q.SQL.Add('     (                   ');
    Q.SQL.Add('     :CODIGO,            ');
-   Q.SQL.Add('     :DESCRICAO_PRODUTO, ');
-   Q.SQL.Add('     :UNIDADE_MEDIDA,    ');
+   Q.SQL.Add('     :PROD_DESCRICAO, ');
+   Q.SQL.Add('     :PROD_UNIDADE,    ');
    Q.SQL.Add('     :DATA_CADASTRO,     ');
    Q.SQL.Add('     :PRECO_FINAL_VAREJO,');
    Q.SQL.Add('     :STATUS_CADASTRAL,  ');
@@ -725,8 +726,8 @@ begin
    Q.SQL.Add('     :CentroDeCustos     ');
    Q.SQL.Add('     )                   ');
    Q.ParamByName('CODIGO'            ).AsInteger := vCODIGO;
-   Q.ParamByName('DESCRICAO_PRODUTO' ).AsString  := edDESCRICAO_PRODUTO.Text;
-   Q.ParamByName('UNIDADE_MEDIDA'    ).AsString  := cxUNIDADE_MEDIDA.Text;
+   Q.ParamByName('PROD_DESCRICAO' ).AsString  := edPROD_DESCRICAO.Text;
+   Q.ParamByName('PROD_UNIDADE'    ).AsString  := cxPROD_UNIDADE.Text;
    Q.ParamByName('DATA_CADASTRO'     ).AsDateTime:= Date;
    Q.ParamByName('PRECO_FINAL_VAREJO').AsFloat   := StrToFloat(masctostr(edPRECO_FINAL_VAREJO.Text));
    if cbSTATUS_CADASTRAL.Checked Then
@@ -746,9 +747,9 @@ var i : Integer;
 begin
    // retorna o índice do combo que possui a sigla recebida
    result := -1;
-   for i := 0 to cxUNIDADE_MEDIDA.Properties.Items.Count -1 do
+   for i := 0 to cxPROD_UNIDADE.Properties.Items.Count -1 do
    begin
-      if cxUNIDADE_MEDIDA.Properties.Items[i] = pSigla then
+      if cxPROD_UNIDADE.Properties.Items[i] = pSigla then
       begin
         result := i;
         break;
@@ -761,9 +762,9 @@ begin
    // Preenche os campos da tela com os dados do registro da tabela
    //---------------------------------------------------------------------------
    edCODIGO.Text              := SQL_C_Servico.FieldByName('CODIGO'           ).AsString;
-   edDESCRICAO_PRODUTO.Text   := SQL_C_Servico.FieldByName('DESCRICAO_PRODUTO').AsString;
-   //cxUNIDADE_MEDIDA.ItemIndex := IndiceUND(NomeUND(SQL_C_Servico.FieldByName('UNIDADE_MEDIDA').AsInteger));
-   cxUNIDADE_MEDIDA.ItemIndex := IndiceUND(SQL_C_Servico.FieldByName('UNIDADE_MEDIDA').AsString);
+   edPROD_DESCRICAO.Text   := SQL_C_Servico.FieldByName('PROD_DESCRICAO').AsString;
+   //cxPROD_UNIDADE.ItemIndex := IndiceUND(NomeUND(SQL_C_Servico.FieldByName('PROD_UNIDADE').AsInteger));
+   cxPROD_UNIDADE.ItemIndex := IndiceUND(SQL_C_Servico.FieldByName('PROD_UNIDADE').AsString);
 
    if SQL_C_Servico.FieldByName('PagaComissaoSN').AsString = 'S' then
       cxPagaComissaoSN.ItemIndex := 0
@@ -807,7 +808,7 @@ begin
    Q.Open;
    if Q.FieldByName('QTDE').AsInteger > 0 then
    begin
-      RegistraLog('Sist impediu excluir SERVICO já vendido: '+edCODIGO.Text+'-'+edDESCRICAO_PRODUTO.Text);
+      RegistraLog('Sist impediu excluir SERVICO já vendido: '+edCODIGO.Text+'-'+edPROD_DESCRICAO.Text);
       ShowMessage('Há '+IntToStr(Q.FieldByName('QTDE').AsInteger)+
                   'Itens de venda para este serviço!'+#13+#13+
                   'Impossível exclui-lo');
@@ -831,3 +832,7 @@ begin
 end;
 
 end.
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:03
+Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:07
+Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:38
+Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:07

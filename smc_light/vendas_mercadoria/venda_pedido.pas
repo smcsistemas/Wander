@@ -1,9 +1,10 @@
+//Verificado automaticamente em 16/06/2020 09:28
 unit venda_pedido;
 {
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
-343|15/06/20|18:23|venda_pedido                |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(UNIDADE_MEDIDA)
+343|15/06/20|18:23|venda_pedido                |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(PROD_UNIDADE)
 321|15/06/20|13:35|venda_pedido                |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 316|15/06/20|10:14|venda_pedido                |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 291|12/06/20|20:24|venda_pedido                |Gravando VENDA. Falta gravar VENDA_ITEM
@@ -179,6 +180,7 @@ type
     Label41: TLabel;
     Label42: TLabel;
     edt_nfce_fim: TEdit;
+    edPROD_UNIDADE: TEdit;
     edt_nfce_inicio: TEdit;
     DBGrid1: TDBGrid;
     GroupBox1: TGroupBox;
@@ -297,13 +299,12 @@ type
     cxButton7: TcxButton;
     SQL_PRODUTO: TFDQuery;
     Label30: TLabel;
-    edDESCRICAO_PRODUTO: TEdit;
+    edPROD_DESCRICAO: TEdit;
     edPRECO: TEdit;
     Label31: TLabel;
     edQUANTIDADE: TEdit;
     Label32: TLabel;
     Label33: TLabel;
-    edUNIDADE_MEDIDA: TEdit;
     bIncluirProduto: TcxButton;
     btAlterarProduto: TcxButton;
     bCancelarProduto: TcxButton;
@@ -801,10 +802,10 @@ procedure Tfrm_pedido_venda.Alterar_Produto;
 begin
    if not SQL_VENDA_ITEM.Active then exit;
    edPROD_CODIGO.Text       := SQL_VENDA_ITEM.FieldByName('CODIGO_PRODUTO').AsString;
-   edDESCRICAO_produto.Text := SQL_VENDA_ITEM.FieldByName('DESCRICAO').AsString;
+   edPROD_DESCRICAO.Text    := SQL_VENDA_ITEM.FieldByName('DESCRICAO').AsString;
    edPRECO.Text             := Float_to_String(SQL_VENDA_ITEM.FieldByName('PRECO' ).AsFloat);
    edQUANTIDADE.Text        := Float_to_String(SQL_VENDA_ITEM.FieldByName('QUANTIDADE' ).AsFloat);
-   edUNIDADE_MEDIDA.Text    := SQL_VENDA_ITEM.FieldByName('UNIDADE' ).AsString;
+   edPROD_UNIDADE.Text      := SQL_VENDA_ITEM.FieldByName('UNIDADE' ).AsString;
    edCFOP_Produto.Text      := SQL_VENDA_ITEM.FieldByName('VI_CFOP_CSOSN').AsString;
    Excluir_Da_Venda(SQL_VENDA_ITEM.FieldByName('CODIGO_ITEM_VENDA').AsInteger);
    Atualiza_Itens;
@@ -1537,12 +1538,12 @@ begin
    Q.SQL.Add('    :VI_CFOP_CSOSN)    ');
    Q.ParamByName('CODIGO'           ).AsInteger := -1; // Não definido ainda
    Q.ParamByName('CODIGO_PRODUTO'   ).AsInteger := StrToInt(edPROD_CODIGO.Text);
-   Q.ParamByName('UNIDADE'          ).AsString  := edUNIDADE_MEDIDA.Text;
+   Q.ParamByName('UNIDADE'          ).AsString  := edPROD_UNIDADE.Text;
    Q.ParamByName('QUANTIDADE'       ).AsFloat   := vQtde;
    Q.ParamByName('PRECO'            ).AsFloat   := vPreco;
    Q.ParamByName('CODIGO_VENDA'     ).AsInteger := -1; // Não definida ainda
    Q.ParamByName('CODIGO_ITEM_VENDA').AsInteger := ProxItemVenda;
-   Q.ParamByName('DESCRICAO'        ).AsString  := edDESCRICAO_PRODUTO.Text;
+   Q.ParamByName('DESCRICAO'        ).AsString  := edPROD_DESCRICAO.Text;
    Q.ParamByName('ACRESCIMO'        ).AsFloat   := 0;
    Q.ParamByName('DESCONTO'         ).AsFloat   := 0;
    Q.ParamByName('PRECO_TOTAL'      ).AsFloat   := vTotal;
@@ -1574,10 +1575,10 @@ begin
    // Limpa os campos relacionados ao produto vendido
    //---------------------------------------------------------------------------
    edPROD_CODIGO.Text       := '';
-   edDESCRICAO_PRODUTO.Text := '';
+   edPROD_DESCRICAO.Text := '';
    edPRECO.Text             := '';
    edQUANTIDADE.Text        := '';
-   edUNIDADE_MEDIDA.Text    := '';
+   edPROD_UNIDADE.Text    := '';
    edCFOP_Produto.Text      := '';
 end;
 
@@ -1658,7 +1659,7 @@ begin
    edPROD_CODIGO.Text       := SQL_PRODUTO.FieldByName('CODIGO'           ).AsString;
 
    // Descricao
-   edDESCRICAO_PRODUTO.Text := SQL_PRODUTO.FieldByName('DESCRICAO_PRODUTO').AsString;
+   edPROD_DESCRICAO.Text := SQL_PRODUTO.FieldByName('PROD_DESCRICAO').AsString;
 
    // Preco
    case cxTabelaDePreco.ItemIndex of
@@ -1669,7 +1670,7 @@ begin
    edPRECO.Text := Float_to_String(vPreco);
 
    // Unidade de medida
-   edUNIDADE_MEDIDA.Text := SQL_PRODUTO.FieldByName('UNIDADE_MEDIDA').AsString;
+   edPROD_UNIDADE.Text := SQL_PRODUTO.FieldByName('PROD_UNIDADE').AsString;
 
    // CFOP do produto
    // Vem da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
@@ -2100,7 +2101,7 @@ begin
    Q.Close;
    Q.Sql.Clear;
    Q.SQL.Add('SELECT P.CODIGO,                     ');
-   Q.SQL.Add('       P.DESCRICAO_PRODUTO           ');
+   Q.SQL.Add('       P.PROD_DESCRICAO           ');
    Q.SQL.Add('  FROM VENDA_ITEM V,                 ');
    Q.SQL.Add('       PRODUTO    P                  ');
    Q.SQL.Add(' WHERE V.CODIGO_PRODUTO = P.CODIGO   ');
@@ -2121,7 +2122,7 @@ begin
                'Produto '
              + Q.FieldByName('CODIGO').AsString
              + '-'
-             + Q.FieldByName('DESCRICAO_PRODUTO').AsString
+             + Q.FieldByName('PROD_DESCRICAO').AsString
              + slinebreak
              + 'sem CST do ICMS definido.'
              + slinebreak
@@ -2457,3 +2458,6 @@ end.
 **   qLocal.SQL.Add('    NFe_Veiculo_tpOp,      ');
 **   qLocal.SQL.Add('    VENDA_FATURADA` VARCHAR(50) NULL DEFAULT NULL,
 
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:16
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:23
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04

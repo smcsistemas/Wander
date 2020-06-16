@@ -1,3 +1,4 @@
+//Verificado automaticamente em 16/06/2020 09:29
 unit rel_pvw_vertical;
 
 interface
@@ -99,3 +100,6 @@ begin
 end;
 
 end.
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:16
+Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:23
+Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04

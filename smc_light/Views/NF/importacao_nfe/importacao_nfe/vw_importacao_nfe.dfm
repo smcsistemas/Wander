@@ -75,6 +75,10 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
         object tsImportadas: TcxTabSheet
           Caption = 'Notas Fiscais Importadas'
           ImageIndex = 0
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Label34: TLabel
             Left = 167
             Top = 6
@@ -550,6 +554,10 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
           Caption = 'Notas Fiscais emitidas para CNPJ '
           Enabled = False
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Label35: TLabel
             Left = 52
             Top = 6
@@ -2668,6 +2676,10 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
         object tsObs: TcxTabSheet
           Caption = 'Observa'#231#245'es'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object mmObs: TcxMemo
             Left = 0
             Top = 0
