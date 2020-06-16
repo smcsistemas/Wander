@@ -1,5 +1,11 @@
 unit m_Unidade_Medida;
-
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+350|15/06/20|21:56|m_Unidade_Medida            |Tratando tabela UNIDADE_UNI ao invés de PRODUTO_UNIDADE
+========================================================================================================================================
+}
 interface
 
 uses I_Crud, SYSUTILS, FIREDAC.COMP.CLIENT, c_globals, h_db;
@@ -8,17 +14,17 @@ Type
   TUnidadeMedida = class(tinterfacedobject, ICRUD)
   private
     { private declarations }
-    UnidadeMedida_codigo: integer;
-    UnidadeMedida_nome: String;
-    UnidadeMedida_sigla: String;
+    UnidadeMedida_UNI_CODIGO   : String;
+    UnidadeMedida_UNI_DESCRICAO: String;
+    UnidadeMedida_UNI_DECIMAIS : Integer;
 
-    procedure setProdutoUnidadeCodigo(value: integer);
-    procedure setProdutoUnidadeNome(value: String);
-    procedure setProdutoUnidadeSigla(value: String);
+    procedure setProdutoUnidadeUNI_CODIGO(value: String);
+    procedure setProdutoUnidadeUNI_DESCRICAO(value: String);
+    procedure setProdutoUnidadeUNI_DECIMAIS(value: Integer);
 
-    function getProdutoUnidadeCodigo: integer;
-    function getProdutoUnidadeNome: String;
-    function getProdutoUnidadeSigla: String;
+    function getProdutoUnidadeUNI_CODIGO   : String;
+    function getProdutoUnidadeUNI_DESCRICAO: String;
+    function getProdutoUnidadeUNI_DECIMAIS : Integer;
 
     procedure Insert;
     procedure Delete(const pID: integer);
@@ -29,9 +35,9 @@ Type
   protected
     { protected declarations }
   public
-    property CODIGO: integer read getProdutoUnidadeCodigo write setProdutoUnidadeCodigo;
-    property NOME: String read getProdutoUnidadeNome write setProdutoUnidadeNome;
-    property SIGLA: String read getProdutoUnidadeSigla write setProdutoUnidadeSigla;
+    property UNI_CODIGO   : string  read getProdutoUnidadeUNI_CODIGO    write setProdutoUnidadeUNI_CODIGO;
+    property UNI_DESCRICAO: String  read getProdutoUnidadeUNI_DESCRICAO write setProdutoUnidadeUNI_DESCRICAO;
+    property UNI_DECIMAIS : Integer read getProdutoUnidadeUNI_DECIMAIS  write setProdutoUnidadeUNI_DECIMAIS;
 
     class function getAll: tfdquery;
     constructor create; overload;
@@ -43,9 +49,9 @@ implementation
 
 procedure TUnidadeMedida.clearData;
 begin
-  UnidadeMedida_codigo := 0;
-  UnidadeMedida_nome := '';
-  UnidadeMedida_sigla := '';
+  UnidadeMedida_UNI_CODIGO    := '';
+  UnidadeMedida_UNI_DESCRICAO := '';
+  UnidadeMedida_UNI_DECIMAIS  :=  0;
 end;
 
 constructor TUnidadeMedida.create;
@@ -57,65 +63,65 @@ end;
 
 procedure TUnidadeMedida.Delete(const pID: integer);
 begin
-  Tdb.ExecQuery('DELETE FROM produto_unidade WHERE codigo = ?', [pID]);
+  Tdb.ExecQuery('DELETE FROM UNIDADE_UNI WHERE UNI_CODIGO = ?', [pID]);
 end;
 
 class function TUnidadeMedida.getAll: tfdquery;
 begin
-  result := Tdb.SimpleQuery('SELECT * FROM produto_unidade ORDER BY nome');
+  result := Tdb.SimpleQuery('SELECT * FROM UNIDADE_UNI ORDER BY UNI_DESCRICAO');
 end;
 
-function TUnidadeMedida.getProdutoUnidadeCodigo: integer;
+function TUnidadeMedida.getProdutoUnidadeUNI_CODIGO: String;
 begin
-  result := self.UnidadeMedida_codigo;
+  result := self.UnidadeMedida_UNI_CODIGO;
 end;
 
-function TUnidadeMedida.getProdutoUnidadeNome: String;
+function TUnidadeMedida.getProdutoUnidadeUNI_DESCRICAO: String;
 begin
-  result := self.UnidadeMedida_nome;
+  result := self.UnidadeMedida_UNI_DESCRICAO;
 end;
 
-function TUnidadeMedida.getProdutoUnidadeSigla: String;
+function TUnidadeMedida.getProdutoUnidadeUNI_DECIMAIS: Integer;
 begin
-  result := self.UnidadeMedida_sigla;
+  result := self.UnidadeMedida_UNI_DECIMAIS;
 end;
 
 procedure TUnidadeMedida.Insert;
 begin
-  Tdb.ExecQuery('INSERT INTO produto_unidade VALUES(default,?,?)', [self.UnidadeMedida_nome, self.UnidadeMedida_sigla]);
+  Tdb.ExecQuery('INSERT INTO UNIDADE_UNI VALUES(?,?,?)', [self.UnidadeMedida_UNI_CODIGO, self.UnidadeMedida_UNI_DESCRICAO, self.UnidadeMedida_UNI_DECIMAIS]);
 
-  self.UnidadeMedida_codigo := self.Select(['NOME', 'SIGLA'], [self.UnidadeMedida_nome, self.UnidadeMedida_sigla]).FieldByName('CODIGO').AsInteger;
+  self.UnidadeMedida_UNI_codigo := self.Select(['DESCRICAO', 'DECIMAIS'], [self.UnidadeMedida_UNI_DESCRICAO, self.UnidadeMedida_UNI_DECIMAIS]).FieldByName('UNI_CODIGO').AsString;
 end;
 
 function TUnidadeMedida.Select(const pID: integer): tfdquery;
 begin
-  result := self.Select(['CODIGO'], [pID]);
+  result := self.Select(['UNI_CODIGO'], [pID]);
 end;
 
 function TUnidadeMedida.Select(FieldNames: array of String; const Values: array of Variant): tfdquery;
 begin
-  result := Tdb.SimpleQuery('SELECT * FROM produto_unidade ' + Tdb.GenWhere(FieldNames), Values);
+  result := Tdb.SimpleQuery('SELECT * FROM UNIDADE_UNI ' + Tdb.GenWhere(FieldNames), Values);
 end;
 
-procedure TUnidadeMedida.setProdutoUnidadeCodigo(value: integer);
+procedure TUnidadeMedida.setProdutoUnidadeUNI_CODIGO(value: String);
 begin
-  self.UnidadeMedida_codigo := value;
+  self.UnidadeMedida_UNI_CODIGO := value;
 end;
 
-procedure TUnidadeMedida.setProdutoUnidadeNome(value: String);
-begin
-  if value = '' then
-    raise Exception.create('Nome da unidade de medida deve ser informada.');
-
-  self.UnidadeMedida_nome := value;
-end;
-
-procedure TUnidadeMedida.setProdutoUnidadeSigla(value: String);
+procedure TUnidadeMedida.setProdutoUnidadeUNI_DESCRICAO(value: String);
 begin
   if value = '' then
-    raise Exception.create('Sigla da unidade de medida deve ser informada.');
+    raise Exception.create('Descrição da unidade de medida deve ser informada.');
 
-  self.UnidadeMedida_sigla := value;
+  self.UnidadeMedida_UNI_DESCRICAO := value;
+end;
+
+procedure TUnidadeMedida.setProdutoUnidadeUNI_DECIMAIS(value: integer);
+begin
+  if value = 0 then
+    raise Exception.create('Nr de casas decimais da unidade de medida deve ser informada.');
+
+  self.UnidadeMedida_UNI_DECIMAIS := value;
 end;
 
 procedure TUnidadeMedida.Update(pUk: TUpdateKind);
@@ -124,7 +130,7 @@ begin
     ukSoft:
       ;
     ukHard:
-      Tdb.ExecQuery('UPDATE produto_unidade SET nome = ?, sigla = ? WHERE codigo = ?', [self.UnidadeMedida_nome, self.UnidadeMedida_sigla, self.UnidadeMedida_codigo]);
+      Tdb.ExecQuery('UPDATE UNIDADE_UNI SET UNI_DESCRICAO = ?, UNI_DECIMAIS = ? WHERE UNI_CODIGO = ?', [self.UnidadeMedida_UNI_DESCRICAO, self.UnidadeMedida_UNI_DECIMAIS, self.UnidadeMedida_UNI_CODIGO]);
   end;
 end;
 

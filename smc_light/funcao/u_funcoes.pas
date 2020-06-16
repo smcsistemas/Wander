@@ -5,6 +5,7 @@ unit u_funcoes;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+349|15/06/20|21:39|u_funcoes                   |Tratando tabela UNIDADE_UNI ao invés de PRODUTO_UNIDADE
 320|15/06/20|13:35|u_funcoes                   |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 318|15/06/20|10:14|u_funcoes                   |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 297|15/06/20|03:16|u_funcoes                   |Criado recurso (PINTAR) para destacar objetos focados com amarelo e readonly com cinza
@@ -132,7 +133,9 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
-//107
+//108 Recebe codigo e descricao e cadastra unidade de medida
+procedure INSERT_UNIDADE_UNI(pUNI_CODIGO,pUNI_DESCRICAO:String;pUNI_DECIMAIS:Integer);
+//107 receber tabela e coluna e retorna próximo cod sequencial livre
 function fProximoCodigo(pTabela,pColuna:String):String;
 //106 15/06/20 06:34 Recebe sigla da unidade e retorna seu codigo
 //function fCodUnidadeMedida(pSigla:String):Integer;
@@ -280,7 +283,7 @@ function DescricaoCentroDeCustos(pCentroDeCusto:Integer):String;
 //044 Recebe um codigo de conta contábil e retorna sua classificacao e descricao
 function DescricaoPlanoDeContas(pContaContabil:Integer):String;
 //043 Recebe o código de uma unidade de medida e retorna seu nome
-function NomeUND(pCodigo:Integer):String;
+function fUNI_DESCRICAO(pCodigo:String):String;
 //042 Elimina endereços sem a RUA informada
 Procedure LimpaEnderecos;
 //041 Recebe a sigla de uma Municipio e retorna seu codigo IBGE
@@ -5116,7 +5119,7 @@ begin
   Executar('DELETE FROM cliente_endereco WHERE RUA IS NULL');
 end;
 
-function NomeUND(pCodigo:Integer):String;
+function fUNI_DESCRICAO(pCodigo:String):String;
 var Q : tFDQuery;
 begin
    result := '';
@@ -5128,17 +5131,17 @@ begin
 
    Q.Close;
    Q.Sql.Clear;
-   Q.SQL.Add('SELECT SIGLA           ');
-   Q.SQL.Add('  from produto_unidade ');
-   Q.SQL.Add(' where CODIGO = :CODIGO');
-   Q.ParamByName('CODIGO').AsInteger := pCodigo;
+   Q.SQL.Add('SELECT UNI_DESCRICAO       ');
+   Q.SQL.Add('  FROM UNIDADE_UNI         ');
+   Q.SQL.Add(' WHERE UNI_CODIGO = :CODIGO');
+   Q.ParamByName('CODIGO').AsString := pCodigo;
    Q.Open;
    if Q.Eof then
    begin
      Q.Free;
      exit;
    end;
-   result := Q.FieldByName('SIGLA').AsString;
+   result := Q.FieldByName('UNI_DESCRICAO').AsString;
    Q.Free;
 end;
 
@@ -6802,6 +6805,31 @@ begin
      Application.ProcessMessages
 end;
 
+procedure INSERT_UNIDADE_UNI(pUNI_CODIGO,pUNI_DESCRICAO:String;pUNI_DECIMAIS:Integer);
+var qLocal:TFDQuery;
+begin
+   qLocal := TFDQuery.Create(nil);
+   qLocal.Connection     := Module.connection;
+   qLocal.ConnectionName := 'connection';
+
+   qLocal.Close;
+   qLocal.Sql.clear;
+   qLocal.Sql.Add('INSERT INTO UNIDADE_UNI( ');
+   qLocal.Sql.Add('       UNI_CODIGO,       ');
+   qLocal.Sql.Add('       UNI_DESCRICAO,    ');
+   qLocal.Sql.Add('       UNI_DECIMAIS)     ');
+   qLocal.Sql.Add('VALUES (                 ');
+   qLocal.Sql.Add('      :UNI_CODIGO,       ');
+   qLocal.Sql.Add('      :UNI_DESCRICAO,    ');
+   qLocal.Sql.Add('      :UNI_DECIMAIS)     ');
+   qLocal.ParamByName('UNI_CODIGO'   ).AsString := pUNI_CODIGO;
+   qLocal.ParamByName('UNI_DESCRICAO').AsString := pUNI_DESCRICAO;
+   qLocal.ParamByName('UNI_DECIMAIS' ).AsInteger:= pUNI_DECIMAIS;
+   qLocal.ExecSql;
+
+   //Libera memória
+   qlocal.Free;
+end;
 {
 procedure TrocaUND(pCODIGO,pUnidade:String);
 var qLocal:TFDQuery;

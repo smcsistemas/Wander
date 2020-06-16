@@ -3,6 +3,7 @@ unit Atualizador;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+346|15/06/20|18:23|Atualizador                 |Tabela PRODUTO_UNIDADE substituída por UNIDADE_UNI
 319|15/06/20|13:35|atualizador                 |CODIGO_BARRAS tamanho 50 Substituído PROD_EAN tamanho 20
 301|15/06/20|08:48|atualizador                 |CODiGO numérico 11 do produto substituído por PROD_CODIGO alfanumérico 20
 300|15/06/20|08:48|atualizador                 |Tabela PRODUTO substituída por PRODUTO_PROD
@@ -237,8 +238,9 @@ type
   end;
 
 var
-  frmAtualizador: TfrmAtualizador;
-  vGlobal_Qtde_de_Funcoes:Integer; // Gera i ID da função
+  frmAtualizador          : TfrmAtualizador;
+  vGlobal_Qtde_de_Funcoes : Integer;  // Gera i ID da função
+  Q1, Q2                  : TFDQuery; // Queries Locais
 
 implementation
 
@@ -267,12 +269,30 @@ begin
     end;
   end;
 
-   AtualizarBancoDeDados;
+  //Cria Q1-Query Local 1
+  Q1 := TFDQuery.Create(nil);
+  Q1.Connection     := Module.connection;
+  Q1.ConnectionName := 'connection';
 
-   RegistraLog('Atualizou o Banco de Dados');
+  //Cria Q1-Query Local 2
+  Q2 := TFDQuery.Create(nil);
+  Q2.Connection     := Module.connection;
+  Q2.ConnectionName := 'connection';
 
-   // Fim
-   ShowMessage('Base de Dados Atualizada!');
+  //----------------------------------------------------------------------------
+
+  AtualizarBancoDeDados;
+
+  //----------------------------------------------------------------------------
+
+  //Libera memória - Destrói as Queries
+  Q1.Free;
+  Q2.Free;
+
+  RegistraLog('Atualizou o Banco de Dados');
+
+  // Fim
+  ShowMessage('Base de Dados Atualizada!');
 
 end;
 
@@ -2761,11 +2781,50 @@ begin
        //Executar('CREATE INDEX idx_referencia_fabricante ON PRODUTO(referencia_fabricante) ');
     end;
 
+    //Criar índices...
+    if fNaoAtualizado('Tabela PRODUTO_UNIDADE -> UNIDADE_UNI') Then
+    begin
+       Avisa('Criando tabela UNIDADE_UNI');
 
+       //Cria a nova tabela de unidade de medidas
+       Q1.close;
+       Q1.sql.clear;
+       Q1.sql.add('CREATE TABLE UNIDADE_UNI                                                                       ');
+       Q1.sql.add('     (                                                                                         ');
+       Q1.sql.add('       UNI_CODIGO    VARCHAR(03) NOT NULL UNIQUE     COMMENT "Cod/Sigla da Unidade de medida", ');
+       Q1.sql.add('       UNI_DESCRICAO VARCHAR(20) NOT NULL UNIQUE     COMMENT "Descrição da Unidade de medida", ');
+       Q1.sql.add('       UNI_DECIMAIS  INTEGER     NOT NULL DEFAULT 0  COMMENT "Nro de casas decimais"           ');
+       Q1.sql.add('     )                                                                                         ');
+       Q1.sql.add('COMMENT="Tabela de Unidades de Medida"                                                         ');
+       Q1.ExecSql;
 
+       // Copia para a nova tabela, sem repetições, as unidades de medida cadastradas
+       Q1.close;
+       Q1.sql.clear;
+       Q1.sql.add('SELECT * FROM PRODUTO_UNIDADE');
+       Q1.Open;
+       while not Q1.eof do
+       begin
+          if fUNI_DESCRICAO(Q1.FieldByName('SIGLA').AsString) = '' then
+             //unidade não cadastrada - cadastrar
+             INSERT_UNIDADE_UNI(Q1.FieldByName('SIGLA').AsString,
+                                Q1.FieldByName('NOME' ).AsString,
+                                0);
+          Q1.Next;
+       end;
 
+       //Exclui a tabela antiga
+       Executar('DROP TABLE PRODUTO_UNIDADE');
+    end;
+    if fNaoAtualizado('Tabela UNIDADE_UNI(UNI_DECIMAIS)...') Then
+       Executar('UPDATE UNIDADE_UNI SET UNI_DECIMAIS = 3 WHERE UNI_CODIGO = "KG"');
 
-    //Sempre por último
+    if fNaoAtualizado('Tabela UNIDADE_UNI(UNI_DESCRICAO)...') Then
+    begin
+       Executar('UPDATE UNIDADE_UNI SET UNI_DESCRICAO = "QUILOGRAMA" WHERE UNI_CODIGO = "KG"');
+       Executar('UPDATE UNIDADE_UNI SET UNI_DESCRICAO = "UNIDADE"    WHERE UNI_CODIGO = "UN"');
+    end;
+
     Executar('SET FOREIGN_KEY_CHECKS = 1');
 
 end;

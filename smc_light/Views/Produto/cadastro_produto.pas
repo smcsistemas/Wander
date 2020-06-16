@@ -5,6 +5,7 @@ unit cadastro_produto;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+347|15/06/20|21:39|cadastro_produto            |Tratando tabela UNIDADE_UNI ao invés de PRODUTO_UNIDADE
 338|15/06/20|18:23|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(UNIDADE_MEDIDA)
 327|15/06/20|13:35|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 313|15/06/20|10:14|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
@@ -284,7 +285,7 @@ type
     tbViewREFERENCIA_FABRICANTE: TcxGridDBColumn;
     tbViewMARCA: TcxGridDBColumn;
     tbViewGRUPO: TcxGridDBColumn;
-    tbViewUNIDADE_MEDIDA: TcxGridDBColumn;
+    tbViewPROD_UNIDADE: TcxGridDBColumn;
     tbViewTIPO_ITEM: TcxGridDBColumn;
     tbViewSALDO: TcxGridDBColumn;
     tbViewALIQ_ICMS: TcxGridDBColumn;
@@ -326,7 +327,6 @@ type
     pnContador: TPanel;
     qConsulta: TFDQuery;
     qConsultadescricao_produto: TStringField;
-    qConsultaunidade_medida: TStringField;
     qConsultapreco_final_varejo: TBCDField;
     qConsultavalor_promocional_varejo: TBCDField;
     qConsultagrupo: TStringField;
@@ -510,7 +510,7 @@ type
     edREFERENCIA_FABRICANTE: TEdit;
     edFAMILIA: TEdit;
     edSUBGRUPO: TEdit;
-    edUNIDADE_MEDIDA: TEdit;
+    edPROD_UNIDADE: TEdit;
     edGRUPO: TEdit;
     edMARCA: TEdit;
     mmINFO_ADICIONAIS: TMemo;
@@ -574,6 +574,7 @@ type
     rgPROD_TRATALOTE: TRadioGroup;
     qConsultaPROD_CODIGO: TStringField;
     qConsultaPROD_EAN: TStringField;
+    qConsultaPROD_UNIDADE: TStringField;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -727,9 +728,9 @@ type
     procedure edICMS_CSTKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edICMS_CSTExit(Sender: TObject);
-    procedure edUNIDADE_MEDIDAKeyDown(Sender: TObject; var Key: Word;
+    procedure edPROD_UNIDADEKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure edUNIDADE_MEDIDAExit(Sender: TObject);
+    procedure edPROD_UNIDADEExit(Sender: TObject);
     procedure btn_TipoClick(Sender: TObject);
     procedure edTIPO_ITEMKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -1486,13 +1487,13 @@ begin
   Frm_unidade.ShowModal;
 
   //Selecionou uma marca ou não
-  edUNIDADE_MEDIDA.Text := Frm_unidade_CODIGO;
+  edPROD_UNIDADE.Text := Frm_unidade_CODIGO;
 
   //Destroi tela de consulta de marcas
   Frm_unidade.Free;
 
   //Exibe a sigla (o símbolo) da unidade de medida, ou limpa o campo
-  edUNIDADE_MEDIDA_NOME.Text := fproduto_unidade_SIGLA(edUNIDADE_MEDIDA.Text);
+  edUNIDADE_MEDIDA_NOME.Text := fUNI_DESCRICAO(edPROD_UNIDADE.Text);
 end;
 
 procedure TFrm_Produto.bControleGravarClick(Sender: TObject);
@@ -2739,23 +2740,23 @@ begin
   Key := ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.edUNIDADE_MEDIDAExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_UNIDADEExit(Sender: TObject);
 begin
   edUNIDADE_MEDIDA_NOME.Text := '';
-  if edUNIDADE_MEDIDA.Text = '' then
+  if edPROD_UNIDADE.Text = '' then
      exit;
 
   //Exibe o nome da UNIDADE_MEDIDA, ou limpa o campo
-  edUNIDADE_MEDIDA_NOME.Text := fproduto_unidade_SIGLA(edUNIDADE_MEDIDA.Text);
+  edUNIDADE_MEDIDA_NOME.Text := fUNI_DESCRICAO(edPROD_UNIDADE.Text);
   if edUNIDADE_MEDIDA_NOME.Text = '' then
   begin
     wnAlerta('Cadastrar Produto','Unidade de Medida não cadastrada');
-    edUNIDADE_MEDIDA.SetFocus;
+    edPROD_UNIDADE.SetFocus;
     exit;
   end;
 end;
 
-procedure TFrm_Produto.edUNIDADE_MEDIDAKeyDown(Sender: TObject; var Key: Word;
+procedure TFrm_Produto.edPROD_UNIDADEKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Key = vk_F1) then
@@ -3038,7 +3039,7 @@ begin
    qAUX.sql.add('       INFO_ADICIONAIS,          ');
    qAUX.sql.add('       PROD_EAN,                 ');
    qAUX.sql.add('       REFERENCIA_FABRICANTE,    ');
-   qAUX.sql.add('       UNIDADE_MEDIDA,           ');
+   qAUX.sql.add('       PROD_UNIDADE,             ');
    qAUX.sql.add('       MARCA,                    ');
    qAUX.sql.add('       FAMILIA,                  ');
    qAUX.sql.add('       GRUPO,                    ');
@@ -3076,7 +3077,7 @@ begin
    qAUX.sql.add('      :INFO_ADICIONAIS,          ');
    qAUX.sql.add('      :PROD_EAN,                 ');
    qAUX.sql.add('      :REFERENCIA_FABRICANTE,    ');
-   qAUX.sql.add('      :UNIDADE_MEDIDA,           ');
+   qAUX.sql.add('      :PROD_UNIDADE,             ');
    qAUX.sql.add('      :MARCA,                    ');
    qAUX.sql.add('      :FAMILIA,                  ');
    qAUX.sql.add('      :GRUPO,                    ');
@@ -3126,7 +3127,7 @@ begin
    qAUX.ParamByName('INFO_ADICIONAIS'         ).AsString  := mmINFO_ADICIONAIS.Text;
    qAUX.ParamByName('PROD_EAN'                ).AsString  := edPROD_EAN.Text;
    qAUX.ParamByName('REFERENCIA_FABRICANTE'   ).AsString  := edREFERENCIA_FABRICANTE.Text;
-   qAUX.ParamByName('UNIDADE_MEDIDA'          ).AsString  := edUNIDADE_MEDIDA.Text;
+   qAUX.ParamByName('PROD_UNIDADE'            ).AsString  := edPROD_UNIDADE.Text;
    qAUX.ParamByName('MARCA'                   ).AsString  := edMARCA.Text;
    qAUX.ParamByName('FAMILIA'                 ).AsString  := edFAMILIA.Text;
    qAUX.ParamByName('GRUPO'                   ).AsString  := edGRUPO.Text;
@@ -3200,8 +3201,8 @@ begin
    edREFERENCIA_FABRICANTE.Text    := qConsulta.FieldByName('REFERENCIA_FABRICANTE').AsString;
 
    //Unidade de Medida
-   edUNIDADE_MEDIDA.Text           := qConsulta.FieldByName('UNIDADE_MEDIDA'       ).AsString;
-   edUNIDADE_MEDIDA_NOME.Text      := fproduto_unidade_SIGLA(qConsulta.FieldByName('UNIDADE_MEDIDA').AsString);
+   edPROD_UNIDADE.Text             := qConsulta.FieldByName('PROD_UNIDADE'          ).AsString;
+   edUNIDADE_MEDIDA_NOME.Text      := fUNI_DESCRICAO(qConsulta.FieldByName('PROD_UNIDADE').AsString);
 
    //Tipo
    edTIPO_ITEM.Text                := qConsulta.FieldByName('TIPO_ITEM').AsString;
@@ -3852,7 +3853,6 @@ CREATE TABLE `produto` (
 	`FAMILIA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de familia',
 	`GRUPO` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de grupos',
 	`SUBGRUPO` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de subgrupo',
-	`UNIDADE_MEDIDA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de medidas',
 	`DATA_CADASTRO` DATE NULL DEFAULT '0000-00-00' COMMENT 'informa a data e hora do cadastramento do produto',
 	`TIPO_ITEM` VARCHAR(100) NULL DEFAULT NULL COMMENT 'determina a finalidade do produto',
 	`ESTOQUE_MINIMO` VARCHAR(50) NULL DEFAULT NULL,

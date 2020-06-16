@@ -24,7 +24,6 @@ uses
   System.Classes,
   Vcl.Controls, Vcl.Forms,
   FireDAC.Stan.Param,
-
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   frxClass, frxDBSet, frxExportPDF, frxRich, Vcl.StdCtrls,
   DateUtils, System.Math,

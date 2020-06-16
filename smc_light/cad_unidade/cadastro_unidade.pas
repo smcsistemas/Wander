@@ -1,6 +1,12 @@
 { v 18.10.16 10:09 }
 unit cadastro_unidade;
 {
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+348|15/06/20|21:39|cadastro_unidade            |Tratando tabela UNIDADE_UNI ao invés de PRODUTO_UNIDADE
+========================================================================================================================================
+
 ================================================================================
 | ITEM|DATA  HR|UNIT                |HISTORICO                                 |
 |-----|--------|--------------------|------------------------------------------|
@@ -44,7 +50,7 @@ uses
 type
   TFrm_unidade = class(TForm)
     Código: TLabel;
-    cxDBTextEdit1: TcxDBTextEdit;
+    cxDBTextEdit1: TDBEdit;
     Descrição: TLabel;
     DBGrid1: TDBGrid;
     sql_increment: TFDQuery;
@@ -53,14 +59,8 @@ type
     DS_Unidade: TDataSource;
     SQL_LISTA: TFDQuery;
     ds_lista: TDataSource;
-    SQL_LISTACODIGO: TFDAutoIncField;
-    SQL_LISTANOME: TStringField;
-    SQL_UnidadeCODIGO: TFDAutoIncField;
-    SQL_UnidadeNOME: TStringField;
     BtnExcluir: TcxButton;
     Label1: TLabel;
-    SQL_UnidadeSIGLA: TStringField;
-    SQL_LISTASIGLA: TStringField;
     DBEdit1: TDBEdit;
     DBEdit2: TDBEdit;
     pnControles: TPanel;
@@ -68,6 +68,12 @@ type
     bControleAlterar: TcxButton;
     bControleCancelar: TcxButton;
     bControleGravar: TcxButton;
+    SQL_LISTAUNI_CODIGO: TStringField;
+    SQL_LISTAUNI_DESCRICAO: TStringField;
+    SQL_LISTAUNI_DECIMAIS: TIntegerField;
+    SQL_UnidadeUNI_CODIGO: TStringField;
+    SQL_UnidadeUNI_DESCRICAO: TStringField;
+    SQL_UnidadeUNI_DECIMAIS: TIntegerField;
     procedure DBGrid1DblClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -106,7 +112,7 @@ begin
   with SQL_Unidade do
   begin
     Close;
-    ParamByName('pcodigo').Value := SQL_LISTACODIGO.Value;
+    ParamByName('pcodigo').Value := SQL_LISTAUNI_CODIGO.Value;
     Open;
     Edit;
   end;
@@ -132,7 +138,7 @@ end;
 
 procedure TFrm_unidade.bControleGravarClick(Sender: TObject);
 begin
-  if u_funcoes.CamposObrigatorios([DBEdit1, DBEdit2], ['Descrição', 'Sigla'], [], [], [], []) then
+  if u_funcoes.CamposObrigatorios([cxDBTextEdit1, DBEdit1, DBEdit2], ['Código','Descrição','Casas Decimais'], [], [], [], [], [], []) then
     Exit;
 
   SQL_Unidade.Post;
@@ -156,8 +162,8 @@ begin
   pode_Cancelar_Gravar(Frm_unidade);
 
   sql_increment.Active := True;
-  cxDBTextEdit1.Text := inttostr(sql_incrementAUTO_INCREMENT.Value);
-  DBEdit1.SetFocus;
+  cxDBTextEdit1.SetFocus; //.Text := inttostr(sql_incrementAUTO_INCREMENT.Value);
+  //DBEdit1.SetFocus;
 end;
 
 procedure TFrm_unidade.BtnExcluirClick(Sender: TObject);
@@ -169,7 +175,7 @@ begin
       with SQL_Unidade do
       begin
         Close;
-        ParamByName('pcodigo').Value := SQL_LISTACODIGO.Value;
+        ParamByName('pcodigo').Value := SQL_LISTAUNI_CODIGO.Value;
         Open;
         Delete;
       end;
@@ -184,7 +190,7 @@ begin
     with SQL_Unidade do
     begin
       Close;
-      ParamByName('pcodigo').Value := SQL_LISTACODIGO.Value;
+      ParamByName('pcodigo').Value := SQL_LISTAUNI_CODIGO.Value;
       Open;
       Delete;
     end;
@@ -214,7 +220,7 @@ begin
   //Retorna o código da marca selecionada
   //Se fechar a tela sem selecionar, retorna vazio
   //----------------------------------------------------------------------------
-  Frm_Unidade_CODIGO    := SQL_LISTA.FieldByName('CODIGO').AsString;
+  Frm_Unidade_CODIGO    := SQL_LISTA.FieldByName('UNI_CODIGO').AsString;
 
   //Ajusta botões de controle
   pode_Alterar_Incluir(Frm_unidade);
@@ -255,7 +261,7 @@ end;
 
 procedure TFrm_unidade.PreencherDadosInternos;
 begin
-  m_unidade.Field.Text := SQL_UnidadeSIGLA.Value;
+  m_unidade.Field.Text := SQL_UnidadeUNI_DESCRICAO.Value;
   Close;
 end;
 

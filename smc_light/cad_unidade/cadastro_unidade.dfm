@@ -22,7 +22,7 @@
   PixelsPerInch = 96
   TextHeight = 13
   object Código: TLabel
-    Left = 11
+    Left = 1
     Top = 16
     Width = 48
     Height = 18
@@ -35,7 +35,7 @@
     ParentFont = False
   end
   object Descrição: TLabel
-    Left = 120
+    Left = 98
     Top = 16
     Width = 67
     Height = 18
@@ -48,11 +48,11 @@
     ParentFont = False
   end
   object Label1: TLabel
-    Left = 334
+    Left = 348
     Top = 16
-    Width = 33
+    Width = 101
     Height = 18
-    Caption = 'Sigla:'
+    Caption = 'Casas Decimais'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -15
@@ -60,20 +60,21 @@
     Font.Style = []
     ParentFont = False
   end
-  object cxDBTextEdit1: TcxDBTextEdit
-    Left = 63
+  object cxDBTextEdit1: TDBEdit
+    Left = 53
     Top = 12
-    DataBinding.DataField = 'CODIGO'
-    DataBinding.DataSource = DS_Unidade
-    ParentFont = False
-    Style.Font.Charset = DEFAULT_CHARSET
-    Style.Font.Color = clWindowText
-    Style.Font.Height = -15
-    Style.Font.Name = 'Tahoma'
-    Style.Font.Style = []
-    Style.IsFontAssigned = True
-    TabOrder = 0
     Width = 41
+    Height = 26
+    DataField = 'UNI_CODIGO'
+    DataSource = ds_lista
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    OnKeyDown = DBEdit1KeyDown
   end
   object DBGrid1: TDBGrid
     Left = -1
@@ -87,7 +88,7 @@
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 3
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -15
@@ -98,7 +99,7 @@
     Columns = <
       item
         Expanded = False
-        FieldName = 'CODIGO'
+        FieldName = 'UNI_CODIGO'
         Title.Caption = 'C'#243'digo'
         Title.Font.Charset = DEFAULT_CHARSET
         Title.Font.Color = clWindowText
@@ -110,7 +111,7 @@
       end
       item
         Expanded = False
-        FieldName = 'NOME'
+        FieldName = 'UNI_DESCRICAO'
         Title.Caption = 'Descri'#231#227'o'
         Title.Font.Charset = DEFAULT_CHARSET
         Title.Font.Color = clWindowText
@@ -122,8 +123,8 @@
       end
       item
         Expanded = False
-        FieldName = 'SIGLA'
-        Title.Caption = 'Sigla'
+        FieldName = 'UNI_DECIMAIS'
+        Title.Caption = 'Decimais'
         Title.Font.Charset = DEFAULT_CHARSET
         Title.Font.Color = clWindowText
         Title.Font.Height = -15
@@ -273,7 +274,7 @@
       9FFFCDAC9FFFCEACA0FFCDAC9FFFCDAC9FFFCCAC9EFFCCAB9EFFCCAA9DFFCCAB
       9CFFCBAA9CFFCBAA9CFF614F4882000000040000000200000001000000000000
       0000000000000000000000000000000000000000000000000000}
-    TabOrder = 2
+    TabOrder = 5
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -283,35 +284,35 @@
     OnClick = BtnExcluirClick
   end
   object DBEdit1: TDBEdit
-    Left = 192
+    Left = 170
     Top = 12
-    Width = 121
+    Width = 156
     Height = 26
-    DataField = 'NOME'
-    DataSource = DS_Unidade
+    DataField = 'UNI_DESCRICAO'
+    DataSource = ds_lista
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -15
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 1
     OnKeyDown = DBEdit1KeyDown
   end
   object DBEdit2: TDBEdit
-    Left = 374
-    Top = 12
-    Width = 121
+    Left = 455
+    Top = 16
+    Width = 35
     Height = 26
-    DataField = 'SIGLA'
-    DataSource = DS_Unidade
+    DataField = 'UNI_DECIMAIS'
+    DataSource = ds_lista
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -15
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 2
   end
   object pnControles: TPanel
     Left = -4
@@ -320,7 +321,7 @@
     Height = 49
     Color = 8421440
     ParentBackground = False
-    TabOrder = 5
+    TabOrder = 4
     object bControleIncluir: TcxButton
       Left = 5
       Top = 5
@@ -944,8 +945,8 @@
   object SQL_Unidade: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'select * from produto_unidade'
-      'where CODIGO LIKE :pcodigo')
+      'select * from UNIDADE_UNI'
+      'where UNI_CODIGO LIKE :pcodigo')
     Left = 130
     Top = 109
     ParamData = <
@@ -955,23 +956,21 @@
         ParamType = ptInput
         Value = '0'
       end>
-    object SQL_UnidadeCODIGO: TFDAutoIncField
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
-    end
-    object SQL_UnidadeNOME: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'NOME'
-      Origin = 'NOME'
-      Size = 100
-    end
-    object SQL_UnidadeSIGLA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'SIGLA'
-      Origin = 'SIGLA'
+    object SQL_UnidadeUNI_CODIGO: TStringField
+      FieldName = 'UNI_CODIGO'
+      Origin = 'UNI_CODIGO'
+      Required = True
       Size = 3
+    end
+    object SQL_UnidadeUNI_DESCRICAO: TStringField
+      FieldName = 'UNI_DESCRICAO'
+      Origin = 'UNI_DESCRICAO'
+      Required = True
+    end
+    object SQL_UnidadeUNI_DECIMAIS: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'UNI_DECIMAIS'
+      Origin = 'UNI_DECIMAIS'
     end
   end
   object DS_Unidade: TDataSource
@@ -980,29 +979,28 @@
     Top = 171
   end
   object SQL_LISTA: TFDQuery
+    Active = True
     Connection = Module.connection
     SQL.Strings = (
-      'select * from produto_unidade'
+      'select * from UNIDADE_UNI'
       '')
     Left = 64
     Top = 107
-    object SQL_LISTACODIGO: TFDAutoIncField
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
-    end
-    object SQL_LISTANOME: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'NOME'
-      Origin = 'NOME'
-      Size = 100
-    end
-    object SQL_LISTASIGLA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'SIGLA'
-      Origin = 'SIGLA'
+    object SQL_LISTAUNI_CODIGO: TStringField
+      FieldName = 'UNI_CODIGO'
+      Origin = 'UNI_CODIGO'
+      Required = True
       Size = 3
+    end
+    object SQL_LISTAUNI_DESCRICAO: TStringField
+      FieldName = 'UNI_DESCRICAO'
+      Origin = 'UNI_DESCRICAO'
+      Required = True
+    end
+    object SQL_LISTAUNI_DECIMAIS: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'UNI_DECIMAIS'
+      Origin = 'UNI_DECIMAIS'
     end
   end
   object ds_lista: TDataSource

@@ -46,7 +46,6 @@ object Frm_Produto: TFrm_Produto
     Properties.CustomButtons.Buttons = <>
     LookAndFeel.NativeStyle = False
     LookAndFeel.SkinName = 'Office2013White'
-    ExplicitTop = -24
     ClientRectBottom = 622
     ClientRectLeft = 2
     ClientRectRight = 1387
@@ -297,9 +296,9 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 300
           end
-          object tbViewUNIDADE_MEDIDA: TcxGridDBColumn
+          object tbViewPROD_UNIDADE: TcxGridDBColumn
             Caption = 'UN'
-            DataBinding.FieldName = 'UNIDADE_MEDIDA'
+            DataBinding.FieldName = 'PROD_UNIDADE'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taCenter
             HeaderAlignmentHorz = taCenter
@@ -1100,7 +1099,7 @@ object Frm_Produto: TFrm_Produto
             OnClick = btn_grupoClick
           end
           object btn_und: TcxButton
-            Left = 431
+            Left = 511
             Top = 174
             Width = 22
             Height = 22
@@ -1269,7 +1268,7 @@ object Frm_Produto: TFrm_Produto
             OnExit = edSUBGRUPOExit
             OnKeyDown = edSUBGRUPOKeyDown
           end
-          object edUNIDADE_MEDIDA: TEdit
+          object edPROD_UNIDADE: TEdit
             Left = 338
             Top = 173
             Width = 36
@@ -1282,8 +1281,8 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             TabOrder = 9
-            OnExit = edUNIDADE_MEDIDAExit
-            OnKeyDown = edUNIDADE_MEDIDAKeyDown
+            OnExit = edPROD_UNIDADEExit
+            OnKeyDown = edPROD_UNIDADEKeyDown
           end
           object edGRUPO: TEdit
             Left = 98
@@ -1595,7 +1594,7 @@ object Frm_Produto: TFrm_Produto
           object edUNIDADE_MEDIDA_NOME: TEdit
             Left = 374
             Top = 173
-            Width = 53
+            Width = 136
             Height = 25
             TabStop = False
             CharCase = ecUpperCase
@@ -6379,12 +6378,6 @@ object Frm_Produto: TFrm_Produto
       Origin = 'DESCRICAO_PRODUTO'
       Size = 200
     end
-    object qConsultaunidade_medida: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'unidade_medida'
-      Origin = 'UNIDADE_MEDIDA'
-      Size = 50
-    end
     object qConsultapreco_final_varejo: TBCDField
       AutoGenerateValue = arDefault
       FieldName = 'preco_final_varejo'
@@ -7102,6 +7095,12 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'PROD_EAN'
       Origin = 'PROD_EAN'
+    end
+    object qConsultaPROD_UNIDADE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_UNIDADE'
+      Origin = 'PROD_UNIDADE'
+      Size = 3
     end
   end
   object tConsulta: TTimer
