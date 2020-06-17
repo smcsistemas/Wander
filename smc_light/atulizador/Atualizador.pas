@@ -633,8 +633,7 @@ CREATE TABLE `produto` (
 	`LUCRO_SUBST_TRIBUTARIA` DECIMAL(10,4) NULL DEFAULT NULL,
 	`VALOR_PAUTA_BC_ST` DECIMAL(10,4) NULL DEFAULT NULL,
 	`LEIS` VARCHAR(20) NULL DEFAULT NULL,
-	`GENERO` VARCHAR(20) NULL DEFAULT NULL,
-	`FORNECEDOR_NOME` VARCHAR(100) NULL DEFAULT NULL,
+
 	`COD_COMB` VARCHAR(20) NULL DEFAULT NULL,
 	`ALIQ_IPI` VARCHAR(20) NULL DEFAULT NULL,
 	`ENQUADRAMENTO_IPI` INT(11) NULL DEFAULT NULL,
@@ -2931,26 +2930,100 @@ begin
         RegistraLog('Torna a descrição do produto obrigatoriamente única');
     end;
 
+    //informacoes adicionais sao relacionados a movimento
+    //e legislacao específica
+    //deve ficar no cad de leis
+    //substituido o campo info_adicionais por detalhes que enriquecem a descricao do produto
     if fNaoAtualizado('PROD_DETALHES') Then
        Executar('ALTER TABLE PRODUTO_PROD CHANGE INFO_ADICIONAIS PROD_DETALHES VARCHAR(200) NULL COMMENT "Detalhes do Produto"');
 
+    //Seriam aplicacoes ? Se sim, deve ser uma tabela externa (MEMO)
+    //Se for um codigo está muito grande (200)
     if fNaoAtualizado('PROD_REFERENCIASFABRICA') Then
        Executar('ALTER TABLE PRODUTO_PROD CHANGE REFERENCIA_FABRICANTE PROD_REFERENCIASFABRICA VARCHAR(200) NULL COMMENT "Referências do Fabricante"');
 
     if fNaoAtualizado('PROD_MARCA') Then
-       Executar('ALTER TABLE PRODUTO_PROD CHANGE MARCA PROD_CDMARCA VARCHAR(10) NULL COMMENT "Cod marca do produto (forein key) "');
+       Executar('ALTER TABLE PRODUTO_PROD CHANGE MARCA PROD_CDMARCA VARCHAR(10) NULL COMMENT "Cod marca do produto (foreign key) "');
+
+    if fNaoAtualizado('PROD_CDUNIDADE') Then
+       Executar('ALTER TABLE PRODUTO_PROD CHANGE PROD_UNIDADE PROD_CDUNIDADE VARCHAR(03) NULL COMMENT "Cod Unidade de medida (foreign key) "');
+
+    if fNaoAtualizado('PROD_CDFAMILIA..') Then
+       Executar('ALTER TABLE PRODUTO_PROD CHANGE FAMILIA PROD_CDFAMILIA VARCHAR(10) NULL COMMENT "Cod Família (foreign key) "');
+
+    //grupo estava armazenado o nome do grupo na chave ao invés do codigo
+    if fNaoAtualizado('PROD_CDGRUPO..') Then
+    begin
+      Executar('ALTER TABLE PRODUTO_PROD ADD PROD_CDGRUPO VARCHAR(10) NULL COMMENT "Cod Grupo (foreign key) "');
+      mmExecutado.Lines.Clear;
+      Q1.Close;
+      Q1.Sql.Clear;
+      Q1.Sql.add('SELECT P.PROD_CODIGO,    ');
+      Q1.Sql.add('       P.PROD_DESCRICAO, ');
+      Q1.Sql.add('       G.CODIGO          ');
+      Q1.Sql.add('  FROM PRODUTO_PROD  P,  ');
+      Q1.sql.add('       PRODUTO_GRUPO G   ');
+      Q1.Sql.add(' WHERE P.GRUPO = G.NOME  ');
+      Q1.Sql.add('   AND GRUPO IS NOT NULL ');
+      Q1.Open;
+      while not Q1.Eof do
+      begin
+        Q2.Close;
+        Q2.Sql.Clear;
+        Q2.Sql.Add('UPDATE PRODUTO_PROD                ');
+        Q2.Sql.Add('   SET PROD_CDGRUPO= :PROD_CDGRUPO ');
+        Q2.Sql.Add(' WHERE PROD_CODIGO = :PROD_CODIGO  ');
+        Q2.ParamByName('PROD_CDGRUPO').AsString := Q1.FieldByName('CODIGO'     ).AsString;
+        Q2.ParamByName('PROD_CODIGO' ).AsString := Q1.FieldByName('PROD_CODIGO').AsString;
+        Q2.ExecSql;
+        Avisa('Grupo de '+Q1.FieldByName('PROD_DESCRICAO').AsString);
+        Q1.Next;
+      end;
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN GRUPO');
+    end;
+
+    if fNaoAtualizado('PROD_CDSUBGRUPO') Then
+       Executar('ALTER TABLE PRODUTO_PROD CHANGE SUBGRUPO PROD_CDSUBGRUPO VARCHAR(10) NULL COMMENT "Cod SubGrupo (foreign key) "');
+
+    //era texto 20 caract
+    //tem q ser foreign key
+    if fNaoAtualizado('GENERO') Then
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN GENERO');
+
+    //tem q ser uma tab externa - uma lei p cada motivo
+    if fNaoAtualizado('LEIS') Then
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN LEIS');
+
+    //tem q ser automatico
+    //a medida q lanca compra
+    //um produto pode ter varios fornecedores
+    if fNaoAtualizado('FORNECEDOR_NOME') Then
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN FORNECEDOR_NOME');
+
+    //idem ao anterior
+    if fNaoAtualizado('codigo_fornecedor') Then
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN codigo_fornecedor');
+
+    //TIPOITEM tinha tamanho 100 e na tabela estrangeira 50
+    //mas os codigos usados sao no max 3
+    //adotado 10
+    if fNaoAtualizado('PROD_CDTIPOITEM.') Then
+       Executar('ALTER TABLE PRODUTO_PROD CHANGE TIPO_ITEM PROD_CDTIPOITEM VARCHAR(10) NULL COMMENT "Cod Tipo Item (foreign key) "');
+
+    if fNaoAtualizado('PROD_DT') Then
+       Executar('ALTER TABLE PRODUTO_PROD CHANGE DATA_CADASTRO PROD_DT DATETIME NULL COMMENT "Data Cadastro/Alteração"');
+
+
 
     Executar('SET FOREIGN_KEY_CHECKS = 1');
 
 end;
 
+end.
+
 
     {
 
-	`MARCA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de marcas',
-	`FAMILIA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de familia',
-	`GRUPO` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de grupos',
-	`SUBGRUPO` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de subgrupo',
 	`DATA_CADASTRO` DATE NULL DEFAULT '0000-00-00' COMMENT 'informa a data e hora do cadastramento do produto',
 	`TIPO_ITEM` VARCHAR(100) NULL DEFAULT NULL COMMENT 'determina a finalidade do produto',
 	`ESTOQUE_MINIMO` VARCHAR(50) NULL DEFAULT NULL,

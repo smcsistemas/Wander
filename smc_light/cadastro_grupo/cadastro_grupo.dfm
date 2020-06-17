@@ -101,7 +101,7 @@
       end
       item
         Expanded = False
-        FieldName = 'FAMILIA'
+        FieldName = 'PROD_CDFAMILIA'
         Title.Caption = 'Familia'
         Width = 240
         Visible = True
@@ -957,8 +957,8 @@
     end
     object SQL_GrupoFAMILIA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'FAMILIA'
-      Origin = 'FAMILIA'
+      FieldName = 'PROD_CDFAMILIA'
+      Origin = 'PROD_CDFAMILIA'
       Size = 100
     end
     object SQL_GrupoDATA_CADASTRO: TDateField
@@ -993,8 +993,8 @@
     end
     object SQL_LISTAFAMILIA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'FAMILIA'
-      Origin = 'FAMILIA'
+      FieldName = 'PROD_CDFAMILIA'
+      Origin = 'PROD_CDFAMILIA'
       Size = 100
     end
     object SQL_LISTADATA_CADASTRO: TDateField
@@ -1023,3 +1023,5 @@
     Top = 153
   end
 end
+Trocou FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA' : automaticamente em 16/06/2020 17:33
+Trocou Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA' : automaticamente em 16/06/2020 17:38

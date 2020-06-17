@@ -5167,7 +5167,7 @@ object frm_pedido_venda: Tfrm_pedido_venda
         TabOrder = 14
         OnExit = edQUANTIDADEExit
       end
-      object edPROD_UNIDADE: TEdit
+      object edPROD_CDUNIDADE: TEdit
         Left = 662
         Top = 299
         Width = 65
@@ -6249,3 +6249,4 @@ object frm_pedido_venda: Tfrm_pedido_venda
     Top = 312
   end
 end
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07

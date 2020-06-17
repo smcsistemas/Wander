@@ -117,7 +117,7 @@ type
     PROD_REFERENCIASFABRICA: TDBEdit;
     FAMILIA: TDBEdit;
     SUBGRUPO: TDBEdit;
-    PROD_UNIDADE: TDBEdit;
+    PROD_CDUNIDADE: TDBEdit;
     GRUPO: TDBEdit;
     MARCA: TDBEdit;
     cxDBMemo1: TcxDBMemo;
@@ -131,7 +131,7 @@ type
     SQL_PRODUTOFAMILIA: TStringField;
     SQL_PRODUTOGRUPO: TStringField;
     SQL_PRODUTOSUBGRUPO: TStringField;
-    SQL_PRODUTOPROD_UNIDADE: TStringField;
+    SQL_PRODUTOPROD_CDUNIDADE: TStringField;
     SQL_PRODUTODATA_CADASTRO: TDateField;
     SQL_PRODUTOTIPO_ITEM: TStringField;
     SQL_PRODUTOLEIS: TStringField;
@@ -290,7 +290,7 @@ type
     SQL_LISTAFAMILIA: TStringField;
     SQL_LISTAGRUPO: TStringField;
     SQL_LISTASUBGRUPO: TStringField;
-    SQL_LISTAPROD_UNIDADE: TStringField;
+    SQL_LISTAPROD_CDUNIDADE: TStringField;
     SQL_LISTADATA_CADASTRO: TDateField;
     SQL_LISTATIPO_ITEM: TStringField;
     SQL_LISTAESTOQUE_MINIMO: TStringField;
@@ -483,7 +483,7 @@ type
     tbViewPROD_REFERENCIASFABRICA: TcxGridDBColumn;
     tbViewMARCA: TcxGridDBColumn;
     tbViewGRUPO: TcxGridDBColumn;
-    tbViewPROD_UNIDADE: TcxGridDBColumn;
+    tbViewPROD_CDUNIDADE: TcxGridDBColumn;
     tbViewTIPO_ITEM: TcxGridDBColumn;
     tbViewSALDO: TcxGridDBColumn;
     tbViewALIQ_ICMS: TcxGridDBColumn;
@@ -685,7 +685,7 @@ type
     procedure DBEdit13Change(Sender: TObject);
     procedure DBEdit16KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBEdit13KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure PROD_UNIDADEKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure PROD_CDUNIDADEKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure calcular_preco_produtos(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure PRECO_FINAL_ATACADOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBEdit13KeyPress(Sender: TObject; var Key: Char);
@@ -1120,7 +1120,7 @@ begin
   sql_ponto_impressao.Active := true;
 
   dbedt_codigo.Text := inttostr(SQL_PRODUTOCODIGO.value);
-  u_funcoes.CamposObrigatorios_CorPadrao([PROD_DESCRICAO, PROD_UNIDADE, PRECO_FINAL_VAREJO, NCM], [], [TcxComboBox(dbcsticms)]);
+  u_funcoes.CamposObrigatorios_CorPadrao([PROD_DESCRICAO, PROD_CDUNIDADE, PRECO_FINAL_VAREJO, NCM], [], [TcxComboBox(dbcsticms)]);
   u_funcoes.CamposObrigatorios_CorPadrao([edt_qtde_min, edt_preco, TEdit(cb_tipo)], []);
   carregar_faixa;
 
@@ -1381,7 +1381,7 @@ begin
     RefFabricanteRepetido(false);
     if (not CodBarrasRepetido) then
     begin
-      if u_funcoes.CamposObrigatorios([PROD_DESCRICAO, PROD_UNIDADE, PRECO_FINAL_VAREJO, NCM],
+      if u_funcoes.CamposObrigatorios([PROD_DESCRICAO, PROD_CDUNIDADE, PRECO_FINAL_VAREJO, NCM],
         ['Descrição do Produto', 'Unidade de Medida', 'Preço de Varejo', 'NCM'], [], [], [TcxComboBox(dbcsticms)], ['CST ICMS']) then
         exit
       else
@@ -1485,7 +1485,7 @@ begin
 
   Frm_unidade := TFrm_unidade.CREATE(Application);
   Frm_unidade.ShowModal;
-  PROD_UNIDADE.Text := Frm_unidade.SQL_LISTASIGLA.value;
+  PROD_CDUNIDADE.Text := Frm_unidade.SQL_LISTASIGLA.value;
   ESTOQUE_MINIMO.SetFocus;
 
 end;
@@ -2222,7 +2222,7 @@ begin
   if edtBuscar.Text <> '' then
   begin
     fld := TFunctions.ifthen(cbFiltro.SelectedItem, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ['codigo', 'codigo_barras', 'descricao_produto',
-      'PROD_UNIDADE', 'preco_final_varejo', 'valor_promocional_varejo', 'grupo', 'marca', 'icms_cst', 'ncm', 'csosn',
+      'PROD_CDUNIDADE', 'preco_final_varejo', 'valor_promocional_varejo', 'grupo', 'marca', 'icms_cst', 'ncm', 'csosn',
       'PROD_REFERENCIASFABRICA']);
     sql_x := 'select * from produto where tipo_item = ' + tp_item + ' and ' + fld + ' like "%' + TFunctions.replace(edtBuscar.Text, '"') +
       '%" limit 500';
@@ -3130,7 +3130,7 @@ procedure TFrm_Produto.SUBGRUPOKeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   if (Key = vk_return) or (Key = vk_tab) then
-    PROD_UNIDADE.SetFocus;
+    PROD_CDUNIDADE.SetFocus;
 
 end;
 
@@ -3168,7 +3168,7 @@ begin
     consultaparacadastro;
 end;
 
-procedure TFrm_Produto.PROD_UNIDADEKeyDown(Sender: TObject;
+procedure TFrm_Produto.PROD_CDUNIDADEKeyDown(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
@@ -3210,3 +3210,4 @@ Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:02
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:06
 Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:36
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:04
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06

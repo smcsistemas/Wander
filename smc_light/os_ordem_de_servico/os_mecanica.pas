@@ -86,7 +86,7 @@ type
     edPROD_DESCRICAO: TEdit;
     edPRECO: TEdit;
     edQUANTIDADE: TEdit;
-    edPROD_UNIDADE: TEdit;
+    edPROD_CDUNIDADE: TEdit;
     edCFOP_Produto: TEdit;
     cxGrid1: TcxGrid;
     cxGridDBTableView1: TcxGridDBTableView;
@@ -297,3 +297,4 @@ end;
 
 end.
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:03
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06

@@ -247,7 +247,7 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 70
           end
-          object tbViewCODIGO_BARRAS: TcxGridDBColumn
+          object tbViewPROD_EAN: TcxGridDBColumn
             Caption = 'C'#243'd. Barras'
             DataBinding.FieldName = 'PROD_EAN'
             PropertiesClassName = 'TcxLabelProperties'
@@ -296,9 +296,9 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 300
           end
-          object tbViewPROD_UNIDADE: TcxGridDBColumn
+          object tbViewPROD_CDUNIDADE: TcxGridDBColumn
             Caption = 'UN'
-            DataBinding.FieldName = 'PROD_UNIDADE'
+            DataBinding.FieldName = 'PROD_CDUNIDADE'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taCenter
             HeaderAlignmentHorz = taCenter
@@ -395,9 +395,9 @@ object Frm_Produto: TFrm_Produto
             Options.Grouping = False
             Width = 150
           end
-          object tbViewGRUPO: TcxGridDBColumn
+          object tbViewPROD_CDGRUPO: TcxGridDBColumn
             Caption = 'Grupo'
-            DataBinding.FieldName = 'GRUPO'
+            DataBinding.FieldName = 'PROD_CDGRUPO'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taCenter
             HeaderAlignmentHorz = taCenter
@@ -470,7 +470,7 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 80
           end
-          object tbViewMARCA: TcxGridDBColumn
+          object tbViewPROD_MARCA: TcxGridDBColumn
             Caption = 'Marca'
             DataBinding.FieldName = 'PROD_MARCA'
             PropertiesClassName = 'TcxLabelProperties'
@@ -813,7 +813,7 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
           end
           object Label5: TLabel
-            Left = 267
+            Left = 275
             Top = 163
             Width = 104
             Height = 18
@@ -1233,7 +1233,7 @@ object Frm_Produto: TFrm_Produto
             OnExit = edPROD_DESCRICAOExit
           end
           object edPROD_REFERENCIASFABRICA: TEdit
-            Left = 375
+            Left = 383
             Top = 158
             Width = 199
             Height = 25
@@ -1249,7 +1249,7 @@ object Frm_Produto: TFrm_Produto
             OnExit = edPROD_REFERENCIASFABRICAExit
             OnKeyUp = edPROD_REFERENCIASFABRICAKeyUp
           end
-          object edFAMILIA: TEdit
+          object edPROD_CDFAMILIA: TEdit
             Left = 121
             Top = 269
             Width = 71
@@ -1262,10 +1262,10 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             TabOrder = 11
-            OnExit = edFAMILIAExit
-            OnKeyDown = edFAMILIAKeyDown
+            OnExit = edPROD_CDFAMILIAExit
+            OnKeyDown = edPROD_CDFAMILIAKeyDown
           end
-          object edSUBGRUPO: TEdit
+          object edPROD_CDSUBGRUPO: TEdit
             Left = 121
             Top = 324
             Width = 71
@@ -1278,10 +1278,10 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             TabOrder = 13
-            OnExit = edSUBGRUPOExit
-            OnKeyDown = edSUBGRUPOKeyDown
+            OnExit = edPROD_CDSUBGRUPOExit
+            OnKeyDown = edPROD_CDSUBGRUPOKeyDown
           end
-          object edPROD_UNIDADE: TEdit
+          object edPROD_CDUNIDADE: TEdit
             Left = 121
             Top = 186
             Width = 71
@@ -1294,10 +1294,10 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             TabOrder = 8
-            OnExit = edPROD_UNIDADEExit
-            OnKeyDown = edPROD_UNIDADEKeyDown
+            OnExit = edPROD_CDUNIDADEExit
+            OnKeyDown = edPROD_CDUNIDADEKeyDown
           end
-          object edGRUPO: TEdit
+          object edPROD_GRUPO: TEdit
             Left = 121
             Top = 296
             Width = 71
@@ -1310,8 +1310,8 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             TabOrder = 12
-            OnExit = edGRUPOExit
-            OnKeyDown = edGRUPOKeyDown
+            OnExit = edPROD_GRUPOExit
+            OnKeyDown = edPROD_GRUPOKeyDown
           end
           object edPROD_CDMARCA: TEdit
             Left = 121
@@ -1566,7 +1566,7 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             ReadOnly = True
             TabOrder = 21
-            OnKeyDown = edGRUPOKeyDown
+            OnKeyDown = edPROD_GRUPOKeyDown
           end
           object edSUBGRUPO_NOME: TEdit
             Left = 195
@@ -1584,7 +1584,7 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             ReadOnly = True
             TabOrder = 22
-            OnKeyDown = edGRUPOKeyDown
+            OnKeyDown = edPROD_GRUPOKeyDown
           end
           object edMARCA_NOME: TEdit
             Left = 195
@@ -1602,7 +1602,7 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             ReadOnly = True
             TabOrder = 23
-            OnKeyDown = edGRUPOKeyDown
+            OnKeyDown = edPROD_GRUPOKeyDown
           end
           object edUNIDADE_MEDIDA_NOME: TEdit
             Left = 195
@@ -1620,7 +1620,7 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             ReadOnly = True
             TabOrder = 24
-            OnKeyDown = edGRUPOKeyDown
+            OnKeyDown = edPROD_GRUPOKeyDown
           end
           object edFAMILIA_NOME: TEdit
             Left = 195
@@ -1638,7 +1638,7 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             ReadOnly = True
             TabOrder = 25
-            OnKeyDown = edGRUPOKeyDown
+            OnKeyDown = edPROD_GRUPOKeyDown
           end
           object edPROD_EAN: TEdit
             Left = 121
@@ -1680,7 +1680,7 @@ object Frm_Produto: TFrm_Produto
             StyleHot.LookAndFeel.SkinName = 'Office2013White'
             TabOrder = 2
           end
-          object edTIPO_ITEM: TEdit
+          object edPROD_CDTIPOITEM: TEdit
             Left = 121
             Top = 213
             Width = 71
@@ -1693,8 +1693,8 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             TabOrder = 9
-            OnExit = edTIPO_ITEMExit
-            OnKeyDown = edTIPO_ITEMKeyDown
+            OnExit = edPROD_CDTIPOITEMExit
+            OnKeyDown = edPROD_CDTIPOITEMKeyDown
           end
           object edTIPO_ITEM_NOME: TEdit
             Left = 195
@@ -1712,7 +1712,7 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             ReadOnly = True
             TabOrder = 26
-            OnKeyDown = edGRUPOKeyDown
+            OnKeyDown = edPROD_GRUPOKeyDown
           end
           object btn_Tipo: TcxButton
             Left = 720
@@ -4143,32 +4143,6 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
           end
-          object Label60: TLabel
-            Left = 307
-            Top = 83
-            Width = 52
-            Height = 18
-            Caption = 'G'#234'nero:'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object Label57: TLabel
-            Left = 330
-            Top = 111
-            Width = 29
-            Height = 18
-            Caption = 'Leis:'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
           object edALIQ_ICMS: TEdit
             Left = 68
             Top = 81
@@ -4202,22 +4176,6 @@ object Frm_Produto: TFrm_Produto
             TabOrder = 7
             OnExit = edREDUCAO_ICMSExit
             OnKeyPress = edREDUCAO_ICMSKeyPress
-          end
-          object edGENERO: TEdit
-            Left = 362
-            Top = 79
-            Width = 186
-            Height = 26
-            BiDiMode = bdRightToLeft
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Helvetica Neue'
-            Font.Style = [fsBold]
-            MaxLength = 20
-            ParentBiDiMode = False
-            ParentFont = False
-            TabOrder = 8
           end
           object edICMS_CST: TEdit
             Left = 68
@@ -4253,7 +4211,7 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             ReadOnly = True
             TabOrder = 1
-            OnKeyDown = edGRUPOKeyDown
+            OnKeyDown = edPROD_GRUPOKeyDown
           end
           object cxButton5: TcxButton
             Left = 551
@@ -4342,7 +4300,7 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             ReadOnly = True
             TabOrder = 4
-            OnKeyDown = edGRUPOKeyDown
+            OnKeyDown = edPROD_GRUPOKeyDown
           end
           object cxButton7: TcxButton
             Left = 551
@@ -4395,22 +4353,6 @@ object Frm_Produto: TFrm_Produto
             Font.Style = [fsBold]
             ParentFont = False
             OnClick = cxButton7Click
-          end
-          object edLEIS: TEdit
-            Left = 362
-            Top = 109
-            Width = 186
-            Height = 26
-            BiDiMode = bdRightToLeft
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Helvetica Neue'
-            Font.Style = [fsBold]
-            MaxLength = 20
-            ParentBiDiMode = False
-            ParentFont = False
-            TabOrder = 9
           end
         end
       end
@@ -5674,7 +5616,7 @@ object Frm_Produto: TFrm_Produto
           ParentFont = False
           ReadOnly = True
           TabOrder = 2
-          OnKeyDown = edGRUPOKeyDown
+          OnKeyDown = edPROD_GRUPOKeyDown
         end
         object edRPC_PIS_NOME: TEdit
           Left = 169
@@ -5692,7 +5634,7 @@ object Frm_Produto: TFrm_Produto
           ParentFont = False
           ReadOnly = True
           TabOrder = 3
-          OnKeyDown = edGRUPOKeyDown
+          OnKeyDown = edPROD_GRUPOKeyDown
         end
         object edRPC_PIS: TEdit
           Left = 132
@@ -5746,7 +5688,7 @@ object Frm_Produto: TFrm_Produto
           ParentFont = False
           ReadOnly = True
           TabOrder = 6
-          OnKeyDown = edGRUPOKeyDown
+          OnKeyDown = edPROD_GRUPOKeyDown
         end
         object cxButton6: TcxButton
           Left = 527
@@ -5950,7 +5892,7 @@ object Frm_Produto: TFrm_Produto
           ParentFont = False
           ReadOnly = True
           TabOrder = 11
-          OnKeyDown = edGRUPOKeyDown
+          OnKeyDown = edPROD_GRUPOKeyDown
         end
         object cxButton13: TcxButton
           Left = 527
@@ -6092,7 +6034,7 @@ object Frm_Produto: TFrm_Produto
   object DS_Lista: TDataSource
     DataSet = qConsulta
     Left = 312
-    Top = 144
+    Top = 112
   end
   object DS_CSTIPI: TDataSource
     DataSet = SQL_CSTIPI
@@ -6393,9 +6335,10 @@ object Frm_Produto: TFrm_Produto
   object ds_ponto_impressao: TDataSource
     DataSet = sql_ponto_impressao
     Left = 248
-    Top = 160
+    Top = 128
   end
   object qConsulta: TFDQuery
+    Active = True
     Connection = Module.connection
     SQL.Strings = (
       'SELECT * FROM produto_prod')
@@ -6425,34 +6368,17 @@ object Frm_Produto: TFrm_Produto
       Origin = 'PROD_CDMARCA'
       Size = 10
     end
-    object qConsultaFAMILIA: TStringField
+    object qConsultaPROD_CDFAMILIA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'FAMILIA'
-      Origin = 'FAMILIA'
-      Size = 50
-    end
-    object qConsultaGRUPO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'GRUPO'
-      Origin = 'GRUPO'
-      Size = 50
+      FieldName = 'PROD_CDFAMILIA'
+      Origin = 'PROD_CDFAMILIA'
+      Size = 10
     end
     object qConsultaSUBGRUPO: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'SUBGRUPO'
-      Origin = 'SUBGRUPO'
-      Size = 50
-    end
-    object qConsultaDATA_CADASTRO: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'DATA_CADASTRO'
-      Origin = 'DATA_CADASTRO'
-    end
-    object qConsultaTIPO_ITEM: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'TIPO_ITEM'
-      Origin = 'TIPO_ITEM'
-      Size = 100
+      FieldName = 'PROD_CDSUBGRUPO'
+      Origin = 'PROD_CDSUBGRUPO'
+      Size = 10
     end
     object qConsultaESTOQUE_MINIMO: TStringField
       AutoGenerateValue = arDefault
@@ -6544,6 +6470,12 @@ object Frm_Produto: TFrm_Produto
       Origin = 'DESCONTO_L_VAREJO'
       Precision = 10
     end
+    object qConsultaPAGAR_COMISSAO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PAGAR_COMISSAO'
+      Origin = 'PAGAR_COMISSAO'
+      Precision = 10
+    end
     object qConsultaDESCONTO_L_ATACADO: TBCDField
       AutoGenerateValue = arDefault
       FieldName = 'DESCONTO_L_ATACADO'
@@ -6554,12 +6486,6 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'DESCONTO_L_DISTRIBUIDOR'
       Origin = 'DESCONTO_L_DISTRIBUIDOR'
-      Precision = 10
-    end
-    object qConsultaPAGAR_COMISSAO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'PAGAR_COMISSAO'
-      Origin = 'PAGAR_COMISSAO'
       Precision = 10
     end
     object qConsultaCOMISSAO_BALCAO: TBCDField
@@ -6715,22 +6641,6 @@ object Frm_Produto: TFrm_Produto
       Origin = 'VALOR_PAUTA_BC_ST'
       Precision = 10
     end
-    object qConsultaLEIS: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'LEIS'
-      Origin = 'LEIS'
-    end
-    object qConsultaGENERO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'GENERO'
-      Origin = 'GENERO'
-    end
-    object qConsultaFORNECEDOR_NOME: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'FORNECEDOR_NOME'
-      Origin = 'FORNECEDOR_NOME'
-      Size = 100
-    end
     object qConsultaCOD_COMB: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'COD_COMB'
@@ -6837,11 +6747,6 @@ object Frm_Produto: TFrm_Produto
       Origin = 'CONTROLADO'
       FixedChar = True
       Size = 3
-    end
-    object qConsultaCODIGO_FORNECEDOR: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_FORNECEDOR'
-      Origin = 'CODIGO_FORNECEDOR'
     end
     object qConsultaQUANT_MINI_VAREJO_P: TBCDField
       AutoGenerateValue = arDefault
@@ -7119,10 +7024,10 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'PROD_EAN'
       Origin = 'PROD_EAN'
     end
-    object qConsultaPROD_UNIDADE: TStringField
+    object qConsultaPROD_CDUNIDADE: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'PROD_UNIDADE'
-      Origin = 'PROD_UNIDADE'
+      FieldName = 'PROD_CDUNIDADE'
+      Origin = 'PROD_CDUNIDADE'
       Size = 3
     end
     object qConsultaPROD_DESCRICAO_IMPRESSA: TStringField
@@ -7130,6 +7035,23 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'PROD_DESCRICAO_IMPRESSA'
       Origin = 'PROD_DESCRICAO_IMPRESSA'
       Size = 100
+    end
+    object qConsultaPROD_CDGRUPO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_CDGRUPO'
+      Origin = 'PROD_CDGRUPO'
+      Size = 10
+    end
+    object qConsultaPROD_DT: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_DT'
+      Origin = 'PROD_DT'
+    end
+    object qConsultaPROD_CDTIPOITEM: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_CDTIPOITEM'
+      Origin = 'PROD_CDTIPOITEM'
+      Size = 10
     end
   end
   object tConsulta: TTimer

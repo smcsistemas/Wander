@@ -30,6 +30,26 @@ ordem decrescente de data....
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+430|16/06/20|19:27|cadastro_produto            |Substituido GRUPO por PROD_GRUPO
+429|16/06/20|17:39|vw_pdv.dfm                  |Trocado Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA'
+428|16/06/20|17:39|cadastro_produto.dfm        |Trocado Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA'
+427|16/06/20|17:39|cadastro_produto2.dfm       |Trocado Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA'
+426|16/06/20|17:38|relatorios.dfm              |Trocado Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA'
+425|16/06/20|17:38|Consulta_Produto.dfm        |Trocado Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA'
+424|16/06/20|17:38|cad_servico.dfm             |Trocado Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA'
+423|16/06/20|17:38|cadastro_sub_grupo.dfm      |Trocado Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA'
+422|16/06/20|17:38|cadastro_produto.dfm        |Trocado Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA'
+421|16/06/20|17:38|cadastro_grupo.dfm          |Trocado Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA'
+420|16/06/20|17:34|vw_pdv.dfm                  |Trocado FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA'
+419|16/06/20|17:34|cadastro_produto.dfm        |Trocado FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA'
+418|16/06/20|17:34|cadastro_produto2.dfm       |Trocado FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA'
+417|16/06/20|17:34|cad_ramo_atv.dfm            |Trocado FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA'
+416|16/06/20|17:34|relatorios.dfm              |Trocado FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA'
+415|16/06/20|17:34|Consulta_Produto.dfm        |Trocado FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA'
+414|16/06/20|17:34|cad_servico.dfm             |Trocado FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA'
+413|16/06/20|17:33|cadastro_sub_grupo.dfm      |Trocado FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA'
+412|16/06/20|17:33|cadastro_produto.dfm        |Trocado FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA'
+411|16/06/20|17:33|cadastro_grupo.dfm          |Trocado FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA'
 410|16/06/20|16:23|vw_pdv.dfm                  |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
 409|16/06/20|16:22|cadastro_produto.dfm        |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'
 408|16/06/20|16:22|cadastro_produto2.dfm       |Trocado FieldName = 'MARCA' por FieldName = 'PROD_MARCA'

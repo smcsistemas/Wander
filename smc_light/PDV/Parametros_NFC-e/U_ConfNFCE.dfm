@@ -1172,10 +1172,10 @@ object Frm_ConfNFCE: TFrm_ConfNFCE
       ReadOnly = True
       Size = 3
     end
-    object SQL_VENDA_ITEMprod_UNIDADE: TStringField
+    object SQL_VENDA_ITEMPROD_CDUNIDADE: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'prod_UNIDADE'
-      Origin = 'PROD_UNIDADE'
+      FieldName = 'PROD_CDUNIDADE'
+      Origin = 'PROD_CDUNIDADE'
       ProviderFlags = []
       ReadOnly = True
       Size = 3
@@ -1479,3 +1479,4 @@ object Frm_ConfNFCE: TFrm_ConfNFCE
     Top = 64
   end
 end
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06

@@ -6,7 +6,7 @@ unit relatorios;
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
 340|15/06/20|18:23|relatorios                  |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
-339|15/06/20|18:23|relatorios                  |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(PROD_UNIDADE)
+339|15/06/20|18:23|relatorios                  |Passa a tratar PRODUTO_PROD(PROD_CDUNIDADE)ao invés de PRODUTO(PROD_CDUNIDADE)
 329|15/06/20|13:35|relatorios                  |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 ========================================================================================================================================
 
@@ -505,7 +505,7 @@ type
     sql_pro_promPROD_DESCRICAO: TStringField;
     sql_pro_promPROD_REFERENCIASFABRICA: TStringField;
     sql_pro_promMARCA: TStringField;
-    sql_pro_promPROD_UNIDADE: TStringField;
+    sql_pro_promPROD_CDUNIDADE: TStringField;
     sql_pro_promPRECO_FINAL_VAREJO: TBCDField;
     sql_pro_promPROMO_VAREJO: TBCDField;
     sql_pro_promPROMOCAO_INICIO: TDateField;
@@ -519,7 +519,7 @@ type
     sql_pro_pesavFAMILIA: TStringField;
     sql_pro_pesavGRUPO: TStringField;
     sql_pro_pesavSUBGRUPO: TStringField;
-    sql_pro_pesavPROD_UNIDADE: TStringField;
+    sql_pro_pesavPROD_CDUNIDADE: TStringField;
     sql_pro_pesavPRECO_FINAL_ATACADO: TBCDField;
     sql_pro_pesavPRECO_FINAL_DISTRIBUIDOR: TBCDField;
     sql_pro_pesavPRECO_FINAL_VAREJO: TBCDField;
@@ -541,7 +541,7 @@ type
     sql_estq_compSALDO: TBCDField;
     sql_estq_compPROD_REFERENCIASFABRICA: TStringField;
     sql_estq_compMARGEM_L_VAREJO: TBCDField;
-    sql_estq_compPROD_UNIDADE: TStringField;
+    sql_estq_compPROD_CDUNIDADE: TStringField;
     sql_mov_caixa_periodo: TFDQuery;
     ds_mov_caixa_periodo: TfrxDBDataset;
     sql_mov_caixa_periodoabertura_inicio: TStringField;
@@ -768,7 +768,7 @@ type
     sql_produtosPROD_RASTREAVEL: TIntegerField;
     sql_produtosPROD_TRATALOTE: TIntegerField;
     sql_produtosPROD_TRATANUMEROSERIE: TIntegerField;
-    sql_produtosPROD_UNIDADE: TStringField;
+    sql_produtosPROD_CDUNIDADE: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
@@ -1883,3 +1883,4 @@ Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:03
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:07
 Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:39
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:09
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07

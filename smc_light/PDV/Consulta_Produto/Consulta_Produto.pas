@@ -186,7 +186,7 @@ type
     SQL_ProdutoConsultaPROD_RASTREAVEL: TIntegerField;
     SQL_ProdutoConsultaPROD_TRATALOTE: TIntegerField;
     SQL_ProdutoConsultaPROD_TRATANUMEROSERIE: TIntegerField;
-    SQL_ProdutoConsultaPROD_UNIDADE: TStringField;
+    SQL_ProdutoConsultaPROD_CDUNIDADE: TStringField;
 
     procedure consultar_ref;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -240,7 +240,7 @@ var
   qry, qry_cod: TFDQuery;
 begin
   qry_cod := Tdb.simplequery
-    ('select PROD_CODIGO, PROD_EAN, PROD_DESCRICAO, PROD_UNIDADE, SALDO, PROD_REFERENCIASFABRICA, MARCA, PRECO_FINAL_VAREJO from produto_PROD where PROD_codigo = "' +
+    ('select PROD_CODIGO, PROD_EAN, PROD_DESCRICAO, PROD_CDUNIDADE, SALDO, PROD_REFERENCIASFABRICA, MARCA, PRECO_FINAL_VAREJO from produto_PROD where PROD_codigo = "' +
     Edt_codBarras.Text + '" OR PROD_REFERENCIASFABRICA = "' + Edt_codBarras.Text + '"');
   if qry_cod <> nil then
   begin
@@ -316,3 +316,4 @@ end.
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:07
 Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:38
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:07
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06

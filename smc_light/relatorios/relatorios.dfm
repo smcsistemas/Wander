@@ -14974,7 +14974,7 @@ object frm_relatorio: Tfrm_relatorio
           Left = 305.968770000000000000
           Width = 30.236240000000000000
           Height = 15.118120000000000000
-          DataField = 'PROD_UNIDADE'
+          DataField = 'PROD_CDUNIDADE'
           DataSet = ds_produtos
           DataSetName = 'ds_produtos'
           Font.Charset = DEFAULT_CHARSET
@@ -14987,7 +14987,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."PROD_UNIDADE"]')
+            '[ds_produtos."PROD_CDUNIDADE"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -15574,7 +15574,7 @@ object frm_relatorio: Tfrm_relatorio
     FieldAliases.Strings = (
       'PROD_CODIGO=PROD_CODIGO'
       'PROD_DESCRICAO=PROD_DESCRICAO'
-      'PROD_UNIDADE=PROD_UNIDADE'
+      'PROD_CDUNIDADE=PROD_CDUNIDADE'
       'saldo=saldo'
       'marca=marca'
       'PROD_REFERENCIASFABRICA=PROD_REFERENCIASFABRICA'
@@ -15641,8 +15641,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_produtosFAMILIA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'FAMILIA'
-      Origin = 'FAMILIA'
+      FieldName = 'PROD_CDFAMILIA'
+      Origin = 'PROD_CDFAMILIA'
       Size = 50
     end
     object sql_produtosGRUPO: TStringField
@@ -16329,10 +16329,10 @@ object frm_relatorio: Tfrm_relatorio
       FieldName = 'PROD_TRATANUMEROSERIE'
       Origin = 'PROD_TRATANUMEROSERIE'
     end
-    object sql_produtosPROD_UNIDADE: TStringField
+    object sql_produtosPROD_CDUNIDADE: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'PROD_UNIDADE'
-      Origin = 'PROD_UNIDADE'
+      FieldName = 'PROD_CDUNIDADE'
+      Origin = 'PROD_CDUNIDADE'
       Size = 3
     end
   end
@@ -16562,7 +16562,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."PROD_UNIDADE"]')
+            '[ds_produtos."PROD_CDUNIDADE"]')
           ParentFont = False
         end
         object ds_produtosCODIGO_BARRAS: TfrxMemoView
@@ -33851,7 +33851,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."PROD_UNIDADE"]')
+            '[ds_produtos."PROD_CDUNIDADE"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -36036,7 +36036,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."PROD_UNIDADE"]')
+            '[ds_produtos."PROD_CDUNIDADE"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -37293,7 +37293,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_pro_prom."PROD_UNIDADE"]')
+            '[ds_pro_prom."PROD_CDUNIDADE"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -37969,7 +37969,7 @@ object frm_relatorio: Tfrm_relatorio
       'PROD_DESCRICAO=PROD_DESCRICAO'
       'PROD_REFERENCIASFABRICA=PROD_REFERENCIASFABRICA'
       'MARCA=MARCA'
-      'PROD_UNIDADE=PROD_UNIDADE'
+      'PROD_CDUNIDADE=PROD_CDUNIDADE'
       'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
       'PROMO_VAREJO=PROMO_VAREJO'
       'PROMOCAO_INICIO=PROMOCAO_INICIO'
@@ -38021,8 +38021,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_pro_promUNIDADE_MEDIDA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'PROD_UNIDADE'
-      Origin = 'PROD_UNIDADE'
+      FieldName = 'PROD_CDUNIDADE'
+      Origin = 'PROD_CDUNIDADE'
       Size = 50
     end
     object sql_pro_promPRECO_FINAL_VAREJO: TBCDField
@@ -38069,7 +38069,7 @@ object frm_relatorio: Tfrm_relatorio
       'FAMILIA=FAMILIA'
       'GRUPO=GRUPO'
       'SUBGRUPO=SUBGRUPO'
-      'PROD_UNIDADE=PROD_UNIDADE'
+      'PROD_CDUNIDADE=PROD_CDUNIDADE'
       'PRECO_FINAL_ATACADO=PRECO_FINAL_ATACADO'
       'PRECO_FINAL_DISTRIBUIDOR=PRECO_FINAL_DISTRIBUIDOR'
       'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
@@ -38085,7 +38085,7 @@ object frm_relatorio: Tfrm_relatorio
   object sql_pro_pesav: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'select * from PRODUTO_PROD where PROD_UNIDADE = '#39'KG'#39)
+      'select * from PRODUTO_PROD where PROD_CDUNIDADE = '#39'KG'#39)
     Left = 592
     Top = 312
     object sql_pro_pesavCODIGO: TFDAutoIncField
@@ -38102,8 +38102,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_pro_pesavFAMILIA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'FAMILIA'
-      Origin = 'FAMILIA'
+      FieldName = 'PROD_CDFAMILIA'
+      Origin = 'PROD_CDFAMILIA'
       Size = 50
     end
     object sql_pro_pesavGRUPO: TStringField
@@ -38120,8 +38120,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_pro_pesavUNIDADE_MEDIDA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'PROD_UNIDADE'
-      Origin = 'PROD_UNIDADE'
+      FieldName = 'PROD_CDUNIDADE'
+      Origin = 'PROD_CDUNIDADE'
       Size = 50
     end
     object sql_pro_pesavPRECO_FINAL_ATACADO: TBCDField
@@ -38311,7 +38311,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_pro_pesav."PROD_UNIDADE"]')
+            '[ds_pro_pesav."PROD_CDUNIDADE"]')
           ParentFont = False
         end
         object ds_produtosCODIGO_BARRAS: TfrxMemoView
@@ -39007,7 +39007,7 @@ object frm_relatorio: Tfrm_relatorio
     Connection = Module.connection
     SQL.Strings = (
       
-        'SELECT p.PROD_DESCRICAO, p.PROD_CODIGO, p.PROD_UNIDADE, p.SALDO ' +
+        'SELECT p.PROD_DESCRICAO, p.PROD_CODIGO, p.PROD_CDUNIDADE, p.SALDO ' +
         'as qtd_atual, p.PRECO_FINAL_VAREJO,'
       '   (SELECT SUM(vd.QUANTIDADE) FROM venda_item vd '
       '   JOIN venda q ON q.CODIGO_VENDA = vd.CODIGO_VENDA '
@@ -39044,7 +39044,7 @@ object frm_relatorio: Tfrm_relatorio
     FieldAliases.Strings = (
       'PROD_DESCRICAO=DESCRICAO_PRODUTO'
       'PROD_CODIGO=PROD_CODIGO'
-      'PROD_UNIDADE=PROD_UNIDADE'
+      'PROD_CDUNIDADE=PROD_CDUNIDADE'
       'qtd_atual=qtd_atual'
       'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
       'qtd_venda=qtd_venda'
@@ -39477,7 +39477,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_v_venda_itens."PROD_UNIDADE"]')
+            '[ds_v_venda_itens."PROD_CDUNIDADE"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -40397,7 +40397,7 @@ object frm_relatorio: Tfrm_relatorio
           Left = 336.378170000000000000
           Width = 26.456710000000000000
           Height = 11.338590000000000000
-          DataField = 'PROD_UNIDADE'
+          DataField = 'PROD_CDUNIDADE'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -40408,7 +40408,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_estq_comp."PROD_UNIDADE"]')
+            '[ds_estq_comp."PROD_CDUNIDADE"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -40810,7 +40810,7 @@ object frm_relatorio: Tfrm_relatorio
       'PROD_EAN=PROD_EAN'
       'PROD_REFERENCIASFABRICA=PROD_REFERENCIASFABRICA'
       'MARGEM_L_VAREJO=MARGEM_L_VAREJO'
-      'PROD_UNIDADE=PROD_UNIDADE')
+      'PROD_CDUNIDADE=PROD_CDUNIDADE')
     DataSet = sql_estq_comp
     BCDToCurrency = False
     Left = 680
@@ -40872,8 +40872,8 @@ object frm_relatorio: Tfrm_relatorio
     end
     object sql_estq_compUNIDADE_MEDIDA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'PROD_UNIDADE'
-      Origin = 'PROD_UNIDADE'
+      FieldName = 'PROD_CDUNIDADE'
+      Origin = 'PROD_CDUNIDADE'
       Size = 50
     end
   end
@@ -46497,3 +46497,6 @@ end
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:09
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 15:06
 Trocou FieldName = 'MARCA' por FieldName = 'PROD_MARCA' : automaticamente em 16/06/2020 16:22
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07
+Trocou FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA' : automaticamente em 16/06/2020 17:34
+Trocou Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA' : automaticamente em 16/06/2020 17:38

@@ -1,13 +1,14 @@
 ﻿//Verificado automaticamente em 16/06/2020 09:29
 { v 21.10.16 17:18 }
 unit cadastro_produto;
-{ Feito por Wander
+{
 
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+430|16/06/20|19:27|cadastro_produto            |Substituido GRUPO por PROD_GRUPO
 347|15/06/20|21:39|cadastro_produto            |Tratando tabela UNIDADE_UNI ao invés de PRODUTO_UNIDADE
-338|15/06/20|18:23|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(PROD_UNIDADE)
+338|15/06/20|18:23|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_CDUNIDADE)ao invés de PRODUTO(PROD_CDUNIDADE)
 327|15/06/20|13:35|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 313|15/06/20|10:14|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 299|15/06/20|03:16|cadastro_produto            |Utilizando recurso (PINTAR) para destacar objetos focados com amarelo e readonly com cinza
@@ -285,9 +286,9 @@ type
     tbViewPROD_CODIGO: TcxGridDBColumn;
     tbViewPROD_DESCRICAO: TcxGridDBColumn;
     tbViewPROD_REFERENCIASFABRICA: TcxGridDBColumn;
-    tbViewMARCA: TcxGridDBColumn;
-    tbViewGRUPO: TcxGridDBColumn;
-    tbViewPROD_UNIDADE: TcxGridDBColumn;
+    tbViewPROD_MARCA: TcxGridDBColumn;
+    tbViewPROD_CDGRUPO: TcxGridDBColumn;
+    tbViewPROD_CDUNIDADE: TcxGridDBColumn;
     tbViewTIPO_ITEM: TcxGridDBColumn;
     tbViewSALDO: TcxGridDBColumn;
     tbViewALIQ_ICMS: TcxGridDBColumn;
@@ -344,11 +345,8 @@ type
     Label2: TLabel;
     Label52: TLabel;
     Label53: TLabel;
-    Label60: TLabel;
-    Label57: TLabel;
     edALIQ_ICMS: TEdit;
     edREDUCAO_ICMS: TEdit;
-    edGENERO: TEdit;
     edICMS_CST: TEdit;
     edICMS_CST_NOME: TEdit;
     cxButton5: TcxButton;
@@ -392,10 +390,10 @@ type
     btn_marca: TcxButton;
     edPROD_DESCRICAO: TEdit;
     edPROD_REFERENCIASFABRICA: TEdit;
-    edFAMILIA: TEdit;
-    edSUBGRUPO: TEdit;
-    edPROD_UNIDADE: TEdit;
-    edGRUPO: TEdit;
+    edPROD_CDFAMILIA: TEdit;
+    edPROD_CDSUBGRUPO: TEdit;
+    edPROD_CDUNIDADE: TEdit;
+    edPROD_GRUPO: TEdit;
     edPROD_CDMARCA: TEdit;
     mmPROD_DETALHES: TMemo;
     edCODIGO_ALFANUMERICO: TEdit;
@@ -414,12 +412,11 @@ type
     edMARCA_NOME: TEdit;
     edFAMILIA_NOME: TEdit;
     cbSTATUS_CADASTRAL: TcxCheckBox;
-    edTIPO_ITEM: TEdit;
+    edPROD_CDTIPOITEM: TEdit;
     edTIPO_ITEM_NOME: TEdit;
     btn_Tipo: TcxButton;
     Label61: TLabel;
     edNFe_pMVAST: TEdit;
-    edLEIS: TEdit;
     Label21: TLabel;
     edNFe_pMVA: TEdit;
     rgNFe_indEscala: TRadioGroup;
@@ -456,11 +453,8 @@ type
     qConsultaPROD_DETALHES: TStringField;
     qConsultaPROD_REFERENCIASFABRICA: TStringField;
     qConsultaPROD_CDMARCA: TStringField;
-    qConsultaFAMILIA: TStringField;
-    qConsultaGRUPO: TStringField;
+    qConsultaPROD_CDFAMILIA: TStringField;
     qConsultaSUBGRUPO: TStringField;
-    qConsultaDATA_CADASTRO: TDateField;
-    qConsultaTIPO_ITEM: TStringField;
     qConsultaESTOQUE_MINIMO: TStringField;
     qConsultaPRECO_CUSTO: TBCDField;
     qConsultaFRETE: TBCDField;
@@ -505,9 +499,6 @@ type
     qConsultaREDUCAO_ICMS_ST: TBCDField;
     qConsultaLUCRO_SUBST_TRIBUTARIA: TBCDField;
     qConsultaVALOR_PAUTA_BC_ST: TBCDField;
-    qConsultaLEIS: TStringField;
-    qConsultaGENERO: TStringField;
-    qConsultaFORNECEDOR_NOME: TStringField;
     qConsultaCOD_COMB: TStringField;
     qConsultaALIQ_IPI: TStringField;
     qConsultaENQUADRAMENTO_IPI: TIntegerField;
@@ -526,7 +517,6 @@ type
     qConsultaUTILIZA_ETIQUETA_BALANCA: TStringField;
     qConsultaUSA_LOTE: TStringField;
     qConsultaCONTROLADO: TStringField;
-    qConsultaCODIGO_FORNECEDOR: TIntegerField;
     qConsultaQUANT_MINI_VAREJO_P: TBCDField;
     qConsultaQUANT_MINI_ATACADO_P: TBCDField;
     qConsultaQUANT_MINI_DISTRIBUIDOR_P: TBCDField;
@@ -576,8 +566,11 @@ type
     qConsultaPROD_TRATANUMEROSERIE: TIntegerField;
     qConsultaPROD_CODIGO: TStringField;
     qConsultaPROD_EAN: TStringField;
-    qConsultaPROD_UNIDADE: TStringField;
+    qConsultaPROD_CDUNIDADE: TStringField;
     qConsultaPROD_DESCRICAO_IMPRESSA: TStringField;
+    qConsultaPROD_CDGRUPO: TStringField;
+    qConsultaPROD_DT: TDateTimeField;
+    qConsultaPROD_CDTIPOITEM: TStringField;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -637,9 +630,9 @@ type
     procedure cxDBTextEdit60KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit61KeyPress(Sender: TObject; var Key: Char);
     procedure edPROD_CDMARCAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edFAMILIAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edGRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edSUBGRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edPROD_CDFAMILIAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edPROD_GRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edPROD_CDSUBGRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure EXTERNA_COMISSAO_ATACADOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edCODIGO_ALFANUMERICOKeyPress(Sender: TObject; var Key: Char);
     procedure ESTOQUE_MINIMOKeyPress(Sender: TObject; var Key: Char);
@@ -721,9 +714,9 @@ type
     procedure bControleGravarClick(Sender: TObject);
     procedure edCODIGO_ALFANUMERICOExit(Sender: TObject);
     procedure edPROD_CDMARCAExit(Sender: TObject);
-    procedure edFAMILIAExit(Sender: TObject);
-    procedure edGRUPOExit(Sender: TObject);
-    procedure edSUBGRUPOExit(Sender: TObject);
+    procedure edPROD_CDFAMILIAExit(Sender: TObject);
+    procedure edPROD_GRUPOExit(Sender: TObject);
+    procedure edPROD_CDSUBGRUPOExit(Sender: TObject);
     procedure tConsultaTimer(Sender: TObject);
     procedure edArgumentoDePesquisaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -731,13 +724,13 @@ type
     procedure edICMS_CSTKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edICMS_CSTExit(Sender: TObject);
-    procedure edPROD_UNIDADEKeyDown(Sender: TObject; var Key: Word;
+    procedure edPROD_CDUNIDADEKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure edPROD_UNIDADEExit(Sender: TObject);
+    procedure edPROD_CDUNIDADEExit(Sender: TObject);
     procedure btn_TipoClick(Sender: TObject);
-    procedure edTIPO_ITEMKeyDown(Sender: TObject; var Key: Word;
+    procedure edPROD_CDTIPOITEMKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure edTIPO_ITEMExit(Sender: TObject);
+    procedure edPROD_CDTIPOITEMExit(Sender: TObject);
     procedure edPROD_REFERENCIASFABRICAExit(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edCODIGO_ORIGEM_MERCADORIAKeyDown(Sender: TObject; var Key: Word;
@@ -1122,7 +1115,7 @@ begin
   sql_ponto_impressao.Active := true;
 
   //edCODIGO.Text := inttostr(SQL_PRODUTOCODIGO.value);
-  //u_funcoes.CamposObrigatorios_CorPadrao([PROD_DESCRICAO, PROD_UNIDADE, {PRECO_FINAL_VAREJO,} NCM], [], [TcxComboBox(dbcsticms)]);
+  //u_funcoes.CamposObrigatorios_CorPadrao([PROD_DESCRICAO, PROD_CDUNIDADE, {PRECO_FINAL_VAREJO,} NCM], [], [TcxComboBox(dbcsticms)]);
 //  u_funcoes.CamposObrigatorios_CorPadrao([{edt_qtde_min, edt_preco, TEdit(cb_tipo}], []);
   carregar_faixa;
 
@@ -1490,13 +1483,13 @@ begin
   Frm_unidade.ShowModal;
 
   //Selecionou uma marca ou não
-  edPROD_UNIDADE.Text := Frm_unidade_CODIGO;
+  edPROD_CDUNIDADE.Text := Frm_unidade_CODIGO;
 
   //Destroi tela de consulta de marcas
   Frm_unidade.Free;
 
   //Exibe a sigla (o símbolo) da unidade de medida, ou limpa o campo
-  edUNIDADE_MEDIDA_NOME.Text := fUNI_DESCRICAO(edPROD_UNIDADE.Text);
+  edUNIDADE_MEDIDA_NOME.Text := fUNI_DESCRICAO(edPROD_CDUNIDADE.Text);
 
 end;
 
@@ -1699,19 +1692,19 @@ end;
 
 procedure TFrm_Produto.ConsultarProduto_tipo_item;
 begin
-  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgTIPO_ITEM, edTIPO_ITEM);
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgTIPO_ITEM, edPROD_CDTIPOITEM);
   Frm_Consulta_Generica.ShowModal;
   Frm_Consulta_Generica.Free;
-  edTIPO_ITEM_NOME.Text := fProduto_tipo_item_NOME(edTIPO_ITEM.Text);
+  edTIPO_ITEM_NOME.Text := fProduto_tipo_item_NOME(edPROD_CDTIPOITEM.Text);
 end;
 
 procedure TFrm_Produto.ConsultarSubGrupos;
 begin
   Frm_SubGrupo := TFrm_SubGrupo.CREATE(Application);
   Frm_SubGrupo.ShowModal;
-  edSUBGRUPO.Text := Frm_SubGrupo_CODIGO;
+  edPROD_CDSUBGRUPO.Text := Frm_SubGrupo_CODIGO;
   Frm_SubGrupo.Free;
-  edSUBGRUPO_NOME.Text := fProdutoSUBGRUPO_NOME(edSUBGRUPO.Text);
+  edSUBGRUPO_NOME.Text := fProdutoSUBGRUPO_NOME(edPROD_CDSUBGRUPO.Text);
 end;
 
 procedure TFrm_Produto.ConsultarTPMOV;
@@ -1793,18 +1786,18 @@ procedure TFrm_Produto.ConsultarFamilias;
 begin
   Frm_Familia := TFrm_Familia.CREATE(Application);
   Frm_Familia.ShowModal;
-  edFAMILIA.Text := Frm_Familia_CODIGO;
+  edPROD_CDFAMILIA.Text := Frm_Familia_CODIGO;
   Frm_Familia.Free;
-  edFAMILIA_NOME.Text := fProdutoFAMILIA_NOME(edFAMILIA.Text);
+  edFAMILIA_NOME.Text := fProdutoFAMILIA_NOME(edPROD_CDFAMILIA.Text);
 end;
 
 procedure TFrm_Produto.ConsultarGrupos;
 begin
   Frm_Grupo := TFrm_Grupo.CREATE(Application);
   Frm_Grupo.ShowModal;
-  edGRUPO.Text := Frm_Grupo_CODIGO;
+  edPROD_GRUPO.Text := Frm_Grupo_CODIGO;
   Frm_Grupo.Free;
-  edGRUPO_NOME.Text := fProdutoGRUPO_NOME(edGRUPO.Text);
+  edGRUPO_NOME.Text := fProdutoGRUPO_NOME(edPROD_GRUPO.Text);
 end;
 
 procedure TFrm_Produto.btn_grupoClick(Sender: TObject);
@@ -2744,23 +2737,23 @@ begin
   Key := ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.edPROD_UNIDADEExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_CDUNIDADEExit(Sender: TObject);
 begin
   edUNIDADE_MEDIDA_NOME.Text := '';
-  if edPROD_UNIDADE.Text = '' then
+  if edPROD_CDUNIDADE.Text = '' then
      exit;
 
-  //Exibe o nome da PROD_UNIDADE, ou limpa o campo
-  edUNIDADE_MEDIDA_NOME.Text := fUNI_DESCRICAO(edPROD_UNIDADE.Text);
+  //Exibe o nome da PROD_CDUNIDADE, ou limpa o campo
+  edUNIDADE_MEDIDA_NOME.Text := fUNI_DESCRICAO(edPROD_CDUNIDADE.Text);
   if edUNIDADE_MEDIDA_NOME.Text = '' then
   begin
     wnAlerta('Cadastrar Produto','Unidade de Medida não cadastrada');
-    edPROD_UNIDADE.SetFocus;
+    edPROD_CDUNIDADE.SetFocus;
     exit;
   end;
 end;
 
-procedure TFrm_Produto.edPROD_UNIDADEKeyDown(Sender: TObject; var Key: Word;
+procedure TFrm_Produto.edPROD_CDUNIDADEKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Key = vk_F1) then
@@ -2815,23 +2808,23 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.edFAMILIAExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_CDFAMILIAExit(Sender: TObject);
 begin
   edFAMILIA_NOME.Text := '';
-  if edFAMILIA.Text = '' then
+  if edPROD_CDFAMILIA.Text = '' then
      exit;
 
   //Exibe o nome da FAMILIA, ou limpa o campo
-  edFAMILIA_NOME.Text := fProdutoFAMILIA_NOME(edFAMILIA.Text);
+  edFAMILIA_NOME.Text := fProdutoFAMILIA_NOME(edPROD_CDFAMILIA.Text);
   if edFAMILIA_NOME.Text = '' then
   begin
     wnAlerta('Cadastrar Produto','FAMILIA não cadastrada');
-    edFAMILIA.SetFocus;
+    edPROD_CDFAMILIA.SetFocus;
     exit;
   end;
 end;
 
-procedure TFrm_Produto.edFAMILIAKeyDown(Sender: TObject;
+procedure TFrm_Produto.edPROD_CDFAMILIAKeyDown(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
@@ -2909,23 +2902,23 @@ begin
   //CarregarDadosInternos;
 end;
 
-procedure TFrm_Produto.edGRUPOExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_GRUPOExit(Sender: TObject);
 begin
   edGRUPO_NOME.Text := '';
-  if edGRUPO.Text = '' then
+  if edPROD_GRUPO.Text = '' then
      exit;
 
   //Exibe o nome dO GRUPO, ou limpa o campo
-  edGRUPO_NOME.Text := fProdutoGRUPO_NOME(edGRUPO.Text);
+  edGRUPO_NOME.Text := fProdutoGRUPO_NOME(edPROD_GRUPO.Text);
   if edGRUPO_NOME.Text = '' then
   begin
     wnAlerta('Cadastrar Produto','GRUPO não cadastrado');
-    edGRUPO.SetFocus;
+    edPROD_GRUPO.SetFocus;
     exit;
   end;
 end;
 
-procedure TFrm_Produto.edGRUPOKeyDown(Sender: TObject;
+procedure TFrm_Produto.edPROD_GRUPOKeyDown(Sender: TObject;
 var Key: Word; Shift: TShiftState);
 begin
   if (Key = vk_F1) then
@@ -3044,13 +3037,13 @@ begin
    qAUX.sql.add('       PROD_DETALHES,            ');
    qAUX.sql.add('       PROD_EAN,                 ');
    qAUX.sql.add('       PROD_REFERENCIASFABRICA,  ');
-   qAUX.sql.add('       PROD_UNIDADE,             ');
+   qAUX.sql.add('       PROD_CDUNIDADE,           ');
    qAUX.sql.add('       PROD_CDMARCA,             ');
-   qAUX.sql.add('       FAMILIA,                  ');
-   qAUX.sql.add('       GRUPO,                    ');
-   qAUX.sql.add('       SUBGRUPO,                 ');
-   qAUX.sql.add('       GENERO,                   ');
-   qAUX.sql.add('       LEIS,                     ');
+   qAUX.sql.add('       PROD_CDFAMILIA,           ');
+   qAUX.sql.add('       PROD_CDGRUPO,             ');
+   qAUX.sql.add('       PROD_CDSUBGRUPO,          ');
+   //qAUX.sql.add('       GENERO,                   ');
+   //qAUX.sql.add('       LEIS,                     ');
    qAUX.sql.add('       NCM,                      ');
    qAUX.sql.add('       CEST,                     ');
    qAUX.sql.add('       PRECO_FINAL_ATACADO,      ');
@@ -3058,7 +3051,7 @@ begin
    qAUX.sql.add('       PRECO_FINAL_DISTRIBUIDOR, ');
    qAUX.sql.add('       STATUS_CADASTRAL,         ');
    qAUX.sql.add('       ICMS_CST,                 ');
-   qAUX.sql.add('       TIPO_ITEM,                ');
+   qAUX.sql.add('       PROD_CDTIPOITEM,          ');
    qAUX.sql.add('       CODIGO_ORIGEM_MERCADORIA, ');
    qAUX.sql.add('       ALIQ_ICMS,                ');
    qAUX.sql.add('       REDUCAO_ICMS,             ');
@@ -3083,13 +3076,13 @@ begin
    qAUX.sql.add('      :PROD_DETALHES,            ');
    qAUX.sql.add('      :PROD_EAN,                 ');
    qAUX.sql.add('      :PROD_REFERENCIASFABRICA,  ');
-   qAUX.sql.add('      :PROD_UNIDADE,             ');
+   qAUX.sql.add('      :PROD_CDUNIDADE,           ');
    qAUX.sql.add('      :PROD_CDMARCA,             ');
-   qAUX.sql.add('      :FAMILIA,                  ');
-   qAUX.sql.add('      :GRUPO,                    ');
-   qAUX.sql.add('      :SUBGRUPO,                 ');
-   qAUX.sql.add('      :GENERO,                   ');
-   qAUX.sql.add('      :LEIS,                     ');
+   qAUX.sql.add('      :PROD_CDFAMILIA,           ');
+   qAUX.sql.add('      :PROD_CDGRUPO,             ');
+   qAUX.sql.add('      :PROD_CDSUBGRUPO,          ');
+   //qAUX.sql.add('      :GENERO,                   ');
+   //qAUX.sql.add('      :LEIS,                     ');
    qAUX.sql.add('      :NCM,                      ');
    qAUX.sql.add('      :CEST,                     ');
    qAUX.sql.add('      :PRECO_FINAL_ATACADO,      ');
@@ -3097,7 +3090,7 @@ begin
    qAUX.sql.add('      :PRECO_FINAL_DISTRIBUIDOR, ');
    qAUX.sql.add('      :STATUS_CADASTRAL,         ');
    qAUX.sql.add('      :ICMS_CST,                 ');
-   qAUX.sql.add('      :TIPO_ITEM,                ');
+   qAUX.sql.add('      :PROD_CDTIPOITEM,          ');
    qAUX.sql.add('      :CODIGO_ORIGEM_MERCADORIA, ');
    qAUX.sql.add('      :ALIQ_ICMS,                ');
    qAUX.sql.add('      :REDUCAO_ICMS,             ');
@@ -3134,13 +3127,13 @@ begin
    qAUX.ParamByName('PROD_DETALHES'           ).AsString  := mmPROD_DETALHES.Text;
    qAUX.ParamByName('PROD_EAN'                ).AsString  := edPROD_EAN.Text;
    qAUX.ParamByName('PROD_REFERENCIASFABRICA' ).AsString  := edPROD_REFERENCIASFABRICA.Text;
-   qAUX.ParamByName('PROD_UNIDADE'            ).AsString  := edPROD_UNIDADE.Text;
+   qAUX.ParamByName('PROD_CDUNIDADE'          ).AsString  := edPROD_CDUNIDADE.Text;
    qAUX.ParamByName('PROD_CDMARCA'            ).AsString  := edPROD_CDMARCA.Text;
-   qAUX.ParamByName('FAMILIA'                 ).AsString  := edFAMILIA.Text;
-   qAUX.ParamByName('GRUPO'                   ).AsString  := edGRUPO.Text;
-   qAUX.ParamByName('SUBGRUPO'                ).AsString  := edSUBGRUPO.Text;
-   qAUX.ParamByName('GENERO'                  ).AsString  := edGENERO.Text;
-   qAUX.ParamByName('LEIS'                    ).AsString  := edLEIS.Text;
+   qAUX.ParamByName('PROD_CDFAMILIA'          ).AsString  := edPROD_CDFAMILIA.Text;
+   qAUX.ParamByName('PROD_CDGRUPO'            ).AsString  := edPROD_GRUPO.Text;
+   qAUX.ParamByName('PROD_CDSUBGRUPO'         ).AsString  := edPROD_CDSUBGRUPO.Text;
+   //qAUX.ParamByName('GENERO'                  ).AsString  := edGENERO.Text;
+   //qAUX.ParamByName('LEIS'                    ).AsString  := edLEIS.Text;
    qAUX.ParamByName('NCM'                     ).AsString  := edNCM.Text;
    qAUX.ParamByName('CEST'                    ).AsString  := edCEST.Text;
    qAUX.ParamByName('PRECO_FINAL_ATACADO'     ).AsFloat   := ValorValido(edPRECO_FINAL_ATACADO.Text);
@@ -3148,7 +3141,7 @@ begin
    qAUX.ParamByName('PRECO_FINAL_DISTRIBUIDOR').AsFloat   := ValorValido(edPRECO_FINAL_DISTRIBUIDOR.Text);
    qAUX.ParamByName('STATUS_CADASTRAL'        ).AsString  := Ativo_ou_Inativo(cbSTATUS_CADASTRAL.Checked);
    qAUX.ParamByName('ICMS_CST'                ).AsString  := edICMS_CST.Text;
-   qAUX.ParamByName('TIPO_ITEM'               ).AsString  := edTIPO_ITEM.Text;
+   qAUX.ParamByName('PROD_CDTIPOITEM'         ).AsString  := edPROD_CDTIPOITEM.Text;
    qAUX.ParamByName('CODIGO_ORIGEM_MERCADORIA').AsInteger := InteiroMenos1_se_Vazio(edCODIGO_ORIGEM_MERCADORIA.Text);
    qAUX.ParamByName('ALIQ_ICMS'               ).AsFloat   := ValorValido(edALIQ_ICMS.Text);
    qAUX.ParamByName('REDUCAO_ICMS'            ).AsFloat   := ValorValido(edREDUCAO_ICMS.Text);
@@ -3209,34 +3202,34 @@ begin
    edPROD_REFERENCIASFABRICA.Text  := qConsulta.FieldByName('PROD_REFERENCIASFABRICA').AsString;
 
    //Unidade de Medida
-   edPROD_UNIDADE.Text             := qConsulta.FieldByName('PROD_UNIDADE'           ).AsString;
-   edUNIDADE_MEDIDA_NOME.Text      := fUNI_DESCRICAO(qConsulta.FieldByName('PROD_UNIDADE').AsString);
+   edPROD_CDUNIDADE.Text             := qConsulta.FieldByName('PROD_CDUNIDADE'           ).AsString;
+   edUNIDADE_MEDIDA_NOME.Text      := fUNI_DESCRICAO(qConsulta.FieldByName('PROD_CDUNIDADE').AsString);
 
    //Tipo
-   edTIPO_ITEM.Text                := qConsulta.FieldByName('TIPO_ITEM').AsString;
-   edTIPO_ITEM_NOME.Text           := fProduto_tipo_item_NOME(edTIPO_ITEM.Text);
+   edPROD_CDTIPOITEM.Text          := qConsulta.FieldByName('PROD_CDTIPOITEM').AsString;
+   edTIPO_ITEM_NOME.Text           := fProduto_tipo_item_NOME(edPROD_CDTIPOITEM.Text);
 
    //Marca
    edPROD_CDMARCA.Text             := qConsulta.FieldByName('PROD_CDMARCA').AsString;
    edMARCA_NOME.Text               := fProdutoMarca_NOME(edPROD_CDMARCA.Text);
 
    //Família
-   edFAMILIA.Text                  := qConsulta.FieldByName('FAMILIA').AsString;
-   edFAMILIA_NOME.Text             := fProdutoFAMILIA_NOME(edFAMILIA.Text);
+   edPROD_CDFAMILIA.Text           := qConsulta.FieldByName('PROD_CDFAMILIA').AsString;
+   edFAMILIA_NOME.Text             := fProdutoFAMILIA_NOME(edPROD_CDFAMILIA.Text);
 
    //Grupo
-   edGRUPO.Text                    := qConsulta.FieldByName('GRUPO').AsString;
-   edGRUPO_NOME.Text               := fProdutoGRUPO_NOME(edGRUPO.Text);
+   edPROD_GRUPO.Text               := qConsulta.FieldByName('PROD_CDGRUPO').AsString;
+   edGRUPO_NOME.Text               := fProdutoGRUPO_NOME(edPROD_GRUPO.Text);
 
    //SubGrupo
-   edSUBGRUPO.Text                 := qConsulta.FieldByName('SUBGRUPO').AsString;
-   edSUBGRUPO_NOME.Text            := fProdutoSUBGRUPO_NOME(edGRUPO.Text);
+   edPROD_CDSUBGRUPO.Text          := qConsulta.FieldByName('PROD_CDSUBGRUPO').AsString;
+   edSUBGRUPO_NOME.Text            := fProdutoSUBGRUPO_NOME(edPROD_CDSUBGRUPO.Text);
 
    //Gênero
-   edGENERO.Text                   := qConsulta.FieldByName('GENERO').AsString;
+   //edGENERO.Text                   := qConsulta.FieldByName('GENERO').AsString;
 
    //Leis
-   edLEIS.Text                     := qConsulta.FieldByName('LEIS').AsString;
+   //edLEIS.Text                     := qConsulta.FieldByName('LEIS').AsString;
 
    //NCM/SH
    edNCM.Text                      := qConsulta.FieldByName('NCM').AsString;
@@ -3631,23 +3624,23 @@ begin
 
 end;
 
-procedure TFrm_Produto.edSUBGRUPOExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_CDSUBGRUPOExit(Sender: TObject);
 begin
   edSUBGRUPO_NOME.Text := '';
-  if edSUBGRUPO.Text = '' then
+  if edPROD_CDSUBGRUPO.Text = '' then
      exit;
 
   //Exibe o nome dO SUBGRUPO, ou limpa o campo
-  edSUBGRUPO_NOME.Text := fProdutoSUBGRUPO_NOME(edSUBGRUPO.Text);
+  edSUBGRUPO_NOME.Text := fProdutoSUBGRUPO_NOME(edPROD_CDSUBGRUPO.Text);
   if edSUBGRUPO_NOME.Text = '' then
   begin
     wnAlerta('Cadastrar Produto','SUBGRUPO não cadastrado');
-    edSUBGRUPO.SetFocus;
+    edPROD_CDSUBGRUPO.SetFocus;
     exit;
   end;
 end;
 
-procedure TFrm_Produto.edSUBGRUPOKeyDown(Sender: TObject;
+procedure TFrm_Produto.edPROD_CDSUBGRUPOKeyDown(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
@@ -3655,23 +3648,23 @@ begin
     ConsultarSubGrupos;
 end;
 
-procedure TFrm_Produto.edTIPO_ITEMExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_CDTIPOITEMExit(Sender: TObject);
 begin
   edTIPO_ITEM_NOME.Text := '';
-  if edTIPO_ITEM.Text = '' then
+  if edPROD_CDTIPOITEM.Text = '' then
      exit;
 
   //Exibe o nome dO TIPO_ITEM, ou limpa o campo
-  edTIPO_ITEM_NOME.Text := fProduto_tipo_item_NOME(edTIPO_ITEM.Text);
+  edTIPO_ITEM_NOME.Text := fProduto_tipo_item_NOME(edPROD_CDTIPOITEM.Text);
   if edTIPO_ITEM_NOME.Text = '' then
   begin
     wnAlerta('Cadastrar Produto','Tipo de Item não cadastrado');
-    edTIPO_ITEM.SetFocus;
+    edPROD_CDTIPOITEM.SetFocus;
     exit;
   end;
 end;
 
-procedure TFrm_Produto.edTIPO_ITEMKeyDown(Sender: TObject; var Key: Word;
+procedure TFrm_Produto.edPROD_CDTIPOITEMKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Key = vk_F1) then
@@ -3853,13 +3846,7 @@ CSOSN é utilizado pelos contribuintes optantes pelo regime do Simples Nacional.
 }
 {
 CREATE TABLE `produto` (
-	`PROD_REFERENCIASFABRICA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'informa a referência do fabricante do produto',
-	`MARCA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de marcas',
-	`FAMILIA` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de familia',
-	`GRUPO` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de grupos',
-	`SUBGRUPO` VARCHAR(50) NULL DEFAULT NULL COMMENT 'faz relacionamento com a tabela de subgrupo',
 	`DATA_CADASTRO` DATE NULL DEFAULT '0000-00-00' COMMENT 'informa a data e hora do cadastramento do produto',
-	`TIPO_ITEM` VARCHAR(100) NULL DEFAULT NULL COMMENT 'determina a finalidade do produto',
 	`ESTOQUE_MINIMO` VARCHAR(50) NULL DEFAULT NULL,
 	`PRECO_CUSTO` DECIMAL(10,4) NULL DEFAULT NULL,
 	`FRETE` DECIMAL(10,4) NULL DEFAULT NULL,
@@ -3904,9 +3891,6 @@ CREATE TABLE `produto` (
 	`REDUCAO_ICMS_ST` DECIMAL(10,4) NULL DEFAULT NULL,
 	`LUCRO_SUBST_TRIBUTARIA` DECIMAL(10,4) NULL DEFAULT NULL,
 	`VALOR_PAUTA_BC_ST` DECIMAL(10,4) NULL DEFAULT NULL,
-	`LEIS` VARCHAR(20) NULL DEFAULT NULL,
-	`GENERO` VARCHAR(20) NULL DEFAULT NULL,
-	`FORNECEDOR_NOME` VARCHAR(100) NULL DEFAULT NULL,
 	`COD_COMB` VARCHAR(20) NULL DEFAULT NULL,
 	`ALIQ_IPI` VARCHAR(20) NULL DEFAULT NULL,
 	`ENQUADRAMENTO_IPI` INT(11) NULL DEFAULT NULL,
@@ -3990,3 +3974,5 @@ Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16
 Trocou ('MARCA por ('PROD_MARCA : automaticamente em 16/06/2020 16:08
 Trocou ('PROD_MARCA por ('MARCA : automaticamente em 16/06/2020 16:08
 Trocou ('MARCA' por ('PROD_MARCA' : automaticamente em 16/06/2020 16:09
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07
+Trocou ('FAMILIA por ('PROD_CDFAMILIA : automaticamente em 16/06/2020 17:28

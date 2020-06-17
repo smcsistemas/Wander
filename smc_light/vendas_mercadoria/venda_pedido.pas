@@ -4,7 +4,7 @@ unit venda_pedido;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
-343|15/06/20|18:23|venda_pedido                |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(PROD_UNIDADE)
+343|15/06/20|18:23|venda_pedido                |Passa a tratar PRODUTO_PROD(PROD_CDUNIDADE)ao invés de PRODUTO(PROD_CDUNIDADE)
 321|15/06/20|13:35|venda_pedido                |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 316|15/06/20|10:14|venda_pedido                |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 291|12/06/20|20:24|venda_pedido                |Gravando VENDA. Falta gravar VENDA_ITEM
@@ -180,7 +180,7 @@ type
     Label41: TLabel;
     Label42: TLabel;
     edt_nfce_fim: TEdit;
-    edPROD_UNIDADE: TEdit;
+    edPROD_CDUNIDADE: TEdit;
     edt_nfce_inicio: TEdit;
     DBGrid1: TDBGrid;
     GroupBox1: TGroupBox;
@@ -805,7 +805,7 @@ begin
    edPROD_DESCRICAO.Text    := SQL_VENDA_ITEM.FieldByName('DESCRICAO').AsString;
    edPRECO.Text             := Float_to_String(SQL_VENDA_ITEM.FieldByName('PRECO' ).AsFloat);
    edQUANTIDADE.Text        := Float_to_String(SQL_VENDA_ITEM.FieldByName('QUANTIDADE' ).AsFloat);
-   edPROD_UNIDADE.Text      := SQL_VENDA_ITEM.FieldByName('UNIDADE' ).AsString;
+   edPROD_CDUNIDADE.Text      := SQL_VENDA_ITEM.FieldByName('UNIDADE' ).AsString;
    edCFOP_Produto.Text      := SQL_VENDA_ITEM.FieldByName('VI_CFOP_CSOSN').AsString;
    Excluir_Da_Venda(SQL_VENDA_ITEM.FieldByName('CODIGO_ITEM_VENDA').AsInteger);
    Atualiza_Itens;
@@ -1538,7 +1538,7 @@ begin
    Q.SQL.Add('    :VI_CFOP_CSOSN)    ');
    Q.ParamByName('CODIGO'           ).AsInteger := -1; // Não definido ainda
    Q.ParamByName('CODIGO_PRODUTO'   ).AsInteger := StrToInt(edPROD_CODIGO.Text);
-   Q.ParamByName('UNIDADE'          ).AsString  := edPROD_UNIDADE.Text;
+   Q.ParamByName('UNIDADE'          ).AsString  := edPROD_CDUNIDADE.Text;
    Q.ParamByName('QUANTIDADE'       ).AsFloat   := vQtde;
    Q.ParamByName('PRECO'            ).AsFloat   := vPreco;
    Q.ParamByName('CODIGO_VENDA'     ).AsInteger := -1; // Não definida ainda
@@ -1578,7 +1578,7 @@ begin
    edPROD_DESCRICAO.Text := '';
    edPRECO.Text             := '';
    edQUANTIDADE.Text        := '';
-   edPROD_UNIDADE.Text    := '';
+   edPROD_CDUNIDADE.Text    := '';
    edCFOP_Produto.Text      := '';
 end;
 
@@ -1670,7 +1670,7 @@ begin
    edPRECO.Text := Float_to_String(vPreco);
 
    // Unidade de medida
-   edPROD_UNIDADE.Text := SQL_PRODUTO.FieldByName('PROD_UNIDADE').AsString;
+   edPROD_CDUNIDADE.Text := SQL_PRODUTO.FieldByName('PROD_CDUNIDADE').AsString;
 
    // CFOP do produto
    // Vem da tabela RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
@@ -2461,3 +2461,4 @@ end.
 Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:16
 Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:23
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07

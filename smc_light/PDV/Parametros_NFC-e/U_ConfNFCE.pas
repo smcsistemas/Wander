@@ -251,7 +251,7 @@ type
     SQL_VENDA_ITEMNCM: TStringField;
     SQL_VENDA_ITEMFRETE: TBCDField;
     SQL_VENDA_ITEMICMS_CST: TStringField;
-    SQL_VENDA_ITEMprod_UNIDADE: TStringField;
+    SQL_VENDA_ITEMPROD_CDUNIDADE: TStringField;
     SQL_VENDA_ITEMCODIGO_ORIGEM_MERCADORIA: TIntegerField;
     SQL_VENDA_ITEMALIQ_ICMS: TBCDField;
     SQL_VENDA_ITEMVI_CFOP_CSOSN: TStringField;
@@ -1252,7 +1252,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
           spdNFCeDataSets.campo('CEST_I05c').Value := FormatarTagDescricao(SQL_VENDA_ITEMCEST.asString);
           // C骴igo CEST
 
-          spdNFCeDataSets.campo('uCom_I09').Value := SQL_VENDA_ITEMprod_UNIDADE.asString;
+          spdNFCeDataSets.campo('uCom_I09').Value := SQL_VENDA_ITEMPROD_CDUNIDADE.asString;
           // Unidade Comercial
 
           qComI10 := SQL_VENDA_ITEMQUANTIDADE.Value;
@@ -1275,7 +1275,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
 
           // Valor Unit醨io de Comercializa玢o
 
-          spdNFCeDataSets.campo('uTrib_I13').Value := SQL_VENDA_ITEMPROD_UNIDADE.Value;
+          spdNFCeDataSets.campo('uTrib_I13').Value := SQL_VENDA_ITEMPROD_CDUNIDADE.Value;
           // Unidade Tribut醰el
 
           qTribI14 := SQL_VENDA_ITEMQUANTIDADE.Value;
@@ -2364,3 +2364,4 @@ end;
 
 end.
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:03
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06

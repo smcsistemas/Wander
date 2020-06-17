@@ -106,7 +106,7 @@ type
     btn_marca: TcxButton;
     PROD_DESCRICAO: TDBEdit;
     PROD_REFERENCIASFABRICA: TDBEdit;
-    PROD_UNIDADE: TDBEdit;
+    PROD_CDUNIDADE: TDBEdit;
     MARCA: TDBEdit;
     CODIGO_BARRAS: TDBEdit;
     SQL_PRODUTOCODIGO: TFDAutoIncField;
@@ -118,7 +118,7 @@ type
     SQL_PRODUTOFAMILIA: TStringField;
     SQL_PRODUTOGRUPO: TStringField;
     SQL_PRODUTOSUBGRUPO: TStringField;
-    SQL_PRODUTOPROD_UNIDADE: TStringField;
+    SQL_PRODUTOPROD_CDUNIDADE: TStringField;
     SQL_PRODUTODATA_CADASTRO: TDateField;
     SQL_PRODUTOTIPO_ITEM: TStringField;
     SQL_PRODUTOLEIS: TStringField;
@@ -231,7 +231,7 @@ type
     SQL_LISTAFAMILIA: TStringField;
     SQL_LISTAGRUPO: TStringField;
     SQL_LISTASUBGRUPO: TStringField;
-    SQL_LISTAPROD_UNIDADE: TStringField;
+    SQL_LISTAPROD_CDUNIDADE: TStringField;
     SQL_LISTADATA_CADASTRO: TDateField;
     SQL_LISTATIPO_ITEM: TStringField;
     SQL_LISTAESTOQUE_MINIMO: TStringField;
@@ -344,7 +344,7 @@ type
     tbViewPROD_REFERENCIASFABRICA: TcxGridDBColumn;
     tbViewMARCA: TcxGridDBColumn;
     tbViewGRUPO: TcxGridDBColumn;
-    tbViewPROD_UNIDADE: TcxGridDBColumn;
+    tbViewPROD_CDUNIDADE: TcxGridDBColumn;
     tbViewTIPO_ITEM: TcxGridDBColumn;
     tbViewSALDO: TcxGridDBColumn;
     tbViewALIQ_ICMS: TcxGridDBColumn;
@@ -458,3 +458,4 @@ Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:08
 Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:39
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:13
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07

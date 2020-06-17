@@ -2660,8 +2660,8 @@ object Frm_Produto2: TFrm_Produto2
     end
     object SQL_LISTAFAMILIA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'FAMILIA'
-      Origin = 'FAMILIA'
+      FieldName = 'PROD_CDFAMILIA'
+      Origin = 'PROD_CDFAMILIA'
       Size = 50
     end
     object SQL_LISTAGRUPO: TStringField
@@ -3225,8 +3225,8 @@ object Frm_Produto2: TFrm_Produto2
     end
     object SQL_PRODUTOFAMILIA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'FAMILIA'
-      Origin = 'FAMILIA'
+      FieldName = 'PROD_CDFAMILIA'
+      Origin = 'PROD_CDFAMILIA'
       Size = 50
     end
     object SQL_PRODUTOGRUPO: TStringField
@@ -4126,3 +4126,5 @@ end
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:13
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 15:07
 Trocou FieldName = 'MARCA' por FieldName = 'PROD_MARCA' : automaticamente em 16/06/2020 16:22
+Trocou FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA' : automaticamente em 16/06/2020 17:34
+Trocou Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA' : automaticamente em 16/06/2020 17:39

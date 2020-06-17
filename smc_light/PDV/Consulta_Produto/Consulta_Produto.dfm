@@ -676,8 +676,8 @@ object Frm_Consultar_Preco: TFrm_Consultar_Preco
     end
     object SQL_ProdutoConsultaFAMILIA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'FAMILIA'
-      Origin = 'FAMILIA'
+      FieldName = 'PROD_CDFAMILIA'
+      Origin = 'PROD_CDFAMILIA'
       Size = 50
     end
     object SQL_ProdutoConsultaGRUPO: TStringField
@@ -1416,10 +1416,10 @@ object Frm_Consultar_Preco: TFrm_Consultar_Preco
       FieldName = 'PROD_TRATANUMEROSERIE'
       Origin = 'PROD_TRATANUMEROSERIE'
     end
-    object SQL_ProdutoConsultaPROD_UNIDADE: TStringField
+    object SQL_ProdutoConsultaPROD_CDUNIDADE: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'PROD_UNIDADE'
-      Origin = 'PROD_UNIDADE'
+      FieldName = 'PROD_CDUNIDADE'
+      Origin = 'PROD_CDUNIDADE'
       Size = 3
     end
   end
@@ -1427,3 +1427,6 @@ end
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:07
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 15:06
 Trocou FieldName = 'MARCA' por FieldName = 'PROD_MARCA' : automaticamente em 16/06/2020 16:21
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06
+Trocou FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA' : automaticamente em 16/06/2020 17:34
+Trocou Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA' : automaticamente em 16/06/2020 17:38

@@ -2566,7 +2566,7 @@ object FRM_visualizar_nfc_e: TFRM_visualizar_nfc_e
       '     vi.CODIGO_VENDA, vi.CODIGO_ITEM_VENDA, vi.CODIGO_PRODUTO, '
       '     vi.QUANTIDADE, vi.PRECO,vi.ACRESCIMO, vi.DESCONTO, '
       '     vi.PRECO_TOTAL,'
-      '     P.PROD_UNIDADE, p.PROD_DESCRICAO, p.PROD_EAN, '
+      '     P.PROD_CDUNIDADE, p.PROD_DESCRICAO, p.PROD_EAN, '
       '     p.NCM, p.CEST, '
       
         '     if(p.ICMS_CST <> '#39#39',IF(p.ICMS_CST='#39'60'#39', (SELECT CFOP_ST FRO' +
@@ -2792,3 +2792,4 @@ object FRM_visualizar_nfc_e: TFRM_visualizar_nfc_e
     Top = 308
   end
 end
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07

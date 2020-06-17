@@ -5,7 +5,7 @@ unit EmissaoDeNFe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
-344|15/06/20|18:23|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(PROD_UNIDADE)
+344|15/06/20|18:23|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_CDUNIDADE)ao invés de PRODUTO(PROD_CDUNIDADE)
 322|15/06/20|13:35|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 315|15/06/20|10:14|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 287|10/06/20|11:20|EmissaoDeNFe                |Grupo BA incorporou grupos B20a e B20j (NFe referenciadas produtor rural e cupom fiscal)
@@ -3138,7 +3138,7 @@ begin
    //Unidade Comercial
    //Informar a unidade de comercialização do produto
    //Informar a sigla (o símbolo) da unidade de medida
-   Produto.Prod.uCom := CompletarComPontos(fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('PROD_UNIDADE').AsString),3);
+   Produto.Prod.uCom := CompletarComPontos(fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('PROD_CDUNIDADE').AsString),3);
 
    {109-I10}
    //(qCom)
@@ -3189,7 +3189,7 @@ begin
    //(uTrib)
    //Unidade Tributável
    //Exibe a sigla (o símbolo) da unidade de medida, ou limpa o campo
-   Produto.Prod.uTrib := CompletarComPontos(fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('PROD_UNIDADE').AsString),03);
+   Produto.Prod.uTrib := CompletarComPontos(fproduto_unidade_SIGLA(qVENDA_ITEM.FieldByName('PROD_CDUNIDADE').AsString),03);
 
    {113-I14}
    //(qTrib)
@@ -7636,3 +7636,4 @@ N32|vICMSSTDest|Valor do ICMS ST da UF destino            | N  N  N  N  N  S  N 
 
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:02
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:06
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06

@@ -684,7 +684,7 @@
       end
       item
         Expanded = False
-        FieldName = 'FAMILIA'
+        FieldName = 'PROD_CDFAMILIA'
         Title.Caption = 'Familia'
         Width = 218
         Visible = True
@@ -881,3 +881,4 @@
     ParentFont = False
   end
 end
+Trocou FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA' : automaticamente em 16/06/2020 17:34

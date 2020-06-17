@@ -4,7 +4,7 @@ unit cad_servico;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
-342|15/06/20|18:23|cad_servico                 |Passa a tratar PRODUTO_PROD(PROD_UNIDADE)ao invés de PRODUTO(PROD_UNIDADE)
+342|15/06/20|18:23|cad_servico                 |Passa a tratar PRODUTO_PROD(PROD_CDUNIDADE)ao invés de PRODUTO(PROD_CDUNIDADE)
 341|15/06/20|18:23|cad_servico                 |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 323|15/06/20|13:35|cad_servico                 |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 ========================================================================================================================================
@@ -82,7 +82,7 @@ type
     btPesquisaCentroDeCusto_Descricao: TcxButton;
     cxButton8: TcxButton;
     cxPagaComissaoSN: TcxComboBox;
-    cxPROD_UNIDADE: TcxComboBox;
+    cxPROD_CDUNIDADE: TcxComboBox;
     edCODIGO: TEdit;
     edPROD_DESCRICAO: TEdit;
     edPRECO_FINAL_VAREJO: TEdit;
@@ -100,7 +100,7 @@ type
     SQL_C_ServicoFAMILIA: TStringField;
     SQL_C_ServicoGRUPO: TStringField;
     SQL_C_ServicoSUBGRUPO: TStringField;
-    SQL_C_ServicoPROD_UNIDADE: TStringField;
+    SQL_C_ServicoPROD_CDUNIDADE: TStringField;
     SQL_C_ServicoDATA_CADASTRO: TDateField;
     SQL_C_ServicoTIPO_ITEM: TStringField;
     SQL_C_ServicoESTOQUE_MINIMO: TStringField;
@@ -400,7 +400,7 @@ procedure TFrm_cad_servico.Carrega_Unidades_De_Medida;
 var Q : tFDQuery;
 begin
    // Preenche o combo box de unidades de medida castradas
-   cxPROD_UNIDADE.Properties.Items.Clear;
+   cxPROD_CDUNIDADE.Properties.Items.Clear;
 
    q := TFDQuery.Create(nil);
    q.Connection     := Module.connection;
@@ -414,7 +414,7 @@ begin
    Q.Open;
    while not Q.Eof do
    begin
-     cxPROD_UNIDADE.Properties.Items.Add(Q.FieldByName('SIGLA').AsString);
+     cxPROD_CDUNIDADE.Properties.Items.Add(Q.FieldByName('SIGLA').AsString);
      Q.Next;
    end;
    Q.Free;
@@ -435,10 +435,10 @@ begin
      exit;
    end;
 
-   if cxPROD_UNIDADE.Text = '' then
+   if cxPROD_CDUNIDADE.Text = '' then
    begin
      ShowMessage('Informe a unidade de medida');
-     cxPROD_UNIDADE.SetFocus;
+     cxPROD_CDUNIDADE.SetFocus;
      exit;
    end;
 
@@ -700,7 +700,7 @@ begin
    Q.SQL.Add('     (                   ');
    Q.SQL.Add('      PROD_CODIGO,       ');
    Q.SQL.Add('      PROD_DESCRICAO, ');
-   Q.SQL.Add('      PROD_UNIDADE,    ');
+   Q.SQL.Add('      PROD_CDUNIDADE,    ');
    Q.SQL.Add('      DATA_CADASTRO,     ');
    Q.SQL.Add('      PRECO_FINAL_VAREJO,');
    Q.SQL.Add('      STATUS_CADASTRAL,  ');
@@ -713,7 +713,7 @@ begin
    Q.SQL.Add('     (                   ');
    Q.SQL.Add('     :PROD_CODIGO,       ');
    Q.SQL.Add('     :PROD_DESCRICAO, ');
-   Q.SQL.Add('     :PROD_UNIDADE,    ');
+   Q.SQL.Add('     :PROD_CDUNIDADE,    ');
    Q.SQL.Add('     :DATA_CADASTRO,     ');
    Q.SQL.Add('     :PRECO_FINAL_VAREJO,');
    Q.SQL.Add('     :STATUS_CADASTRAL,  ');
@@ -724,7 +724,7 @@ begin
    Q.SQL.Add('     )                   ');
    Q.ParamByName('PROD_CODIGO'       ).AsString  := vCODIGO;
    Q.ParamByName('PROD_DESCRICAO' ).AsString  := edPROD_DESCRICAO.Text;
-   Q.ParamByName('PROD_UNIDADE'    ).AsString  := cxPROD_UNIDADE.Text;
+   Q.ParamByName('PROD_CDUNIDADE'    ).AsString  := cxPROD_CDUNIDADE.Text;
    Q.ParamByName('DATA_CADASTRO'     ).AsDateTime:= Date;
    Q.ParamByName('PRECO_FINAL_VAREJO').AsFloat   := StrToFloat(masctostr(edPRECO_FINAL_VAREJO.Text));
    if cbSTATUS_CADASTRAL.Checked Then
@@ -744,9 +744,9 @@ var i : Integer;
 begin
    // retorna o índice do combo que possui a sigla recebida
    result := -1;
-   for i := 0 to cxPROD_UNIDADE.Properties.Items.Count -1 do
+   for i := 0 to cxPROD_CDUNIDADE.Properties.Items.Count -1 do
    begin
-      if cxPROD_UNIDADE.Properties.Items[i] = pSigla then
+      if cxPROD_CDUNIDADE.Properties.Items[i] = pSigla then
       begin
         result := i;
         break;
@@ -760,8 +760,8 @@ begin
    //---------------------------------------------------------------------------
    edCODIGO.Text              := SQL_C_Servico.FieldByName('CODIGO'           ).AsString;
    edPROD_DESCRICAO.Text   := SQL_C_Servico.FieldByName('PROD_DESCRICAO').AsString;
-   //cxPROD_UNIDADE.ItemIndex := IndiceUND(NomeUND(SQL_C_Servico.FieldByName('PROD_UNIDADE').AsInteger));
-   cxPROD_UNIDADE.ItemIndex := IndiceUND(SQL_C_Servico.FieldByName('PROD_UNIDADE').AsString);
+   //cxPROD_CDUNIDADE.ItemIndex := IndiceUND(NomeUND(SQL_C_Servico.FieldByName('PROD_CDUNIDADE').AsInteger));
+   cxPROD_CDUNIDADE.ItemIndex := IndiceUND(SQL_C_Servico.FieldByName('PROD_CDUNIDADE').AsString);
 
    if SQL_C_Servico.FieldByName('PagaComissaoSN').AsString = 'S' then
       cxPagaComissaoSN.ItemIndex := 0
@@ -833,3 +833,4 @@ Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:03
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:07
 Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:38
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:07
+Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06
