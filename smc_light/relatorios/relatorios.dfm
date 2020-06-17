@@ -7533,7 +7533,7 @@ object frm_relatorio: Tfrm_relatorio
           Color = clBlack
           Diagonal = True
         end
-        object FRX_PRODUTOPRECO_FINAL_VAREJO: TfrxMemoView
+        object FRX_PRODUTOPROD_PRECO_VAR: TfrxMemoView
           Left = 103.620855390000000000
           Top = 11.397650000000000000
           Width = 60.305483330000000000
@@ -14950,7 +14950,7 @@ object frm_relatorio: Tfrm_relatorio
           ParentFont = False
           VAlign = vaCenter
         end
-        object ds_produtosPRECO_FINAL_VAREJO: TfrxMemoView
+        object ds_produtosPROD_PRECO_VAR: TfrxMemoView
           Left = 642.520100000000000000
           Width = 75.590600000000000000
           Height = 15.118120000000000000
@@ -15582,15 +15582,15 @@ object frm_relatorio: Tfrm_relatorio
       'FAMILIA=FAMILIA'
       'GRUPO=GRUPO'
       'SUBGRUPO=SUBGRUPO'
-      'PRECO_FINAL_ATACADO=PRECO_FINAL_ATACADO'
-      'PRECO_FINAL_DISTRIBUIDOR=PRECO_FINAL_DISTRIBUIDOR'
-      'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
+      'PROD_PRECO_ATAC=PROD_PRECO_ATAC'
+      'PROD_PRECO_DIST=PROD_PRECO_DIST'
+      'PROD_PRECO_VAR=PROD_PRECO_VAR'
       'COD_BALANCA_1=COD_BALANCA_1'
       'PRECO_CUSTO=PRECO_CUSTO'
       'MARGEM_L_VAREJO=MARGEM_L_VAREJO'
       'CUSTO_MEDIO=CUSTO_MEDIO'
       'PROD_MAXDESC_VAR=PROD_MAXDESC_VAR'
-      'EXTERNA_COMISSAO_VAREJO=EXTERNA_COMISSAO_VAREJO'
+      'PROD_COMISSAO_EXT_VAR=PROD_COMISSAO_EXT_VAR'
       'PROD_COMISSAO_VAR=PROD_COMISSAO_VAR')
     DataSet = sql_produtos
     BCDToCurrency = False
@@ -15657,22 +15657,22 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'SUBGRUPO'
       Size = 50
     end
-    object sql_produtosPRECO_FINAL_ATACADO: TBCDField
+    object sql_produtosPROD_PRECO_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PRECO_FINAL_ATACADO'
-      Origin = 'PRECO_FINAL_ATACADO'
+      FieldName = 'PROD_PRECO_ATAC'
+      Origin = 'PROD_PRECO_ATAC'
       Precision = 10
     end
-    object sql_produtosPRECO_FINAL_DISTRIBUIDOR: TBCDField
+    object sql_produtosPROD_PRECO_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PRECO_FINAL_DISTRIBUIDOR'
-      Origin = 'PRECO_FINAL_DISTRIBUIDOR'
+      FieldName = 'PROD_PRECO_DIST'
+      Origin = 'PROD_PRECO_DIST'
       Precision = 10
     end
-    object sql_produtosPRECO_FINAL_VAREJO: TBCDField
+    object sql_produtosPROD_PRECO_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PRECO_FINAL_VAREJO'
-      Origin = 'PRECO_FINAL_VAREJO'
+      FieldName = 'PROD_PRECO_VAR'
+      Origin = 'PROD_PRECO_VAR'
       Precision = 10
     end
     object sql_produtosCOD_BALANCA_1: TStringField
@@ -15705,10 +15705,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'PROD_MAXDESC_VAR'
       Precision = 10
     end
-    object sql_produtosEXTERNA_COMISSAO_VAREJO: TBCDField
+    object sql_produtosPROD_COMISSAO_EXT_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'EXTERNA_COMISSAO_VAREJO'
-      Origin = 'EXTERNA_COMISSAO_VAREJO'
+      FieldName = 'PROD_COMISSAO_EXT_VAR'
+      Origin = 'PROD_COMISSAO_EXT_VAR'
       Precision = 10
     end
     object sql_produtosPROD_COMISSAO_VAR: TBCDField
@@ -15842,40 +15842,40 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'PROD_COMISSAO_DIST'
       Precision = 10
     end
-    object sql_produtosCOMISSAO_EXTERNA: TBCDField
+    object sql_produtosPROD_COMISSAO_EXT: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'COMISSAO_EXTERNA'
-      Origin = 'COMISSAO_EXTERNA'
+      FieldName = 'PROD_COMISSAO_EXT'
+      Origin = 'PROD_COMISSAO_EXT'
       Precision = 10
     end
-    object sql_produtosEXTERNA_COMISSAO_ATACADO: TBCDField
+    object sql_produtosPROD_COMISSAO_EXT_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'EXTERNA_COMISSAO_ATACADO'
-      Origin = 'EXTERNA_COMISSAO_ATACADO'
+      FieldName = 'PROD_COMISSAO_EXT_ATAC'
+      Origin = 'PROD_COMISSAO_EXT_ATAC'
       Precision = 10
     end
-    object sql_produtosEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField
+    object sql_produtosPROD_COMISSAO_EXT_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'EXTERNA_COMISSAO_DISTRIBUIDOR'
-      Origin = 'EXTERNA_COMISSAO_DISTRIBUIDOR'
+      FieldName = 'PROD_COMISSAO_EXT_DIST'
+      Origin = 'PROD_COMISSAO_EXT_DIST'
       Precision = 10
     end
-    object sql_produtosPROMO_VAREJO: TBCDField
+    object sql_produtosPROD_PROMOCAO_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PROMO_VAREJO'
-      Origin = 'PROMO_VAREJO'
+      FieldName = 'PROD_PROMOCAO_VAR'
+      Origin = 'PROD_PROMOCAO_VAR'
       Precision = 10
     end
-    object sql_produtosPROMO_ATACADO: TBCDField
+    object sql_produtosPROD_PROMOCAO_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PROMO_ATACADO'
-      Origin = 'PROMO_ATACADO'
+      FieldName = 'PROD_PROMOCAO_ATAC'
+      Origin = 'PROD_PROMOCAO_ATAC'
       Precision = 10
     end
-    object sql_produtosPROMO_DISTRIBUIDOR: TBCDField
+    object sql_produtosPROD_PROMOCAO_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PROMO_DISTRIBUIDOR'
-      Origin = 'PROMO_DISTRIBUIDOR'
+      FieldName = 'PROD_PROMOCAO_DIST'
+      Origin = 'PROD_PROMOCAO_DIST'
       Precision = 10
     end
     object sql_produtosPROMOCAO_INICIO: TDateField
@@ -16506,7 +16506,7 @@ object frm_relatorio: Tfrm_relatorio
             ' [ds_produtos."PROD_DESCRICAO"]')
           ParentFont = False
         end
-        object ds_produtosPRECO_FINAL_VAREJO: TfrxMemoView
+        object ds_produtosPROD_PRECO_VAR: TfrxMemoView
           Left = 378.000310000000000000
           Top = 0.118120000000000000
           Width = 71.811070000000000000
@@ -16608,7 +16608,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           HAlign = haRight
           Memo.UTF8W = (
-            '[ds_produtos."PRECO_FINAL_VAREJO"]')
+            '[ds_produtos."PROD_PRECO_VAR"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -16631,7 +16631,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft]
           HAlign = haRight
           Memo.UTF8W = (
-            '[ds_produtos."PRECO_FINAL_ATACADO"]')
+            '[ds_produtos."PROD_PRECO_ATAC"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -16741,7 +16741,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft]
           HAlign = haRight
           Memo.UTF8W = (
-            '[ds_produtos."PRECO_FINAL_DISTRIBUIDOR"]')
+            '[ds_produtos."PROD_PRECO_DIST"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -21147,7 +21147,7 @@ object frm_relatorio: Tfrm_relatorio
           ParentFont = False
           VAlign = vaCenter
         end
-        object FRX_PRODUTOPRECO_FINAL_VAREJO: TfrxMemoView
+        object FRX_PRODUTOPROD_PRECO_VAR: TfrxMemoView
           Left = 74.053910390000000000
           Top = 12.180520000000000000
           Width = 67.864543330000000000
@@ -23596,7 +23596,7 @@ object frm_relatorio: Tfrm_relatorio
           ParentFont = False
           VAlign = vaCenter
         end
-        object FRX_PRODUTOPRECO_FINAL_VAREJO: TfrxMemoView
+        object FRX_PRODUTOPROD_PRECO_VAR: TfrxMemoView
           Left = 555.723515390000000000
           Width = 52.746423330000000000
           Height = 11.206472390000000000
@@ -33777,7 +33777,7 @@ object frm_relatorio: Tfrm_relatorio
             '  [ds_produtos."PROD_DESCRICAO"]')
           ParentFont = False
         end
-        object ds_produtosPRECO_FINAL_VAREJO: TfrxMemoView
+        object ds_produtosPROD_PRECO_VAR: TfrxMemoView
           Left = 318.488560000000000000
           Top = 0.118120000000000000
           Width = 41.449830000000000000
@@ -36060,7 +36060,7 @@ object frm_relatorio: Tfrm_relatorio
             '[ds_produtos."PRECO_CUSTO"]')
           ParentFont = False
         end
-        object ds_produtosPRECO_FINAL_VAREJO: TfrxMemoView
+        object ds_produtosPROD_PRECO_VAR: TfrxMemoView
           Left = 471.709030000000000000
           Width = 60.472480000000000000
           Height = 11.338590000000000000
@@ -36077,7 +36077,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."PRECO_FINAL_VAREJO"]')
+            '[ds_produtos."PROD_PRECO_VAR"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -36119,7 +36119,7 @@ object frm_relatorio: Tfrm_relatorio
             '[(<ds_produtos."PROD_COMISSAO_VAR">)]')
           ParentFont = False
         end
-        object ds_produtosEXTERNA_COMISSAO_VAREJO: TfrxMemoView
+        object ds_produtosPROD_COMISSAO_EXT_VAR: TfrxMemoView
           Left = 789.555660000000000000
           Width = 64.252010000000000000
           Height = 11.338590000000000000
@@ -36135,7 +36135,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft, ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."EXTERNA_COMISSAO_VAREJO"]')
+            '[ds_produtos."PROD_COMISSAO_EXT_VAR"]')
           ParentFont = False
         end
         object Line28: TfrxLineView
@@ -36203,7 +36203,7 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haCenter
           Memo.UTF8W = (
             
-              '[(<ds_produtos."PRECO_FINAL_VAREJO"> * (<ds_produtos."BALCAO_COM' +
+              '[(<ds_produtos."PROD_PRECO_VAR"> * (<ds_produtos."BALCAO_COM' +
               'ISSAO_VAREJO"> / 100))]')
           ParentFont = False
         end
@@ -36225,7 +36225,7 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haCenter
           Memo.UTF8W = (
             
-              '[(<ds_produtos."PRECO_FINAL_VAREJO"> * (<ds_produtos."EXTERNA_CO' +
+              '[(<ds_produtos."PROD_PRECO_VAR"> * (<ds_produtos."EXTERNA_CO' +
               'MISSAO_VAREJO"> / 100))]')
           ParentFont = False
         end
@@ -36248,7 +36248,7 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haCenter
           Memo.UTF8W = (
             
-              '[(<ds_produtos."PRECO_FINAL_VAREJO"> - <ds_produtos."PRECO_CUSTO' +
+              '[(<ds_produtos."PROD_PRECO_VAR"> - <ds_produtos."PRECO_CUSTO' +
               '">)]')
           ParentFont = False
         end
@@ -36271,8 +36271,8 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haCenter
           Memo.UTF8W = (
             
-              '[(<ds_produtos."PRECO_FINAL_VAREJO"> - <ds_produtos."PRECO_CUSTO' +
-              '"> - (<ds_produtos."PRECO_FINAL_VAREJO"> * (<ds_produtos."EXTERN' +
+              '[(<ds_produtos."PROD_PRECO_VAR"> - <ds_produtos."PRECO_CUSTO' +
+              '"> - (<ds_produtos."PROD_PRECO_VAR"> * (<ds_produtos."EXTERN' +
               'A_COMISSAO_VAREJO"> / 100)))]')
           ParentFont = False
         end
@@ -36294,7 +36294,7 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haCenter
           Memo.UTF8W = (
             
-              '[(<ds_produtos."PRECO_FINAL_VAREJO"> * (<ds_produtos."DESCONTO_M' +
+              '[(<ds_produtos."PROD_PRECO_VAR"> * (<ds_produtos."DESCONTO_M' +
               '_VAREJO"> / 100))]')
           ParentFont = False
         end
@@ -37215,7 +37215,7 @@ object frm_relatorio: Tfrm_relatorio
           ParentFont = False
           VAlign = vaCenter
         end
-        object ds_produtosPRECO_FINAL_VAREJO: TfrxMemoView
+        object ds_produtosPROD_PRECO_VAR: TfrxMemoView
           Left = 604.835190000000000000
           Top = 0.338590000000000000
           Width = 94.488250000000000000
@@ -37379,7 +37379,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_pro_prom."PRECO_FINAL_VAREJO"]')
+            '[ds_pro_prom."PROD_PRECO_VAR"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -37970,8 +37970,8 @@ object frm_relatorio: Tfrm_relatorio
       'PROD_REFERENCIASFABRICA=PROD_REFERENCIASFABRICA'
       'MARCA=MARCA'
       'PROD_CDUNIDADE=PROD_CDUNIDADE'
-      'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
-      'PROMO_VAREJO=PROMO_VAREJO'
+      'PROD_PRECO_VAR=PROD_PRECO_VAR'
+      'PROD_PROMOCAO_VAR=PROD_PROMOCAO_VAR'
       'PROMOCAO_INICIO=PROMOCAO_INICIO'
       'PROMOCAO_TERMINO=PROMOCAO_TERMINO'
       'VALOR_PROMOCIONAL_VAREJO=VALOR_PROMOCIONAL_VAREJO'
@@ -38025,16 +38025,16 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'PROD_CDUNIDADE'
       Size = 50
     end
-    object sql_pro_promPRECO_FINAL_VAREJO: TBCDField
+    object sql_pro_promPROD_PRECO_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PRECO_FINAL_VAREJO'
-      Origin = 'PRECO_FINAL_VAREJO'
+      FieldName = 'PROD_PRECO_VAR'
+      Origin = 'PROD_PRECO_VAR'
       Precision = 10
     end
-    object sql_pro_promPROMO_VAREJO: TBCDField
+    object sql_pro_promPROD_PROMOCAO_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PROMO_VAREJO'
-      Origin = 'PROMO_VAREJO'
+      FieldName = 'PROD_PROMOCAO_VAR'
+      Origin = 'PROD_PROMOCAO_VAR'
       Precision = 10
     end
     object sql_pro_promPROMOCAO_INICIO: TDateField
@@ -38070,9 +38070,9 @@ object frm_relatorio: Tfrm_relatorio
       'GRUPO=GRUPO'
       'SUBGRUPO=SUBGRUPO'
       'PROD_CDUNIDADE=PROD_CDUNIDADE'
-      'PRECO_FINAL_ATACADO=PRECO_FINAL_ATACADO'
-      'PRECO_FINAL_DISTRIBUIDOR=PRECO_FINAL_DISTRIBUIDOR'
-      'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
+      'PROD_PRECO_ATAC=PROD_PRECO_ATAC'
+      'PROD_PRECO_DIST=PROD_PRECO_DIST'
+      'PROD_PRECO_VAR=PROD_PRECO_VAR'
       'SALDO=SALDO'
       'COD_BALANCA_1=COD_BALANCA_1'
       'COD_BALANCA_2=COD_BALANCA_2'
@@ -38124,22 +38124,22 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'PROD_CDUNIDADE'
       Size = 50
     end
-    object sql_pro_pesavPRECO_FINAL_ATACADO: TBCDField
+    object sql_pro_pesavPROD_PRECO_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PRECO_FINAL_ATACADO'
-      Origin = 'PRECO_FINAL_ATACADO'
+      FieldName = 'PROD_PRECO_ATAC'
+      Origin = 'PROD_PRECO_ATAC'
       Precision = 10
     end
-    object sql_pro_pesavPRECO_FINAL_DISTRIBUIDOR: TBCDField
+    object sql_pro_pesavPROD_PRECO_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PRECO_FINAL_DISTRIBUIDOR'
-      Origin = 'PRECO_FINAL_DISTRIBUIDOR'
+      FieldName = 'PROD_PRECO_DIST'
+      Origin = 'PROD_PRECO_DIST'
       Precision = 10
     end
-    object sql_pro_pesavPRECO_FINAL_VAREJO: TBCDField
+    object sql_pro_pesavPROD_PRECO_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PRECO_FINAL_VAREJO'
-      Origin = 'PRECO_FINAL_VAREJO'
+      FieldName = 'PROD_PRECO_VAR'
+      Origin = 'PROD_PRECO_VAR'
       Precision = 10
     end
     object sql_pro_pesavSALDO: TBCDField
@@ -38258,7 +38258,7 @@ object frm_relatorio: Tfrm_relatorio
             '[ds_pro_pesav."PROD_DESCRICAO"]')
           ParentFont = False
         end
-        object ds_produtosPRECO_FINAL_VAREJO: TfrxMemoView
+        object ds_produtosPROD_PRECO_VAR: TfrxMemoView
           Left = 389.086890000000000000
           Top = 0.118120000000000000
           Width = 64.252010000000000000
@@ -38352,7 +38352,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           HAlign = haRight
           Memo.UTF8W = (
-            '[ds_pro_pesav."PRECO_FINAL_VAREJO"]')
+            '[ds_pro_pesav."PROD_PRECO_VAR"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -38375,7 +38375,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft]
           HAlign = haRight
           Memo.UTF8W = (
-            '[ds_pro_pesav."PRECO_FINAL_ATACADO"]')
+            '[ds_pro_pesav."PROD_PRECO_ATAC"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -38485,7 +38485,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft]
           HAlign = haRight
           Memo.UTF8W = (
-            '[ds_pro_pesav."PRECO_FINAL_DISTRIBUIDOR"]')
+            '[ds_pro_pesav."PROD_PRECO_DIST"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -39008,7 +39008,7 @@ object frm_relatorio: Tfrm_relatorio
     SQL.Strings = (
       
         'SELECT p.PROD_DESCRICAO, p.PROD_CODIGO, p.PROD_CDUNIDADE, p.SALDO ' +
-        'as qtd_atual, p.PRECO_FINAL_VAREJO,'
+        'as qtd_atual, p.PROD_PRECO_VAR,'
       '   (SELECT SUM(vd.QUANTIDADE) FROM venda_item vd '
       '   JOIN venda q ON q.CODIGO_VENDA = vd.CODIGO_VENDA '
       
@@ -39046,7 +39046,7 @@ object frm_relatorio: Tfrm_relatorio
       'PROD_CODIGO=PROD_CODIGO'
       'PROD_CDUNIDADE=PROD_CDUNIDADE'
       'qtd_atual=qtd_atual'
-      'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
+      'PROD_PRECO_VAR=PROD_PRECO_VAR'
       'qtd_venda=qtd_venda'
       'data_ini=data_ini'
       'data_fim=data_fim')
@@ -39422,7 +39422,7 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haRight
           Memo.UTF8W = (
             
-              '[(<ds_v_venda_itens."PRECO_FINAL_VAREJO"> * <ds_v_venda_itens."q' +
+              '[(<ds_v_venda_itens."PROD_PRECO_VAR"> * <ds_v_venda_itens."q' +
               'td_venda">) / <ds_v_venda_itens."qtd_venda">]')
           ParentFont = False
           VAlign = vaCenter
@@ -40119,7 +40119,7 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haRight
           Memo.UTF8W = (
             
-              '[SUM((<ds_estq_comp."PRECO_FINAL_VAREJO">*<ds_estq_comp."SALDO">' +
+              '[SUM((<ds_estq_comp."PROD_PRECO_VAR">*<ds_estq_comp."SALDO">' +
               '),MasterData1,0)]')
           ParentFont = False
           VAlign = vaCenter
@@ -40142,7 +40142,7 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haRight
           Memo.UTF8W = (
             
-              '[SUM((<ds_estq_comp."PRECO_FINAL_VAREJO">*<ds_estq_comp."SALDO">' +
+              '[SUM((<ds_estq_comp."PROD_PRECO_VAR">*<ds_estq_comp."SALDO">' +
               ')-(<ds_estq_comp."PRECO_CUSTO">*<ds_estq_comp."SALDO">)'
             ',MasterData1,0)]')
           ParentFont = False
@@ -40202,9 +40202,9 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haCenter
           Memo.UTF8W = (
             
-              '[IIF(((<ds_estq_comp."PRECO_FINAL_VAREJO"> * <ds_estq_comp."SALD' +
+              '[IIF(((<ds_estq_comp."PROD_PRECO_VAR"> * <ds_estq_comp."SALD' +
               'O">)-(<ds_estq_comp."PRECO_CUSTO"> * <ds_estq_comp."SALDO">)) <=' +
-              ' 0,'#39'0'#39',Format('#39'%4.2f'#39',[(((<ds_estq_comp."PRECO_FINAL_VAREJO"> * ' +
+              ' 0,'#39'0'#39',Format('#39'%4.2f'#39',[(((<ds_estq_comp."PROD_PRECO_VAR"> * ' +
               '<ds_estq_comp."SALDO">) - (<ds_estq_comp."PRECO_CUSTO"> * <ds_es' +
               'tq_comp."SALDO">)) * 100) / (<ds_estq_comp."PRECO_CUSTO"> * <ds_' +
               'estq_comp."SALDO">)]))]')
@@ -40229,7 +40229,7 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haCenter
           Memo.UTF8W = (
             
-              '[(<ds_estq_comp."PRECO_FINAL_VAREJO">*<ds_estq_comp."SALDO">)-(<' +
+              '[(<ds_estq_comp."PROD_PRECO_VAR">*<ds_estq_comp."SALDO">)-(<' +
               'ds_estq_comp."PRECO_CUSTO">*<ds_estq_comp."SALDO">)]')
           ParentFont = False
           VAlign = vaCenter
@@ -40253,7 +40253,7 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haCenter
           Memo.UTF8W = (
             
-              '[<ds_estq_comp."PRECO_FINAL_VAREJO">-<ds_estq_comp."PRECO_CUSTO"' +
+              '[<ds_estq_comp."PROD_PRECO_VAR">-<ds_estq_comp."PRECO_CUSTO"' +
               '>]')
           ParentFont = False
           VAlign = vaCenter
@@ -40274,7 +40274,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[<ds_estq_comp."PRECO_FINAL_VAREJO">*<ds_estq_comp."SALDO">]')
+            '[<ds_estq_comp."PROD_PRECO_VAR">*<ds_estq_comp."SALDO">]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -40294,7 +40294,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_estq_comp."PRECO_FINAL_VAREJO"]')
+            '[ds_estq_comp."PROD_PRECO_VAR"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -40805,7 +40805,7 @@ object frm_relatorio: Tfrm_relatorio
       'PROD_CODIGO=PROD_CODIGO'
       'PROD_DESCRICAO=PROD_DESCRICAO'
       'PRECO_CUSTO=PRECO_CUSTO'
-      'PRECO_FINAL_VAREJO=PRECO_FINAL_VAREJO'
+      'PROD_PRECO_VAR=PROD_PRECO_VAR'
       'SALDO=SALDO'
       'PROD_EAN=PROD_EAN'
       'PROD_REFERENCIASFABRICA=PROD_REFERENCIASFABRICA'
@@ -40840,10 +40840,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'PRECO_CUSTO'
       Precision = 10
     end
-    object sql_estq_compPRECO_FINAL_VAREJO: TBCDField
+    object sql_estq_compPROD_PRECO_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PRECO_FINAL_VAREJO'
-      Origin = 'PRECO_FINAL_VAREJO'
+      FieldName = 'PROD_PRECO_VAR'
+      Origin = 'PROD_PRECO_VAR'
       Precision = 10
     end
     object sql_estq_compSALDO: TBCDField
@@ -46510,3 +46510,13 @@ Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2
 Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:47
 Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:49
 Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:54
+Trocou COMISSAO_EXTERNA por PROD_COMISSAO_EXT : automaticamente em 17/06/2020 05:46
+Trocou EXTERNA_COMISSAO_VAREJO por PROD_COMISSAO_EXT_VAR : automaticamente em 17/06/2020 05:53
+Trocou EXTERNA_COMISSAO_ATACADO por PROD_COMISSAO_EXT_ATAC : automaticamente em 17/06/2020 05:56
+Trocou EXTERNA_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_EXT_DIST : automaticamente em 17/06/2020 06:30
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56
+Trocou PRECO_FINAL_ATACADO por PROD_PRECO_ATAC : automaticamente em 17/06/2020 06:59
+Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2020 07:02
+Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:40
+Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:45
+Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53

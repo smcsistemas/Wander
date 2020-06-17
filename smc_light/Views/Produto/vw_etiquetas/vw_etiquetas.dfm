@@ -117,9 +117,9 @@ object frm_etiquetas: Tfrm_etiquetas
             Options.Moving = False
             Width = 130
           end
-          object tbvwEtiquetaspreco_final_varejo: TcxGridDBColumn
+          object tbvwEtiquetasPROD_PRECO_VAR: TcxGridDBColumn
             Caption = 'R$'
-            DataBinding.FieldName = 'preco_final_varejo'
+            DataBinding.FieldName = 'PROD_PRECO_VAR'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             FooterAlignmentHorz = taCenter
             GroupSummaryAlignment = taCenter
@@ -788,7 +788,7 @@ object frm_etiquetas: Tfrm_etiquetas
     Connection = Module.connection
     SQL.Strings = (
       
-        'select e.id, e.descricao, p.preco_final_varejo, p.referencia_fab' +
+        'select e.id, e.descricao, p.PROD_PRECO_VAR, p.referencia_fab' +
         'ricante from etiqueta e'
       'join produto p on p.codigo = e.id_produto')
     Left = 40
@@ -805,10 +805,10 @@ object frm_etiquetas: Tfrm_etiquetas
       Origin = 'DESCRICAO'
       Size = 255
     end
-    object sql_etiquetaspreco_final_varejo: TBCDField
+    object sql_etiquetasPROD_PRECO_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'preco_final_varejo'
-      Origin = 'PRECO_FINAL_VAREJO'
+      FieldName = 'PROD_PRECO_VAR'
+      Origin = 'PROD_PRECO_VAR'
       ProviderFlags = []
       ReadOnly = True
       Precision = 10
@@ -964,3 +964,4 @@ object frm_etiquetas: Tfrm_etiquetas
   end
 end
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:14
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56

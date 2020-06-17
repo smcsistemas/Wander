@@ -85,7 +85,7 @@ type
     cxPROD_CDUNIDADE: TcxComboBox;
     edCODIGO: TEdit;
     edPROD_DESCRICAO: TEdit;
-    edPRECO_FINAL_VAREJO: TEdit;
+    edPROD_PRECO_VAR: TEdit;
     edCentroDeCusto: TEdit;
     edContaContabil: TEdit;
     DS_C_Servico: TDataSource;
@@ -125,16 +125,16 @@ type
     SQL_C_ServicoPROD_COMISSAO_VAR: TBCDField;
     SQL_C_ServicoPROD_COMISSAO_ATAC: TBCDField;
     SQL_C_ServicoPROD_COMISSAO_DIST: TBCDField;
-    SQL_C_ServicoCOMISSAO_EXTERNA: TBCDField;
-    SQL_C_ServicoEXTERNA_COMISSAO_VAREJO: TBCDField;
-    SQL_C_ServicoEXTERNA_COMISSAO_ATACADO: TBCDField;
-    SQL_C_ServicoEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField;
-    SQL_C_ServicoPRECO_FINAL_ATACADO: TBCDField;
-    SQL_C_ServicoPRECO_FINAL_DISTRIBUIDOR: TBCDField;
-    SQL_C_ServicoPRECO_FINAL_VAREJO: TBCDField;
-    SQL_C_ServicoPROMO_VAREJO: TBCDField;
-    SQL_C_ServicoPROMO_ATACADO: TBCDField;
-    SQL_C_ServicoPROMO_DISTRIBUIDOR: TBCDField;
+    SQL_C_ServicoPROD_COMISSAO_EXT: TBCDField;
+    SQL_C_ServicoPROD_COMISSAO_EXT_VAR: TBCDField;
+    SQL_C_ServicoPROD_COMISSAO_EXT_ATAC: TBCDField;
+    SQL_C_ServicoPROD_COMISSAO_EXT_DIST: TBCDField;
+    SQL_C_ServicoPROD_PRECO_ATAC: TBCDField;
+    SQL_C_ServicoPROD_PRECO_DIST: TBCDField;
+    SQL_C_ServicoPROD_PRECO_VAR: TBCDField;
+    SQL_C_ServicoPROD_PROMOCAO_VAR: TBCDField;
+    SQL_C_ServicoPROD_PROMOCAO_ATAC: TBCDField;
+    SQL_C_ServicoPROD_PROMOCAO_DIST: TBCDField;
     SQL_C_ServicoPROMOCAO_INICIO: TDateField;
     SQL_C_ServicoPROMOCAO_TERMINO: TDateField;
     SQL_C_ServicoVALOR_PROMOCIONAL_ATACADO: TBCDField;
@@ -208,7 +208,7 @@ type
     procedure BtnExcluirClick(Sender: TObject);
     procedure rgSTATUS_CADASTRALClick(Sender: TObject);
     procedure BtnCancelarClick(Sender: TObject);
-    procedure edPRECO_FINAL_VAREJOExit(Sender: TObject);
+    procedure edPROD_PRECO_VARExit(Sender: TObject);
   private
     { Private declarations }
     procedure Ajustes_Iniciais;
@@ -443,15 +443,15 @@ begin
    end;
 
    try
-       if StrToFloat(masctostr(edPRECO_FINAL_VAREJO.Text)) < 0 Then
+       if StrToFloat(masctostr(edPROD_PRECO_VAR.Text)) < 0 Then
        begin
          ShowMessage('Preço inválido');
-         edPRECO_FINAL_VAREJO.SetFocus;
+         edPROD_PRECO_VAR.SetFocus;
          exit;
        end;
    except
       ShowMessage('Preço inválido');
-      edPRECO_FINAL_VAREJO.SetFocus;
+      edPROD_PRECO_VAR.SetFocus;
       exit;
    end;
 
@@ -558,24 +558,24 @@ begin
    Listar_Servicos;
 end;
 
-procedure TFrm_cad_servico.edPRECO_FINAL_VAREJOExit(Sender: TObject);
-var vPRECO_FINAL_VAREJO:Real;
+procedure TFrm_cad_servico.edPROD_PRECO_VARExit(Sender: TObject);
+var vPROD_PRECO_VAR:Real;
 begin
    if BtnCancelar.Focused then
       exit;
 
    try
-       vPRECO_FINAL_VAREJO := StrToFloat(masctostr(edPRECO_FINAL_VAREJO.Text));
-       if vPRECO_FINAL_VAREJO < 0 Then
+       vPROD_PRECO_VAR := StrToFloat(masctostr(edPROD_PRECO_VAR.Text));
+       if vPROD_PRECO_VAR < 0 Then
        begin
          ShowMessage('Preço inválido');
-         edPRECO_FINAL_VAREJO.SetFocus;
+         edPROD_PRECO_VAR.SetFocus;
          exit;
        end;
-       edPRECO_FINAL_VAREJO.Text := Float_to_String(vPRECO_FINAL_VAREJO);
+       edPROD_PRECO_VAR.Text := Float_to_String(vPROD_PRECO_VAR);
    except
       ShowMessage('Preço inválido');
-      edPRECO_FINAL_VAREJO.SetFocus;
+      edPROD_PRECO_VAR.SetFocus;
       exit;
    end;
 
@@ -702,7 +702,7 @@ begin
    Q.SQL.Add('      PROD_DESCRICAO, ');
    Q.SQL.Add('      PROD_CDUNIDADE,    ');
    Q.SQL.Add('      DATA_CADASTRO,     ');
-   Q.SQL.Add('      PRECO_FINAL_VAREJO,');
+   Q.SQL.Add('      PROD_PRECO_VAR,');
    Q.SQL.Add('      STATUS_CADASTRAL,  ');
    Q.SQL.Add('      Produto_ou_Servico,');
    Q.SQL.Add('      PagaComissaoSN,    ');
@@ -715,7 +715,7 @@ begin
    Q.SQL.Add('     :PROD_DESCRICAO, ');
    Q.SQL.Add('     :PROD_CDUNIDADE,    ');
    Q.SQL.Add('     :DATA_CADASTRO,     ');
-   Q.SQL.Add('     :PRECO_FINAL_VAREJO,');
+   Q.SQL.Add('     :PROD_PRECO_VAR,');
    Q.SQL.Add('     :STATUS_CADASTRAL,  ');
    Q.SQL.Add('     :Produto_ou_Servico,');
    Q.SQL.Add('     :PagaComissaoSN,    ');
@@ -726,7 +726,7 @@ begin
    Q.ParamByName('PROD_DESCRICAO' ).AsString  := edPROD_DESCRICAO.Text;
    Q.ParamByName('PROD_CDUNIDADE'    ).AsString  := cxPROD_CDUNIDADE.Text;
    Q.ParamByName('DATA_CADASTRO'     ).AsDateTime:= Date;
-   Q.ParamByName('PRECO_FINAL_VAREJO').AsFloat   := StrToFloat(masctostr(edPRECO_FINAL_VAREJO.Text));
+   Q.ParamByName('PROD_PRECO_VAR').AsFloat   := StrToFloat(masctostr(edPROD_PRECO_VAR.Text));
    if cbSTATUS_CADASTRAL.Checked Then
       Q.ParamByName('STATUS_CADASTRAL'  ).AsString  := 'ATIVO'
    else
@@ -774,7 +774,7 @@ begin
    edCentroDeCusto.Text           := SQL_C_Servico.FieldByName('CentroDeCustos').AsString;
    edCentroDeCusto_Descricao.Text := DescricaoCentroDeCustos(SQL_C_Servico.FieldByName('CentroDeCustos').AsInteger);
 
-   edPRECO_FINAL_VAREJO.Text      := Float_to_String(SQL_C_Servico.FieldByName('PRECO_FINAL_VAREJO').AsFloat);
+   edPROD_PRECO_VAR.Text      := Float_to_String(SQL_C_Servico.FieldByName('PROD_PRECO_VAR').AsFloat);
 
    if SQL_C_Servico.FieldByName('STATUS_CADASTRAL').AsString = 'ATIVO' Then
       cbSTATUS_CADASTRAL.Checked := True
@@ -844,3 +844,13 @@ Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2
 Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:46
 Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:49
 Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:53
+Trocou COMISSAO_EXTERNA por PROD_COMISSAO_EXT : automaticamente em 17/06/2020 05:46
+Trocou EXTERNA_COMISSAO_VAREJO por PROD_COMISSAO_EXT_VAR : automaticamente em 17/06/2020 05:52
+Trocou EXTERNA_COMISSAO_ATACADO por PROD_COMISSAO_EXT_ATAC : automaticamente em 17/06/2020 05:55
+Trocou EXTERNA_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_EXT_DIST : automaticamente em 17/06/2020 06:30
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:55
+Trocou PRECO_FINAL_ATACADO por PROD_PRECO_ATAC : automaticamente em 17/06/2020 06:59
+Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2020 07:02
+Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:40
+Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:44
+Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53

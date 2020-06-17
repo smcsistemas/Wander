@@ -83,16 +83,16 @@ type
     SQL_ProdutoConsultaPROD_COMISSAO_VAR: TBCDField;
     SQL_ProdutoConsultaPROD_COMISSAO_ATAC: TBCDField;
     SQL_ProdutoConsultaPROD_COMISSAO_DIST: TBCDField;
-    SQL_ProdutoConsultaCOMISSAO_EXTERNA: TBCDField;
-    SQL_ProdutoConsultaEXTERNA_COMISSAO_VAREJO: TBCDField;
-    SQL_ProdutoConsultaEXTERNA_COMISSAO_ATACADO: TBCDField;
-    SQL_ProdutoConsultaEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField;
-    SQL_ProdutoConsultaPRECO_FINAL_ATACADO: TBCDField;
-    SQL_ProdutoConsultaPRECO_FINAL_DISTRIBUIDOR: TBCDField;
-    SQL_ProdutoConsultaPRECO_FINAL_VAREJO: TBCDField;
-    SQL_ProdutoConsultaPROMO_VAREJO: TBCDField;
-    SQL_ProdutoConsultaPROMO_ATACADO: TBCDField;
-    SQL_ProdutoConsultaPROMO_DISTRIBUIDOR: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_EXT: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_EXT_VAR: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_EXT_ATAC: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_EXT_DIST: TBCDField;
+    SQL_ProdutoConsultaPROD_PRECO_ATAC: TBCDField;
+    SQL_ProdutoConsultaPROD_PRECO_DIST: TBCDField;
+    SQL_ProdutoConsultaPROD_PRECO_VAR: TBCDField;
+    SQL_ProdutoConsultaPROD_PROMOCAO_VAR: TBCDField;
+    SQL_ProdutoConsultaPROD_PROMOCAO_ATAC: TBCDField;
+    SQL_ProdutoConsultaPROD_PROMOCAO_DIST: TBCDField;
     SQL_ProdutoConsultaPROMOCAO_INICIO: TStringField;
     SQL_ProdutoConsultaPROMOCAO_TERMINO: TStringField;
     SQL_ProdutoConsultaVALOR_PROMOCIONAL_ATACADO: TBCDField;
@@ -142,9 +142,9 @@ type
     SQL_ProdutoConsultaPROD_COMISSAO_VAR2: TBCDField;
     SQL_ProdutoConsultaPROD_COMISSAO_ATAC2: TBCDField;
     SQL_ProdutoConsultaPROD_COMISSAO_DIST2: TBCDField;
-    SQL_ProdutoConsultaEXTERNA_COMISSAO_VAREJO2: TBCDField;
-    SQL_ProdutoConsultaEXTERNA_COMISSAO_ATACADO2: TBCDField;
-    SQL_ProdutoConsultaEXTERNA_COMISSAO_DISTRIBUIDOR2: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_EXT_VAR2: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_EXT_ATAC2: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_EXT_DIST2: TBCDField;
     SQL_ProdutoConsultaREDUCAO_ICMS: TBCDField;
     SQL_ProdutoConsultaREDUCAO_ICMS_ST: TBCDField;
     SQL_ProdutoConsultaLUCRO_SUBST_TRIBUTARIA: TBCDField;
@@ -240,7 +240,7 @@ var
   qry, qry_cod: TFDQuery;
 begin
   qry_cod := Tdb.simplequery
-    ('select PROD_CODIGO, PROD_EAN, PROD_DESCRICAO, PROD_CDUNIDADE, SALDO, PROD_REFERENCIASFABRICA, MARCA, PRECO_FINAL_VAREJO from produto_PROD where PROD_codigo = "' +
+    ('select PROD_CODIGO, PROD_EAN, PROD_DESCRICAO, PROD_CDUNIDADE, SALDO, PROD_REFERENCIASFABRICA, MARCA, PROD_PRECO_VAR from produto_PROD where PROD_codigo = "' +
     Edt_codBarras.Text + '" OR PROD_REFERENCIASFABRICA = "' + Edt_codBarras.Text + '"');
   if qry_cod <> nil then
   begin
@@ -327,3 +327,13 @@ Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2
 Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:46
 Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:49
 Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:53
+Trocou COMISSAO_EXTERNA por PROD_COMISSAO_EXT : automaticamente em 17/06/2020 05:46
+Trocou EXTERNA_COMISSAO_VAREJO por PROD_COMISSAO_EXT_VAR : automaticamente em 17/06/2020 05:52
+Trocou EXTERNA_COMISSAO_ATACADO por PROD_COMISSAO_EXT_ATAC : automaticamente em 17/06/2020 05:55
+Trocou EXTERNA_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_EXT_DIST : automaticamente em 17/06/2020 06:30
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:55
+Trocou PRECO_FINAL_ATACADO por PROD_PRECO_ATAC : automaticamente em 17/06/2020 06:59
+Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2020 07:02
+Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:40
+Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:44
+Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53

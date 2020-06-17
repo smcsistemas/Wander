@@ -146,7 +146,7 @@ object frm_rel_pvw_vertical: Tfrm_rel_pvw_vertical
     FieldAliases.Strings = (
       'codigo=codigo'
       'descricao_produto=descricao_produto'
-      'preco_final_varejo=preco_final_varejo')
+      'PROD_PRECO_VAR=PROD_PRECO_VAR')
     DataSet = SQL_REPORT
     BCDToCurrency = False
     Left = 152
@@ -276,12 +276,12 @@ object frm_rel_pvw_vertical: Tfrm_rel_pvw_vertical
           Memo.UTF8W = (
             '[DS_REPORT."descricao_produto"]')
         end
-        object DS_REPORTpreco_final_varejo: TfrxMemoView
+        object DS_REPORTPROD_PRECO_VAR: TfrxMemoView
           Left = 332.598640000000000000
           Top = 3.779530000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
-          DataField = 'preco_final_varejo'
+          DataField = 'PROD_PRECO_VAR'
           DataSet = DS_REPORT
           DataSetName = 'DS_REPORT'
           Font.Charset = DEFAULT_CHARSET
@@ -291,7 +291,7 @@ object frm_rel_pvw_vertical: Tfrm_rel_pvw_vertical
           Font.Style = []
           HAlign = haCenter
           Memo.UTF8W = (
-            '[DS_REPORT."preco_final_varejo"]')
+            '[DS_REPORT."PROD_PRECO_VAR"]')
           ParentFont = False
         end
       end
@@ -309,7 +309,7 @@ object frm_rel_pvw_vertical: Tfrm_rel_pvw_vertical
       'select '
       'PROD_CODIGO AS codigo, '
       'PROD_DESCRCICAO AS descricao_produto, '
-      'preco_final_varejo'
+      'PROD_PRECO_VAR'
       'from PRODUTO_PROD'
       'limit 100')
     Left = 216
@@ -326,11 +326,12 @@ object frm_rel_pvw_vertical: Tfrm_rel_pvw_vertical
       Origin = 'DESCRICAO_PRODUTO'
       Size = 200
     end
-    object SQL_REPORTpreco_final_varejo: TBCDField
+    object SQL_REPORTPROD_PRECO_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'preco_final_varejo'
-      Origin = 'PRECO_FINAL_VAREJO'
+      FieldName = 'PROD_PRECO_VAR'
+      Origin = 'PROD_PRECO_VAR'
       Precision = 10
     end
   end
 end
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56

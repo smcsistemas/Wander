@@ -469,7 +469,7 @@ begin
       produto.MARCA := TFormats.uc(fieldbyname('PROD_MARCA').asString);
       produto.UNIDADE := TFormats.uc(fieldbyname('um').asString);
       produto.ESTOQUE := produto.ESTOQUE + fieldbyname('qtde').asExtended;
-      produto.PRECO_FINAL_VAREJO := fieldbyname('preco_venda').asExtended;
+      produto.PROD_PRECO_VAR := fieldbyname('preco_venda').asExtended;
       produto.PRECO_CUSTO := fieldbyname('preco_uni').asExtended;
       produto.CUSTO_MEDIO := fieldbyname('preco_uni').asExtended;
       produto.MARGEM_LUCRO_VAREJO := fieldbyname('margem_lucro').asExtended;
@@ -1354,3 +1354,4 @@ Trocou ('PROD_MARCA por ('MARCA : automaticamente em 16/06/2020 16:08
 Trocou ('MARCA' por ('PROD_MARCA' : automaticamente em 16/06/2020 16:09
 Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22:27
 Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:41
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:55

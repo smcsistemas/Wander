@@ -1663,9 +1663,9 @@ begin
 
    // Preco
    case cxTabelaDePreco.ItemIndex of
-      0 : vPreco := SQL_PRODUTO.FieldByName('PRECO_FINAL_ATACADO'     ).AsFloat;
-      1 : vPreco := SQL_PRODUTO.FieldByName('PRECO_FINAL_VAREJO'      ).AsFloat;
-      2 : vPreco := SQL_PRODUTO.FieldByName('PRECO_FINAL_DISTRIBUIDOR').AsFloat;
+      0 : vPreco := SQL_PRODUTO.FieldByName('PROD_PRECO_ATAC'     ).AsFloat;
+      1 : vPreco := SQL_PRODUTO.FieldByName('PROD_PRECO_VAR'      ).AsFloat;
+      2 : vPreco := SQL_PRODUTO.FieldByName('PROD_PRECO_DIST').AsFloat;
    end;
    edPRECO.Text := Float_to_String(vPreco);
 
@@ -2462,3 +2462,6 @@ Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:16
 Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:23
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56
+Trocou PRECO_FINAL_ATACADO por PROD_PRECO_ATAC : automaticamente em 17/06/2020 06:59
+Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2020 07:02

@@ -36,9 +36,9 @@ type
     Label24: TLabel;
     Label23: TLabel;
     Label86: TLabel;
-    PRECO_FINAL_VAREJO: TDBEdit;
-    PRECO_FINAL_DISTRIBUIDOR: TDBEdit;
-    PRECO_FINAL_ATACADO: TDBEdit;
+    PROD_PRECO_VAR: TDBEdit;
+    PROD_PRECO_DIST: TDBEdit;
+    PROD_PRECO_ATAC: TDBEdit;
     GroupBox16: TGroupBox;
     Label27: TLabel;
     Label31: TLabel;
@@ -77,3 +77,6 @@ implementation
 end.
 Trocou DESCONTO_M_ATACADO por PROD_MAXDESC_ATAC : automaticamente em 16/06/2020 22:31
 Trocou DESCONTO_M_DISTRIBUIDOR por PROD_MAXDESC_DIST : automaticamente em 16/06/2020 22:34
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56
+Trocou PRECO_FINAL_ATACADO por PROD_PRECO_ATAC : automaticamente em 17/06/2020 07:00
+Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2020 07:03

@@ -346,7 +346,7 @@ object Frm_Produto2: TFrm_Produto2
           end
           object tbViewPRECO: TcxGridDBColumn
             Caption = 'Pre'#231'o'
-            DataBinding.FieldName = 'PRECO_FINAL_VAREJO'
+            DataBinding.FieldName = 'PROD_PRECO_VAR'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.Alignment.Horz = taCenter
             Properties.Nullstring = '0'
@@ -1035,14 +1035,14 @@ object Frm_Produto2: TFrm_Produto2
           ParentFont = False
           TabOrder = 2
         end
-        object PRECO_FINAL_VAREJO: TDBEdit
+        object PROD_PRECO_VAR: TDBEdit
           Left = 121
           Top = 85
           Width = 85
           Height = 21
           CharCase = ecUpperCase
           Color = 8454143
-          DataField = 'PRECO_FINAL_VAREJO'
+          DataField = 'PROD_PRECO_VAR'
           DataSource = DS_PRODUTO
           Font.Charset = ANSI_CHARSET
           Font.Color = clRed
@@ -1074,7 +1074,7 @@ object Frm_Produto2: TFrm_Produto2
           Width = 31
           Height = 21
           CharCase = ecUpperCase
-          DataField = 'PRECO_FINAL_VAREJO'
+          DataField = 'PROD_PRECO_VAR'
           DataSource = DS_PRODUTO
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -1140,13 +1140,13 @@ object Frm_Produto2: TFrm_Produto2
             ParentFont = False
             TabOrder = 0
           end
-          object EXTERNA_COMISSAO_VAREJO: TDBEdit
+          object PROD_COMISSAO_EXT_VAR: TDBEdit
             Left = 200
             Top = 4
             Width = 55
             Height = 21
             CharCase = ecUpperCase
-            DataField = 'EXTERNA_COMISSAO_VAREJO'
+            DataField = 'PROD_COMISSAO_EXT_VAR'
             DataSource = DS_PRODUTO
             Font.Charset = ANSI_CHARSET
             Font.Color = clCaptionText
@@ -2819,65 +2819,65 @@ object Frm_Produto2: TFrm_Produto2
       Origin = 'PROD_COMISSAO_DIST'
       Precision = 10
     end
-    object SQL_LISTACOMISSAO_EXTERNA: TBCDField
+    object SQL_LISTAPROD_COMISSAO_EXT: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'COMISSAO_EXTERNA'
-      Origin = 'COMISSAO_EXTERNA'
+      FieldName = 'PROD_COMISSAO_EXT'
+      Origin = 'PROD_COMISSAO_EXT'
       Precision = 10
     end
-    object SQL_LISTAEXTERNA_COMISSAO_VAREJO: TBCDField
+    object SQL_LISTAPROD_COMISSAO_EXT_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'EXTERNA_COMISSAO_VAREJO'
-      Origin = 'EXTERNA_COMISSAO_VAREJO'
+      FieldName = 'PROD_COMISSAO_EXT_VAR'
+      Origin = 'PROD_COMISSAO_EXT_VAR'
       Precision = 10
     end
-    object SQL_LISTAEXTERNA_COMISSAO_ATACADO: TBCDField
+    object SQL_LISTAPROD_COMISSAO_EXT_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'EXTERNA_COMISSAO_ATACADO'
-      Origin = 'EXTERNA_COMISSAO_ATACADO'
+      FieldName = 'PROD_COMISSAO_EXT_ATAC'
+      Origin = 'PROD_COMISSAO_EXT_ATAC'
       Precision = 10
     end
-    object SQL_LISTAEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField
+    object SQL_LISTAPROD_COMISSAO_EXT_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'EXTERNA_COMISSAO_DISTRIBUIDOR'
-      Origin = 'EXTERNA_COMISSAO_DISTRIBUIDOR'
+      FieldName = 'PROD_COMISSAO_EXT_DIST'
+      Origin = 'PROD_COMISSAO_EXT_DIST'
       Precision = 10
     end
-    object SQL_LISTAPRECO_FINAL_ATACADO: TBCDField
+    object SQL_LISTAPROD_PRECO_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PRECO_FINAL_ATACADO'
-      Origin = 'PRECO_FINAL_ATACADO'
+      FieldName = 'PROD_PRECO_ATAC'
+      Origin = 'PROD_PRECO_ATAC'
       Precision = 10
     end
-    object SQL_LISTAPRECO_FINAL_DISTRIBUIDOR: TBCDField
+    object SQL_LISTAPROD_PRECO_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PRECO_FINAL_DISTRIBUIDOR'
-      Origin = 'PRECO_FINAL_DISTRIBUIDOR'
+      FieldName = 'PROD_PRECO_DIST'
+      Origin = 'PROD_PRECO_DIST'
       Precision = 10
     end
-    object SQL_LISTAPRECO_FINAL_VAREJO: TBCDField
+    object SQL_LISTAPROD_PRECO_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PRECO_FINAL_VAREJO'
-      Origin = 'PRECO_FINAL_VAREJO'
+      FieldName = 'PROD_PRECO_VAR'
+      Origin = 'PROD_PRECO_VAR'
       currency = True
       Precision = 10
     end
-    object SQL_LISTAPROMO_VAREJO: TBCDField
+    object SQL_LISTAPROD_PROMOCAO_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PROMO_VAREJO'
-      Origin = 'PROMO_VAREJO'
+      FieldName = 'PROD_PROMOCAO_VAR'
+      Origin = 'PROD_PROMOCAO_VAR'
       Precision = 10
     end
-    object SQL_LISTAPROMO_ATACADO: TBCDField
+    object SQL_LISTAPROD_PROMOCAO_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PROMO_ATACADO'
-      Origin = 'PROMO_ATACADO'
+      FieldName = 'PROD_PROMOCAO_ATAC'
+      Origin = 'PROD_PROMOCAO_ATAC'
       Precision = 10
     end
-    object SQL_LISTAPROMO_DISTRIBUIDOR: TBCDField
+    object SQL_LISTAPROD_PROMOCAO_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PROMO_DISTRIBUIDOR'
-      Origin = 'PROMO_DISTRIBUIDOR'
+      FieldName = 'PROD_PROMOCAO_DIST'
+      Origin = 'PROD_PROMOCAO_DIST'
       Precision = 10
     end
     object SQL_LISTAVALOR_PROMOCIONAL_ATACADO: TBCDField
@@ -3453,39 +3453,39 @@ object Frm_Produto2: TFrm_Produto2
       Origin = 'QUANT_MINI_DISTRIBUIDOR_Q'
       Precision = 10
     end
-    object SQL_PRODUTOPRECO_FINAL_ATACADO: TBCDField
-      FieldName = 'PRECO_FINAL_ATACADO'
-      Origin = 'PRECO_FINAL_ATACADO'
+    object SQL_PRODUTOPROD_PRECO_ATAC: TBCDField
+      FieldName = 'PROD_PRECO_ATAC'
+      Origin = 'PROD_PRECO_ATAC'
       DisplayFormat = 'R$ #,##0.00'
       Precision = 10
     end
-    object SQL_PRODUTOPRECO_FINAL_DISTRIBUIDOR: TBCDField
-      FieldName = 'PRECO_FINAL_DISTRIBUIDOR'
-      Origin = 'PRECO_FINAL_DISTRIBUIDOR'
+    object SQL_PRODUTOPROD_PRECO_DIST: TBCDField
+      FieldName = 'PROD_PRECO_DIST'
+      Origin = 'PROD_PRECO_DIST'
       DisplayFormat = 'R$ #,##0.00'
       Precision = 10
     end
-    object SQL_PRODUTOPRECO_FINAL_VAREJO: TBCDField
-      FieldName = 'PRECO_FINAL_VAREJO'
-      Origin = 'PRECO_FINAL_VAREJO'
+    object SQL_PRODUTOPROD_PRECO_VAR: TBCDField
+      FieldName = 'PROD_PRECO_VAR'
+      Origin = 'PROD_PRECO_VAR'
       DisplayFormat = 'R$ #,##0.00'
       Precision = 10
     end
-    object SQL_PRODUTOPROMO_VAREJO: TBCDField
-      FieldName = 'PROMO_VAREJO'
-      Origin = 'PROMO_VAREJO'
+    object SQL_PRODUTOPROD_PROMOCAO_VAR: TBCDField
+      FieldName = 'PROD_PROMOCAO_VAR'
+      Origin = 'PROD_PROMOCAO_VAR'
       DisplayFormat = 'R$ #,##0.00'
       Precision = 10
     end
-    object SQL_PRODUTOPROMO_ATACADO: TBCDField
-      FieldName = 'PROMO_ATACADO'
-      Origin = 'PROMO_ATACADO'
+    object SQL_PRODUTOPROD_PROMOCAO_ATAC: TBCDField
+      FieldName = 'PROD_PROMOCAO_ATAC'
+      Origin = 'PROD_PROMOCAO_ATAC'
       DisplayFormat = 'R$ #,##0.00'
       Precision = 10
     end
-    object SQL_PRODUTOPROMO_DISTRIBUIDOR: TBCDField
-      FieldName = 'PROMO_DISTRIBUIDOR'
-      Origin = 'PROMO_DISTRIBUIDOR'
+    object SQL_PRODUTOPROD_PROMOCAO_DIST: TBCDField
+      FieldName = 'PROD_PROMOCAO_DIST'
+      Origin = 'PROD_PROMOCAO_DIST'
       DisplayFormat = 'R$ #,##0.00'
       Precision = 10
     end
@@ -3621,9 +3621,9 @@ object Frm_Produto2: TFrm_Produto2
       DisplayFormat = '#,##0.00%'
       Precision = 10
     end
-    object SQL_PRODUTOCOMISSAO_EXTERNA: TBCDField
-      FieldName = 'COMISSAO_EXTERNA'
-      Origin = 'COMISSAO_EXTERNA'
+    object SQL_PRODUTOPROD_COMISSAO_EXT: TBCDField
+      FieldName = 'PROD_COMISSAO_EXT'
+      Origin = 'PROD_COMISSAO_EXT'
       DisplayFormat = '#,##0.00%'
       Precision = 10
     end
@@ -3694,22 +3694,22 @@ object Frm_Produto2: TFrm_Produto2
       Origin = 'PROD_COMISSAO_DIST'
       Precision = 10
     end
-    object SQL_PRODUTOEXTERNA_COMISSAO_VAREJO: TBCDField
+    object SQL_PRODUTOPROD_COMISSAO_EXT_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'EXTERNA_COMISSAO_VAREJO'
-      Origin = 'EXTERNA_COMISSAO_VAREJO'
+      FieldName = 'PROD_COMISSAO_EXT_VAR'
+      Origin = 'PROD_COMISSAO_EXT_VAR'
       Precision = 10
     end
-    object SQL_PRODUTOEXTERNA_COMISSAO_ATACADO: TBCDField
+    object SQL_PRODUTOPROD_COMISSAO_EXT_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'EXTERNA_COMISSAO_ATACADO'
-      Origin = 'EXTERNA_COMISSAO_ATACADO'
+      FieldName = 'PROD_COMISSAO_EXT_ATAC'
+      Origin = 'PROD_COMISSAO_EXT_ATAC'
       Precision = 10
     end
-    object SQL_PRODUTOEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField
+    object SQL_PRODUTOPROD_COMISSAO_EXT_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'EXTERNA_COMISSAO_DISTRIBUIDOR'
-      Origin = 'EXTERNA_COMISSAO_DISTRIBUIDOR'
+      FieldName = 'PROD_COMISSAO_EXT_DIST'
+      Origin = 'PROD_COMISSAO_EXT_DIST'
       Precision = 10
     end
     object SQL_PRODUTOPROD_COMISSAO_VAR: TBCDField
@@ -4138,3 +4138,13 @@ Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2
 Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:47
 Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:49
 Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:54
+Trocou COMISSAO_EXTERNA por PROD_COMISSAO_EXT : automaticamente em 17/06/2020 05:46
+Trocou EXTERNA_COMISSAO_VAREJO por PROD_COMISSAO_EXT_VAR : automaticamente em 17/06/2020 05:53
+Trocou EXTERNA_COMISSAO_ATACADO por PROD_COMISSAO_EXT_ATAC : automaticamente em 17/06/2020 05:56
+Trocou EXTERNA_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_EXT_DIST : automaticamente em 17/06/2020 06:30
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56
+Trocou PRECO_FINAL_ATACADO por PROD_PRECO_ATAC : automaticamente em 17/06/2020 06:59
+Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2020 07:02
+Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:41
+Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:45
+Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53

@@ -271,13 +271,8 @@ type
     SQL_DADOS_ROTINAShost_name: TStringField;
     SQL_PRECO_FAIXA: TFDQuery;
     DS_PRECO_FAIXA: TDataSource;
-    SQL_PRECO_FAIXAID: TFDAutoIncField;
-    SQL_PRECO_FAIXATIPO: TStringField;
-    SQL_PRECO_FAIXAPRECO: TBCDField;
     pop_faixa: TPopupMenu;
     RemoverFaixa1: TMenuItem;
-    SQL_PRECO_FAIXAID_PRODUTO: TIntegerField;
-    SQL_PRECO_FAIXAQTDE: TBCDField;
     chk_diff_estoque: TcxCheckBox;
     tbView: TcxGridDBTableView;
     gdProdsLevel1: TcxGridLevel;
@@ -404,9 +399,9 @@ type
     Label9: TLabel;
     Label10: TLabel;
     Label13: TLabel;
-    edPRECO_FINAL_VAREJO: TEdit;
-    edPRECO_FINAL_DISTRIBUIDOR: TEdit;
-    edPRECO_FINAL_ATACADO: TEdit;
+    edPROD_PRECO_VAR: TEdit;
+    edPROD_PRECO_DIST: TEdit;
+    edPROD_PRECO_ATAC: TEdit;
     edGRUPO_NOME: TEdit;
     edSUBGRUPO_NOME: TEdit;
     edMARCA_NOME: TEdit;
@@ -443,125 +438,11 @@ type
     DBGrid1: TDBGrid;
     Label24: TLabel;
     edREDUCAO_ICMS_ST: TEdit;
-    Panel7: TPanel;
     cbPROD_RASTREAVEL: TCheckBox;
     cbPROD_TRATANUMEROSERIE: TCheckBox;
     rgPROD_TRATALOTE: TRadioGroup;
     Label25: TLabel;
     edPROD_DESCRICAO_IMPRESSA: TEdit;
-    qConsultaPROD_DESCRICAO: TStringField;
-    qConsultaPROD_DETALHES: TStringField;
-    qConsultaPROD_REFERENCIASFABRICA: TStringField;
-    qConsultaPROD_CDMARCA: TStringField;
-    qConsultaPROD_CDFAMILIA: TStringField;
-    qConsultaPROD_CDSUBGRUPO: TStringField;
-    qConsultaPROD_DT: TDateTimeField;
-    qConsultaPROD_CDTIPOITEM: TStringField;
-    qConsultaPROD_ESTOQMIN: TStringField;
-    qConsultaPROD_MAXDESC: TBCDField;
-    qConsultaPROD_MAXDESC_VAR: TBCDField;
-    qConsultaPROD_MAXDESC_ATAC: TBCDField;
-    qConsultaPROD_MAXDESC_DIST: TBCDField;
-    qConsultaDESCONTO_L_VAREJO: TBCDField;
-    qConsultaDESCONTO_L_ATACADO: TBCDField;
-    qConsultaDESCONTO_L_DISTRIBUIDOR: TBCDField;
-    qConsultaPROD_COMISSAO: TBCDField;
-    qConsultaPROD_COMISSAO_LOJA: TBCDField;
-    qConsultaPROD_COMISSAO_VAR: TBCDField;
-    qConsultaPROD_COMISSAO_ATAC: TBCDField;
-    qConsultaPROD_COMISSAO_DIST: TBCDField;
-    qConsultaCOMISSAO_EXTERNA: TBCDField;
-    qConsultaEXTERNA_COMISSAO_VAREJO: TBCDField;
-    qConsultaEXTERNA_COMISSAO_ATACADO: TBCDField;
-    qConsultaEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField;
-    qConsultaPRECO_FINAL_ATACADO: TBCDField;
-    qConsultaPRECO_FINAL_DISTRIBUIDOR: TBCDField;
-    qConsultaPRECO_FINAL_VAREJO: TBCDField;
-    qConsultaPROMO_VAREJO: TBCDField;
-    qConsultaPROMO_ATACADO: TBCDField;
-    qConsultaPROMO_DISTRIBUIDOR: TBCDField;
-    qConsultaPROMOCAO_INICIO: TDateField;
-    qConsultaPROMOCAO_TERMINO: TDateField;
-    qConsultaVALOR_PROMOCIONAL_ATACADO: TBCDField;
-    qConsultaVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
-    qConsultaVALOR_PROMOCIONAL_VAREJO: TBCDField;
-    qConsultaSALDO: TBCDField;
-    qConsultaALIQ_ICMS: TBCDField;
-    qConsultaREDUCAO_ICMS: TBCDField;
-    qConsultaALIQ_ICMS_SUBST: TStringField;
-    qConsultaREDUCAO_ICMS_ST: TBCDField;
-    qConsultaLUCRO_SUBST_TRIBUTARIA: TBCDField;
-    qConsultaVALOR_PAUTA_BC_ST: TBCDField;
-    qConsultaCOD_COMB: TStringField;
-    qConsultaALIQ_IPI: TStringField;
-    qConsultaENQUADRAMENTO_IPI: TIntegerField;
-    qConsultaCODIGO_LOCALIZACAO: TIntegerField;
-    qConsultaICMS_CST: TStringField;
-    qConsultaICMS_IPI: TStringField;
-    qConsultaPIS_CST: TStringField;
-    qConsultaCOFINS_CST: TStringField;
-    qConsultaCODIGO_ORIGEM_MERCADORIA: TIntegerField;
-    qConsultaNCM: TStringField;
-    qConsultaCEST: TStringField;
-    qConsultaANP: TStringField;
-    qConsultaEX_IPI: TSingleField;
-    qConsultaSTATUS_CADASTRAL: TStringField;
-    qConsultaPESAVEL: TStringField;
-    qConsultaUTILIZA_ETIQUETA_BALANCA: TStringField;
-    qConsultaUSA_LOTE: TStringField;
-    qConsultaCONTROLADO: TStringField;
-    qConsultaQUANT_MINI_VAREJO_P: TBCDField;
-    qConsultaQUANT_MINI_ATACADO_P: TBCDField;
-    qConsultaQUANT_MINI_DISTRIBUIDOR_P: TBCDField;
-    qConsultaQUANT_MINI_VAREJO_Q: TBCDField;
-    qConsultaQUANT_MINI_ATACADO_Q: TBCDField;
-    qConsultaQUANT_MINI_DISTRIBUIDOR_Q: TBCDField;
-    qConsultaQUANT_MINI_VAREJO_D: TBCDField;
-    qConsultaQUANT_MINI_DISTRIBUIDOR_D: TBCDField;
-    qConsultaQUANT_MINI_ATACADO_D: TBCDField;
-    qConsultaCST_IPI: TStringField;
-    qConsultaCOD_BALANCA_1: TStringField;
-    qConsultaCOD_BALANCA_2: TStringField;
-    qConsultaCOD_BALANCA_3: TStringField;
-    qConsultaponto_impressao_id: TIntegerField;
-    qConsultaNFe_nDI: TStringField;
-    qConsultaNFe_dDI: TDateTimeField;
-    qConsultaNFe_xLocDesemb: TStringField;
-    qConsultaNFe_UFDesemb: TStringField;
-    qConsultaNFe_dDesemb: TDateTimeField;
-    qConsultaNFe_cExportador: TStringField;
-    qConsultaNFe_nAdicao: TIntegerField;
-    qConsultaNFe_cFabricante: TStringField;
-    qConsultaNFe_vDescDI: TBCDField;
-    qConsultaNFe_VeiculoNovo: TIntegerField;
-    qConsultaNFe_Veiculo_Cor_Codigo: TStringField;
-    qConsultaNFe_Veiculo_Cor_Descricao: TStringField;
-    qConsultaNFe_Veiculo_Pot: TStringField;
-    qConsultaNFe_Veiculo_Cilin: TStringField;
-    qConsultaNFe_Armamento: TIntegerField;
-    qConsultaNFe_Combustivel: TIntegerField;
-    qConsultaNFe_modBC: TIntegerField;
-    qConsultaNFe_modBCST: TIntegerField;
-    qConsultaNFe_pMVAST: TBCDField;
-    qConsultaNFe_motDesICMS: TIntegerField;
-    qConsultaProduto_ou_Servico: TStringField;
-    qConsultaPagaComissaoSN: TStringField;
-    qConsultaContaContabil: TIntegerField;
-    qConsultaCentroDeCustos: TIntegerField;
-    qConsultaNFe_indTot: TIntegerField;
-    qConsultaNFe_Medicamento: TIntegerField;
-    qConsultaCODIGO_ALFANUMERICO: TStringField;
-    qConsultaVALOR_PAUTA_BC: TBCDField;
-    qConsultaNFe_pMVA: TBCDField;
-    qConsultaNFe_indEscala: TIntegerField;
-    qConsultaPROD_RASTREAVEL: TIntegerField;
-    qConsultaPROD_TRATALOTE: TIntegerField;
-    qConsultaPROD_TRATANUMEROSERIE: TIntegerField;
-    qConsultaPROD_CODIGO: TStringField;
-    qConsultaPROD_EAN: TStringField;
-    qConsultaPROD_CDUNIDADE: TStringField;
-    qConsultaPROD_DESCRICAO_IMPRESSA: TStringField;
-    qConsultaPROD_CDGRUPO: TStringField;
     procedure BtnGravarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_familiaClick(Sender: TObject);
@@ -624,15 +505,15 @@ type
     procedure edPROD_CDFAMILIAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edPROD_GRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edPROD_CDSUBGRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure EXTERNA_COMISSAO_ATACADOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure PROD_COMISSAO_EXT_ATACKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edCODIGO_ALFANUMERICOKeyPress(Sender: TObject; var Key: Char);
     procedure PROD_ESTOQMINKeyPress(Sender: TObject; var Key: Char);
     procedure PROD_COMISSAO_VARKeyPress(Sender: TObject; var Key: Char);
     procedure PROD_COMISSAO_DISTKeyPress(Sender: TObject; var Key: Char);
     procedure PROD_COMISSAO_ATACKeyPress(Sender: TObject; var Key: Char);
-    procedure EXTERNA_COMISSAO_VAREJOKeyPress(Sender: TObject; var Key: Char);
-    procedure EXTERNA_COMISSAO_DISTRIBUIDORKeyPress(Sender: TObject; var Key: Char);
-    procedure EXTERNA_COMISSAO_ATACADOKeyPress(Sender: TObject; var Key: Char);
+    procedure PROD_COMISSAO_EXT_VARKeyPress(Sender: TObject; var Key: Char);
+    procedure PROD_COMISSAO_EXT_DISTKeyPress(Sender: TObject; var Key: Char);
+    procedure PROD_COMISSAO_EXT_ATACKeyPress(Sender: TObject; var Key: Char);
     procedure CarregarDadosInternos;
     procedure FormShow(Sender: TObject);
     procedure btn_ncmClick(Sender: TObject);
@@ -665,8 +546,8 @@ type
     procedure PROD_COMISSAO_VARClick(Sender: TObject);
     procedure PROD_COMISSAO_DISTClick(Sender: TObject);
     procedure PROD_COMISSAO_ATACClick(Sender: TObject);
-    procedure EXTERNA_COMISSAO_DISTRIBUIDORClick(Sender: TObject);
-    procedure EXTERNA_COMISSAO_ATACADOClick(Sender: TObject);
+    procedure PROD_COMISSAO_EXT_DISTClick(Sender: TObject);
+    procedure PROD_COMISSAO_EXT_ATACClick(Sender: TObject);
     procedure sClick(Sender: TObject);
     procedure PROD_MAXDESC_DISTClick(Sender: TObject);
     procedure PROD_MAXDESC_ATACClick(Sender: TObject);
@@ -676,7 +557,7 @@ type
     procedure cb_tipoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btn_cad_faixaClick(Sender: TObject);
     procedure carregar_faixa;
-    procedure PRECO_FINAL_ATACADOKeyPress(Sender: TObject; var Key: Char);
+    procedure PROD_PRECO_ATACKeyPress(Sender: TObject; var Key: Char);
     procedure chk_diff_estoquePropertiesChange(Sender: TObject);
     procedure PreencherNCM(value: string);
     //procedure preencherANP(value: string);
@@ -926,8 +807,8 @@ procedure TFrm_Produto.calcular_preco_produtos(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 var
-  _PRECO_CUSTO, _FRETE, _DESP_OPERACIONAIS, _MARGEM_LUCRO, _CUSTO_MEDIO, _PRECO_FINAL_VAREJO, _MARGEM_L_DISTRIBUIDOR,
-    _PRECO_FINAL_DISTRIBUIDOR, _MARGEM_L_ATACADO, _PRECO_FINAL_ATACADO, _IMPOSTO: extended;
+  _PRECO_CUSTO, _FRETE, _DESP_OPERACIONAIS, _MARGEM_LUCRO, _CUSTO_MEDIO, _PROD_PRECO_VAR, _MARGEM_L_DISTRIBUIDOR,
+    _PROD_PRECO_DIST, _MARGEM_L_ATACADO, _PROD_PRECO_ATAC, _IMPOSTO: extended;
 begin
 //  if PRECO_CUSTO.Text <> emptystr then
 //    _PRECO_CUSTO := TFunctions.replace(PRECO_CUSTO.Text, 'R$', VARDOUBLE);
@@ -944,20 +825,20 @@ begin
 //  if CUSTO_MEDIO.Text <> emptystr then
 //    _CUSTO_MEDIO := TFunctions.replace(CUSTO_MEDIO.Text, 'R$', VARDOUBLE);
 //
-//  if PRECO_FINAL_VAREJO.Text <> emptystr then
-//    _PRECO_FINAL_VAREJO := TFunctions.replace(PRECO_FINAL_VAREJO.Text, 'R$', VARDOUBLE);
+//  if PROD_PRECO_VAR.Text <> emptystr then
+//    _PROD_PRECO_VAR := TFunctions.replace(PROD_PRECO_VAR.Text, 'R$', VARDOUBLE);
 //
 //  if MARGEM_L_DISTRIBUIDOR.Text <> emptystr then
 //    _MARGEM_L_DISTRIBUIDOR := TFunctions.replace(MARGEM_L_DISTRIBUIDOR.Text, '%', VARDOUBLE);
 //
-//  if PRECO_FINAL_DISTRIBUIDOR.Text <> emptystr then
-//    _PRECO_FINAL_DISTRIBUIDOR := TFunctions.replace(PRECO_FINAL_DISTRIBUIDOR.Text, 'R$', VARDOUBLE);
+//  if PROD_PRECO_DIST.Text <> emptystr then
+//    _PROD_PRECO_DIST := TFunctions.replace(PROD_PRECO_DIST.Text, 'R$', VARDOUBLE);
 //
 //  if MARGEM_L_ATACADO.Text <> emptystr then
 //    _MARGEM_L_ATACADO := TFunctions.replace(MARGEM_L_ATACADO.Text, '%', VARDOUBLE);
 //
-//  if PRECO_FINAL_ATACADO.Text <> emptystr then
-//    _PRECO_FINAL_ATACADO := TFunctions.replace(PRECO_FINAL_ATACADO.Text, 'R$', VARDOUBLE);
+//  if PROD_PRECO_ATAC.Text <> emptystr then
+//    _PROD_PRECO_ATAC := TFunctions.replace(PROD_PRECO_ATAC.Text, 'R$', VARDOUBLE);
 //
 //  if IMPOSTO.Text <> emptystr then
 //    _IMPOSTO := TFunctions.replace(IMPOSTO.Text, '%', VARDOUBLE);
@@ -966,26 +847,26 @@ begin
     if (_FRETE = 0) and (_DESP_OPERACIONAIS = 0) and (_MARGEM_LUCRO = 0) then
     begin
       _CUSTO_MEDIO := _PRECO_CUSTO;
-      _PRECO_FINAL_DISTRIBUIDOR := _CUSTO_MEDIO;
+      _PROD_PRECO_DIST := _CUSTO_MEDIO;
     end
     else
       _CUSTO_MEDIO := _PRECO_CUSTO + ((_PRECO_CUSTO * _FRETE) / 100) + ((_PRECO_CUSTO * _IMPOSTO) / 100) +
         ((_PRECO_CUSTO * _DESP_OPERACIONAIS) / 100);
 
   if _MARGEM_LUCRO = 0 then
-    _PRECO_FINAL_VAREJO := _CUSTO_MEDIO
+    _PROD_PRECO_VAR := _CUSTO_MEDIO
   else
-    _PRECO_FINAL_VAREJO := _CUSTO_MEDIO + ((_CUSTO_MEDIO * _MARGEM_LUCRO) / 100);
+    _PROD_PRECO_VAR := _CUSTO_MEDIO + ((_CUSTO_MEDIO * _MARGEM_LUCRO) / 100);
 
   if _MARGEM_L_DISTRIBUIDOR = 0 then
-    _PRECO_FINAL_DISTRIBUIDOR := _CUSTO_MEDIO
+    _PROD_PRECO_DIST := _CUSTO_MEDIO
   else
-    _PRECO_FINAL_DISTRIBUIDOR := _CUSTO_MEDIO + ((_CUSTO_MEDIO * _MARGEM_L_DISTRIBUIDOR) / 100);
+    _PROD_PRECO_DIST := _CUSTO_MEDIO + ((_CUSTO_MEDIO * _MARGEM_L_DISTRIBUIDOR) / 100);
 
   if _MARGEM_L_ATACADO = 0 then
-    _PRECO_FINAL_ATACADO := _CUSTO_MEDIO
+    _PROD_PRECO_ATAC := _CUSTO_MEDIO
   else
-    _PRECO_FINAL_ATACADO := _CUSTO_MEDIO + ((_CUSTO_MEDIO * _MARGEM_L_ATACADO) / 100);
+    _PROD_PRECO_ATAC := _CUSTO_MEDIO + ((_CUSTO_MEDIO * _MARGEM_L_ATACADO) / 100);
 //
 //  if TDBEdit(Sender) <> PRECO_CUSTO then
 //    PRECO_CUSTO.Field.asExtended := _PRECO_CUSTO;
@@ -1002,20 +883,20 @@ begin
 //  if TDBEdit(Sender) <> CUSTO_MEDIO then
 //    CUSTO_MEDIO.Field.asExtended := _CUSTO_MEDIO;
 //
-//  if TDBEdit(Sender) <> PRECO_FINAL_VAREJO then
-//    PRECO_FINAL_VAREJO.Field.asExtended := _PRECO_FINAL_VAREJO;
+//  if TDBEdit(Sender) <> PROD_PRECO_VAR then
+//    PROD_PRECO_VAR.Field.asExtended := _PROD_PRECO_VAR;
 //
 //  if TDBEdit(Sender) <> MARGEM_L_DISTRIBUIDOR then
 //    MARGEM_L_DISTRIBUIDOR.Field.asExtended := _MARGEM_L_DISTRIBUIDOR;
 //
-//  if TDBEdit(Sender) <> PRECO_FINAL_DISTRIBUIDOR then
-//    PRECO_FINAL_DISTRIBUIDOR.Field.asExtended := _PRECO_FINAL_DISTRIBUIDOR;
+//  if TDBEdit(Sender) <> PROD_PRECO_DIST then
+//    PROD_PRECO_DIST.Field.asExtended := _PROD_PRECO_DIST;
 //
 //  if TDBEdit(Sender) <> MARGEM_L_ATACADO then
 //    MARGEM_L_ATACADO.Field.asExtended := _MARGEM_L_ATACADO;
 //
-//  if TDBEdit(Sender) <> PRECO_FINAL_ATACADO then
-//    PRECO_FINAL_ATACADO.Field.asExtended := _PRECO_FINAL_ATACADO;
+//  if TDBEdit(Sender) <> PROD_PRECO_ATAC then
+//    PROD_PRECO_ATAC.Field.asExtended := _PROD_PRECO_ATAC;
 //
 //  if TDBEdit(Sender) <> IMPOSTO then
 //    IMPOSTO.Field.asExtended := _IMPOSTO;
@@ -1025,8 +906,8 @@ procedure TFrm_Produto.calc_margem(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 var
-  __MARGEM_LUCRO, __CUSTO_MEDIO, __PRECO_FINAL_VAREJO, __MARGEM_L_DISTRIBUIDOR, __PRECO_FINAL_DISTRIBUIDOR, __MARGEM_L_ATACADO,
-    __PRECO_FINAL_ATACADO: extended;
+  __MARGEM_LUCRO, __CUSTO_MEDIO, __PROD_PRECO_VAR, __MARGEM_L_DISTRIBUIDOR, __PROD_PRECO_DIST, __MARGEM_L_ATACADO,
+    __PROD_PRECO_ATAC: extended;
 begin
 //  if MARGEM_LUCRO.Text <> emptystr then
 //    __MARGEM_LUCRO := TFunctions.replace(MARGEM_LUCRO.Text, '%', VARDOUBLE);
@@ -1034,41 +915,41 @@ begin
 //  if CUSTO_MEDIO.Text <> emptystr then
 //    __CUSTO_MEDIO := TFunctions.replace(CUSTO_MEDIO.Text, 'R$', VARDOUBLE);
 //
-//  if PRECO_FINAL_VAREJO.Text <> emptystr then
-//    __PRECO_FINAL_VAREJO := TFunctions.replace(PRECO_FINAL_VAREJO.Text, 'R$', VARDOUBLE);
+//  if PROD_PRECO_VAR.Text <> emptystr then
+//    __PROD_PRECO_VAR := TFunctions.replace(PROD_PRECO_VAR.Text, 'R$', VARDOUBLE);
 //
 //  if MARGEM_L_DISTRIBUIDOR.Text <> emptystr then
 //    __MARGEM_L_DISTRIBUIDOR := TFunctions.replace(MARGEM_L_DISTRIBUIDOR.Text, '%', VARDOUBLE);
 //
-//  if PRECO_FINAL_DISTRIBUIDOR.Text <> emptystr then
-//    __PRECO_FINAL_DISTRIBUIDOR := TFunctions.replace(PRECO_FINAL_DISTRIBUIDOR.Text, 'R$', VARDOUBLE);
+//  if PROD_PRECO_DIST.Text <> emptystr then
+//    __PROD_PRECO_DIST := TFunctions.replace(PROD_PRECO_DIST.Text, 'R$', VARDOUBLE);
 //
 //  if MARGEM_L_ATACADO.Text <> emptystr then
 //    __MARGEM_L_ATACADO := TFunctions.replace(MARGEM_L_ATACADO.Text, '%', VARDOUBLE);
 //
-//  if PRECO_FINAL_ATACADO.Text <> emptystr then
-//    __PRECO_FINAL_ATACADO := TFunctions.replace(PRECO_FINAL_ATACADO.Text, 'R$', VARDOUBLE);
+//  if PROD_PRECO_ATAC.Text <> emptystr then
+//    __PROD_PRECO_ATAC := TFunctions.replace(PROD_PRECO_ATAC.Text, 'R$', VARDOUBLE);
 
   if not(comparevalue(__CUSTO_MEDIO, 0) = 0) then
   begin
-    if not(comparevalue(__PRECO_FINAL_VAREJO, 0) = 0) then
-      __MARGEM_LUCRO := ((__PRECO_FINAL_VAREJO - __CUSTO_MEDIO) * 100) / __CUSTO_MEDIO;
-    if not(comparevalue(__PRECO_FINAL_DISTRIBUIDOR, 0) = 0) then
-      __MARGEM_L_DISTRIBUIDOR := ((__PRECO_FINAL_DISTRIBUIDOR - __CUSTO_MEDIO) * 100) / __CUSTO_MEDIO;
-    if not(comparevalue(__PRECO_FINAL_ATACADO, 0) = 0) then
-      __MARGEM_L_ATACADO := ((__PRECO_FINAL_ATACADO - __CUSTO_MEDIO) * 100) / __CUSTO_MEDIO;
+    if not(comparevalue(__PROD_PRECO_VAR, 0) = 0) then
+      __MARGEM_LUCRO := ((__PROD_PRECO_VAR - __CUSTO_MEDIO) * 100) / __CUSTO_MEDIO;
+    if not(comparevalue(__PROD_PRECO_DIST, 0) = 0) then
+      __MARGEM_L_DISTRIBUIDOR := ((__PROD_PRECO_DIST - __CUSTO_MEDIO) * 100) / __CUSTO_MEDIO;
+    if not(comparevalue(__PROD_PRECO_ATAC, 0) = 0) then
+      __MARGEM_L_ATACADO := ((__PROD_PRECO_ATAC - __CUSTO_MEDIO) * 100) / __CUSTO_MEDIO;
   end
   else
-    __CUSTO_MEDIO := __PRECO_FINAL_VAREJO;
+    __CUSTO_MEDIO := __PROD_PRECO_VAR;
 
-//  if TDBEdit(Sender) <> PRECO_FINAL_VAREJO then
-//    PRECO_FINAL_VAREJO.Field.asExtended := __PRECO_FINAL_VAREJO;
+//  if TDBEdit(Sender) <> PROD_PRECO_VAR then
+//    PROD_PRECO_VAR.Field.asExtended := __PROD_PRECO_VAR;
 //
-//  if TDBEdit(Sender) <> PRECO_FINAL_DISTRIBUIDOR then
-//    PRECO_FINAL_DISTRIBUIDOR.Field.asExtended := __PRECO_FINAL_DISTRIBUIDOR;
+//  if TDBEdit(Sender) <> PROD_PRECO_DIST then
+//    PROD_PRECO_DIST.Field.asExtended := __PROD_PRECO_DIST;
 //
-//  if TDBEdit(Sender) <> PRECO_FINAL_ATACADO then
-//    PRECO_FINAL_ATACADO.Field.asExtended := __PRECO_FINAL_ATACADO;
+//  if TDBEdit(Sender) <> PROD_PRECO_ATAC then
+//    PROD_PRECO_ATAC.Field.asExtended := __PROD_PRECO_ATAC;
 //
 //  if (comparevalue(__MARGEM_LUCRO, 0) = 1) then
 //    MARGEM_LUCRO.Text := TFunctions.replace(formatarmoeda(__MARGEM_LUCRO), 'R$', VARDOUBLE)
@@ -1106,7 +987,7 @@ begin
   sql_ponto_impressao.Active := true;
 
   //edCODIGO.Text := inttostr(SQL_PRODUTOCODIGO.value);
-  //u_funcoes.CamposObrigatorios_CorPadrao([PROD_DESCRICAO, PROD_CDUNIDADE, {PRECO_FINAL_VAREJO,} NCM], [], [TcxComboBox(dbcsticms)]);
+  //u_funcoes.CamposObrigatorios_CorPadrao([PROD_DESCRICAO, PROD_CDUNIDADE, {PROD_PRECO_VAR,} NCM], [], [TcxComboBox(dbcsticms)]);
 //  u_funcoes.CamposObrigatorios_CorPadrao([{edt_qtde_min, edt_preco, TEdit(cb_tipo}], []);
   carregar_faixa;
 
@@ -2147,28 +2028,28 @@ begin
    if JaExiste_PROD_DESCRICAO then exit;
 
 
-   if edPRECO_FINAL_ATACADO.Text <> '' then
-      if not NumeroPositivoValido(edPRECO_FINAL_ATACADO.Text) then
+   if edPROD_PRECO_ATAC.Text <> '' then
+      if not NumeroPositivoValido(edPROD_PRECO_ATAC.Text) then
       begin
          wnAlerta('Cadastrar Produto',
                   'Preço de Atacado inválido');
-         edPRECO_FINAL_ATACADO.SetFocus;
+         edPROD_PRECO_ATAC.SetFocus;
          exit;
       end;
 
-   if edPRECO_FINAL_VAREJO.Text <> '' then
-      if not NumeroPositivoValido(edPRECO_FINAL_VAREJO.Text) then
+   if edPROD_PRECO_VAR.Text <> '' then
+      if not NumeroPositivoValido(edPROD_PRECO_VAR.Text) then
       begin
          wnAlerta('Cadastrar Produto','Preço de Varejo inválido', taLeftJustify, 12);
-         edPRECO_FINAL_VAREJO.SetFocus;
+         edPROD_PRECO_VAR.SetFocus;
          exit;
       end;
 
-   if edPRECO_FINAL_DISTRIBUIDOR.Text <> '' then
-      if not NumeroPositivoValido(edPRECO_FINAL_DISTRIBUIDOR.Text) then
+   if edPROD_PRECO_DIST.Text <> '' then
+      if not NumeroPositivoValido(edPROD_PRECO_DIST.Text) then
       begin
          wnAlerta('Cadastrar Produto','Preço de Distribuidor inválido', taLeftJustify, 12);
-         edPRECO_FINAL_DISTRIBUIDOR.SetFocus;
+         edPROD_PRECO_DIST.SetFocus;
          exit;
       end;
 
@@ -2751,12 +2632,12 @@ begin
      ConsultarUnidades;
 end;
 
-procedure TFrm_Produto.EXTERNA_COMISSAO_ATACADOClick(Sender: TObject);
+procedure TFrm_Produto.PROD_COMISSAO_EXT_ATACClick(Sender: TObject);
 begin
-//  EXTERNA_COMISSAO_ATACADO.SelectAll;
+//  PROD_COMISSAO_EXT_ATAC.SelectAll;
 end;
 
-procedure TFrm_Produto.EXTERNA_COMISSAO_ATACADOKeyDown(Sender: TObject;
+procedure TFrm_Produto.PROD_COMISSAO_EXT_ATACKeyDown(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
@@ -2764,7 +2645,7 @@ begin
 //    DBEdit13.SetFocus;
 end;
 
-procedure TFrm_Produto.EXTERNA_COMISSAO_ATACADOKeyPress(Sender: TObject;
+procedure TFrm_Produto.PROD_COMISSAO_EXT_ATACKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -2774,12 +2655,12 @@ begin
 
 end;
 
-procedure TFrm_Produto.EXTERNA_COMISSAO_DISTRIBUIDORClick(Sender: TObject);
+procedure TFrm_Produto.PROD_COMISSAO_EXT_DISTClick(Sender: TObject);
 begin
-//  EXTERNA_COMISSAO_DISTRIBUIDOR.SelectAll;
+//  PROD_COMISSAO_EXT_DIST.SelectAll;
 end;
 
-procedure TFrm_Produto.EXTERNA_COMISSAO_DISTRIBUIDORKeyPress(Sender: TObject; var Key: Char);
+procedure TFrm_Produto.PROD_COMISSAO_EXT_DISTKeyPress(Sender: TObject; var Key: Char);
 begin
 
   inherited;
@@ -2787,7 +2668,7 @@ begin
 
 end;
 
-procedure TFrm_Produto.EXTERNA_COMISSAO_VAREJOKeyPress(Sender: TObject; var Key: Char);
+procedure TFrm_Produto.PROD_COMISSAO_EXT_VARKeyPress(Sender: TObject; var Key: Char);
 begin
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
@@ -3037,9 +2918,9 @@ begin
    //qAUX.sql.add('       LEIS,                     ');
    qAUX.sql.add('       NCM,                      ');
    qAUX.sql.add('       CEST,                     ');
-   qAUX.sql.add('       PRECO_FINAL_ATACADO,      ');
-   qAUX.sql.add('       PRECO_FINAL_VAREJO,       ');
-   qAUX.sql.add('       PRECO_FINAL_DISTRIBUIDOR, ');
+   qAUX.sql.add('       PROD_PRECO_ATAC,      ');
+   qAUX.sql.add('       PROD_PRECO_VAR,       ');
+   qAUX.sql.add('       PROD_PRECO_DIST, ');
    qAUX.sql.add('       STATUS_CADASTRAL,         ');
    qAUX.sql.add('       ICMS_CST,                 ');
    qAUX.sql.add('       PROD_CDTIPOITEM,          ');
@@ -3076,9 +2957,9 @@ begin
    //qAUX.sql.add('      :LEIS,                     ');
    qAUX.sql.add('      :NCM,                      ');
    qAUX.sql.add('      :CEST,                     ');
-   qAUX.sql.add('      :PRECO_FINAL_ATACADO,      ');
-   qAUX.sql.add('      :PRECO_FINAL_VAREJO,       ');
-   qAUX.sql.add('      :PRECO_FINAL_DISTRIBUIDOR, ');
+   qAUX.sql.add('      :PROD_PRECO_ATAC,      ');
+   qAUX.sql.add('      :PROD_PRECO_VAR,       ');
+   qAUX.sql.add('      :PROD_PRECO_DIST, ');
    qAUX.sql.add('      :STATUS_CADASTRAL,         ');
    qAUX.sql.add('      :ICMS_CST,                 ');
    qAUX.sql.add('      :PROD_CDTIPOITEM,          ');
@@ -3127,9 +3008,9 @@ begin
    //qAUX.ParamByName('LEIS'                    ).AsString  := edLEIS.Text;
    qAUX.ParamByName('NCM'                     ).AsString  := edNCM.Text;
    qAUX.ParamByName('CEST'                    ).AsString  := edCEST.Text;
-   qAUX.ParamByName('PRECO_FINAL_ATACADO'     ).AsFloat   := ValorValido(edPRECO_FINAL_ATACADO.Text);
-   qAUX.ParamByName('PRECO_FINAL_VAREJO'      ).AsFloat   := ValorValido(edPRECO_FINAL_VAREJO.Text);
-   qAUX.ParamByName('PRECO_FINAL_DISTRIBUIDOR').AsFloat   := ValorValido(edPRECO_FINAL_DISTRIBUIDOR.Text);
+   qAUX.ParamByName('PROD_PRECO_ATAC'     ).AsFloat   := ValorValido(edPROD_PRECO_ATAC.Text);
+   qAUX.ParamByName('PROD_PRECO_VAR'      ).AsFloat   := ValorValido(edPROD_PRECO_VAR.Text);
+   qAUX.ParamByName('PROD_PRECO_DIST').AsFloat   := ValorValido(edPROD_PRECO_DIST.Text);
    qAUX.ParamByName('STATUS_CADASTRAL'        ).AsString  := Ativo_ou_Inativo(cbSTATUS_CADASTRAL.Checked);
    qAUX.ParamByName('ICMS_CST'                ).AsString  := edICMS_CST.Text;
    qAUX.ParamByName('PROD_CDTIPOITEM'         ).AsString  := edPROD_CDTIPOITEM.Text;
@@ -3234,9 +3115,9 @@ begin
    edCEST.Text                     := qConsulta.FieldByName('CEST').AsString;
 
    //Preços de Venda
-   edPRECO_FINAL_ATACADO.Text      := Float_to_String(qConsulta.FieldByName('PRECO_FINAL_ATACADO'     ).AsFloat);
-   edPRECO_FINAL_VAREJO.Text       := Float_to_String(qConsulta.FieldByName('PRECO_FINAL_VAREJO'      ).AsFloat);
-   edPRECO_FINAL_DISTRIBUIDOR.Text := Float_to_String(qConsulta.FieldByName('PRECO_FINAL_DISTRIBUIDOR').AsFloat);
+   edPROD_PRECO_ATAC.Text      := Float_to_String(qConsulta.FieldByName('PROD_PRECO_ATAC'     ).AsFloat);
+   edPROD_PRECO_VAR.Text       := Float_to_String(qConsulta.FieldByName('PROD_PRECO_VAR'      ).AsFloat);
+   edPROD_PRECO_DIST.Text := Float_to_String(qConsulta.FieldByName('PROD_PRECO_DIST').AsFloat);
 
    //Ativo/Inativo
    cbSTATUS_CADASTRAL.Checked      := (qConsulta.FieldByName('STATUS_CADASTRAL').AsString = 'ATIVO');
@@ -3379,7 +3260,7 @@ begin
    bControlealterar.Enabled := True;
 end;
 
-procedure TFrm_Produto.PRECO_FINAL_ATACADOKeyPress(Sender: TObject;
+procedure TFrm_Produto.PROD_PRECO_ATACKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -3860,16 +3741,16 @@ CREATE TABLE `produto` (
 	`PROD_COMISSAO_VAR` DECIMAL(10,4) NULL DEFAULT '0.0000',
 	`PROD_COMISSAO_ATAC` DECIMAL(10,4) NULL DEFAULT '0.0000',
 	`PROD_COMISSAO_DIST` DECIMAL(10,4) NULL DEFAULT '0.0000',
-	`COMISSAO_EXTERNA` DECIMAL(10,4) NULL DEFAULT NULL,
-	`EXTERNA_COMISSAO_VAREJO` DECIMAL(10,4) NULL DEFAULT '0.0000',
-	`EXTERNA_COMISSAO_ATACADO` DECIMAL(10,4) NULL DEFAULT '0.0000',
-	`EXTERNA_COMISSAO_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT '0.0000',
-	`PRECO_FINAL_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`PRECO_FINAL_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
-	`PRECO_FINAL_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`PROMO_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`PROMO_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`PROMO_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_COMISSAO_EXT` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_COMISSAO_EXT_VAR` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`PROD_COMISSAO_EXT_ATAC` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`PROD_COMISSAO_EXT_DIST` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`PROD_PRECO_ATAC` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_PRECO_DIST` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_PRECO_VAR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_PROMOCAO_VAR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_PROMOCAO_ATAC` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_PROMOCAO_DIST` DECIMAL(10,4) NULL DEFAULT NULL,
 	`PROMOCAO_INICIO` DATE NULL DEFAULT NULL,
 	`PROMOCAO_TERMINO` DATE NULL DEFAULT NULL,
 	`VALOR_PROMOCIONAL_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
@@ -3977,3 +3858,13 @@ Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2
 Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:47
 Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:50
 Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:54
+Trocou COMISSAO_EXTERNA por PROD_COMISSAO_EXT : automaticamente em 17/06/2020 05:47
+Trocou EXTERNA_COMISSAO_VAREJO por PROD_COMISSAO_EXT_VAR : automaticamente em 17/06/2020 05:53
+Trocou EXTERNA_COMISSAO_ATACADO por PROD_COMISSAO_EXT_ATAC : automaticamente em 17/06/2020 05:56
+Trocou EXTERNA_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_EXT_DIST : automaticamente em 17/06/2020 06:31
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56
+Trocou PRECO_FINAL_ATACADO por PROD_PRECO_ATAC : automaticamente em 17/06/2020 07:00
+Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2020 07:03
+Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:41
+Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:45
+Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53

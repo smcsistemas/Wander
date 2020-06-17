@@ -69,11 +69,11 @@ type
     edtPreco: TcxCurrencyEdit;
     sql_etiquetasid: TFDAutoIncField;
     sql_etiquetasdescricao: TStringField;
-    sql_etiquetaspreco_final_varejo: TBCDField;
+    sql_etiquetasPROD_PRECO_VAR: TBCDField;
     sql_etiquetasPROD_REFERENCIASFABRICA: TStringField;
     tbvwEtiquetasid: TcxGridDBColumn;
     tbvwEtiquetasdescricao: TcxGridDBColumn;
-    tbvwEtiquetaspreco_final_varejo: TcxGridDBColumn;
+    tbvwEtiquetasPROD_PRECO_VAR: TcxGridDBColumn;
     tbvwEtiquetasPROD_REFERENCIASFABRICA: TcxGridDBColumn;
     frxGradient: TfrxGradientObject;
     procedure btnSearchClick(Sender: TObject);
@@ -128,10 +128,10 @@ begin
     etiqueta.descricao := edtProduto.Text;
     etiqueta.usuario := TUsuario.create(tenv.tuser.id);
 
-    if not TChecks.equals(edtPreco.Value, produto.PRECO_FINAL_VAREJO) then
+    if not TChecks.equals(edtPreco.Value, produto.PROD_PRECO_VAR) then
       if tdialogs.wnConfirmacao('Etiquetas', Format('Deseja atualizar o preço informado na etiqueta (%s) no cadastro do produto "%s" ?', [edtPreco.Text, produto.descricao])) then
       begin
-        produto.PRECO_FINAL_VAREJO := edtPreco.Value;
+        produto.PROD_PRECO_VAR := edtPreco.Value;
         produto.save;
       end;
 
@@ -241,7 +241,7 @@ end;
 procedure Tfrm_etiquetas.preencher_dados_produto;
 begin
   edtProduto.Text := produto.PROD_CODIGO + ' - ' + produto.descricao;
-  edtPreco.editvalue := produto.PRECO_FINAL_VAREJO;
+  edtPreco.editvalue := produto.PROD_PRECO_VAR;
   edtRefFabr.Text := produto.PROD_REFERENCIASFABRICA;
   tabGerar.Show;
   edtPreco.SETFOCUS;
@@ -252,14 +252,14 @@ end;
 procedure Tfrm_etiquetas.preencher_dados_produto2;
 begin
   edtProduto.Text := produto.PROD_CODIGO + ' - ' + produto.descricao;
-  edtPreco.editvalue := produto.PRECO_FINAL_VAREJO;
+  edtPreco.editvalue := produto.PROD_PRECO_VAR;
   edtRefFabr.Text := produto.PROD_REFERENCIASFABRICA;
   btnPreview.Click;
 end;
 
 procedure Tfrm_etiquetas.reloadFilter;
 const
-  _sql = 'select e.id, e.descricao, p.preco_final_varejo, p.PROD_REFERENCIASFABRICA from etiqueta e join produto p on p.codigo = e.id_produto ';
+  _sql = 'select e.id, e.descricao, p.PROD_PRECO_VAR, p.PROD_REFERENCIASFABRICA from etiqueta e join produto p on p.codigo = e.id_produto ';
   _order = ' order by created_at desc ';
 var
   _filter: string;
@@ -268,7 +268,7 @@ begin
   begin
 
     _filter := tdb.removeSqlInjection(edtConsulta.Text);
-    _filter := ' where ' + tfunctions.getIndex(cbFiltro.SelectedItem, ['e.descricao LIKE "%' + _filter + '%"', 'p.preco_final_varejo LIKE "' + _filter + '%"',
+    _filter := ' where ' + tfunctions.getIndex(cbFiltro.SelectedItem, ['e.descricao LIKE "%' + _filter + '%"', 'p.PROD_PRECO_VAR LIKE "' + _filter + '%"',
       'p.PROD_REFERENCIASFABRICA LIKE "' + _filter + '%"']);
 
   end;
@@ -309,3 +309,4 @@ end;
 end.
 Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:39
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:14
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56

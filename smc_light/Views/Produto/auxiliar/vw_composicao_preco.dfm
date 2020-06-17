@@ -325,13 +325,13 @@ object frm_composicao_preco_produto: Tfrm_composicao_preco_produto
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object PRECO_FINAL_VAREJO: TDBEdit
+    object PROD_PRECO_VAR: TDBEdit
       Left = 97
       Top = 22
       Width = 85
       Height = 26
       CharCase = ecUpperCase
-      DataField = 'PRECO_FINAL_VAREJO'
+      DataField = 'PROD_PRECO_VAR'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -340,13 +340,13 @@ object frm_composicao_preco_produto: Tfrm_composicao_preco_produto
       ParentFont = False
       TabOrder = 0
     end
-    object PRECO_FINAL_DISTRIBUIDOR: TDBEdit
+    object PROD_PRECO_DIST: TDBEdit
       Left = 97
       Top = 67
       Width = 85
       Height = 26
       CharCase = ecUpperCase
-      DataField = 'PRECO_FINAL_DISTRIBUIDOR'
+      DataField = 'PROD_PRECO_DIST'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -355,13 +355,13 @@ object frm_composicao_preco_produto: Tfrm_composicao_preco_produto
       ParentFont = False
       TabOrder = 1
     end
-    object PRECO_FINAL_ATACADO: TDBEdit
+    object PROD_PRECO_ATAC: TDBEdit
       Left = 97
       Top = 120
       Width = 85
       Height = 26
       CharCase = ecUpperCase
-      DataField = 'PRECO_FINAL_ATACADO'
+      DataField = 'PROD_PRECO_ATAC'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -1136,3 +1136,6 @@ end
 Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22:28
 Trocou DESCONTO_M_ATACADO por PROD_MAXDESC_ATAC : automaticamente em 16/06/2020 22:31
 Trocou DESCONTO_M_DISTRIBUIDOR por PROD_MAXDESC_DIST : automaticamente em 16/06/2020 22:34
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56
+Trocou PRECO_FINAL_ATACADO por PROD_PRECO_ATAC : automaticamente em 17/06/2020 07:00
+Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2020 07:03

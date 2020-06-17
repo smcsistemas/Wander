@@ -81,7 +81,7 @@ uses vw_pdv, u_funcoes;
 
 procedure Tfrm_alterar_preco_pdv.alterarprecocadproduto;
 begin
-  execquery('UPDATE PRODUTO SET PRECO_FINAL_VAREJO = ' + TrocaVirgPPto(novo_tot_str) + ' WHERE CODIGO = ' +
+  execquery('UPDATE PRODUTO SET PROD_PRECO_VAR = ' + TrocaVirgPPto(novo_tot_str) + ' WHERE CODIGO = ' +
     simplequery('SELECT CODIGO_PRODUTO FROM VENDA_ITEM WHERE CODIGO_ITEM_VENDA ="' + inttostr(cb_itens.EditValue) + '" and codigo_venda = "' + cod_venda + '"').Fields[0].AsString);
 end;
 
@@ -167,3 +167,4 @@ begin
 end;
 
 end.
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:55

@@ -40,15 +40,15 @@ type
     Produto_margem_l_varejo: extended;
     Produto_margem_l_distribuidor: extended;
     Produto_margem_l_atacado: extended;
-    Produto_preco_final_varejo: extended;
-    Produto_preco_final_distribuidor: extended;
-    Produto_preco_final_atacado: extended;
+    Produto_PROD_PRECO_VAR: extended;
+    Produto_PROD_PRECO_DIST: extended;
+    Produto_PROD_PRECO_ATAC: extended;
     Produto_PROD_COMISSAO_LOJA_varejo: extended;
     Produto_PROD_COMISSAO_LOJA_distribuidor: extended;
     Produto_PROD_COMISSAO_LOJA_atacado: extended;
-    Produto_externa_comissao_varejo: extended;
-    Produto_externa_comissao_distribuidor: extended;
-    Produto_externa_comissao_atacado: extended;
+    Produto_PROD_COMISSAO_EXT_VAR: extended;
+    Produto_PROD_COMISSAO_EXT_DIST: extended;
+    Produto_PROD_COMISSAO_EXT_ATAC: extended;
     Produto_estoque: extended;
     Produto_PROD_ESTOQMIN: extended;
     Produto_PROD_MAXDESC_VAR: extended;
@@ -95,15 +95,15 @@ type
     function getProduto_margem_l_varejo: extended;
     function getProduto_margem_l_distribuidor: extended;
     function getProduto_margem_l_atacado: extended;
-    function getProduto_preco_final_varejo: extended;
-    function getProduto_preco_final_distribuidor: extended;
-    function getProduto_preco_final_atacado: extended;
+    function getProduto_PROD_PRECO_VAR: extended;
+    function getProduto_PROD_PRECO_DIST: extended;
+    function getProduto_PROD_PRECO_ATAC: extended;
     function getProduto_PROD_COMISSAO_LOJA_varejo: extended;
     function getProduto_PROD_COMISSAO_LOJA_distribuidor: extended;
     function getProduto_PROD_COMISSAO_LOJA_atacado: extended;
-    function getProduto_externa_comissao_varejo: extended;
-    function getProduto_externa_comissao_distribuidor: extended;
-    function getProduto_externa_comissao_atacado: extended;
+    function getProduto_PROD_COMISSAO_EXT_VAR: extended;
+    function getProduto_PROD_COMISSAO_EXT_DIST: extended;
+    function getProduto_PROD_COMISSAO_EXT_ATAC: extended;
     function getProduto_estoque: extended;
     function getProduto_PROD_ESTOQMIN: extended;
     function getProduto_PROD_MAXDESC_VAR: extended;
@@ -150,15 +150,15 @@ type
     Procedure setProduto_margem_l_varejo(value: extended);
     Procedure setProduto_margem_l_distribuidor(value: extended);
     Procedure setProduto_margem_l_atacado(value: extended);
-    Procedure setProduto_preco_final_varejo(value: extended);
-    Procedure setProduto_preco_final_distribuidor(value: extended);
-    Procedure setProduto_preco_final_atacado(value: extended);
+    Procedure setProduto_PROD_PRECO_VAR(value: extended);
+    Procedure setProduto_PROD_PRECO_DIST(value: extended);
+    Procedure setProduto_PROD_PRECO_ATAC(value: extended);
     Procedure setProduto_PROD_COMISSAO_LOJA_varejo(value: extended);
     Procedure setProduto_PROD_COMISSAO_LOJA_distribuidor(value: extended);
     Procedure setProduto_PROD_COMISSAO_LOJA_atacado(value: extended);
-    Procedure setProduto_externa_comissao_varejo(value: extended);
-    Procedure setProduto_externa_comissao_distribuidor(value: extended);
-    Procedure setProduto_externa_comissao_atacado(value: extended);
+    Procedure setProduto_PROD_COMISSAO_EXT_VAR(value: extended);
+    Procedure setProduto_PROD_COMISSAO_EXT_DIST(value: extended);
+    Procedure setProduto_PROD_COMISSAO_EXT_ATAC(value: extended);
     Procedure setProduto_estoque(value: extended);
     Procedure setProduto_PROD_ESTOQMIN(value: extended);
     Procedure setProduto_PROD_MAXDESC_VAR(value: extended);
@@ -215,15 +215,15 @@ type
     property MARGEM_LUCRO_VAREJO: extended read getProduto_margem_l_varejo write setProduto_margem_l_varejo;
     property MARGEM_LUCRO_DISTRIBUIDOR: extended read getProduto_margem_l_distribuidor write setProduto_margem_l_distribuidor;
     property MARGEM_LUCRO_ATACADO: extended read getProduto_margem_l_atacado write setProduto_margem_l_atacado;
-    property PRECO_FINAL_VAREJO: extended read getProduto_preco_final_varejo write setProduto_preco_final_varejo;
-    property PRECO_FINAL_DISTRIBUIDOR: extended read getProduto_preco_final_distribuidor write setProduto_preco_final_distribuidor;
-    property PRECO_FINAL_ATACADO: extended read getProduto_preco_final_atacado write setProduto_preco_final_atacado;
+    property PROD_PRECO_VAR: extended read getProduto_PROD_PRECO_VAR write setProduto_PROD_PRECO_VAR;
+    property PROD_PRECO_DIST: extended read getProduto_PROD_PRECO_DIST write setProduto_PROD_PRECO_DIST;
+    property PROD_PRECO_ATAC: extended read getProduto_PROD_PRECO_ATAC write setProduto_PROD_PRECO_ATAC;
     property PROD_COMISSAO_LOJA_VAREJO: extended read getProduto_PROD_COMISSAO_LOJA_varejo write setProduto_PROD_COMISSAO_LOJA_varejo;
     property PROD_COMISSAO_LOJA_DISTRIBUIDOR: extended read getProduto_PROD_COMISSAO_LOJA_distribuidor write setProduto_PROD_COMISSAO_LOJA_distribuidor;
     property PROD_COMISSAO_LOJA_ATACADO: extended read getProduto_PROD_COMISSAO_LOJA_atacado write setProduto_PROD_COMISSAO_LOJA_atacado;
-    property EXTERNA_COMISSAO_VAREJO: extended read getProduto_externa_comissao_varejo write setProduto_externa_comissao_varejo;
-    property EXTERNA_COMISSAO_DISTRIBUIDOR: extended read getProduto_externa_comissao_distribuidor write setProduto_externa_comissao_distribuidor;
-    property EXTERNA_COMISSAO_ATACADO: extended read getProduto_externa_comissao_atacado write setProduto_externa_comissao_atacado;
+    property PROD_COMISSAO_EXT_VAR: extended read getProduto_PROD_COMISSAO_EXT_VAR write setProduto_PROD_COMISSAO_EXT_VAR;
+    property PROD_COMISSAO_EXT_DIST: extended read getProduto_PROD_COMISSAO_EXT_DIST write setProduto_PROD_COMISSAO_EXT_DIST;
+    property PROD_COMISSAO_EXT_ATAC: extended read getProduto_PROD_COMISSAO_EXT_ATAC write setProduto_PROD_COMISSAO_EXT_ATAC;
     property ESTOQUE: extended read getProduto_estoque write setProduto_estoque;
     property PROD_ESTOQMIN: extended read getProduto_PROD_ESTOQMIN write setProduto_PROD_ESTOQMIN;
     property PROD_MAXDESC_VAR: extended read getProduto_PROD_MAXDESC_VAR write setProduto_PROD_MAXDESC_VAR;
@@ -284,15 +284,15 @@ begin
   Produto_margem_l_varejo := 0;
   Produto_margem_l_distribuidor := 0;
   Produto_margem_l_atacado := 0;
-  Produto_preco_final_varejo := 0;
-  Produto_preco_final_distribuidor := 0;
-  Produto_preco_final_atacado := 0;
+  Produto_PROD_PRECO_VAR := 0;
+  Produto_PROD_PRECO_DIST := 0;
+  Produto_PROD_PRECO_ATAC := 0;
   Produto_PROD_COMISSAO_LOJA_varejo := 0;
   Produto_PROD_COMISSAO_LOJA_distribuidor := 0;
   Produto_PROD_COMISSAO_LOJA_atacado := 0;
-  Produto_externa_comissao_varejo := 0;
-  Produto_externa_comissao_distribuidor := 0;
-  Produto_externa_comissao_atacado := 0;
+  Produto_PROD_COMISSAO_EXT_VAR := 0;
+  Produto_PROD_COMISSAO_EXT_DIST := 0;
+  Produto_PROD_COMISSAO_EXT_ATAC := 0;
   Produto_estoque := 0;
   Produto_PROD_ESTOQMIN := 0;
   Produto_PROD_MAXDESC_VAR := 0;
@@ -361,15 +361,15 @@ begin
       Self.Produto_margem_l_varejo := qry.fieldbyname('margem_l_varejo').asExtended;
       Self.Produto_margem_l_distribuidor := qry.fieldbyname('margem_l_distribuidor').asExtended;
       Self.Produto_margem_l_atacado := qry.fieldbyname('margem_l_atacado').asExtended;
-      Self.Produto_preco_final_varejo := qry.fieldbyname('preco_final_varejo').asExtended;
-      Self.Produto_preco_final_distribuidor := qry.fieldbyname('preco_final_distribuidor').asExtended;
-      Self.Produto_preco_final_atacado := qry.fieldbyname('preco_final_atacado').asExtended;
+      Self.Produto_PROD_PRECO_VAR := qry.fieldbyname('PROD_PRECO_VAR').asExtended;
+      Self.Produto_PROD_PRECO_DIST := qry.fieldbyname('PROD_PRECO_DIST').asExtended;
+      Self.Produto_PROD_PRECO_ATAC := qry.fieldbyname('PROD_PRECO_ATAC').asExtended;
       Self.Produto_PROD_COMISSAO_LOJA_varejo := qry.fieldbyname('PROD_COMISSAO_VAR').asExtended;
       Self.Produto_PROD_COMISSAO_LOJA_distribuidor := qry.fieldbyname('PROD_COMISSAO_DIST').asExtended;
       Self.Produto_PROD_COMISSAO_LOJA_atacado := qry.fieldbyname('PROD_COMISSAO_ATAC').asExtended;
-      Self.Produto_externa_comissao_varejo := qry.fieldbyname('externa_comissao_varejo').asExtended;
-      Self.Produto_externa_comissao_distribuidor := qry.fieldbyname('externa_comissao_distribuidor').asExtended;
-      Self.Produto_externa_comissao_atacado := qry.fieldbyname('externa_comissao_atacado').asExtended;
+      Self.Produto_PROD_COMISSAO_EXT_VAR := qry.fieldbyname('PROD_COMISSAO_EXT_VAR').asExtended;
+      Self.Produto_PROD_COMISSAO_EXT_DIST := qry.fieldbyname('PROD_COMISSAO_EXT_DIST').asExtended;
+      Self.Produto_PROD_COMISSAO_EXT_ATAC := qry.fieldbyname('PROD_COMISSAO_EXT_ATAC').asExtended;
       Self.Produto_estoque := qry.fieldbyname('saldo').asExtended;
       Self.Produto_PROD_ESTOQMIN := strtofloat(TFunctions.ifthen(qry.fieldbyname('PROD_ESTOQMIN').asString = '', '0', qry.fieldbyname('PROD_ESTOQMIN').asString));
       Self.Produto_PROD_MAXDESC_VAR := qry.fieldbyname('PROD_MAXDESC_VAR').asExtended;
@@ -430,8 +430,8 @@ procedure TProduto.Insert;
 begin
   Tdb.ExecQuery('INSERT INTO PRODUTO_PROD (PROD_CODIGO,PROD_DESCRICAO, PROD_EAN, PROD_DETALHES,' +
     'PROD_REFERENCIASFABRICA, MARCA, FAMILIA, GRUPO, SUBGRUPO, PROD_CDUNIDADE, TIPO_ITEM, PRECO_CUSTO, FRETE, IMPOSTO, DESP_OPERACIONAIS, CUSTO_MEDIO, MARGEM_L_VAREJO,' +
-    'MARGEM_L_DISTRIBUIDOR, MARGEM_L_ATACADO, PRECO_FINAL_VAREJO, PRECO_FINAL_DISTRIBUIDOR, PRECO_FINAL_ATACADO, PROD_COMISSAO_VAR,' +
-    'PROD_COMISSAO_DIST, PROD_COMISSAO_ATAC, EXTERNA_COMISSAO_VAREJO, EXTERNA_COMISSAO_DISTRIBUIDOR, EXTERNA_COMISSAO_ATACADO,' +
+    'MARGEM_L_DISTRIBUIDOR, MARGEM_L_ATACADO, PROD_PRECO_VAR, PROD_PRECO_DIST, PROD_PRECO_ATAC, PROD_COMISSAO_VAR,' +
+    'PROD_COMISSAO_DIST, PROD_COMISSAO_ATAC, PROD_COMISSAO_EXT_VAR, PROD_COMISSAO_EXT_DIST, PROD_COMISSAO_EXT_ATAC,' +
     'SALDO, PROD_ESTOQMIN, PROD_MAXDESC_VAR, PROD_MAXDESC_DIST, PROD_MAXDESC_ATAC, STATUS_CADASTRAL, COD_BALANCA_1, COD_BALANCA_2,' +
     'COD_BALANCA_3, USA_LOTE, CONTROLADO, ICMS_CST, CODIGO_ORIGEM_MERCADORIA, ALIQ_ICMS, REDUCAO_ICMS_ST, COD_COMB, VALOR_PAUTA_BC_ST, GENERO, ' +
     'LUCRO_SUBST_TRIBUTARIA, LEIS, CSOSN, NCM, CEST, ANP, PIS_CST, COFINS_CST)' +
@@ -439,9 +439,9 @@ begin
     [Self.Produto_PROD_CODIGO,Self.Produto_descricao, Self.Produto_PROD_EAN, Self.Produto_PROD_DETALHES, Self.Produto_PROD_REFERENCIASFABRICA, Self.Produto_marca, Self.Produto_familia,
     Self.Produto_grupo, Self.Produto_sub_grupo, Self.Produto_und, Self.Produto_tipo_item, Self.Produto_preco_custo, Self.Produto_frete, Self.Produto_imposto,
     Self.Produto_desp_operacionais, Self.Produto_custo_medio, Self.Produto_margem_l_varejo, Self.Produto_margem_l_distribuidor, Self.Produto_margem_l_atacado,
-    Self.Produto_preco_final_varejo, Self.Produto_preco_final_distribuidor, Self.Produto_preco_final_atacado, Self.Produto_PROD_COMISSAO_LOJA_varejo,
-    Self.Produto_PROD_COMISSAO_LOJA_distribuidor, Self.Produto_PROD_COMISSAO_LOJA_atacado, Self.Produto_externa_comissao_varejo, Self.Produto_externa_comissao_distribuidor,
-    Self.Produto_externa_comissao_atacado, Self.Produto_estoque, Self.Produto_PROD_ESTOQMIN, Self.Produto_PROD_MAXDESC_VAR, Self.Produto_PROD_MAXDESC_DIST,
+    Self.Produto_PROD_PRECO_VAR, Self.Produto_PROD_PRECO_DIST, Self.Produto_PROD_PRECO_ATAC, Self.Produto_PROD_COMISSAO_LOJA_varejo,
+    Self.Produto_PROD_COMISSAO_LOJA_distribuidor, Self.Produto_PROD_COMISSAO_LOJA_atacado, Self.Produto_PROD_COMISSAO_EXT_VAR, Self.Produto_PROD_COMISSAO_EXT_DIST,
+    Self.Produto_PROD_COMISSAO_EXT_ATAC, Self.Produto_estoque, Self.Produto_PROD_ESTOQMIN, Self.Produto_PROD_MAXDESC_VAR, Self.Produto_PROD_MAXDESC_DIST,
     Self.Produto_PROD_MAXDESC_ATAC, TFunctions.ifthen(Self.Produto_status_cadastral, 'ATIVO', 'INATIVO'), Self.Produto_cod_balanca_1, Self.Produto_cod_balanca_2,
     Self.Produto_cod_balanca_3, TFunctions.ifthen(Self.Produto_usa_lote, 'SIM', 'NAO'), TFunctions.ifthen(Self.Produto_controlado, 'SIM', 'NAO'), Self.Produto_icms_cst,
     Self.Produto_codigo_origem_mercadoria, Self.Produto_aliq_icms, Self.Produto_reducao_icms_st, Self.Produto_cod_comb, Self.Produto_valor_pauta_bc_st, Self.Produto_genero,
@@ -477,18 +477,18 @@ begin
   Tdb.ExecQuery('UPDATE produto SET PROD_CODIGO=?, PROD_DESCRICAO=?, PROD_EAN=?, PROD_DETALHES=?,' +
     'PROD_REFERENCIASFABRICA=?, MARCA=?, FAMILIA=?, GRUPO=?, SUBGRUPO=?, PROD_CDUNIDADE=?, TIPO_ITEM=?,' +
     'PRECO_CUSTO=?, FRETE=?, IMPOSTO=?, DESP_OPERACIONAIS=?, CUSTO_MEDIO=?, MARGEM_L_VAREJO=?,' +
-    'MARGEM_L_DISTRIBUIDOR=?, MARGEM_L_ATACADO=?, PRECO_FINAL_VAREJO=?, PRECO_FINAL_DISTRIBUIDOR=?,' +
-    'PRECO_FINAL_ATACADO=?, PROD_COMISSAO_VAR=?, PROD_COMISSAO_DIST=?, PROD_COMISSAO_ATAC=?,' +
-    'EXTERNA_COMISSAO_VAREJO=?, EXTERNA_COMISSAO_DISTRIBUIDOR=?, EXTERNA_COMISSAO_ATACADO=?, SALDO=?,' +
+    'MARGEM_L_DISTRIBUIDOR=?, MARGEM_L_ATACADO=?, PROD_PRECO_VAR=?, PROD_PRECO_DIST=?,' +
+    'PROD_PRECO_ATAC=?, PROD_COMISSAO_VAR=?, PROD_COMISSAO_DIST=?, PROD_COMISSAO_ATAC=?,' +
+    'PROD_COMISSAO_EXT_VAR=?, PROD_COMISSAO_EXT_DIST=?, PROD_COMISSAO_EXT_ATAC=?, SALDO=?,' +
     'PROD_ESTOQMIN=?, PROD_MAXDESC_VAR=?, PROD_MAXDESC_DIST=?, PROD_MAXDESC_ATAC=?, STATUS_CADASTRAL=?, COD_BALANCA_1=?,' +
     'COD_BALANCA_2=?, COD_BALANCA_3=?, USA_LOTE=?, CONTROLADO=?, ICMS_CST=?, CODIGO_ORIGEM_MERCADORIA=?, ALIQ_ICMS=?, REDUCAO_ICMS_ST=?,' +
     'COD_COMB=?, VALOR_PAUTA_BC_ST=?, GENERO=?, LUCRO_SUBST_TRIBUTARIA=?, LEIS=?, CSOSN=?, NCM=?, CEST=?, ANP=?, PIS_CST=?, COFINS_CST=?' + 'WHERE codigo=?',
     [Self.PROD_CODIGO, Self.Produto_descricao, Self.Produto_PROD_EAN, Self.Produto_PROD_DETALHES, Self.Produto_PROD_REFERENCIASFABRICA, Self.Produto_marca, Self.Produto_familia,
     Self.Produto_grupo, Self.Produto_sub_grupo, Self.Produto_und, Self.Produto_tipo_item, Self.Produto_preco_custo, Self.Produto_frete, Self.Produto_imposto,
     Self.Produto_desp_operacionais, Self.Produto_custo_medio, Self.Produto_margem_l_varejo, Self.Produto_margem_l_distribuidor, Self.Produto_margem_l_atacado,
-    Self.Produto_preco_final_varejo, Self.Produto_preco_final_distribuidor, Self.Produto_preco_final_atacado, Self.Produto_PROD_COMISSAO_LOJA_varejo,
-    Self.Produto_PROD_COMISSAO_LOJA_distribuidor, Self.Produto_PROD_COMISSAO_LOJA_atacado, Self.Produto_externa_comissao_varejo, Self.Produto_externa_comissao_distribuidor,
-    Self.Produto_externa_comissao_atacado, Self.Produto_estoque, Self.Produto_PROD_ESTOQMIN, Self.Produto_PROD_MAXDESC_VAR, Self.Produto_PROD_MAXDESC_DIST,
+    Self.Produto_PROD_PRECO_VAR, Self.Produto_PROD_PRECO_DIST, Self.Produto_PROD_PRECO_ATAC, Self.Produto_PROD_COMISSAO_LOJA_varejo,
+    Self.Produto_PROD_COMISSAO_LOJA_distribuidor, Self.Produto_PROD_COMISSAO_LOJA_atacado, Self.Produto_PROD_COMISSAO_EXT_VAR, Self.Produto_PROD_COMISSAO_EXT_DIST,
+    Self.Produto_PROD_COMISSAO_EXT_ATAC, Self.Produto_estoque, Self.Produto_PROD_ESTOQMIN, Self.Produto_PROD_MAXDESC_VAR, Self.Produto_PROD_MAXDESC_DIST,
     Self.Produto_PROD_MAXDESC_ATAC, TFunctions.ifthen(Self.Produto_status_cadastral, 'ATIVO', 'INATIVO'), Self.Produto_cod_balanca_1, Self.Produto_cod_balanca_2,
     Self.Produto_cod_balanca_3, TFunctions.ifthen(Self.Produto_usa_lote, 'SIM', 'NAO'), TFunctions.ifthen(Self.Produto_controlado, 'SIM', 'NAO'), Self.Produto_icms_cst,
     Self.Produto_codigo_origem_mercadoria, Self.Produto_aliq_icms, Self.Produto_reducao_icms_st, Self.Produto_cod_comb, Self.Produto_valor_pauta_bc_st, Self.Produto_genero,
@@ -622,19 +622,19 @@ begin
   result := Self.Produto_PROD_ESTOQMIN;
 end;
 
-function TProduto.getProduto_externa_comissao_atacado: extended;
+function TProduto.getProduto_PROD_COMISSAO_EXT_ATAC: extended;
 begin
-  result := tformats.coin(Self.Produto_externa_comissao_atacado);
+  result := tformats.coin(Self.Produto_PROD_COMISSAO_EXT_ATAC);
 end;
 
-function TProduto.getProduto_externa_comissao_distribuidor: extended;
+function TProduto.getProduto_PROD_COMISSAO_EXT_DIST: extended;
 begin
-  result := tformats.coin(Self.Produto_externa_comissao_distribuidor);
+  result := tformats.coin(Self.Produto_PROD_COMISSAO_EXT_DIST);
 end;
 
-function TProduto.getProduto_externa_comissao_varejo: extended;
+function TProduto.getProduto_PROD_COMISSAO_EXT_VAR: extended;
 begin
-  result := tformats.coin(Self.Produto_externa_comissao_varejo);
+  result := tformats.coin(Self.Produto_PROD_COMISSAO_EXT_VAR);
 end;
 
 function TProduto.getProduto_familia: string;
@@ -717,19 +717,19 @@ begin
   result := tformats.coin(Self.Produto_preco_custo, 4);
 end;
 
-function TProduto.getProduto_preco_final_atacado: extended;
+function TProduto.getProduto_PROD_PRECO_ATAC: extended;
 begin
-  result := tformats.coin(Self.Produto_preco_final_atacado, 4);
+  result := tformats.coin(Self.Produto_PROD_PRECO_ATAC, 4);
 end;
 
-function TProduto.getProduto_preco_final_distribuidor: extended;
+function TProduto.getProduto_PROD_PRECO_DIST: extended;
 begin
-  result := tformats.coin(Self.Produto_preco_final_distribuidor);
+  result := tformats.coin(Self.Produto_PROD_PRECO_DIST);
 end;
 
-function TProduto.getProduto_preco_final_varejo: extended;
+function TProduto.getProduto_PROD_PRECO_VAR: extended;
 begin
-  result := tformats.coin(Self.Produto_preco_final_varejo, 2);
+  result := tformats.coin(Self.Produto_PROD_PRECO_VAR, 2);
 end;
 
 function TProduto.getProduto_reducao_icms_st: extended;
@@ -904,19 +904,19 @@ begin
   Self.Produto_PROD_ESTOQMIN := value;
 end;
 
-procedure TProduto.setProduto_externa_comissao_atacado(value: extended);
+procedure TProduto.setProduto_PROD_COMISSAO_EXT_ATAC(value: extended);
 begin
-  Self.Produto_externa_comissao_atacado := tformats.coin(value);
+  Self.Produto_PROD_COMISSAO_EXT_ATAC := tformats.coin(value);
 end;
 
-procedure TProduto.setProduto_externa_comissao_distribuidor(value: extended);
+procedure TProduto.setProduto_PROD_COMISSAO_EXT_DIST(value: extended);
 begin
-  Self.Produto_externa_comissao_distribuidor := tformats.coin(value);
+  Self.Produto_PROD_COMISSAO_EXT_DIST := tformats.coin(value);
 end;
 
-procedure TProduto.setProduto_externa_comissao_varejo(value: extended);
+procedure TProduto.setProduto_PROD_COMISSAO_EXT_VAR(value: extended);
 begin
-  Self.Produto_externa_comissao_varejo := tformats.coin(value);
+  Self.Produto_PROD_COMISSAO_EXT_VAR := tformats.coin(value);
 end;
 
 procedure TProduto.setProduto_familia(value: string);
@@ -1005,28 +1005,28 @@ begin
   Self.Produto_preco_custo := tformats.coin(value);
 end;
 
-procedure TProduto.setProduto_preco_final_atacado(value: extended);
+procedure TProduto.setProduto_PROD_PRECO_ATAC(value: extended);
 begin
   if tChecks.negative(value) then
     raise Exception.Create('O preço de atacado do produto, não pode ser negativo!');
 
-  Self.Produto_preco_final_atacado := tformats.coin(value);
+  Self.Produto_PROD_PRECO_ATAC := tformats.coin(value);
 end;
 
-procedure TProduto.setProduto_preco_final_distribuidor(value: extended);
+procedure TProduto.setProduto_PROD_PRECO_DIST(value: extended);
 begin
   if tChecks.negative(value) then
     raise Exception.Create('O preço do distribuidor produto, não pode ser negativo!');
 
-  Self.Produto_preco_final_distribuidor := tformats.coin(value);
+  Self.Produto_PROD_PRECO_DIST := tformats.coin(value);
 end;
 
-procedure TProduto.setProduto_preco_final_varejo(value: extended);
+procedure TProduto.setProduto_PROD_PRECO_VAR(value: extended);
 begin
   if tChecks.negative(value) then
     raise Exception.Create('O preço de varejo do produto, não pode ser negativo!');
 
-  Self.Produto_preco_final_varejo := tformats.coin(value);
+  Self.Produto_PROD_PRECO_VAR := tformats.coin(value);
 end;
 
 procedure TProduto.setProduto_reducao_icms_st(value: extended);
@@ -1098,3 +1098,9 @@ Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2
 Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:46
 Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:49
 Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:53
+Trocou EXTERNA_COMISSAO_VAREJO por PROD_COMISSAO_EXT_VAR : automaticamente em 17/06/2020 05:52
+Trocou EXTERNA_COMISSAO_ATACADO por PROD_COMISSAO_EXT_ATAC : automaticamente em 17/06/2020 05:55
+Trocou EXTERNA_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_EXT_DIST : automaticamente em 17/06/2020 06:30
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:55
+Trocou PRECO_FINAL_ATACADO por PROD_PRECO_ATAC : automaticamente em 17/06/2020 06:59
+Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2020 07:02

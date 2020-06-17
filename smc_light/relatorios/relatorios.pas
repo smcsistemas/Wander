@@ -469,9 +469,9 @@ type
     sql_produtosFAMILIA: TStringField;
     sql_produtosGRUPO: TStringField;
     sql_produtosSUBGRUPO: TStringField;
-    sql_produtosPRECO_FINAL_ATACADO: TBCDField;
-    sql_produtosPRECO_FINAL_DISTRIBUIDOR: TBCDField;
-    sql_produtosPRECO_FINAL_VAREJO: TBCDField;
+    sql_produtosPROD_PRECO_ATAC: TBCDField;
+    sql_produtosPROD_PRECO_DIST: TBCDField;
+    sql_produtosPROD_PRECO_VAR: TBCDField;
     sql_produtosCOD_BALANCA_1: TStringField;
     fr_pro_trib: TfrxReport;
     ds_pro_trib: TfrxDBDataset;
@@ -496,7 +496,7 @@ type
     sql_produtosMARGEM_L_VAREJO: TBCDField;
     sql_produtosCUSTO_MEDIO: TBCDField;
     sql_produtosPROD_MAXDESC_VAR: TBCDField;
-    sql_produtosEXTERNA_COMISSAO_VAREJO: TBCDField;
+    sql_produtosPROD_COMISSAO_EXT_VAR: TBCDField;
     sql_produtosPROD_COMISSAO_VAR: TBCDField;
     fr_pro_prom: TfrxReport;
     ds_pro_prom: TfrxDBDataset;
@@ -506,8 +506,8 @@ type
     sql_pro_promPROD_REFERENCIASFABRICA: TStringField;
     sql_pro_promMARCA: TStringField;
     sql_pro_promPROD_CDUNIDADE: TStringField;
-    sql_pro_promPRECO_FINAL_VAREJO: TBCDField;
-    sql_pro_promPROMO_VAREJO: TBCDField;
+    sql_pro_promPROD_PRECO_VAR: TBCDField;
+    sql_pro_promPROD_PROMOCAO_VAR: TBCDField;
     sql_pro_promPROMOCAO_INICIO: TDateField;
     sql_pro_promPROMOCAO_TERMINO: TDateField;
     sql_pro_promVALOR_PROMOCIONAL_VAREJO: TBCDField;
@@ -520,9 +520,9 @@ type
     sql_pro_pesavGRUPO: TStringField;
     sql_pro_pesavSUBGRUPO: TStringField;
     sql_pro_pesavPROD_CDUNIDADE: TStringField;
-    sql_pro_pesavPRECO_FINAL_ATACADO: TBCDField;
-    sql_pro_pesavPRECO_FINAL_DISTRIBUIDOR: TBCDField;
-    sql_pro_pesavPRECO_FINAL_VAREJO: TBCDField;
+    sql_pro_pesavPROD_PRECO_ATAC: TBCDField;
+    sql_pro_pesavPROD_PRECO_DIST: TBCDField;
+    sql_pro_pesavPROD_PRECO_VAR: TBCDField;
     sql_pro_pesavSALDO: TBCDField;
     sql_pro_pesavCOD_BALANCA_1: TStringField;
     sql_pro_pesavCOD_BALANCA_2: TStringField;
@@ -537,7 +537,7 @@ type
     sql_estq_compCODIGO: TFDAutoIncField;
     sql_estq_compPROD_DESCRICAO: TStringField;
     sql_estq_compPRECO_CUSTO: TBCDField;
-    sql_estq_compPRECO_FINAL_VAREJO: TBCDField;
+    sql_estq_compPROD_PRECO_VAR: TBCDField;
     sql_estq_compSALDO: TBCDField;
     sql_estq_compPROD_REFERENCIASFABRICA: TStringField;
     sql_estq_compMARGEM_L_VAREJO: TBCDField;
@@ -683,12 +683,12 @@ type
     sql_produtosPROD_COMISSAO_LOJA: TBCDField;
     sql_produtosPROD_COMISSAO_ATAC: TBCDField;
     sql_produtosPROD_COMISSAO_DIST: TBCDField;
-    sql_produtosCOMISSAO_EXTERNA: TBCDField;
-    sql_produtosEXTERNA_COMISSAO_ATACADO: TBCDField;
-    sql_produtosEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField;
-    sql_produtosPROMO_VAREJO: TBCDField;
-    sql_produtosPROMO_ATACADO: TBCDField;
-    sql_produtosPROMO_DISTRIBUIDOR: TBCDField;
+    sql_produtosPROD_COMISSAO_EXT: TBCDField;
+    sql_produtosPROD_COMISSAO_EXT_ATAC: TBCDField;
+    sql_produtosPROD_COMISSAO_EXT_DIST: TBCDField;
+    sql_produtosPROD_PROMOCAO_VAR: TBCDField;
+    sql_produtosPROD_PROMOCAO_ATAC: TBCDField;
+    sql_produtosPROD_PROMOCAO_DIST: TBCDField;
     sql_produtosPROMOCAO_INICIO: TDateField;
     sql_produtosPROMOCAO_TERMINO: TDateField;
     sql_produtosVALOR_PROMOCIONAL_ATACADO: TBCDField;
@@ -1894,3 +1894,13 @@ Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2
 Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:47
 Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:49
 Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:54
+Trocou COMISSAO_EXTERNA por PROD_COMISSAO_EXT : automaticamente em 17/06/2020 05:46
+Trocou EXTERNA_COMISSAO_VAREJO por PROD_COMISSAO_EXT_VAR : automaticamente em 17/06/2020 05:53
+Trocou EXTERNA_COMISSAO_ATACADO por PROD_COMISSAO_EXT_ATAC : automaticamente em 17/06/2020 05:56
+Trocou EXTERNA_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_EXT_DIST : automaticamente em 17/06/2020 06:30
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56
+Trocou PRECO_FINAL_ATACADO por PROD_PRECO_ATAC : automaticamente em 17/06/2020 06:59
+Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2020 07:02
+Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:40
+Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:45
+Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53

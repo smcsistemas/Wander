@@ -38,7 +38,7 @@ type
     cxButton3: TcxButton;
     SQL_REPORTcodigo: TFDAutoIncField;
     SQL_REPORTdescricao_produto: TStringField;
-    SQL_REPORTpreco_final_varejo: TBCDField;
+    SQL_REPORTPROD_PRECO_VAR: TBCDField;
     Edit1: TEdit;
     Button1: TButton;
     procedure cxButton3Click(Sender: TObject);
@@ -65,7 +65,7 @@ begin
   SQL_REPORT.SQL.Clear;
   SQL_REPORT.Open('select PROD_CODIGO    AS CODIGO,           ');
   SQL_REPORT.Open('       PROD_DESCRICAO AS descricao_produto,');
-  SQL_REPORT.Open('       preco_final_varejo                  ');
+  SQL_REPORT.Open('       PROD_PRECO_VAR                  ');
   SQL_REPORT.Open('  from PRODUTO_PROD                        ');
   SQL_REPORT.Open(' where PROD_CODIGO=?', [Edit1.Text]);
   FR_REPORT.LoadFromFile('D:\SMC_LIGHT\relatorios\produto.fr3');
@@ -103,3 +103,4 @@ end.
 Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:16
 Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:23
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04
+Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56

@@ -73,13 +73,13 @@ object frm_comissoes: Tfrm_comissoes
       Font.Style = []
       ParentFont = False
     end
-    object EXTERNA_COMISSAO_VAREJO: TDBEdit
+    object PROD_COMISSAO_EXT_VAR: TDBEdit
       Left = 67
       Top = 22
       Width = 55
       Height = 26
       CharCase = ecUpperCase
-      DataField = 'EXTERNA_COMISSAO_VAREJO'
+      DataField = 'PROD_COMISSAO_EXT_VAR'
       Font.Charset = ANSI_CHARSET
       Font.Color = clCaptionText
       Font.Height = -15
@@ -88,13 +88,13 @@ object frm_comissoes: Tfrm_comissoes
       ParentFont = False
       TabOrder = 0
     end
-    object EXTERNA_COMISSAO_DISTRIBUIDOR: TDBEdit
+    object PROD_COMISSAO_EXT_DIST: TDBEdit
       Left = 222
       Top = 22
       Width = 55
       Height = 26
       CharCase = ecUpperCase
-      DataField = 'EXTERNA_COMISSAO_DISTRIBUIDOR'
+      DataField = 'PROD_COMISSAO_EXT_DIST'
       Font.Charset = ANSI_CHARSET
       Font.Color = clCaptionText
       Font.Height = -15
@@ -103,13 +103,13 @@ object frm_comissoes: Tfrm_comissoes
       ParentFont = False
       TabOrder = 1
     end
-    object EXTERNA_COMISSAO_ATACADO: TDBEdit
+    object PROD_COMISSAO_EXT_ATAC: TDBEdit
       Left = 356
       Top = 22
       Width = 57
       Height = 26
       CharCase = ecUpperCase
-      DataField = 'EXTERNA_COMISSAO_ATACADO'
+      DataField = 'PROD_COMISSAO_EXT_ATAC'
       Font.Charset = ANSI_CHARSET
       Font.Color = clDefault
       Font.Height = -15
@@ -427,3 +427,6 @@ end
 Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2020 22:44
 Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:47
 Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:49
+Trocou EXTERNA_COMISSAO_VAREJO por PROD_COMISSAO_EXT_VAR : automaticamente em 17/06/2020 05:53
+Trocou EXTERNA_COMISSAO_ATACADO por PROD_COMISSAO_EXT_ATAC : automaticamente em 17/06/2020 05:56
+Trocou EXTERNA_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_EXT_DIST : automaticamente em 17/06/2020 06:30
