@@ -6338,7 +6338,6 @@ object Frm_Produto: TFrm_Produto
     Top = 128
   end
   object qConsulta: TFDQuery
-    Active = True
     Connection = Module.connection
     SQL.Strings = (
       'SELECT * FROM produto_prod')
@@ -6374,10 +6373,21 @@ object Frm_Produto: TFrm_Produto
       Origin = 'PROD_CDFAMILIA'
       Size = 10
     end
-    object qConsultaSUBGRUPO: TStringField
+    object qConsultaPROD_CDSUBGRUPO: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'PROD_CDSUBGRUPO'
       Origin = 'PROD_CDSUBGRUPO'
+      Size = 10
+    end
+    object qConsultaPROD_DT: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_DT'
+      Origin = 'PROD_DT'
+    end
+    object qConsultaPROD_CDTIPOITEM: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROD_CDTIPOITEM'
+      Origin = 'PROD_CDTIPOITEM'
       Size = 10
     end
     object qConsultaESTOQUE_MINIMO: TStringField
@@ -6385,60 +6395,6 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'ESTOQUE_MINIMO'
       Origin = 'ESTOQUE_MINIMO'
       Size = 50
-    end
-    object qConsultaPRECO_CUSTO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'PRECO_CUSTO'
-      Origin = 'PRECO_CUSTO'
-      Precision = 10
-    end
-    object qConsultaFRETE: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'FRETE'
-      Origin = 'FRETE'
-      Precision = 10
-    end
-    object qConsultaIMPOSTO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'IMPOSTO'
-      Origin = 'IMPOSTO'
-      Precision = 10
-    end
-    object qConsultaDESP_OPERACIONAIS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESP_OPERACIONAIS'
-      Origin = 'DESP_OPERACIONAIS'
-      Precision = 10
-    end
-    object qConsultaCUSTO_MEDIO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'CUSTO_MEDIO'
-      Origin = 'CUSTO_MEDIO'
-      Precision = 10
-    end
-    object qConsultaMARGEM_LUCRO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'MARGEM_LUCRO'
-      Origin = 'MARGEM_LUCRO'
-      Precision = 10
-    end
-    object qConsultaMARGEM_L_VAREJO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'MARGEM_L_VAREJO'
-      Origin = 'MARGEM_L_VAREJO'
-      Precision = 10
-    end
-    object qConsultaMARGEM_L_ATACADO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'MARGEM_L_ATACADO'
-      Origin = 'MARGEM_L_ATACADO'
-      Precision = 10
-    end
-    object qConsultaMARGEM_L_DISTRIBUIDOR: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'MARGEM_L_DISTRIBUIDOR'
-      Origin = 'MARGEM_L_DISTRIBUIDOR'
-      Precision = 10
     end
     object qConsultaDESCONTO_MAXIMO: TBCDField
       AutoGenerateValue = arDefault
@@ -6470,12 +6426,6 @@ object Frm_Produto: TFrm_Produto
       Origin = 'DESCONTO_L_VAREJO'
       Precision = 10
     end
-    object qConsultaPAGAR_COMISSAO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'PAGAR_COMISSAO'
-      Origin = 'PAGAR_COMISSAO'
-      Precision = 10
-    end
     object qConsultaDESCONTO_L_ATACADO: TBCDField
       AutoGenerateValue = arDefault
       FieldName = 'DESCONTO_L_ATACADO'
@@ -6486,6 +6436,12 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'DESCONTO_L_DISTRIBUIDOR'
       Origin = 'DESCONTO_L_DISTRIBUIDOR'
+      Precision = 10
+    end
+    object qConsultaPAGAR_COMISSAO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PAGAR_COMISSAO'
+      Origin = 'PAGAR_COMISSAO'
       Precision = 10
     end
     object qConsultaCOMISSAO_BALCAO: TBCDField
@@ -7040,17 +6996,6 @@ object Frm_Produto: TFrm_Produto
       AutoGenerateValue = arDefault
       FieldName = 'PROD_CDGRUPO'
       Origin = 'PROD_CDGRUPO'
-      Size = 10
-    end
-    object qConsultaPROD_DT: TDateTimeField
-      AutoGenerateValue = arDefault
-      FieldName = 'PROD_DT'
-      Origin = 'PROD_DT'
-    end
-    object qConsultaPROD_CDTIPOITEM: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'PROD_CDTIPOITEM'
-      Origin = 'PROD_CDTIPOITEM'
       Size = 10
     end
   end
