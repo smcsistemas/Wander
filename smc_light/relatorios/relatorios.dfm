@@ -12453,7 +12453,7 @@ object frm_relatorio: Tfrm_relatorio
         'e as vendedor, vi.preco preco,vi.QUANTIDADE as quantidade,vi.PRE' +
         'CO_TOTAL as preco_total,'
       
-        'p.balcao_comissao_varejo as "Comissao",((vi.PRECO_TOTAL)*(p.balc' +
+        'p.PROD_COMISSAO_VAR as "Comissao",((vi.PRECO_TOTAL)*(p.balc' +
         'ao_comissao_varejo/100)) as "Valor_Comissao"'
       'from venda v'
       'join venda_item vi on vi.CODIGO_VENDA = v.CODIGO_VENDA'
@@ -15589,9 +15589,9 @@ object frm_relatorio: Tfrm_relatorio
       'PRECO_CUSTO=PRECO_CUSTO'
       'MARGEM_L_VAREJO=MARGEM_L_VAREJO'
       'CUSTO_MEDIO=CUSTO_MEDIO'
-      'DESCONTO_M_VAREJO=DESCONTO_M_VAREJO'
+      'PROD_MAXDESC_VAR=PROD_MAXDESC_VAR'
       'EXTERNA_COMISSAO_VAREJO=EXTERNA_COMISSAO_VAREJO'
-      'BALCAO_COMISSAO_VAREJO=BALCAO_COMISSAO_VAREJO')
+      'PROD_COMISSAO_VAR=PROD_COMISSAO_VAR')
     DataSet = sql_produtos
     BCDToCurrency = False
     Left = 515
@@ -15699,10 +15699,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'CUSTO_MEDIO'
       Precision = 10
     end
-    object sql_produtosDESCONTO_M_VAREJO: TBCDField
+    object sql_produtosPROD_MAXDESC_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'DESCONTO_M_VAREJO'
-      Origin = 'DESCONTO_M_VAREJO'
+      FieldName = 'PROD_MAXDESC_VAR'
+      Origin = 'PROD_MAXDESC_VAR'
       Precision = 10
     end
     object sql_produtosEXTERNA_COMISSAO_VAREJO: TBCDField
@@ -15711,10 +15711,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'EXTERNA_COMISSAO_VAREJO'
       Precision = 10
     end
-    object sql_produtosBALCAO_COMISSAO_VAREJO: TBCDField
+    object sql_produtosPROD_COMISSAO_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'BALCAO_COMISSAO_VAREJO'
-      Origin = 'BALCAO_COMISSAO_VAREJO'
+      FieldName = 'PROD_COMISSAO_VAR'
+      Origin = 'PROD_COMISSAO_VAR'
       Precision = 10
     end
     object sql_produtosCOD_BARRAS_AUXILIAR: TStringField
@@ -15740,10 +15740,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'TIPO_ITEM'
       Size = 100
     end
-    object sql_produtosESTOQUE_MINIMO: TStringField
+    object sql_produtosPROD_ESTOQMIN: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'ESTOQUE_MINIMO'
-      Origin = 'ESTOQUE_MINIMO'
+      FieldName = 'PROD_ESTOQMIN'
+      Origin = 'PROD_ESTOQMIN'
       Size = 50
     end
     object sql_produtosFRETE: TBCDField
@@ -15782,22 +15782,22 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'MARGEM_L_DISTRIBUIDOR'
       Precision = 10
     end
-    object sql_produtosDESCONTO_MAXIMO: TBCDField
+    object sql_produtosPROD_MAXDESC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'DESCONTO_MAXIMO'
-      Origin = 'DESCONTO_MAXIMO'
+      FieldName = 'PROD_MAXDESC'
+      Origin = 'PROD_MAXDESC'
       Precision = 10
     end
-    object sql_produtosDESCONTO_M_ATACADO: TBCDField
+    object sql_produtosPROD_MAXDESC_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'DESCONTO_M_ATACADO'
-      Origin = 'DESCONTO_M_ATACADO'
+      FieldName = 'PROD_MAXDESC_ATAC'
+      Origin = 'PROD_MAXDESC_ATAC'
       Precision = 10
     end
-    object sql_produtosDESCONTO_M_DISTRIBUIDOR: TBCDField
+    object sql_produtosPROD_MAXDESC_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'DESCONTO_M_DISTRIBUIDOR'
-      Origin = 'DESCONTO_M_DISTRIBUIDOR'
+      FieldName = 'PROD_MAXDESC_DIST'
+      Origin = 'PROD_MAXDESC_DIST'
       Precision = 10
     end
     object sql_produtosDESCONTO_L_VAREJO: TBCDField
@@ -15818,28 +15818,28 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'DESCONTO_L_DISTRIBUIDOR'
       Precision = 10
     end
-    object sql_produtosPAGAR_COMISSAO: TBCDField
+    object sql_produtosPROD_COMISSAO: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PAGAR_COMISSAO'
-      Origin = 'PAGAR_COMISSAO'
+      FieldName = 'PROD_COMISSAO'
+      Origin = 'PROD_COMISSAO'
       Precision = 10
     end
-    object sql_produtosCOMISSAO_BALCAO: TBCDField
+    object sql_produtosPROD_COMISSAO_LOJA: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'COMISSAO_BALCAO'
-      Origin = 'COMISSAO_BALCAO'
+      FieldName = 'PROD_COMISSAO_LOJA'
+      Origin = 'PROD_COMISSAO_LOJA'
       Precision = 10
     end
-    object sql_produtosBALCAO_COMISSAO_ATACADO: TBCDField
+    object sql_produtosPROD_COMISSAO_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'BALCAO_COMISSAO_ATACADO'
-      Origin = 'BALCAO_COMISSAO_ATACADO'
+      FieldName = 'PROD_COMISSAO_ATAC'
+      Origin = 'PROD_COMISSAO_ATAC'
       Precision = 10
     end
-    object sql_produtosBALCAO_COMISSAO_DISTRIBUIDOR: TBCDField
+    object sql_produtosPROD_COMISSAO_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'BALCAO_COMISSAO_DISTRIBUIDOR'
-      Origin = 'BALCAO_COMISSAO_DISTRIBUIDOR'
+      FieldName = 'PROD_COMISSAO_DIST'
+      Origin = 'PROD_COMISSAO_DIST'
       Precision = 10
     end
     object sql_produtosCOMISSAO_EXTERNA: TBCDField
@@ -16362,7 +16362,7 @@ object frm_relatorio: Tfrm_relatorio
       ','
       
         '(select count(PROD_CODIGO) from PRODUTO_PROD where saldo between' +
-        ' 1 and if (estoque_minimo is null ,10,estoque_minimo)) as qtde_m' +
+        ' 1 and if (PROD_ESTOQMIN is null ,10,PROD_ESTOQMIN)) as qtde_m' +
         'inimo'
       ','
       
@@ -16371,7 +16371,7 @@ object frm_relatorio: Tfrm_relatorio
       ','
       
         '(select count(PROD_CODIGO) from PRODUTO_PROD where saldo > if (e' +
-        'stoque_minimo is null ,10,estoque_minimo)) as qtde_positivo')
+        'stoque_minimo is null ,10,PROD_ESTOQMIN)) as qtde_positivo')
     Left = 576
     Top = 144
     object sql_saldoqtde_cadastrado: TLargeintField
@@ -36081,7 +36081,7 @@ object frm_relatorio: Tfrm_relatorio
           ParentFont = False
           VAlign = vaCenter
         end
-        object ds_produtosDESCONTO_M_VAREJO: TfrxMemoView
+        object ds_produtosPROD_MAXDESC_VAR: TfrxMemoView
           Left = 532.079160000000000000
           Width = 64.252010000000000000
           Height = 11.338590000000000000
@@ -36097,10 +36097,10 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft, ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."DESCONTO_M_VAREJO"]')
+            '[ds_produtos."PROD_MAXDESC_VAR"]')
           ParentFont = False
         end
-        object ds_produtosBALCAO_COMISSAO_VAREJO: TfrxMemoView
+        object ds_produtosPROD_COMISSAO_VAR: TfrxMemoView
           Left = 660.758350000000000000
           Width = 64.252010000000000000
           Height = 11.338590000000000000
@@ -36116,7 +36116,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft, ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[(<ds_produtos."BALCAO_COMISSAO_VAREJO">)]')
+            '[(<ds_produtos."PROD_COMISSAO_VAR">)]')
           ParentFont = False
         end
         object ds_produtosEXTERNA_COMISSAO_VAREJO: TfrxMemoView
@@ -46500,3 +46500,13 @@ Trocou FieldName = 'MARCA' por FieldName = 'PROD_MARCA' : automaticamente em 16/
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07
 Trocou FieldName = 'FAMILIA' por FieldName = 'PROD_CDFAMILIA' : automaticamente em 16/06/2020 17:34
 Trocou Origin = 'FAMILIA' por Origin = 'PROD_CDFAMILIA' : automaticamente em 16/06/2020 17:38
+Trocou DESCONTO_MAXIMO por PROD_MAXDESC : automaticamente em 16/06/2020 22:24
+Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22:28
+Trocou DESCONTO_M_ATACADO por PROD_MAXDESC_ATAC : automaticamente em 16/06/2020 22:31
+Trocou DESCONTO_M_DISTRIBUIDOR por PROD_MAXDESC_DIST : automaticamente em 16/06/2020 22:34
+Trocou PAGAR_COMISSAO por PROD_COMISSAO : automaticamente em 16/06/2020 22:38
+Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:41
+Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2020 22:44
+Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:47
+Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:49
+Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:54

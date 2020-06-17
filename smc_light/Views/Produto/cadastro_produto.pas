@@ -299,7 +299,7 @@ type
     tbViewCEST: TcxGridDBColumn;
     tbViewPRECO: TcxGridDBColumn;
     cbTipoItemConsulta: TcxLookupComboBox;
-    tbViewESTOQUE_MINIMO: TcxGridDBColumn;
+    tbViewPROD_ESTOQMIN: TcxGridDBColumn;
     QtdeItens: TLabel;
     Label51: TLabel;
     Label35: TLabel;
@@ -457,19 +457,19 @@ type
     qConsultaPROD_CDSUBGRUPO: TStringField;
     qConsultaPROD_DT: TDateTimeField;
     qConsultaPROD_CDTIPOITEM: TStringField;
-    qConsultaESTOQUE_MINIMO: TStringField;
-    qConsultaDESCONTO_MAXIMO: TBCDField;
-    qConsultaDESCONTO_M_VAREJO: TBCDField;
-    qConsultaDESCONTO_M_ATACADO: TBCDField;
-    qConsultaDESCONTO_M_DISTRIBUIDOR: TBCDField;
+    qConsultaPROD_ESTOQMIN: TStringField;
+    qConsultaPROD_MAXDESC: TBCDField;
+    qConsultaPROD_MAXDESC_VAR: TBCDField;
+    qConsultaPROD_MAXDESC_ATAC: TBCDField;
+    qConsultaPROD_MAXDESC_DIST: TBCDField;
     qConsultaDESCONTO_L_VAREJO: TBCDField;
     qConsultaDESCONTO_L_ATACADO: TBCDField;
     qConsultaDESCONTO_L_DISTRIBUIDOR: TBCDField;
-    qConsultaPAGAR_COMISSAO: TBCDField;
-    qConsultaCOMISSAO_BALCAO: TBCDField;
-    qConsultaBALCAO_COMISSAO_VAREJO: TBCDField;
-    qConsultaBALCAO_COMISSAO_ATACADO: TBCDField;
-    qConsultaBALCAO_COMISSAO_DISTRIBUIDOR: TBCDField;
+    qConsultaPROD_COMISSAO: TBCDField;
+    qConsultaPROD_COMISSAO_LOJA: TBCDField;
+    qConsultaPROD_COMISSAO_VAR: TBCDField;
+    qConsultaPROD_COMISSAO_ATAC: TBCDField;
+    qConsultaPROD_COMISSAO_DIST: TBCDField;
     qConsultaCOMISSAO_EXTERNA: TBCDField;
     qConsultaEXTERNA_COMISSAO_VAREJO: TBCDField;
     qConsultaEXTERNA_COMISSAO_ATACADO: TBCDField;
@@ -626,10 +626,10 @@ type
     procedure edPROD_CDSUBGRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure EXTERNA_COMISSAO_ATACADOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edCODIGO_ALFANUMERICOKeyPress(Sender: TObject; var Key: Char);
-    procedure ESTOQUE_MINIMOKeyPress(Sender: TObject; var Key: Char);
-    procedure BALCAO_COMISSAO_VAREJOKeyPress(Sender: TObject; var Key: Char);
-    procedure BALCAO_COMISSAO_DISTRIBUIDORKeyPress(Sender: TObject; var Key: Char);
-    procedure BALCAO_COMISSAO_ATACADOKeyPress(Sender: TObject; var Key: Char);
+    procedure PROD_ESTOQMINKeyPress(Sender: TObject; var Key: Char);
+    procedure PROD_COMISSAO_VARKeyPress(Sender: TObject; var Key: Char);
+    procedure PROD_COMISSAO_DISTKeyPress(Sender: TObject; var Key: Char);
+    procedure PROD_COMISSAO_ATACKeyPress(Sender: TObject; var Key: Char);
     procedure EXTERNA_COMISSAO_VAREJOKeyPress(Sender: TObject; var Key: Char);
     procedure EXTERNA_COMISSAO_DISTRIBUIDORKeyPress(Sender: TObject; var Key: Char);
     procedure EXTERNA_COMISSAO_ATACADOKeyPress(Sender: TObject; var Key: Char);
@@ -662,14 +662,14 @@ type
     procedure DBEdit13KeyPress(Sender: TObject; var Key: Char);
     procedure dbcsticmsClick(Sender: TObject);
     procedure DESP_OPERACIONAISClick(Sender: TObject);
-    procedure BALCAO_COMISSAO_VAREJOClick(Sender: TObject);
-    procedure BALCAO_COMISSAO_DISTRIBUIDORClick(Sender: TObject);
-    procedure BALCAO_COMISSAO_ATACADOClick(Sender: TObject);
+    procedure PROD_COMISSAO_VARClick(Sender: TObject);
+    procedure PROD_COMISSAO_DISTClick(Sender: TObject);
+    procedure PROD_COMISSAO_ATACClick(Sender: TObject);
     procedure EXTERNA_COMISSAO_DISTRIBUIDORClick(Sender: TObject);
     procedure EXTERNA_COMISSAO_ATACADOClick(Sender: TObject);
     procedure sClick(Sender: TObject);
-    procedure DESCONTO_M_DISTRIBUIDORClick(Sender: TObject);
-    procedure DESCONTO_M_ATACADOClick(Sender: TObject);
+    procedure PROD_MAXDESC_DISTClick(Sender: TObject);
+    procedure PROD_MAXDESC_ATACClick(Sender: TObject);
     procedure calc_margem(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edNCMExit(Sender: TObject);
     procedure edt_qtde_minKeyPress(Sender: TObject; var Key: Char);
@@ -1264,12 +1264,12 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.BALCAO_COMISSAO_ATACADOClick(Sender: TObject);
+procedure TFrm_Produto.PROD_COMISSAO_ATACClick(Sender: TObject);
 begin
-  //BALCAO_COMISSAO_ATACADO.SelectAll;
+  //PROD_COMISSAO_ATAC.SelectAll;
 end;
 
-procedure TFrm_Produto.BALCAO_COMISSAO_ATACADOKeyPress(Sender: TObject;
+procedure TFrm_Produto.PROD_COMISSAO_ATACKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -1277,12 +1277,12 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.BALCAO_COMISSAO_DISTRIBUIDORClick(Sender: TObject);
+procedure TFrm_Produto.PROD_COMISSAO_DISTClick(Sender: TObject);
 begin
-//  BALCAO_COMISSAO_DISTRIBUIDOR.SelectAll;
+//  PROD_COMISSAO_DIST.SelectAll;
 end;
 
-procedure TFrm_Produto.BALCAO_COMISSAO_DISTRIBUIDORKeyPress(Sender: TObject;
+procedure TFrm_Produto.PROD_COMISSAO_DISTKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -1290,12 +1290,12 @@ begin
   Key := ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.BALCAO_COMISSAO_VAREJOClick(Sender: TObject);
+procedure TFrm_Produto.PROD_COMISSAO_VARClick(Sender: TObject);
 begin
- // BALCAO_COMISSAO_VAREJO.SelectAll;
+ // PROD_COMISSAO_VAR.SelectAll;
 end;
 
-procedure TFrm_Produto.BALCAO_COMISSAO_VAREJOKeyPress(Sender: TObject;
+procedure TFrm_Produto.PROD_COMISSAO_VARKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -1650,7 +1650,7 @@ begin
     edPROD_DESCRICAO.SetFocus;
     chk_ativocadastro.Checked := true;
 //    DBEdit13.Text := '0';
-//    ESTOQUE_MINIMO.Text := '0';
+//    PROD_ESTOQMIN.Text := '0';
   end;
   }
 end;
@@ -2287,7 +2287,7 @@ begin
    Result := True;
 end;
 
-procedure TFrm_Produto.ESTOQUE_MINIMOKeyPress(Sender: TObject;
+procedure TFrm_Produto.PROD_ESTOQMINKeyPress(Sender: TObject;
 var Key: Char);
 begin
   inherited;
@@ -2564,16 +2564,16 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.DESCONTO_M_ATACADOClick(Sender: TObject);
+procedure TFrm_Produto.PROD_MAXDESC_ATACClick(Sender: TObject);
 begin
-//  DESCONTO_M_ATACADO.SelectAll;
+//  PROD_MAXDESC_ATAC.SelectAll;
 end;
 
 
 
-procedure TFrm_Produto.DESCONTO_M_DISTRIBUIDORClick(Sender: TObject);
+procedure TFrm_Produto.PROD_MAXDESC_DISTClick(Sender: TObject);
 begin
-//  DESCONTO_M_DISTRIBUIDOR.SelectAll;
+//  PROD_MAXDESC_DIST.SelectAll;
 end;
 
 procedure TFrm_Produto.Pesquisar;
@@ -3684,7 +3684,7 @@ var
 begin
   if chk_diff_estoque.Checked then
   begin
-    est_min := tbView.ViewData.Records[AViewInfo.GridRecord.Index].Values[tbViewESTOQUE_MINIMO.Index];
+    est_min := tbView.ViewData.Records[AViewInfo.GridRecord.Index].Values[tbViewPROD_ESTOQMIN.Index];
     est_min := varastype(TFunctions.ifthen(est_min = System.Variants.null, '10', est_min), VARDOUBLE);
 
     value := tbView.ViewData.Records[AViewInfo.GridRecord.Index].Values[tbViewSALDO.Index];
@@ -3838,7 +3838,7 @@ CSOSN é utilizado pelos contribuintes optantes pelo regime do Simples Nacional.
 {
 CREATE TABLE `produto` (
 	`DATA_CADASTRO` DATE NULL DEFAULT '0000-00-00' COMMENT 'informa a data e hora do cadastramento do produto',
-	`ESTOQUE_MINIMO` VARCHAR(50) NULL DEFAULT NULL,
+	`PROD_ESTOQMIN` VARCHAR(50) NULL DEFAULT NULL,
 	`PRECO_CUSTO` DECIMAL(10,4) NULL DEFAULT NULL,
 	`FRETE` DECIMAL(10,4) NULL DEFAULT NULL,
 	`IMPOSTO` DECIMAL(10,4) NULL DEFAULT NULL,
@@ -3848,18 +3848,18 @@ CREATE TABLE `produto` (
 	`MARGEM_L_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
 	`MARGEM_L_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
 	`MARGEM_L_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
-	`DESCONTO_MAXIMO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`DESCONTO_M_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`DESCONTO_M_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`DESCONTO_M_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_MAXDESC` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_MAXDESC_VAR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_MAXDESC_ATAC` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_MAXDESC_DIST` DECIMAL(10,4) NULL DEFAULT NULL,
 	`DESCONTO_L_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
 	`DESCONTO_L_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
 	`DESCONTO_L_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
-	`PAGAR_COMISSAO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`COMISSAO_BALCAO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`BALCAO_COMISSAO_VAREJO` DECIMAL(10,4) NULL DEFAULT '0.0000',
-	`BALCAO_COMISSAO_ATACADO` DECIMAL(10,4) NULL DEFAULT '0.0000',
-	`BALCAO_COMISSAO_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`PROD_COMISSAO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_COMISSAO_LOJA` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_COMISSAO_VAR` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`PROD_COMISSAO_ATAC` DECIMAL(10,4) NULL DEFAULT '0.0000',
+	`PROD_COMISSAO_DIST` DECIMAL(10,4) NULL DEFAULT '0.0000',
 	`COMISSAO_EXTERNA` DECIMAL(10,4) NULL DEFAULT NULL,
 	`EXTERNA_COMISSAO_VAREJO` DECIMAL(10,4) NULL DEFAULT '0.0000',
 	`EXTERNA_COMISSAO_ATACADO` DECIMAL(10,4) NULL DEFAULT '0.0000',
@@ -3967,3 +3967,13 @@ Trocou ('PROD_MARCA por ('MARCA : automaticamente em 16/06/2020 16:08
 Trocou ('MARCA' por ('PROD_MARCA' : automaticamente em 16/06/2020 16:09
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07
 Trocou ('FAMILIA por ('PROD_CDFAMILIA : automaticamente em 16/06/2020 17:28
+Trocou DESCONTO_MAXIMO por PROD_MAXDESC : automaticamente em 16/06/2020 22:24
+Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22:28
+Trocou DESCONTO_M_ATACADO por PROD_MAXDESC_ATAC : automaticamente em 16/06/2020 22:31
+Trocou DESCONTO_M_DISTRIBUIDOR por PROD_MAXDESC_DIST : automaticamente em 16/06/2020 22:34
+Trocou PAGAR_COMISSAO por PROD_COMISSAO : automaticamente em 16/06/2020 22:38
+Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:42
+Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2020 22:44
+Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:47
+Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:50
+Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:54

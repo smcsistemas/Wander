@@ -474,8 +474,8 @@ begin
       produto.CUSTO_MEDIO := fieldbyname('preco_uni').asExtended;
       produto.MARGEM_LUCRO_VAREJO := fieldbyname('margem_lucro').asExtended;
       produto.DESP_OPERARCIONAIS := fieldbyname('despesas_operacionais').asExtended;
-      produto.DESCONTO_M_VAREJO := fieldbyname('desc_maximo').asExtended;
-      produto.COMISSAO_BALCAO_VAREJO := fieldbyname('comissao').asExtended;
+      produto.PROD_MAXDESC_VAR := fieldbyname('desc_maximo').asExtended;
+      produto.PROD_COMISSAO_LOJA_VAREJO := fieldbyname('comissao').asExtended;
 
       if fieldbyname('tipo').asString = '' then
         raise Exception.create(format('O campo "TIPO" no item %d deve ser preenchido', [fieldbyname('item').asInteger]));
@@ -1352,3 +1352,5 @@ end.
 Trocou ('MARCA por ('PROD_MARCA : automaticamente em 16/06/2020 16:08
 Trocou ('PROD_MARCA por ('MARCA : automaticamente em 16/06/2020 16:08
 Trocou ('MARCA' por ('PROD_MARCA' : automaticamente em 16/06/2020 16:09
+Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22:27
+Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:41

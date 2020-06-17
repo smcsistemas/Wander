@@ -495,9 +495,9 @@ type
     sql_produtosPRECO_CUSTO: TBCDField;
     sql_produtosMARGEM_L_VAREJO: TBCDField;
     sql_produtosCUSTO_MEDIO: TBCDField;
-    sql_produtosDESCONTO_M_VAREJO: TBCDField;
+    sql_produtosPROD_MAXDESC_VAR: TBCDField;
     sql_produtosEXTERNA_COMISSAO_VAREJO: TBCDField;
-    sql_produtosBALCAO_COMISSAO_VAREJO: TBCDField;
+    sql_produtosPROD_COMISSAO_VAR: TBCDField;
     fr_pro_prom: TfrxReport;
     ds_pro_prom: TfrxDBDataset;
     sql_pro_prom: TFDQuery;
@@ -666,23 +666,23 @@ type
     sql_produtosPROD_DETALHES: TStringField;
     sql_produtosDATA_CADASTRO: TDateField;
     sql_produtosTIPO_ITEM: TStringField;
-    sql_produtosESTOQUE_MINIMO: TStringField;
+    sql_produtosPROD_ESTOQMIN: TStringField;
     sql_produtosFRETE: TBCDField;
     sql_produtosIMPOSTO: TBCDField;
     sql_produtosDESP_OPERACIONAIS: TBCDField;
     sql_produtosMARGEM_LUCRO: TBCDField;
     sql_produtosMARGEM_L_ATACADO: TBCDField;
     sql_produtosMARGEM_L_DISTRIBUIDOR: TBCDField;
-    sql_produtosDESCONTO_MAXIMO: TBCDField;
-    sql_produtosDESCONTO_M_ATACADO: TBCDField;
-    sql_produtosDESCONTO_M_DISTRIBUIDOR: TBCDField;
+    sql_produtosPROD_MAXDESC: TBCDField;
+    sql_produtosPROD_MAXDESC_ATAC: TBCDField;
+    sql_produtosPROD_MAXDESC_DIST: TBCDField;
     sql_produtosDESCONTO_L_VAREJO: TBCDField;
     sql_produtosDESCONTO_L_ATACADO: TBCDField;
     sql_produtosDESCONTO_L_DISTRIBUIDOR: TBCDField;
-    sql_produtosPAGAR_COMISSAO: TBCDField;
-    sql_produtosCOMISSAO_BALCAO: TBCDField;
-    sql_produtosBALCAO_COMISSAO_ATACADO: TBCDField;
-    sql_produtosBALCAO_COMISSAO_DISTRIBUIDOR: TBCDField;
+    sql_produtosPROD_COMISSAO: TBCDField;
+    sql_produtosPROD_COMISSAO_LOJA: TBCDField;
+    sql_produtosPROD_COMISSAO_ATAC: TBCDField;
+    sql_produtosPROD_COMISSAO_DIST: TBCDField;
     sql_produtosCOMISSAO_EXTERNA: TBCDField;
     sql_produtosEXTERNA_COMISSAO_ATACADO: TBCDField;
     sql_produtosEXTERNA_COMISSAO_DISTRIBUIDOR: TBCDField;
@@ -1884,3 +1884,13 @@ Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:07
 Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:39
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:09
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07
+Trocou DESCONTO_MAXIMO por PROD_MAXDESC : automaticamente em 16/06/2020 22:24
+Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22:28
+Trocou DESCONTO_M_ATACADO por PROD_MAXDESC_ATAC : automaticamente em 16/06/2020 22:31
+Trocou DESCONTO_M_DISTRIBUIDOR por PROD_MAXDESC_DIST : automaticamente em 16/06/2020 22:34
+Trocou PAGAR_COMISSAO por PROD_COMISSAO : automaticamente em 16/06/2020 22:38
+Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:42
+Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2020 22:44
+Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:47
+Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:49
+Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:54

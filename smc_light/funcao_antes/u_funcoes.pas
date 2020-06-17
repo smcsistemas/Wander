@@ -45,7 +45,7 @@ function ListarTodosCadastros(Consulta: TFDQuery; Tabela: String): String;
 procedure ImprimirGridConsulta(ConsultaRelatorio, ConsultaGrid: TFDQuery; Relatorio: TfrxReport; CaminhoRelatorio: String);
 { Procedimento para imprimir um relatório apenas com os dados do grid da consultas. }
 
-function colorirestoque(value: String; estoque_minimo: extended): Integer;
+function colorirestoque(value: String; PROD_ESTOQMIN: extended): Integer;
 
 function ApenasLetras(Tecla: Char): Char;
 { Função para permitir preenchimento de um campo apenas com letras. }
@@ -777,14 +777,14 @@ begin
   end;
 end;
 
-function colorirestoque(value: String; estoque_minimo: extended): Integer;
+function colorirestoque(value: String; PROD_ESTOQMIN: extended): Integer;
 var
   sEstoque: extended;
 begin
   if value <> emptystr then
   begin
     sEstoque := strtofloat(value);
-    result := ColorByStatus(sEstoque, [0, IfThen(estoque_minimo = 0, 10, estoque_minimo)], [clWebRed, clWebDarkOrange, clWebDarkgreen])
+    result := ColorByStatus(sEstoque, [0, IfThen(PROD_ESTOQMIN = 0, 10, PROD_ESTOQMIN)], [clWebRed, clWebDarkOrange, clWebDarkgreen])
   end
   else
     result := clWhite;
@@ -3883,3 +3883,4 @@ begin
 end;
 
 end.
+Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:53

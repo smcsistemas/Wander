@@ -645,8 +645,8 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 70
           end
-          object tbViewESTOQUE_MINIMO: TcxGridDBColumn
-            DataBinding.FieldName = 'ESTOQUE_MINIMO'
+          object tbViewPROD_ESTOQMIN: TcxGridDBColumn
+            DataBinding.FieldName = 'PROD_ESTOQMIN'
             Visible = False
           end
         end
@@ -6390,34 +6390,34 @@ object Frm_Produto: TFrm_Produto
       Origin = 'PROD_CDTIPOITEM'
       Size = 10
     end
-    object qConsultaESTOQUE_MINIMO: TStringField
+    object qConsultaPROD_ESTOQMIN: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'ESTOQUE_MINIMO'
-      Origin = 'ESTOQUE_MINIMO'
+      FieldName = 'PROD_ESTOQMIN'
+      Origin = 'PROD_ESTOQMIN'
       Size = 50
     end
-    object qConsultaDESCONTO_MAXIMO: TBCDField
+    object qConsultaPROD_MAXDESC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'DESCONTO_MAXIMO'
-      Origin = 'DESCONTO_MAXIMO'
+      FieldName = 'PROD_MAXDESC'
+      Origin = 'PROD_MAXDESC'
       Precision = 10
     end
-    object qConsultaDESCONTO_M_VAREJO: TBCDField
+    object qConsultaPROD_MAXDESC_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'DESCONTO_M_VAREJO'
-      Origin = 'DESCONTO_M_VAREJO'
+      FieldName = 'PROD_MAXDESC_VAR'
+      Origin = 'PROD_MAXDESC_VAR'
       Precision = 10
     end
-    object qConsultaDESCONTO_M_ATACADO: TBCDField
+    object qConsultaPROD_MAXDESC_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'DESCONTO_M_ATACADO'
-      Origin = 'DESCONTO_M_ATACADO'
+      FieldName = 'PROD_MAXDESC_ATAC'
+      Origin = 'PROD_MAXDESC_ATAC'
       Precision = 10
     end
-    object qConsultaDESCONTO_M_DISTRIBUIDOR: TBCDField
+    object qConsultaPROD_MAXDESC_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'DESCONTO_M_DISTRIBUIDOR'
-      Origin = 'DESCONTO_M_DISTRIBUIDOR'
+      FieldName = 'PROD_MAXDESC_DIST'
+      Origin = 'PROD_MAXDESC_DIST'
       Precision = 10
     end
     object qConsultaDESCONTO_L_VAREJO: TBCDField
@@ -6438,34 +6438,34 @@ object Frm_Produto: TFrm_Produto
       Origin = 'DESCONTO_L_DISTRIBUIDOR'
       Precision = 10
     end
-    object qConsultaPAGAR_COMISSAO: TBCDField
+    object qConsultaPROD_COMISSAO: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PAGAR_COMISSAO'
-      Origin = 'PAGAR_COMISSAO'
+      FieldName = 'PROD_COMISSAO'
+      Origin = 'PROD_COMISSAO'
       Precision = 10
     end
-    object qConsultaCOMISSAO_BALCAO: TBCDField
+    object qConsultaPROD_COMISSAO_LOJA: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'COMISSAO_BALCAO'
-      Origin = 'COMISSAO_BALCAO'
+      FieldName = 'PROD_COMISSAO_LOJA'
+      Origin = 'PROD_COMISSAO_LOJA'
       Precision = 10
     end
-    object qConsultaBALCAO_COMISSAO_VAREJO: TBCDField
+    object qConsultaPROD_COMISSAO_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'BALCAO_COMISSAO_VAREJO'
-      Origin = 'BALCAO_COMISSAO_VAREJO'
+      FieldName = 'PROD_COMISSAO_VAR'
+      Origin = 'PROD_COMISSAO_VAR'
       Precision = 10
     end
-    object qConsultaBALCAO_COMISSAO_ATACADO: TBCDField
+    object qConsultaPROD_COMISSAO_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'BALCAO_COMISSAO_ATACADO'
-      Origin = 'BALCAO_COMISSAO_ATACADO'
+      FieldName = 'PROD_COMISSAO_ATAC'
+      Origin = 'PROD_COMISSAO_ATAC'
       Precision = 10
     end
-    object qConsultaBALCAO_COMISSAO_DISTRIBUIDOR: TBCDField
+    object qConsultaPROD_COMISSAO_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'BALCAO_COMISSAO_DISTRIBUIDOR'
-      Origin = 'BALCAO_COMISSAO_DISTRIBUIDOR'
+      FieldName = 'PROD_COMISSAO_DIST'
+      Origin = 'PROD_COMISSAO_DIST'
       Precision = 10
     end
     object qConsultaCOMISSAO_EXTERNA: TBCDField
@@ -7005,3 +7005,13 @@ object Frm_Produto: TFrm_Produto
     Top = 28
   end
 end
+Trocou DESCONTO_MAXIMO por PROD_MAXDESC : automaticamente em 16/06/2020 22:24
+Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22:28
+Trocou DESCONTO_M_ATACADO por PROD_MAXDESC_ATAC : automaticamente em 16/06/2020 22:31
+Trocou DESCONTO_M_DISTRIBUIDOR por PROD_MAXDESC_DIST : automaticamente em 16/06/2020 22:34
+Trocou PAGAR_COMISSAO por PROD_COMISSAO : automaticamente em 16/06/2020 22:38
+Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:42
+Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2020 22:44
+Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:47
+Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:49
+Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:54

@@ -85,7 +85,7 @@ var
     result := false;
     if Simplequery('select desconto_max_produto from parametros_venda').Fields[0].asString = m_true then
     begin
-      qry_produto := Simplequery('select desconto_m_varejo from produto_prod where prod_codigo = ' + SQL_ITENSCODIGO_PRODUTO.asString);
+      qry_produto := Simplequery('select PROD_MAXDESC_VAR from produto_prod where prod_codigo = ' + SQL_ITENSCODIGO_PRODUTO.asString);
       if qry_produto <> nil then
       begin
         valor_desc_max := (qry_produto.Fields[0].asExtended / 100) * SQL_ITENSPRECO.asExtended;
@@ -239,3 +239,4 @@ begin
 end;
 
 end.
+Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22:27

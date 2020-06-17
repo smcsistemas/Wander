@@ -61,7 +61,7 @@ type
     SQL_ProdutoConsultaSUBGRUPO: TStringField;
     SQL_ProdutoConsultaDATA_CADASTRO: TDateField;
     SQL_ProdutoConsultaTIPO_ITEM: TStringField;
-    SQL_ProdutoConsultaESTOQUE_MINIMO: TStringField;
+    SQL_ProdutoConsultaPROD_ESTOQMIN: TStringField;
     SQL_ProdutoConsultaPRECO_CUSTO: TBCDField;
     SQL_ProdutoConsultaFRETE: TBCDField;
     SQL_ProdutoConsultaIMPOSTO: TBCDField;
@@ -71,18 +71,18 @@ type
     SQL_ProdutoConsultaMARGEM_L_VAREJO: TBCDField;
     SQL_ProdutoConsultaMARGEM_L_ATACADO: TBCDField;
     SQL_ProdutoConsultaMARGEM_L_DISTRIBUIDOR: TBCDField;
-    SQL_ProdutoConsultaDESCONTO_MAXIMO: TBCDField;
-    SQL_ProdutoConsultaDESCONTO_M_VAREJO: TBCDField;
-    SQL_ProdutoConsultaDESCONTO_M_ATACADO: TBCDField;
-    SQL_ProdutoConsultaDESCONTO_M_DISTRIBUIDOR: TBCDField;
+    SQL_ProdutoConsultaPROD_MAXDESC: TBCDField;
+    SQL_ProdutoConsultaPROD_MAXDESC_VAR: TBCDField;
+    SQL_ProdutoConsultaPROD_MAXDESC_ATAC: TBCDField;
+    SQL_ProdutoConsultaPROD_MAXDESC_DIST: TBCDField;
     SQL_ProdutoConsultaDESCONTO_L_VAREJO: TBCDField;
     SQL_ProdutoConsultaDESCONTO_L_ATACADO: TBCDField;
     SQL_ProdutoConsultaDESCONTO_L_DISTRIBUIDOR: TBCDField;
-    SQL_ProdutoConsultaPAGAR_COMISSAO: TBCDField;
-    SQL_ProdutoConsultaCOMISSAO_BALCAO: TBCDField;
-    SQL_ProdutoConsultaBALCAO_COMISSAO_VAREJO: TBCDField;
-    SQL_ProdutoConsultaBALCAO_COMISSAO_ATACADO: TBCDField;
-    SQL_ProdutoConsultaBALCAO_COMISSAO_DISTRIBUIDOR: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_LOJA: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_VAR: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_ATAC: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_DIST: TBCDField;
     SQL_ProdutoConsultaCOMISSAO_EXTERNA: TBCDField;
     SQL_ProdutoConsultaEXTERNA_COMISSAO_VAREJO: TBCDField;
     SQL_ProdutoConsultaEXTERNA_COMISSAO_ATACADO: TBCDField;
@@ -139,9 +139,9 @@ type
     SQL_ProdutoConsultaCST_IPI: TStringField;
     Label4: TLabel;
     Label2: TLabel;
-    SQL_ProdutoConsultaBALCAO_COMISSAO_VAREJO2: TBCDField;
-    SQL_ProdutoConsultaBALCAO_COMISSAO_ATACADO2: TBCDField;
-    SQL_ProdutoConsultaBALCAO_COMISSAO_DISTRIBUIDOR2: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_VAR2: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_ATAC2: TBCDField;
+    SQL_ProdutoConsultaPROD_COMISSAO_DIST2: TBCDField;
     SQL_ProdutoConsultaEXTERNA_COMISSAO_VAREJO2: TBCDField;
     SQL_ProdutoConsultaEXTERNA_COMISSAO_ATACADO2: TBCDField;
     SQL_ProdutoConsultaEXTERNA_COMISSAO_DISTRIBUIDOR2: TBCDField;
@@ -317,3 +317,13 @@ Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:07
 Trocou PROD_REFERENCIASFABRICA por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 12:38
 Trocou REFERENCIA_FABRICANTE por PROD_REFERENCIASFABRICA : automaticamente em 16/06/2020 14:07
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06
+Trocou DESCONTO_MAXIMO por PROD_MAXDESC : automaticamente em 16/06/2020 22:23
+Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22:27
+Trocou DESCONTO_M_ATACADO por PROD_MAXDESC_ATAC : automaticamente em 16/06/2020 22:31
+Trocou DESCONTO_M_DISTRIBUIDOR por PROD_MAXDESC_DIST : automaticamente em 16/06/2020 22:34
+Trocou PAGAR_COMISSAO por PROD_COMISSAO : automaticamente em 16/06/2020 22:37
+Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:41
+Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2020 22:44
+Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:46
+Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:49
+Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:53

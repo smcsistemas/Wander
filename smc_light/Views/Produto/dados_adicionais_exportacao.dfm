@@ -105,7 +105,7 @@ object frm_dados_exportacoes: Tfrm_dados_exportacoes
       Height = 23
       BiDiMode = bdLeftToRight
       CharCase = ecUpperCase
-      DataField = 'ESTOQUE_MINIMO'
+      DataField = 'PROD_ESTOQMIN'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -12
@@ -122,7 +122,7 @@ object frm_dados_exportacoes: Tfrm_dados_exportacoes
       Height = 23
       BiDiMode = bdLeftToRight
       CharCase = ecUpperCase
-      DataField = 'ESTOQUE_MINIMO'
+      DataField = 'PROD_ESTOQMIN'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -12
@@ -209,7 +209,7 @@ object frm_dados_exportacoes: Tfrm_dados_exportacoes
       Height = 22
       BiDiMode = bdLeftToRight
       CharCase = ecUpperCase
-      DataField = 'ESTOQUE_MINIMO'
+      DataField = 'PROD_ESTOQMIN'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -536,3 +536,4 @@ object frm_dados_exportacoes: Tfrm_dados_exportacoes
     ParentFont = False
   end
 end
+Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:54

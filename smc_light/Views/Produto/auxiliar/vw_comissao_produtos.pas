@@ -22,9 +22,9 @@ type
     Label42: TLabel;
     Label85: TLabel;
     Label87: TLabel;
-    BALCAO_COMISSAO_ATACADO: TDBEdit;
-    BALCAO_COMISSAO_DISTRIBUIDOR: TDBEdit;
-    BALCAO_COMISSAO_VAREJO: TDBEdit;
+    PROD_COMISSAO_ATAC: TDBEdit;
+    PROD_COMISSAO_DIST: TDBEdit;
+    PROD_COMISSAO_VAR: TDBEdit;
     GroupBox1: TGroupBox;
     Label1: TLabel;
     DBEdit3: TDBEdit;
@@ -56,3 +56,6 @@ begin
 end;
 
 end.
+Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2020 22:44
+Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:47
+Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:49

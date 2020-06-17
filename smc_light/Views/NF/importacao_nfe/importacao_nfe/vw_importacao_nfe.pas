@@ -1193,8 +1193,8 @@ begin
 
           dbtvMainMARGEM_LUCRO.EditValue := objProduto.MARGEM_LUCRO_VAREJO;
           dbtvMainDESPESAS_OPERACIONAIS.EditValue := objProduto.DESP_OPERARCIONAIS;
-          dbtvMainDESC_MAXIMO.EditValue := objProduto.DESCONTO_M_VAREJO;
-          dbtvMainCOMISSAO.EditValue := objProduto.COMISSAO_BALCAO_VAREJO;
+          dbtvMainDESC_MAXIMO.EditValue := objProduto.PROD_MAXDESC_VAR;
+          dbtvMainCOMISSAO.EditValue := objProduto.PROD_COMISSAO_LOJA_VAREJO;
           dbtvMainPRECO_VENDA.EditValue := objProduto.PRECO_FINAL_VAREJO;
 
           dbtvMainCST_ICMS.EditValue := objProduto.ICMS_CST;
@@ -1795,3 +1795,5 @@ end.
 
 Trocou ('MARCA por ('PROD_MARCA : automaticamente em 16/06/2020 16:08
 Trocou ('PROD_MARCA por ('MARCA : automaticamente em 16/06/2020 16:08
+Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22:28
+Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:42

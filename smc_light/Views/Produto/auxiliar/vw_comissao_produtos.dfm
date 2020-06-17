@@ -174,13 +174,13 @@ object frm_comissoes: Tfrm_comissoes
       Font.Style = []
       ParentFont = False
     end
-    object BALCAO_COMISSAO_ATACADO: TDBEdit
+    object PROD_COMISSAO_ATAC: TDBEdit
       Left = 355
       Top = 19
       Width = 57
       Height = 26
       CharCase = ecUpperCase
-      DataField = 'BALCAO_COMISSAO_ATACADO'
+      DataField = 'PROD_COMISSAO_ATAC'
       Font.Charset = ANSI_CHARSET
       Font.Color = clCaptionText
       Font.Height = -15
@@ -189,13 +189,13 @@ object frm_comissoes: Tfrm_comissoes
       ParentFont = False
       TabOrder = 0
     end
-    object BALCAO_COMISSAO_DISTRIBUIDOR: TDBEdit
+    object PROD_COMISSAO_DIST: TDBEdit
       Left = 221
       Top = 19
       Width = 55
       Height = 26
       CharCase = ecUpperCase
-      DataField = 'BALCAO_COMISSAO_DISTRIBUIDOR'
+      DataField = 'PROD_COMISSAO_DIST'
       Font.Charset = ANSI_CHARSET
       Font.Color = clCaptionText
       Font.Height = -15
@@ -204,13 +204,13 @@ object frm_comissoes: Tfrm_comissoes
       ParentFont = False
       TabOrder = 1
     end
-    object BALCAO_COMISSAO_VAREJO: TDBEdit
+    object PROD_COMISSAO_VAR: TDBEdit
       Left = 66
       Top = 19
       Width = 55
       Height = 26
       CharCase = ecUpperCase
-      DataField = 'BALCAO_COMISSAO_VAREJO'
+      DataField = 'PROD_COMISSAO_VAR'
       Font.Charset = ANSI_CHARSET
       Font.Color = clCaptionText
       Font.Height = -15
@@ -255,7 +255,7 @@ object frm_comissoes: Tfrm_comissoes
       Width = 71
       Height = 26
       CharCase = ecUpperCase
-      DataField = 'BALCAO_COMISSAO_VAREJO'
+      DataField = 'PROD_COMISSAO_VAR'
       Font.Charset = ANSI_CHARSET
       Font.Color = clCaptionText
       Font.Height = -15
@@ -424,3 +424,6 @@ object frm_comissoes: Tfrm_comissoes
     OnClick = cxButton7Click
   end
 end
+Trocou BALCAO_COMISSAO_VAREJO por PROD_COMISSAO_VAR : automaticamente em 16/06/2020 22:44
+Trocou BALCAO_COMISSAO_ATACADO por PROD_COMISSAO_ATAC : automaticamente em 16/06/2020 22:47
+Trocou BALCAO_COMISSAO_DISTRIBUIDOR por PROD_COMISSAO_DIST : automaticamente em 16/06/2020 22:49

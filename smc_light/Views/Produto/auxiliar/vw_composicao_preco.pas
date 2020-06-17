@@ -44,8 +44,8 @@ type
     Label31: TLabel;
     Label81: TLabel;
     s: TDBEdit;
-    DESCONTO_M_DISTRIBUIDOR: TDBEdit;
-    DESCONTO_M_ATACADO: TDBEdit;
+    PROD_MAXDESC_DIST: TDBEdit;
+    PROD_MAXDESC_ATAC: TDBEdit;
     cxGrid4: TcxGrid;
     cxGridDBTableView3: TcxGridDBTableView;
     cxGridDBTableView3Column11: TcxGridDBColumn;
@@ -75,3 +75,5 @@ implementation
 {$R *.dfm}
 
 end.
+Trocou DESCONTO_M_ATACADO por PROD_MAXDESC_ATAC : automaticamente em 16/06/2020 22:31
+Trocou DESCONTO_M_DISTRIBUIDOR por PROD_MAXDESC_DIST : automaticamente em 16/06/2020 22:34
