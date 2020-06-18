@@ -321,9 +321,9 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 50
           end
-          object tbViewSALDO: TcxGridDBColumn
+          object tbViewPROD_SALDO: TcxGridDBColumn
             Caption = 'Estoque'
-            DataBinding.FieldName = 'SALDO'
+            DataBinding.FieldName = 'PROD_SALDO'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taCenter
             HeaderAlignmentHorz = taCenter
@@ -791,6 +791,7 @@ object Frm_Produto: TFrm_Produto
             Top = 62
             Width = 67
             Height = 18
+            Alignment = taRightJustify
             Caption = 'Descri'#231#227'o:'
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
@@ -798,6 +799,8 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
+            OnMouseEnter = Label4MouseEnter
+            OnMouseLeave = Label4MouseLeave
           end
           object A: TLabel
             Left = 23
@@ -1231,6 +1234,8 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             TabOrder = 3
             OnExit = edPROD_DESCRICAOExit
+            OnMouseEnter = edPROD_DESCRICAOMouseEnter
+            OnMouseLeave = edPROD_DESCRICAOMouseLeave
           end
           object edPROD_REFERENCIASFABRICA: TEdit
             Left = 383
@@ -6319,3 +6324,5 @@ object Frm_Produto: TFrm_Produto
     Top = 28
   end
 end
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

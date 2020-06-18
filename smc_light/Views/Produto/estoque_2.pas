@@ -195,7 +195,7 @@ begin
     qry.Fields[1].AsString + slinebreak + 'Preço retornará para.: R$' + SQL_ESTOQUE_MOVIMENTACAOPRECO_ANTERIOR.AsString + slinebreak +
     'Deseja prosseguir com a operação?', 10) then
   begin
-    ExecQuery('UPDATE PRODUTO SET SALDO =' + TrocaVirgPPto(SQL_ESTOQUE_MOVIMENTACAOQUANTIDADE_ANTERIOR.AsString) + ',PROD_PRECO_VAR =' +
+    ExecQuery('UPDATE PRODUTO SET PROD_SALDO =' + TrocaVirgPPto(SQL_ESTOQUE_MOVIMENTACAOQUANTIDADE_ANTERIOR.AsString) + ',PROD_PRECO_VAR =' +
       TrocaVirgPPto(SQL_ESTOQUE_MOVIMENTACAOPRECO_ANTERIOR.AsString) + ' WHERE CODIGO=' + SQL_ESTOQUE_MOVIMENTACAOCODIGO.AsString);
     SQL_ESTOQUE_MOVIMENTACAO.Edit;
     SQL_ESTOQUE_MOVIMENTACAOSTATUS_MOV.AsString := 'CANCELADA';
@@ -229,13 +229,13 @@ begin
         if chk_entrada.checked then
         begin
           SQL_ESTOQUE_MOVIMENTACAOTIPO_MOVIMENTO.value := 'ENTRADA';
-          ExecQuery('update produto set saldo = (saldo + ' + FormatarTag(StrToCurr(Edit14.Text)) + '), PROD_PRECO_VAR = ' +
+          ExecQuery('update produto set PROD_SALDO = (PROD_SALDO + ' + FormatarTag(StrToCurr(Edit14.Text)) + '), PROD_PRECO_VAR = ' +
             FormatarTag(StrToCurr(Edit15.Text)) + ' where codigo = ' + COD_PROD.Text);
         end
         else if chk_saida.checked then
         begin
           SQL_ESTOQUE_MOVIMENTACAOTIPO_MOVIMENTO.value := 'SAIDA';
-          ExecQuery('update produto set saldo = (saldo - ' + FormatarTag(StrToCurr(Edit14.Text)) + '), PROD_PRECO_VAR = ' +
+          ExecQuery('update produto set PROD_SALDO = (PROD_SALDO - ' + FormatarTag(StrToCurr(Edit14.Text)) + '), PROD_PRECO_VAR = ' +
             FormatarTag(StrToCurr(Edit15.Text)) + ' where codigo = ' + COD_PROD.Text);
         end;
         SQL_ESTOQUE_MOVIMENTACAODATA_MOVIMENTACAO.value := now;
@@ -451,7 +451,7 @@ procedure TFrm_Estoque.ConsultarProduto(Cadastro: boolean);
 var
   qry: TFDQuery;
 begin
-  qry := simplequery('SELECT CODIGO, PROD_DESCRICAO, PROD_CDUNIDADE, PROD_PRECO_VAR, SALDO FROM PRODUTO WHERE CODIGO = ' + COD_PROD.Text);
+  qry := simplequery('SELECT CODIGO, PROD_DESCRICAO, PROD_CDUNIDADE, PROD_PRECO_VAR, PROD_SALDO FROM PRODUTO WHERE CODIGO = ' + COD_PROD.Text);
   with qry do
   begin
     if Cadastro then
@@ -461,7 +461,7 @@ begin
         Edit3.Text := FieldByName('PROD_DESCRICAO').Text;
         Edit15.Text := FieldByName('PROD_PRECO_VAR').Text;
         SQL_ESTOQUE_MOVIMENTACAOPRECO_ANTERIOR.value := FieldByName('PROD_PRECO_VAR').AsCurrency;
-        DBEdit2.Text := FieldByName('SALDO').Text;
+        DBEdit2.Text := FieldByName('PROD_SALDO').Text;
         lbl_PROD_CDUNIDADE.caption := FieldByName('PROD_CDUNIDADE').Text;
         Edit14.SetFocus;
       end
@@ -756,7 +756,7 @@ begin
           END;
           cxDateEdit1.OnExit := VerificarDatas;
           cxDateEdit2.OnExit := VerificarDatas;
-          qry := simplequery('SELECT PROD_DESCRICAO, PROD_CDUNIDADE, SALDO, PROD_PRECO_VAR FROM PRODUTO WHERE CODIGO = ' +
+          qry := simplequery('SELECT PROD_DESCRICAO, PROD_CDUNIDADE, PROD_SALDO, PROD_PRECO_VAR FROM PRODUTO WHERE CODIGO = ' +
             SQL_ESTOQUE_MOVIMENTACAOCODIGO_PRODUTO.AsString);
           if qry <> nil then
             Edit3.Text := qry.FieldByName('PROD_DESCRICAO').AsString;
@@ -827,3 +827,5 @@ Trocou PROD_UNIDADE por PROD_UNIDADE : automaticamente em 16/06/2020 10:23
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07
 Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

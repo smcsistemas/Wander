@@ -260,10 +260,10 @@ object Frm_Consulta_Banco_Geral: TFrm_Consulta_Banco_Geral
       FixedChar = True
       Size = 14
     end
-    object SQL_ConsultarBanco_CONTACONTA_SALDO: TBCDField
+    object SQL_ConsultarBanco_CONTACONTA_PROD_SALDO: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'CONTA_SALDO'
-      Origin = 'CONTA_SALDO'
+      FieldName = 'CONTA_PROD_SALDO'
+      Origin = 'CONTA_PROD_SALDO'
       Precision = 15
       Size = 2
     end
@@ -450,10 +450,10 @@ object Frm_Consulta_Banco_Geral: TFrm_Consulta_Banco_Geral
       FixedChar = True
       Size = 14
     end
-    object SQL_ConsultarBanco_NOMECONTA_SALDO: TBCDField
+    object SQL_ConsultarBanco_NOMECONTA_PROD_SALDO: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'CONTA_SALDO'
-      Origin = 'CONTA_SALDO'
+      FieldName = 'CONTA_PROD_SALDO'
+      Origin = 'CONTA_PROD_SALDO'
       Precision = 15
       Size = 2
     end
@@ -546,3 +546,5 @@ object Frm_Consulta_Banco_Geral: TFrm_Consulta_Banco_Geral
     end
   end
 end
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:29
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:31

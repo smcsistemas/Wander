@@ -1182,7 +1182,7 @@ object Frm_contas_receber: TFrm_contas_receber
         end
         item
           Expanded = False
-          FieldName = 'Saldo Devedor'
+          FieldName = 'PROD_SALDO Devedor'
           Title.Alignment = taCenter
           Width = 103
           Visible = True
@@ -1766,3 +1766,5 @@ object Frm_contas_receber: TFrm_contas_receber
     TabOrder = 13
   end
 end
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:29
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32

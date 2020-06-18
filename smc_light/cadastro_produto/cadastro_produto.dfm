@@ -350,9 +350,9 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 25
           end
-          object tbViewSALDO: TcxGridDBColumn
+          object tbViewPROD_SALDO: TcxGridDBColumn
             Caption = 'Estoque'
-            DataBinding.FieldName = 'SALDO'
+            DataBinding.FieldName = 'PROD_SALDO'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taCenter
             HeaderAlignmentHorz = taCenter
@@ -2464,7 +2464,7 @@ object Frm_Produto: TFrm_Produto
           Width = 90
           Height = 21
           CharCase = ecUpperCase
-          DataField = 'SALDO'
+          DataField = 'PROD_SALDO'
           DataSource = DS_PRODUTO
           Font.Charset = ANSI_CHARSET
           Font.Color = clWhite
@@ -6399,10 +6399,10 @@ object Frm_Produto: TFrm_Produto
       Origin = 'VALOR_PROMOCIONAL_VAREJO'
       Precision = 10
     end
-    object SQL_LISTASALDO: TBCDField
+    object SQL_LISTAPROD_SALDO: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'SALDO'
-      Origin = 'SALDO'
+      FieldName = 'PROD_SALDO'
+      Origin = 'PROD_SALDO'
       Precision = 10
     end
     object SQL_LISTAALIQ_ICMS: TBCDField
@@ -7009,11 +7009,11 @@ object Frm_Produto: TFrm_Produto
       EditFormat = '#,##0.00'
       Precision = 10
     end
-    object SQL_PRODUTOSALDO: TBCDField
+    object SQL_PRODUTOPROD_SALDO: TBCDField
       Alignment = taCenter
       AutoGenerateValue = arDefault
-      FieldName = 'SALDO'
-      Origin = 'SALDO'
+      FieldName = 'PROD_SALDO'
+      Origin = 'PROD_SALDO'
       Precision = 10
     end
     object SQL_PRODUTOALIQ_ICMS_SUBST: TStringField
@@ -7659,3 +7659,5 @@ Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2
 Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:40
 Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:44
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:29
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:31

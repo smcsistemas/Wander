@@ -468,7 +468,7 @@ object frm_convenio: Tfrm_convenio
       end
       item
         Column = 1
-        Control = lblSaldo
+        Control = lblPROD_SALDO
         Row = 0
       end
       item
@@ -519,7 +519,7 @@ object frm_convenio: Tfrm_convenio
       ExplicitLeft = 58
       ExplicitTop = 17
     end
-    object lblSaldo: TLabel
+    object lblPROD_SALDO: TLabel
       Left = 136
       Top = 1
       Width = 82
@@ -577,7 +577,7 @@ object frm_convenio: Tfrm_convenio
       Height = 26
       Alignment = taCenter
       Anchors = []
-      Caption = 'Saldo'#13#10'Dispon'#237'vel'
+      Caption = 'PROD_SALDO'#13#10'Dispon'#237'vel'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 6052956
       Font.Height = -11
@@ -759,3 +759,5 @@ object frm_convenio: Tfrm_convenio
     Top = 32
   end
 end
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

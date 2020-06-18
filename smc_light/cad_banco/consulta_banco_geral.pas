@@ -48,7 +48,7 @@ type
     SQL_ConsultarBanco_CONTAGERENTE: TStringField;
     SQL_ConsultarBanco_CONTAGERENTE_TELEFONE: TStringField;
     SQL_ConsultarBanco_CONTATIPO: TStringField;
-    SQL_ConsultarBanco_CONTACONTA_SALDO: TBCDField;
+    SQL_ConsultarBanco_CONTACONTA_PROD_SALDO: TBCDField;
     SQL_ConsultarBanco_CONTAPESSOAS: TIntegerField;
     SQL_ConsultarBanco_CONTAEMPRESA: TIntegerField;
     SQL_ConsultarBanco_CONTACOLABORADOR: TIntegerField;
@@ -79,7 +79,7 @@ type
     SQL_ConsultarBanco_NOMEGERENTE: TStringField;
     SQL_ConsultarBanco_NOMEGERENTE_TELEFONE: TStringField;
     SQL_ConsultarBanco_NOMETIPO: TStringField;
-    SQL_ConsultarBanco_NOMECONTA_SALDO: TBCDField;
+    SQL_ConsultarBanco_NOMECONTA_PROD_SALDO: TBCDField;
     SQL_ConsultarBanco_NOMEPESSOAS: TIntegerField;
     SQL_ConsultarBanco_NOMEEMPRESA: TIntegerField;
     SQL_ConsultarBanco_NOMECOLABORADOR: TIntegerField;
@@ -204,3 +204,5 @@ begin
 end;
 
 end.
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:29
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:31

@@ -1542,10 +1542,10 @@ object Frm_cad_servico: TFrm_cad_servico
       Origin = 'VALOR_PROMOCIONAL_VAREJO'
       Precision = 10
     end
-    object SQL_C_ServicoSALDO: TBCDField
+    object SQL_C_ServicoPROD_SALDO: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'SALDO'
-      Origin = 'SALDO'
+      FieldName = 'PROD_SALDO'
+      Origin = 'PROD_SALDO'
       Precision = 10
     end
     object SQL_C_ServicoALIQ_ICMS: TBCDField
@@ -1856,3 +1856,5 @@ Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2
 Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:40
 Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:44
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32

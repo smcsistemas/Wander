@@ -127,7 +127,7 @@ object Frm_finan_os: TFrm_finan_os
     Top = 160
     Width = 124
     Height = 19
-    Caption = 'Saldo Devedor:'
+    Caption = 'PROD_SALDO Devedor:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -1399,3 +1399,5 @@ object Frm_finan_os: TFrm_finan_os
     OnClick = cxButton3Click
   end
 end
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32

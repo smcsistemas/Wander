@@ -285,7 +285,7 @@ type
     tbViewPROD_CDGRUPO: TcxGridDBColumn;
     tbViewPROD_CDUNIDADE: TcxGridDBColumn;
     tbViewTIPO_ITEM: TcxGridDBColumn;
-    tbViewSALDO: TcxGridDBColumn;
+    tbViewPROD_SALDO: TcxGridDBColumn;
     tbViewALIQ_ICMS: TcxGridDBColumn;
     tbViewICMS_CST: TcxGridDBColumn;
     tbViewPIS_CST: TcxGridDBColumn;
@@ -640,6 +640,10 @@ type
     procedure edRPC_TPMOVChange(Sender: TObject);
     procedure edREDUCAO_ICMS_STKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edPROD_DESCRICAOMouseEnter(Sender: TObject);
+    procedure edPROD_DESCRICAOMouseLeave(Sender: TObject);
+    procedure Label4MouseEnter(Sender: TObject);
+    procedure Label4MouseLeave(Sender: TObject);
 
   private
     { Private declarations }
@@ -2297,6 +2301,22 @@ begin
     end;
 end;
 
+procedure TFrm_Produto.Label4MouseEnter(Sender: TObject);
+begin
+
+  label4.font.Color:=clBlue;
+  label4.font.size := 16;
+  Frm_Produto.Repaint;
+
+end;
+
+procedure TFrm_Produto.Label4MouseLeave(Sender: TObject);
+begin
+  label4.font.Color:=clBlack;
+  label4.font.size := 11;
+  Frm_Produto.Repaint;
+end;
+
 function TFrm_Produto.JaExiste_PROD_DESCRICAO: Boolean;
 var
   qry: TFDQuery;
@@ -2559,6 +2579,22 @@ end;
 procedure TFrm_Produto.edPROD_DESCRICAOExit(Sender: TObject);
 begin
   edPROD_DESCRICAO.Text := RemoveEspaco(edPROD_DESCRICAO.Text);
+end;
+
+procedure TFrm_Produto.edPROD_DESCRICAOMouseEnter(Sender: TObject);
+begin
+  edPROD_DESCRICAO.Color := clBlue;
+  edPROD_DESCRICAO.font.Color:=clWhite;
+   edPROD_DESCRICAO.font.size := 16;
+   Frm_Produto.Repaint;
+end;
+
+procedure TFrm_Produto.edPROD_DESCRICAOMouseLeave(Sender: TObject);
+begin
+  edPROD_DESCRICAO.Color := clWhite;
+  edPROD_DESCRICAO.font.Color:=clBlack;
+  edPROD_DESCRICAO.font.size := 11;
+  Frm_Produto.Repaint;
 end;
 
 procedure TFrm_Produto.DESP_OPERACIONAISClick(Sender: TObject);
@@ -3568,7 +3604,7 @@ begin
     est_min := tbView.ViewData.Records[AViewInfo.GridRecord.Index].Values[tbViewPROD_ESTOQMIN.Index];
     est_min := varastype(TFunctions.ifthen(est_min = System.Variants.null, '10', est_min), VARDOUBLE);
 
-    value := tbView.ViewData.Records[AViewInfo.GridRecord.Index].Values[tbViewSALDO.Index];
+    value := tbView.ViewData.Records[AViewInfo.GridRecord.Index].Values[tbViewPROD_SALDO.Index];
     value := varastype(TFunctions.ifthen(value = System.Variants.null, '0', value), varstring);
 
     ACanvas.Font.Color := colorirestoque(value, est_min);
@@ -3756,7 +3792,7 @@ CREATE TABLE `produto` (
 	`VALOR_PROMOCIONAL_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
 	`VALOR_PROMOCIONAL_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
 	`VALOR_PROMOCIONAL_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`SALDO` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_SALDO` DECIMAL(10,4) NULL DEFAULT NULL,
 	`ALIQ_ICMS` DECIMAL(10,4) NULL DEFAULT NULL,
 	`REDUCAO_ICMS` DECIMAL(10,4) NULL DEFAULT NULL,
 	`ALIQ_ICMS_SUBST` VARCHAR(20) NULL DEFAULT NULL,
@@ -3868,3 +3904,5 @@ Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2
 Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:41
 Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:45
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

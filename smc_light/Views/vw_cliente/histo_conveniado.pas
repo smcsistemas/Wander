@@ -30,7 +30,7 @@ type
     GridPanel1: TGridPanel;
     lblCredito: TLabel;
     lblUtilizado: TLabel;
-    lblSaldo: TLabel;
+    lblPROD_SALDO: TLabel;
     Label5: TLabel;
     Label8: TLabel;
     Label10: TLabel;
@@ -66,3 +66,5 @@ implementation
 {$R *.dfm}
 
 end.
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

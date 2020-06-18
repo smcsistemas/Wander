@@ -364,7 +364,7 @@ Function Zeros(Frase: String; Comprimento:Integer) : String;
 //006 Recebe uma string e seu comprimento e preenche com Zeros a esquerda até completar
 function masctostr(numero:string):string;
 //005 recebe uma string formatada e a retorna sem formatação
-procedure RecalculaSaldoEstoque(pProduto:String;pData:TdateTime);
+procedure RecalculaPROD_SALDOEstoque(pProduto:String;pData:TdateTime);
 //004 Recebe o ID de uma natureza de operação e retorna sua descrição, se existir
 function fnatureza_operacaoDESCRICAO(pID:Integer):String;
 //003 Recebe o Codigo de um Colaborador e retorna seu nome, se existir
@@ -770,15 +770,15 @@ begin
     begin
       qry_temp_aux.Close;
       qry_temp_aux.sql.Clear;
-      qry_temp_aux.sql.Add('SELECT PROD_CODIGO,SALDO FROM PRODUTO_PROD WHERE PROD_CODIGO = ' + quotedstr(FieldByName('CODIGO_PRODUTO').value));
+      qry_temp_aux.sql.Add('SELECT PROD_CODIGO,PROD_SALDO FROM PRODUTO_PROD WHERE PROD_CODIGO = ' + quotedstr(FieldByName('CODIGO_PRODUTO').value));
       qry_temp_aux.open;
       qry_temp_aux.Edit;
       if Remover then
       begin
-        qry_temp_aux.FieldByName('SALDO').value := qry_temp_aux.FieldByName('SALDO').value - FieldByName('QUANTIDADE').value { Retirar do estoque }
+        qry_temp_aux.FieldByName('PROD_SALDO').value := qry_temp_aux.FieldByName('PROD_SALDO').value - FieldByName('QUANTIDADE').value { Retirar do estoque }
       end
       else
-        qry_temp_aux.FieldByName('SALDO').value := qry_temp_aux.FieldByName('SALDO').value + FieldByName('QUANTIDADE').value;
+        qry_temp_aux.FieldByName('PROD_SALDO').value := qry_temp_aux.FieldByName('PROD_SALDO').value + FieldByName('QUANTIDADE').value;
       { Retornar estoque }
       qry_temp_aux.POST;
       Next;
@@ -4891,7 +4891,7 @@ begin
      i := i + 1;
      i := i + 1;
 end;
-procedure RecalculaSaldoEstoque(pProduto:String;pData:TdateTime);
+procedure RecalculaPROD_SALDOEstoque(pProduto:String;pData:TdateTime);
 begin
   exit;
 end;
@@ -6911,3 +6911,5 @@ values
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:02
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06
 Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:53
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32

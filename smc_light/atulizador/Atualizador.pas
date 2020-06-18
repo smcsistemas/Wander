@@ -3119,13 +3119,45 @@ begin
        Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN PROMO_VAREJO');
        Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN PROMO_ATACADO');
        Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN PROMO_DISTRIBUIDOR');
-
     end;
 
+    //Pode haver várias promoções e, portanto:
+    //           promoções relâmpagos ou
+    //           promoções podem ser programadas antecipadamente antes da vigente terminar
+    //           promoções podem estar vinculadas a forma de pagamento
+    //                                         ou grupo de produtos
+    //                                         ou grupo de clientes
+    //                                         ou regiões
+    //                                         ou combinadas
+    // portanto, não devem ser atributo do produto
+    // As atuais colunas deste tipo serão excluídas aqui.
+    //
+    //Ou seja... a regra da promoção precisa ser formalmente estabelecida...
+    //           e não simplesmente alimentada no cadastro do produto
+    if fNaoAtualizado('Promoções!') Then
+    begin
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN PROMOCAO_INICIO');
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN PROMOCAO_TERMINO');
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN VALOR_PROMOCIONAL_ATACADO');
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN PROMO_VAREJO');
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN PROMO_ATACADO');
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN PROMO_DISTRIBUIDOR');
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN VALOR_PROMOCIONAL_DISTRIBUIDOR');
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN VALOR_PROMOCIONAL_VAREJO');
 
-
-
-
+    end;
+    if fNaoAtualizado('Desconto L...') Then
+    begin
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN DESCONTO_L_VAREJO');
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN DESCONTO_L_ATACADO');
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN DESCONTO_L_DISTRIBUIDOR');
+    end;
+    if fNaoAtualizado('PROD_SALDO') Then
+    begin
+       Executar('ALTER TABLE PRODUTO_PROD ADD PROD_SALDO DECIMAL(10,4) NULL DEFAULT 0.0  COMMENT "Saldo em estoque"');
+       Executar('UPDATE PRODUTO_PROD SET PROD_SALDO = SALDO');
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN SALDO');
+    end;
 
     Executar('SET FOREIGN_KEY_CHECKS = 1');
 
@@ -3133,18 +3165,6 @@ end;
 
 end.
     {
-
-	`DESCONTO_L_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`DESCONTO_L_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`DESCONTO_L_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
-
-	`
-
-	`PROMOCAO_INICIO` DATE NULL DEFAULT NULL,
-	`PROMOCAO_TERMINO` DATE NULL DEFAULT NULL,
-	`VALOR_PROMOCIONAL_ATACADO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`VALOR_PROMOCIONAL_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
-	`VALOR_PROMOCIONAL_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
 	`SALDO` DECIMAL(10,4) NULL DEFAULT NULL,
 	`ALIQ_ICMS` DECIMAL(10,4) NULL DEFAULT NULL,
 	`REDUCAO_ICMS` DECIMAL(10,4) NULL DEFAULT NULL,

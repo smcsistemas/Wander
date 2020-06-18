@@ -43,7 +43,7 @@ type
     property CLIENTE: tcliente read getCliente write setCliente;
     property STATUS: boolean read m_status write m_status default true;
 
-    function saldoDisponivel: extended;
+    function PROD_SALDODisponivel: extended;
     function creditoUtilizado: extended;
 
     class function all: tarray<TClienteConveniado>;
@@ -76,7 +76,7 @@ begin
   result := tcliente.create(self.m_cliente_id);
 end;
 
-function TClienteConveniado.saldoDisponivel: extended;
+function TClienteConveniado.PROD_SALDODisponivel: extended;
 begin
   result := 0;
   if tchecks.Greater(self.CREDITO, self.creditoUtilizado) then
@@ -164,3 +164,5 @@ begin
 end;
 
 end.
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32

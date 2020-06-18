@@ -14857,8 +14857,8 @@ object frm_relatorio: Tfrm_relatorio
         DataSetName = 'ds_produtos'
       end
       item
-        DataSet = ds_saldo
-        DataSetName = 'ds_saldo'
+        DataSet = ds_PROD_SALDO
+        DataSetName = 'ds_PROD_SALDO'
       end
       item
         DataSet = DS_EMPRESA
@@ -15022,7 +15022,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            '  [ds_produtos."SALDO"]')
+            '  [ds_produtos."PROD_SALDO"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -15087,7 +15087,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftBottom]
           HAlign = haRight
           Memo.UTF8W = (
-            '[ds_saldo."qtde_cadastrado"]')
+            '[ds_PROD_SALDO."qtde_cadastrado"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -15140,7 +15140,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftBottom]
           HAlign = haRight
           Memo.UTF8W = (
-            '[ds_saldo."qtde_positivo"]')
+            '[ds_PROD_SALDO."qtde_positivo"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -15176,7 +15176,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftBottom]
           HAlign = haRight
           Memo.UTF8W = (
-            '[ds_saldo."qtde_negativo"]')
+            '[ds_PROD_SALDO."qtde_negativo"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -15212,7 +15212,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftBottom]
           HAlign = haRight
           Memo.UTF8W = (
-            '[ds_saldo."qtde_minimo"]')
+            '[ds_PROD_SALDO."qtde_minimo"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -15248,7 +15248,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftBottom]
           HAlign = haRight
           Memo.UTF8W = (
-            '[ds_saldo."qtde_zerado"]')
+            '[ds_PROD_SALDO."qtde_zerado"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -15575,7 +15575,7 @@ object frm_relatorio: Tfrm_relatorio
       'PROD_CODIGO=PROD_CODIGO'
       'PROD_DESCRICAO=PROD_DESCRICAO'
       'PROD_CDUNIDADE=PROD_CDUNIDADE'
-      'saldo=saldo'
+      'PROD_SALDO=PROD_SALDO'
       'marca=marca'
       'PROD_REFERENCIASFABRICA=PROD_REFERENCIASFABRICA'
       'PROD_EAN=PROD_EAN'
@@ -15615,10 +15615,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'PROD_DESCRICAO'
       Size = 200
     end
-    object sql_produtossaldo: TBCDField
+    object sql_produtosPROD_SALDO: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'saldo'
-      Origin = 'SALDO'
+      FieldName = 'PROD_SALDO'
+      Origin = 'PROD_SALDO'
       Precision = 10
     end
     object sql_produtosmarca: TStringField
@@ -16336,8 +16336,8 @@ object frm_relatorio: Tfrm_relatorio
       Size = 3
     end
   end
-  object ds_saldo: TfrxDBDataset
-    UserName = 'ds_saldo'
+  object ds_PROD_SALDO: TfrxDBDataset
+    UserName = 'ds_PROD_SALDO'
     CloseDataSource = False
     FieldAliases.Strings = (
       'qtde_cadastrado=qtde_cadastrado'
@@ -16345,64 +16345,64 @@ object frm_relatorio: Tfrm_relatorio
       'qtde_minimo=qtde_minimo'
       'qtde_zerado=qtde_zerado'
       'qtde_positivo=qtde_positivo')
-    DataSet = sql_saldo
+    DataSet = sql_PROD_SALDO
     BCDToCurrency = False
     Left = 577
     Top = 88
   end
-  object sql_saldo: TFDQuery
+  object sql_PROD_SALDO: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
       'select'
       '(select count(PROD_CODIGO) from PRODUTO_PROD) as qtde_cadastrado'
       ','
       
-        '(select count(PROD_CODIGO) from PRODUTO_PROD where saldo < 0) as' +
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where PROD_SALDO < 0) as' +
         ' qtde_negativo'
       ','
       
-        '(select count(PROD_CODIGO) from PRODUTO_PROD where saldo between' +
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where PROD_SALDO between' +
         ' 1 and if (PROD_ESTOQMIN is null ,10,PROD_ESTOQMIN)) as qtde_m' +
         'inimo'
       ','
       
-        '(select count(PROD_CODIGO) from PRODUTO_PROD where saldo = 0) as' +
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where PROD_SALDO = 0) as' +
         ' qtde_zerado'
       ','
       
-        '(select count(PROD_CODIGO) from PRODUTO_PROD where saldo > if (e' +
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where PROD_SALDO > if (e' +
         'stoque_minimo is null ,10,PROD_ESTOQMIN)) as qtde_positivo')
     Left = 576
     Top = 144
-    object sql_saldoqtde_cadastrado: TLargeintField
+    object sql_PROD_SALDOqtde_cadastrado: TLargeintField
       AutoGenerateValue = arDefault
       FieldName = 'qtde_cadastrado'
       Origin = 'qtde_cadastrado'
       ProviderFlags = []
       ReadOnly = True
     end
-    object sql_saldoqtde_negativo: TLargeintField
+    object sql_PROD_SALDOqtde_negativo: TLargeintField
       AutoGenerateValue = arDefault
       FieldName = 'qtde_negativo'
       Origin = 'qtde_negativo'
       ProviderFlags = []
       ReadOnly = True
     end
-    object sql_saldoqtde_minimo: TLargeintField
+    object sql_PROD_SALDOqtde_minimo: TLargeintField
       AutoGenerateValue = arDefault
       FieldName = 'qtde_minimo'
       Origin = 'qtde_minimo'
       ProviderFlags = []
       ReadOnly = True
     end
-    object sql_saldoqtde_zerado: TLargeintField
+    object sql_PROD_SALDOqtde_zerado: TLargeintField
       AutoGenerateValue = arDefault
       FieldName = 'qtde_zerado'
       Origin = 'qtde_zerado'
       ProviderFlags = []
       ReadOnly = True
     end
-    object sql_saldoqtde_positivo: TLargeintField
+    object sql_PROD_SALDOqtde_positivo: TLargeintField
       AutoGenerateValue = arDefault
       FieldName = 'qtde_positivo'
       Origin = 'qtde_positivo'
@@ -16527,7 +16527,7 @@ object frm_relatorio: Tfrm_relatorio
             '[ds_produtos."PROD_REFERENCIASFABRICA"]')
           ParentFont = False
         end
-        object ds_produtosSALDO: TfrxMemoView
+        object ds_produtosPROD_SALDO: TfrxMemoView
           Left = 328.882190000000000000
           Top = 0.118120000000000000
           Width = 49.133890000000000000
@@ -16542,7 +16542,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            '  [ds_produtos."SALDO"]')
+            '  [ds_produtos."PROD_SALDO"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -22009,7 +22009,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Width = 1.500000000000000000
           HAlign = haCenter
           Memo.UTF8W = (
-            'SALDO CAIXA')
+            'PROD_SALDO CAIXA')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -33815,7 +33815,7 @@ object frm_relatorio: Tfrm_relatorio
           ParentFont = False
           VAlign = vaCenter
         end
-        object ds_produtosSALDO: TfrxMemoView
+        object ds_produtosPROD_SALDO: TfrxMemoView
           Left = 275.921460000000000000
           Top = 0.118120000000000000
           Width = 42.574830000000000000
@@ -37257,7 +37257,7 @@ object frm_relatorio: Tfrm_relatorio
           ParentFont = False
           VAlign = vaCenter
         end
-        object ds_produtosSALDO: TfrxMemoView
+        object ds_produtosPROD_SALDO: TfrxMemoView
           Left = 502.842920000000000000
           Top = 0.338590000000000000
           Width = 102.047310000000000000
@@ -37357,7 +37357,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_pro_prom."SALDO"]')
+            '[ds_pro_prom."PROD_SALDO"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -37420,7 +37420,7 @@ object frm_relatorio: Tfrm_relatorio
           Font.Style = []
           HAlign = haCenter
           Memo.UTF8W = (
-            '[<ds_pro_prom."VALOR_PROMOCIONAL_VAREJO">*<ds_pro_prom."SALDO">]')
+            '[<ds_pro_prom."VALOR_PROMOCIONAL_VAREJO">*<ds_pro_prom."PROD_SALDO">]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -37975,7 +37975,7 @@ object frm_relatorio: Tfrm_relatorio
       'PROMOCAO_INICIO=PROMOCAO_INICIO'
       'PROMOCAO_TERMINO=PROMOCAO_TERMINO'
       'VALOR_PROMOCIONAL_VAREJO=VALOR_PROMOCIONAL_VAREJO'
-      'SALDO=SALDO')
+      'PROD_SALDO=PROD_SALDO')
     DataSet = sql_pro_prom
     BCDToCurrency = False
     Left = 516
@@ -38053,10 +38053,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'VALOR_PROMOCIONAL_VAREJO'
       Precision = 10
     end
-    object sql_pro_promSALDO: TBCDField
+    object sql_pro_promPROD_SALDO: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'SALDO'
-      Origin = 'SALDO'
+      FieldName = 'PROD_SALDO'
+      Origin = 'PROD_SALDO'
       Precision = 10
     end
   end
@@ -38073,7 +38073,7 @@ object frm_relatorio: Tfrm_relatorio
       'PROD_PRECO_ATAC=PROD_PRECO_ATAC'
       'PROD_PRECO_DIST=PROD_PRECO_DIST'
       'PROD_PRECO_VAR=PROD_PRECO_VAR'
-      'SALDO=SALDO'
+      'PROD_SALDO=PROD_SALDO'
       'COD_BALANCA_1=COD_BALANCA_1'
       'COD_BALANCA_2=COD_BALANCA_2'
       'COD_BALANCA_3=COD_BALANCA_3')
@@ -38142,10 +38142,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'PROD_PRECO_VAR'
       Precision = 10
     end
-    object sql_pro_pesavSALDO: TBCDField
+    object sql_pro_pesavPROD_SALDO: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'SALDO'
-      Origin = 'SALDO'
+      FieldName = 'PROD_SALDO'
+      Origin = 'PROD_SALDO'
       Precision = 10
     end
     object sql_pro_pesavCOD_BALANCA_1: TStringField
@@ -38277,7 +38277,7 @@ object frm_relatorio: Tfrm_relatorio
             '[ds_pro_pesav."COD_BALANCA_1"]')
           ParentFont = False
         end
-        object ds_produtosSALDO: TfrxMemoView
+        object ds_produtosPROD_SALDO: TfrxMemoView
           Left = 339.984540000000000000
           Top = 0.118120000000000000
           Width = 49.133890000000000000
@@ -38292,7 +38292,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Style = fsDot
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
-            '[ds_pro_pesav."SALDO"]')
+            '[ds_pro_pesav."PROD_SALDO"]')
           ParentFont = False
         end
         object ds_pro_completoUNIDADE_MEDIDA: TfrxMemoView
@@ -39007,7 +39007,7 @@ object frm_relatorio: Tfrm_relatorio
     Connection = Module.connection
     SQL.Strings = (
       
-        'SELECT p.PROD_DESCRICAO, p.PROD_CODIGO, p.PROD_CDUNIDADE, p.SALDO ' +
+        'SELECT p.PROD_DESCRICAO, p.PROD_CODIGO, p.PROD_CDUNIDADE, p.PROD_SALDO ' +
         'as qtd_atual, p.PROD_PRECO_VAR,'
       '   (SELECT SUM(vd.QUANTIDADE) FROM venda_item vd '
       '   JOIN venda q ON q.CODIGO_VENDA = vd.CODIGO_VENDA '
@@ -40062,7 +40062,7 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haRight
           Memo.UTF8W = (
             
-              '[SUM((<ds_estq_comp."PRECO_CUSTO">*<ds_estq_comp."SALDO">),Maste' +
+              '[SUM((<ds_estq_comp."PRECO_CUSTO">*<ds_estq_comp."PROD_SALDO">),Maste' +
               'rData1,0)]')
           ParentFont = False
           VAlign = vaCenter
@@ -40119,7 +40119,7 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haRight
           Memo.UTF8W = (
             
-              '[SUM((<ds_estq_comp."PROD_PRECO_VAR">*<ds_estq_comp."SALDO">' +
+              '[SUM((<ds_estq_comp."PROD_PRECO_VAR">*<ds_estq_comp."PROD_SALDO">' +
               '),MasterData1,0)]')
           ParentFont = False
           VAlign = vaCenter
@@ -40142,8 +40142,8 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haRight
           Memo.UTF8W = (
             
-              '[SUM((<ds_estq_comp."PROD_PRECO_VAR">*<ds_estq_comp."SALDO">' +
-              ')-(<ds_estq_comp."PRECO_CUSTO">*<ds_estq_comp."SALDO">)'
+              '[SUM((<ds_estq_comp."PROD_PRECO_VAR">*<ds_estq_comp."PROD_SALDO">' +
+              ')-(<ds_estq_comp."PRECO_CUSTO">*<ds_estq_comp."PROD_SALDO">)'
             ',MasterData1,0)]')
           ParentFont = False
           VAlign = vaCenter
@@ -40203,11 +40203,11 @@ object frm_relatorio: Tfrm_relatorio
           Memo.UTF8W = (
             
               '[IIF(((<ds_estq_comp."PROD_PRECO_VAR"> * <ds_estq_comp."SALD' +
-              'O">)-(<ds_estq_comp."PRECO_CUSTO"> * <ds_estq_comp."SALDO">)) <=' +
+              'O">)-(<ds_estq_comp."PRECO_CUSTO"> * <ds_estq_comp."PROD_SALDO">)) <=' +
               ' 0,'#39'0'#39',Format('#39'%4.2f'#39',[(((<ds_estq_comp."PROD_PRECO_VAR"> * ' +
-              '<ds_estq_comp."SALDO">) - (<ds_estq_comp."PRECO_CUSTO"> * <ds_es' +
-              'tq_comp."SALDO">)) * 100) / (<ds_estq_comp."PRECO_CUSTO"> * <ds_' +
-              'estq_comp."SALDO">)]))]')
+              '<ds_estq_comp."PROD_SALDO">) - (<ds_estq_comp."PRECO_CUSTO"> * <ds_es' +
+              'tq_comp."PROD_SALDO">)) * 100) / (<ds_estq_comp."PRECO_CUSTO"> * <ds_' +
+              'estq_comp."PROD_SALDO">)]))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -40229,8 +40229,8 @@ object frm_relatorio: Tfrm_relatorio
           HAlign = haCenter
           Memo.UTF8W = (
             
-              '[(<ds_estq_comp."PROD_PRECO_VAR">*<ds_estq_comp."SALDO">)-(<' +
-              'ds_estq_comp."PRECO_CUSTO">*<ds_estq_comp."SALDO">)]')
+              '[(<ds_estq_comp."PROD_PRECO_VAR">*<ds_estq_comp."PROD_SALDO">)-(<' +
+              'ds_estq_comp."PRECO_CUSTO">*<ds_estq_comp."PROD_SALDO">)]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -40274,7 +40274,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[<ds_estq_comp."PROD_PRECO_VAR">*<ds_estq_comp."SALDO">]')
+            '[<ds_estq_comp."PROD_PRECO_VAR">*<ds_estq_comp."PROD_SALDO">]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -40314,7 +40314,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[<ds_estq_comp."PRECO_CUSTO">*<ds_estq_comp."SALDO">]')
+            '[<ds_estq_comp."PRECO_CUSTO">*<ds_estq_comp."PROD_SALDO">]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -40353,7 +40353,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_estq_comp."SALDO"]')
+            '[ds_estq_comp."PROD_SALDO"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -40806,7 +40806,7 @@ object frm_relatorio: Tfrm_relatorio
       'PROD_DESCRICAO=PROD_DESCRICAO'
       'PRECO_CUSTO=PRECO_CUSTO'
       'PROD_PRECO_VAR=PROD_PRECO_VAR'
-      'SALDO=SALDO'
+      'PROD_SALDO=PROD_SALDO'
       'PROD_EAN=PROD_EAN'
       'PROD_REFERENCIASFABRICA=PROD_REFERENCIASFABRICA'
       'MARGEM_L_VAREJO=MARGEM_L_VAREJO'
@@ -40846,10 +40846,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'PROD_PRECO_VAR'
       Precision = 10
     end
-    object sql_estq_compSALDO: TBCDField
+    object sql_estq_compPROD_SALDO: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'SALDO'
-      Origin = 'SALDO'
+      FieldName = 'PROD_SALDO'
+      Origin = 'PROD_SALDO'
       Precision = 10
     end
     object sql_estq_compCODIGO_BARRAS: TStringField
@@ -45592,7 +45592,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Width = 1.500000000000000000
           HAlign = haCenter
           Memo.UTF8W = (
-            'SALDO CAIXA')
+            'PROD_SALDO CAIXA')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -46520,3 +46520,5 @@ Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2
 Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:40
 Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:45
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

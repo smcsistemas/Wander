@@ -560,7 +560,7 @@ object Frm_Estoque2: TFrm_Estoque2
           Width = 153
           Height = 33
           Alignment = taCenter
-          Caption = 'Saldo Atual'
+          Caption = 'PROD_SALDO Atual'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -27
@@ -1275,3 +1275,5 @@ object Frm_Estoque2: TFrm_Estoque2
     Top = 151
   end
 end
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

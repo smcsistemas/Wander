@@ -1613,7 +1613,7 @@ begin
 
    for b := 1 to a do
    begin
-      RecalculaSaldoEstoque(VetProdutos[b],vPED_DTENTREGA);
+      RecalculaPROD_SALDOEstoque(VetProdutos[b],vPED_DTENTREGA);
    end;
 end;
 
@@ -7637,3 +7637,5 @@ N32|vICMSSTDest|Valor do ICMS ST da UF destino            | N  N  N  N  N  S  N 
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:02
 Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:06
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32

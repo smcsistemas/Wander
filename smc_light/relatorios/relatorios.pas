@@ -362,16 +362,16 @@ type
     fr_conf_estq: TfrxReport;
     ds_produtos: TfrxDBDataset;
     sql_produtos: TFDQuery;
-    ds_saldo: TfrxDBDataset;
-    sql_saldo: TFDQuery;
-    sql_saldoqtde_cadastrado: TLargeintField;
-    sql_saldoqtde_negativo: TLargeintField;
-    sql_saldoqtde_minimo: TLargeintField;
-    sql_saldoqtde_zerado: TLargeintField;
-    sql_saldoqtde_positivo: TLargeintField;
+    ds_PROD_SALDO: TfrxDBDataset;
+    sql_PROD_SALDO: TFDQuery;
+    sql_PROD_SALDOqtde_cadastrado: TLargeintField;
+    sql_PROD_SALDOqtde_negativo: TLargeintField;
+    sql_PROD_SALDOqtde_minimo: TLargeintField;
+    sql_PROD_SALDOqtde_zerado: TLargeintField;
+    sql_PROD_SALDOqtde_positivo: TLargeintField;
     sql_produtoscodigo: TFDAutoIncField;
     sql_produtosdescricao_produto: TStringField;
-    sql_produtossaldo: TBCDField;
+    sql_produtosPROD_SALDO: TBCDField;
     sql_produtosmarca: TStringField;
     sql_produtosPROD_REFERENCIASFABRICA: TStringField;
     SQL_OP_NFCETOTAL_AUT: TFMTBCDField;
@@ -511,7 +511,7 @@ type
     sql_pro_promPROMOCAO_INICIO: TDateField;
     sql_pro_promPROMOCAO_TERMINO: TDateField;
     sql_pro_promVALOR_PROMOCIONAL_VAREJO: TBCDField;
-    sql_pro_promSALDO: TBCDField;
+    sql_pro_promPROD_SALDO: TBCDField;
     ds_pro_pesav: TfrxDBDataset;
     sql_pro_pesav: TFDQuery;
     sql_pro_pesavCODIGO: TFDAutoIncField;
@@ -523,7 +523,7 @@ type
     sql_pro_pesavPROD_PRECO_ATAC: TBCDField;
     sql_pro_pesavPROD_PRECO_DIST: TBCDField;
     sql_pro_pesavPROD_PRECO_VAR: TBCDField;
-    sql_pro_pesavSALDO: TBCDField;
+    sql_pro_pesavPROD_SALDO: TBCDField;
     sql_pro_pesavCOD_BALANCA_1: TStringField;
     sql_pro_pesavCOD_BALANCA_2: TStringField;
     sql_pro_pesavCOD_BALANCA_3: TStringField;
@@ -538,7 +538,7 @@ type
     sql_estq_compPROD_DESCRICAO: TStringField;
     sql_estq_compPRECO_CUSTO: TBCDField;
     sql_estq_compPROD_PRECO_VAR: TBCDField;
-    sql_estq_compSALDO: TBCDField;
+    sql_estq_compPROD_SALDO: TBCDField;
     sql_estq_compPROD_REFERENCIASFABRICA: TStringField;
     sql_estq_compMARGEM_L_VAREJO: TBCDField;
     sql_estq_compPROD_CDUNIDADE: TStringField;
@@ -1904,3 +1904,5 @@ Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2
 Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:40
 Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:45
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

@@ -1462,7 +1462,7 @@ object frm_contas_receber: Tfrm_contas_receber
             end
             item
               Expanded = False
-              Title.Caption = 'Saldo D'#233'bito'
+              Title.Caption = 'PROD_SALDO D'#233'bito'
               Width = 86
               Visible = True
             end
@@ -1705,7 +1705,7 @@ object frm_contas_receber: Tfrm_contas_receber
             Top = 133
             Width = 110
             Height = 18
-            Caption = 'Saldo Devedor:'
+            Caption = 'PROD_SALDO Devedor:'
             Font.Charset = ANSI_CHARSET
             Font.Color = clRed
             Font.Height = -15
@@ -3066,3 +3066,5 @@ object frm_contas_receber: Tfrm_contas_receber
     end
   end
 end
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:29
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32

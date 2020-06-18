@@ -32,7 +32,7 @@ type
     GridPanel1: TGridPanel;
     lblCredito: TLabel;
     lblUtilizado: TLabel;
-    lblSaldo: TLabel;
+    lblPROD_SALDO: TLabel;
     Label5: TLabel;
     Label8: TLabel;
     Label10: TLabel;
@@ -89,7 +89,7 @@ begin
   inherited Create(nil);
   conveniado := TClienteConveniado.Create(conveniado_id);
   lblCredito.Caption := tformats.Money(conveniado.CREDITO);
-  lblSaldo.Caption := tformats.Money(conveniado.saldoDisponivel);
+  lblPROD_SALDO.Caption := tformats.Money(conveniado.PROD_SALDODisponivel);
   lblUtilizado.Caption := tformats.Money(conveniado.creditoUtilizado);
   lblPeriodo.Caption := ' de ' + formatdatetime('dd/mm/yyyy', conveniado.PERIODO_INICIO) + ' até ' + formatdatetime('dd/mm/yyyy', conveniado.periodo_FIM);
 
@@ -133,3 +133,5 @@ begin
 end;
 
 end.
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

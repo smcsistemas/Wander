@@ -98,7 +98,7 @@ type
     SQL_ProdutoConsultaVALOR_PROMOCIONAL_ATACADO: TBCDField;
     SQL_ProdutoConsultaVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
     SQL_ProdutoConsultaVALOR_PROMOCIONAL_VAREJO: TBCDField;
-    SQL_ProdutoConsultaSALDO: TBCDField;
+    SQL_ProdutoConsultaPROD_SALDO: TBCDField;
     SQL_ProdutoConsultaALIQ_ICMS: TBCDField;
     SQL_ProdutoConsulta_REDUCAO_ICMS: TStringField;
     SQL_ProdutoConsultaALIQ_ICMS_SUBST: TStringField;
@@ -240,7 +240,7 @@ var
   qry, qry_cod: TFDQuery;
 begin
   qry_cod := Tdb.simplequery
-    ('select PROD_CODIGO, PROD_EAN, PROD_DESCRICAO, PROD_CDUNIDADE, SALDO, PROD_REFERENCIASFABRICA, MARCA, PROD_PRECO_VAR from produto_PROD where PROD_codigo = "' +
+    ('select PROD_CODIGO, PROD_EAN, PROD_DESCRICAO, PROD_CDUNIDADE, PROD_SALDO, PROD_REFERENCIASFABRICA, MARCA, PROD_PRECO_VAR from produto_PROD where PROD_codigo = "' +
     Edt_codBarras.Text + '" OR PROD_REFERENCIASFABRICA = "' + Edt_codBarras.Text + '"');
   if qry_cod <> nil then
   begin
@@ -337,3 +337,5 @@ Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2
 Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:40
 Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:44
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32

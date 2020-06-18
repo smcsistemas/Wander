@@ -414,7 +414,7 @@ object Frm_consulta_caixa: TFrm_consulta_caixa
         Top = 19
         Width = 116
         Height = 23
-        Caption = 'Saldo Atual:'
+        Caption = 'PROD_SALDO Atual:'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlue
         Font.Height = -19
@@ -772,3 +772,5 @@ object Frm_consulta_caixa: TFrm_consulta_caixa
     Width = 78
   end
 end
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

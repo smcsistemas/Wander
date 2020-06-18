@@ -688,7 +688,7 @@ end;
 
 procedure Tfrm_pedido_venda.cxButton6Click(Sender: TObject);
 begin
- // mostra saldo devedor....
+ // mostra PROD_SALDO devedor....
 end;
 
 procedure Tfrm_pedido_venda.cxButton7Click(Sender: TObject);
@@ -2465,3 +2465,5 @@ Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07
 Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56
 Trocou PRECO_FINAL_ATACADO por PROD_PRECO_ATAC : automaticamente em 17/06/2020 06:59
 Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2020 07:02
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

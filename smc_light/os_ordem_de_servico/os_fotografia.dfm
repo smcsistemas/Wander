@@ -828,7 +828,7 @@ object FRM_os_fotografia: TFRM_os_fotografia
         Top = 301
         Width = 156
         Height = 16
-        Caption = 'Tipo Pag. Saldo Devedor'
+        Caption = 'Tipo Pag. PROD_SALDO Devedor'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -1225,7 +1225,7 @@ object FRM_os_fotografia: TFRM_os_fotografia
           Top = 65
           Width = 109
           Height = 18
-          Caption = 'Saldo Devedor'
+          Caption = 'PROD_SALDO Devedor'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -15
@@ -1311,7 +1311,7 @@ object FRM_os_fotografia: TFRM_os_fotografia
           Top = 104
           Width = 109
           Height = 18
-          Caption = 'Saldo Devedor'
+          Caption = 'PROD_SALDO Devedor'
           Font.Charset = ANSI_CHARSET
           Font.Color = clRed
           Font.Height = -15
@@ -1929,7 +1929,7 @@ object FRM_os_fotografia: TFRM_os_fotografia
           end
           item
             Expanded = False
-            Title.Caption = 'Saldo Devedor'
+            Title.Caption = 'PROD_SALDO Devedor'
             Width = 91
             Visible = True
           end
@@ -2876,3 +2876,5 @@ object FRM_os_fotografia: TFRM_os_fotografia
     end
   end
 end
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32

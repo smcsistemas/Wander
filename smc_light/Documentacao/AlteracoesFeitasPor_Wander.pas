@@ -26,10 +26,55 @@ ordem decrescente de data....
 |-------|------|
 |  TOTAL| 290  |
 ================
-
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+814|17/06/20|21:33|vw_pdv.pas                  |Trocado SALDO por PROD_SALDO
+813|17/06/20|21:33|vw_pdv.dfm                  |Trocado SALDO por PROD_SALDO
+812|17/06/20|21:33|vw_historico_conveniado.pas |Trocado SALDO por PROD_SALDO
+811|17/06/20|21:33|vw_historico_conveniado.dfm |Trocado SALDO por PROD_SALDO
+810|17/06/20|21:33|vw_convenio.pas             |Trocado SALDO por PROD_SALDO
+809|17/06/20|21:33|vw_convenio.dfm             |Trocado SALDO por PROD_SALDO
+808|17/06/20|21:33|histo_conveniado.pas        |Trocado SALDO por PROD_SALDO
+807|17/06/20|21:33|histo_conveniado.dfm        |Trocado SALDO por PROD_SALDO
+806|17/06/20|21:33|consulta_caixa.dfm          |Trocado SALDO por PROD_SALDO
+805|17/06/20|21:33|estoque_2.pas               |Trocado SALDO por PROD_SALDO
+804|17/06/20|21:33|estoque_2.dfm               |Trocado SALDO por PROD_SALDO
+803|17/06/20|21:33|movimenta_estoque.dfm       |Trocado SALDO por PROD_SALDO
+802|17/06/20|21:33|cadastro_produto.pas        |Trocado SALDO por PROD_SALDO
+801|17/06/20|21:33|cadastro_produto.dfm        |Trocado SALDO por PROD_SALDO
+800|17/06/20|21:33|cadastro_produto2.pas       |Trocado SALDO por PROD_SALDO
+799|17/06/20|21:33|cadastro_produto2.dfm       |Trocado SALDO por PROD_SALDO
+798|17/06/20|21:33|vw_consulta_generica.pas    |Trocado SALDO por PROD_SALDO
+797|17/06/20|21:33|venda_pedido.pas            |Trocado SALDO por PROD_SALDO
+796|17/06/20|21:33|relatorios.pas              |Trocado SALDO por PROD_SALDO
+795|17/06/20|21:33|relatorios.dfm              |Trocado SALDO por PROD_SALDO
+794|17/06/20|21:32|Consulta_Produto.pas        |Trocado SALDO por PROD_SALDO
+793|17/06/20|21:32|Consulta_Produto.dfm        |Trocado SALDO por PROD_SALDO
+792|17/06/20|21:32|os_pet.dfm                  |Trocado SALDO por PROD_SALDO
+791|17/06/20|21:32|os_fotografia.dfm           |Trocado SALDO por PROD_SALDO
+790|17/06/20|21:32|os_cursos.dfm               |Trocado SALDO por PROD_SALDO
+789|17/06/20|21:32|finan_os.dfm                |Trocado SALDO por PROD_SALDO
+788|17/06/20|21:32|cad_servico.pas             |Trocado SALDO por PROD_SALDO
+787|17/06/20|21:32|cad_servico.dfm             |Trocado SALDO por PROD_SALDO
+786|17/06/20|21:32|m_Produto.pas               |Trocado SALDO por PROD_SALDO
+785|17/06/20|21:32|m_cliente_conveniado.pas    |Trocado SALDO por PROD_SALDO
+784|17/06/20|21:32|u_funcoes.pas               |Trocado SALDO por PROD_SALDO
+783|17/06/20|21:32|u_funcoes.pas               |Trocado SALDO por PROD_SALDO
+782|17/06/20|21:32|EmissaoDeNFe.pas            |Trocado SALDO por PROD_SALDO
+781|17/06/20|21:32|conta_receber.dfm           |Trocado SALDO por PROD_SALDO
+780|17/06/20|21:32|baixar_parcelas.dfm         |Trocado SALDO por PROD_SALDO
+779|17/06/20|21:32|conta_receber.dfm           |Trocado SALDO por PROD_SALDO
+778|17/06/20|21:32|conta_pagar.dfm             |Trocado SALDO por PROD_SALDO
+777|17/06/20|21:32|conta_receber.dfm           |Trocado SALDO por PROD_SALDO
+776|17/06/20|21:31|conta_pagar.dfm             |Trocado SALDO por PROD_SALDO
+775|17/06/20|21:31|consulta_banco_geral.pas    |Trocado SALDO por PROD_SALDO
+774|17/06/20|21:31|consulta_banco_geral.dfm    |Trocado SALDO por PROD_SALDO
+773|17/06/20|21:31|cadastro_produto.pas        |Trocado SALDO por PROD_SALDO
+772|17/06/20|21:31|cadastro_produto.dfm        |Trocado SALDO por PROD_SALDO
+771|17/06/20|21:31|u_funcoes.pas               |Trocado SALDO por PROD_SALDO
+770|17/06/20|19:36|Atualizador                 |Excluidas da tabela PRODUTO_PROD colunas de DESCONTO_L
+769|17/06/20|19:22|Atualizador                 |Excluidas da tabela PRODUTO_PROD colunas de promoção. Motivos descritos na unit
 768|17/06/20|08:54|vw_pdv.pas                  |Trocado PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST
 767|17/06/20|08:54|vw_pdv.dfm                  |Trocado PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST
 766|17/06/20|08:53|cadastro_produto.pas        |Trocado PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST

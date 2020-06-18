@@ -114,7 +114,7 @@ object Frm_baixar_parcelas: TFrm_baixar_parcelas
     Top = 228
     Width = 77
     Height = 18
-    Caption = 'Saldo (=):'
+    Caption = 'PROD_SALDO (=):'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -15
@@ -241,7 +241,7 @@ object Frm_baixar_parcelas: TFrm_baixar_parcelas
       Top = 22
       Width = 109
       Height = 18
-      Caption = 'Saldo Devedor'
+      Caption = 'PROD_SALDO Devedor'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -1313,3 +1313,5 @@ object Frm_baixar_parcelas: TFrm_baixar_parcelas
     ParentFont = False
   end
 end
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:29
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32

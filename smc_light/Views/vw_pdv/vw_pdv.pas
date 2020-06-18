@@ -56,7 +56,7 @@ type
     DS_Consulta_Itens: TDataSource;
     sql_totalVenda: TFDQuery;
     sql_deleteitem: TFDQuery;
-    SQL_AtualizaSaldo: TFDQuery;
+    SQL_AtualizaPROD_SALDO: TFDQuery;
     SQLCancelarVenda: TFDQuery;
     sql_increment_vendaAUTO_INCREMENT: TLargeintField;
     Sql_consulta_itensCODIGO: TFDAutoIncField;
@@ -207,7 +207,7 @@ type
     SQL_ProdutoConsultaVALOR_PROMOCIONAL_ATACADO: TBCDField;
     SQL_ProdutoConsultaVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
     SQL_ProdutoConsultaVALOR_PROMOCIONAL_VAREJO: TBCDField;
-    SQL_ProdutoConsultaSALDO: TBCDField;
+    SQL_ProdutoConsultaPROD_SALDO: TBCDField;
     SQL_ProdutoConsultaALIQ_ICMS: TBCDField;
     SQL_ProdutoConsultaLEIS: TStringField;
     SQL_ProdutoConsultaGENERO: TStringField;
@@ -916,7 +916,7 @@ var
   qry, qry_cod: TFDQuery;
 begin
   qry_cod := Tdb.simplequery
-    ('select PROD_CODIGO, PROD_EAN, PROD_DESCRICAO, PROD_CDUNIDADE, SALDO, PROD_REFERENCIASFABRICA, MARCA, PROD_PRECO_VAR from PRODUTO_PROD where PROD_CODIGO = "' +
+    ('select PROD_CODIGO, PROD_EAN, PROD_DESCRICAO, PROD_CDUNIDADE, PROD_SALDO, PROD_REFERENCIASFABRICA, MARCA, PROD_PRECO_VAR from PRODUTO_PROD where PROD_CODIGO = "' +
     Edt_codBarras.Text + '" OR PROD_REFERENCIASFABRICA = "' + Edt_codBarras.Text + '"');
   if qry_cod <> nil then
   begin
@@ -1081,14 +1081,14 @@ var
           exit;
         end;
       end;
-      if ConsultaEstoque.FieldByName('SALDO').Text <> '' then
+      if ConsultaEstoque.FieldByName('PROD_SALDO').Text <> '' then
       begin
-        if strtofloat(ConsultaEstoque.FieldByName('SALDO').Text) <= 0 then
+        if strtofloat(ConsultaEstoque.FieldByName('PROD_SALDO').Text) <= 0 then
         begin
           if BloquearSemEstoque then
           begin
             msg := 'Produto: ' + ConsultaEstoque.FieldByName('PROD_DESCRICAO').Value + slinebreak + 'Quantidade em Estoque: ' +
-              floattostr(ConsultaEstoque.FieldByName('SALDO').Value) + slinebreak + 'Não é permitida a venda de produto com estoque zerado ou negativo!';
+              floattostr(ConsultaEstoque.FieldByName('PROD_SALDO').Value) + slinebreak + 'Não é permitida a venda de produto com estoque zerado ou negativo!';
             wnAlerta('Venda Produto', msg);
             Cod_CodBarras_Descricao.selectall;
             Cod_CodBarras_Descricao.setfocus;
@@ -1101,7 +1101,7 @@ var
         end
         else
           lbl_estoque.Font.Color := clGreen;
-        lbl_estoque.Caption := ConsultaEstoque.FieldByName('SALDO').Text;
+        lbl_estoque.Caption := ConsultaEstoque.FieldByName('PROD_SALDO').Text;
       end;
       if ConsultaEstoque.FieldByName('PROD_DESCRICAO').Text <> '' then
       begin
@@ -1150,7 +1150,7 @@ var
 
 begin
   cod_prod := BuscarCodigo(Cod_CodBarras_Descricao);
-  ConsultaEstoque := simplequery('SELECT PROD_CODIGO, SALDO, PROD_DESCRICAO, PROD_PRECO_VAR, PROD_CDUNIDADE, STATUS_CADASTRAL FROM PRODUTO_PROD WHERE CODIGO = ?',
+  ConsultaEstoque := simplequery('SELECT PROD_CODIGO, PROD_SALDO, PROD_DESCRICAO, PROD_PRECO_VAR, PROD_CDUNIDADE, STATUS_CADASTRAL FROM PRODUTO_PROD WHERE CODIGO = ?',
     [cod_prod]);
   if ConsultaEstoque <> nil then
   begin
@@ -1263,7 +1263,7 @@ begin
   _qtde := strtofloat(Qtde.Text);
   if simplequery('select VENDA_SEM_ESTOQUE from parametros_venda').Fields[0].AsString = m_false then
   begin
-    qry := simplequery('select saldo, PROD_CDUNIDADE from PRODUTO_PROD where PROD_CODIGO = ' + cod_produto);
+    qry := simplequery('select PROD_SALDO, PROD_CDUNIDADE from PRODUTO_PROD where PROD_CODIGO = ' + cod_produto);
     estoque_cad := qry.Fields[0].asextended;
     um := qry.Fields[1].AsString;
     if cod_venda <> emptystr then
@@ -2208,3 +2208,5 @@ Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2
 Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:41
 Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:45
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:54
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

@@ -37,7 +37,7 @@ type
     Label4: TLabel;
     GridPanel1: TGridPanel;
     lblCredito: TLabel;
-    lblSaldo: TLabel;
+    lblPROD_SALDO: TLabel;
     lblVenda: TLabel;
     Label5: TLabel;
     Label8: TLabel;
@@ -125,10 +125,10 @@ begin
     if edtSenha.Text = '' then
       raise exception.Create('Senha deve ser informada.');
 
-    if tchecks.Less(conveniado.saldoDisponivel,
+    if tchecks.Less(conveniado.PROD_SALDODisponivel,
       tdb.simplequery('select sum(valor_debitado) from venda_pagamento where codigo_venda = ? and cod_tipo_pagamento = "101"', [m_venda_id])
       .Fields[0].asExtended) then
-      raise exception.Create(format('Saldo insuficiente.' + slinebreak + 'Saldo disponível é de "R$ %f".', [conveniado.saldoDisponivel]));
+      raise exception.Create(format('PROD_SALDO insuficiente.' + slinebreak + 'PROD_SALDO disponível é de "R$ %f".', [conveniado.PROD_SALDODisponivel]));
 
     if edtConfirmacao.Visible then
     begin
@@ -167,7 +167,7 @@ begin
     conveniado := TClienteConveniado.Create(cbConveniado.EditValue);
     lblCredito.caption := TFormats.Money(conveniado.CREDITO);
     showConfirmacao(conveniado.senha = '');
-    lblSaldo.caption := TFormats.Money(conveniado.saldoDisponivel());
+    lblPROD_SALDO.caption := TFormats.Money(conveniado.PROD_SALDODisponivel());
   end;
 end;
 
@@ -186,7 +186,7 @@ begin
   if def then
   begin
     lblCredito.caption := 'R$ 0,00';
-    lblSaldo.caption := 'R$ 0,00';
+    lblPROD_SALDO.caption := 'R$ 0,00';
     showConfirmacao(false);
   end;
 end;
@@ -262,3 +262,5 @@ begin
 end;
 
 end.
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

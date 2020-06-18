@@ -4776,10 +4776,10 @@ object frm_pdv: Tfrm_pdv
       Origin = 'VALOR_PROMOCIONAL_VAREJO'
       Precision = 10
     end
-    object SQL_ProdutoConsultaSALDO: TBCDField
+    object SQL_ProdutoConsultaPROD_SALDO: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'SALDO'
-      Origin = 'SALDO'
+      FieldName = 'PROD_SALDO'
+      Origin = 'PROD_SALDO'
       Precision = 10
     end
     object SQL_ProdutoConsultaALIQ_ICMS: TBCDField
@@ -5542,15 +5542,15 @@ object frm_pdv: Tfrm_pdv
         Value = '1'
       end>
   end
-  object SQL_AtualizaSaldo: TFDQuery
+  object SQL_AtualizaPROD_SALDO: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'Update produto SET SALDO = :psaldo where CODIGO = :pcodigo')
+      'Update produto SET PROD_SALDO = :pPROD_SALDO where CODIGO = :pcodigo')
     Left = 776
     Top = 96
     ParamData = <
       item
-        Name = 'PSALDO'
+        Name = 'PPROD_SALDO'
         DataType = ftString
         ParamType = ptInput
         Value = '1'
@@ -5684,3 +5684,5 @@ Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2
 Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:41
 Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:45
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:54
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

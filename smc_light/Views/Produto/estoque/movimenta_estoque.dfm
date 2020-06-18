@@ -93,7 +93,7 @@ object frm_Estoque: Tfrm_Estoque
           Width = 153
           Height = 33
           Alignment = taCenter
-          Caption = 'Saldo Atual'
+          Caption = 'PROD_SALDO Atual'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -27
@@ -2083,7 +2083,7 @@ object frm_Estoque: Tfrm_Estoque
             Width = 90
           end
           object grid_cDBTableView1Column4: TcxGridDBColumn
-            Caption = 'Saldo Atual'
+            Caption = 'PROD_SALDO Atual'
             FooterAlignmentHorz = taCenter
             GroupSummaryAlignment = taCenter
             HeaderAlignmentHorz = taCenter
@@ -2136,3 +2136,5 @@ object frm_Estoque: Tfrm_Estoque
     end
   end
 end
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

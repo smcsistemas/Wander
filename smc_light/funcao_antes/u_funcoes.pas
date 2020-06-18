@@ -391,15 +391,15 @@ begin
     begin
       qry_temp_aux.Close;
       qry_temp_aux.sql.Clear;
-      qry_temp_aux.sql.Add('SELECT CODIGO,SALDO FROM PRODUTO WHERE CODIGO = ' + quotedstr(FieldByName('CODIGO_PRODUTO').value));
+      qry_temp_aux.sql.Add('SELECT CODIGO,PROD_SALDO FROM PRODUTO WHERE CODIGO = ' + quotedstr(FieldByName('CODIGO_PRODUTO').value));
       qry_temp_aux.open;
       qry_temp_aux.Edit;
       if Remover then
       begin
-        qry_temp_aux.FieldByName('SALDO').value := qry_temp_aux.FieldByName('SALDO').value - FieldByName('QUANTIDADE').value { Retirar do estoque }
+        qry_temp_aux.FieldByName('PROD_SALDO').value := qry_temp_aux.FieldByName('PROD_SALDO').value - FieldByName('QUANTIDADE').value { Retirar do estoque }
       end
       else
-        qry_temp_aux.FieldByName('SALDO').value := qry_temp_aux.FieldByName('SALDO').value + FieldByName('QUANTIDADE').value;
+        qry_temp_aux.FieldByName('PROD_SALDO').value := qry_temp_aux.FieldByName('PROD_SALDO').value + FieldByName('QUANTIDADE').value;
       { Retornar estoque }
       qry_temp_aux.POST;
       Next;
@@ -3884,3 +3884,5 @@ end;
 
 end.
 Trocou ESTOQUE_MINIMO por PROD_ESTOQMIN : automaticamente em 16/06/2020 22:53
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32

@@ -211,7 +211,7 @@ type
     SQL_PRODUTOVALOR_PROMOCIONAL_ATACADO: TBCDField;
     SQL_PRODUTOVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
     SQL_PRODUTOVALOR_PROMOCIONAL_VAREJO: TBCDField;
-    SQL_PRODUTOSALDO: TBCDField;
+    SQL_PRODUTOPROD_SALDO: TBCDField;
     SQL_PRODUTOALIQ_ICMS_SUBST: TStringField;
     SQL_PRODUTOALIQ_IPI: TStringField;
     SQL_PRODUTOMARGEM_LUCRO: TBCDField;
@@ -327,7 +327,7 @@ type
     SQL_LISTAVALOR_PROMOCIONAL_ATACADO: TBCDField;
     SQL_LISTAVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
     SQL_LISTAVALOR_PROMOCIONAL_VAREJO: TBCDField;
-    SQL_LISTASALDO: TBCDField;
+    SQL_LISTAPROD_SALDO: TBCDField;
     SQL_LISTAALIQ_ICMS: TBCDField;
     SQL_LISTAALIQ_ICMS_SUBST: TStringField;
     SQL_LISTALEIS: TStringField;
@@ -485,7 +485,7 @@ type
     tbViewGRUPO: TcxGridDBColumn;
     tbViewPROD_CDUNIDADE: TcxGridDBColumn;
     tbViewTIPO_ITEM: TcxGridDBColumn;
-    tbViewSALDO: TcxGridDBColumn;
+    tbViewPROD_SALDO: TcxGridDBColumn;
     tbViewALIQ_ICMS: TcxGridDBColumn;
     tbViewICMS_CST: TcxGridDBColumn;
     tbViewPIS_CST: TcxGridDBColumn;
@@ -3152,7 +3152,7 @@ begin
     est_min := tbView.ViewData.Records[AViewInfo.GridRecord.Index].Values[tbViewPROD_ESTOQMIN.Index];
     est_min := varastype(TFunctions.ifthen(est_min = System.Variants.null, '10', est_min), VARDOUBLE);
 
-    value := tbView.ViewData.Records[AViewInfo.GridRecord.Index].Values[tbViewSALDO.Index];
+    value := tbView.ViewData.Records[AViewInfo.GridRecord.Index].Values[tbViewPROD_SALDO.Index];
     value := varastype(TFunctions.ifthen(value = System.Variants.null, '0', value), varstring);
 
     ACanvas.Font.Color := colorirestoque(value, est_min);
@@ -3231,3 +3231,5 @@ Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2
 Trocou PROMO_VAREJO por PROD_PROMOCAO_VAR : automaticamente em 17/06/2020 08:40
 Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:44
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
+Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:29
+Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:31
