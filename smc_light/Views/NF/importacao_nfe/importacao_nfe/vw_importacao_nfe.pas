@@ -305,7 +305,7 @@ type
     SQL_PRODUTOSCST_IPI: TStringField;
     SQL_PRODUTOSENQUADRAMENTO_IPI: TStringField;
     SQL_PRODUTOSBASE_IPI: TBCDField;
-    SQL_PRODUTOSALIQ_IPI: TBCDField;
+    SQL_PRODUTOSPROD_NFe_O13_pIPI: TBCDField;
     SQL_PRODUTOSTOTAL_IPI: TBCDField;
     dbtvMainedt: TcxGridDBBandedColumn;
     SQL_PRODUTOSEDITADO: TIntegerField;
@@ -1799,3 +1799,4 @@ Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22
 Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:42
 Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51
+Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50

@@ -102,7 +102,7 @@ type
       Im_It_cst_ipi: string;
       Im_It_enquadramento_ipi: string;
       Im_It_base_ipi: Variant;
-      Im_It_Aliq_ipi: Variant;
+      Im_It_PROD_NFe_O13_pIPI: Variant;
       Im_It_total_ipi: Variant;
       Im_It_ncm: string;
       Im_It_cest: string;
@@ -147,7 +147,7 @@ type
       function getIm_It_cst_ipi: string;
       function getIm_It_enquadramento_ipi: string;
       function getIm_It_base_ipi: Variant;
-      function getIm_It_Aliq_ipi: Variant;
+      function getIm_It_PROD_NFe_O13_pIPI: Variant;
       function getIm_It_total_ipi: Variant;
       function getIm_It_ncm: String;
       function getIm_It_cest: String;
@@ -191,7 +191,7 @@ type
       procedure setIm_It_cst_ipi(Value: string);
       procedure setIm_It_enquadramento_ipi(Value: string);
       procedure setIm_It_base_ipi(Value: Variant);
-      procedure setIm_It_Aliq_ipi(Value: Variant);
+      procedure setIm_It_PROD_NFe_O13_pIPI(Value: Variant);
       procedure setIm_It_total_ipi(Value: Variant);
       procedure setIm_It_ncm(const Value: String);
       procedure setIm_It_cest(const Value: String);
@@ -239,7 +239,7 @@ type
       PROPERTY CST_IPI: string READ getIm_It_cst_ipi WRITE setIm_It_cst_ipi;
       PROPERTY ENQUADRAMENTO_IPI: string READ getIm_It_enquadramento_ipi WRITE setIm_It_enquadramento_ipi;
       PROPERTY BASE_IPI: Variant READ getIm_It_base_ipi WRITE setIm_It_base_ipi;
-      PROPERTY ALIQ_IPI: Variant READ getIm_It_Aliq_ipi WRITE setIm_It_Aliq_ipi;
+      PROPERTY PROD_NFe_O13_pIPI: Variant READ getIm_It_PROD_NFe_O13_pIPI WRITE setIm_It_PROD_NFe_O13_pIPI;
       PROPERTY TOTAL_IPI: Variant READ getIm_It_total_ipi WRITE setIm_It_total_ipi;
 
       PROPERTY NCM: String READ getIm_It_ncm WRITE setIm_It_ncm;
@@ -723,7 +723,7 @@ begin
       self.CST_IPI := qry.fieldbyname('cst_ipi').asString;
       self.ENQUADRAMENTO_IPI := qry.fieldbyname('enquadramento_ipi').asString;
       self.BASE_IPI := qry.fieldbyname('base_ipi').asExtended;
-      self.ALIQ_IPI := qry.fieldbyname('Aliq_ipi').asExtended;
+      self.PROD_NFe_O13_pIPI := qry.fieldbyname('PROD_NFe_O13_pIPI').asExtended;
       self.TOTAL_IPI := qry.fieldbyname('total_ipi').asExtended;
       self.NCM := qry.fieldbyname('ncm').asString;
       self.CEST := qry.fieldbyname('cest').asString;
@@ -791,7 +791,7 @@ begin
   result := self.Im_It_PROD_NFe_N16_pICMS;
 end;
 
-function TImportacao.TItem.getIm_It_Aliq_ipi: Variant;
+function TImportacao.TItem.getIm_It_PROD_NFe_O13_pIPI: Variant;
 begin
   result := TFormats.percent(self.Im_It_Aliq_pis);
 end;
@@ -1000,12 +1000,12 @@ procedure TImportacao.TItem.Insert;
 begin
   Tdb.execquery('INSERT INTO IMPORTACAO_PRODUTOS (ID_NFE, ID_IMPORTACAO,CODIGO, ITEM, DESTINO, DESCRICAO, COD_BARRAS, UM, QTDE, PRECO_UNI, DESCONTO, ACRESCIMOS, VALOR_TOTAL,' +
     'CST_ICMS, PROD_NFe_N16_pICMS, BASE_ICMS, TOTAL_ICMS, CST_PIS, BASE_PIS, ALIQ_PIS, TOTAL_PIS,' +
-    'CST_COFINS, BASE_COFINS, ALIQ_COFINS, TOTAL_COFINS, CST_IPI, ENQUADRAMENTO_IPI, BASE_IPI, ALIQ_IPI,' +
+    'CST_COFINS, BASE_COFINS, ALIQ_COFINS, TOTAL_COFINS, CST_IPI, ENQUADRAMENTO_IPI, BASE_IPI, PROD_NFe_O13_pIPI,' +
     'TOTAL_IPI, NCM, CEST, CFOP, CSOSN, ORIGEM, TIPO, PRECO_VENDA, MARGEM_LUCRO, DESPESAS_OPERACIONAIS, COMISSAO, EDITADO) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
     [self.Im_It_Id_nfe, self.Im_It_Id_Importacao, self.Im_It_Codigo, self.Im_It_Item, self.Im_It_Destino, self.Im_It_Descricao, self.Im_It_Cod_Barras, self.Im_It_UM,
     self.Im_It_Qtde, self.Im_It_Preco_Uni, self.Im_It_Desconto, self.Im_It_Acrescimos, self.Im_It_Valor_Total, self.Im_It_cst_icms, self.Im_It_PROD_NFe_N16_pICMS, self.Im_It_base_icms,
     self.Im_It_total_icms, self.Im_It_cst_pis, self.Im_It_base_pis, self.Im_It_Aliq_pis, self.Im_It_total_pis, self.Im_It_cst_cofins, self.Im_It_base_cofins,
-    self.Im_It_Aliq_Cofins, self.Im_It_total_cofins, self.Im_It_cst_ipi, self.Im_It_enquadramento_ipi, self.Im_It_base_ipi, self.Im_It_Aliq_ipi, self.Im_It_total_ipi,
+    self.Im_It_Aliq_Cofins, self.Im_It_total_cofins, self.Im_It_cst_ipi, self.Im_It_enquadramento_ipi, self.Im_It_base_ipi, self.Im_It_PROD_NFe_O13_pIPI, self.Im_It_total_ipi,
     self.Im_It_ncm, self.Im_It_cest, self.Im_It_cfop, self.Im_It_csosn, self.Im_It_origem, self.Im_It_tipo, self.Im_It_preco_venda, self.Im_It_margem_lucro,
     self.Im_It_despesas_operacionais, self.Im_It_comissao, self.Im_It_Editado]);
 end;
@@ -1031,12 +1031,12 @@ begin
     ukHard:
       Tdb.execquery('UPDATE IMPORTACAO_PRODUTO SET CODIGO=?, ITEM=?, DESTINO=?, DESCRICAO=?, COD_BARRAS=?, UM=?, QTDE=?, PRECO_UNI=?, DESCONTO=?, ACRESCIMOS=?, VALOR_TOTAL=?,' +
         'CST_ICMS=?, PROD_NFe_N16_pICMS=?, BASE_ICMS=?, TOTAL_ICMS=?, CST_PIS=?, BASE_PIS=?, ALIQ_PIS=?, TOTAL_PIS=?,' +
-        'CST_COFINS=?, BASE_COFINS=?, ALIQ_COFINS=?, TOTAL_COFINS=?,CST_IPI=?, ENQUADRAMENTO_IPI=?, BASE_IPI=?, ALIQ_IPI=?,' +
+        'CST_COFINS=?, BASE_COFINS=?, ALIQ_COFINS=?, TOTAL_COFINS=?,CST_IPI=?, ENQUADRAMENTO_IPI=?, BASE_IPI=?, PROD_NFe_O13_pIPI=?,' +
         'TOTAL_IPI=?, NCM=?, CEST=?, CFOP=?, CSOSN=?, ORIGEM=?, TIPO=?,EDITADO=? WHERE ID=?', [self.Im_It_Id_nfe, self.Im_It_Id_Importacao, self.Im_It_Codigo, self.Im_It_Item,
         self.Im_It_Destino, self.Im_It_Descricao, self.Im_It_Cod_Barras, self.Im_It_UM, self.Im_It_Qtde, self.Im_It_Preco_Uni, self.Im_It_Desconto, self.Im_It_Acrescimos,
         self.Im_It_Valor_Total, self.Im_It_cst_icms, self.Im_It_PROD_NFe_N16_pICMS, self.Im_It_base_icms, self.Im_It_total_icms, self.Im_It_cst_pis, self.Im_It_base_pis,
         self.Im_It_Aliq_pis, self.Im_It_total_pis, self.Im_It_cst_cofins, self.Im_It_base_cofins, self.Im_It_Aliq_Cofins, self.Im_It_total_cofins, self.Im_It_cst_ipi,
-        self.Im_It_enquadramento_ipi, self.Im_It_base_ipi, self.Im_It_Aliq_ipi, self.Im_It_total_ipi, self.Im_It_ncm, self.Im_It_cest, self.Im_It_cfop, self.Im_It_csosn,
+        self.Im_It_enquadramento_ipi, self.Im_It_base_ipi, self.Im_It_PROD_NFe_O13_pIPI, self.Im_It_total_ipi, self.Im_It_ncm, self.Im_It_cest, self.Im_It_cfop, self.Im_It_csosn,
         self.Im_It_origem, self.Im_It_tipo, self.Im_It_Editado, self.Im_It_Id]);
   end;
 
@@ -1074,9 +1074,9 @@ begin
   self.Im_It_PROD_NFe_N16_pICMS := Value;
 end;
 
-procedure TImportacao.TItem.setIm_It_Aliq_ipi(Value: Variant);
+procedure TImportacao.TItem.setIm_It_PROD_NFe_O13_pIPI(Value: Variant);
 begin
-  self.Im_It_Aliq_ipi := Value;
+  self.Im_It_PROD_NFe_O13_pIPI := Value;
 end;
 
 procedure TImportacao.TItem.setIm_It_Aliq_pis(const Value: Variant);
@@ -1356,3 +1356,4 @@ Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22
 Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:41
 Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:55
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:49
+Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50

@@ -29,6 +29,39 @@ ordem decrescente de data....
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+894|18/06/20|10:53|h_DB.pas                    |Trocado ALIQ_IPI por PROD_NFe_O13_pIPI
+893|18/06/20|10:28|Atualizador                 |Coluna ALIQ_IPI substituída por PROD_NFe_O13_pIPI
+892|18/06/20|10:28|cadastro_produto            |Eliminado tratamento para coluna COD_COMB
+891|18/06/20|10:20|u_funcoes                   |Eliminada coluna COD_COMB da tabela PRODUTO_PROD
+890|18/06/20|10:13|u_funcoes                   |Eliminada coluna GENERO da tabela PRODUTO_PROD
+889|18/06/20|10:13|u_funcoes                   |Eliminada coluna LEIS da tabela PRODUTO_PROD
+888|18/06/20|10:13|u_funcoes                   |Eliminada coluna FORNECEDOR_NOME da tabela PRODUTO_PROD
+887|18/06/20|10:13|cadastro_produto            |Eliminado tratamento para coluna GENERO
+886|18/06/20|10:13|m_Produto                   |Eliminado tratamento para coluna GENERO
+885|18/06/20|10:08|m_Produto                   |Eliminado tratamento para coluna LEIS
+884|18/06/20|10:03|cadastro_produto.pas        |Trocado VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA
+883|18/06/20|10:03|cadastro_produto.dfm        |Trocado VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA
+882|18/06/20|10:02|cadastro_produto2.pas       |Trocado VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA
+881|18/06/20|10:02|cadastro_produto2.dfm       |Trocado VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA
+880|18/06/20|10:02|m_Produto.pas               |Trocado VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA
+879|18/06/20|10:02|EmissaoDeNFe.pas            |Trocado VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA
+878|18/06/20|10:02|cadastro_produto.pas        |Trocado VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA
+877|18/06/20|10:02|cadastro_produto.dfm        |Trocado VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA
+876|18/06/20|09:43|cadastro_produto.pas        |Trocado PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST
+875|18/06/20|09:43|cadastro_produto.dfm        |Trocado PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST
+874|18/06/20|09:43|cadastro_produto2.pas       |Trocado PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST
+873|18/06/20|09:43|cadastro_produto2.dfm       |Trocado PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST
+872|18/06/20|09:43|m_Produto.pas               |Trocado PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST
+871|18/06/20|09:43|EmissaoDeNFe.pas            |Trocado PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST
+870|18/06/20|09:42|cadastro_produto.pas        |Trocado PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST
+869|18/06/20|09:42|cadastro_produto.dfm        |Trocado PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST
+868|18/06/20|09:10|vw_pdv                      |Eliminadas todas as colunas internas do objeto SQL_ProdutoConsulta
+867|18/06/20|09:10|cad_servico                 |Eliminadas todas as colunas internas do objeto SQL_C_Servico
+866|18/06/20|09:10|m_Produto                   |Eliminadas todas as colunas internas do objeto sql_produtos
+865|18/06/20|09:10|m_Produto                   |Eliminado tratamento para coluna LUCRO_SUBST_TRIBUTARIA
+864|18/06/20|08:55|h_DB                        |Eliminado tratamento para coluna LUCRO_SUBST_TRIBUTARIA
+863|18/06/20|08:55|cadastro_produto            |Eliminados todos as colunas internas do objeto qConsulta
+862|18/06/20|08:55|consulta_produto            |Eliminados todos as colunas internas do objeto SQL_ProdutoConsulta
 861|18/06/20|08:15|cadastro_produto            |Ao passar o mouse pela descrição ou label, ambos aumentam de tamanho
 860|18/06/20|07:54|vw_pdv.pas                  |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
 859|18/06/20|07:54|vw_pdv.dfm                  |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC

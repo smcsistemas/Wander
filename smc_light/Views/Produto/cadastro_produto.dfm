@@ -743,10 +743,6 @@ object Frm_Produto: TFrm_Produto
     object tab_Cadastrar: TcxTabSheet
       Caption = 'Cadastro'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel6: TPanel
         Left = 3
         Top = 2
@@ -4545,7 +4541,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
           end
-          object edVALOR_PAUTA_BC_ST: TEdit
+          object edPROD_NFe_N21_vBCST_PAUTA: TEdit
             Left = 267
             Top = 2
             Width = 113
@@ -4559,7 +4555,7 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 0
-            OnKeyPress = edVALOR_PAUTA_BC_STKeyPress
+            OnKeyPress = edPROD_NFe_N21_vBCST_PAUTAKeyPress
           end
           object edNFe_pMVAST: TEdit
             Left = 267
@@ -4577,7 +4573,7 @@ object Frm_Produto: TFrm_Produto
             TabOrder = 1
             OnKeyPress = edNFe_pMVASTKeyPress
           end
-          object edPROD_NFe_N14_pRedBC_ST: TEdit
+          object edPROD_NFe_N20_pRedBCST: TEdit
             Left = 267
             Top = 55
             Width = 36
@@ -4591,7 +4587,7 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 2
-            OnKeyPress = edPROD_NFe_N14_pRedBC_STKeyPress
+            OnKeyPress = edPROD_NFe_N20_pRedBCSTKeyPress
           end
         end
         object rgNFe_indEscala: TRadioGroup

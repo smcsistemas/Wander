@@ -1,5 +1,11 @@
 unit h_DB;
-
+{
+========================================================================================================================================
+ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
+---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+864|18/06/20|08:55|h_DB                        |Eliminado tratamento para coluna LUCRO_SUBST_TRIBUTARIA
+========================================================================================================================================
+}
 interface
 
 uses Firedac.comp.client, system.SysUtils, variants, IniFiles, system.classes,
@@ -660,14 +666,14 @@ begin
       ExecQuery('update produto set `%_REDUCAO_ICMS_ST` = null');
       ExecQuery('alter table produto change `%_REDUCAO_ICMS_ST` REDUCAO_ICMS_ST DECIMAL(10,4)');
     end;
-
+{
     if SimpleQuery('select column_name from information_schema.columns where column_name="%_LUCRO_SUBST_TRIBUTARIA" and table_name="produto" and table_schema="'
       + Connect(dbLocal).Params.Values['database'] + '"') <> nil then
     begin
       ExecQuery('update produto set `%_LUCRO_SUBST_TRIBUTARIA` = null');
       ExecQuery('alter table produto change `%_LUCRO_SUBST_TRIBUTARIA` LUCRO_SUBST_TRIBUTARIA DECIMAL(10,4)');
     end;
-
+}
     if SimpleQuery('select data_type from information_schema.columns where column_name="VALOR_PAUTA_BC_ST" and table_name="produto" and table_schema="' +
       Connect(dbLocal).Params.Values['database'] + '"').Fields[0].AsString = 'varchar' then
     begin
@@ -975,7 +981,7 @@ begin
       CST_IPI VARCHAR(2) DEFAULT NULL,
       ENQUADRAMENTO_IPI VARCHAR(3) DEFAULT NULL,
       BASE_IPI DECIMAL(10, 4) DEFAULT 0,
-      ALIQ_IPI DECIMAL(10, 4) DEFAULT 0,
+      PROD_NFe_O13_pIPI DECIMAL(10, 4) DEFAULT 0,
       TOTAL_IPI  DECIMAL(10, 4) DEFAULT 0,
       NCM VARCHAR(12) DEFAULT NULL,
       CEST VARCHAR(15) DEFAULT NULL,
@@ -1003,7 +1009,7 @@ begin
         'TOTAL_ICMS DECIMAL(10, 4) DEFAULT 0', 'CST_PIS VARCHAR(2) DEFAULT NULL', 'BASE_PIS DECIMAL(10, 4) DEFAULT 0', 'ALIQ_PIS DECIMAL(10, 4) DEFAULT 0',
         'TOTAL_PIS DECIMAL(10, 4) DEFAULT 0', 'CST_COFINS VARCHAR(2) DEFAULT NULL', 'BASE_COFINS DECIMAL(10, 4) DEFAULT 0',
         'ALIQ_COFINS  DECIMAL(10, 4) DEFAULT 0', 'TOTAL_COFINS DECIMAL(10, 4) DEFAULT 0', 'CST_IPI VARCHAR(2) DEFAULT NULL',
-        'ENQUADRAMENTO_IPI VARCHAR(3) DEFAULT NULL', 'BASE_IPI DECIMAL(10, 4) DEFAULT 0', 'ALIQ_IPI DECIMAL(10, 4) DEFAULT 0',
+        'ENQUADRAMENTO_IPI VARCHAR(3) DEFAULT NULL', 'BASE_IPI DECIMAL(10, 4) DEFAULT 0', 'PROD_NFe_O13_pIPI DECIMAL(10, 4) DEFAULT 0',
         'TOTAL_IPI  DECIMAL(10, 4) DEFAULT 0', 'NCM VARCHAR(12) DEFAULT NULL', 'CEST VARCHAR(15) DEFAULT NULL', 'CFOP VARCHAR(4) DEFAULT NULL',
         'CSOSN VARCHAR(3) DEFAULT NULL', 'ORIGEM VARCHAR(1) DEFAULT NULL', 'MARGEM_LUCRO DECIMAL(10, 4) DEFAULT 0',
         'DESPESAS_OPERACIONAIS  DECIMAL(10, 4) DEFAULT 0', 'PRECO_VENDA DECIMAL(10, 4) DEFAULT 0', 'DESC_MAXIMO DECIMAL(10, 4) DEFAULT 0',
@@ -10696,3 +10702,4 @@ begin
 end;
 
 end.
+Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:53

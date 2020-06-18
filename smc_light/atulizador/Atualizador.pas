@@ -3,6 +3,9 @@ unit Atualizador;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+890|18/06/20|10:13|cadastro_produto            |Eliminada coluna GENERO da tabela PRODUTO_PROD
+889|18/06/20|10:13|cadastro_produto            |Eliminada coluna LEIS da tabela PRODUTO_PROD
+888|18/06/20|10:13|cadastro_produto            |Eliminada coluna FORNECEDOR_NOME da tabela PRODUTO_PROD
 346|15/06/20|18:23|Atualizador                 |Tabela PRODUTO_UNIDADE substituída por UNIDADE_UNI
 319|15/06/20|13:35|atualizador                 |CODIGO_BARRAS tamanho 50 Substituído PROD_EAN tamanho 20
 301|15/06/20|08:48|atualizador                 |CODiGO numérico 11 do produto substituído por PROD_CODIGO alfanumérico 20
@@ -3175,7 +3178,6 @@ begin
        Executar('UPDATE PRODUTO_PROD SET PROD_NFe_N14_pRedBC   = REDUCAO_ICMS   ');
        Executar('UPDATE PRODUTO_PROD SET PROD_NFe_N22_pICMSST  = ALIQ_ICMS_SUBST');
        Executar('UPDATE PRODUTO_PROD SET PROD_NFe_N20_pRedBCST = REDUCAO_ICMS_ST');
-
     end;
 
 
@@ -3198,25 +3200,42 @@ begin
       Q1.Sql.Add('     )                                                                                                          ');
       Q1.Sql.Add('COMMENT="Percentual de Margem de Valor Agregado (MVA) dos produtos nas UFs"                                     ');
       Q1.ExecSql;
+
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN LUCRO_SUBST_TRIBUTARIA');
     end;
 
+    if fNaoAtualizado('Valor de Pauta do ICMS') Then
+    begin
+       Executar('ALTER TABLE PRODUTO_PROD ADD PROD_NFe_N21_vBCST_PAUTA DECIMAL(15,4) NOT NULL DEFAULT 0.0  COMMENT "Valor de Pauta da BC ST do ICMS "');
+       Executar('UPDATE PRODUTO_PROD SET VALOR_PAUTA_BC_ST = 0 WHERE VALOR_PAUTA_BC_ST IS NULL');
+       Executar('UPDATE PRODUTO_PROD SET PROD_NFe_N21_vBCST_PAUTA = VALOR_PAUTA_BC_ST');
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN VALOR_PAUTA_BC_ST');
+    end;
 
-   //VALOR_PAUTA_BC
+    //COD_COMB da tabela "Produtos".
+    //Rodrigo e desconhecem sua utilidade.
+    //Pesquisei no código e não encontrei utilidade...
+    if fNaoAtualizado('Eliminado COD_COMB') Then
+       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN COD_COMB');
 
+    //VALOR_PAUTA_BC
     Executar('SET FOREIGN_KEY_CHECKS = 1');
+
+
+   //Alíquota do IPI
+   if fNaoAtualizado('Alíquota de IPI') Then
+   begin
+      Executar('ALTER TABLE PRODUTO_PROD ADD PROD_NFe_O13_pIPI DECIMAL(10,4) NOT NULL DEFAULT 0.0  COMMENT "Alíquota de IPI"');
+      Executar('UPDATE PRODUTO_PROD SET ALIQ_IPI = 0 WHERE ALIQ_IPI IS NULL');
+      Executar('UPDATE PRODUTO_PROD SET PROD_NFe_O13_pIPI = ALIQ_IPI');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN ALIQ_IPI');
+   end;
 
 end;
 
 end.
-    {
-	`
 
-	`LUCRO_SUBST_TRIBUTARIA` DECIMAL(10,4) NULL DEFAULT NULL,
-	`VALOR_PAUTA_BC_ST` DECIMAL(10,4) NULL DEFAULT NULL,
-	`LEIS` VARCHAR(20) NULL DEFAULT NULL,
-	`GENERO` VARCHAR(20) NULL DEFAULT NULL,
-	`FORNECEDOR_NOME` VARCHAR(100) NULL DEFAULT NULL,
-	`COD_COMB` VARCHAR(20) NULL DEFAULT NULL,
+    {
 	`ALIQ_IPI` VARCHAR(20) NULL DEFAULT NULL,
 	`ENQUADRAMENTO_IPI` INT(11) NULL DEFAULT NULL,
 	`CODIGO_LOCALIZACAO` INT(11) NULL DEFAULT NULL,

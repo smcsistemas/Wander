@@ -4361,7 +4361,7 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
           end
           object dbtvMainALIP_IPI: TcxGridDBBandedColumn
             Caption = '%'
-            DataBinding.FieldName = 'ALIQ_IPI'
+            DataBinding.FieldName = 'PROD_NFe_O13_pIPI'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.Alignment.Horz = taCenter
             Properties.DisplayFormat = ',0.00 %;- ,0.00 % '
@@ -4959,10 +4959,10 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
       Origin = 'BASE_IPI'
       Precision = 10
     end
-    object SQL_PRODUTOSALIQ_IPI: TBCDField
+    object SQL_PRODUTOSPROD_NFe_O13_pIPI: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_IPI'
-      Origin = 'ALIQ_IPI'
+      FieldName = 'PROD_NFe_O13_pIPI'
+      Origin = 'PROD_NFe_O13_pIPI'
       Precision = 10
     end
     object SQL_PRODUTOSTOTAL_IPI: TBCDField
@@ -5905,3 +5905,4 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
 end
 Trocou FieldName = 'MARCA' por FieldName = 'PROD_MARCA' : automaticamente em 16/06/2020 16:22
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51
+Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50

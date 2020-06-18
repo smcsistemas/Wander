@@ -4127,7 +4127,7 @@ begin
    {N20}
    //pRedBCST
    //Percentual da Redução de BC do ICMS ST
-   Produto.Imposto.ICMS.pRedBCST := qVENDA_ITEM.FieldByName('PROD_NFe_N14_pRedBC_ST').AsFloat;
+   Produto.Imposto.ICMS.pRedBCST := qVENDA_ITEM.FieldByName('PROD_NFe_N20_pRedBCST').AsFloat;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N21_Produto_Imposto_ICMS_vBCST;
@@ -4138,7 +4138,7 @@ begin
    With Produto.Imposto.ICMS do
    begin
      if modBCST = dbisPauta then
-        vBCST := (pMVAST/100) * (qVENDA_ITEM.FieldByName('VALOR_PAUTA_BC_ST').AsFloat * Produto.Prod.qCom)
+        vBCST := (pMVAST/100) * (qVENDA_ITEM.FieldByName('PROD_NFe_N21_vBCST_PAUTA').AsFloat * Produto.Prod.qCom)
                * ((100-pRedBCST)/100)
      else
         vBCST := (pMVAST/100 * Produto.Prod.vProd)
@@ -4554,7 +4554,7 @@ begin
    {257-O13}
    //pIPI
    //Alíquota do IPI
-
+   //PROD_NFe_O13_pIPI
    {255-O11}
    //qUnid
    //Quantidade total na unidade padrão para tributação
@@ -7655,3 +7655,6 @@ Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:49
 Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:53
+Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/06/2020 09:43
+Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:02
+Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50

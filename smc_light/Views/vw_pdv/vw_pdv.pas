@@ -5,6 +5,7 @@ unit vw_pdv;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+868|18/06/20|09:10|vw_pdv                      |Eliminadas todas as colunas internas do objeto SQL_ProdutoConsulta
 332|15/06/20|13:35|vw_pdv                      |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 ========================================================================================================================================
 }
@@ -162,97 +163,6 @@ type
     lbl_vendedor: TLabel;
     SQL_VendaCOD_NFCE: TStringField;
     SQL_VendaCOD_VENDEDOR: TIntegerField;
-    SQL_ProdutoConsultaCOD_BARRAS_AUXILIAR: TStringField;
-    SQL_ProdutoConsultaPROD_DESCRICAO: TStringField;
-    SQL_ProdutoConsultaPROD_DETALHES: TStringField;
-    SQL_ProdutoConsultaPROD_REFERENCIASFABRICA: TStringField;
-    SQL_ProdutoConsultaMARCA: TStringField;
-    SQL_ProdutoConsultaFAMILIA: TStringField;
-    SQL_ProdutoConsultaGRUPO: TStringField;
-    SQL_ProdutoConsultaSUBGRUPO: TStringField;
-    SQL_ProdutoConsultaPROD_CDUNIDADE: TStringField;
-    SQL_ProdutoConsultaDATA_CADASTRO: TDateField;
-    SQL_ProdutoConsultaTIPO_ITEM: TStringField;
-    SQL_ProdutoConsultaPROD_ESTOQMIN: TStringField;
-    SQL_ProdutoConsultaPRECO_CUSTO: TBCDField;
-    SQL_ProdutoConsultaFRETE: TBCDField;
-    SQL_ProdutoConsultaIMPOSTO: TBCDField;
-    SQL_ProdutoConsultaDESP_OPERACIONAIS: TBCDField;
-    SQL_ProdutoConsultaCUSTO_MEDIO: TBCDField;
-    SQL_ProdutoConsultaMARGEM_LUCRO: TBCDField;
-    SQL_ProdutoConsultaMARGEM_L_VAREJO: TBCDField;
-    SQL_ProdutoConsultaMARGEM_L_ATACADO: TBCDField;
-    SQL_ProdutoConsultaMARGEM_L_DISTRIBUIDOR: TBCDField;
-    SQL_ProdutoConsultaPROD_MAXDESC: TBCDField;
-    SQL_ProdutoConsultaPROD_MAXDESC_VAR: TBCDField;
-    SQL_ProdutoConsultaPROD_MAXDESC_ATAC: TBCDField;
-    SQL_ProdutoConsultaPROD_MAXDESC_DIST: TBCDField;
-    SQL_ProdutoConsultaDESCONTO_L_VAREJO: TBCDField;
-    SQL_ProdutoConsultaDESCONTO_L_ATACADO: TBCDField;
-    SQL_ProdutoConsultaDESCONTO_L_DISTRIBUIDOR: TBCDField;
-    SQL_ProdutoConsultaPROD_COMISSAO: TBCDField;
-    SQL_ProdutoConsultaPROD_COMISSAO_LOJA: TBCDField;
-    SQL_ProdutoConsultaPROD_COMISSAO_ATAC: TBCDField;
-    SQL_ProdutoConsultaPROD_COMISSAO_DIST: TBCDField;
-    SQL_ProdutoConsultaPROD_COMISSAO_EXT: TBCDField;
-    SQL_ProdutoConsultaPROD_COMISSAO_EXT_VAR: TBCDField;
-    SQL_ProdutoConsultaPROD_COMISSAO_EXT_ATAC: TBCDField;
-    SQL_ProdutoConsultaPROD_COMISSAO_EXT_DIST: TBCDField;
-    SQL_ProdutoConsultaPROD_PRECO_ATAC: TBCDField;
-    SQL_ProdutoConsultaPROD_PRECO_DIST: TBCDField;
-    SQL_ProdutoConsultaPROD_PRECO_VAR: TBCDField;
-    SQL_ProdutoConsultaPROD_PROMOCAO_VAR: TBCDField;
-    SQL_ProdutoConsultaPROD_PROMOCAO_ATAC: TBCDField;
-    SQL_ProdutoConsultaPROD_PROMOCAO_DIST: TBCDField;
-    SQL_ProdutoConsultaVALOR_PROMOCIONAL_ATACADO: TBCDField;
-    SQL_ProdutoConsultaVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
-    SQL_ProdutoConsultaVALOR_PROMOCIONAL_VAREJO: TBCDField;
-    SQL_ProdutoConsultaPROD_SALDO: TBCDField;
-    SQL_ProdutoConsultaPROD_NFe_N16_pICMS: TBCDField;
-    SQL_ProdutoConsultaLEIS: TStringField;
-    SQL_ProdutoConsultaGENERO: TStringField;
-    SQL_ProdutoConsultaFORNECEDOR_NOME: TStringField;
-    SQL_ProdutoConsultaCOD_COMB: TStringField;
-    SQL_ProdutoConsultaALIQ_IPI: TStringField;
-    SQL_ProdutoConsultaENQUADRAMENTO_IPI: TIntegerField;
-    SQL_ProdutoConsultaCODIGO_LOCALIZACAO: TIntegerField;
-    SQL_ProdutoConsultaICMS_CST: TStringField;
-    SQL_ProdutoConsultaICMS_IPI: TStringField;
-    SQL_ProdutoConsultaPIS_CST: TStringField;
-    SQL_ProdutoConsultaCOFINS_CST: TStringField;
-    SQL_ProdutoConsultaCODIGO_ORIGEM_MERCADORIA: TIntegerField;
-    SQL_ProdutoConsultaCSOSN: TStringField;
-    SQL_ProdutoConsultaNCM: TStringField;
-    SQL_ProdutoConsultaCEST: TStringField;
-    SQL_ProdutoConsultaANP: TStringField;
-    SQL_ProdutoConsultaEX_IPI: TSingleField;
-    SQL_ProdutoConsultaSTATUS_CADASTRAL: TStringField;
-    SQL_ProdutoConsultaPESAVEL: TStringField;
-    SQL_ProdutoConsultaUTILIZA_ETIQUETA_BALANCA: TStringField;
-    SQL_ProdutoConsultaUSA_LOTE: TStringField;
-    SQL_ProdutoConsultaCONTROLADO: TStringField;
-    SQL_ProdutoConsultaCODIGO_FORNECEDOR: TIntegerField;
-    SQL_ProdutoConsultaQUANT_MINI_VAREJO_P: TBCDField;
-    SQL_ProdutoConsultaQUANT_MINI_ATACADO_P: TBCDField;
-    SQL_ProdutoConsultaQUANT_MINI_DISTRIBUIDOR_P: TBCDField;
-    SQL_ProdutoConsultaQUANT_MINI_VAREJO_Q: TBCDField;
-    SQL_ProdutoConsultaQUANT_MINI_ATACADO_Q: TBCDField;
-    SQL_ProdutoConsultaQUANT_MINI_DISTRIBUIDOR_Q: TBCDField;
-    SQL_ProdutoConsultaQUANT_MINI_VAREJO_D: TBCDField;
-    SQL_ProdutoConsultaQUANT_MINI_DISTRIBUIDOR_D: TBCDField;
-    SQL_ProdutoConsultaQUANT_MINI_ATACADO_D: TBCDField;
-    SQL_ProdutoConsultaCST_IPI: TStringField;
-    SQL_ProdutoConsultaCOD_BALANCA_1: TStringField;
-    SQL_ProdutoConsultaCOD_BALANCA_2: TStringField;
-    SQL_ProdutoConsultaCOD_BALANCA_3: TStringField;
-    SQL_ProdutoConsultaPROD_COMISSAO_VAR: TBCDField;
-    SQL_ProdutoConsultaPROMOCAO_INICIO: TDateField;
-    SQL_ProdutoConsultaPROMOCAO_TERMINO: TDateField;
-    SQL_ProdutoConsultaPROD_NFe_N14_pRedBC: TBCDField;
-    SQL_ProdutoConsultaPROD_NFe_N16_pICMS_SUBST: TStringField;
-    SQL_ProdutoConsultaPROD_NFe_N14_pRedBC_ST: TBCDField;
-    SQL_ProdutoConsultaLUCRO_SUBST_TRIBUTARIA: TBCDField;
-    SQL_ProdutoConsultaVALOR_PAUTA_BC_ST: TBCDField;
     lblComanda: TLabel;
     edtComandaNum: TLabeledEdit;
     shpComanda: TShape;
@@ -272,41 +182,6 @@ type
     qCaixaDetLancamento: TDateTimeField;
     qCaixaDetCodigoUsuario: TIntegerField;
     qCaixaDetCodigoVenda: TIntegerField;
-    SQL_ProdutoConsultaponto_impressao_id: TIntegerField;
-    SQL_ProdutoConsultaNFe_Veiculo_Cor_Codigo: TStringField;
-    SQL_ProdutoConsultaNFe_Veiculo_Cor_Descricao: TStringField;
-    SQL_ProdutoConsultaNFe_Veiculo_Pot: TStringField;
-    SQL_ProdutoConsultaNFe_Veiculo_Cilin: TStringField;
-    SQL_ProdutoConsultaNFe_Armamento: TIntegerField;
-    SQL_ProdutoConsultaNFe_Combustivel: TIntegerField;
-    SQL_ProdutoConsultaNFe_modBC: TIntegerField;
-    SQL_ProdutoConsultaNFe_modBCST: TIntegerField;
-    SQL_ProdutoConsultaNFe_pMVAST: TBCDField;
-    SQL_ProdutoConsultaNFe_motDesICMS: TIntegerField;
-    SQL_ProdutoConsultaProduto_ou_Servico: TStringField;
-    SQL_ProdutoConsultaPagaComissaoSN: TStringField;
-    SQL_ProdutoConsultaContaContabil: TIntegerField;
-    SQL_ProdutoConsultaCentroDeCustos: TIntegerField;
-    SQL_ProdutoConsultaNFe_indTot: TIntegerField;
-    SQL_ProdutoConsultaNFe_Medicamento: TIntegerField;
-    SQL_ProdutoConsultaCODIGO_ALFANUMERICO: TStringField;
-    SQL_ProdutoConsultaVALOR_PAUTA_BC: TBCDField;
-    SQL_ProdutoConsultaNFe_pMVA: TBCDField;
-    SQL_ProdutoConsultaNFe_indEscala: TIntegerField;
-    SQL_ProdutoConsultaPROD_RASTREAVEL: TIntegerField;
-    SQL_ProdutoConsultaPROD_TRATALOTE: TIntegerField;
-    SQL_ProdutoConsultaPROD_TRATANUMEROSERIE: TIntegerField;
-    SQL_ProdutoConsultaNFe_VeiculoNovo: TIntegerField;
-    SQL_ProdutoConsultaNFe_nDI: TStringField;
-    SQL_ProdutoConsultaNFe_dDI: TDateTimeField;
-    SQL_ProdutoConsultaNFe_xLocDesemb: TStringField;
-    SQL_ProdutoConsultaNFe_UFDesemb: TStringField;
-    SQL_ProdutoConsultaNFe_dDesemb: TDateTimeField;
-    SQL_ProdutoConsultaNFe_cExportador: TStringField;
-    SQL_ProdutoConsultaNFe_nAdicao: TIntegerField;
-    SQL_ProdutoConsultaNFe_cFabricante: TStringField;
-    SQL_ProdutoConsultaNFe_vDescDI: TBCDField;
-    SQL_ProdutoConsultaPROD_CODIGO: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Edt_codBarrasKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure BtnFecharVendaClick(Sender: TObject);
@@ -1381,21 +1256,21 @@ var
 begin
 
   if aplica_preco_promo then
-    preco_produto := Tdb.simplequery('SELECT VALOR_PROMOCIONAL_VAREJO from PRODUTO_PROD where PROD_CODIGO = ?', [SQL_ProdutoConsultaPROD_CODIGO.Value]).Fields[0].asextended
+    preco_produto := Tdb.simplequery('SELECT VALOR_PROMOCIONAL_VAREJO from PRODUTO_PROD where PROD_CODIGO = ?', [SQL_ProdutoConsulta.FieldByName('PROD_CODIGO').AsString]).Fields[0].asextended
   else
   begin
     if simplequery('select produto_preco_faixa from parametros_sistema').Fields[0].AsString = m_false then
-      preco_produto := SQL_ProdutoConsultaPROD_PRECO_VAR.asextended;
+      preco_produto := SQL_ProdutoConsulta.FieldByName('PROD_PRECO_VAR').AsExtended;
 
     if simplequery('select produto_preco_faixa from parametros_sistema').Fields[0].AsString = m_true then
     begin
       //qry := simplequery('select preco from produto_preco_faixa where :p1 >= qtde and id_produto = :p2 and tipo="VAREJO" order by preco desc limit 1',
       qry := simplequery('select preco from produto_preco_faixa where :p1 >= qtde and id_produto = :p2 and tipo="VAREJO" order by qtde desc limit 1',
-        [strtofloat(Qtde.Text), SQL_ProdutoConsultaPROD_CODIGO.Value]);
+        [strtofloat(Qtde.Text), SQL_ProdutoConsulta.FieldByName('PROD_CODIGO').AsString]);
       if qry <> nil then
         preco_produto := qry.Fields[0].asextended
       else
-        preco_produto := SQL_ProdutoConsultaPROD_PRECO_VAR.asextended;
+        preco_produto := SQL_ProdutoConsulta.FieldByName('PROD_PRECO_VAR').asextended;
     end;
 
   end;
@@ -1411,14 +1286,14 @@ begin
     SQL.Add(' values (DEFAULT, :pcodigo_venda, :pcodigo_item_venda, :pcodigo_produto, :pdescricao, :punidade, :pquantidade, :ppreco, :pacrescimo, :pdesconto, :ppreco_custo, :ppreco_total)');
     Params.ParamByName('pcodigo_venda').Value := lbl_cod_venda.Caption;
     Params.ParamByName('pcodigo_item_venda').Value := FORM_PDV.item;
-    Params.ParamByName('pcodigo_produto').Value := SQL_ProdutoConsultaPROD_CODIGO.Value;
-    Params.ParamByName('pdescricao').Value := SQL_ProdutoConsultaPROD_DESCRICAO.Value;
-    Params.ParamByName('punidade').Value := SQL_ProdutoConsultaPROD_CDUNIDADE.Value;
+    Params.ParamByName('pcodigo_produto').AsString := SQL_ProdutoConsulta.FieldByName('PROD_CODIGO'   ).AsString;
+    Params.ParamByName('pdescricao'     ).AsString := SQL_ProdutoConsulta.FieldByName('PROD_DESCRICAO').AsString;
+    Params.ParamByName('punidade'       ).AsString := SQL_ProdutoConsulta.FieldByName('PROD_CDUNIDADE').AsString;
     Params.ParamByName('pquantidade').asextended := strtofloat(Qtde.Text);
     Params.ParamByName('ppreco').asextended := preco_produto;
     Params.ParamByName('pacrescimo').asextended := 0.00;
     Params.ParamByName('pdesconto').asextended := 0.00;
-    Params.ParamByName('ppreco_custo').asextended := simplequery('SELECT CUSTO_MEDIO FROM PRODUTO_PROD WHERE PROD_CODIGO=' + SQL_ProdutoConsultaPROD_CODIGO.AsString)
+    Params.ParamByName('ppreco_custo').asextended := simplequery('SELECT CUSTO_MEDIO FROM PRODUTO_PROD WHERE PROD_CODIGO=' + SQL_ProdutoConsulta.FieldByName('PROD_CODIGO').AsString)
       .Fields[0].asextended;
     Params.ParamByName('ppreco_total').asextended := precototal;
     ExecSQL;
@@ -1514,7 +1389,7 @@ begin
       if simplequery('select produto_preco_faixa from parametros_sistema').Fields[0].AsString = m_true then
       begin
         qry := simplequery('select preco from produto_preco_faixa where :p1 >= qtde and id_produto = :p2 and tipo="VAREJO" order by qtde desc limit 1',
-          [NovaQuantidade, SQL_ProdutoConsultaPROD_CODIGO.Value]);
+          [NovaQuantidade, SQL_ProdutoConsulta.FieldByName('PROD_CODIGO').AsString]);
         if qry <> nil then
           PrecoItem := qry.Fields[0].asextended
         else
@@ -2158,7 +2033,7 @@ begin
     ParamByName('pcodigo').Value := BuscarCodigo(Cod_CodBarras_Descricao);
     open;
   end;
-  LabelTotalNFCE.Caption := FormatFloat('0.00', SQL_ProdutoConsultaPROD_PRECO_VAR.Value);
+  LabelTotalNFCE.Caption := FormatFloat('0.00', SQL_ProdutoConsulta.FieldByName('PROD_PRECO_VAR').Value);
   if lblstatuscaixa.Caption = CaixaDisponivel then
     gerarvenda;
   itenspedido(Qtde);

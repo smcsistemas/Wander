@@ -180,7 +180,7 @@ type
     SQL_PRODUTOVALOR_PROMOCIONAL_VAREJO: TBCDField;
     SQL_PRODUTOPROD_SALDO: TBCDField;
     SQL_PRODUTOPROD_NFe_N16_pICMS_SUBST: TStringField;
-    SQL_PRODUTOALIQ_IPI: TStringField;
+    SQL_PRODUTOPROD_NFe_O13_pIPI: TStringField;
     SQL_PRODUTOMARGEM_LUCRO: TBCDField;
     SQL_PRODUTOMARGEM_L_VAREJO: TBCDField;
     SQL_PRODUTOMARGEM_L_ATACADO: TBCDField;
@@ -275,7 +275,7 @@ type
     SQL_LISTAGENERO: TStringField;
     SQL_LISTAFORNECEDOR_NOME: TStringField;
     SQL_LISTACOD_COMB: TStringField;
-    SQL_LISTAALIQ_IPI: TStringField;
+    SQL_LISTAPROD_NFe_O13_pIPI: TStringField;
     SQL_LISTAENQUADRAMENTO_IPI: TIntegerField;
     SQL_LISTACODIGO_LOCALIZACAO: TIntegerField;
     SQL_LISTAICMS_CST: TStringField;
@@ -367,13 +367,13 @@ type
     lblprodcads: TLabel;
     tbViewPRECO_PROMO: TcxGridDBColumn;
     SQL_PRODUTOPROD_NFe_N14_pRedBC: TBCDField;
-    SQL_PRODUTOPROD_NFe_N14_pRedBC_ST: TBCDField;
+    SQL_PRODUTOPROD_NFe_N20_pRedBCST: TBCDField;
     SQL_PRODUTOLUCRO_SUBST_TRIBUTARIA: TBCDField;
-    SQL_PRODUTOVALOR_PAUTA_BC_ST: TBCDField;
+    SQL_PRODUTOPROD_NFe_N21_vBCST_PAUTA: TBCDField;
     SQL_LISTAPROD_NFe_N14_pRedBC: TBCDField;
-    SQL_LISTAPROD_NFe_N14_pRedBC_ST: TBCDField;
+    SQL_LISTAPROD_NFe_N20_pRedBCST: TBCDField;
     SQL_LISTALUCRO_SUBST_TRIBUTARIA: TBCDField;
-    SQL_LISTAVALOR_PAUTA_BC_ST: TBCDField;
+    SQL_LISTAPROD_NFe_N21_vBCST_PAUTA: TBCDField;
     lbl1: TLabel;
     chk_ativocadastro: TcxCheckBox;
     sql_ponto_impressao: TFDQuery;
@@ -483,3 +483,6 @@ Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51
 Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:54
+Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/06/2020 09:43
+Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:02
+Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50

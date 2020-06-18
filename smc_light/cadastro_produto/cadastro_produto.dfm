@@ -4877,7 +4877,7 @@ object Frm_Produto: TFrm_Produto
           OnKeyDown = aliq_lucro_stKeyDown
           OnKeyPress = aliq_lucro_stKeyPress
         end
-        object PROD_NFe_N14_pRedBC_ST: TDBEdit
+        object PROD_NFe_N20_pRedBCST: TDBEdit
           Left = 263
           Top = 68
           Width = 83
@@ -4893,8 +4893,8 @@ object Frm_Produto: TFrm_Produto
           ParentBiDiMode = False
           ParentFont = False
           TabOrder = 4
-          OnKeyDown = PROD_NFe_N14_pRedBC_STKeyDown
-          OnKeyPress = PROD_NFe_N14_pRedBC_STKeyPress
+          OnKeyDown = PROD_NFe_N20_pRedBCSTKeyDown
+          OnKeyPress = PROD_NFe_N20_pRedBCSTKeyPress
         end
         object cod_comb: TDBEdit
           Left = 263
@@ -4920,7 +4920,7 @@ object Frm_Produto: TFrm_Produto
           Width = 86
           Height = 22
           BiDiMode = bdRightToLeft
-          DataField = 'VALOR_PAUTA_BC_ST'
+          DataField = 'PROD_NFe_N21_vBCST_PAUTA'
           DataSource = DS_PRODUTO
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -6437,10 +6437,10 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'COD_COMB'
       Origin = 'COD_COMB'
     end
-    object SQL_LISTAALIQ_IPI: TStringField
+    object SQL_LISTAPROD_NFe_O13_pIPI: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_IPI'
-      Origin = 'ALIQ_IPI'
+      FieldName = 'PROD_NFe_O13_pIPI'
+      Origin = 'PROD_NFe_O13_pIPI'
     end
     object SQL_LISTAENQUADRAMENTO_IPI: TIntegerField
       AutoGenerateValue = arDefault
@@ -6650,10 +6650,10 @@ object Frm_Produto: TFrm_Produto
       Origin = 'PROD_NFe_N14_pRedBC'
       Precision = 10
     end
-    object SQL_LISTAPROD_NFe_N14_pRedBC_ST: TBCDField
+    object SQL_LISTAPROD_NFe_N20_pRedBCST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PROD_NFe_N14_pRedBC_ST'
-      Origin = 'PROD_NFe_N14_pRedBC_ST'
+      FieldName = 'PROD_NFe_N20_pRedBCST'
+      Origin = 'PROD_NFe_N20_pRedBCST'
       Precision = 10
     end
     object SQL_LISTALUCRO_SUBST_TRIBUTARIA: TBCDField
@@ -6662,10 +6662,10 @@ object Frm_Produto: TFrm_Produto
       Origin = 'LUCRO_SUBST_TRIBUTARIA'
       Precision = 10
     end
-    object SQL_LISTAVALOR_PAUTA_BC_ST: TBCDField
+    object SQL_LISTAPROD_NFe_N21_vBCST_PAUTA: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'VALOR_PAUTA_BC_ST'
-      Origin = 'VALOR_PAUTA_BC_ST'
+      FieldName = 'PROD_NFe_N21_vBCST_PAUTA'
+      Origin = 'PROD_NFe_N21_vBCST_PAUTA'
       Precision = 10
     end
   end
@@ -7021,10 +7021,10 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'PROD_NFe_N16_pICMS_SUBST'
       Origin = 'PROD_NFe_N16_pICMS_SUBST'
     end
-    object SQL_PRODUTOALIQ_IPI: TStringField
+    object SQL_PRODUTOPROD_NFe_O13_pIPI: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_IPI'
-      Origin = 'ALIQ_IPI'
+      FieldName = 'PROD_NFe_O13_pIPI'
+      Origin = 'PROD_NFe_O13_pIPI'
     end
     object SQL_PRODUTOMARGEM_LUCRO: TBCDField
       FieldName = 'MARGEM_LUCRO'
@@ -7235,10 +7235,10 @@ object Frm_Produto: TFrm_Produto
       Origin = 'PROD_NFe_N14_pRedBC'
       Precision = 10
     end
-    object SQL_PRODUTOPROD_NFe_N14_pRedBC_ST: TBCDField
+    object SQL_PRODUTOPROD_NFe_N20_pRedBCST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'PROD_NFe_N14_pRedBC_ST'
-      Origin = 'PROD_NFe_N14_pRedBC_ST'
+      FieldName = 'PROD_NFe_N20_pRedBCST'
+      Origin = 'PROD_NFe_N20_pRedBCST'
       Precision = 10
     end
     object SQL_PRODUTOLUCRO_SUBST_TRIBUTARIA: TBCDField
@@ -7247,10 +7247,10 @@ object Frm_Produto: TFrm_Produto
       Origin = 'LUCRO_SUBST_TRIBUTARIA'
       Precision = 10
     end
-    object SQL_PRODUTOVALOR_PAUTA_BC_ST: TBCDField
+    object SQL_PRODUTOPROD_NFe_N21_vBCST_PAUTA: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'VALOR_PAUTA_BC_ST'
-      Origin = 'VALOR_PAUTA_BC_ST'
+      FieldName = 'PROD_NFe_N21_vBCST_PAUTA'
+      Origin = 'PROD_NFe_N21_vBCST_PAUTA'
       Precision = 10
     end
     object SQL_PRODUTOponto_impressao_id: TIntegerField
@@ -7663,3 +7663,6 @@ Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:29
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:31
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:49
 Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:53
+Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/06/2020 09:42
+Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:02
+Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:49

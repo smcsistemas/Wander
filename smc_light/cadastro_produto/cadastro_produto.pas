@@ -213,7 +213,7 @@ type
     SQL_PRODUTOVALOR_PROMOCIONAL_VAREJO: TBCDField;
     SQL_PRODUTOPROD_SALDO: TBCDField;
     SQL_PRODUTOPROD_NFe_N16_pICMS_SUBST: TStringField;
-    SQL_PRODUTOALIQ_IPI: TStringField;
+    SQL_PRODUTOPROD_NFe_O13_pIPI: TStringField;
     SQL_PRODUTOMARGEM_LUCRO: TBCDField;
     SQL_PRODUTOMARGEM_L_VAREJO: TBCDField;
     SQL_PRODUTOMARGEM_L_ATACADO: TBCDField;
@@ -334,7 +334,7 @@ type
     SQL_LISTAGENERO: TStringField;
     SQL_LISTAFORNECEDOR_NOME: TStringField;
     SQL_LISTACOD_COMB: TStringField;
-    SQL_LISTAALIQ_IPI: TStringField;
+    SQL_LISTAPROD_NFe_O13_pIPI: TStringField;
     SQL_LISTAENQUADRAMENTO_IPI: TIntegerField;
     SQL_LISTACODIGO_LOCALIZACAO: TIntegerField;
     SQL_LISTAICMS_CST: TStringField;
@@ -406,7 +406,7 @@ type
     Label61: TLabel;
     aliq_lucro_st: TDBEdit;
     Label53: TLabel;
-    PROD_NFe_N14_pRedBC_ST: TDBEdit;
+    PROD_NFe_N20_pRedBCST: TDBEdit;
     Label62: TLabel;
     cod_comb: TDBEdit;
     Label56: TLabel;
@@ -506,13 +506,13 @@ type
     lblprodcads: TLabel;
     tbViewPRECO_PROMO: TcxGridDBColumn;
     SQL_PRODUTOPROD_NFe_N14_pRedBC: TBCDField;
-    SQL_PRODUTOPROD_NFe_N14_pRedBC_ST: TBCDField;
+    SQL_PRODUTOPROD_NFe_N20_pRedBCST: TBCDField;
     SQL_PRODUTOLUCRO_SUBST_TRIBUTARIA: TBCDField;
-    SQL_PRODUTOVALOR_PAUTA_BC_ST: TBCDField;
+    SQL_PRODUTOPROD_NFe_N21_vBCST_PAUTA: TBCDField;
     SQL_LISTAPROD_NFe_N14_pRedBC: TBCDField;
-    SQL_LISTAPROD_NFe_N14_pRedBC_ST: TBCDField;
+    SQL_LISTAPROD_NFe_N20_pRedBCST: TBCDField;
     SQL_LISTALUCRO_SUBST_TRIBUTARIA: TBCDField;
-    SQL_LISTAVALOR_PAUTA_BC_ST: TBCDField;
+    SQL_LISTAPROD_NFe_N21_vBCST_PAUTA: TBCDField;
     lbl2: TLabel;
     sql_ponto_impressao: TFDQuery;
     ds_ponto_impressao: TDataSource;
@@ -552,7 +552,7 @@ type
     procedure cxDBTextEdit50KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure cxTabSheet1Show(Sender: TObject);
     procedure PROD_NFe_N16_pICMSKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure PROD_NFe_N14_pRedBC_STKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure PROD_NFe_N20_pRedBCSTKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure pauta_bcKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edt_leisKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edt_generoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -592,13 +592,13 @@ type
     procedure cxDBTextEdit26KeyPress(Sender: TObject; var Key: Char);
     procedure DBEdit1KeyPress(Sender: TObject; var Key: Char);
     procedure PROD_NFe_N16_pICMSKeyPress(Sender: TObject; var Key: Char);
-    procedure PROD_NFe_N14_pRedBC_STKeyPress(Sender: TObject; var Key: Char);
+    procedure PROD_NFe_N20_pRedBCSTKeyPress(Sender: TObject; var Key: Char);
     procedure pauta_bcKeyPress(Sender: TObject; var Key: Char);
     procedure edt_generoKeyPress(Sender: TObject; var Key: Char);
     procedure aliq_lucro_stKeyPress(Sender: TObject; var Key: Char);
     procedure cod_combKeyPress(Sender: TObject; var Key: Char);
     procedure ex_ipiKeyPress(Sender: TObject; var Key: Char);
-    procedure aliq_ipiKeyPress(Sender: TObject; var Key: Char);
+    procedure PROD_NFe_O13_pIPIKeyPress(Sender: TObject; var Key: Char);
     procedure aliq_pisKeyPress(Sender: TObject; var Key: Char);
     procedure aliq_cofinsKeyPress(Sender: TObject; var Key: Char);
     procedure edt_cestKeyPress(Sender: TObject; var Key: Char);
@@ -1202,7 +1202,7 @@ procedure TFrm_Produto.PROD_NFe_N16_pICMSKeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   if (Key = vk_return) or (Key = vk_tab) then
-    PROD_NFe_N14_pRedBC_ST.SetFocus;
+    PROD_NFe_N20_pRedBCST.SetFocus;
 
 end;
 
@@ -1214,7 +1214,7 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.aliq_ipiKeyPress(Sender: TObject;
+procedure TFrm_Produto.PROD_NFe_O13_pIPIKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -1248,7 +1248,7 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.PROD_NFe_N14_pRedBC_STKeyDown(Sender: TObject;
+procedure TFrm_Produto.PROD_NFe_N20_pRedBCSTKeyDown(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
@@ -1256,7 +1256,7 @@ begin
     pauta_bc.SetFocus;
 end;
 
-procedure TFrm_Produto.PROD_NFe_N14_pRedBC_STKeyPress(Sender: TObject;
+procedure TFrm_Produto.PROD_NFe_N20_pRedBCSTKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -3235,3 +3235,6 @@ Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:29
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:31
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:49
 Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:53
+Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/06/2020 09:42
+Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:02
+Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:49

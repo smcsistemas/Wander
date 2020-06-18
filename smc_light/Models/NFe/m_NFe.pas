@@ -1257,7 +1257,7 @@ begin
       xItem.CST_IPI := o.Fieldbyname('CST_O09').asString;
       xItem.ENQUADRAMENTO_IPI := o.Fieldbyname('cEnq_O06').asString;
       xItem.BASE_IPI := TNF_Formats.Decimal(o.Fieldbyname('vBC_O10').asString);
-      xItem.ALIQ_IPI := TNF_Formats.Decimal(o.Fieldbyname('pIPI_O13').asString);
+      xItem.PROD_NFe_O13_pIPI := TNF_Formats.Decimal(o.Fieldbyname('pIPI_O13').asString);
       xItem.TOTAL_IPI := TNF_Formats.Decimal(o.Fieldbyname('vIPI_O14').asString);
 
       xItem.DESTINO := '0';
@@ -1555,3 +1555,4 @@ Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22
 Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:41
 Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:55
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50
+Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50

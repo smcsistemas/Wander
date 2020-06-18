@@ -6,6 +6,8 @@ unit cadastro_produto;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+892|18/06/20|10:28|cadastro_produto            |Eliminado tratamento para coluna COD_COMB
+887|18/06/20|10:13|cadastro_produto            |Eliminado tratamento para coluna GENERO
 430|16/06/20|19:27|cadastro_produto            |Substituido GRUPO por PROD_GRUPO
 347|15/06/20|21:39|cadastro_produto            |Tratando tabela UNIDADE_UNI ao invés de PRODUTO_UNIDADE
 338|15/06/20|18:23|cadastro_produto            |Passa a tratar PRODUTO_PROD(PROD_CDUNIDADE)ao invés de PRODUTO(PROD_CDUNIDADE)
@@ -359,7 +361,7 @@ type
     rgNFe_modBCST: TRadioGroup;
     pnValorPautaBC_ICMS_ST: TPanel;
     Label12: TLabel;
-    edVALOR_PAUTA_BC_ST: TEdit;
+    edPROD_NFe_N21_vBCST_PAUTA: TEdit;
     bControleAlterar2: TcxButton;
     bControleIncluir2: TcxButton;
     Panel6: TPanel;
@@ -437,7 +439,7 @@ type
     cxButton13: TcxButton;
     DBGrid1: TDBGrid;
     Label24: TLabel;
-    edPROD_NFe_N14_pRedBC_ST: TEdit;
+    edPROD_NFe_N20_pRedBCST: TEdit;
     cbPROD_RASTREAVEL: TCheckBox;
     cbPROD_TRATANUMEROSERIE: TCheckBox;
     rgPROD_TRATALOTE: TRadioGroup;
@@ -488,9 +490,9 @@ type
     procedure edPROD_NFe_N14_pRedBCKeyPress(Sender: TObject; var Key: Char);
     procedure edVALOR_PAUTA_BCKeyPress(Sender: TObject; var Key: Char);
     procedure edNFe_pMVASTKeyPress(Sender: TObject; var Key: Char);
-    procedure cod_combKeyPress(Sender: TObject; var Key: Char);
+    //procedure cod_combKeyPress(Sender: TObject; var Key: Char);
     procedure ex_ipiKeyPress(Sender: TObject; var Key: Char);
-    procedure aliq_ipiKeyPress(Sender: TObject; var Key: Char);
+    procedure PROD_NFe_O13_pIPIKeyPress(Sender: TObject; var Key: Char);
     procedure aliq_pisKeyPress(Sender: TObject; var Key: Char);
     procedure aliq_cofinsKeyPress(Sender: TObject; var Key: Char);
     procedure edCESTKeyPress(Sender: TObject; var Key: Char);
@@ -611,7 +613,7 @@ type
     procedure edPROD_NFe_N16_pICMSExit(Sender: TObject);
     procedure edPROD_NFe_N14_pRedBCExit(Sender: TObject);
     procedure rgNFe_modBCClick(Sender: TObject);
-    procedure edVALOR_PAUTA_BC_STKeyPress(Sender: TObject; var Key: Char);
+    procedure edPROD_NFe_N21_vBCST_PAUTAKeyPress(Sender: TObject; var Key: Char);
     procedure rgNFe_modBCSTClick(Sender: TObject);
     procedure edArgumentoDePesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure tbViewKeyPress(Sender: TObject; var Key: Char);
@@ -638,7 +640,7 @@ type
     procedure edRPC_TPMOVKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edRPC_TPMOVChange(Sender: TObject);
-    procedure edPROD_NFe_N14_pRedBC_STKeyPress(Sender: TObject; var Key: Char);
+    procedure edPROD_NFe_N20_pRedBCSTKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edPROD_DESCRICAOMouseEnter(Sender: TObject);
     procedure edPROD_DESCRICAOMouseLeave(Sender: TObject);
@@ -1038,7 +1040,7 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.aliq_ipiKeyPress(Sender: TObject;
+procedure TFrm_Produto.PROD_NFe_O13_pIPIKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -1105,8 +1107,8 @@ begin
    if rgNFe_modBCST.ItemIndex = -1 then
       rgNFe_modBCST.ItemIndex := 6;
 
-   if edVALOR_PAUTA_BC_ST.Text = '' then
-      edVALOR_PAUTA_BC_ST.Text := '0';
+   if edPROD_NFe_N21_vBCST_PAUTA.Text = '' then
+      edPROD_NFe_N21_vBCST_PAUTA.Text := '0';
 
    if edNFe_pMVA.Text = '' then
       edNFe_pMVA.Text := '0';
@@ -1114,8 +1116,8 @@ begin
    if edNFe_pMVAST.Text = '' then
       edNFe_pMVAST.Text := '0';
 
-   if edPROD_NFe_N14_pRedBC_ST.Text = '' then
-      edPROD_NFe_N14_pRedBC_ST.Text := '0';
+   if edPROD_NFe_N20_pRedBCST.Text = '' then
+      edPROD_NFe_N20_pRedBCST.Text := '0';
 
    //Indicador de Escala Relevante
    //Padrão = 2-Nenhum
@@ -1146,7 +1148,7 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.edPROD_NFe_N14_pRedBC_STKeyPress(Sender: TObject;
+procedure TFrm_Produto.edPROD_NFe_N20_pRedBCSTKeyPress(Sender: TObject;
   var Key: Char);
 begin
   Key := u_funcoes.ApenasNumeros(Key);
@@ -2114,7 +2116,7 @@ begin
    // Modalidade BC ICMS ST = Valor de Pauta
    if rgNFe_modBCST.ItemIndex = 5 then
    begin
-      if Vazio_ou_Zero(edVALOR_PAUTA_BC_ST.Text) then
+      if Vazio_ou_Zero(edPROD_NFe_N21_vBCST_PAUTA.Text) then
       begin
          wnAlerta('Cadastrar Produto','Modalidade de BC ICMS ST Pauta exige que se informe o Valor de Pauta', taLeftJustify, 12);
          rgNFe_modBCST.SetFocus;
@@ -2123,7 +2125,7 @@ begin
    end
    else
    begin
-      if not Vazio_ou_Zero(edVALOR_PAUTA_BC_ST.Text) then
+      if not Vazio_ou_Zero(edPROD_NFe_N21_vBCST_PAUTA.Text) then
       begin
          wnAlerta('Cadastrar Produto','Modalidade de BC ST diferente de Pauta impede que se informe o Valor de Pauta', taLeftJustify, 12);
          rgNFe_modBCST.SetFocus;
@@ -2478,14 +2480,14 @@ begin
    ConsultarCODIGO_ORIGEM_MERCADORIA;
 end;
 
-procedure TFrm_Produto.cod_combKeyPress(Sender: TObject;
+{procedure TFrm_Produto.cod_combKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
   inherited;
   Key := u_funcoes.ApenasNumeros(Key);
 end;
-
+}
 procedure TFrm_Produto.PROD_MAXDESC_ATACClick(Sender: TObject);
 begin
 //  PROD_MAXDESC_ATAC.SelectAll;
@@ -2983,10 +2985,10 @@ begin
    qAUX.sql.add('       PROD_TRATALOTE,           ');
    qAUX.sql.add('       PROD_TRATANUMEROSERIE,    ');
    qAUX.sql.add('       VALOR_PAUTA_BC,           ');
-   qAUX.sql.add('       VALOR_PAUTA_BC_ST,        ');
+   qAUX.sql.add('       PROD_NFe_N21_vBCST_PAUTA,        ');
    qAUX.sql.add('       NFe_pMVA,                 ');
    qAUX.sql.add('       NFe_pMVAST,               ');
-   qAUX.sql.add('       PROD_NFe_N14_pRedBC_ST    ');
+   qAUX.sql.add('       PROD_NFe_N20_pRedBCST    ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
    qAUX.sql.add('     (:PROD_CODIGO,              ');
@@ -3020,10 +3022,10 @@ begin
    qAUX.sql.add('      :PROD_TRATALOTE,           ');
    qAUX.sql.add('      :PROD_TRATANUMEROSERIE,    ');
    qAUX.sql.add('      :VALOR_PAUTA_BC,           ');
-   qAUX.sql.add('      :VALOR_PAUTA_BC_ST,        ');
+   qAUX.sql.add('      :PROD_NFe_N21_vBCST_PAUTA,        ');
    qAUX.sql.add('      :NFe_pMVA,                 ');
    qAUX.sql.add('      :NFe_pMVAST,               ');
-   qAUX.sql.add('      :PROD_NFe_N14_pRedBC_ST    ');
+   qAUX.sql.add('      :PROD_NFe_N20_pRedBCST    ');
    qAUX.sql.add('     )                           ');
 
    //Codigo
@@ -3069,10 +3071,10 @@ begin
    qAUX.ParamByName('PROD_TRATALOTE'          ).AsInteger := rgPROD_TRATALOTE.ItemIndex;
    qAUX.ParamByName('PROD_TRATANUMEROSERIE'   ).AsInteger := Zero_ou_Um(cbPROD_RASTREAVEL.checked);
    qAUX.ParamByName('VALOR_PAUTA_BC'          ).AsFloat   := ValorValido(edVALOR_PAUTA_BC.Text);
-   qAUX.ParamByName('VALOR_PAUTA_BC_ST'       ).AsFloat   := ValorValido(edVALOR_PAUTA_BC_ST.Text);
+   qAUX.ParamByName('PROD_NFe_N21_vBCST_PAUTA'       ).AsFloat   := ValorValido(edPROD_NFe_N21_vBCST_PAUTA.Text);
    qAUX.ParamByName('NFe_pMVA'                ).AsFloat   := ValorValido(edNFe_pMVA.Text);
    qAUX.ParamByName('NFe_pMVAST'              ).AsFloat   := ValorValido(edNFe_pMVAST.Text);
-   qAUX.ParamByName('PROD_NFe_N14_pRedBC_ST'  ).AsFloat   := ValorValido(edPROD_NFe_N14_pRedBC_ST.Text);
+   qAUX.ParamByName('PROD_NFe_N20_pRedBCST'  ).AsFloat   := ValorValido(edPROD_NFe_N20_pRedBCST.Text);
    qAUX.ExecSQL;
 
    qAUX.Free;
@@ -3194,7 +3196,7 @@ begin
    rgNFe_modBCST.ItemIndex         := qConsulta.FieldByName('NFe_modBCST').AsInteger;
 
    //Valor da Pauta da BC do ICMS ST
-   edVALOR_PAUTA_BC_ST.Text        := Float_to_String(qConsulta.FieldByName('VALOR_PAUTA_BC_ST').AsFloat);
+   edPROD_NFe_N21_vBCST_PAUTA.Text        := Float_to_String(qConsulta.FieldByName('PROD_NFe_N21_vBCST_PAUTA').AsFloat);
 
    //Percentual de Margem de Valor Agregado (MVA) (ICMS)
    edNFe_pMVA.Text                 := Float_to_String(qConsulta.FieldByName('NFe_pMVA').AsFloat);
@@ -3203,7 +3205,7 @@ begin
    edNFe_pMVAST.Text               := Float_to_String(qConsulta.FieldByName('NFe_pMVAST').AsFloat);
 
    //Percentual de Redução da Base de Cálculo do ICMS ST
-   edPROD_NFe_N14_pRedBC_ST.Text   := Float_to_String(qConsulta.FieldByName('PROD_NFe_N14_pRedBC_ST').AsFloat);
+   edPROD_NFe_N20_pRedBCST.Text   := Float_to_String(qConsulta.FieldByName('PROD_NFe_N20_pRedBCST').AsFloat);
 
    //Indicador de Escala Relevante
    rgNFe_indEscala.ItemIndex       := qConsulta.FieldByName('NFe_indEscala').AsInteger;
@@ -3291,7 +3293,7 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.edVALOR_PAUTA_BC_STKeyPress(Sender: TObject;
+procedure TFrm_Produto.edPROD_NFe_N21_vBCST_PAUTAKeyPress(Sender: TObject;
   var Key: Char);
 begin
   inherited;
@@ -3805,11 +3807,9 @@ CREATE TABLE `produto` (
 	`PROD_NFe_N16_pICMS` DECIMAL(10,4) NULL DEFAULT NULL,
 	`PROD_NFe_N14_pRedBC` DECIMAL(10,4) NULL DEFAULT NULL,
 	`PROD_NFe_N16_pICMS_SUBST` VARCHAR(20) NULL DEFAULT NULL,
-	`PROD_NFe_N14_pRedBC_ST` DECIMAL(10,4) NULL DEFAULT NULL,
-	`LUCRO_SUBST_TRIBUTARIA` DECIMAL(10,4) NULL DEFAULT NULL,
-	`VALOR_PAUTA_BC_ST` DECIMAL(10,4) NULL DEFAULT NULL,
-	`COD_COMB` VARCHAR(20) NULL DEFAULT NULL,
-	`ALIQ_IPI` VARCHAR(20) NULL DEFAULT NULL,
+	`PROD_NFe_N20_pRedBCST` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_NFe_N21_vBCST_PAUTA` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_NFe_O13_pIPI` VARCHAR(20) NULL DEFAULT NULL,
 	`ENQUADRAMENTO_IPI` INT(11) NULL DEFAULT NULL,
 	`CODIGO_LOCALIZACAO` INT(11) NULL DEFAULT NULL,
 	`ICMS_CST` VARCHAR(3) NULL DEFAULT NULL,
@@ -3917,3 +3917,6 @@ Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51
 Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:54
+Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/06/2020 09:43
+Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:03
+Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50
