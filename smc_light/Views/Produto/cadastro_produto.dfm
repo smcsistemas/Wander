@@ -60,6 +60,10 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 0
       ParentFont = False
       OnShow = cxTabSheet1Show
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label58: TLabel
         Left = 20
         Top = 555
@@ -495,9 +499,9 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 90
           end
-          object tbViewALIQ_ICMS: TcxGridDBColumn
+          object tbViewPROD_NFe_N16_pICMS: TcxGridDBColumn
             Caption = 'ICMS %'
-            DataBinding.FieldName = 'ALIQ_ICMS'
+            DataBinding.FieldName = 'PROD_NFe_N16_pICMS'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.Alignment.Horz = taCenter
             Properties.DisplayFormat = ',0.00 %;-,0.00 %'
@@ -739,6 +743,10 @@ object Frm_Produto: TFrm_Produto
     object tab_Cadastrar: TcxTabSheet
       Caption = 'Cadastro'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel6: TPanel
         Left = 3
         Top = 2
@@ -3929,6 +3937,10 @@ object Frm_Produto: TFrm_Produto
     object tabTributacao: TcxTabSheet
       Caption = ' Tributa'#231#227'o'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel4: TPanel
         Left = -1
         Top = 3
@@ -4147,7 +4159,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
           end
-          object edALIQ_ICMS: TEdit
+          object edPROD_NFe_N16_pICMS: TEdit
             Left = 68
             Top = 81
             Width = 36
@@ -4161,10 +4173,10 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 6
-            OnExit = edALIQ_ICMSExit
-            OnKeyPress = edALIQ_ICMSKeyPress
+            OnExit = edPROD_NFe_N16_pICMSExit
+            OnKeyPress = edPROD_NFe_N16_pICMSKeyPress
           end
-          object edREDUCAO_ICMS: TEdit
+          object edPROD_NFe_N14_pRedBC: TEdit
             Left = 261
             Top = 79
             Width = 36
@@ -4178,8 +4190,8 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 7
-            OnExit = edREDUCAO_ICMSExit
-            OnKeyPress = edREDUCAO_ICMSKeyPress
+            OnExit = edPROD_NFe_N14_pRedBCExit
+            OnKeyPress = edPROD_NFe_N14_pRedBCKeyPress
           end
           object edICMS_CST: TEdit
             Left = 68
@@ -4565,7 +4577,7 @@ object Frm_Produto: TFrm_Produto
             TabOrder = 1
             OnKeyPress = edNFe_pMVASTKeyPress
           end
-          object edREDUCAO_ICMS_ST: TEdit
+          object edPROD_NFe_N14_pRedBC_ST: TEdit
             Left = 267
             Top = 55
             Width = 36
@@ -4579,7 +4591,7 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 2
-            OnKeyPress = edREDUCAO_ICMS_STKeyPress
+            OnKeyPress = edPROD_NFe_N14_pRedBC_STKeyPress
           end
         end
         object rgNFe_indEscala: TRadioGroup
@@ -6324,5 +6336,3 @@ object Frm_Produto: TFrm_Produto
     Top = 28
   end
 end
-Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
-Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33

@@ -3154,10 +3154,54 @@ begin
     end;
     if fNaoAtualizado('PROD_SALDO') Then
     begin
-       Executar('ALTER TABLE PRODUTO_PROD ADD PROD_SALDO DECIMAL(10,4) NULL DEFAULT 0.0  COMMENT "Saldo em estoque"');
+       Executar('ALTER TABLE PRODUTO_PROD ADD PROD_SALDO DECIMAL(15,4) NOT NULL DEFAULT 0.0  COMMENT "Saldo em estoque"');
        Executar('UPDATE PRODUTO_PROD SET PROD_SALDO = SALDO');
        Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN SALDO');
     end;
+
+    if fNaoAtualizado('ICMS') Then
+    begin
+       Executar('ALTER TABLE PRODUTO_PROD ADD PROD_NFe_N16_pICMS    DECIMAL(10,4) NOT NULL DEFAULT 0.0  COMMENT "Alíquota do ICMS"');
+       Executar('ALTER TABLE PRODUTO_PROD ADD PROD_NFe_N14_pRedBC   DECIMAL(10,4) NOT NULL DEFAULT 0.0  COMMENT "Percentual da Redução de BC do ICMS"');
+       Executar('ALTER TABLE PRODUTO_PROD ADD PROD_NFe_N22_pICMSST  DECIMAL(10,4) NOT NULL DEFAULT 0.0  COMMENT "Alíquota do imposto do ICMS ST"');
+       Executar('ALTER TABLE PRODUTO_PROD ADD PROD_NFe_N20_pRedBCST DECIMAL(10,4) NOT NULL DEFAULT 0.0  COMMENT "Percentual da Redução de BC do ICMS ST"');
+
+       Executar('UPDATE PRODUTO_PROD SET ALIQ_ICMS       = 0 WHERE ALIQ_ICMS       IS NULL');
+       Executar('UPDATE PRODUTO_PROD SET REDUCAO_ICMS    = 0 WHERE REDUCAO_ICMS    IS NULL');
+       Executar('UPDATE PRODUTO_PROD SET ALIQ_ICMS_SUBST = 0 WHERE ALIQ_ICMS_SUBST IS NULL');
+       Executar('UPDATE PRODUTO_PROD SET REDUCAO_ICMS_ST = 0 WHERE REDUCAO_ICMS_ST IS NULL');
+
+       Executar('UPDATE PRODUTO_PROD SET PROD_NFe_N16_pICMS    = ALIQ_ICMS      ');
+       Executar('UPDATE PRODUTO_PROD SET PROD_NFe_N14_pRedBC   = REDUCAO_ICMS   ');
+       Executar('UPDATE PRODUTO_PROD SET PROD_NFe_N22_pICMSST  = ALIQ_ICMS_SUBST');
+       Executar('UPDATE PRODUTO_PROD SET PROD_NFe_N20_pRedBCST = REDUCAO_ICMS_ST');
+
+    end;
+
+
+{
+
+//Nao encontrou no cod fonte...
+//ALIQ_ICMS_SUBST PROD_NFe_N22_pICMSST
+//REDUCAO_ICMS_ST PROD_NFe_N20_pRedBCST
+}
+
+    if fNaoAtualizado('UF_x_PRODUTO_UFPROD') Then
+    begin
+      Q1.Close;
+      Q1.Sql.Clear;
+      Q1.Sql.Add('CREATE TABLE UF_x_PRODUTO_UFPROD                                                                                ');
+      Q1.Sql.Add('     (                                                                                                          ');
+      Q1.Sql.Add('       UFPROD_UF           VARCHAR(02)   NOT NULL COMMENT "UF de destino para ST do ICMS",                      ');
+      Q1.Sql.Add('       UFPROD_CODIGO       VARCHAR(20)   NOT NULL COMMENT "Cod do Produto para ST do ICMS",                     ');
+      Q1.Sql.Add('       UFPROD_NFe_N15_pMVA DECIMAL(10,4) NOT NULL COMMENT "Percentual de MVA do ST do ICMS do Produto nesta UF" ');
+      Q1.Sql.Add('     )                                                                                                          ');
+      Q1.Sql.Add('COMMENT="Percentual de Margem de Valor Agregado (MVA) dos produtos nas UFs"                                     ');
+      Q1.ExecSql;
+    end;
+
+
+   //VALOR_PAUTA_BC
 
     Executar('SET FOREIGN_KEY_CHECKS = 1');
 
@@ -3165,11 +3209,8 @@ end;
 
 end.
     {
-	`SALDO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`ALIQ_ICMS` DECIMAL(10,4) NULL DEFAULT NULL,
-	`REDUCAO_ICMS` DECIMAL(10,4) NULL DEFAULT NULL,
-	`ALIQ_ICMS_SUBST` VARCHAR(20) NULL DEFAULT NULL,
-	`REDUCAO_ICMS_ST` DECIMAL(10,4) NULL DEFAULT NULL,
+	`
+
 	`LUCRO_SUBST_TRIBUTARIA` DECIMAL(10,4) NULL DEFAULT NULL,
 	`VALOR_PAUTA_BC_ST` DECIMAL(10,4) NULL DEFAULT NULL,
 	`LEIS` VARCHAR(20) NULL DEFAULT NULL,

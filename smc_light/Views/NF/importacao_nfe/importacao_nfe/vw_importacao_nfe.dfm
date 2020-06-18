@@ -4539,9 +4539,9 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
             Position.ColIndex = 0
             Position.RowIndex = 0
           end
-          object dbtvMainALIQ_ICMS: TcxGridDBBandedColumn
+          object dbtvMainPROD_NFe_N16_pICMS: TcxGridDBBandedColumn
             Caption = '%'
-            DataBinding.FieldName = 'ALIQ_ICMS'
+            DataBinding.FieldName = 'PROD_NFe_N16_pICMS'
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.00 %;- ,0.00 %'
             HeaderAlignmentHorz = taCenter
@@ -4980,8 +4980,8 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
       FieldName = 'CST_ICMS'
       Size = 2
     end
-    object SQL_PRODUTOSALIQ_ICMS: TBCDField
-      FieldName = 'ALIQ_ICMS'
+    object SQL_PRODUTOSPROD_NFe_N16_pICMS: TBCDField
+      FieldName = 'PROD_NFe_N16_pICMS'
       Precision = 10
     end
     object SQL_PRODUTOSCST_PIS: TStringField
@@ -5904,3 +5904,4 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
   end
 end
 Trocou FieldName = 'MARCA' por FieldName = 'PROD_MARCA' : automaticamente em 16/06/2020 16:22
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51

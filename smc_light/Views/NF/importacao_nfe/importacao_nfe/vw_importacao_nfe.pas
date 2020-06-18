@@ -316,7 +316,7 @@ type
     TextEdit: TcxEditRepositoryTextItem;
     comboBoxTIPO: TcxEditRepositoryComboBoxItem;
     SQL_PRODUTOSCST_ICMS: TStringField;
-    SQL_PRODUTOSALIQ_ICMS: TBCDField;
+    SQL_PRODUTOSPROD_NFe_N16_pICMS: TBCDField;
     SQL_PRODUTOSCST_PIS: TStringField;
     SQL_PRODUTOSCST_COFINS: TStringField;
     dbtvMainBASE_ICMS: TcxGridDBBandedColumn;
@@ -330,7 +330,7 @@ type
     dbtvMainCST_IPI: TcxGridDBBandedColumn;
     dbtvMainENQUADRAMENTO_IPI: TcxGridDBBandedColumn;
     dbtvMainCST_ICMS: TcxGridDBBandedColumn;
-    dbtvMainALIQ_ICMS: TcxGridDBBandedColumn;
+    dbtvMainPROD_NFe_N16_pICMS: TcxGridDBBandedColumn;
     dbtvMainCST_PIS: TcxGridDBBandedColumn;
     dbtvMainCST_COFINS: TcxGridDBBandedColumn;
     tmr: TTimer;
@@ -1198,7 +1198,7 @@ begin
           dbtvMainPRECO_VENDA.EditValue := objProduto.PROD_PRECO_VAR;
 
           dbtvMainCST_ICMS.EditValue := objProduto.ICMS_CST;
-          dbtvMainALIQ_ICMS.EditValue := objProduto.ALIQ_ICMS;
+          dbtvMainPROD_NFe_N16_pICMS.EditValue := objProduto.PROD_NFe_N16_pICMS;
           dbtvMainCST_PIS.EditValue := objProduto.PIS_CST;
           dbtvMainCST_COFINS.EditValue := objProduto.COFINS_CST;
           dbtvMainCSOSN.EditValue := objProduto.CSOSN;
@@ -1256,9 +1256,9 @@ begin
   begin
 
     if ICMS.Text = '00' then
-      dbtvMainALIQ_ICMS.EditValue := TParametros_Tributacao.ALIQ_ICMS
+      dbtvMainPROD_NFe_N16_pICMS.EditValue := TParametros_Tributacao.PROD_NFe_N16_pICMS
     else if ansimatchstr(ICMS.Text, ['40', '41', '60']) then
-      dbtvMainALIQ_ICMS.EditValue := 0;
+      dbtvMainPROD_NFe_N16_pICMS.EditValue := 0;
 
     dbtvMainCST_ICMS.EditValue := ICMS.Text;
     dbtvMainCSOSN.EditValue := ticms.Create(dbtvMainCST_ICMS.EditValue).CSOSN;
@@ -1798,3 +1798,4 @@ Trocou ('PROD_MARCA por ('MARCA : automaticamente em 16/06/2020 16:08
 Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22:28
 Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:42
 Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51

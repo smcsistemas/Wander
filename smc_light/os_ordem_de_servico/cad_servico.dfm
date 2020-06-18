@@ -1548,27 +1548,27 @@ object Frm_cad_servico: TFrm_cad_servico
       Origin = 'PROD_SALDO'
       Precision = 10
     end
-    object SQL_C_ServicoALIQ_ICMS: TBCDField
+    object SQL_C_ServicoPROD_NFe_N16_pICMS: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_ICMS'
-      Origin = 'ALIQ_ICMS'
+      FieldName = 'PROD_NFe_N16_pICMS'
+      Origin = 'PROD_NFe_N16_pICMS'
       Precision = 10
     end
-    object SQL_C_ServicoREDUCAO_ICMS: TBCDField
+    object SQL_C_ServicoPROD_NFe_N14_pRedBC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'REDUCAO_ICMS'
-      Origin = 'REDUCAO_ICMS'
+      FieldName = 'PROD_NFe_N14_pRedBC'
+      Origin = 'PROD_NFe_N14_pRedBC'
       Precision = 10
     end
-    object SQL_C_ServicoALIQ_ICMS_SUBST: TStringField
+    object SQL_C_ServicoPROD_NFe_N16_pICMS_SUBST: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_ICMS_SUBST'
-      Origin = 'ALIQ_ICMS_SUBST'
+      FieldName = 'PROD_NFe_N16_pICMS_SUBST'
+      Origin = 'PROD_NFe_N16_pICMS_SUBST'
     end
-    object SQL_C_ServicoREDUCAO_ICMS_ST: TBCDField
+    object SQL_C_ServicoPROD_NFe_N14_pRedBC_ST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'REDUCAO_ICMS_ST'
-      Origin = 'REDUCAO_ICMS_ST'
+      FieldName = 'PROD_NFe_N14_pRedBC_ST'
+      Origin = 'PROD_NFe_N14_pRedBC_ST'
       Precision = 10
     end
     object SQL_C_ServicoLUCRO_SUBST_TRIBUTARIA: TBCDField
@@ -1858,3 +1858,5 @@ Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:4
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
 Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50
+Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:53

@@ -155,7 +155,7 @@ type
     SQL_LS_AUTORIZADAICMS_CST: TStringField;
     SQL_LS_AUTORIZADAPRECO_TOTAL: TFMTBCDField;
     SQL_LS_AUTORIZADAOUTROS: TFMTBCDField;
-    SQL_LS_AUTORIZADAALIQ_ICMS: TBCDField;
+    SQL_LS_AUTORIZADAPROD_NFe_N16_pICMS: TBCDField;
     SQL_LS_AUTORIZADAVALOR_ICMS: TFMTBCDField;
     SQL_INUT_CANCDATA_EMISSAO: TDateField;
     SQL_INUT_CANCMODELO: TStringField;
@@ -422,7 +422,7 @@ type
     sql_livro_entradaMUNICIPIO: TStringField;
     sql_livro_entradaDATA_EMISSAO: TDateTimeField;
     sql_livro_entradaBASE_ICMS: TBCDField;
-    sql_livro_entradaALIQ_ICMS: TBCDField;
+    sql_livro_entradaPROD_NFe_N16_pICMS: TBCDField;
     sql_an_entradaCST_ICMS: TStringField;
     sql_an_entradaCSOSN: TStringField;
     sql_an_entradaCFOP: TStringField;
@@ -563,7 +563,7 @@ type
     SQL_ANICMS_CST: TStringField;
     SQL_ANPRECO_BASE: TFMTBCDField;
     SQL_ANOUTROS: TFMTBCDField;
-    SQL_ANALIQ_ICMS: TBCDField;
+    SQL_ANPROD_NFe_N16_pICMS: TBCDField;
     SQL_ANVALOR_ICMS: TFMTBCDField;
     SQL_ANMODELO: TStringField;
     GroupBox12: TGroupBox;
@@ -694,10 +694,10 @@ type
     sql_produtosVALOR_PROMOCIONAL_ATACADO: TBCDField;
     sql_produtosVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
     sql_produtosVALOR_PROMOCIONAL_VAREJO: TBCDField;
-    sql_produtosALIQ_ICMS: TBCDField;
-    sql_produtosREDUCAO_ICMS: TBCDField;
-    sql_produtosALIQ_ICMS_SUBST: TStringField;
-    sql_produtosREDUCAO_ICMS_ST: TBCDField;
+    sql_produtosPROD_NFe_N16_pICMS: TBCDField;
+    sql_produtosPROD_NFe_N14_pRedBC: TBCDField;
+    sql_produtosPROD_NFe_N16_pICMS_SUBST: TStringField;
+    sql_produtosPROD_NFe_N14_pRedBC_ST: TBCDField;
     sql_produtosLUCRO_SUBST_TRIBUTARIA: TBCDField;
     sql_produtosVALOR_PAUTA_BC_ST: TBCDField;
     sql_produtosLEIS: TStringField;
@@ -1435,10 +1435,10 @@ begin
         end;
       end;
 
-      ExecQuery('UPDATE PRODUTO SET CSOSN="",ALIQ_ICMS=(SELECT ps.ALIQ_IMCS FROM PARAMETROS_SISTEMA ps), PIS_CST="01", COFINS_CST="01" WHERE icms_cst="00" ');
-      ExecQuery('UPDATE PRODUTO SET CSOSN="103",ALIQ_ICMS = 0,PIS_CST="99", COFINS_CST="99" WHERE icms_cst="40" ');
-      ExecQuery('UPDATE PRODUTO SET CSOSN="102",ALIQ_ICMS = 0,PIS_CST="99", COFINS_CST="99" WHERE icms_cst="41" ');
-      ExecQuery('UPDATE PRODUTO SET CSOSN="500",ALIQ_ICMS = 0,PIS_CST="99", COFINS_CST="99" WHERE icms_cst="60" ');
+      ExecQuery('UPDATE PRODUTO SET CSOSN="",PROD_NFe_N16_pICMS=(SELECT ps.ALIQ_IMCS FROM PARAMETROS_SISTEMA ps), PIS_CST="01", COFINS_CST="01" WHERE icms_cst="00" ');
+      ExecQuery('UPDATE PRODUTO SET CSOSN="103",PROD_NFe_N16_pICMS = 0,PIS_CST="99", COFINS_CST="99" WHERE icms_cst="40" ');
+      ExecQuery('UPDATE PRODUTO SET CSOSN="102",PROD_NFe_N16_pICMS = 0,PIS_CST="99", COFINS_CST="99" WHERE icms_cst="41" ');
+      ExecQuery('UPDATE PRODUTO SET CSOSN="500",PROD_NFe_N16_pICMS = 0,PIS_CST="99", COFINS_CST="99" WHERE icms_cst="60" ');
 
       SQL_LS_AUTORIZADA.close;
       SQL_LS_AUTORIZADA.parambyname('pdata_emissao_1').Value := p_inicio;
@@ -1906,3 +1906,5 @@ Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:4
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
 Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50
+Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:54

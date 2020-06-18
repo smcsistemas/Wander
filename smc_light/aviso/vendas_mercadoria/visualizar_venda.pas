@@ -72,7 +72,7 @@ type
     SQL_VENDA_ITENSCFOP: TStringField;
     SQL_VENDA_ITENSCSOSN: TStringField;
     SQL_VENDA_ITENSICMS_CST: TStringField;
-    SQL_VENDA_ITENSALIQ_ICMS: TBCDField;
+    SQL_VENDA_ITENSPROD_NFe_N16_pICMS: TBCDField;
     SQL_VENDA_ITENSPIS_CST: TStringField;
     SQL_VENDA_ITENSCOFINS_CST: TStringField;
     SQL_VENDA_ITENSPROD_CDUNIDADE: TStringField;
@@ -326,3 +326,4 @@ end;
 end.
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:00
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:49

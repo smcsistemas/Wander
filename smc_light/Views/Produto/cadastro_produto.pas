@@ -286,7 +286,7 @@ type
     tbViewPROD_CDUNIDADE: TcxGridDBColumn;
     tbViewTIPO_ITEM: TcxGridDBColumn;
     tbViewPROD_SALDO: TcxGridDBColumn;
-    tbViewALIQ_ICMS: TcxGridDBColumn;
+    tbViewPROD_NFe_N16_pICMS: TcxGridDBColumn;
     tbViewICMS_CST: TcxGridDBColumn;
     tbViewPIS_CST: TcxGridDBColumn;
     tbViewCOFINS_CST: TcxGridDBColumn;
@@ -340,8 +340,8 @@ type
     Label2: TLabel;
     Label52: TLabel;
     Label53: TLabel;
-    edALIQ_ICMS: TEdit;
-    edREDUCAO_ICMS: TEdit;
+    edPROD_NFe_N16_pICMS: TEdit;
+    edPROD_NFe_N14_pRedBC: TEdit;
     edICMS_CST: TEdit;
     edICMS_CST_NOME: TEdit;
     cxButton5: TcxButton;
@@ -437,7 +437,7 @@ type
     cxButton13: TcxButton;
     DBGrid1: TDBGrid;
     Label24: TLabel;
-    edREDUCAO_ICMS_ST: TEdit;
+    edPROD_NFe_N14_pRedBC_ST: TEdit;
     cbPROD_RASTREAVEL: TCheckBox;
     cbPROD_TRATANUMEROSERIE: TCheckBox;
     rgPROD_TRATALOTE: TRadioGroup;
@@ -484,8 +484,8 @@ type
     procedure cxDBTextEdit28KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit26KeyPress(Sender: TObject; var Key: Char);
     procedure DBEdit1KeyPress(Sender: TObject; var Key: Char);
-    procedure edALIQ_ICMSKeyPress(Sender: TObject; var Key: Char);
-    procedure edREDUCAO_ICMSKeyPress(Sender: TObject; var Key: Char);
+    procedure edPROD_NFe_N16_pICMSKeyPress(Sender: TObject; var Key: Char);
+    procedure edPROD_NFe_N14_pRedBCKeyPress(Sender: TObject; var Key: Char);
     procedure edVALOR_PAUTA_BCKeyPress(Sender: TObject; var Key: Char);
     procedure edNFe_pMVASTKeyPress(Sender: TObject; var Key: Char);
     procedure cod_combKeyPress(Sender: TObject; var Key: Char);
@@ -608,8 +608,8 @@ type
     procedure edCODIGO_ORIGEM_MERCADORIAKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edCODIGO_ORIGEM_MERCADORIAExit(Sender: TObject);
-    procedure edALIQ_ICMSExit(Sender: TObject);
-    procedure edREDUCAO_ICMSExit(Sender: TObject);
+    procedure edPROD_NFe_N16_pICMSExit(Sender: TObject);
+    procedure edPROD_NFe_N14_pRedBCExit(Sender: TObject);
     procedure rgNFe_modBCClick(Sender: TObject);
     procedure edVALOR_PAUTA_BC_STKeyPress(Sender: TObject; var Key: Char);
     procedure rgNFe_modBCSTClick(Sender: TObject);
@@ -638,7 +638,7 @@ type
     procedure edRPC_TPMOVKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edRPC_TPMOVChange(Sender: TObject);
-    procedure edREDUCAO_ICMS_STKeyPress(Sender: TObject; var Key: Char);
+    procedure edPROD_NFe_N14_pRedBC_STKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edPROD_DESCRICAOMouseEnter(Sender: TObject);
     procedure edPROD_DESCRICAOMouseLeave(Sender: TObject);
@@ -674,6 +674,9 @@ type
     procedure Ir_Para_Cadastro;
     procedure Ir_Para_Consulta;
     procedure Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
+    procedure Aumentar_Descricao;
+    procedure Diminuir_Descricao;
+
   public
     { Public declarations }
     deletar_prod_preco_faixa, consultarultimo: Boolean;
@@ -1019,16 +1022,16 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.edALIQ_ICMSExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_NFe_N16_pICMSExit(Sender: TObject);
 begin
-   if not PercentualCorreto(edALIQ_ICMS.Text,'Alíquota de ICMS') then
+   if not PercentualCorreto(edPROD_NFe_N16_pICMS.Text,'Alíquota de ICMS') then
    begin
-      edALIQ_ICMS.SetFocus;
+      edPROD_NFe_N16_pICMS.SetFocus;
       exit;
   end;
 end;
 
-procedure TFrm_Produto.edALIQ_ICMSKeyPress(Sender: TObject;
+procedure TFrm_Produto.edPROD_NFe_N16_pICMSKeyPress(Sender: TObject;
   var Key: Char);
 begin
   inherited;
@@ -1111,8 +1114,8 @@ begin
    if edNFe_pMVAST.Text = '' then
       edNFe_pMVAST.Text := '0';
 
-   if edREDUCAO_ICMS_ST.Text = '' then
-      edREDUCAO_ICMS_ST.Text := '0';
+   if edPROD_NFe_N14_pRedBC_ST.Text = '' then
+      edPROD_NFe_N14_pRedBC_ST.Text := '0';
 
    //Indicador de Escala Relevante
    //Padrão = 2-Nenhum
@@ -1126,16 +1129,16 @@ begin
 
 end;
 
-procedure TFrm_Produto.edREDUCAO_ICMSExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_NFe_N14_pRedBCExit(Sender: TObject);
 begin
-   if not PercentualCorreto(edREDUCAO_ICMS.Text,'Redução do ICMS') then
+   if not PercentualCorreto(edPROD_NFe_N14_pRedBC.Text,'Redução do ICMS') then
    begin
-      edREDUCAO_ICMS.SetFocus;
+      edPROD_NFe_N14_pRedBC.SetFocus;
       exit;
    end;
 end;
 
-procedure TFrm_Produto.edREDUCAO_ICMSKeyPress(Sender: TObject;
+procedure TFrm_Produto.edPROD_NFe_N14_pRedBCKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -1143,7 +1146,7 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.edREDUCAO_ICMS_STKeyPress(Sender: TObject;
+procedure TFrm_Produto.edPROD_NFe_N14_pRedBC_STKeyPress(Sender: TObject;
   var Key: Char);
 begin
   Key := u_funcoes.ApenasNumeros(Key);
@@ -2076,15 +2079,15 @@ begin
 
    result := false;
 
-   if not PercentualCorreto(edALIQ_ICMS.Text,'Alíquota de ICMS') then
+   if not PercentualCorreto(edPROD_NFe_N16_pICMS.Text,'Alíquota de ICMS') then
    begin
-      edALIQ_ICMS.SetFocus;
+      edPROD_NFe_N16_pICMS.SetFocus;
       exit;
    end;
 
-   if not PercentualCorreto(edREDUCAO_ICMS.Text,'Redução do ICMS') then
+   if not PercentualCorreto(edPROD_NFe_N14_pRedBC.Text,'Redução do ICMS') then
    begin
-      edREDUCAO_ICMS.SetFocus;
+      edPROD_NFe_N14_pRedBC.SetFocus;
       exit;
    end;
 
@@ -2303,18 +2306,36 @@ end;
 
 procedure TFrm_Produto.Label4MouseEnter(Sender: TObject);
 begin
+  Aumentar_Descricao;
+end;
 
+procedure TFrm_Produto.Aumentar_Descricao;
+begin
   label4.font.Color:=clBlue;
   label4.font.size := 16;
-  Frm_Produto.Repaint;
 
+  edPROD_DESCRICAO.Color := clBlue;
+  edPROD_DESCRICAO.font.Color:=clWhite;
+  edPROD_DESCRICAO.font.size := 16;
+
+  Frm_Produto.Repaint;
+end;
+
+procedure TFrm_Produto.Diminuir_Descricao;
+begin
+  label4.font.Color:=clBlack;
+  label4.font.size := 11;
+
+  edPROD_DESCRICAO.Color := clWhite;
+  edPROD_DESCRICAO.font.Color:=clBlack;
+  edPROD_DESCRICAO.font.size := 11;
+
+  Frm_Produto.Repaint;
 end;
 
 procedure TFrm_Produto.Label4MouseLeave(Sender: TObject);
 begin
-  label4.font.Color:=clBlack;
-  label4.font.size := 11;
-  Frm_Produto.Repaint;
+  Diminuir_Descricao;
 end;
 
 function TFrm_Produto.JaExiste_PROD_DESCRICAO: Boolean;
@@ -2583,18 +2604,12 @@ end;
 
 procedure TFrm_Produto.edPROD_DESCRICAOMouseEnter(Sender: TObject);
 begin
-  edPROD_DESCRICAO.Color := clBlue;
-  edPROD_DESCRICAO.font.Color:=clWhite;
-   edPROD_DESCRICAO.font.size := 16;
-   Frm_Produto.Repaint;
+  Aumentar_Descricao;
 end;
 
 procedure TFrm_Produto.edPROD_DESCRICAOMouseLeave(Sender: TObject);
 begin
-  edPROD_DESCRICAO.Color := clWhite;
-  edPROD_DESCRICAO.font.Color:=clBlack;
-  edPROD_DESCRICAO.font.size := 11;
-  Frm_Produto.Repaint;
+  Diminuir_Descricao;
 end;
 
 procedure TFrm_Produto.DESP_OPERACIONAISClick(Sender: TObject);
@@ -2950,19 +2965,17 @@ begin
    qAUX.sql.add('       PROD_CDFAMILIA,           ');
    qAUX.sql.add('       PROD_CDGRUPO,             ');
    qAUX.sql.add('       PROD_CDSUBGRUPO,          ');
-   //qAUX.sql.add('       GENERO,                   ');
-   //qAUX.sql.add('       LEIS,                     ');
    qAUX.sql.add('       NCM,                      ');
    qAUX.sql.add('       CEST,                     ');
-   qAUX.sql.add('       PROD_PRECO_ATAC,      ');
-   qAUX.sql.add('       PROD_PRECO_VAR,       ');
-   qAUX.sql.add('       PROD_PRECO_DIST, ');
+   qAUX.sql.add('       PROD_PRECO_ATAC,          ');
+   qAUX.sql.add('       PROD_PRECO_VAR,           ');
+   qAUX.sql.add('       PROD_PRECO_DIST,          ');
    qAUX.sql.add('       STATUS_CADASTRAL,         ');
    qAUX.sql.add('       ICMS_CST,                 ');
    qAUX.sql.add('       PROD_CDTIPOITEM,          ');
    qAUX.sql.add('       CODIGO_ORIGEM_MERCADORIA, ');
-   qAUX.sql.add('       ALIQ_ICMS,                ');
-   qAUX.sql.add('       REDUCAO_ICMS,             ');
+   qAUX.sql.add('       PROD_NFe_N16_pICMS,       ');
+   qAUX.sql.add('       PROD_NFe_N14_pRedBC,      ');
    qAUX.sql.add('       NFe_modBC,                ');
    qAUX.sql.add('       NFe_modBCST,              ');
    qAUX.sql.add('       NFe_indEscala,            ');
@@ -2973,7 +2986,7 @@ begin
    qAUX.sql.add('       VALOR_PAUTA_BC_ST,        ');
    qAUX.sql.add('       NFe_pMVA,                 ');
    qAUX.sql.add('       NFe_pMVAST,               ');
-   qAUX.sql.add('       REDUCAO_ICMS_ST           ');
+   qAUX.sql.add('       PROD_NFe_N14_pRedBC_ST    ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
    qAUX.sql.add('     (:PROD_CODIGO,              ');
@@ -2989,19 +3002,17 @@ begin
    qAUX.sql.add('      :PROD_CDFAMILIA,           ');
    qAUX.sql.add('      :PROD_CDGRUPO,             ');
    qAUX.sql.add('      :PROD_CDSUBGRUPO,          ');
-   //qAUX.sql.add('      :GENERO,                   ');
-   //qAUX.sql.add('      :LEIS,                     ');
    qAUX.sql.add('      :NCM,                      ');
    qAUX.sql.add('      :CEST,                     ');
-   qAUX.sql.add('      :PROD_PRECO_ATAC,      ');
-   qAUX.sql.add('      :PROD_PRECO_VAR,       ');
-   qAUX.sql.add('      :PROD_PRECO_DIST, ');
+   qAUX.sql.add('      :PROD_PRECO_ATAC,          ');
+   qAUX.sql.add('      :PROD_PRECO_VAR,           ');
+   qAUX.sql.add('      :PROD_PRECO_DIST,          ');
    qAUX.sql.add('      :STATUS_CADASTRAL,         ');
    qAUX.sql.add('      :ICMS_CST,                 ');
    qAUX.sql.add('      :PROD_CDTIPOITEM,          ');
    qAUX.sql.add('      :CODIGO_ORIGEM_MERCADORIA, ');
-   qAUX.sql.add('      :ALIQ_ICMS,                ');
-   qAUX.sql.add('      :REDUCAO_ICMS,             ');
+   qAUX.sql.add('      :PROD_NFe_N16_pICMS,       ');
+   qAUX.sql.add('      :PROD_NFe_N14_pRedBC,      ');
    qAUX.sql.add('      :NFe_modBC,                ');
    qAUX.sql.add('      :NFe_modBCST,              ');
    qAUX.sql.add('      :NFe_indEscala,            ');
@@ -3012,7 +3023,7 @@ begin
    qAUX.sql.add('      :VALOR_PAUTA_BC_ST,        ');
    qAUX.sql.add('      :NFe_pMVA,                 ');
    qAUX.sql.add('      :NFe_pMVAST,               ');
-   qAUX.sql.add('      :REDUCAO_ICMS_ST           ');
+   qAUX.sql.add('      :PROD_NFe_N14_pRedBC_ST    ');
    qAUX.sql.add('     )                           ');
 
    //Codigo
@@ -3040,19 +3051,17 @@ begin
    qAUX.ParamByName('PROD_CDFAMILIA'          ).AsString  := edPROD_CDFAMILIA.Text;
    qAUX.ParamByName('PROD_CDGRUPO'            ).AsString  := edPROD_GRUPO.Text;
    qAUX.ParamByName('PROD_CDSUBGRUPO'         ).AsString  := edPROD_CDSUBGRUPO.Text;
-   //qAUX.ParamByName('GENERO'                  ).AsString  := edGENERO.Text;
-   //qAUX.ParamByName('LEIS'                    ).AsString  := edLEIS.Text;
    qAUX.ParamByName('NCM'                     ).AsString  := edNCM.Text;
    qAUX.ParamByName('CEST'                    ).AsString  := edCEST.Text;
-   qAUX.ParamByName('PROD_PRECO_ATAC'     ).AsFloat   := ValorValido(edPROD_PRECO_ATAC.Text);
-   qAUX.ParamByName('PROD_PRECO_VAR'      ).AsFloat   := ValorValido(edPROD_PRECO_VAR.Text);
-   qAUX.ParamByName('PROD_PRECO_DIST').AsFloat   := ValorValido(edPROD_PRECO_DIST.Text);
+   qAUX.ParamByName('PROD_PRECO_ATAC'         ).AsFloat   := ValorValido(edPROD_PRECO_ATAC.Text);
+   qAUX.ParamByName('PROD_PRECO_VAR'          ).AsFloat   := ValorValido(edPROD_PRECO_VAR.Text);
+   qAUX.ParamByName('PROD_PRECO_DIST'         ).AsFloat   := ValorValido(edPROD_PRECO_DIST.Text);
    qAUX.ParamByName('STATUS_CADASTRAL'        ).AsString  := Ativo_ou_Inativo(cbSTATUS_CADASTRAL.Checked);
    qAUX.ParamByName('ICMS_CST'                ).AsString  := edICMS_CST.Text;
    qAUX.ParamByName('PROD_CDTIPOITEM'         ).AsString  := edPROD_CDTIPOITEM.Text;
    qAUX.ParamByName('CODIGO_ORIGEM_MERCADORIA').AsInteger := InteiroMenos1_se_Vazio(edCODIGO_ORIGEM_MERCADORIA.Text);
-   qAUX.ParamByName('ALIQ_ICMS'               ).AsFloat   := ValorValido(edALIQ_ICMS.Text);
-   qAUX.ParamByName('REDUCAO_ICMS'            ).AsFloat   := ValorValido(edREDUCAO_ICMS.Text);
+   qAUX.ParamByName('PROD_NFe_N16_pICMS'      ).AsFloat   := ValorValido(edPROD_NFe_N16_pICMS.Text);
+   qAUX.ParamByName('PROD_NFe_N14_pRedBC'     ).AsFloat   := ValorValido(edPROD_NFe_N14_pRedBC.Text);
    qAUX.ParamByName('NFe_modBC'               ).AsInteger := rgNFe_modBC.ItemIndex;
    qAUX.ParamByName('NFe_modBCST'             ).AsInteger := rgNFe_modBCST.ItemIndex;
    qAUX.ParamByName('NFe_indEscala'           ).AsInteger := rgNFe_indEscala.ItemIndex;
@@ -3063,7 +3072,7 @@ begin
    qAUX.ParamByName('VALOR_PAUTA_BC_ST'       ).AsFloat   := ValorValido(edVALOR_PAUTA_BC_ST.Text);
    qAUX.ParamByName('NFe_pMVA'                ).AsFloat   := ValorValido(edNFe_pMVA.Text);
    qAUX.ParamByName('NFe_pMVAST'              ).AsFloat   := ValorValido(edNFe_pMVAST.Text);
-   qAUX.ParamByName('REDUCAO_ICMS_ST'         ).AsFloat   := ValorValido(edREDUCAO_ICMS_ST.Text);
+   qAUX.ParamByName('PROD_NFe_N14_pRedBC_ST'  ).AsFloat   := ValorValido(edPROD_NFe_N14_pRedBC_ST.Text);
    qAUX.ExecSQL;
 
    qAUX.Free;
@@ -3151,9 +3160,9 @@ begin
    edCEST.Text                     := qConsulta.FieldByName('CEST').AsString;
 
    //Preços de Venda
-   edPROD_PRECO_ATAC.Text      := Float_to_String(qConsulta.FieldByName('PROD_PRECO_ATAC'     ).AsFloat);
-   edPROD_PRECO_VAR.Text       := Float_to_String(qConsulta.FieldByName('PROD_PRECO_VAR'      ).AsFloat);
-   edPROD_PRECO_DIST.Text := Float_to_String(qConsulta.FieldByName('PROD_PRECO_DIST').AsFloat);
+   edPROD_PRECO_ATAC.Text      := Float_to_String(qConsulta.FieldByName('PROD_PRECO_ATAC').AsFloat);
+   edPROD_PRECO_VAR.Text       := Float_to_String(qConsulta.FieldByName('PROD_PRECO_VAR' ).AsFloat);
+   edPROD_PRECO_DIST.Text      := Float_to_String(qConsulta.FieldByName('PROD_PRECO_DIST').AsFloat);
 
    //Ativo/Inativo
    cbSTATUS_CADASTRAL.Checked      := (qConsulta.FieldByName('STATUS_CADASTRAL').AsString = 'ATIVO');
@@ -3170,43 +3179,43 @@ begin
    edCODIGO_ORIGEM_MERCADORIA_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edCODIGO_ORIGEM_MERCADORIA.Text);
 
    //Alíquota do ICMS
-   edALIQ_ICMS.Text                     := Float_to_String(qConsulta.FieldByName('ALIQ_ICMS').AsFloat);
+   edPROD_NFe_N16_pICMS.Text       := Float_to_String(qConsulta.FieldByName('PROD_NFe_N16_pICMS').AsFloat);
 
    //Percentual de redução da Alíquota do ICMS
-   edREDUCAO_ICMS.Text                  := Float_to_String(qConsulta.FieldByName('REDUCAO_ICMS').AsFloat);
+   edPROD_NFe_N14_pRedBC.Text      := Float_to_String(qConsulta.FieldByName('PROD_NFe_N14_pRedBC').AsFloat);
 
    //Modalidade de determinação da BC do ICMS
-   rgNFe_modBC.ItemIndex                := qConsulta.FieldByName('NFe_modBC').AsInteger;
+   rgNFe_modBC.ItemIndex           := qConsulta.FieldByName('NFe_modBC').AsInteger;
 
    //Valor da Pauta da BC do ICMS
-   edVALOR_PAUTA_BC.Text                := Float_to_String(qConsulta.FieldByName('VALOR_PAUTA_BC').AsFloat);
+   edVALOR_PAUTA_BC.Text           := Float_to_String(qConsulta.FieldByName('VALOR_PAUTA_BC').AsFloat);
 
    //Modalidade de determinação da BC do ICMS ST
-   rgNFe_modBCST.ItemIndex              := qConsulta.FieldByName('NFe_modBCST').AsInteger;
+   rgNFe_modBCST.ItemIndex         := qConsulta.FieldByName('NFe_modBCST').AsInteger;
 
    //Valor da Pauta da BC do ICMS ST
-   edVALOR_PAUTA_BC_ST.Text             := Float_to_String(qConsulta.FieldByName('VALOR_PAUTA_BC_ST').AsFloat);
+   edVALOR_PAUTA_BC_ST.Text        := Float_to_String(qConsulta.FieldByName('VALOR_PAUTA_BC_ST').AsFloat);
 
    //Percentual de Margem de Valor Agregado (MVA) (ICMS)
-   edNFe_pMVA.Text                      := Float_to_String(qConsulta.FieldByName('NFe_pMVA').AsFloat);
+   edNFe_pMVA.Text                 := Float_to_String(qConsulta.FieldByName('NFe_pMVA').AsFloat);
 
    //Percentual de Margem de Valor Agregado (MVA) (ICMS ST)
-   edNFe_pMVAST.Text                    := Float_to_String(qConsulta.FieldByName('NFe_pMVAST').AsFloat);
+   edNFe_pMVAST.Text               := Float_to_String(qConsulta.FieldByName('NFe_pMVAST').AsFloat);
 
    //Percentual de Redução da Base de Cálculo do ICMS ST
-   edREDUCAO_ICMS_ST.Text               := Float_to_String(qConsulta.FieldByName('REDUCAO_ICMS_ST').AsFloat);
+   edPROD_NFe_N14_pRedBC_ST.Text   := Float_to_String(qConsulta.FieldByName('PROD_NFe_N14_pRedBC_ST').AsFloat);
 
    //Indicador de Escala Relevante
-   rgNFe_indEscala.ItemIndex            := qConsulta.FieldByName('NFe_indEscala').AsInteger;
+   rgNFe_indEscala.ItemIndex       := qConsulta.FieldByName('NFe_indEscala').AsInteger;
 
    //Indicador de Rastreabilidade
-   cbPROD_RASTREAVEL.Checked            := True_ou_False(qConsulta.FieldByName('PROD_RASTREAVEL').AsInteger);
+   cbPROD_RASTREAVEL.Checked       := True_ou_False(qConsulta.FieldByName('PROD_RASTREAVEL').AsInteger);
 
    //Tratamento de Lote
-   rgPROD_TRATALOTE.ItemIndex           := qConsulta.FieldByName('PROD_TRATALOTE').AsInteger;
+   rgPROD_TRATALOTE.ItemIndex      := qConsulta.FieldByName('PROD_TRATALOTE').AsInteger;
 
    //Tramento de Número Serial
-   cbPROD_TRATANUMEROSERIE.Checked      := True_ou_False(qConsulta.FieldByName('PROD_TRATANUMEROSERIE').AsInteger);
+   cbPROD_TRATANUMEROSERIE.Checked := True_ou_False(qConsulta.FieldByName('PROD_TRATANUMEROSERIE').AsInteger);
 
    Atualizar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC;
 
@@ -3491,7 +3500,7 @@ var
   qry_tmp: TFDQuery;
   CFOP_PADRAO, CFOP_PADRAO_60: string;
   CRT, CST_ICMS: Integer;
-  ALIQ_ICMS_PARAMETROS: extended;
+  PROD_NFe_N16_pICMS_PARAMETROS: extended;
 begin
   SQL_DADOS_ROTINAS.Active := false;
   SQL_DADOS_ROTINAS.Active := true;
@@ -3514,7 +3523,7 @@ begin
     exit;
   end
   else
-    ALIQ_ICMS_PARAMETROS := SQL_DADOS_ROTINASaliq_imcs.value;
+    PROD_NFe_N16_pICMS_PARAMETROS := SQL_DADOS_ROTINASaliq_imcs.value;
   //edCST_ICMS := strtoint(dbcsticms.EditValue);
 {
   CRT  CST_ICMS   CSOSN
@@ -3793,10 +3802,10 @@ CREATE TABLE `produto` (
 	`VALOR_PROMOCIONAL_DISTRIBUIDOR` DECIMAL(10,4) NULL DEFAULT NULL,
 	`VALOR_PROMOCIONAL_VAREJO` DECIMAL(10,4) NULL DEFAULT NULL,
 	`PROD_SALDO` DECIMAL(10,4) NULL DEFAULT NULL,
-	`ALIQ_ICMS` DECIMAL(10,4) NULL DEFAULT NULL,
-	`REDUCAO_ICMS` DECIMAL(10,4) NULL DEFAULT NULL,
-	`ALIQ_ICMS_SUBST` VARCHAR(20) NULL DEFAULT NULL,
-	`REDUCAO_ICMS_ST` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_NFe_N16_pICMS` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_NFe_N14_pRedBC` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_NFe_N16_pICMS_SUBST` VARCHAR(20) NULL DEFAULT NULL,
+	`PROD_NFe_N14_pRedBC_ST` DECIMAL(10,4) NULL DEFAULT NULL,
 	`LUCRO_SUBST_TRIBUTARIA` DECIMAL(10,4) NULL DEFAULT NULL,
 	`VALOR_PAUTA_BC_ST` DECIMAL(10,4) NULL DEFAULT NULL,
 	`COD_COMB` VARCHAR(20) NULL DEFAULT NULL,
@@ -3906,3 +3915,5 @@ Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:4
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
 Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51
+Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:54

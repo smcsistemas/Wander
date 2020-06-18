@@ -2572,7 +2572,7 @@ object FRM_visualizar_nfc_e: TFRM_visualizar_nfc_e
         '     if(p.ICMS_CST <> '#39#39',IF(p.ICMS_CST='#39'60'#39', (SELECT CFOP_ST FRO' +
         'M NATUREZA_OPERACAO WHERE ID = 1),(SELECT CFOP_TI FROM NATUREZA_' +
         'OPERACAO WHERE ID = 1)), '#39#39') as CFOP,'
-      '     p.CSOSN, p.ICMS_CST, p.ALIQ_ICMS, p.PIS_CST, p.COFINS_CST'
+      '     p.CSOSN, p.ICMS_CST, p.PROD_NFe_N16_pICMS, p.PIS_CST, p.COFINS_CST'
       'from venda_item vi'
       'join produto_PROD p on vi.codigo_produto = p.PROD_codigo'
       'where vi.codigo_venda = :pcodigo')
@@ -2664,10 +2664,10 @@ object FRM_visualizar_nfc_e: TFRM_visualizar_nfc_e
       ReadOnly = True
       Size = 2
     end
-    object SQL_NFCE_ITENSALIQ_ICMS: TBCDField
+    object SQL_NFCE_ITENSPROD_NFe_N16_pICMS: TBCDField
       Alignment = taCenter
-      FieldName = 'ALIQ_ICMS'
-      Origin = 'ALIQ_ICMS'
+      FieldName = 'PROD_NFe_N16_pICMS'
+      Origin = 'PROD_NFe_N16_pICMS'
       ProviderFlags = []
       ReadOnly = True
       DisplayFormat = '% ##,#0.00'
@@ -2793,3 +2793,4 @@ object FRM_visualizar_nfc_e: TFRM_visualizar_nfc_e
   end
 end
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51

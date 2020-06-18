@@ -486,4 +486,3 @@ object frmEmissaoDeNFe: TfrmEmissaoDeNFe
     end
   end
 end
-Trocou FieldName = 'MARCA' por FieldName = 'PROD_MARCA' : automaticamente em 16/06/2020 16:21

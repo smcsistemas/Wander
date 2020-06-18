@@ -88,7 +88,7 @@ type
       Im_It_Acrescimos: extended;
       Im_It_Valor_Total: Variant;
       Im_It_cst_icms: string;
-      Im_It_aliq_icms: Variant;
+      Im_It_PROD_NFe_N16_pICMS: Variant;
       Im_It_base_icms: Variant;
       Im_It_total_icms: Variant;
       Im_It_cst_pis: string;
@@ -133,7 +133,7 @@ type
       function getIm_It_Acrescimos: extended;
       function getIm_It_Valor_Total: Variant;
       function getIm_It_cst_icms: String;
-      function getIm_It_aliq_icms: Variant;
+      function getIm_It_PROD_NFe_N16_pICMS: Variant;
       function getIm_It_base_icms: Variant;
       function getIm_It_total_icms: Variant;
       function getIm_It_cst_pis: String;
@@ -177,7 +177,7 @@ type
       procedure setIm_It_Acrescimos(const Value: extended);
       procedure setIm_It_Valor_Total(const Value: Variant);
       procedure setIm_It_cst_icms(const Value: String);
-      procedure setIm_It_aliq_icms(const Value: Variant);
+      procedure setIm_It_PROD_NFe_N16_pICMS(const Value: Variant);
       procedure setIm_It_base_icms(const Value: Variant);
       procedure setIm_It_total_icms(const Value: Variant);
       procedure setIm_It_cst_pis(const Value: String);
@@ -225,7 +225,7 @@ type
       PROPERTY ACRESCIMOS: extended READ getIm_It_Acrescimos WRITE setIm_It_Acrescimos;
       PROPERTY VALOR_TOTAL: Variant READ getIm_It_Valor_Total WRITE setIm_It_Valor_Total;
       PROPERTY CST_ICMS: String READ getIm_It_cst_icms WRITE setIm_It_cst_icms;
-      PROPERTY ALIQ_ICMS: Variant READ getIm_It_aliq_icms WRITE setIm_It_aliq_icms;
+      PROPERTY PROD_NFe_N16_pICMS: Variant READ getIm_It_PROD_NFe_N16_pICMS WRITE setIm_It_PROD_NFe_N16_pICMS;
       PROPERTY BASE_ICMS: Variant READ getIm_It_base_icms WRITE setIm_It_base_icms;
       PROPERTY TOTAL_ICMS: Variant READ getIm_It_total_icms WRITE setIm_It_total_icms;
       PROPERTY CST_PIS: String READ getIm_It_cst_pis WRITE setIm_It_cst_pis;
@@ -331,7 +331,7 @@ begin
   Im_It_Acrescimos := 0;
   Im_It_Valor_Total := 0;
   Im_It_cst_icms := '';
-  Im_It_aliq_icms := 0;
+  Im_It_PROD_NFe_N16_pICMS := 0;
   Im_It_base_icms := 0;
   Im_It_total_icms := 0;
   Im_It_cst_pis := '';
@@ -484,7 +484,7 @@ begin
       try
         TICMS.create(fieldbyname('cst_icms').asString);
         produto.ICMS_CST := fieldbyname('cst_icms').asString;
-        produto.ALIQ_ICMS := fieldbyname('aliq_icms').asExtended;
+        produto.PROD_NFe_N16_pICMS := fieldbyname('PROD_NFe_N16_pICMS').asExtended;
       except
         raise Exception.create(format('Valor inválido para o campo "CST_ICMS" no item %d', [fieldbyname('item').asInteger]));
       end;
@@ -623,7 +623,7 @@ end;
 
 procedure TImportacao.DesfazerAlteracoesItens;
 const
-  arrFields: array [1 .. 18] of string = ('CODIGO', 'DESCRICAO', 'COD_BARRAS', 'MARCA', 'UM', 'CST_ICMS', 'ALIQ_ICMS', 'CST_PIS', 'CST_COFINS', 'NCM', 'CFOP', 'CSOSN', 'ORIGEM',
+  arrFields: array [1 .. 18] of string = ('CODIGO', 'DESCRICAO', 'COD_BARRAS', 'MARCA', 'UM', 'CST_ICMS', 'PROD_NFe_N16_pICMS', 'CST_PIS', 'CST_COFINS', 'NCM', 'CFOP', 'CSOSN', 'ORIGEM',
     'MARGEM_LUCRO', 'DESPESAS_OPERACIONAIS', 'DESC_MAXIMO', 'COMISSAO', 'TIPO');
 var
   qry, qry_up: tfdquery;
@@ -709,7 +709,7 @@ begin
       self.ACRESCIMOS := qry.fieldbyname('Acrescimos').asExtended;
       self.VALOR_TOTAL := qry.fieldbyname('Valor_Total').asExtended;
       self.CST_ICMS := qry.fieldbyname('cst_icms').asString;
-      self.ALIQ_ICMS := qry.fieldbyname('aliq_icms').asExtended;
+      self.PROD_NFe_N16_pICMS := qry.fieldbyname('PROD_NFe_N16_pICMS').asExtended;
       self.BASE_ICMS := qry.fieldbyname('base_icms').asExtended;
       self.TOTAL_ICMS := qry.fieldbyname('total_icms').asExtended;
       self.CST_PIS := qry.fieldbyname('cst_pis').asString;
@@ -786,9 +786,9 @@ begin
   result := TFormats.percent(self.getIm_It_Aliq_cofins);
 end;
 
-function TImportacao.TItem.getIm_It_aliq_icms: Variant;
+function TImportacao.TItem.getIm_It_PROD_NFe_N16_pICMS: Variant;
 begin
-  result := self.Im_It_aliq_icms;
+  result := self.Im_It_PROD_NFe_N16_pICMS;
 end;
 
 function TImportacao.TItem.getIm_It_Aliq_ipi: Variant;
@@ -999,11 +999,11 @@ end;
 procedure TImportacao.TItem.Insert;
 begin
   Tdb.execquery('INSERT INTO IMPORTACAO_PRODUTOS (ID_NFE, ID_IMPORTACAO,CODIGO, ITEM, DESTINO, DESCRICAO, COD_BARRAS, UM, QTDE, PRECO_UNI, DESCONTO, ACRESCIMOS, VALOR_TOTAL,' +
-    'CST_ICMS, ALIQ_ICMS, BASE_ICMS, TOTAL_ICMS, CST_PIS, BASE_PIS, ALIQ_PIS, TOTAL_PIS,' +
+    'CST_ICMS, PROD_NFe_N16_pICMS, BASE_ICMS, TOTAL_ICMS, CST_PIS, BASE_PIS, ALIQ_PIS, TOTAL_PIS,' +
     'CST_COFINS, BASE_COFINS, ALIQ_COFINS, TOTAL_COFINS, CST_IPI, ENQUADRAMENTO_IPI, BASE_IPI, ALIQ_IPI,' +
     'TOTAL_IPI, NCM, CEST, CFOP, CSOSN, ORIGEM, TIPO, PRECO_VENDA, MARGEM_LUCRO, DESPESAS_OPERACIONAIS, COMISSAO, EDITADO) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
     [self.Im_It_Id_nfe, self.Im_It_Id_Importacao, self.Im_It_Codigo, self.Im_It_Item, self.Im_It_Destino, self.Im_It_Descricao, self.Im_It_Cod_Barras, self.Im_It_UM,
-    self.Im_It_Qtde, self.Im_It_Preco_Uni, self.Im_It_Desconto, self.Im_It_Acrescimos, self.Im_It_Valor_Total, self.Im_It_cst_icms, self.Im_It_aliq_icms, self.Im_It_base_icms,
+    self.Im_It_Qtde, self.Im_It_Preco_Uni, self.Im_It_Desconto, self.Im_It_Acrescimos, self.Im_It_Valor_Total, self.Im_It_cst_icms, self.Im_It_PROD_NFe_N16_pICMS, self.Im_It_base_icms,
     self.Im_It_total_icms, self.Im_It_cst_pis, self.Im_It_base_pis, self.Im_It_Aliq_pis, self.Im_It_total_pis, self.Im_It_cst_cofins, self.Im_It_base_cofins,
     self.Im_It_Aliq_Cofins, self.Im_It_total_cofins, self.Im_It_cst_ipi, self.Im_It_enquadramento_ipi, self.Im_It_base_ipi, self.Im_It_Aliq_ipi, self.Im_It_total_ipi,
     self.Im_It_ncm, self.Im_It_cest, self.Im_It_cfop, self.Im_It_csosn, self.Im_It_origem, self.Im_It_tipo, self.Im_It_preco_venda, self.Im_It_margem_lucro,
@@ -1030,11 +1030,11 @@ begin
         self.Im_It_comissao, self.Im_It_ncm, self.Im_It_origem, self.Im_It_Marca, self.Im_It_Editado, self.Im_It_Id, self.Im_It_Item]);
     ukHard:
       Tdb.execquery('UPDATE IMPORTACAO_PRODUTO SET CODIGO=?, ITEM=?, DESTINO=?, DESCRICAO=?, COD_BARRAS=?, UM=?, QTDE=?, PRECO_UNI=?, DESCONTO=?, ACRESCIMOS=?, VALOR_TOTAL=?,' +
-        'CST_ICMS=?, ALIQ_ICMS=?, BASE_ICMS=?, TOTAL_ICMS=?, CST_PIS=?, BASE_PIS=?, ALIQ_PIS=?, TOTAL_PIS=?,' +
+        'CST_ICMS=?, PROD_NFe_N16_pICMS=?, BASE_ICMS=?, TOTAL_ICMS=?, CST_PIS=?, BASE_PIS=?, ALIQ_PIS=?, TOTAL_PIS=?,' +
         'CST_COFINS=?, BASE_COFINS=?, ALIQ_COFINS=?, TOTAL_COFINS=?,CST_IPI=?, ENQUADRAMENTO_IPI=?, BASE_IPI=?, ALIQ_IPI=?,' +
         'TOTAL_IPI=?, NCM=?, CEST=?, CFOP=?, CSOSN=?, ORIGEM=?, TIPO=?,EDITADO=? WHERE ID=?', [self.Im_It_Id_nfe, self.Im_It_Id_Importacao, self.Im_It_Codigo, self.Im_It_Item,
         self.Im_It_Destino, self.Im_It_Descricao, self.Im_It_Cod_Barras, self.Im_It_UM, self.Im_It_Qtde, self.Im_It_Preco_Uni, self.Im_It_Desconto, self.Im_It_Acrescimos,
-        self.Im_It_Valor_Total, self.Im_It_cst_icms, self.Im_It_aliq_icms, self.Im_It_base_icms, self.Im_It_total_icms, self.Im_It_cst_pis, self.Im_It_base_pis,
+        self.Im_It_Valor_Total, self.Im_It_cst_icms, self.Im_It_PROD_NFe_N16_pICMS, self.Im_It_base_icms, self.Im_It_total_icms, self.Im_It_cst_pis, self.Im_It_base_pis,
         self.Im_It_Aliq_pis, self.Im_It_total_pis, self.Im_It_cst_cofins, self.Im_It_base_cofins, self.Im_It_Aliq_Cofins, self.Im_It_total_cofins, self.Im_It_cst_ipi,
         self.Im_It_enquadramento_ipi, self.Im_It_base_ipi, self.Im_It_Aliq_ipi, self.Im_It_total_ipi, self.Im_It_ncm, self.Im_It_cest, self.Im_It_cfop, self.Im_It_csosn,
         self.Im_It_origem, self.Im_It_tipo, self.Im_It_Editado, self.Im_It_Id]);
@@ -1066,12 +1066,12 @@ begin
   self.Im_It_Aliq_Cofins := Value;
 end;
 
-procedure TImportacao.TItem.setIm_It_aliq_icms(const Value: Variant);
+procedure TImportacao.TItem.setIm_It_PROD_NFe_N16_pICMS(const Value: Variant);
 begin
   if tchecks.negative(Value) then
     raise Exception.create(format('Alíquota de ICMS do item [%d] não pode ser negativo!', [self.COD_ITEM]));
 
-  self.Im_It_aliq_icms := Value;
+  self.Im_It_PROD_NFe_N16_pICMS := Value;
 end;
 
 procedure TImportacao.TItem.setIm_It_Aliq_ipi(Value: Variant);
@@ -1355,3 +1355,4 @@ Trocou ('MARCA' por ('PROD_MARCA' : automaticamente em 16/06/2020 16:09
 Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22:27
 Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:41
 Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:55
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:49

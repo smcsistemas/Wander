@@ -1071,7 +1071,7 @@ object Frm_ConfNFCE: TFrm_ConfNFCE
         'i.PRECO_TOTAL,vi.ACRESCIMO,vi.DESCONTO,vi.CODIGO_ITEM_VENDA,'
       
         '     p.PROD_CODIGO,p.PROD_DESCRICAO,p.NCM,p.FRETE,p.ICMS_CST,p.p' +
-        'rod_UNIDADE,p.CODIGO_ORIGEM_MERCADORIA,p.ALIQ_ICMS, VI.VI_CFOP_C' +
+        'rod_UNIDADE,p.CODIGO_ORIGEM_MERCADORIA,p.PROD_NFe_N16_pICMS, VI.VI_CFOP_C' +
         'SOSN,'
       '     p.CEST, p.PROD_EAN, p.PIS_CST, p.COFINS_CST'
       ''
@@ -1187,10 +1187,10 @@ object Frm_ConfNFCE: TFrm_ConfNFCE
       ProviderFlags = []
       ReadOnly = True
     end
-    object SQL_VENDA_ITEMALIQ_ICMS: TBCDField
+    object SQL_VENDA_ITEMPROD_NFe_N16_pICMS: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_ICMS'
-      Origin = 'ALIQ_ICMS'
+      FieldName = 'PROD_NFe_N16_pICMS'
+      Origin = 'PROD_NFe_N16_pICMS'
       ProviderFlags = []
       ReadOnly = True
       Precision = 10
@@ -1480,3 +1480,4 @@ object Frm_ConfNFCE: TFrm_ConfNFCE
   end
 end
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50

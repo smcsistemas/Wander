@@ -29,6 +29,54 @@ ordem decrescente de data....
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+861|18/06/20|08:15|cadastro_produto            |Ao passar o mouse pela descrição ou label, ambos aumentam de tamanho
+860|18/06/20|07:54|vw_pdv.pas                  |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+859|18/06/20|07:54|vw_pdv.dfm                  |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+858|18/06/20|07:54|cadastro_produto.pas        |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+857|18/06/20|07:54|cadastro_produto.dfm        |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+856|18/06/20|07:54|cadastro_produto2.pas       |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+855|18/06/20|07:54|cadastro_produto2.dfm       |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+854|18/06/20|07:54|relatorios.pas              |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+853|18/06/20|07:54|relatorios.dfm              |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+852|18/06/20|07:53|Consulta_Produto.pas        |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+851|18/06/20|07:53|Consulta_Produto.dfm        |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+850|18/06/20|07:53|cad_servico.pas             |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+849|18/06/20|07:53|cad_servico.dfm             |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+848|18/06/20|07:53|m_Produto.pas               |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+847|18/06/20|07:53|EmissaoDeNFe.pas            |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+846|18/06/20|07:53|cadastro_produto.pas        |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+845|18/06/20|07:53|cadastro_produto.dfm        |Trocado REDUCAO_ICMS por PROD_NFe_N14_pRedBC
+844|18/06/20|07:51|visualizar_nfc_e.pas        |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+843|18/06/20|07:51|visualizar_nfc_e.dfm        |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+842|18/06/20|07:51|vw_pdv.pas                  |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+841|18/06/20|07:51|vw_pdv.dfm                  |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+840|18/06/20|07:51|cadastro_produto.pas        |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+839|18/06/20|07:51|cadastro_produto.dfm        |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+838|18/06/20|07:51|cadastro_produto2.pas       |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+837|18/06/20|07:51|cadastro_produto2.dfm       |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+836|18/06/20|07:51|vw_importacao_nfe.pas       |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+835|18/06/20|07:51|vw_importacao_nfe.dfm       |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+834|18/06/20|07:50|visualizar_venda.pas        |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+833|18/06/20|07:50|visualizar_venda.dfm        |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+832|18/06/20|07:50|S_Parametros_Tributacao.pas |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+831|18/06/20|07:50|relatorios.pas              |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+830|18/06/20|07:50|relatorios.dfm              |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+829|18/06/20|07:50|U_ConfNFCE.pas              |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+828|18/06/20|07:50|U_ConfNFCE.dfm              |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+827|18/06/20|07:50|Consulta_Produto.pas        |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+826|18/06/20|07:50|Consulta_Produto.dfm        |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+825|18/06/20|07:50|cad_servico.pas             |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+824|18/06/20|07:50|cad_servico.dfm             |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+823|18/06/20|07:50|m_NFe.pas                   |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+822|18/06/20|07:49|m_Importacao.pas            |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+821|18/06/20|07:49|m_Produto.pas               |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+820|18/06/20|07:49|EmissaoDeNFe.pas            |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+819|18/06/20|07:49|cadastro_produto.pas        |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+818|18/06/20|07:49|cadastro_produto.dfm        |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+817|18/06/20|07:49|visualizar_venda.pas        |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+816|18/06/20|07:49|visualizar_venda.dfm        |Trocado ALIQ_ICMS por PROD_NFe_N16_pICMS
+815|17/06/20|21:33|Atualizador                 |Criada tabela UF_x_PRODUTO_UFPROD
+815|        |     |                            |Percentual de Margem de Valor Agregado (MVA) dos produtos nas UFs
 814|17/06/20|21:33|vw_pdv.pas                  |Trocado SALDO por PROD_SALDO
 813|17/06/20|21:33|vw_pdv.dfm                  |Trocado SALDO por PROD_SALDO
 812|17/06/20|21:33|vw_historico_conveniado.pas |Trocado SALDO por PROD_SALDO

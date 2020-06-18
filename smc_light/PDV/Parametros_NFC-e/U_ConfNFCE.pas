@@ -253,7 +253,7 @@ type
     SQL_VENDA_ITEMICMS_CST: TStringField;
     SQL_VENDA_ITEMPROD_CDUNIDADE: TStringField;
     SQL_VENDA_ITEMCODIGO_ORIGEM_MERCADORIA: TIntegerField;
-    SQL_VENDA_ITEMALIQ_ICMS: TBCDField;
+    SQL_VENDA_ITEMPROD_NFe_N16_pICMS: TBCDField;
     SQL_VENDA_ITEMVI_CFOP_CSOSN: TStringField;
     SQL_VENDA_ITEMCEST: TStringField;
     SQL_VENDA_ITEMPROD_EAN: TStringField;
@@ -1219,7 +1219,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
           spdNFCeDataSets.IncluirItem;
           // Iniciar a inclus鉶 de itens
 
-          AliquotaICMS := SQL_VENDA_ITEMALIQ_ICMS.AsExtended / 100;
+          AliquotaICMS := SQL_VENDA_ITEMPROD_NFe_N16_pICMS.AsExtended / 100;
           // Calculando Porcentagem de Aliquota cadastrada no produto
 
           nItemH02 := inttostr(FieldByName('CODIGO_ITEM_VENDA').AsInteger);
@@ -1358,7 +1358,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
             spdNFCeDataSets.campo('modBC_N13').Value := '1';
             vBCN15 := vProdI11 - vDescI17 + vOutroW15;
             spdNFCeDataSets.campo('vBC_N15').Value := FormatarTag(vBCN15);
-            pICMSN16 := SQL_VENDA_ITEMALIQ_ICMS.AsExtended;
+            pICMSN16 := SQL_VENDA_ITEMPROD_NFe_N16_pICMS.AsExtended;
             spdNFCeDataSets.campo('pICMS_N16').Value := FormatarTag(pICMSN16);
             vICMSN17 := FormatarTag(vBCN15 * AliquotaICMS, vardouble);
             spdNFCeDataSets.campo('vICMS_N17').Value := FormatarTag(vICMSN17);
@@ -1372,7 +1372,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
             spdNFCeDataSets.campo('modBC_N13').Value := '1';
             vBCN15 := vProdI11 - vDescI17 + vOutroW15;
             spdNFCeDataSets.campo('vBC_N15').Value := FormatarTag(vBCN15);
-            pICMSN16 := SQL_VENDA_ITEMALIQ_ICMS.Value;
+            pICMSN16 := SQL_VENDA_ITEMPROD_NFe_N16_pICMS.Value;
             spdNFCeDataSets.campo('pICMS_N16').Value := FormatarTag(pICMSN16);
             vICMSN17 := vBCN15 * AliquotaICMS;
             spdNFCeDataSets.campo('vICMS_N17').Value := FormatarTag(vICMSN17);
@@ -2365,3 +2365,4 @@ end;
 end.
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:03
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50

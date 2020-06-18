@@ -141,10 +141,10 @@ type
     SQL_C_ServicoVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
     SQL_C_ServicoVALOR_PROMOCIONAL_VAREJO: TBCDField;
     SQL_C_ServicoPROD_SALDO: TBCDField;
-    SQL_C_ServicoALIQ_ICMS: TBCDField;
-    SQL_C_ServicoREDUCAO_ICMS: TBCDField;
-    SQL_C_ServicoALIQ_ICMS_SUBST: TStringField;
-    SQL_C_ServicoREDUCAO_ICMS_ST: TBCDField;
+    SQL_C_ServicoPROD_NFe_N16_pICMS: TBCDField;
+    SQL_C_ServicoPROD_NFe_N14_pRedBC: TBCDField;
+    SQL_C_ServicoPROD_NFe_N16_pICMS_SUBST: TStringField;
+    SQL_C_ServicoPROD_NFe_N14_pRedBC_ST: TBCDField;
     SQL_C_ServicoLUCRO_SUBST_TRIBUTARIA: TBCDField;
     SQL_C_ServicoVALOR_PAUTA_BC_ST: TBCDField;
     SQL_C_ServicoLEIS: TStringField;
@@ -856,3 +856,5 @@ Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:4
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
 Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50
+Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:53

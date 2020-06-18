@@ -12,7 +12,7 @@ type
     class function getAliqICMS: extended; static;
     class procedure setAliqICMS(value: extended); static;
   public
-    class property ALIQ_ICMS: extended read getAliqICMS write setAliqICMS;
+    class property PROD_NFe_N16_pICMS: extended read getAliqICMS write setAliqICMS;
   end;
 
 implementation
@@ -33,10 +33,11 @@ end;
 
 class procedure TParametros_Tributacao.setAliqICMS(value: extended);
 begin
-  if tdb.SimpleQuery('select aliq_icms from parametros_sistema') = nil then
-    tdb.ExecQuery('insert into parametros_sistema(aliq_icms) values(?)', [value])
+  if tdb.SimpleQuery('select PROD_NFe_N16_pICMS from parametros_sistema') = nil then
+    tdb.ExecQuery('insert into parametros_sistema(PROD_NFe_N16_pICMS) values(?)', [value])
   else
-    tdb.ExecQuery('update parametros_sistema set aliq_icms = ?', [value]);
+    tdb.ExecQuery('update parametros_sistema set PROD_NFe_N16_pICMS = ?', [value]);
 end;
 
 end.
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50

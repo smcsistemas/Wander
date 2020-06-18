@@ -194,7 +194,7 @@ type
     SQL_PRODUTOQUANT_MINI_ATACADO_D: TBCDField;
     SQL_PRODUTOQUANT_MINI_DISTRIBUIDOR_D: TBCDField;
     SQL_PRODUTOQUANT_MINI_VAREJO_D: TBCDField;
-    SQL_PRODUTOALIQ_ICMS: TBCDField;
+    SQL_PRODUTOPROD_NFe_N16_pICMS: TBCDField;
     SQL_PRODUTOCODIGO_FORNECEDOR: TIntegerField;
     SQL_PRODUTOQUANT_MINI_VAREJO_P: TBCDField;
     SQL_PRODUTOQUANT_MINI_ATACADO_P: TBCDField;
@@ -212,7 +212,7 @@ type
     SQL_PRODUTOVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
     SQL_PRODUTOVALOR_PROMOCIONAL_VAREJO: TBCDField;
     SQL_PRODUTOPROD_SALDO: TBCDField;
-    SQL_PRODUTOALIQ_ICMS_SUBST: TStringField;
+    SQL_PRODUTOPROD_NFe_N16_pICMS_SUBST: TStringField;
     SQL_PRODUTOALIQ_IPI: TStringField;
     SQL_PRODUTOMARGEM_LUCRO: TBCDField;
     SQL_PRODUTOMARGEM_L_VAREJO: TBCDField;
@@ -328,8 +328,8 @@ type
     SQL_LISTAVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
     SQL_LISTAVALOR_PROMOCIONAL_VAREJO: TBCDField;
     SQL_LISTAPROD_SALDO: TBCDField;
-    SQL_LISTAALIQ_ICMS: TBCDField;
-    SQL_LISTAALIQ_ICMS_SUBST: TStringField;
+    SQL_LISTAPROD_NFe_N16_pICMS: TBCDField;
+    SQL_LISTAPROD_NFe_N16_pICMS_SUBST: TStringField;
     SQL_LISTALEIS: TStringField;
     SQL_LISTAGENERO: TStringField;
     SQL_LISTAFORNECEDOR_NOME: TStringField;
@@ -402,11 +402,11 @@ type
     Label30: TLabel;
     cstcofins: TcxDBLookupComboBox;
     Label52: TLabel;
-    aliq_icms: TDBEdit;
+    PROD_NFe_N16_pICMS: TDBEdit;
     Label61: TLabel;
     aliq_lucro_st: TDBEdit;
     Label53: TLabel;
-    REDUCAO_ICMS_ST: TDBEdit;
+    PROD_NFe_N14_pRedBC_ST: TDBEdit;
     Label62: TLabel;
     cod_comb: TDBEdit;
     Label56: TLabel;
@@ -486,7 +486,7 @@ type
     tbViewPROD_CDUNIDADE: TcxGridDBColumn;
     tbViewTIPO_ITEM: TcxGridDBColumn;
     tbViewPROD_SALDO: TcxGridDBColumn;
-    tbViewALIQ_ICMS: TcxGridDBColumn;
+    tbViewPROD_NFe_N16_pICMS: TcxGridDBColumn;
     tbViewICMS_CST: TcxGridDBColumn;
     tbViewPIS_CST: TcxGridDBColumn;
     tbViewCOFINS_CST: TcxGridDBColumn;
@@ -505,12 +505,12 @@ type
     Label35: TLabel;
     lblprodcads: TLabel;
     tbViewPRECO_PROMO: TcxGridDBColumn;
-    SQL_PRODUTOREDUCAO_ICMS: TBCDField;
-    SQL_PRODUTOREDUCAO_ICMS_ST: TBCDField;
+    SQL_PRODUTOPROD_NFe_N14_pRedBC: TBCDField;
+    SQL_PRODUTOPROD_NFe_N14_pRedBC_ST: TBCDField;
     SQL_PRODUTOLUCRO_SUBST_TRIBUTARIA: TBCDField;
     SQL_PRODUTOVALOR_PAUTA_BC_ST: TBCDField;
-    SQL_LISTAREDUCAO_ICMS: TBCDField;
-    SQL_LISTAREDUCAO_ICMS_ST: TBCDField;
+    SQL_LISTAPROD_NFe_N14_pRedBC: TBCDField;
+    SQL_LISTAPROD_NFe_N14_pRedBC_ST: TBCDField;
     SQL_LISTALUCRO_SUBST_TRIBUTARIA: TBCDField;
     SQL_LISTAVALOR_PAUTA_BC_ST: TBCDField;
     lbl2: TLabel;
@@ -551,8 +551,8 @@ type
     procedure btnestoqueClick(Sender: TObject);
     procedure cxDBTextEdit50KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure cxTabSheet1Show(Sender: TObject);
-    procedure aliq_icmsKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure REDUCAO_ICMS_STKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure PROD_NFe_N16_pICMSKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure PROD_NFe_N14_pRedBC_STKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure pauta_bcKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edt_leisKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edt_generoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -591,8 +591,8 @@ type
     procedure cxDBTextEdit28KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit26KeyPress(Sender: TObject; var Key: Char);
     procedure DBEdit1KeyPress(Sender: TObject; var Key: Char);
-    procedure aliq_icmsKeyPress(Sender: TObject; var Key: Char);
-    procedure REDUCAO_ICMS_STKeyPress(Sender: TObject; var Key: Char);
+    procedure PROD_NFe_N16_pICMSKeyPress(Sender: TObject; var Key: Char);
+    procedure PROD_NFe_N14_pRedBC_STKeyPress(Sender: TObject; var Key: Char);
     procedure pauta_bcKeyPress(Sender: TObject; var Key: Char);
     procedure edt_generoKeyPress(Sender: TObject; var Key: Char);
     procedure aliq_lucro_stKeyPress(Sender: TObject; var Key: Char);
@@ -1197,16 +1197,16 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.aliq_icmsKeyDown(Sender: TObject;
+procedure TFrm_Produto.PROD_NFe_N16_pICMSKeyDown(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
   if (Key = vk_return) or (Key = vk_tab) then
-    REDUCAO_ICMS_ST.SetFocus;
+    PROD_NFe_N14_pRedBC_ST.SetFocus;
 
 end;
 
-procedure TFrm_Produto.aliq_icmsKeyPress(Sender: TObject;
+procedure TFrm_Produto.PROD_NFe_N16_pICMSKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -1248,7 +1248,7 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.REDUCAO_ICMS_STKeyDown(Sender: TObject;
+procedure TFrm_Produto.PROD_NFe_N14_pRedBC_STKeyDown(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
@@ -1256,7 +1256,7 @@ begin
     pauta_bc.SetFocus;
 end;
 
-procedure TFrm_Produto.REDUCAO_ICMS_STKeyPress(Sender: TObject;
+procedure TFrm_Produto.PROD_NFe_N14_pRedBC_STKeyPress(Sender: TObject;
 
   var Key: Char);
 begin
@@ -3001,7 +3001,7 @@ var
   qry_tmp: TFDQuery;
   CFOP_PADRAO, CFOP_PADRAO_60: string;
   CRT, CST_ICMS: Integer;
-  ALIQ_ICMS_PARAMETROS: extended;
+  PROD_NFe_N16_pICMS_PARAMETROS: extended;
 begin
   SQL_DADOS_ROTINAS.Active := false;
   SQL_DADOS_ROTINAS.Active := true;
@@ -3028,7 +3028,7 @@ begin
     exit;
   end
   else
-    ALIQ_ICMS_PARAMETROS := SQL_DADOS_ROTINASaliq_imcs.value;
+    PROD_NFe_N16_pICMS_PARAMETROS := SQL_DADOS_ROTINASaliq_imcs.value;
   CST_ICMS := strtoint(dbcsticms.EditValue);
   PreencherCFOP(inttostr(CST_ICMS));
   case CRT of
@@ -3039,7 +3039,7 @@ begin
           40: { ISENTA }
             begin
               PreencherCSOSN('103');
-              aliq_icms.Field.Text := '0';
+              PROD_NFe_N16_pICMS.Field.Text := '0';
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3047,7 +3047,7 @@ begin
           41: { Não TRIBUTADA }
             begin
               PreencherCSOSN('102');
-              aliq_icms.Field.Text := '0';
+              PROD_NFe_N16_pICMS.Field.Text := '0';
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3055,7 +3055,7 @@ begin
           60: { SUBSTITUIÇÃO }
             begin
               PreencherCSOSN('500');
-              aliq_icms.Field.Text := '0';
+              PROD_NFe_N16_pICMS.Field.Text := '0';
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3069,7 +3069,7 @@ begin
           00: { TRIBUTADO }
             begin
               PreencherCSOSN('102');
-              aliq_icms.Field.Text := floattostr(ALIQ_ICMS_PARAMETROS);
+              PROD_NFe_N16_pICMS.Field.Text := floattostr(PROD_NFe_N16_pICMS_PARAMETROS);
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3077,7 +3077,7 @@ begin
           40: { ISENTA }
             begin
               PreencherCSOSN('103');
-              aliq_icms.Field.Text := '0';
+              PROD_NFe_N16_pICMS.Field.Text := '0';
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3085,7 +3085,7 @@ begin
           60: { SUBSTITUIÇÃO }
             begin
               PreencherCSOSN('500');
-              aliq_icms.Field.Text := '0';
+              PROD_NFe_N16_pICMS.Field.Text := '0';
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3099,7 +3099,7 @@ begin
           00: { TRIBUTADO }
             begin
               PreencherCSOSN('102');
-              aliq_icms.Field.Text := floattostr(ALIQ_ICMS_PARAMETROS);
+              PROD_NFe_N16_pICMS.Field.Text := floattostr(PROD_NFe_N16_pICMS_PARAMETROS);
               cstpis.EditValue := '01';
               cstcofins.EditValue := '01';
               exit;
@@ -3107,7 +3107,7 @@ begin
           40: { ISENTA }
             begin
               PreencherCSOSN('103');
-              aliq_icms.Field.Text := '0';
+              PROD_NFe_N16_pICMS.Field.Text := '0';
               cstpis.EditValue := '99';
               cstcofins.EditValue := '99';
               exit;
@@ -3115,7 +3115,7 @@ begin
           60: { SUBSTITUIÇÃO }
             begin
               PreencherCSOSN('500');
-              aliq_icms.Field.Text := '0';
+              PROD_NFe_N16_pICMS.Field.Text := '0';
               cstpis.EditValue := '08';
               cstcofins.EditValue := '08';
               exit;
@@ -3233,3 +3233,5 @@ Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:4
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
 Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:29
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:31
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:49
+Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:53

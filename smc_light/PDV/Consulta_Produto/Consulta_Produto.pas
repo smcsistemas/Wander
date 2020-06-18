@@ -99,10 +99,10 @@ type
     SQL_ProdutoConsultaVALOR_PROMOCIONAL_DISTRIBUIDOR: TBCDField;
     SQL_ProdutoConsultaVALOR_PROMOCIONAL_VAREJO: TBCDField;
     SQL_ProdutoConsultaPROD_SALDO: TBCDField;
-    SQL_ProdutoConsultaALIQ_ICMS: TBCDField;
-    SQL_ProdutoConsulta_REDUCAO_ICMS: TStringField;
-    SQL_ProdutoConsultaALIQ_ICMS_SUBST: TStringField;
-    SQL_ProdutoConsulta_REDUCAO_ICMS_ST: TStringField;
+    SQL_ProdutoConsultaPROD_NFe_N16_pICMS: TBCDField;
+    SQL_ProdutoConsulta_PROD_NFe_N14_pRedBC: TStringField;
+    SQL_ProdutoConsultaPROD_NFe_N16_pICMS_SUBST: TStringField;
+    SQL_ProdutoConsulta_PROD_NFe_N14_pRedBC_ST: TStringField;
     SQL_ProdutoConsulta_LUCRO_SUBST_TRIBUTARIA: TStringField;
     SQL_ProdutoConsultaVALOR_PAUTA_BC_ST: TStringField;
     SQL_ProdutoConsultaLEIS: TStringField;
@@ -145,8 +145,8 @@ type
     SQL_ProdutoConsultaPROD_COMISSAO_EXT_VAR2: TBCDField;
     SQL_ProdutoConsultaPROD_COMISSAO_EXT_ATAC2: TBCDField;
     SQL_ProdutoConsultaPROD_COMISSAO_EXT_DIST2: TBCDField;
-    SQL_ProdutoConsultaREDUCAO_ICMS: TBCDField;
-    SQL_ProdutoConsultaREDUCAO_ICMS_ST: TBCDField;
+    SQL_ProdutoConsultaPROD_NFe_N14_pRedBC: TBCDField;
+    SQL_ProdutoConsultaPROD_NFe_N14_pRedBC_ST: TBCDField;
     SQL_ProdutoConsultaLUCRO_SUBST_TRIBUTARIA: TBCDField;
     SQL_ProdutoConsultaCODIGO_ORIGEM_MERCADORIA: TIntegerField;
     SQL_ProdutoConsultaCOD_BALANCA_1: TStringField;
@@ -339,3 +339,5 @@ Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:4
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
 Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50
+Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:53

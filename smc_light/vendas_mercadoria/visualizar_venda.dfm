@@ -2221,7 +2221,7 @@ object frm_visualizar_venda: Tfrm_visualizar_venda
         '     if(ICMS_CST <> '#39#39',IF(ICMS_CST='#39'60'#39', (SELECT CFOP_ST FROM NA' +
         'TUREZA_OPERACAO WHERE ID = 1),(SELECT CFOP_TI FROM NATUREZA_OPER' +
         'ACAO WHERE ID = 1)), '#39#39') as CFOP,'
-      '     p.CSOSN, p.ICMS_CST, p.ALIQ_ICMS, p.PIS_CST, p.COFINS_CST'
+      '     p.CSOSN, p.ICMS_CST, p.PROD_NFe_N16_pICMS, p.PIS_CST, p.COFINS_CST'
       'from venda_item vi'
       'join produto p on vi.codigo_produto = p.codigo'
       'where vi.codigo_venda = :pcodigo')
@@ -2313,10 +2313,10 @@ object frm_visualizar_venda: Tfrm_visualizar_venda
       ReadOnly = True
       Size = 2
     end
-    object SQL_VENDA_ITENSALIQ_ICMS: TBCDField
+    object SQL_VENDA_ITENSPROD_NFe_N16_pICMS: TBCDField
       Alignment = taCenter
-      FieldName = 'ALIQ_ICMS'
-      Origin = 'ALIQ_ICMS'
+      FieldName = 'PROD_NFe_N16_pICMS'
+      Origin = 'PROD_NFe_N16_pICMS'
       ProviderFlags = []
       ReadOnly = True
       DisplayFormat = '% ##,#0.00'
@@ -2439,3 +2439,4 @@ object frm_visualizar_venda: Tfrm_visualizar_venda
     Top = 388
   end
 end
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50

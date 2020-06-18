@@ -1241,7 +1241,7 @@ begin
         xItem.CST_ICMS := TCsosn.Create(xItem.CSOSN).CST_ICMS;
 
       xItem.BASE_ICMS := TNF_Formats.Decimal(N.Fieldbyname('vBC_N15').asString);
-      xItem.ALIQ_ICMS := TNF_Formats.Decimal(N.Fieldbyname('pICMS_N16').asString);
+      xItem.PROD_NFe_N16_pICMS := TNF_Formats.Decimal(N.Fieldbyname('pICMS_N16').asString);
       xItem.TOTAL_ICMS := TNF_Formats.Decimal(N.Fieldbyname('vICMS_N17').asString);
 
       xItem.CST_PIS := q.Fieldbyname('CST_Q06').asString;
@@ -1554,3 +1554,4 @@ Trocou ('PROD_MARCA por ('MARCA : automaticamente em 16/06/2020 16:08
 Trocou DESCONTO_M_VAREJO por PROD_MAXDESC_VAR : automaticamente em 16/06/2020 22:27
 Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22:41
 Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:55
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50

@@ -4782,10 +4782,10 @@ object frm_pdv: Tfrm_pdv
       Origin = 'PROD_SALDO'
       Precision = 10
     end
-    object SQL_ProdutoConsultaALIQ_ICMS: TBCDField
+    object SQL_ProdutoConsultaPROD_NFe_N16_pICMS: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_ICMS'
-      Origin = 'ALIQ_ICMS'
+      FieldName = 'PROD_NFe_N16_pICMS'
+      Origin = 'PROD_NFe_N16_pICMS'
       Precision = 10
     end
     object SQL_ProdutoConsultaLEIS: TStringField
@@ -5016,21 +5016,21 @@ object frm_pdv: Tfrm_pdv
       FieldName = 'PROMOCAO_TERMINO'
       Origin = 'PROMOCAO_TERMINO'
     end
-    object SQL_ProdutoConsultaREDUCAO_ICMS: TBCDField
+    object SQL_ProdutoConsultaPROD_NFe_N14_pRedBC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'REDUCAO_ICMS'
-      Origin = 'REDUCAO_ICMS'
+      FieldName = 'PROD_NFe_N14_pRedBC'
+      Origin = 'PROD_NFe_N14_pRedBC'
       Precision = 10
     end
-    object SQL_ProdutoConsultaALIQ_ICMS_SUBST: TStringField
+    object SQL_ProdutoConsultaPROD_NFe_N16_pICMS_SUBST: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_ICMS_SUBST'
-      Origin = 'ALIQ_ICMS_SUBST'
+      FieldName = 'PROD_NFe_N16_pICMS_SUBST'
+      Origin = 'PROD_NFe_N16_pICMS_SUBST'
     end
-    object SQL_ProdutoConsultaREDUCAO_ICMS_ST: TBCDField
+    object SQL_ProdutoConsultaPROD_NFe_N14_pRedBC_ST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'REDUCAO_ICMS_ST'
-      Origin = 'REDUCAO_ICMS_ST'
+      FieldName = 'PROD_NFe_N14_pRedBC_ST'
+      Origin = 'PROD_NFe_N14_pRedBC_ST'
       Precision = 10
     end
     object SQL_ProdutoConsultaLUCRO_SUBST_TRIBUTARIA: TBCDField
@@ -5686,3 +5686,5 @@ Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:4
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:54
 Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51
+Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:54

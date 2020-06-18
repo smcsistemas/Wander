@@ -62,8 +62,8 @@ type
     Produto_controlado: boolean;
     Produto_icms_cst: string;
     Produto_codigo_origem_mercadoria: integer;
-    Produto_aliq_icms: extended;
-    Produto_reducao_icms_st: extended;
+    Produto_PROD_NFe_N16_pICMS: extended;
+    Produto_PROD_NFe_N14_pRedBC_st: extended;
     Produto_cod_comb: string;
     Produto_valor_pauta_bc_st: extended;
     Produto_genero: string;
@@ -117,8 +117,8 @@ type
     function getProduto_controlado: boolean;
     function getProduto_icms_cst: string;
     function getProduto_codigo_origem_mercadoria: integer;
-    function getProduto_aliq_icms: extended;
-    function getProduto_reducao_icms_st: extended;
+    function getProduto_PROD_NFe_N16_pICMS: extended;
+    function getProduto_PROD_NFe_N14_pRedBC_st: extended;
     function getProduto_cod_comb: string;
     function getProduto_valor_pauta_bc_st: extended;
     function getProduto_genero: string;
@@ -172,8 +172,8 @@ type
     Procedure setProduto_controlado(value: boolean);
     Procedure setProduto_icms_cst(value: string);
     Procedure setProduto_codigo_origem_mercadoria(value: integer);
-    Procedure setProduto_aliq_icms(value: extended);
-    Procedure setProduto_reducao_icms_st(value: extended);
+    Procedure setProduto_PROD_NFe_N16_pICMS(value: extended);
+    Procedure setProduto_PROD_NFe_N14_pRedBC_st(value: extended);
     Procedure setProduto_cod_comb(value: string);
     Procedure setProduto_valor_pauta_bc_st(value: extended);
     Procedure setProduto_genero(value: string);
@@ -237,8 +237,8 @@ type
     property CONTROLADO: boolean read getProduto_controlado write setProduto_controlado;
     property ICMS_CST: string read getProduto_icms_cst write setProduto_icms_cst;
     property CODIGO_ORIGEM_MERCADORIA: integer read getProduto_codigo_origem_mercadoria write setProduto_codigo_origem_mercadoria;
-    property ALIQ_ICMS: extended read getProduto_aliq_icms write setProduto_aliq_icms;
-    property REDUCAO_ICMS_ST: extended read getProduto_reducao_icms_st write setProduto_reducao_icms_st;
+    property PROD_NFe_N16_pICMS: extended read getProduto_PROD_NFe_N16_pICMS write setProduto_PROD_NFe_N16_pICMS;
+    property PROD_NFe_N14_pRedBC_ST: extended read getProduto_PROD_NFe_N14_pRedBC_st write setProduto_PROD_NFe_N14_pRedBC_st;
     property COD_COMB: string read getProduto_cod_comb write setProduto_cod_comb;
     property VALOR_PAUTA_BC_ST: extended read getProduto_valor_pauta_bc_st write setProduto_valor_pauta_bc_st;
     property GENERO: string read getProduto_genero write setProduto_genero;
@@ -306,8 +306,8 @@ begin
   Produto_controlado := false;
   Produto_icms_cst := '';
   Produto_codigo_origem_mercadoria := 0;
-  Produto_aliq_icms := 0;
-  Produto_reducao_icms_st := 0;
+  Produto_PROD_NFe_N16_pICMS := 0;
+  Produto_PROD_NFe_N14_pRedBC_st := 0;
   Produto_cod_comb := '';
   Produto_valor_pauta_bc_st := 0;
   Produto_genero := '';
@@ -383,8 +383,8 @@ begin
       Self.Produto_controlado := (qry.fieldbyname('controlado').asString = 'SIM');
       Self.Produto_icms_cst := qry.fieldbyname('icms_cst').asString;
       Self.Produto_codigo_origem_mercadoria := qry.fieldbyname('codigo_origem_mercadoria').AsInteger;
-      Self.Produto_aliq_icms := qry.fieldbyname('aliq_icms').asExtended;
-      Self.Produto_reducao_icms_st := qry.fieldbyname('reducao_icms_st').asExtended;
+      Self.Produto_PROD_NFe_N16_pICMS := qry.fieldbyname('PROD_NFe_N16_pICMS').asExtended;
+      Self.Produto_PROD_NFe_N14_pRedBC_st := qry.fieldbyname('PROD_NFe_N14_pRedBC_st').asExtended;
       Self.Produto_cod_comb := qry.fieldbyname('cod_comb').asString;
       Self.Produto_valor_pauta_bc_st := qry.fieldbyname('valor_pauta_bc_st').asExtended;
       Self.Produto_genero := qry.fieldbyname('genero').asString;
@@ -433,7 +433,7 @@ begin
     'MARGEM_L_DISTRIBUIDOR, MARGEM_L_ATACADO, PROD_PRECO_VAR, PROD_PRECO_DIST, PROD_PRECO_ATAC, PROD_COMISSAO_VAR,' +
     'PROD_COMISSAO_DIST, PROD_COMISSAO_ATAC, PROD_COMISSAO_EXT_VAR, PROD_COMISSAO_EXT_DIST, PROD_COMISSAO_EXT_ATAC,' +
     'PROD_SALDO, PROD_ESTOQMIN, PROD_MAXDESC_VAR, PROD_MAXDESC_DIST, PROD_MAXDESC_ATAC, STATUS_CADASTRAL, COD_BALANCA_1, COD_BALANCA_2,' +
-    'COD_BALANCA_3, USA_LOTE, CONTROLADO, ICMS_CST, CODIGO_ORIGEM_MERCADORIA, ALIQ_ICMS, REDUCAO_ICMS_ST, COD_COMB, VALOR_PAUTA_BC_ST, GENERO, ' +
+    'COD_BALANCA_3, USA_LOTE, CONTROLADO, ICMS_CST, CODIGO_ORIGEM_MERCADORIA, PROD_NFe_N16_pICMS, PROD_NFe_N14_pRedBC_ST, COD_COMB, VALOR_PAUTA_BC_ST, GENERO, ' +
     'LUCRO_SUBST_TRIBUTARIA, LEIS, CSOSN, NCM, CEST, ANP, PIS_CST, COFINS_CST)' +
     'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
     [Self.Produto_PROD_CODIGO,Self.Produto_descricao, Self.Produto_PROD_EAN, Self.Produto_PROD_DETALHES, Self.Produto_PROD_REFERENCIASFABRICA, Self.Produto_marca, Self.Produto_familia,
@@ -444,7 +444,7 @@ begin
     Self.Produto_PROD_COMISSAO_EXT_ATAC, Self.Produto_estoque, Self.Produto_PROD_ESTOQMIN, Self.Produto_PROD_MAXDESC_VAR, Self.Produto_PROD_MAXDESC_DIST,
     Self.Produto_PROD_MAXDESC_ATAC, TFunctions.ifthen(Self.Produto_status_cadastral, 'ATIVO', 'INATIVO'), Self.Produto_cod_balanca_1, Self.Produto_cod_balanca_2,
     Self.Produto_cod_balanca_3, TFunctions.ifthen(Self.Produto_usa_lote, 'SIM', 'NAO'), TFunctions.ifthen(Self.Produto_controlado, 'SIM', 'NAO'), Self.Produto_icms_cst,
-    Self.Produto_codigo_origem_mercadoria, Self.Produto_aliq_icms, Self.Produto_reducao_icms_st, Self.Produto_cod_comb, Self.Produto_valor_pauta_bc_st, Self.Produto_genero,
+    Self.Produto_codigo_origem_mercadoria, Self.Produto_PROD_NFe_N16_pICMS, Self.Produto_PROD_NFe_N14_pRedBC_st, Self.Produto_cod_comb, Self.Produto_valor_pauta_bc_st, Self.Produto_genero,
     Self.Produto_lucro_subst_tributaria, Self.Produto_leis, Self.Produto_csosn, Self.Produto_ncm, Self.Produto_cest, Self.Produto_anp, Self.Produto_pis_cst,
     Self.Produto_cofins_cst]);
 
@@ -481,7 +481,7 @@ begin
     'PROD_PRECO_ATAC=?, PROD_COMISSAO_VAR=?, PROD_COMISSAO_DIST=?, PROD_COMISSAO_ATAC=?,' +
     'PROD_COMISSAO_EXT_VAR=?, PROD_COMISSAO_EXT_DIST=?, PROD_COMISSAO_EXT_ATAC=?, PROD_SALDO=?,' +
     'PROD_ESTOQMIN=?, PROD_MAXDESC_VAR=?, PROD_MAXDESC_DIST=?, PROD_MAXDESC_ATAC=?, STATUS_CADASTRAL=?, COD_BALANCA_1=?,' +
-    'COD_BALANCA_2=?, COD_BALANCA_3=?, USA_LOTE=?, CONTROLADO=?, ICMS_CST=?, CODIGO_ORIGEM_MERCADORIA=?, ALIQ_ICMS=?, REDUCAO_ICMS_ST=?,' +
+    'COD_BALANCA_2=?, COD_BALANCA_3=?, USA_LOTE=?, CONTROLADO=?, ICMS_CST=?, CODIGO_ORIGEM_MERCADORIA=?, PROD_NFe_N16_pICMS=?, PROD_NFe_N14_pRedBC_ST=?,' +
     'COD_COMB=?, VALOR_PAUTA_BC_ST=?, GENERO=?, LUCRO_SUBST_TRIBUTARIA=?, LEIS=?, CSOSN=?, NCM=?, CEST=?, ANP=?, PIS_CST=?, COFINS_CST=?' + 'WHERE codigo=?',
     [Self.PROD_CODIGO, Self.Produto_descricao, Self.Produto_PROD_EAN, Self.Produto_PROD_DETALHES, Self.Produto_PROD_REFERENCIASFABRICA, Self.Produto_marca, Self.Produto_familia,
     Self.Produto_grupo, Self.Produto_sub_grupo, Self.Produto_und, Self.Produto_tipo_item, Self.Produto_preco_custo, Self.Produto_frete, Self.Produto_imposto,
@@ -491,7 +491,7 @@ begin
     Self.Produto_PROD_COMISSAO_EXT_ATAC, Self.Produto_estoque, Self.Produto_PROD_ESTOQMIN, Self.Produto_PROD_MAXDESC_VAR, Self.Produto_PROD_MAXDESC_DIST,
     Self.Produto_PROD_MAXDESC_ATAC, TFunctions.ifthen(Self.Produto_status_cadastral, 'ATIVO', 'INATIVO'), Self.Produto_cod_balanca_1, Self.Produto_cod_balanca_2,
     Self.Produto_cod_balanca_3, TFunctions.ifthen(Self.Produto_usa_lote, 'SIM', 'NAO'), TFunctions.ifthen(Self.Produto_controlado, 'SIM', 'NAO'), Self.Produto_icms_cst,
-    Self.Produto_codigo_origem_mercadoria, Self.Produto_aliq_icms, Self.Produto_reducao_icms_st, Self.Produto_cod_comb, Self.Produto_valor_pauta_bc_st, Self.Produto_genero,
+    Self.Produto_codigo_origem_mercadoria, Self.Produto_PROD_NFe_N16_pICMS, Self.Produto_PROD_NFe_N14_pRedBC_st, Self.Produto_cod_comb, Self.Produto_valor_pauta_bc_st, Self.Produto_genero,
     Self.Produto_lucro_subst_tributaria, Self.Produto_leis, Self.Produto_csosn, Self.Produto_ncm, Self.Produto_cest, Self.Produto_anp, Self.Produto_pis_cst,
     Self.Produto_cofins_cst, Self.Produto_PROD_CODIGO]);
 
@@ -507,9 +507,9 @@ begin
     result := arrProduto[0];
 end;
 
-function TProduto.getProduto_aliq_icms: extended;
+function TProduto.getProduto_PROD_NFe_N16_pICMS: extended;
 begin
-  result := tformats.coin(Self.Produto_aliq_icms);
+  result := tformats.coin(Self.Produto_PROD_NFe_N16_pICMS);
 end;
 
 function TProduto.getProduto_anp: string;
@@ -732,9 +732,9 @@ begin
   result := tformats.coin(Self.Produto_PROD_PRECO_VAR, 2);
 end;
 
-function TProduto.getProduto_reducao_icms_st: extended;
+function TProduto.getProduto_PROD_NFe_N14_pRedBC_st: extended;
 begin
-  result := tformats.coin(Self.Produto_reducao_icms_st);
+  result := tformats.coin(Self.Produto_PROD_NFe_N14_pRedBC_st);
 end;
 
 function TProduto.getProduto_PROD_REFERENCIASFABRICA: string;
@@ -777,9 +777,9 @@ begin
   result := tformats.coin(Self.Produto_valor_pauta_bc_st);
 end;
 
-procedure TProduto.setProduto_aliq_icms(value: extended);
+procedure TProduto.setProduto_PROD_NFe_N16_pICMS(value: extended);
 begin
-  Self.Produto_aliq_icms := tformats.coin(value, 4);
+  Self.Produto_PROD_NFe_N16_pICMS := tformats.coin(value, 4);
 end;
 
 procedure TProduto.setProduto_anp(value: string);
@@ -1029,9 +1029,9 @@ begin
   Self.Produto_PROD_PRECO_VAR := tformats.coin(value);
 end;
 
-procedure TProduto.setProduto_reducao_icms_st(value: extended);
+procedure TProduto.setProduto_PROD_NFe_N14_pRedBC_st(value: extended);
 begin
-  Self.Produto_reducao_icms_st := tformats.coin(value);
+  Self.Produto_PROD_NFe_N14_pRedBC_st := tformats.coin(value);
 end;
 
 procedure TProduto.setProduto_PROD_REFERENCIASFABRICA(value: string);
@@ -1106,3 +1106,5 @@ Trocou PRECO_FINAL_ATACADO por PROD_PRECO_ATAC : automaticamente em 17/06/2020 0
 Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2020 07:02
 Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:49
+Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:53

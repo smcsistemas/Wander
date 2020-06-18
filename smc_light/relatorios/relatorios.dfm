@@ -8497,7 +8497,7 @@ object frm_relatorio: Tfrm_relatorio
         #9'IF (p.ICMS_CST <> '#39'00'#39',sum(vi.PRECO_TOTAL - vi.RATEIO_DESCONTO ' +
         '+ vi.RATEIO_ACRESCIMO), 0) as OUTROS,'
       
-        '        p.ALIQ_ICMS, sum((vi.PRECO_TOTAL * p.aliq_icms)/100) as ' +
+        '        p.PROD_NFe_N16_pICMS, sum((vi.PRECO_TOTAL * p.PROD_NFe_N16_pICMS)/100) as ' +
         'VALOR_ICMS'
       'from NFCE n'
       '        join venda v on v.codigo_venda = n.codigo_venda '
@@ -8629,10 +8629,10 @@ object frm_relatorio: Tfrm_relatorio
       Precision = 38
       Size = 4
     end
-    object SQL_LS_AUTORIZADAALIQ_ICMS: TBCDField
+    object SQL_LS_AUTORIZADAPROD_NFe_N16_pICMS: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_ICMS'
-      Origin = 'ALIQ_ICMS'
+      FieldName = 'PROD_NFe_N16_pICMS'
+      Origin = 'PROD_NFe_N16_pICMS'
       ProviderFlags = []
       ReadOnly = True
       Precision = 10
@@ -8665,7 +8665,7 @@ object frm_relatorio: Tfrm_relatorio
       'ICMS_CST=ICMS_CST'
       'PRECO_TOTAL=PRECO_TOTAL'
       'OUTROS=OUTROS'
-      'ALIQ_ICMS=ALIQ_ICMS'
+      'PROD_NFe_N16_pICMS=PROD_NFe_N16_pICMS'
       'VALOR_ICMS=VALOR_ICMS')
     DataSet = SQL_LS_AUTORIZADA
     BCDToCurrency = False
@@ -9286,7 +9286,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_ls_autorizada."ALIQ_ICMS"]')
+            '[ds_ls_autorizada."PROD_NFe_N16_pICMS"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -11334,7 +11334,7 @@ object frm_relatorio: Tfrm_relatorio
       'ICMS_CST=ICMS_CST'
       'PRECO_BASE=PRECO_BASE'
       'OUTROS=OUTROS'
-      'ALIQ_ICMS=ALIQ_ICMS'
+      'PROD_NFe_N16_pICMS=PROD_NFe_N16_pICMS'
       'VALOR_ICMS=VALOR_ICMS'
       'MODELO=MODELO')
     DataSet = SQL_AN
@@ -11360,7 +11360,7 @@ object frm_relatorio: Tfrm_relatorio
         #9'IF (p.ICMS_CST <> '#39'00'#39',sum(vi.PRECO_TOTAL - vi.RATEIO_DESCONTO ' +
         '+ vi.RATEIO_ACRESCIMO), 0) as OUTROS,'
       
-        '        p.ALIQ_ICMS, sum((vi.PRECO_TOTAL * p.aliq_icms)/100) as ' +
+        '        p.PROD_NFe_N16_pICMS, sum((vi.PRECO_TOTAL * p.PROD_NFe_N16_pICMS)/100) as ' +
         'VALOR_ICMS'
       'from NFCE n'
       '        join venda v on v.codigo_venda = n.codigo_venda '
@@ -11418,10 +11418,10 @@ object frm_relatorio: Tfrm_relatorio
       Precision = 34
       Size = 4
     end
-    object SQL_ANALIQ_ICMS: TBCDField
+    object SQL_ANPROD_NFe_N16_pICMS: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_ICMS'
-      Origin = 'ALIQ_ICMS'
+      FieldName = 'PROD_NFe_N16_pICMS'
+      Origin = 'PROD_NFe_N16_pICMS'
       Precision = 10
     end
     object SQL_ANVALOR_ICMS: TFMTBCDField
@@ -15906,27 +15906,27 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'VALOR_PROMOCIONAL_VAREJO'
       Precision = 10
     end
-    object sql_produtosALIQ_ICMS: TBCDField
+    object sql_produtosPROD_NFe_N16_pICMS: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_ICMS'
-      Origin = 'ALIQ_ICMS'
+      FieldName = 'PROD_NFe_N16_pICMS'
+      Origin = 'PROD_NFe_N16_pICMS'
       Precision = 10
     end
-    object sql_produtosREDUCAO_ICMS: TBCDField
+    object sql_produtosPROD_NFe_N14_pRedBC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'REDUCAO_ICMS'
-      Origin = 'REDUCAO_ICMS'
+      FieldName = 'PROD_NFe_N14_pRedBC'
+      Origin = 'PROD_NFe_N14_pRedBC'
       Precision = 10
     end
-    object sql_produtosALIQ_ICMS_SUBST: TStringField
+    object sql_produtosPROD_NFe_N16_pICMS_SUBST: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_ICMS_SUBST'
-      Origin = 'ALIQ_ICMS_SUBST'
+      FieldName = 'PROD_NFe_N16_pICMS_SUBST'
+      Origin = 'PROD_NFe_N16_pICMS_SUBST'
     end
-    object sql_produtosREDUCAO_ICMS_ST: TBCDField
+    object sql_produtosPROD_NFe_N14_pRedBC_ST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'REDUCAO_ICMS_ST'
-      Origin = 'REDUCAO_ICMS_ST'
+      FieldName = 'PROD_NFe_N14_pRedBC_ST'
+      Origin = 'PROD_NFe_N14_pRedBC_ST'
       Precision = 10
     end
     object sql_produtosLUCRO_SUBST_TRIBUTARIA: TBCDField
@@ -18728,7 +18728,7 @@ object frm_relatorio: Tfrm_relatorio
       #9#9#9'IPX.ID_IMPORTACAO = IP.ID_IMPORTACAO AND '
       #9#9#9'IPX.DESTINO = '#39'1'#39
       #9') AS CFOP,'
-      '        IP.BASE_ICMS, IP.ALIQ_ICMS,'
+      '        IP.BASE_ICMS, IP.PROD_NFe_N16_pICMS,'
       
         #9'(IF(IP.CST_ICMS IN ('#39'00'#39','#39'10'#39','#39'20'#39','#39'30'#39'), ip.TOTAL_ICMS, 0)) AS' +
         ' VALOR_ICMS,'
@@ -18860,10 +18860,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'BASE_ICMS'
       Precision = 10
     end
-    object sql_livro_entradaALIQ_ICMS: TBCDField
+    object sql_livro_entradaPROD_NFe_N16_pICMS: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_ICMS'
-      Origin = 'ALIQ_ICMS'
+      FieldName = 'PROD_NFe_N16_pICMS'
+      Origin = 'PROD_NFe_N16_pICMS'
       Precision = 10
     end
   end
@@ -18887,7 +18887,7 @@ object frm_relatorio: Tfrm_relatorio
       'MUNICIPIO=MUNICIPIO'
       'DATA_EMISSAO=DATA_EMISSAO'
       'BASE_ICMS=BASE_ICMS'
-      'ALIQ_ICMS=ALIQ_ICMS')
+      'PROD_NFe_N16_pICMS=PROD_NFe_N16_pICMS')
     DataSet = sql_livro_entrada
     BCDToCurrency = False
     Left = 786
@@ -19449,7 +19449,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftLeft, ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_livro_entrada."ALIQ_ICMS"]')
+            '[ds_livro_entrada."PROD_NFe_N16_pICMS"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -33977,7 +33977,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."ALIQ_ICMS"]')
+            '[ds_produtos."PROD_NFe_N16_pICMS"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -46522,3 +46522,5 @@ Trocou PROMO_ATACADO por PROD_PROMOCAO_ATAC : automaticamente em 17/06/2020 08:4
 Trocou PROMO_DISTRIBUIDOR por PROD_PROMOCAO_DIST : automaticamente em 17/06/2020 08:53
 Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50
+Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:54

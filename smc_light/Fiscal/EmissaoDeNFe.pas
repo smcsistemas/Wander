@@ -3963,7 +3963,7 @@ begin
    {N14}
    //pRedBC
    //Percentual da Redução de BC
-   Produto.Imposto.ICMS.pRedBC := qVENDA_ITEM.FieldByName('REDUCAO_ICMS').AsFloat;
+   Produto.Imposto.ICMS.pRedBC := qVENDA_ITEM.FieldByName('PROD_NFe_N14_pRedBC').AsFloat;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N15_Produto_Imposto_ICMS_vBC;
@@ -3973,7 +3973,21 @@ begin
    //Valor da BC do ICMS
    {
    ***                                                               ***
-   *** SE FOR MVA, PRECISARÀ USAR O PREÇO DE CUSTO DO PRODUTO        ***
+   *** SE FOR MVA, PRECISARÀ USAR O MVA do prod na UF de destino     ***
+   ***             Relacao:                                          ***
+   ***                                                               ***
+   ***             UFxPRODUTO_UFPROD:                                ***
+   ***             -----------------------------------------------   ***
+   ***             UFPROD_UF  UFPROD_CODIGO UFPROD_NFe_N15_pMVA      ***
+   ***             -----------------------------------------------   ***
+   ***                  SP       01231           18.5                ***
+   ***                  SP       01234           19.8                ***
+   ***                  MG       01231            8.5                ***
+   ***                  MG       01234            9.5                ***
+   ***                                                               ***
+   ***             fNFe_15_pMVA('SP','01231') retorna 18.5           ***
+   ***                                                               ***
+   *** e saber o valor do custo do produto                           ***
    ***    CALCULAR O VALOR DA VENDA = MVA*VALORCUSTO/100+ VALORVUSTO ***
    ***                                                               ***
    }
@@ -3998,7 +4012,7 @@ begin
    {N16}
    //pICMS
    //Alíquota do imposto
-   Produto.Imposto.ICMS.pICMS := qVENDA_ITEM.FieldByName('ALIQ_ICMS').AsFloat;
+   Produto.Imposto.ICMS.pICMS := qVENDA_ITEM.FieldByName('PROD_NFe_N16_pICMS').AsFloat;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N16a_vICMSOp;
@@ -4113,7 +4127,7 @@ begin
    {N20}
    //pRedBCST
    //Percentual da Redução de BC do ICMS ST
-   Produto.Imposto.ICMS.pRedBCST := qVENDA_ITEM.FieldByName('REDUCAO_ICMS_ST').AsFloat;
+   Produto.Imposto.ICMS.pRedBCST := qVENDA_ITEM.FieldByName('PROD_NFe_N14_pRedBC_ST').AsFloat;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N21_Produto_Imposto_ICMS_vBCST;
@@ -4137,7 +4151,7 @@ begin
    {N22}
    //pICMSST
    //Alíquota do imposto do ICMS ST
-   Produto.Imposto.ICMS.pICMSST := qVENDA_ITEM.FieldByName('ALIQ_ICMS_SUBST').AsFloat;
+   Produto.Imposto.ICMS.pICMSST := qVENDA_ITEM.FieldByName('PROD_NFe_N16_pICMS_SUBST').AsFloat;
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N23a_Produto_Imposto_ICMS_vBCFCPST;
@@ -7639,3 +7653,5 @@ Trocou INFO_ADICIONAIS por PROD_DETALHES : automaticamente em 16/06/2020 12:06
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06
 Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:32
+Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:49
+Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:53
