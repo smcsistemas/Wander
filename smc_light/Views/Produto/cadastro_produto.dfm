@@ -2,12 +2,13 @@ object Frm_Produto: TFrm_Produto
   Left = 0
   Top = 0
   ParentCustomHint = False
+  AutoSize = True
   BiDiMode = bdLeftToRight
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Cadastro de Produtos'
   ClientHeight = 624
-  ClientWidth = 1389
+  ClientWidth = 1201
   Color = clBtnFace
   UseDockManager = True
   DefaultMonitor = dmMainForm
@@ -31,9 +32,8 @@ object Frm_Produto: TFrm_Produto
   object cxPageControl1: TcxPageControl
     Left = 0
     Top = 0
-    Width = 1389
+    Width = 1201
     Height = 624
-    Align = alClient
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -41,14 +41,14 @@ object Frm_Produto: TFrm_Produto
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    Properties.ActivePage = tab_Cadastrar
+    Properties.ActivePage = cxTabSheet1
     Properties.ActivateFocusedTab = False
     Properties.CustomButtons.Buttons = <>
     LookAndFeel.NativeStyle = False
     LookAndFeel.SkinName = 'Office2013White'
     ClientRectBottom = 622
     ClientRectLeft = 2
-    ClientRectRight = 1387
+    ClientRectRight = 1199
     ClientRectTop = 28
     object cxTabSheet1: TcxTabSheet
       Caption = '  Consulta  '
@@ -60,10 +60,7 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 0
       ParentFont = False
       OnShow = cxTabSheet1Show
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 1384
       object Label58: TLabel
         Left = 20
         Top = 555
@@ -119,7 +116,7 @@ object Frm_Produto: TFrm_Produto
         ParentFont = False
       end
       object QtdeItens: TLabel
-        Left = 1348
+        Left = 1156
         Top = 539
         Width = 21
         Height = 13
@@ -127,21 +124,21 @@ object Frm_Produto: TFrm_Produto
         Caption = '000'
       end
       object Label51: TLabel
-        Left = 1174
+        Left = 982
         Top = 539
         Width = 150
         Height = 13
         Caption = 'Total de produtos listados:'
       end
       object Label35: TLabel
-        Left = 1148
+        Left = 956
         Top = 558
         Width = 176
         Height = 13
         Caption = 'Total de produtos cadastrados:'
       end
       object lblprodcads: TLabel
-        Left = 1348
+        Left = 1156
         Top = 558
         Width = 21
         Height = 13
@@ -197,7 +194,7 @@ object Frm_Produto: TFrm_Produto
       object gdProds: TcxGrid
         Left = -1
         Top = 36
-        Width = 1357
+        Width = 1195
         Height = 475
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -226,6 +223,32 @@ object Frm_Produto: TFrm_Produto
           OptionsData.Inserting = False
           OptionsView.NoDataToDisplayInfoText = ' . . .'
           OptionsView.GroupByBox = False
+          object tbViewPROD_DESCRICAO: TcxGridDBColumn
+            Caption = 'Produto'
+            DataBinding.FieldName = 'PROD_DESCRICAO'
+            PropertiesClassName = 'TcxLabelProperties'
+            Properties.Alignment.Horz = taLeftJustify
+            Properties.WordWrap = True
+            HeaderGlyphAlignmentHorz = taCenter
+            MinWidth = 850
+            Options.Editing = False
+            Options.Filtering = False
+            Options.FilteringAddValueItems = False
+            Options.FilteringFilteredItemsList = False
+            Options.FilteringMRUItemsList = False
+            Options.FilteringPopup = False
+            Options.FilteringPopupMultiSelect = False
+            Options.FilteringWithFindPanel = False
+            Options.Focusing = False
+            Options.IgnoreTimeForFiltering = False
+            Options.IncSearch = False
+            Options.AutoWidthSizable = False
+            Options.GroupFooters = False
+            Options.Grouping = False
+            Options.HorzSizing = False
+            Options.Moving = False
+            Width = 850
+          end
           object tbViewPROD_CODIGO: TcxGridDBColumn
             Caption = 'C'#243'd.'
             DataBinding.FieldName = 'PROD_CODIGO'
@@ -250,55 +273,6 @@ object Frm_Produto: TFrm_Produto
             Options.HorzSizing = False
             Options.Moving = False
             Width = 70
-          end
-          object tbViewPROD_EAN: TcxGridDBColumn
-            Caption = 'C'#243'd. Barras'
-            DataBinding.FieldName = 'PROD_EAN'
-            PropertiesClassName = 'TcxLabelProperties'
-            Properties.Alignment.Horz = taCenter
-            HeaderAlignmentHorz = taCenter
-            HeaderGlyphAlignmentHorz = taCenter
-            MinWidth = 120
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.IgnoreTimeForFiltering = False
-            Options.IncSearch = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Options.HorzSizing = False
-            Options.Moving = False
-            Width = 120
-          end
-          object tbViewPROD_DESCRICAO: TcxGridDBColumn
-            Caption = 'Produto'
-            DataBinding.FieldName = 'PROD_DESCRICAO'
-            PropertiesClassName = 'TcxLabelProperties'
-            Properties.Alignment.Horz = taLeftJustify
-            HeaderGlyphAlignmentHorz = taCenter
-            MinWidth = 300
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.IgnoreTimeForFiltering = False
-            Options.IncSearch = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Options.HorzSizing = False
-            Options.Moving = False
-            Width = 300
           end
           object tbViewPROD_CDUNIDADE: TcxGridDBColumn
             Caption = 'UN'
@@ -377,282 +351,6 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 100
           end
-          object tbViewPRECO_PROMO: TcxGridDBColumn
-            Caption = 'Pre'#231'o Promo'#231#227'o'
-            DataBinding.FieldName = 'VALOR_PROMOCIONAL_VAREJO'
-            PropertiesClassName = 'TcxCurrencyEditProperties'
-            Properties.Alignment.Horz = taCenter
-            Properties.Nullstring = '0'
-            FooterAlignmentHorz = taCenter
-            GroupSummaryAlignment = taCenter
-            HeaderAlignmentHorz = taCenter
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Width = 150
-          end
-          object tbViewPROD_CDGRUPO: TcxGridDBColumn
-            Caption = 'Grupo'
-            DataBinding.FieldName = 'PROD_CDGRUPO'
-            PropertiesClassName = 'TcxLabelProperties'
-            Properties.Alignment.Horz = taCenter
-            HeaderAlignmentHorz = taCenter
-            HeaderGlyphAlignmentHorz = taCenter
-            MinWidth = 100
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.IgnoreTimeForFiltering = False
-            Options.IncSearch = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Options.HorzSizing = False
-            Options.Moving = False
-            Width = 100
-          end
-          object tbViewPROD_REFERENCIASFABRICA: TcxGridDBColumn
-            Caption = 'Ref Fabricante'
-            DataBinding.FieldName = 'PROD_REFERENCIASFABRICA'
-            PropertiesClassName = 'TcxLabelProperties'
-            Properties.Alignment.Horz = taCenter
-            HeaderAlignmentHorz = taCenter
-            HeaderGlyphAlignmentHorz = taCenter
-            MinWidth = 150
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.IgnoreTimeForFiltering = False
-            Options.IncSearch = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Options.HorzSizing = False
-            Options.Moving = False
-            Width = 150
-          end
-          object tbViewTIPO_ITEM: TcxGridDBColumn
-            Caption = 'Tipo'
-            DataBinding.FieldName = 'TIPO_ITEM'
-            PropertiesClassName = 'TcxLabelProperties'
-            Properties.Alignment.Horz = taCenter
-            HeaderAlignmentHorz = taCenter
-            HeaderGlyphAlignmentHorz = taCenter
-            MinWidth = 80
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.IgnoreTimeForFiltering = False
-            Options.IncSearch = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Options.HorzSizing = False
-            Options.Moving = False
-            Width = 80
-          end
-          object tbViewPROD_MARCA: TcxGridDBColumn
-            Caption = 'Marca'
-            DataBinding.FieldName = 'PROD_MARCA'
-            PropertiesClassName = 'TcxLabelProperties'
-            Properties.Alignment.Horz = taCenter
-            HeaderAlignmentHorz = taCenter
-            HeaderGlyphAlignmentHorz = taCenter
-            MinWidth = 90
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.IgnoreTimeForFiltering = False
-            Options.IncSearch = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Options.HorzSizing = False
-            Options.Moving = False
-            Width = 90
-          end
-          object tbViewPROD_NFe_N16_pICMS: TcxGridDBColumn
-            Caption = 'ICMS %'
-            DataBinding.FieldName = 'PROD_NFe_N16_pICMS'
-            PropertiesClassName = 'TcxCurrencyEditProperties'
-            Properties.Alignment.Horz = taCenter
-            Properties.DisplayFormat = ',0.00 %;-,0.00 %'
-            Properties.Nullstring = '0'
-            HeaderAlignmentHorz = taCenter
-            HeaderGlyphAlignmentHorz = taCenter
-            MinWidth = 70
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.IgnoreTimeForFiltering = False
-            Options.IncSearch = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Options.HorzSizing = False
-            Options.Moving = False
-            Width = 70
-          end
-          object tbViewICMS_CST: TcxGridDBColumn
-            Caption = 'CST'
-            DataBinding.FieldName = 'ICMS_CST'
-            PropertiesClassName = 'TcxLabelProperties'
-            Properties.Alignment.Horz = taCenter
-            HeaderAlignmentHorz = taCenter
-            HeaderGlyphAlignmentHorz = taCenter
-            MinWidth = 50
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.IgnoreTimeForFiltering = False
-            Options.IncSearch = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Options.HorzSizing = False
-            Options.Moving = False
-            Width = 50
-          end
-          object tbViewNCM: TcxGridDBColumn
-            DataBinding.FieldName = 'NCM'
-            PropertiesClassName = 'TcxLabelProperties'
-            Properties.Alignment.Horz = taCenter
-            HeaderAlignmentHorz = taCenter
-            HeaderGlyphAlignmentHorz = taCenter
-            MinWidth = 120
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.IgnoreTimeForFiltering = False
-            Options.IncSearch = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Options.HorzSizing = False
-            Options.Moving = False
-            Width = 120
-          end
-          object tbViewCEST: TcxGridDBColumn
-            DataBinding.FieldName = 'CEST'
-            PropertiesClassName = 'TcxLabelProperties'
-            Properties.Alignment.Horz = taCenter
-            HeaderAlignmentHorz = taCenter
-            HeaderGlyphAlignmentHorz = taCenter
-            MinWidth = 120
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.IgnoreTimeForFiltering = False
-            Options.IncSearch = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Options.HorzSizing = False
-            Options.Moving = False
-            Width = 120
-          end
-          object tbViewPIS_CST: TcxGridDBColumn
-            Caption = 'PIS'
-            DataBinding.FieldName = 'PIS_CST'
-            PropertiesClassName = 'TcxLabelProperties'
-            Properties.Alignment.Horz = taCenter
-            HeaderAlignmentHorz = taCenter
-            HeaderGlyphAlignmentHorz = taCenter
-            MinWidth = 50
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.IgnoreTimeForFiltering = False
-            Options.IncSearch = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Options.HorzSizing = False
-            Options.Moving = False
-            Width = 50
-          end
-          object tbViewCOFINS_CST: TcxGridDBColumn
-            Caption = 'COFINS'
-            DataBinding.FieldName = 'COFINS_CST'
-            PropertiesClassName = 'TcxLabelProperties'
-            Properties.Alignment.Horz = taCenter
-            HeaderAlignmentHorz = taCenter
-            HeaderGlyphAlignmentHorz = taCenter
-            MinWidth = 70
-            Options.Editing = False
-            Options.Filtering = False
-            Options.FilteringAddValueItems = False
-            Options.FilteringFilteredItemsList = False
-            Options.FilteringMRUItemsList = False
-            Options.FilteringPopup = False
-            Options.FilteringPopupMultiSelect = False
-            Options.FilteringWithFindPanel = False
-            Options.Focusing = False
-            Options.IgnoreTimeForFiltering = False
-            Options.IncSearch = False
-            Options.GroupFooters = False
-            Options.Grouping = False
-            Options.HorzSizing = False
-            Options.Moving = False
-            Width = 70
-          end
-          object tbViewPROD_ESTOQMIN: TcxGridDBColumn
-            DataBinding.FieldName = 'PROD_ESTOQMIN'
-            Visible = False
-          end
         end
         object gdProdsLevel1: TcxGridLevel
           GridView = tbView
@@ -725,8 +423,8 @@ object Frm_Produto: TFrm_Produto
         Width = 272
       end
       object pnContador: TPanel
-        Left = 1312
-        Top = -4
+        Left = 1102
+        Top = -6
         Width = 74
         Height = 41
         BevelOuter = bvNone
@@ -743,6 +441,7 @@ object Frm_Produto: TFrm_Produto
     object tab_Cadastrar: TcxTabSheet
       Caption = 'Cadastro'
       ImageIndex = 3
+      ExplicitWidth = 1385
       object Panel6: TPanel
         Left = 3
         Top = 2
@@ -764,19 +463,6 @@ object Frm_Produto: TFrm_Produto
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
-          object Label3: TLabel
-            Left = 193
-            Top = 30
-            Width = 209
-            Height = 18
-            Caption = 'C'#243'digo Alfanum'#233'rico Alternativo:'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
           object Label1: TLabel
             Left = 72
             Top = 30
@@ -1005,7 +691,7 @@ object Frm_Produto: TFrm_Produto
               000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
               1F3E000000060000000100000000000000000000000000000000}
             PaintStyle = bpsGlyph
-            TabOrder = 18
+            TabOrder = 17
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -1057,7 +743,7 @@ object Frm_Produto: TFrm_Produto
               000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
               1F3E000000060000000100000000000000000000000000000000}
             PaintStyle = bpsGlyph
-            TabOrder = 19
+            TabOrder = 18
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -1109,7 +795,7 @@ object Frm_Produto: TFrm_Produto
               000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
               1F3E000000060000000100000000000000000000000000000000}
             PaintStyle = bpsGlyph
-            TabOrder = 17
+            TabOrder = 16
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -1161,7 +847,7 @@ object Frm_Produto: TFrm_Produto
               000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
               1F3E000000060000000100000000000000000000000000000000}
             PaintStyle = bpsGlyph
-            TabOrder = 20
+            TabOrder = 19
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -1214,7 +900,7 @@ object Frm_Produto: TFrm_Produto
               000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
               1F3E000000060000000100000000000000000000000000000000}
             PaintStyle = bpsGlyph
-            TabOrder = 16
+            TabOrder = 15
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -1236,7 +922,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             MaxLength = 200
             ParentFont = False
-            TabOrder = 3
+            TabOrder = 2
             OnExit = edPROD_DESCRICAOExit
             OnMouseEnter = edPROD_DESCRICAOMouseEnter
             OnMouseLeave = edPROD_DESCRICAOMouseLeave
@@ -1254,7 +940,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             MaxLength = 50
             ParentFont = False
-            TabOrder = 6
+            TabOrder = 5
             OnExit = edPROD_REFERENCIASFABRICAExit
             OnKeyUp = edPROD_REFERENCIASFABRICAKeyUp
           end
@@ -1270,7 +956,7 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 11
+            TabOrder = 10
             OnExit = edPROD_CDFAMILIAExit
             OnKeyDown = edPROD_CDFAMILIAKeyDown
           end
@@ -1286,7 +972,7 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 13
+            TabOrder = 12
             OnExit = edPROD_CDSUBGRUPOExit
             OnKeyDown = edPROD_CDSUBGRUPOKeyDown
           end
@@ -1302,7 +988,7 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 8
+            TabOrder = 7
             OnExit = edPROD_CDUNIDADEExit
             OnKeyDown = edPROD_CDUNIDADEKeyDown
           end
@@ -1318,7 +1004,7 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 12
+            TabOrder = 11
             OnExit = edPROD_GRUPOExit
             OnKeyDown = edPROD_GRUPOKeyDown
           end
@@ -1334,7 +1020,7 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 10
+            TabOrder = 9
             OnExit = edPROD_CDMARCAExit
             OnKeyDown = edPROD_CDMARCAKeyDown
           end
@@ -1350,28 +1036,13 @@ object Frm_Produto: TFrm_Produto
             Font.Style = [fsBold]
             MaxLength = 200
             ParentFont = False
-            TabOrder = 4
+            TabOrder = 3
           end
-          object edCODIGO_ALFANUMERICO: TEdit
-            Left = 409
-            Top = 27
-            Width = 271
-            Height = 25
-            CharCase = ecUpperCase
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Helvetica Neue'
-            Font.Style = []
-            MaxLength = 20
-            ParentFont = False
-            TabOrder = 1
-            OnExit = edCODIGO_ALFANUMERICOExit
-          end
-          object edCODIGO: TEdit
+          object edPROD_CODIGO: TEdit
+            Tag = 3
             Left = 122
             Top = 26
-            Width = 61
+            Width = 223
             Height = 26
             CharCase = ecUpperCase
             Font.Charset = ANSI_CHARSET
@@ -1379,9 +1050,10 @@ object Frm_Produto: TFrm_Produto
             Font.Height = -15
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
+            OEMConvert = True
             ParentFont = False
-            ReadOnly = True
             TabOrder = 0
+            OnExit = edPROD_CODIGOExit
           end
           object cb_ponto_impressao: TcxDBLookupComboBox
             Left = 121
@@ -1447,7 +1119,7 @@ object Frm_Produto: TFrm_Produto
             StyleFocused.LookAndFeel.SkinName = 'Metropolis'
             StyleHot.LookAndFeel.NativeStyle = False
             StyleHot.LookAndFeel.SkinName = 'Metropolis'
-            TabOrder = 14
+            TabOrder = 13
             Width = 188
           end
           object edNFe_nDI: TEdit
@@ -1462,13 +1134,13 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 7
+            TabOrder = 6
           end
           object cxGroupBox1: TcxGroupBox
             Left = 22
             Top = 384
             Caption = '  Pre'#231'os'
-            TabOrder = 15
+            TabOrder = 14
             Height = 62
             Width = 720
             object Label9: TLabel
@@ -1574,7 +1246,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 21
+            TabOrder = 20
             OnKeyDown = edPROD_GRUPOKeyDown
           end
           object edSUBGRUPO_NOME: TEdit
@@ -1592,7 +1264,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 22
+            TabOrder = 21
             OnKeyDown = edPROD_GRUPOKeyDown
           end
           object edMARCA_NOME: TEdit
@@ -1610,7 +1282,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 23
+            TabOrder = 22
             OnKeyDown = edPROD_GRUPOKeyDown
           end
           object edUNIDADE_MEDIDA_NOME: TEdit
@@ -1628,7 +1300,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 24
+            TabOrder = 23
             OnKeyDown = edPROD_GRUPOKeyDown
           end
           object edFAMILIA_NOME: TEdit
@@ -1646,7 +1318,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 25
+            TabOrder = 24
             OnKeyDown = edPROD_GRUPOKeyDown
           end
           object edPROD_EAN: TEdit
@@ -1661,9 +1333,7 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 5
-            OnKeyPress = edCODIGO_ALFANUMERICOKeyPress
-            OnKeyUp = edCODIGO_ALFANUMERICOKeyUp
+            TabOrder = 4
           end
           object cbSTATUS_CADASTRAL: TcxCheckBox
             Left = 686
@@ -1687,7 +1357,7 @@ object Frm_Produto: TFrm_Produto
             StyleFocused.LookAndFeel.SkinName = 'Office2013White'
             StyleHot.LookAndFeel.NativeStyle = False
             StyleHot.LookAndFeel.SkinName = 'Office2013White'
-            TabOrder = 2
+            TabOrder = 1
           end
           object edPROD_CDTIPOITEM: TEdit
             Left = 121
@@ -1701,7 +1371,7 @@ object Frm_Produto: TFrm_Produto
             Font.Name = 'Helvetica Neue'
             Font.Style = []
             ParentFont = False
-            TabOrder = 9
+            TabOrder = 8
             OnExit = edPROD_CDTIPOITEMExit
             OnKeyDown = edPROD_CDTIPOITEMKeyDown
           end
@@ -1720,7 +1390,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
             ReadOnly = True
-            TabOrder = 26
+            TabOrder = 25
             OnKeyDown = edPROD_GRUPOKeyDown
           end
           object btn_Tipo: TcxButton
@@ -1766,7 +1436,7 @@ object Frm_Produto: TFrm_Produto
               000000000003241F1D3486726BADB69B91E6CCADA1FFB99C92E988736CB22822
               1F3E000000060000000100000000000000000000000000000000}
             PaintStyle = bpsGlyph
-            TabOrder = 27
+            TabOrder = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -1788,7 +1458,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             MaxLength = 200
             ParentFont = False
-            TabOrder = 28
+            TabOrder = 27
             OnExit = edPROD_DESCRICAOExit
           end
         end
@@ -3280,323 +2950,20 @@ object Frm_Produto: TFrm_Produto
         end
       end
       object pnControles: TPanel
-        Left = 878
+        Left = 694
         Top = 542
         Width = 502
         Height = 49
         Color = 8421440
         ParentBackground = False
         TabOrder = 1
-        object bControleIncluir: TcxButton
-          Left = 5
-          Top = 5
-          Width = 120
-          Height = 40
-          Hint = 'Come'#231'ar um novo cadastro.'
-          Caption = '&Incluir'
-          LookAndFeel.Kind = lfFlat
-          LookAndFeel.NativeStyle = False
-          LookAndFeel.SkinName = 'Metropolis'
-          OptionsImage.Glyph.Data = {
-            36100000424D3610000000000000360000002800000020000000200000000100
-            2000000000000010000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFF0000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFF0000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFF0000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFF0000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000}
-          SpeedButtonOptions.Transparent = True
-          TabOrder = 0
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'HelveticaNeue'
-          Font.Style = [fsBold]
-          ParentFont = False
-          OnClick = bControleIncluirClick
-        end
-        object bControleAlterar: TcxButton
-          Left = 129
-          Top = 5
-          Width = 120
-          Height = 40
-          Caption = '&Alterar'
-          Enabled = False
-          LookAndFeel.NativeStyle = False
-          LookAndFeel.SkinName = 'Metropolis'
-          OptionsImage.Glyph.Data = {
-            36100000424D3610000000000000360000002800000020000000200000000100
-            2000000000000010000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFA272
-            44E0060503090000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFA47445E31B13
-            0B250B08050F3324154700000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFA47445E31B130B250B08
-            050F8E643BC5B6804CFC3F2C1A57000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000009C6E41D81B130B250B08050F8E64
-            3BC5B8824DFFB8824DFFB6804CFC3F2C1A570000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000806030B0B08050F8E643BC5B882
-            4DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2C1A5700000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000000000003A291851B7814DFEB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2C1A57000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000000000000000000049331E65B781
-            4DFEB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2C1A570000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000004933
-            1E65B7814DFEB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2C
-            1A57000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000049331E65B7814DFEB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB680
-            4CFC3F2C1A570000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            00000000000049331E65B7814DFEB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB6804CFC3F2D1B5800000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000049331E65B7814DFEB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB6804CFC3F2D1B58000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000049331E65B7814DFEB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB6804CFC3F2D1B580000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            00000000000000000000000000000000000049331E65B7814DFEB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2D1B5800000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000049331E65B7814DFEB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFF9A6D40D503020104000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000000000000000000049331E65B781
-            4DFEB8824DFFB8824DFFB8824DFF9C6E41D8120D0819110C07173928184F0000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000004933
-            1E65B7814DFEB8824DFF9C6E41D8120D0819110C07179A6D40D5B6804CFC3F2D
-            1B58000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000049331E659B6E41D7120D0819110C07179A6D40D5B8824DFFB8824DFFB680
-            4CFC3F2D1B580000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            00000000000005040207100B07169A6D40D5B8824DFFB8824DFFB8824DFFB882
-            4DFF795532A70000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000003F2D1B58B7814DFEB8824DFFB8824DFFB8824DFF7B57
-            33AA020201030000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000049331E65B7814DFEB8824DFF7B5733AA0202
-            0103000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            00000000000000000000000000000000000049331E657A5633A9020201030000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000}
-          SpeedButtonOptions.Transparent = True
-          TabOrder = 1
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'HelveticaNeue'
-          Font.Style = [fsBold]
-          Font.Quality = fqDraft
-          ParentFont = False
-          OnClick = bControleAlterarClick
-        end
         object bControleCancelar: TcxButton
-          Left = 253
+          Left = 377
           Top = 5
           Width = 120
           Height = 40
           Hint = 'Cancelar a opera'#231#227'o'
           Caption = '&Cancelar'
-          Enabled = False
           LookAndFeel.Kind = lfFlat
           LookAndFeel.NativeStyle = False
           LookAndFeel.SkinName = 'Metropolis'
@@ -3732,7 +3099,7 @@ object Frm_Produto: TFrm_Produto
             0000000000000000000000000000000000000000000000000000000000000000
             0000000000000000000000000000000000000000000000000000}
           SpeedButtonOptions.Transparent = True
-          TabOrder = 2
+          TabOrder = 0
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -3742,13 +3109,12 @@ object Frm_Produto: TFrm_Produto
           OnClick = bControleCancelarClick
         end
         object bControleGravar: TcxButton
-          Left = 377
+          Left = 4
           Top = 5
           Width = 120
           Height = 40
           Hint = 'Cadastrar dados.'
           Caption = '&Gravar'
-          Enabled = False
           LookAndFeel.NativeStyle = False
           LookAndFeel.SkinName = 'Metropolis'
           OptionsImage.Glyph.Data = {
@@ -3882,7 +3248,7 @@ object Frm_Produto: TFrm_Produto
             0000000000000000000000000000000000000000000000000000000000000000
             0000000000000000000000000000000000000000000000000000000000000000
             0000000000000000000000000000000000000000000000000000}
-          TabOrder = 3
+          TabOrder = 1
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -3917,7 +3283,7 @@ object Frm_Produto: TFrm_Produto
         end
       end
       object rgPROD_TRATALOTE: TRadioGroup
-        Left = 1131
+        Left = 995
         Top = 3
         Width = 161
         Height = 93
@@ -3933,10 +3299,7 @@ object Frm_Produto: TFrm_Produto
     object tabTributacao: TcxTabSheet
       Caption = ' Tributa'#231#227'o'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 1385
       object Panel4: TPanel
         Left = -1
         Top = 3
@@ -4382,7 +3745,7 @@ object Frm_Produto: TFrm_Produto
         ParentFont = False
         TabOrder = 1
         object rgNFe_modBC: TRadioGroup
-          Left = 0
+          Left = 205
           Top = 7
           Width = 387
           Height = 105
@@ -4403,7 +3766,7 @@ object Frm_Produto: TFrm_Produto
           OnClick = rgNFe_modBCClick
         end
         object pnValorPautaBC_ICMS: TPanel
-          Left = 0
+          Left = 205
           Top = 112
           Width = 387
           Height = 61
@@ -4471,8 +3834,8 @@ object Frm_Produto: TFrm_Produto
           end
         end
         object rgNFe_modBCST: TRadioGroup
-          Left = 388
-          Top = 7
+          Left = 204
+          Top = 175
           Width = 387
           Height = 105
           Caption = 'Modalidade de determina'#231#227'o da BC do ICMS ST'
@@ -4494,8 +3857,8 @@ object Frm_Produto: TFrm_Produto
           OnClick = rgNFe_modBCSTClick
         end
         object pnValorPautaBC_ICMS_ST: TPanel
-          Left = 388
-          Top = 112
+          Left = 204
+          Top = 280
           Width = 387
           Height = 95
           BevelKind = bkFlat
@@ -4610,7 +3973,7 @@ object Frm_Produto: TFrm_Produto
         end
       end
       object pnControles2: TPanel
-        Left = 883
+        Left = 691
         Top = 545
         Width = 502
         Height = 49
@@ -4618,7 +3981,7 @@ object Frm_Produto: TFrm_Produto
         ParentBackground = False
         TabOrder = 2
         object bControleCancelar2: TcxButton
-          Left = 253
+          Left = 378
           Top = 5
           Width = 120
           Height = 40
@@ -4770,7 +4133,7 @@ object Frm_Produto: TFrm_Produto
           OnClick = bControleCancelarClick
         end
         object bControleGravar2: TcxButton
-          Left = 377
+          Left = 3
           Top = 5
           Width = 120
           Height = 40
@@ -4918,308 +4281,6 @@ object Frm_Produto: TFrm_Produto
           Font.Style = [fsBold]
           ParentFont = False
           OnClick = bControleGravarClick
-        end
-        object bControleAlterar2: TcxButton
-          Left = 129
-          Top = 6
-          Width = 120
-          Height = 40
-          Caption = '&Alterar'
-          Enabled = False
-          LookAndFeel.NativeStyle = False
-          LookAndFeel.SkinName = 'Metropolis'
-          OptionsImage.Glyph.Data = {
-            36100000424D3610000000000000360000002800000020000000200000000100
-            2000000000000010000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFA272
-            44E0060503090000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFA47445E31B13
-            0B250B08050F3324154700000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFA47445E31B130B250B08
-            050F8E643BC5B6804CFC3F2C1A57000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000009C6E41D81B130B250B08050F8E64
-            3BC5B8824DFFB8824DFFB6804CFC3F2C1A570000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000806030B0B08050F8E643BC5B882
-            4DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2C1A5700000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000000000003A291851B7814DFEB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2C1A57000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000000000000000000049331E65B781
-            4DFEB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2C1A570000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000004933
-            1E65B7814DFEB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2C
-            1A57000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000049331E65B7814DFEB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB680
-            4CFC3F2C1A570000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            00000000000049331E65B7814DFEB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB6804CFC3F2D1B5800000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000049331E65B7814DFEB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB6804CFC3F2D1B58000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000049331E65B7814DFEB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB6804CFC3F2D1B580000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            00000000000000000000000000000000000049331E65B7814DFEB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB6804CFC3F2D1B5800000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000049331E65B7814DFEB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFF9A6D40D503020104000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000000000000000000049331E65B781
-            4DFEB8824DFFB8824DFFB8824DFF9C6E41D8120D0819110C07173928184F0000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000004933
-            1E65B7814DFEB8824DFF9C6E41D8120D0819110C07179A6D40D5B6804CFC3F2D
-            1B58000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000049331E659B6E41D7120D0819110C07179A6D40D5B8824DFFB8824DFFB680
-            4CFC3F2D1B580000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            00000000000005040207100B07169A6D40D5B8824DFFB8824DFFB8824DFFB882
-            4DFF795532A70000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000003F2D1B58B7814DFEB8824DFFB8824DFFB8824DFF7B57
-            33AA020201030000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000049331E65B7814DFEB8824DFF7B5733AA0202
-            0103000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            00000000000000000000000000000000000049331E657A5633A9020201030000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000}
-          SpeedButtonOptions.Transparent = True
-          TabOrder = 2
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'HelveticaNeue'
-          Font.Style = [fsBold]
-          Font.Quality = fqDraft
-          ParentFont = False
-          OnClick = bControleAlterarClick
-        end
-        object bControleIncluir2: TcxButton
-          Left = 5
-          Top = 6
-          Width = 120
-          Height = 40
-          Hint = 'Come'#231'ar um novo cadastro.'
-          Caption = '&Incluir'
-          LookAndFeel.Kind = lfFlat
-          LookAndFeel.NativeStyle = False
-          LookAndFeel.SkinName = 'Metropolis'
-          OptionsImage.Glyph.Data = {
-            36100000424D3610000000000000360000002800000020000000200000000100
-            2000000000000010000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFF0000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFF0000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFF0000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
-            4DFFB8824DFF0000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            000000000000000000000000000000000000B8824DFFB8824DFFB8824DFFB882
-            4DFF000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000}
-          SpeedButtonOptions.Transparent = True
-          TabOrder = 3
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'HelveticaNeue'
-          Font.Style = [fsBold]
-          ParentFont = False
-          OnClick = bControleIncluirClick
         end
       end
       object Panel2: TPanel

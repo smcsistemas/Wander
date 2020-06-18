@@ -6,6 +6,7 @@ unit cadastro_produto;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+899|18/06/20|10:53|cadastro_produto            |Trocado ALIQ_IPI por PROD_NFe_O13_pIPI
 892|18/06/20|10:28|cadastro_produto            |Eliminado tratamento para coluna COD_COMB
 887|18/06/20|10:13|cadastro_produto            |Eliminado tratamento para coluna GENERO
 430|16/06/20|19:27|cadastro_produto            |Substituido GRUPO por PROD_GRUPO
@@ -282,26 +283,14 @@ type
     Label28: TLabel;
     tbViewPROD_CODIGO: TcxGridDBColumn;
     tbViewPROD_DESCRICAO: TcxGridDBColumn;
-    tbViewPROD_REFERENCIASFABRICA: TcxGridDBColumn;
-    tbViewPROD_MARCA: TcxGridDBColumn;
-    tbViewPROD_CDGRUPO: TcxGridDBColumn;
     tbViewPROD_CDUNIDADE: TcxGridDBColumn;
-    tbViewTIPO_ITEM: TcxGridDBColumn;
     tbViewPROD_SALDO: TcxGridDBColumn;
-    tbViewPROD_NFe_N16_pICMS: TcxGridDBColumn;
-    tbViewICMS_CST: TcxGridDBColumn;
-    tbViewPIS_CST: TcxGridDBColumn;
-    tbViewCOFINS_CST: TcxGridDBColumn;
-    tbViewNCM: TcxGridDBColumn;
-    tbViewCEST: TcxGridDBColumn;
     tbViewPRECO: TcxGridDBColumn;
     cbTipoItemConsulta: TcxLookupComboBox;
-    tbViewPROD_ESTOQMIN: TcxGridDBColumn;
     QtdeItens: TLabel;
     Label51: TLabel;
     Label35: TLabel;
     lblprodcads: TLabel;
-    tbViewPRECO_PROMO: TcxGridDBColumn;
     sql_ponto_impressao: TFDQuery;
     ds_ponto_impressao: TDataSource;
     sql_ponto_impressaoid: TFDAutoIncField;
@@ -320,8 +309,6 @@ type
     cxButton2: TcxButton;
     cxButton18: TcxButton;
     pnControles: TPanel;
-    bControleIncluir: TcxButton;
-    bControleAlterar: TcxButton;
     bControleCancelar: TcxButton;
     bControleGravar: TcxButton;
     pnContador: TPanel;
@@ -362,11 +349,8 @@ type
     pnValorPautaBC_ICMS_ST: TPanel;
     Label12: TLabel;
     edPROD_NFe_N21_vBCST_PAUTA: TEdit;
-    bControleAlterar2: TcxButton;
-    bControleIncluir2: TcxButton;
     Panel6: TPanel;
     GroupBox4: TGroupBox;
-    Label3: TLabel;
     Label1: TLabel;
     Label4: TLabel;
     A: TLabel;
@@ -393,8 +377,7 @@ type
     edPROD_GRUPO: TEdit;
     edPROD_CDMARCA: TEdit;
     mmPROD_DETALHES: TMemo;
-    edCODIGO_ALFANUMERICO: TEdit;
-    edCODIGO: TEdit;
+    edPROD_CODIGO: TEdit;
     cb_ponto_impressao: TcxDBLookupComboBox;
     edNFe_nDI: TEdit;
     cxGroupBox1: TcxGroupBox;
@@ -508,7 +491,6 @@ type
     procedure edPROD_GRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edPROD_CDSUBGRUPOKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure PROD_COMISSAO_EXT_ATACKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edCODIGO_ALFANUMERICOKeyPress(Sender: TObject; var Key: Char);
     procedure PROD_ESTOQMINKeyPress(Sender: TObject; var Key: Char);
     procedure PROD_COMISSAO_VARKeyPress(Sender: TObject; var Key: Char);
     procedure PROD_COMISSAO_DISTKeyPress(Sender: TObject; var Key: Char);
@@ -534,9 +516,7 @@ type
     procedure DBEdit12KeyPress(Sender: TObject; var Key: Char);
     procedure CodBalancaCheck(campo: TDBEdit);
     procedure cxButton7Click(Sender: TObject);
-    procedure edCODIGO_ALFANUMERICOKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     function JaExiste_PROD_EAN: Boolean;
-    function JaExiste_CODIGO_ALFANUMERICO: Boolean;
     function JaExiste_PROD_DESCRICAO: Boolean;
     function RefFabricanteRepetido(foco: Boolean = true): Boolean;
     procedure edCESTKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -586,7 +566,6 @@ type
     procedure bControleAlterarClick(Sender: TObject);
     procedure bControleCancelarClick(Sender: TObject);
     procedure bControleGravarClick(Sender: TObject);
-    procedure edCODIGO_ALFANUMERICOExit(Sender: TObject);
     procedure edPROD_CDMARCAExit(Sender: TObject);
     procedure edPROD_CDFAMILIAExit(Sender: TObject);
     procedure edPROD_GRUPOExit(Sender: TObject);
@@ -646,6 +625,7 @@ type
     procedure edPROD_DESCRICAOMouseLeave(Sender: TObject);
     procedure Label4MouseEnter(Sender: TObject);
     procedure Label4MouseLeave(Sender: TObject);
+    procedure edPROD_CODIGOExit(Sender: TObject);
 
   private
     { Private declarations }
@@ -1072,7 +1052,7 @@ end;
 procedure TFrm_Produto.ApagarRegistro;
 var qAUX: tFDQuery;
 begin
-   if edCODIGO.Text = '' then
+   if edPROD_CODIGO.Text = '' then
       exit;
 
    qAUX := TFDQuery.Create(nil);
@@ -1083,7 +1063,7 @@ begin
    qAUX.sql.clear;
    qAUX.sql.add('DELETE FROM PRODUTO_PROD');
    qAUX.sql.add(' WHERE PROD_CODIGO = :CODIGO');
-   qAUX.ParamByName('CODIGO').AsString := edCODIGO.Text;
+   qAUX.ParamByName('CODIGO').AsString := edPROD_CODIGO.Text;
    qAUX.ExecSql;
 
    qAUX.Free;
@@ -1264,7 +1244,7 @@ begin
    if edRPC_TPMOV.Text  = '' then exit;
    if edRPC_CFOP.Text   = '' then exit;
 
-   ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(edCodigo.Text,
+   ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(edPROD_CODIGO.Text,
                                                    edRPC_TPMOV.Text,
                                                    edRPC_CFOP.Text);
 
@@ -1320,14 +1300,14 @@ begin
    if edRPC_PIS.Text    = '' then exit;
    if edRPC_COFINS.Text = '' then exit;
 
-   ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(edCodigo.Text,
+   ExcluiRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(edPROD_CODIGO.Text,
                                                    edRPC_TPMOV.Text,
                                                    edRPC_CFOP.Text);
 
 
    Associar_CFOP_PROD_CST_PISCOFINS(edRPC_TPMOV.Text,
                                     edRPC_CFOP.Text,
-                                    StrToInt(edCodigo.Text),
+                                    StrToInt(edPROD_CODIGO.Text),
                                     edRPC_PIS.Text,
                                     edRPC_COFINS.Text);
 
@@ -1416,6 +1396,7 @@ begin
     Close;
   end;
 
+{
   //Ajusta botões de controle
   pode_Alterar_Incluir(Frm_Produto);
 
@@ -1425,7 +1406,7 @@ begin
 
   //Impedir Edição
   HabilitarCampos(False);
-
+}
   //Posicionar na aba de consulta
   Ir_Para_Consulta;
 
@@ -1440,7 +1421,7 @@ begin
   HabilitarCampos(True);
 
   //Colocar o cursor no 1o campo editável.
-  edCODIGO_ALFANUMERICO.setfocus;
+  edPROD_DESCRICAO.setfocus;
 
   //Destacar campos
   Pintar(Frm_Produto);
@@ -1471,8 +1452,8 @@ end;
 
 procedure TFrm_Produto.Clicou_Botao_Alterar;
 begin
-  if ((edCODIGO.Text = '' )  or
-      (edCODIGO.Text = '0')) and
+  if ((edPROD_CODIGO.Text = '' )  or
+      (edPROD_CODIGO.Text = '0')) and
      (edPROD_DESCRICAO.Text = '') then
   begin
     Application.MessageBox('Nenhum produto foi selecionado.', 'Alterar', MB_ICONWARNING + MB_OK);
@@ -1531,9 +1512,9 @@ begin
     carregar_nat_op;
     SQL_PRODUTO.Insert;
     if sql_incrementAUTO_INCREMENT.value = 0 then
-      edCODIGO.Text := '1'
+      edPROD_CODIGO.Text := '1'
     else
-      edCODIGO.Text := inttostr(sql_incrementAUTO_INCREMENT.value);
+      edPROD_CODIGO.Text := inttostr(sql_incrementAUTO_INCREMENT.value);
     cbTipoItem.itemindex := 0;
     cb_origem.itemindex := 0;
     IniciarCadastro([bControleIncluir, bControleCancelar, bControleAlterar], true);
@@ -2024,7 +2005,6 @@ begin
 
    result := false;
 
-   if JaExiste_CODIGO_ALFANUMERICO then exit;
    if JaExiste_PROD_EAN            then exit;
 
    if edPROD_DESCRICAO.Text = '' then
@@ -2266,7 +2246,7 @@ begin
   if campo.Text <> '' then
   begin
     qry := simplequery('SELECT * FROM PRODUTO_PROD WHERE (COD_BALANCA_1 = ' + QuotedStr(campo.Text) + ' OR COD_BALANCA_2 = ' +
-      QuotedStr(campo.Text) + ' OR COD_BALANCA_3 = ' + QuotedStr(campo.Text) + ') AND PROD_CODIGO <> ' + QuotedStr(edCODIGO.Text));
+      QuotedStr(campo.Text) + ' OR COD_BALANCA_3 = ' + QuotedStr(campo.Text) + ') AND PROD_CODIGO <> ' + QuotedStr(edPROD_CODIGO.Text));
     if qry <> nil then
     begin
       wnAlerta('Código Balança', 'Código da balança ' + campo.Text + ' já está cadastrado no produto ' + slinebreak + 'Cód: ' +
@@ -2291,7 +2271,7 @@ begin
        '       PROD_DESCRICAO '+
        '  FROM PRODUTO_PROD      '+
        ' WHERE PROD_EAN     =' + QuotedStr(edPROD_EAN.Text) +
-       '   AND PROD_CODIGO  <> ' + edCODIGO.Text;
+       '   AND PROD_CODIGO  <> ' + edPROD_CODIGO.Text;
     qry := simplequery(x);
     if qry <> nil then
     begin
@@ -2353,8 +2333,8 @@ begin
      +        'PROD_DESCRICAO '
      +   'FROM PRODUTO_PROD '
      +  'WHERE PROD_DESCRICAO = ' + QuotedStr(edPROD_DESCRICAO.Text);
-  if edCODIGO.Text <> '' then
-     x := x + ' AND PROD_CODIGO  <> ' + QuotedStr(edCODIGO.Text);
+  if edPROD_CODIGO.Text <> '' then
+     x := x + ' AND PROD_CODIGO  <> ' + QuotedStr(edPROD_CODIGO.Text);
 
   qry := simplequery(x);
   if qry <> nil then
@@ -2400,61 +2380,19 @@ begin
    tConsulta.Enabled := true;
 end;
 
-procedure TFrm_Produto.edCODIGO_ALFANUMERICOExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_CODIGOExit(Sender: TObject);
 begin
-  if bControleCancelar.focused then
+   if (edPROD_CODIGO.Text = '') or
+      (not fPRODUTO_PRODExiste(edPROD_CODIGO.Text)) then
+   begin
+     LimpaTela(Frm_Produto);
      exit;
-
-  if JaExiste_CODIGO_ALFANUMERICO then
-     exit;
+   end;
+   Mostrar_Produto;
+   edPROD_DESCRICAO.SetFocus;
 end;
 
-function TFrm_Produto.JaExiste_CODIGO_ALFANUMERICO:Boolean;
-var
-  qry: TFDQuery;
-  x: string;
-begin
-  result := False;
-  if edCODIGO_ALFANUMERICO.Text = '' then
-     exit;
 
-  x := 'SELECT PROD_CODIGO, '
-     +        'PROD_DESCRICAO '
-     +   'FROM PRODUTO_PROD '
-     +  'WHERE CODIGO_ALFANUMERICO = ' + QuotedStr(edCODIGO_ALFANUMERICO.Text);
-  if edCODIGO.Text <> '' then
-     x := x + ' AND PROD_CODIGO  <> ' + QuotedStr(edCODIGO.Text);
-
-  qry := simplequery(x);
-  if qry <> nil then
-  begin
-      wnAlerta('Cadastrar Produto',
-               'Código Alfanumérico Alternativo já cadastrado no produto: ' + slinebreak
-             + 'Cód: ' + qry.Fields[0].AsString              + slinebreak
-             + 'Descrição: ' + qry.Fields[1].AsString,
-             taLeftJustify, 12);
-      edCODIGO_ALFANUMERICO.SelectAll;
-      edCODIGO_ALFANUMERICO.SetFocus;
-      result := True;
-      exit;
-  end;
-end;
-
-procedure TFrm_Produto.edCODIGO_ALFANUMERICOKeyPress(Sender: TObject;
-
-  var Key: Char);
-begin
-  inherited;
-  Key := u_funcoes.ApenasNumeros(Key);
-end;
-
-procedure TFrm_Produto.edCODIGO_ALFANUMERICOKeyUp(Sender: TObject;
-
-  var Key: Word; Shift: TShiftState);
-begin
-  if isKeyNumLetter(Key) and (length(edPROD_EAN.Text) > 6) then
-    JaExiste_PROD_EAN;
-end;
 
 procedure TFrm_Produto.edCODIGO_ORIGEM_MERCADORIAExit(Sender: TObject);
 begin
@@ -2535,7 +2473,6 @@ begin
         //qConsulta.sql.add(' AND (                                        ');
         qConsulta.Sql.Add(' WHERE ');
         qConsulta.sql.add('          (PROD_CODIGO           LIKE :TEXTO) ');
-        qConsulta.sql.add('       OR (CODIGO_ALFANUMERICO   LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (PROD_EAN              LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (PROD_DESCRICAO     LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (ncm                   LIKE :TEXTO) ');
@@ -2567,10 +2504,10 @@ end;
 
 procedure TFrm_Produto.carregar_faixa;
 begin
-  if not ansimatchstr(edCODIGO.Text, [emptystr, '0']) then
+  if not ansimatchstr(edPROD_CODIGO.Text, [emptystr, '0']) then
   begin
     SQL_PRECO_FAIXA.Close;
-    SQL_PRECO_FAIXA.ParamByName('pid_prod').value := edCODIGO.Text;
+    SQL_PRECO_FAIXA.ParamByName('pid_prod').value := edPROD_CODIGO.Text;
     SQL_PRECO_FAIXA.Open;
   end
   else
@@ -2876,6 +2813,8 @@ end;
 procedure TFrm_Produto.HabilitarCampos(pBoolean: Boolean);
 var i : integer;
 begin
+   exit; // somente botao gravar
+
    // Habilitar/Desabiitar campos do cadastro de clientes (W)
    //---------------------------------------------------------------------------
 
@@ -2902,7 +2841,7 @@ begin
    pnValorPautaBC_ICMS_ST.Enabled := True;
 
    //Objetos sempre desabilitados
-   edCODIGO.ReadOnly        := True;
+   //edPROD_CODIGO.ReadOnly        := True;
 
 end;
 
@@ -2914,10 +2853,10 @@ begin
      //frm_etiquetas.cxTabSheet2.TabVisible := False;
      //frm_etiquetas.btnSearch.Enabled := False;
 
-     if edCODIGO.Text = '' then
+     if edPROD_CODIGO.Text = '' then
         exit;
 
-     frm_etiquetas.produto := tproduto.create(edCODIGO.Text);
+     frm_etiquetas.produto := tproduto.create(edPROD_CODIGO.Text);
      frm_etiquetas.preencher_dados_produto2;
      frm_etiquetas.showmodal;
 end;
@@ -2955,7 +2894,6 @@ begin
    qAUX.sql.clear;
    qAUX.sql.add('INSERT INTO PRODUTO_PROD         ');
    qAUX.sql.add('     ( PROD_CODIGO,              ');
-   qAUX.sql.add('       CODIGO_ALFANUMERICO,      ');
    qAUX.sql.add('       NFe_nDI,                  ');
    qAUX.sql.add('       PROD_DESCRICAO,           ');
    qAUX.sql.add('       PROD_DESCRICAO_IMPRESSA,  ');
@@ -2992,7 +2930,6 @@ begin
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
    qAUX.sql.add('     (:PROD_CODIGO,              ');
-   qAUX.sql.add('      :CODIGO_ALFANUMERICO,      ');
    qAUX.sql.add('      :NFe_nDI,                  ');
    qAUX.sql.add('      :PROD_DESCRICAO,           ');
    qAUX.sql.add('      :PROD_DESCRICAO_IMPRESSA,  ');
@@ -3029,19 +2966,18 @@ begin
    qAUX.sql.add('     )                           ');
 
    //Codigo
-   if edCodigo.Text = '' then
+   if edPROD_CODIGO.Text = '' then
    begin
       vCodigo := fProximoCodigo('PRODUTO_PROD','PROD_CODIGO');
       RegistraLog('Cadastrou Produto '+vCodigo+'-'+edPROD_DESCRICAO.Text);
    end
    else
    begin
-      vCodigo := edCodigo.Text;
+      vCodigo := edPROD_CODIGO.Text;
       RegistraLog('Alterou Produto '+vCodigo+'-'+edPROD_DESCRICAO.Text);
    end;
 
    qAUX.ParamByName('PROD_CODIGO'             ).AsString := vCodigo;
-   qAUX.ParamByName('CODIGO_ALFANUMERICO'     ).AsString  := edCODIGO_ALFANUMERICO.Text;
    qAUX.ParamByName('NFe_nDI'                 ).AsString  := edNFe_nDI.Text;
    qAUX.ParamByName('PROD_DESCRICAO'          ).AsString  := edPROD_DESCRICAO.Text;
    qAUX.ParamByName('PROD_DESCRICAO_IMPRESSA' ).AsString  := edPROD_DESCRICAO_IMPRESSA.Text;
@@ -3111,8 +3047,7 @@ begin
    LimpaTela(Frm_Produto);
 
    //Preencher a tela com dados do produto
-   edCODIGO.Text                   := qConsulta.FieldByName('PROD_CODIGO'            ).AsString;
-   edCODIGO_ALFANUMERICO.Text      := qConsulta.FieldByName('CODIGO_ALFANUMERICO'    ).AsString;
+   edPROD_CODIGO.Text              := qConsulta.FieldByName('PROD_CODIGO'            ).AsString;
    edNFe_nDI.Text                  := qConsulta.FieldByName('NFe_nDI'                ).AsString;
    edPROD_DESCRICAO.Text           := qConsulta.FieldByName('PROD_DESCRICAO'         ).AsString;
    edPROD_DESCRICAO_IMPRESSA.Text  := qConsulta.FieldByName('PROD_DESCRICAO_IMPRESSA').AsString;
@@ -3304,7 +3239,7 @@ procedure TFrm_Produto.Pode_Alterar;
 begin
    //Habilita o botão [Alterar]
    //---------------------------------------------------------------------------
-   bControlealterar.Enabled := True;
+//   bControlealterar.Enabled := True;
 end;
 
 procedure TFrm_Produto.PROD_PRECO_ATACKeyPress(Sender: TObject;
@@ -3478,7 +3413,7 @@ begin
   if edPROD_REFERENCIASFABRICA.Text <> '' then
   begin
     x := 'SELECT PROD_CODIGO, PROD_DESCRICAO FROM PRODUTO_PROD WHERE (PROD_REFERENCIASFABRICA IS NOT NULL AND PROD_REFERENCIASFABRICA <> ' + QuotedStr(emptystr) +
-      ') AND PROD_REFERENCIASFABRICA =' + QuotedStr(edPROD_REFERENCIASFABRICA.Text) + ' AND PROD_CODIGO  <>' + edCODIGO.Text;
+      ') AND PROD_REFERENCIASFABRICA =' + QuotedStr(edPROD_REFERENCIASFABRICA.Text) + ' AND PROD_CODIGO  <>' + edPROD_CODIGO.Text;
     qry := simplequery(x);
     if qry <> nil then
     begin
@@ -3610,6 +3545,7 @@ procedure TFrm_Produto.tbViewCustomDrawCell(Sender: TcxCustomGridTableView; ACan
 var
   value, est_min: variant;
 begin
+{
   if chk_diff_estoque.Checked then
   begin
     est_min := tbView.ViewData.Records[AViewInfo.GridRecord.Index].Values[tbViewPROD_ESTOQMIN.Index];
@@ -3622,6 +3558,7 @@ begin
   end;
 
   TFunctions.stripedGrid(ACanvas, AViewInfo);
+}
 end;
 
 procedure TFrm_Produto.tbViewKeyPress(Sender: TObject; var Key: Char);
@@ -3810,7 +3747,7 @@ CREATE TABLE `produto` (
 	`PROD_NFe_N20_pRedBCST` DECIMAL(10,4) NULL DEFAULT NULL,
 	`PROD_NFe_N21_vBCST_PAUTA` DECIMAL(10,4) NULL DEFAULT NULL,
 	`PROD_NFe_O13_pIPI` VARCHAR(20) NULL DEFAULT NULL,
-	`ENQUADRAMENTO_IPI` INT(11) NULL DEFAULT NULL,
+	`PROD_NFe_O02_clEnq` INT(11) NULL DEFAULT NULL,
 	`CODIGO_LOCALIZACAO` INT(11) NULL DEFAULT NULL,
 	`ICMS_CST` VARCHAR(3) NULL DEFAULT NULL,
 	`ICMS_IPI` VARCHAR(2) NULL DEFAULT NULL,
@@ -3867,11 +3804,9 @@ CREATE TABLE `produto` (
 	`NFe_modBCST` INT(11) NULL DEFAULT NULL COMMENT 'Nfe: Indicador modalidade de base de cálculo da ST',
 	`NFe_pMVAST` DECIMAL(6,2) NULL DEFAULT NULL COMMENT '% da MV Adicionado do ICMS ST',
 	`NFe_motDesICMS` INT(11) NULL DEFAULT NULL COMMENT 'Indicador Motivo da desoneração do ICMS',
-	`CODIGO_ALFANUMERICO` VARCHAR(20) NULL DEFAULT NULL COMMENT 'Codigo Alfanumerico Alternativo',
 	`VALOR_PAUTA_BC` DECIMAL(10,4) NULL DEFAULT '0.0000' COMMENT 'Valor de Pauta do produto',
 	PRIMARY KEY (`CODIGO`),
 	INDEX `ponto_impressao_id` (`ponto_impressao_id`),
-	INDEX `idx_CODIGO_ALFANUMERICO` (`CODIGO_ALFANUMERICO`),
 	INDEX `idx_NCM` (`NCM`),
 	INDEX `idx_PROD_REFERENCIASFABRICA` (`PROD_REFERENCIASFABRICA`),
 	CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`ponto_impressao_id`) REFERENCES `ponto_impressao` (`id`)
@@ -3920,3 +3855,4 @@ Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:5
 Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/06/2020 09:43
 Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:03
 Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50
+Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:43

@@ -4,6 +4,7 @@ unit m_NFe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+896|18/06/20|10:53|m_NFe                       |Trocado ALIQ_IPI por PROD_NFe_O13_pIPI
 326|15/06/20|13:35|m_NFe                       |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 304|15/06/20|10:14|m_NFe                       |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 ========================================================================================================================================
@@ -1255,7 +1256,7 @@ begin
       xItem.TOTAL_COFINS := TNF_Formats.Decimal(s.Fieldbyname('vCOFINS_S11').asString);
 
       xItem.CST_IPI := o.Fieldbyname('CST_O09').asString;
-      xItem.ENQUADRAMENTO_IPI := o.Fieldbyname('cEnq_O06').asString;
+      xItem.PROD_NFe_O02_clEnq := o.Fieldbyname('cEnq_O06').asString;
       xItem.BASE_IPI := TNF_Formats.Decimal(o.Fieldbyname('vBC_O10').asString);
       xItem.PROD_NFe_O13_pIPI := TNF_Formats.Decimal(o.Fieldbyname('pIPI_O13').asString);
       xItem.TOTAL_IPI := TNF_Formats.Decimal(o.Fieldbyname('vIPI_O14').asString);
@@ -1556,3 +1557,4 @@ Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22
 Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:55
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50
 Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50
+Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:43

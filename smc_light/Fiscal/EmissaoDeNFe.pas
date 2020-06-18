@@ -5,6 +5,7 @@ unit EmissaoDeNFe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+898|18/06/20|10:53|EmissaoDeNFe                |Trocado ALIQ_IPI por PROD_NFe_O13_pIPI
 344|15/06/20|18:23|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_CDUNIDADE)ao invés de PRODUTO(PROD_CDUNIDADE)
 322|15/06/20|13:35|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 315|15/06/20|10:14|EmissaoDeNFe                |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
@@ -4496,6 +4497,7 @@ begin
    //Preenchimento conforme Atos Normativos editados pela Receita Federal
    //(Observação 2)
    //                                    (Excluído no leiaute 4.0 - NT 2016/002)
+   //PROD_NFe_O02_clEnq
 
    {248-O03}
    //CNPJProd

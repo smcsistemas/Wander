@@ -4,6 +4,7 @@ unit m_Importacao;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+895|18/06/20|10:53|m_Importacao                |Trocado ALIQ_IPI por PROD_NFe_O13_pIPI
 325|15/06/20|13:35|m_Importacao                |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 305|15/06/20|10:14|m_Importacao                |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 ========================================================================================================================================
@@ -100,7 +101,7 @@ type
       Im_It_Aliq_Cofins: Variant;
       Im_It_total_cofins: Variant;
       Im_It_cst_ipi: string;
-      Im_It_enquadramento_ipi: string;
+      Im_It_PROD_NFe_O02_clEnq: string;
       Im_It_base_ipi: Variant;
       Im_It_PROD_NFe_O13_pIPI: Variant;
       Im_It_total_ipi: Variant;
@@ -145,7 +146,7 @@ type
       function getIm_It_Aliq_cofins: Variant;
       function getIm_It_total_cofins: Variant;
       function getIm_It_cst_ipi: string;
-      function getIm_It_enquadramento_ipi: string;
+      function getIm_It_PROD_NFe_O02_clEnq: string;
       function getIm_It_base_ipi: Variant;
       function getIm_It_PROD_NFe_O13_pIPI: Variant;
       function getIm_It_total_ipi: Variant;
@@ -189,7 +190,7 @@ type
       procedure setIm_It_Aliq_cofins(const Value: Variant);
       procedure setIm_It_total_cofins(const Value: Variant);
       procedure setIm_It_cst_ipi(Value: string);
-      procedure setIm_It_enquadramento_ipi(Value: string);
+      procedure setIm_It_PROD_NFe_O02_clEnq(Value: string);
       procedure setIm_It_base_ipi(Value: Variant);
       procedure setIm_It_PROD_NFe_O13_pIPI(Value: Variant);
       procedure setIm_It_total_ipi(Value: Variant);
@@ -237,7 +238,7 @@ type
       PROPERTY ALIQ_COFINS: Variant READ getIm_It_Aliq_cofins WRITE setIm_It_Aliq_cofins;
       PROPERTY TOTAL_COFINS: Variant READ getIm_It_total_cofins WRITE setIm_It_total_cofins;
       PROPERTY CST_IPI: string READ getIm_It_cst_ipi WRITE setIm_It_cst_ipi;
-      PROPERTY ENQUADRAMENTO_IPI: string READ getIm_It_enquadramento_ipi WRITE setIm_It_enquadramento_ipi;
+      PROPERTY PROD_NFe_O02_clEnq: string READ getIm_It_PROD_NFe_O02_clEnq WRITE setIm_It_PROD_NFe_O02_clEnq;
       PROPERTY BASE_IPI: Variant READ getIm_It_base_ipi WRITE setIm_It_base_ipi;
       PROPERTY PROD_NFe_O13_pIPI: Variant READ getIm_It_PROD_NFe_O13_pIPI WRITE setIm_It_PROD_NFe_O13_pIPI;
       PROPERTY TOTAL_IPI: Variant READ getIm_It_total_ipi WRITE setIm_It_total_ipi;
@@ -721,7 +722,7 @@ begin
       self.ALIQ_COFINS := qry.fieldbyname('Aliq_Cofins').asExtended;
       self.TOTAL_COFINS := qry.fieldbyname('total_cofins').asExtended;
       self.CST_IPI := qry.fieldbyname('cst_ipi').asString;
-      self.ENQUADRAMENTO_IPI := qry.fieldbyname('enquadramento_ipi').asString;
+      self.PROD_NFe_O02_clEnq := qry.fieldbyname('PROD_NFe_O02_clEnq').asString;
       self.BASE_IPI := qry.fieldbyname('base_ipi').asExtended;
       self.PROD_NFe_O13_pIPI := qry.fieldbyname('PROD_NFe_O13_pIPI').asExtended;
       self.TOTAL_IPI := qry.fieldbyname('total_ipi').asExtended;
@@ -901,9 +902,9 @@ begin
   result := self.Im_It_Editado;
 end;
 
-function TImportacao.TItem.getIm_It_enquadramento_ipi: string;
+function TImportacao.TItem.getIm_It_PROD_NFe_O02_clEnq: string;
 begin
-  result := self.Im_It_enquadramento_ipi;
+  result := self.Im_It_PROD_NFe_O02_clEnq;
 end;
 
 function TImportacao.TItem.getIm_It_Id: integer;
@@ -1000,12 +1001,12 @@ procedure TImportacao.TItem.Insert;
 begin
   Tdb.execquery('INSERT INTO IMPORTACAO_PRODUTOS (ID_NFE, ID_IMPORTACAO,CODIGO, ITEM, DESTINO, DESCRICAO, COD_BARRAS, UM, QTDE, PRECO_UNI, DESCONTO, ACRESCIMOS, VALOR_TOTAL,' +
     'CST_ICMS, PROD_NFe_N16_pICMS, BASE_ICMS, TOTAL_ICMS, CST_PIS, BASE_PIS, ALIQ_PIS, TOTAL_PIS,' +
-    'CST_COFINS, BASE_COFINS, ALIQ_COFINS, TOTAL_COFINS, CST_IPI, ENQUADRAMENTO_IPI, BASE_IPI, PROD_NFe_O13_pIPI,' +
+    'CST_COFINS, BASE_COFINS, ALIQ_COFINS, TOTAL_COFINS, CST_IPI, PROD_NFe_O02_clEnq, BASE_IPI, PROD_NFe_O13_pIPI,' +
     'TOTAL_IPI, NCM, CEST, CFOP, CSOSN, ORIGEM, TIPO, PRECO_VENDA, MARGEM_LUCRO, DESPESAS_OPERACIONAIS, COMISSAO, EDITADO) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
     [self.Im_It_Id_nfe, self.Im_It_Id_Importacao, self.Im_It_Codigo, self.Im_It_Item, self.Im_It_Destino, self.Im_It_Descricao, self.Im_It_Cod_Barras, self.Im_It_UM,
     self.Im_It_Qtde, self.Im_It_Preco_Uni, self.Im_It_Desconto, self.Im_It_Acrescimos, self.Im_It_Valor_Total, self.Im_It_cst_icms, self.Im_It_PROD_NFe_N16_pICMS, self.Im_It_base_icms,
     self.Im_It_total_icms, self.Im_It_cst_pis, self.Im_It_base_pis, self.Im_It_Aliq_pis, self.Im_It_total_pis, self.Im_It_cst_cofins, self.Im_It_base_cofins,
-    self.Im_It_Aliq_Cofins, self.Im_It_total_cofins, self.Im_It_cst_ipi, self.Im_It_enquadramento_ipi, self.Im_It_base_ipi, self.Im_It_PROD_NFe_O13_pIPI, self.Im_It_total_ipi,
+    self.Im_It_Aliq_Cofins, self.Im_It_total_cofins, self.Im_It_cst_ipi, self.Im_It_PROD_NFe_O02_clEnq, self.Im_It_base_ipi, self.Im_It_PROD_NFe_O13_pIPI, self.Im_It_total_ipi,
     self.Im_It_ncm, self.Im_It_cest, self.Im_It_cfop, self.Im_It_csosn, self.Im_It_origem, self.Im_It_tipo, self.Im_It_preco_venda, self.Im_It_margem_lucro,
     self.Im_It_despesas_operacionais, self.Im_It_comissao, self.Im_It_Editado]);
 end;
@@ -1031,12 +1032,12 @@ begin
     ukHard:
       Tdb.execquery('UPDATE IMPORTACAO_PRODUTO SET CODIGO=?, ITEM=?, DESTINO=?, DESCRICAO=?, COD_BARRAS=?, UM=?, QTDE=?, PRECO_UNI=?, DESCONTO=?, ACRESCIMOS=?, VALOR_TOTAL=?,' +
         'CST_ICMS=?, PROD_NFe_N16_pICMS=?, BASE_ICMS=?, TOTAL_ICMS=?, CST_PIS=?, BASE_PIS=?, ALIQ_PIS=?, TOTAL_PIS=?,' +
-        'CST_COFINS=?, BASE_COFINS=?, ALIQ_COFINS=?, TOTAL_COFINS=?,CST_IPI=?, ENQUADRAMENTO_IPI=?, BASE_IPI=?, PROD_NFe_O13_pIPI=?,' +
+        'CST_COFINS=?, BASE_COFINS=?, ALIQ_COFINS=?, TOTAL_COFINS=?,CST_IPI=?, PROD_NFe_O02_clEnq=?, BASE_IPI=?, PROD_NFe_O13_pIPI=?,' +
         'TOTAL_IPI=?, NCM=?, CEST=?, CFOP=?, CSOSN=?, ORIGEM=?, TIPO=?,EDITADO=? WHERE ID=?', [self.Im_It_Id_nfe, self.Im_It_Id_Importacao, self.Im_It_Codigo, self.Im_It_Item,
         self.Im_It_Destino, self.Im_It_Descricao, self.Im_It_Cod_Barras, self.Im_It_UM, self.Im_It_Qtde, self.Im_It_Preco_Uni, self.Im_It_Desconto, self.Im_It_Acrescimos,
         self.Im_It_Valor_Total, self.Im_It_cst_icms, self.Im_It_PROD_NFe_N16_pICMS, self.Im_It_base_icms, self.Im_It_total_icms, self.Im_It_cst_pis, self.Im_It_base_pis,
         self.Im_It_Aliq_pis, self.Im_It_total_pis, self.Im_It_cst_cofins, self.Im_It_base_cofins, self.Im_It_Aliq_Cofins, self.Im_It_total_cofins, self.Im_It_cst_ipi,
-        self.Im_It_enquadramento_ipi, self.Im_It_base_ipi, self.Im_It_PROD_NFe_O13_pIPI, self.Im_It_total_ipi, self.Im_It_ncm, self.Im_It_cest, self.Im_It_cfop, self.Im_It_csosn,
+        self.Im_It_PROD_NFe_O02_clEnq, self.Im_It_base_ipi, self.Im_It_PROD_NFe_O13_pIPI, self.Im_It_total_ipi, self.Im_It_ncm, self.Im_It_cest, self.Im_It_cfop, self.Im_It_csosn,
         self.Im_It_origem, self.Im_It_tipo, self.Im_It_Editado, self.Im_It_Id]);
   end;
 
@@ -1222,9 +1223,9 @@ begin
   self.Im_It_Editado := Value;
 end;
 
-procedure TImportacao.TItem.setIm_It_enquadramento_ipi(Value: string);
+procedure TImportacao.TItem.setIm_It_PROD_NFe_O02_clEnq(Value: string);
 begin
-  self.Im_It_enquadramento_ipi := Value;
+  self.Im_It_PROD_NFe_O02_clEnq := Value;
 end;
 
 procedure TImportacao.TItem.setIm_It_Id_Importacao(const Value: integer);
@@ -1357,3 +1358,4 @@ Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22
 Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:55
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:49
 Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50
+Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:42

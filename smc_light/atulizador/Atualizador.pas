@@ -3,6 +3,8 @@ unit Atualizador;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+914|18/06/20|10:28|Atualizador                 |Coluna ENQUADRAMENTO_IPI substituída por PROD_NFe_O02_clEnq
+893|18/06/20|10:28|Atualizador                 |Coluna ALIQ_IPI substituída por PROD_NFe_O13_pIPI
 890|18/06/20|10:13|cadastro_produto            |Eliminada coluna GENERO da tabela PRODUTO_PROD
 889|18/06/20|10:13|cadastro_produto            |Eliminada coluna LEIS da tabela PRODUTO_PROD
 888|18/06/20|10:13|cadastro_produto            |Eliminada coluna FORNECEDOR_NOME da tabela PRODUTO_PROD
@@ -2492,13 +2494,6 @@ begin
     if fNaoAtualizado('Tipo de Movimento: Flags de Tratamentos Grupo U da NFe ....')    then
        Executar('ALTER TABLE TIPOMOVIMENTO_TPMOV ADD TPMOV_NFE_TRATAR_GRUPO_U_ISSQN                        INTEGER NOT NULL DEFAULT 0 COMMENT "Flag Tratar GRP U-ISSQN (0-Não, 1-Sim)" ');
 
-    //21/05/20
-    if fNaoAtualizado('Produto: Código Alfanumérico Alternativo') Then
-    begin
-       Executar('ALTER TABLE PRODUTO ADD CODIGO_ALFANUMERICO VARCHAR(20) NULL COMMENT "Codigo Alfanumerico Alternativo" ');
-       Executar('UPDATE PRODUTO SET CODIGO_ALFANUMERICO  = CODIGO WHERE CODIGO_ALFANUMERICO IS NULL');
-    end;
-
     //22/05/20
     if fNaoAtualizado('Tabela FAMILIA substituida por PRODUTO_FAMILIA') Then
     begin
@@ -3231,12 +3226,24 @@ begin
       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN ALIQ_IPI');
    end;
 
+   //Alíquota do IPI
+   if fNaoAtualizado('Enquadramento de IPI') Then
+   begin
+      Executar('ALTER TABLE PRODUTO_PROD ADD PROD_NFe_O02_clEnq VARCHAR(05) NULL COMMENT "Classe de enquadramento do IPI para Cigarros e Bebidas"');
+      Executar('UPDATE PRODUTO_PROD SET ENQUADRAMENTO_IPI = '' WHERE ENQUADRAMENTO_IPI IS NULL');
+      Executar('UPDATE PRODUTO_PROD SET PROD_NFe_O02_clEnq = ENQUADRAMENTO_IPI');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN ENQUADRAMENTO_IPI');
+   end;
+
+   if fNaoAtualizado('Elimina Código Alfanumérico Alternativo') Then
+      Executar('ALTER TABLE PRODUTO DROP COLUMN CODIGO_ALFANUMERICO');
+
 end;
+
 
 end.
 
     {
-	`ALIQ_IPI` VARCHAR(20) NULL DEFAULT NULL,
 	`ENQUADRAMENTO_IPI` INT(11) NULL DEFAULT NULL,
 	`CODIGO_LOCALIZACAO` INT(11) NULL DEFAULT NULL,
 	`ICMS_CST` VARCHAR(3) NULL DEFAULT NULL,

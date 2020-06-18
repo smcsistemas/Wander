@@ -134,6 +134,10 @@ const
 //##############################################################################
 //                    FUNCOES DESENVOLVIDAS PELO WANDER
 //##############################################################################
+//109 Recebe um codigo e verifica se existe produto cadastrado com este coódigo
+//    Se existir, retorna true
+//    Se não existir, retorna false
+function fPRODUTO_PRODExiste(pPROD_CODIGO:String):Boolean;
 //108 Recebe codigo e descricao e cadastra unidade de medida
 procedure INSERT_UNIDADE_UNI(pUNI_CODIGO,pUNI_DESCRICAO:String;pUNI_DECIMAIS:Integer);
 //107 receber tabela e coluna e retorna próximo cod sequencial livre
@@ -5724,6 +5728,8 @@ end;
 procedure HabilitarPanels(pForm:TForm;pEnabled:Boolean);
 var i : integer;
 begin
+   exit; // somente botao gravar
+
    for i := 0 to pForm.ComponentCount - 1 do
    begin
      //tPanel
@@ -5774,7 +5780,9 @@ begin
      // TEdit
      if (pForm.Components[i] is TEdit) then
         //Não limpar o campo de argumento de pesquisas
-        if (pForm.Components[i] as TEdit).Name <> 'edArgumentoDePesquisa' then
+        //Não limpar campos com tag = 3 (codigos)
+        if ((pForm.Components[i] as TEdit).Name <> 'edArgumentoDePesquisa') and
+           ((pForm.Components[i] as TEdit).Tag  <> 3) then
            (pForm.Components[i] as TEdit).Text := '';
 
      // TMaskEdit
@@ -5863,6 +5871,12 @@ end;
 procedure pode_Alterar_Incluir(pForm:TForm);
 var i : Integer;
 begin
+
+
+  exit; // so gravar
+
+
+
   //    Pode: Incluir  / Alterar
   //Não pode: Cancelar / Gravar
   //----------------------------------------------------------------------------
@@ -5888,6 +5902,12 @@ end;
 procedure pode_Cancelar_Gravar(pForm:TForm);
 var i : Integer;
 begin
+
+
+  exit; // so gravar
+
+
+
   //    Pode: Cancelar / Gravar
   //Não pode: Incluir  / Alterar
   //----------------------------------------------------------------------------
@@ -6535,6 +6555,32 @@ begin
       pDESCRICAO.Text  := qLocal.FieldByName('DESCRICAO'  ).AsString;
       pTRANSP_COD.text := qLocal.FieldByName('RAZAO_SOCIAL').AsString;
    end;
+
+   qLocal.Free;
+end;
+
+function fPRODUTO_PRODExiste(pPROD_CODIGO:String):Boolean;
+var qLocal : tFDQuery;
+begin
+   if pPROD_CODIGO = '' then
+   begin
+     result:=false;
+     exit;
+   end;
+
+   qLocal := TFDQuery.Create(nil);
+   qLocal.Connection     := Module.connection;
+   qLocal.ConnectionName := 'connection';
+
+   qLocal.Close;
+   qLocal.Sql.Clear;
+   qLocal.SQL.Add('SELECT 1                         ');
+   qLocal.SQL.Add('  FROM PRODUTO_PROD              ');
+   qLocal.SQL.Add(' WHERE PROD_CODIGO = :PROD_CODIGO');
+   qLocal.ParamByName('PROD_CODIGO'  ).AsString := pPROD_CODIGO;
+   qLocal.Open;
+
+   result := not qLocal.Eof;
 
    qLocal.Free;
 end;

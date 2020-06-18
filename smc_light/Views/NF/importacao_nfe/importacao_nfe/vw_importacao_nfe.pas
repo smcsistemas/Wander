@@ -3,6 +3,11 @@ unit vw_importacao_nfe;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+903|18/06/20|11:49|vw_importacao_nfe           |Script retirado de dentro do objeto SQL_IMPORTACAO e colocado no código
+902|18/06/20|11:49|vw_importacao_nfe           |Script retirado de dentro do objeto SQL_PRODUTOS e colocado no código
+901|18/06/20|11:22|vw_importacao_nfe           |Eliminadas todas as colunas internas do objeto SQL_IMPORTACAO
+900|18/06/20|11:22|vw_importacao_nfe           |Eliminadas todas as colunas internas do objeto SQL_PRODUTOS
+897|18/06/20|10:53|vw_importacao_nfe           |Trocado ALIQ_IPI por PROD_NFe_O13_pIPI
 331|15/06/20|13:35|vw_importacao_nfe           |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 303|15/06/20|10:14|vw_importacao_nfe           |Passa a tratar PRODUTO_PROD(PROD_CODIGO) ao invés de PRODUTO(CODIGO)
 ========================================================================================================================================
@@ -69,40 +74,6 @@ type
     DS_PRODUTOS: TDATASOURCE;
     cxPageControl1: TcxPageControl;
     tsConsulta: TcxTabSheet;
-    SQL_PRODUTOSID: TFDAutoIncField;
-    SQL_PRODUTOSID_IMPORTACAO: TIntegerField;
-    SQL_PRODUTOSID_NFE: TIntegerField;
-    SQL_PRODUTOSCODIGO: TStringField;
-    SQL_PRODUTOSITEM: TIntegerField;
-    SQL_PRODUTOSDESTINO: TStringField;
-    SQL_PRODUTOSDESCRICAO: TStringField;
-    SQL_PRODUTOSCOD_BARRAS: TStringField;
-    SQL_PRODUTOSMARCA: TStringField;
-    SQL_PRODUTOSUM: TStringField;
-    SQL_PRODUTOSQTDE: TBCDField;
-    SQL_PRODUTOSPRECO_UNI: TBCDField;
-    SQL_PRODUTOSDESCONTO: TBCDField;
-    SQL_PRODUTOSACRESCIMOS: TBCDField;
-    SQL_PRODUTOSVALOR_TOTAL: TBCDField;
-    SQL_PRODUTOSBASE_ICMS: TBCDField;
-    SQL_PRODUTOSTOTAL_ICMS: TBCDField;
-    SQL_PRODUTOSBASE_PIS: TBCDField;
-    SQL_PRODUTOSALIQ_PIS: TBCDField;
-    SQL_PRODUTOSTOTAL_PIS: TBCDField;
-    SQL_PRODUTOSBASE_COFINS: TBCDField;
-    SQL_PRODUTOSALIQ_COFINS: TBCDField;
-    SQL_PRODUTOSTOTAL_COFINS: TBCDField;
-    SQL_PRODUTOSNCM: TStringField;
-    SQL_PRODUTOSCEST: TStringField;
-    SQL_PRODUTOSCFOP: TStringField;
-    SQL_PRODUTOSCSOSN: TStringField;
-    SQL_PRODUTOSORIGEM: TStringField;
-    SQL_PRODUTOSMARGEM_LUCRO: TBCDField;
-    SQL_PRODUTOSDESPESAS_OPERACIONAIS: TBCDField;
-    SQL_PRODUTOSPRECO_VENDA: TBCDField;
-    SQL_PRODUTOSDESC_MAXIMO: TBCDField;
-    SQL_PRODUTOSCOMISSAO: TBCDField;
-    SQL_PRODUTOSTIPO: TStringField;
     tsImportacao: TcxTabSheet;
     grp_nfe: TGroupBox;
     Label1: TLabel;
@@ -244,42 +215,8 @@ type
     SQL_IMPORTACAO: TFDQUERY;
     DS_IMPORTACAO: TDATASOURCE;
     btn_retomar: TcxButton;
-    SQL_IMPORTACAODATA_EMISSAO: TDateTimeField;
-    SQL_IMPORTACAOCHAVE: TStringField;
-    SQL_IMPORTACAONAT_OP: TStringField;
-    SQL_IMPORTACAONFe: TIntegerField;
-    SQL_IMPORTACAOBASE_ICMS: TBCDField;
-    SQL_IMPORTACAOVALOR_ICMS: TBCDField;
-    SQL_IMPORTACAOBASE_ICMS_ST: TBCDField;
-    SQL_IMPORTACAOVALOR_ICMS_ST: TBCDField;
-    SQL_IMPORTACAOICMS_DESONERADO: TBCDField;
-    SQL_IMPORTACAOVALOR_SEGURO: TBCDField;
-    SQL_IMPORTACAOVALOR_NFE: TBCDField;
-    SQL_IMPORTACAOVALOR_FRETE: TBCDField;
-    SQL_IMPORTACAOVALOR_DESPESAS: TBCDField;
-    SQL_IMPORTACAOVALOR_DESCONTO: TBCDField;
-    SQL_IMPORTACAOVALOR_PIS: TBCDField;
-    SQL_IMPORTACAOVALOR_COFINS: TBCDField;
-    SQL_IMPORTACAOTOTAL_NFE: TBCDField;
-    SQL_IMPORTACAODATA_INICIO: TDateTimeField;
-    SQL_IMPORTACAODATA_FIM: TDateTimeField;
-    SQL_IMPORTACAOSTATUS_IMPORTACAO: TStringField;
-    SQL_IMPORTACAOF_RAZAO: TStringField;
-    SQL_IMPORTACAOF_FANTASIA: TStringField;
-    SQL_IMPORTACAOF_CNPJ: TStringField;
-    SQL_IMPORTACAOF_IE: TStringField;
-    SQL_IMPORTACAOF_MUNICIPIO: TStringField;
-    SQL_IMPORTACAOF_ESTADO: TStringField;
-    SQL_IMPORTACAOT_RAZAO: TStringField;
-    SQL_IMPORTACAOT_CNPJ: TStringField;
-    SQL_IMPORTACAOT_CPF: TStringField;
-    SQL_IMPORTACAOT_IE: TStringField;
-    SQL_IMPORTACAOT_MUNICIPIO: TStringField;
-    SQL_IMPORTACAOT_ESTADO: TStringField;
-    SQL_IMPORTACAOUSUARIO: TStringField;
     dbtvMainITEM: TcxGridDBBandedColumn;
     dbtvMainDESTINO: TcxGridDBBandedColumn;
-    SQL_IMPORTACAOI_ID: TFDAutoIncField;
     tsCarga: TcxTabSheet;
     Label27: TLabel;
     edt_cg_especie: TEdit;
@@ -293,32 +230,16 @@ type
     edt_cg_bruto: TEdit;
     Label31: TLabel;
     edt_cg_marca: TEdit;
-    SQL_IMPORTACAOESPECIE_CARGA: TStringField;
-    SQL_IMPORTACAOQUANTIDADE_CARGA: TBCDField;
-    SQL_IMPORTACAOPESO_BRUTO: TBCDField;
-    SQL_IMPORTACAOPESO_LIQUIDO: TBCDField;
-    SQL_IMPORTACAOMARCA_CARGA: TStringField;
-    SQL_IMPORTACAOOBSERVACOES: TMemoField;
     dbtvMainBASE_IPI: TcxGridDBBandedColumn;
     dbtvMainALIP_IPI: TcxGridDBBandedColumn;
     dbtvMainTOTAL_IPI: TcxGridDBBandedColumn;
-    SQL_PRODUTOSCST_IPI: TStringField;
-    SQL_PRODUTOSENQUADRAMENTO_IPI: TStringField;
-    SQL_PRODUTOSBASE_IPI: TBCDField;
-    SQL_PRODUTOSPROD_NFe_O13_pIPI: TBCDField;
-    SQL_PRODUTOSTOTAL_IPI: TBCDField;
     dbtvMainedt: TcxGridDBBandedColumn;
-    SQL_PRODUTOSEDITADO: TIntegerField;
     editRepo: TcxEditRepository;
     buttonEditVisible: TcxEditRepositoryButtonItem;
     buttonEditNotVisible: TcxEditRepositoryButtonItem;
     btn_danfe: TcxButton;
     TextEdit: TcxEditRepositoryTextItem;
     comboBoxTIPO: TcxEditRepositoryComboBoxItem;
-    SQL_PRODUTOSCST_ICMS: TStringField;
-    SQL_PRODUTOSPROD_NFe_N16_pICMS: TBCDField;
-    SQL_PRODUTOSCST_PIS: TStringField;
-    SQL_PRODUTOSCST_COFINS: TStringField;
     dbtvMainBASE_ICMS: TcxGridDBBandedColumn;
     dbtvMainTOTAL_ICMS: TcxGridDBBandedColumn;
     dbtvMainBASE_PIS: TcxGridDBBandedColumn;
@@ -328,7 +249,7 @@ type
     dbtvMainALIQ_COFINS: TcxGridDBBandedColumn;
     dbtvMainTOTAL_COFINS: TcxGridDBBandedColumn;
     dbtvMainCST_IPI: TcxGridDBBandedColumn;
-    dbtvMainENQUADRAMENTO_IPI: TcxGridDBBandedColumn;
+    dbtvMainPROD_NFe_O02_clEnq: TcxGridDBBandedColumn;
     dbtvMainCST_ICMS: TcxGridDBBandedColumn;
     dbtvMainPROD_NFe_N16_pICMS: TcxGridDBBandedColumn;
     dbtvMainCST_PIS: TcxGridDBBandedColumn;
@@ -547,7 +468,7 @@ end;
 procedure TFrm_importacao_nfe.btn_danfeClick(SENDER: TOBJECT);
 begin
   if Importacao = nil then
-    TNFe.VisualizarDanfe(TNFe.Create(TImportacao.Create(SQL_IMPORTACAOI_ID.AsInteger).NFe.id).caminho_xml)
+    TNFe.VisualizarDanfe(TNFe.Create(TImportacao.Create(SQL_IMPORTACAO.FieldByName('I_ID').AsInteger).NFe.id).caminho_xml)
   else
     TNFe.VisualizarDanfe(TNFe.Create(TImportacao.Create(Importacao.id).NFe.id).caminho_xml);
 
@@ -821,7 +742,7 @@ end;
 procedure TFrm_importacao_nfe.btn_retomarClick(SENDER: TOBJECT);
 begin
 
-  Importacao := TImportacao.Create(SQL_IMPORTACAOI_ID.AsInteger);
+  Importacao := TImportacao.Create(SQL_IMPORTACAO.FieldByName('I_ID').AsInteger);
 
   Importacao.Retomar;
 
@@ -1052,9 +973,67 @@ end;
 procedure TFrm_importacao_nfe.gdConsImportDBTableView1CellDblClick(SENDER: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
   AShift: TSHIFTSTATE; var AHandled: BOOLEAN);
 begin
-  SQL_IMPORTACAO.Active := false;
-  SQL_IMPORTACAO.ParamByName('pid').AsInteger := SQL_CONSULTA_IMPORTACAOID.AsInteger;
-  SQL_IMPORTACAO.Active := true;
+  with SQL_IMPORTACAO do
+  begin
+    Active := false;
+    with Sql do
+    begin
+       Add('SELECT I.ID as I_ID,                    ');
+       Add('       N.DATA_EMISSAO,                  ');
+       Add('       N.CHAVE,                         ');
+       Add('       NOP.DESCRICAO AS NAT_OP,         ');
+       Add('       N.NUMERO AS NFe,N.BASE_ICMS,     ');
+       Add('       N.VALOR_ICMS,                    ');
+       Add('       N.BASE_ICMS_ST,                  ');
+       Add('       N.VALOR_ICMS_ST,                 ');
+       Add('       N.ICMS_DESONERADO,               ');
+       Add('       N.VALOR_SEGURO,                  ');
+       Add('       N.VALOR_NFE,                     ');
+       Add('       N.VALOR_FRETE,                   ');
+       Add('       N.VALOR_DESPESAS,                ');
+       Add('       N.VALOR_DESCONTO,                ');
+       Add('       N.VALOR_PIS,                     ');
+       Add('       N.VALOR_COFINS,                  ');
+       Add('       N.TOTAL_NFE,                     ');
+       Add('       N.ESPECIE_CARGA,                 ');
+       Add('       N.QUANTIDADE_CARGA,              ');
+       Add('       N.PESO_BRUTO,                    ');
+       Add('       N.PESO_LIQUIDO,                  ');
+       Add('       N.MARCA_CARGA,                   ');
+       Add('       N.OBSERVACOES,                   ');
+       Add('       I.DATA_INICIO,                   ');
+       Add('       I.DATA_FIM,                      ');
+       Add('       I.STATUS_IMPORTACAO,             ');
+       Add('       F.RAZAO_SOCIAL  AS F_RAZAO,      ');
+       Add('       F.NOME_FANTASIA AS F_FANTASIA,   ');
+       Add('       F.CNPJ_CPF      AS F_CNPJ,       ');
+       Add('       F.INSCRICAO_ESTADUAL AS F_IE,    ');
+       Add('       F.MUNICIPIO    AS F_MUNICIPIO,   ');
+       Add('       F.ESTADO       AS F_ESTADO,      ');
+       Add('       T.RAZAO_SOCIAL AS T_RAZAO,       ');
+       Add('       T.CNPJ         AS T_CNPJ,        ');
+       Add('       T.CPF          AS T_CPF,         ');
+       Add('       T.IE           AS T_IE,          ');
+       Add('       T.MUNICIPIO    AS T_MUNICIPIO,   ');
+       Add('       T.UF           AS T_ESTADO,      ');
+       Add('       U.USUARIO                        ');
+       Add('  FROM IMPORTACAO I                     ');
+       Add('  JOIN NFE N                            ');
+       Add('       ON N.ID = I.ID_NFE               ');
+       Add('  JOIN USUARIO U                        ');
+       Add('       ON U.CODIGO = I.ID_USUARIO       ');
+       Add('  JOIN FORNECEDOR F                     ');
+       Add('       ON F.CODIGO = N.ID_EMITENTE      ');
+       Add('  LEFT JOIN TRANSPORTADOR T             ');
+       Add('       ON T.ID = N.ID_TRANSPORTADOR     ');
+       Add('  LEFT JOIN NATUREZA_OPERACAO NOP       ');
+       Add('       ON NOP.ID = N.ID_NAT_OP          ');
+       Add(' WHERE I.ID = :pid                      ');
+    end;
+    ParamByName('pid').AsInteger := SQL_CONSULTA_IMPORTACAO.FieldByName('ID').AsInteger;
+    Active := true;
+  end;
+
   tsImportacao.Show;
   fdFromQuery;
 end;
@@ -1337,7 +1316,7 @@ end;
 procedure TFrm_importacao_nfe.dbtvMainEditing(SENDER: TcxCustomGridTableView; AItem: TcxCustomGridTableItem; var AAllow: BOOLEAN);
 begin
   AAllow := false;
-  AAllow := (edt_import_status.Text = 'ABERTA') and (SQL_PRODUTOSDESTINO.value = '1');
+  AAllow := (edt_import_status.Text = 'ABERTA') and (SQL_PRODUTOS.FieldByName('DESTINO').AsString = '1');
 end;
 
 procedure TFrm_importacao_nfe.dbtvMainEditKeyPress(SENDER: TcxCustomGridTableView; AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var KEY: Char);
@@ -1553,9 +1532,19 @@ var
 begin
   with SQL_PRODUTOS do
   begin
-    Active := false;
+    //Active := false;
+    Close;
+    with SQL do
+    begin
+      clear;
+      add('select *                   ');
+      add('  from importacao_produtos ');
+      add(' where id_importacao = :pid');
+      add(' order by ID               ');
+    end;
     ParamByName('pid').AsInteger := pId;
-    Active := true;
+    open;
+    //Active := true;
     fetchall;
     if RecordCount > 0 then
     begin
@@ -1800,3 +1789,4 @@ Trocou COMISSAO_BALCAO por PROD_COMISSAO_LOJA : automaticamente em 16/06/2020 22
 Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51
 Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50
+Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:43

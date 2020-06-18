@@ -125,7 +125,7 @@ type
     SQL_PRODUTOGENERO: TStringField;
     SQL_PRODUTOFORNECEDOR_NOME: TStringField;
     SQL_PRODUTOCOD_COMB: TStringField;
-    SQL_PRODUTOENQUADRAMENTO_IPI: TIntegerField;
+    SQL_PRODUTOPROD_NFe_O02_clEnq: TIntegerField;
     SQL_PRODUTOCODIGO_LOCALIZACAO: TIntegerField;
     SQL_PRODUTOICMS_CST: TStringField;
     SQL_PRODUTOICMS_IPI: TStringField;
@@ -276,7 +276,7 @@ type
     SQL_LISTAFORNECEDOR_NOME: TStringField;
     SQL_LISTACOD_COMB: TStringField;
     SQL_LISTAPROD_NFe_O13_pIPI: TStringField;
-    SQL_LISTAENQUADRAMENTO_IPI: TIntegerField;
+    SQL_LISTAPROD_NFe_O02_clEnq: TIntegerField;
     SQL_LISTACODIGO_LOCALIZACAO: TIntegerField;
     SQL_LISTAICMS_CST: TStringField;
     SQL_LISTAICMS_IPI: TStringField;
@@ -486,3 +486,4 @@ Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:5
 Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/06/2020 09:43
 Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:02
 Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50
+Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:43

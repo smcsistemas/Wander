@@ -47,10 +47,6 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
       Caption = 'Consultar NF-e'
       ImageIndex = 1
       OnShow = tsConsultaShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object cxPageControl3: TcxPageControl
         Left = 0
         Top = 0
@@ -75,10 +71,6 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
         object tsImportadas: TcxTabSheet
           Caption = 'Notas Fiscais Importadas'
           ImageIndex = 0
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Label34: TLabel
             Left = 167
             Top = 6
@@ -554,10 +546,6 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
           Caption = 'Notas Fiscais emitidas para CNPJ '
           Enabled = False
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Label35: TLabel
             Left = 52
             Top = 6
@@ -1078,10 +1066,6 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
     object tsImportacao: TcxTabSheet
       Caption = 'Importar NF-e'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object btn_retomar: TcxButton
         Left = 1097
         Top = 82
@@ -2169,10 +2153,6 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
         object tsFornecedor: TcxTabSheet
           Caption = 'Fornecedor'
           ImageIndex = 0
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lbl5: TLabel
             Left = 16
             Top = 3
@@ -2355,10 +2335,6 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
         object tsTransportador: TcxTabSheet
           Caption = 'Transportador'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Label19: TLabel
             Left = 16
             Top = 3
@@ -2529,10 +2505,6 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
         object tsCarga: TcxTabSheet
           Caption = 'Carga'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Label27: TLabel
             Left = 48
             Top = 41
@@ -2676,10 +2648,6 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
         object tsObs: TcxTabSheet
           Caption = 'Observa'#231#245'es'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object mmObs: TcxMemo
             Left = 0
             Top = 0
@@ -4500,8 +4468,8 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
             Position.ColIndex = -1
             Position.RowIndex = -1
           end
-          object dbtvMainENQUADRAMENTO_IPI: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'ENQUADRAMENTO_IPI'
+          object dbtvMainPROD_NFe_O02_clEnq: TcxGridDBBandedColumn
+            DataBinding.FieldName = 'PROD_NFe_O02_clEnq'
             Visible = False
             VisibleForEditForm = bTrue
             Position.BandIndex = -1
@@ -4726,276 +4694,8 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
     Connection = Module.connection
     FormatOptions.AssignedValues = [fvSortOptions]
     FormatOptions.SortOptions = [soPrimary]
-    SQL.Strings = (
-      
-        'select * from importacao_produtos where id_importacao = :pid ord' +
-        'er by ID')
     Left = 296
     Top = 344
-    ParamData = <
-      item
-        Name = 'PID'
-        DataType = ftInteger
-        ParamType = ptInput
-        Value = 1
-      end>
-    object SQL_PRODUTOSID: TFDAutoIncField
-      FieldName = 'ID'
-      Origin = 'ID'
-      ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
-    end
-    object SQL_PRODUTOSID_IMPORTACAO: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'ID_IMPORTACAO'
-      Origin = 'ID_IMPORTACAO'
-    end
-    object SQL_PRODUTOSID_NFE: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'ID_NFE'
-      Origin = 'ID_NFE'
-    end
-    object SQL_PRODUTOSCODIGO: TStringField
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      Required = True
-      Size = 255
-    end
-    object SQL_PRODUTOSITEM: TIntegerField
-      FieldName = 'ITEM'
-      Origin = 'ITEM'
-      Required = True
-    end
-    object SQL_PRODUTOSDESTINO: TStringField
-      FieldName = 'DESTINO'
-      Origin = 'DESTINO'
-      Required = True
-      FixedChar = True
-      Size = 1
-    end
-    object SQL_PRODUTOSDESCRICAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO'
-      Origin = 'DESCRICAO'
-      Size = 255
-    end
-    object SQL_PRODUTOSCOD_BARRAS: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'COD_BARRAS'
-      Origin = 'COD_BARRAS'
-    end
-    object SQL_PRODUTOSMARCA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'PROD_MARCA'
-      Origin = 'MARCA'
-      Size = 50
-    end
-    object SQL_PRODUTOSUM: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'UM'
-      Origin = 'UM'
-      Size = 5
-    end
-    object SQL_PRODUTOSQTDE: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'QTDE'
-      Origin = 'QTDE'
-      Precision = 10
-    end
-    object SQL_PRODUTOSPRECO_UNI: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'PRECO_UNI'
-      Origin = 'PRECO_UNI'
-      Precision = 10
-    end
-    object SQL_PRODUTOSDESCONTO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCONTO'
-      Origin = 'DESCONTO'
-      Precision = 10
-    end
-    object SQL_PRODUTOSACRESCIMOS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'ACRESCIMOS'
-      Origin = 'ACRESCIMOS'
-      Precision = 10
-    end
-    object SQL_PRODUTOSVALOR_TOTAL: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_TOTAL'
-      Origin = 'VALOR_TOTAL'
-      Precision = 10
-    end
-    object SQL_PRODUTOSBASE_ICMS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'BASE_ICMS'
-      Origin = 'BASE_ICMS'
-      Precision = 10
-    end
-    object SQL_PRODUTOSTOTAL_ICMS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'TOTAL_ICMS'
-      Origin = 'TOTAL_ICMS'
-      Precision = 10
-    end
-    object SQL_PRODUTOSBASE_PIS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'BASE_PIS'
-      Origin = 'BASE_PIS'
-      Precision = 10
-    end
-    object SQL_PRODUTOSALIQ_PIS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_PIS'
-      Origin = 'ALIQ_PIS'
-      Precision = 10
-    end
-    object SQL_PRODUTOSTOTAL_PIS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'TOTAL_PIS'
-      Origin = 'TOTAL_PIS'
-      Precision = 10
-    end
-    object SQL_PRODUTOSBASE_COFINS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'BASE_COFINS'
-      Origin = 'BASE_COFINS'
-      Precision = 10
-    end
-    object SQL_PRODUTOSALIQ_COFINS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'ALIQ_COFINS'
-      Origin = 'ALIQ_COFINS'
-      Precision = 10
-    end
-    object SQL_PRODUTOSTOTAL_COFINS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'TOTAL_COFINS'
-      Origin = 'TOTAL_COFINS'
-      Precision = 10
-    end
-    object SQL_PRODUTOSNCM: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'NCM'
-      Origin = 'NCM'
-      Size = 12
-    end
-    object SQL_PRODUTOSCEST: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CEST'
-      Origin = 'CEST'
-      Size = 15
-    end
-    object SQL_PRODUTOSCFOP: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CFOP'
-      Origin = 'CFOP'
-      Size = 4
-    end
-    object SQL_PRODUTOSCSOSN: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CSOSN'
-      Origin = 'CSOSN'
-      Size = 3
-    end
-    object SQL_PRODUTOSORIGEM: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'ORIGEM'
-      Origin = 'ORIGEM'
-      Size = 1
-    end
-    object SQL_PRODUTOSMARGEM_LUCRO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'MARGEM_LUCRO'
-      Origin = 'MARGEM_LUCRO'
-      Precision = 10
-    end
-    object SQL_PRODUTOSDESPESAS_OPERACIONAIS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESPESAS_OPERACIONAIS'
-      Origin = 'DESPESAS_OPERACIONAIS'
-      Precision = 10
-    end
-    object SQL_PRODUTOSPRECO_VENDA: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'PRECO_VENDA'
-      Origin = 'PRECO_VENDA'
-      Precision = 10
-    end
-    object SQL_PRODUTOSDESC_MAXIMO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESC_MAXIMO'
-      Origin = 'DESC_MAXIMO'
-      Precision = 10
-    end
-    object SQL_PRODUTOSCOMISSAO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'COMISSAO'
-      Origin = 'COMISSAO'
-      Precision = 10
-    end
-    object SQL_PRODUTOSTIPO: TStringField
-      AutoGenerateValue = arDefault
-      DisplayWidth = 3
-      FieldName = 'TIPO'
-      Origin = 'TIPO'
-      Size = 3
-    end
-    object SQL_PRODUTOSCST_IPI: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CST_IPI'
-      Origin = 'CST_IPI'
-      Size = 2
-    end
-    object SQL_PRODUTOSENQUADRAMENTO_IPI: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'ENQUADRAMENTO_IPI'
-      Origin = 'ENQUADRAMENTO_IPI'
-      Size = 3
-    end
-    object SQL_PRODUTOSBASE_IPI: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'BASE_IPI'
-      Origin = 'BASE_IPI'
-      Precision = 10
-    end
-    object SQL_PRODUTOSPROD_NFe_O13_pIPI: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'PROD_NFe_O13_pIPI'
-      Origin = 'PROD_NFe_O13_pIPI'
-      Precision = 10
-    end
-    object SQL_PRODUTOSTOTAL_IPI: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'TOTAL_IPI'
-      Origin = 'TOTAL_IPI'
-      Precision = 10
-    end
-    object SQL_PRODUTOSEDITADO: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'EDITADO'
-      Origin = 'EDITADO'
-    end
-    object SQL_PRODUTOSCST_ICMS: TStringField
-      FieldName = 'CST_ICMS'
-      Size = 2
-    end
-    object SQL_PRODUTOSPROD_NFe_N16_pICMS: TBCDField
-      FieldName = 'PROD_NFe_N16_pICMS'
-      Precision = 10
-    end
-    object SQL_PRODUTOSCST_PIS: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CST_PIS'
-      Origin = 'CST_PIS'
-      Size = 2
-    end
-    object SQL_PRODUTOSCST_COFINS: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CST_COFINS'
-      Origin = 'CST_COFINS'
-      Size = 2
-    end
   end
   object DS_PRODUTOS: TDataSource
     DataSet = SQL_PRODUTOS
@@ -5390,291 +5090,8 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
   end
   object SQL_IMPORTACAO: TFDQuery
     Connection = Module.connection
-    SQL.Strings = (
-      'SELECT   I.ID as I_ID,'
-      
-        '         N.DATA_EMISSAO,N.CHAVE,NOP.DESCRICAO AS NAT_OP,N.NUMERO' +
-        ' AS NFe,N.BASE_ICMS,N.VALOR_ICMS,N.BASE_ICMS_ST,'
-      
-        '         N.VALOR_ICMS_ST,N.ICMS_DESONERADO,N.VALOR_SEGURO,N.VALO' +
-        'R_NFE,N.VALOR_FRETE,N.VALOR_DESPESAS,'
-      
-        '         N.VALOR_DESCONTO,N.VALOR_PIS,N.VALOR_COFINS,N.TOTAL_NFE' +
-        ',N.ESPECIE_CARGA, N.QUANTIDADE_CARGA, N.PESO_BRUTO, N.PESO_LIQUI' +
-        'DO, N.MARCA_CARGA,N.OBSERVACOES,'
-      '         I.DATA_INICIO,I.DATA_FIM,I.STATUS_IMPORTACAO,'
-      
-        '         F.RAZAO_SOCIAL AS F_RAZAO,F.NOME_FANTASIA AS F_FANTASIA' +
-        ',F.CNPJ_CPF AS F_CNPJ,F.INSCRICAO_ESTADUAL AS F_IE,'
-      '         F.MUNICIPIO AS F_MUNICIPIO,F.ESTADO AS F_ESTADO,'
-      
-        '         T.RAZAO_SOCIAL AS T_RAZAO,T.CNPJ AS T_CNPJ,T.CPF AS T_C' +
-        'PF,T.IE AS T_IE,T.MUNICIPIO AS T_MUNICIPIO,'
-      '         T.UF AS T_ESTADO,'
-      '         U.USUARIO'
-      'FROM IMPORTACAO I'
-      'JOIN NFE N ON N.ID = I.ID_NFE'
-      'JOIN USUARIO U ON U.CODIGO = I.ID_USUARIO'
-      'JOIN FORNECEDOR F ON F.CODIGO = N.ID_EMITENTE'
-      'LEFT JOIN TRANSPORTADOR T ON T.ID = N.ID_TRANSPORTADOR'
-      'LEFT JOIN NATUREZA_OPERACAO NOP ON NOP.ID = N.ID_NAT_OP'
-      'WHERE I.ID = :pid')
     Left = 296
     Top = 296
-    ParamData = <
-      item
-        Name = 'PID'
-        DataType = ftInteger
-        ParamType = ptInput
-        Value = 1
-      end>
-    object SQL_IMPORTACAODATA_EMISSAO: TDateTimeField
-      AutoGenerateValue = arDefault
-      FieldName = 'DATA_EMISSAO'
-      Origin = 'DATA_EMISSAO'
-    end
-    object SQL_IMPORTACAOCHAVE: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CHAVE'
-      Origin = 'CHAVE'
-      Size = 44
-    end
-    object SQL_IMPORTACAONAT_OP: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'NAT_OP'
-      Origin = 'NAT_OP'
-      Size = 255
-    end
-    object SQL_IMPORTACAONFe: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'NFe'
-      Origin = 'NFe'
-    end
-    object SQL_IMPORTACAOBASE_ICMS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'BASE_ICMS'
-      Origin = 'BASE_ICMS'
-      Precision = 10
-    end
-    object SQL_IMPORTACAOVALOR_ICMS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_ICMS'
-      Origin = 'VALOR_ICMS'
-      Precision = 10
-    end
-    object SQL_IMPORTACAOBASE_ICMS_ST: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'BASE_ICMS_ST'
-      Origin = 'BASE_ICMS_ST'
-      Precision = 10
-    end
-    object SQL_IMPORTACAOVALOR_ICMS_ST: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_ICMS_ST'
-      Origin = 'VALOR_ICMS_ST'
-      Precision = 10
-    end
-    object SQL_IMPORTACAOICMS_DESONERADO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'ICMS_DESONERADO'
-      Origin = 'ICMS_DESONERADO'
-      Precision = 10
-    end
-    object SQL_IMPORTACAOVALOR_SEGURO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_SEGURO'
-      Origin = 'VALOR_SEGURO'
-      Precision = 10
-    end
-    object SQL_IMPORTACAOVALOR_NFE: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_NFE'
-      Origin = 'VALOR_NFE'
-      Precision = 10
-    end
-    object SQL_IMPORTACAOVALOR_FRETE: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_FRETE'
-      Origin = 'VALOR_FRETE'
-      Precision = 10
-    end
-    object SQL_IMPORTACAOVALOR_DESPESAS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_DESPESAS'
-      Origin = 'VALOR_DESPESAS'
-      Precision = 10
-    end
-    object SQL_IMPORTACAOVALOR_DESCONTO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_DESCONTO'
-      Origin = 'VALOR_DESCONTO'
-      Precision = 10
-    end
-    object SQL_IMPORTACAOVALOR_PIS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_PIS'
-      Origin = 'VALOR_PIS'
-      Precision = 10
-    end
-    object SQL_IMPORTACAOVALOR_COFINS: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_COFINS'
-      Origin = 'VALOR_COFINS'
-      Precision = 10
-    end
-    object SQL_IMPORTACAOTOTAL_NFE: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'TOTAL_NFE'
-      Origin = 'TOTAL_NFE'
-      Precision = 10
-    end
-    object SQL_IMPORTACAODATA_INICIO: TDateTimeField
-      AutoGenerateValue = arDefault
-      FieldName = 'DATA_INICIO'
-      Origin = 'DATA_INICIO'
-    end
-    object SQL_IMPORTACAODATA_FIM: TDateTimeField
-      AutoGenerateValue = arDefault
-      FieldName = 'DATA_FIM'
-      Origin = 'DATA_FIM'
-    end
-    object SQL_IMPORTACAOSTATUS_IMPORTACAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'STATUS_IMPORTACAO'
-      Origin = 'STATUS_IMPORTACAO'
-      FixedChar = True
-      Size = 10
-    end
-    object SQL_IMPORTACAOF_RAZAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'F_RAZAO'
-      Origin = 'F_RAZAO'
-      Size = 200
-    end
-    object SQL_IMPORTACAOF_FANTASIA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'F_FANTASIA'
-      Origin = 'F_FANTASIA'
-      Size = 200
-    end
-    object SQL_IMPORTACAOF_CNPJ: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'F_CNPJ'
-      Origin = 'F_CNPJ'
-      Size = 50
-    end
-    object SQL_IMPORTACAOF_IE: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'F_IE'
-      Origin = 'F_IE'
-      Size = 50
-    end
-    object SQL_IMPORTACAOF_MUNICIPIO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'F_MUNICIPIO'
-      Origin = 'F_MUNICIPIO'
-      Size = 50
-    end
-    object SQL_IMPORTACAOF_ESTADO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'F_ESTADO'
-      Origin = 'F_ESTADO'
-      Size = 50
-    end
-    object SQL_IMPORTACAOT_RAZAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'T_RAZAO'
-      Origin = 'T_RAZAO'
-      Size = 255
-    end
-    object SQL_IMPORTACAOT_CNPJ: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'T_CNPJ'
-      Origin = 'T_CNPJ'
-      Size = 14
-    end
-    object SQL_IMPORTACAOT_CPF: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'T_CPF'
-      Origin = 'T_CPF'
-      Size = 11
-    end
-    object SQL_IMPORTACAOT_IE: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'T_IE'
-      Origin = 'T_IE'
-    end
-    object SQL_IMPORTACAOT_MUNICIPIO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'T_MUNICIPIO'
-      Origin = 'T_MUNICIPIO'
-      Size = 255
-    end
-    object SQL_IMPORTACAOT_ESTADO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'T_ESTADO'
-      Origin = 'T_ESTADO'
-      Size = 3
-    end
-    object SQL_IMPORTACAOUSUARIO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'USUARIO'
-      Origin = 'USUARIO'
-      Size = 50
-    end
-    object SQL_IMPORTACAOI_ID: TFDAutoIncField
-      FieldName = 'I_ID'
-      Origin = 'ID'
-      ReadOnly = True
-    end
-    object SQL_IMPORTACAOESPECIE_CARGA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'ESPECIE_CARGA'
-      Origin = 'ESPECIE_CARGA'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 40
-    end
-    object SQL_IMPORTACAOQUANTIDADE_CARGA: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'QUANTIDADE_CARGA'
-      Origin = 'QUANTIDADE_CARGA'
-      ProviderFlags = []
-      ReadOnly = True
-      Precision = 10
-    end
-    object SQL_IMPORTACAOPESO_BRUTO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'PESO_BRUTO'
-      Origin = 'PESO_BRUTO'
-      ProviderFlags = []
-      ReadOnly = True
-      Precision = 10
-    end
-    object SQL_IMPORTACAOPESO_LIQUIDO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'PESO_LIQUIDO'
-      Origin = 'PESO_LIQUIDO'
-      ProviderFlags = []
-      ReadOnly = True
-      Precision = 10
-    end
-    object SQL_IMPORTACAOMARCA_CARGA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'MARCA_CARGA'
-      Origin = 'MARCA_CARGA'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 40
-    end
-    object SQL_IMPORTACAOOBSERVACOES: TMemoField
-      AutoGenerateValue = arDefault
-      FieldName = 'OBSERVACOES'
-      Origin = 'OBSERVACOES'
-      ProviderFlags = []
-      ReadOnly = True
-      BlobType = ftMemo
-    end
   end
   object DS_IMPORTACAO: TDataSource
     DataSet = SQL_IMPORTACAO
@@ -5903,6 +5320,4 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
     Top = 360
   end
 end
-Trocou FieldName = 'MARCA' por FieldName = 'PROD_MARCA' : automaticamente em 16/06/2020 16:22
-Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51
-Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50
+Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:43

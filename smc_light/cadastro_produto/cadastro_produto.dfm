@@ -6442,10 +6442,10 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'PROD_NFe_O13_pIPI'
       Origin = 'PROD_NFe_O13_pIPI'
     end
-    object SQL_LISTAENQUADRAMENTO_IPI: TIntegerField
+    object SQL_LISTAPROD_NFe_O02_clEnq: TIntegerField
       AutoGenerateValue = arDefault
-      FieldName = 'ENQUADRAMENTO_IPI'
-      Origin = 'ENQUADRAMENTO_IPI'
+      FieldName = 'PROD_NFe_O02_clEnq'
+      Origin = 'PROD_NFe_O02_clEnq'
     end
     object SQL_LISTACODIGO_LOCALIZACAO: TIntegerField
       AutoGenerateValue = arDefault
@@ -6781,10 +6781,10 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'COD_COMB'
       Origin = 'COD_COMB'
     end
-    object SQL_PRODUTOENQUADRAMENTO_IPI: TIntegerField
+    object SQL_PRODUTOPROD_NFe_O02_clEnq: TIntegerField
       AutoGenerateValue = arDefault
-      FieldName = 'ENQUADRAMENTO_IPI'
-      Origin = 'ENQUADRAMENTO_IPI'
+      FieldName = 'PROD_NFe_O02_clEnq'
+      Origin = 'PROD_NFe_O02_clEnq'
     end
     object SQL_PRODUTOCODIGO_LOCALIZACAO: TIntegerField
       AutoGenerateValue = arDefault
@@ -7666,3 +7666,4 @@ Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:5
 Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/06/2020 09:42
 Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:02
 Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:49
+Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:42

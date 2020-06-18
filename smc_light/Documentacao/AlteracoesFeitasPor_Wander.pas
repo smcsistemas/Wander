@@ -29,6 +29,26 @@ ordem decrescente de data....
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+914|18/06/20|10:28|Atualizador                 |Coluna ENQUADRAMENTO_IPI substituída por PROD_NFe_O02_clEnq
+913|18/06/20|14:43|cadastro_produto.pas        |Trocado ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq
+912|18/06/20|14:43|cadastro_produto2.pas       |Trocado ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq
+911|18/06/20|14:43|cadastro_produto2.dfm       |Trocado ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq
+910|18/06/20|14:43|vw_importacao_nfe.pas       |Trocado ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq
+909|18/06/20|14:43|vw_importacao_nfe.dfm       |Trocado ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq
+908|18/06/20|14:43|m_NFe.pas                   |Trocado ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq
+907|18/06/20|14:42|m_Importacao.pas            |Trocado ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq
+906|18/06/20|14:42|cadastro_produto.pas        |Trocado ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq
+905|18/06/20|14:42|cadastro_produto.dfm        |Trocado ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq
+904|18/06/20|14:42|h_DB.pas                    |Trocado ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq
+903|18/06/20|11:49|vw_importacao_nfe           |Script retirado de dentro do objeto SQL_IMPORTACAO e colocado no código
+902|18/06/20|11:49|vw_importacao_nfe           |Script retirado de dentro do objeto SQL_PRODUTOS e colocado no código
+901|18/06/20|11:22|vw_importacao_nfe           |Eliminadas todas as colunas internas do objeto SQL_IMPORTACAO
+900|18/06/20|11:22|vw_importacao_nfe           |Eliminadas todas as colunas internas do objeto SQL_PRODUTOS
+899|18/06/20|10:53|cadastro_produto            |Trocado ALIQ_IPI por PROD_NFe_O13_pIPI
+898|18/06/20|10:53|EmissaoDeNFe                |Trocado ALIQ_IPI por PROD_NFe_O13_pIPI
+897|18/06/20|10:53|vw_importacao_nfe           |Trocado ALIQ_IPI por PROD_NFe_O13_pIPI
+896|18/06/20|10:53|m_NFe                       |Trocado ALIQ_IPI por PROD_NFe_O13_pIPI
+895|18/06/20|10:53|m_Importacao                |Trocado ALIQ_IPI por PROD_NFe_O13_pIPI
 894|18/06/20|10:53|h_DB.pas                    |Trocado ALIQ_IPI por PROD_NFe_O13_pIPI
 893|18/06/20|10:28|Atualizador                 |Coluna ALIQ_IPI substituída por PROD_NFe_O13_pIPI
 892|18/06/20|10:28|cadastro_produto            |Eliminado tratamento para coluna COD_COMB
