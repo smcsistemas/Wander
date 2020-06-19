@@ -206,26 +206,25 @@ object frm_pontos_impressao: Tfrm_pontos_impressao
       GridView = gd_pontosDBTableView1
     end
   end
-  object sql_ponto_impressao: TFDQuery
-    Active = True
+  object sql_IMPRESSORA_IMP: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'select * from ponto_impressao')
+      'select * from IMPRESSORA_IMP')
     Left = 264
     Top = 192
-    object sql_ponto_impressaoid: TFDAutoIncField
+    object sql_IMPRESSORA_IMPid: TFDAutoIncField
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
-    object sql_ponto_impressaonome: TStringField
+    object sql_IMPRESSORA_IMPnome: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'nome'
       Origin = 'nome'
       Size = 255
     end
-    object sql_ponto_impressaoimpressora: TStringField
+    object sql_IMPRESSORA_IMPimpressora: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'impressora'
       Origin = 'impressora'
@@ -233,7 +232,7 @@ object frm_pontos_impressao: Tfrm_pontos_impressao
     end
   end
   object ds_pontos_impressao: TDataSource
-    DataSet = sql_ponto_impressao
+    DataSet = sql_IMPRESSORA_IMP
     Left = 264
     Top = 248
   end

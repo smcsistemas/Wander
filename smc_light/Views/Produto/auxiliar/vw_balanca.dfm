@@ -79,7 +79,7 @@ object frm_balanca: Tfrm_balanca
       Width = 90
       Height = 26
       CharCase = ecUpperCase
-      DataField = 'COD_BALANCA_1'
+      DataField = 'PROD_COD_BALANCA'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -278,3 +278,4 @@ object frm_balanca: Tfrm_balanca
     OnClick = cxButton7Click
   end
 end
+Trocou COD_BALANCA_1 por PROD_COD_BALANCA : automaticamente em 19/06/2020 09:53

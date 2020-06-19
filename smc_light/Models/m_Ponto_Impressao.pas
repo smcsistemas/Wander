@@ -1,5 +1,5 @@
 //Verificado automaticamente em 16/06/2020 09:28
-unit m_Ponto_Impressao;
+unit m_ponto_impressao;
 
 interface
 
@@ -53,7 +53,7 @@ begin
 
   if pk <> 0 then
   begin
-    qry := tdb.simplequery('select * from ponto_impressao where id = ?', [pk]);
+    qry := tdb.simplequery('select * from IMPRESSORA_IMP where id = ?', [pk]);
 
     if qry = nil then
       raise Exception.Create(Format('Produto Impressão id %d não encontrado.', [pk]))
@@ -112,13 +112,13 @@ procedure TProdutoImpressao.Save;
 begin
   if self.Produto_Impressao_id = 0 then
   begin
-    tdb.ExecQuery('insert into ponto_impressao(nome, impressora) values(?, ?)', [self.Produto_Impressao_nome, self.Produto_Impressao_impressora]);
-    self.Produto_Impressao_id := tdb.simplequery('select id from ponto_impressao where nome = ? and impressora = ?',
+    tdb.ExecQuery('insert into IMPRESSORA_IMP(nome, impressora) values(?, ?)', [self.Produto_Impressao_nome, self.Produto_Impressao_impressora]);
+    self.Produto_Impressao_id := tdb.simplequery('select id from IMPRESSORA_IMP where nome = ? and impressora = ?',
       [self.Produto_Impressao_nome, self.Produto_Impressao_impressora]).Fields[0].AsInteger;
   end
   else
   begin
-    tdb.ExecQuery('update ponto_impressao set nome = ?, impressora = ? where id = ?', [lowercase(self.Produto_Impressao_nome), self.Produto_Impressao_impressora,
+    tdb.ExecQuery('update IMPRESSORA_IMP set nome = ?, impressora = ? where id = ?', [lowercase(self.Produto_Impressao_nome), self.Produto_Impressao_impressora,
       self.Produto_Impressao_id]);
   end;
 end;
@@ -136,10 +136,11 @@ begin
   if value = '' then
     raise Exception.Create('Um nome para o ponto deve ser informado.');
 
-  if tdb.simplequery('select * from ponto_impressao where nome = ? and id <> ? ', [lowercase(value), self.Produto_Impressao_id]) <> nil then
+  if tdb.simplequery('select * from IMPRESSORA_IMP where nome = ? and id <> ? ', [lowercase(value), self.Produto_Impressao_id]) <> nil then
     raise Exception.Create(Format('Ponto de impressão com nome "%s" já cadastrado.', [value]));
 
   self.Produto_Impressao_nome := value;
 end;
 
 end.
+Trocou ponto_impressao por IMPRESSORA_IMP : automaticamente em 19/06/2020 10:24

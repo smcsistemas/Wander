@@ -14,7 +14,7 @@ uses
   dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinWhiteprint, dxSkinXmas2008Blue, cxMaskEdit, cxDropDownEdit, cxTextEdit,
   cxStyles, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, Data.DB, cxDBData, cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, Vcl.StdCtrls, Vcl.Menus, cxButtons, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client, cxLabel, m_Ponto_Impressao, relatorios;
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client, cxLabel, m_ponto_impressao, relatorios;
 
 type
   Tfrm_pontos_impressao = class(TForm)
@@ -24,10 +24,10 @@ type
     lbl2: TLabel;
     lbl3: TLabel;
     btn_save: TcxButton;
-    sql_ponto_impressao: TFDQuery;
-    sql_ponto_impressaoid: TFDAutoIncField;
-    sql_ponto_impressaonome: TStringField;
-    sql_ponto_impressaoimpressora: TStringField;
+    sql_IMPRESSORA_IMP: TFDQuery;
+    sql_IMPRESSORA_IMPid: TFDAutoIncField;
+    sql_IMPRESSORA_IMPnome: TStringField;
+    sql_IMPRESSORA_IMPimpressora: TStringField;
     gd_pontosDBTableView1: TcxGridDBTableView;
     gd_pontosLevel1: TcxGridLevel;
     gd_pontos: TcxGrid;
@@ -81,7 +81,7 @@ end;
 
 procedure Tfrm_pontos_impressao.estarImpressora1Click(Sender: TObject);
 begin
-  tfrm_relatorio.Create(nil).teste_ponto_impressao(gd_pontosDBTableView1id.EditValue).Close;
+  tfrm_relatorio.Create(nil).teste_IMPRESSORA_IMP(gd_pontosDBTableView1id.EditValue).Close;
 end;
 
 procedure Tfrm_pontos_impressao.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -113,9 +113,9 @@ end;
 
 procedure Tfrm_pontos_impressao.listAll;
 const
-  _sql = 'select * from ponto_impressao';
+  _sql = 'select * from IMPRESSORA_IMP';
 begin
-  with sql_ponto_impressao do
+  with sql_IMPRESSORA_IMP do
   begin
     active := false;
     Close;
@@ -127,3 +127,4 @@ begin
 end;
 
 end.
+Trocou ponto_impressao por IMPRESSORA_IMP : automaticamente em 19/06/2020 10:25

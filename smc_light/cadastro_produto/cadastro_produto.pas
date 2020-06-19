@@ -184,8 +184,8 @@ type
     BtnGravar: TcxButton;
     BtnIncluir: TcxButton;
     dbedt_codigo: TDBEdit;
-    SQL_PRODUTOPESAVEL: TStringField;
-    SQL_PRODUTOUTILIZA_ETIQUETA_BALANCA: TStringField;
+    SQL_PRODUTOPROD_PESAVEL: TStringField;
+    SQL_PRODUTOPROD_USA_ETQ_BALANCA: TStringField;
     SQL_PRODUTOUSA_LOTE: TStringField;
     SQL_PRODUTOCONTROLADO: TStringField;
     popmenu: TPopupMenu;
@@ -196,9 +196,9 @@ type
     SQL_PRODUTOQUANT_MINI_VAREJO_D: TBCDField;
     SQL_PRODUTOPROD_NFe_N16_pICMS: TBCDField;
     SQL_PRODUTOCODIGO_FORNECEDOR: TIntegerField;
-    SQL_PRODUTOQUANT_MINI_VAREJO_P: TBCDField;
-    SQL_PRODUTOQUANT_MINI_ATACADO_P: TBCDField;
-    SQL_PRODUTOQUANT_MINI_DISTRIBUIDOR_P: TBCDField;
+    SQL_PRODUTOPROD_QTDE_VAR: TBCDField;
+    SQL_PRODUTOPROD_QTDE_ATAC: TBCDField;
+    SQL_PRODUTOPROD_QTDE_DIST: TBCDField;
     SQL_PRODUTOQUANT_MINI_VAREJO_Q: TBCDField;
     SQL_PRODUTOQUANT_MINI_ATACADO_Q: TBCDField;
     SQL_PRODUTOQUANT_MINI_DISTRIBUIDOR_Q: TBCDField;
@@ -261,7 +261,7 @@ type
     DBEdit12: TDBEdit;
     Label78: TLabel;
     chk_monofasico: TcxCheckBox;
-    SQL_PRODUTOCOD_BALANCA_1: TStringField;
+    SQL_PRODUTOPROD_COD_BALANCA: TStringField;
     SQL_PRODUTOCOD_BALANCA_2: TStringField;
     SQL_PRODUTOCOD_BALANCA_3: TStringField;
     SQL_PRODUTOPROD_NFe_O09_CST_IPI: TStringField;
@@ -348,14 +348,14 @@ type
     SQL_LISTAANP: TStringField;
     SQL_LISTAEX_IPI: TSingleField;
     SQL_LISTASTATUS_CADASTRAL: TStringField;
-    SQL_LISTAPESAVEL: TStringField;
-    SQL_LISTAUTILIZA_ETIQUETA_BALANCA: TStringField;
+    SQL_LISTAPROD_PESAVEL: TStringField;
+    SQL_LISTAPROD_USA_ETQ_BALANCA: TStringField;
     SQL_LISTAUSA_LOTE: TStringField;
     SQL_LISTACONTROLADO: TStringField;
     SQL_LISTACODIGO_FORNECEDOR: TIntegerField;
-    SQL_LISTAQUANT_MINI_VAREJO_P: TBCDField;
-    SQL_LISTAQUANT_MINI_ATACADO_P: TBCDField;
-    SQL_LISTAQUANT_MINI_DISTRIBUIDOR_P: TBCDField;
+    SQL_LISTAPROD_QTDE_VAR: TBCDField;
+    SQL_LISTAPROD_QTDE_ATAC: TBCDField;
+    SQL_LISTAPROD_QTDE_DIST: TBCDField;
     SQL_LISTAQUANT_MINI_VAREJO_Q: TBCDField;
     SQL_LISTAQUANT_MINI_ATACADO_Q: TBCDField;
     SQL_LISTAQUANT_MINI_DISTRIBUIDOR_Q: TBCDField;
@@ -363,7 +363,7 @@ type
     SQL_LISTAQUANT_MINI_DISTRIBUIDOR_D: TBCDField;
     SQL_LISTAQUANT_MINI_ATACADO_D: TBCDField;
     SQL_LISTAPROD_NFe_O09_CST_IPI: TStringField;
-    SQL_LISTACOD_BALANCA_1: TStringField;
+    SQL_LISTAPROD_COD_BALANCA: TStringField;
     SQL_LISTACOD_BALANCA_2: TStringField;
     SQL_LISTACOD_BALANCA_3: TStringField;
     SQL_LISTAPROD_COMISSAO_VAR: TBCDField;
@@ -514,12 +514,12 @@ type
     SQL_LISTALUCRO_SUBST_TRIBUTARIA: TBCDField;
     SQL_LISTAPROD_NFe_N21_vBCST_PAUTA: TBCDField;
     lbl2: TLabel;
-    sql_ponto_impressao: TFDQuery;
-    ds_ponto_impressao: TDataSource;
-    cb_ponto_impressao: TcxDBLookupComboBox;
-    sql_ponto_impressaoid: TFDAutoIncField;
-    sql_ponto_impressaonome: TStringField;
-    SQL_PRODUTOponto_impressao_id: TIntegerField;
+    sql_IMPRESSORA_IMP: TFDQuery;
+    ds_IMPRESSORA_IMP: TDataSource;
+    cb_IMPRESSORA_IMP: TcxDBLookupComboBox;
+    sql_IMPRESSORA_IMPid: TFDAutoIncField;
+    sql_IMPRESSORA_IMPnome: TStringField;
+    SQL_PRODUTOIMPRESSORA_IMP_id: TIntegerField;
     N1: TMenuItem;
     ImprimirEtiqueta1: TMenuItem;
     DBEdit3: TDBEdit;
@@ -1116,8 +1116,8 @@ begin
   SQL_NAT_OP.Active := false;
   SQL_NAT_OP.Active := true;
 
-  sql_ponto_impressao.Active := false;
-  sql_ponto_impressao.Active := true;
+  sql_IMPRESSORA_IMP.Active := false;
+  sql_IMPRESSORA_IMP.Active := true;
 
   dbedt_codigo.Text := inttostr(SQL_PRODUTOCODIGO.value);
   u_funcoes.CamposObrigatorios_CorPadrao([PROD_DESCRICAO, PROD_CDUNIDADE, PROD_PRECO_VAR, NCM], [], [TcxComboBox(dbcsticms)]);
@@ -2103,7 +2103,7 @@ var
 begin
   if campo.Text <> '' then
   begin
-    qry := simplequery('SELECT * FROM PRODUTO WHERE (COD_BALANCA_1 = ' + QuotedStr(campo.Text) + ' OR COD_BALANCA_2 = ' +
+    qry := simplequery('SELECT * FROM PRODUTO WHERE (PROD_COD_BALANCA = ' + QuotedStr(campo.Text) + ' OR COD_BALANCA_2 = ' +
       QuotedStr(campo.Text) + ' OR COD_BALANCA_3 = ' + QuotedStr(campo.Text) + ') AND CODIGO <> ' + QuotedStr(dbedt_codigo.Text));
     if qry <> nil then
     begin
@@ -3246,3 +3246,11 @@ Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:40
 Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:41
 Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04
 Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:21
+Trocou PESAVEL por @_@_@_@_@_@ : automaticamente em 19/06/2020 06:08
+Trocou @_@_@_@_@_@ por PROD_PESAVEL : automaticamente em 19/06/2020 06:08
+Trocou UTILIZA_ETIQUETA_BALANCA por PROD_USA_ETQ_BALANCA : automaticamente em 19/06/2020 06:34
+Trocou QUANT_MINI_VAREJO_P por PROD_QTDE_VAR : automaticamente em 19/06/2020 08:57
+Trocou QUANT_MINI_ATACADO_P por PROD_QTDE_ATAC : automaticamente em 19/06/2020 08:59
+Trocou QUANT_MINI_DISTRIBUIDOR_P por PROD_QTDE_DIST : automaticamente em 19/06/2020 09:01
+Trocou COD_BALANCA_1 por PROD_COD_BALANCA : automaticamente em 19/06/2020 09:52
+Trocou ponto_impressao por IMPRESSORA_IMP : automaticamente em 19/06/2020 10:24

@@ -3156,34 +3156,80 @@ begin
       Executar('ALTER TABLE PRODUTO_PROD ADD PROD_NFe_I06_EXTIPI VARCHAR(03) NULL COMMENT "Código EX da TIPI"');
       Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN EX_IPI');
    end;
-
-
+   if fNaoAtualizado('PROD_ATIVO...') Then
+   begin
+      Executar('ALTER TABLE PRODUTO_PROD ADD PROD_ATIVO INTEGER NOT NULL DEFAULT 1 COMMENT "0-Inativo 1-Ativo"');
+      Executar('UPDATE PRODUTO_PROD SET PROD_ATIVO = 1 WHERE STATUS_CADASTRAL = "ATIVO" ');
+      Executar('UPDATE PRODUTO_PROD SET PROD_ATIVO = 0 WHERE STATUS_CADASTRAL <> "ATIVO" ');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN STATUS_CADASTRAL');
    end;
+
+   if fNaoAtualizado('PROD_PESAVEL...') Then
+   begin
+      Executar('ALTER TABLE PRODUTO_PROD ADD PROD_PESAVEL INTEGER NOT NULL DEFAULT 0 COMMENT "Se é pesável 0-Não 1-Sim"');
+      Executar('UPDATE PRODUTO_PROD SET PROD_PESAVEL = 1 WHERE PESAVEL = "SIM" ');
+      Executar('UPDATE PRODUTO_PROD SET PROD_PESAVEL = 0 WHERE PESAVEL <> "SIM" ');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN PESAVEL');
+   end;
+   if fNaoAtualizado('PROD_USA_ETIQUETA_BALANCA...') Then
+   begin
+      Executar('ALTER TABLE PRODUTO_PROD ADD PROD_USA_ETQ_BALANCA INTEGER NOT NULL DEFAULT 0 COMMENT "Se usa etiqueta de balança 0-Não 1-Sim"');
+      Executar('UPDATE PRODUTO_PROD SET PROD_USA_ETQ_BALANCA = 1 WHERE UTILIZA_ETIQUETA_BALANCA = "SIM" ');
+      Executar('UPDATE PRODUTO_PROD SET PROD_USA_ETQ_BALANCA = 0 WHERE UTILIZA_ETIQUETA_BALANCA <> "SIM" ');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN UTILIZA_ETIQUETA_BALANCA');
+   end;
+   //Se há lotes cadastrados, usa.
+   //Se cadastrar lote 1 vez, vai sempre pedir lote na compra
+   //e na venda será tratado manual ou automaticamente dependendo de configurações
+   //que podem ser do sistema ou do produto
+   if fNaoAtualizado('Eliminando USA_LOTE...') Then
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN USA_LOTE');
+
+   //Rodrigo, a princípio, não quer trabalhar com farmácias, postos de combustível e bares/restaurantes
+   if fNaoAtualizado('Eliminando CONTROLADO...') Then
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN CONTROLADO');
+
+   if fNaoAtualizado('Quantidades Mínimas para política de preços...') Then
+   begin
+      Executar('ALTER TABLE PRODUTO_PROD CHANGE QUANT_MINI_VAREJO_P       PROD_QTDE_VAR  DECIMAL(10,4) NULL DEFAULT 0 COMMENT "Qtde mínima para venda com preço de varejo"      ');
+      Executar('ALTER TABLE PRODUTO_PROD CHANGE QUANT_MINI_ATACADO_P      PROD_QTDE_ATAC DECIMAL(10,4) NULL DEFAULT 0 COMMENT "Qtde mínima para venda com preço de atacado"     ');
+      Executar('ALTER TABLE PRODUTO_PROD CHANGE QUANT_MINI_DISTRIBUIDOR_P PROD_QTDE_DIST DECIMAL(10,4) NULL DEFAULT 0 COMMENT "Qtde mínima para venda com preço de distribuidor"');
+
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN QUANT_MINI_VAREJO_Q      ');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN QUANT_MINI_ATACADO_Q     ');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN QUANT_MINI_DISTRIBUIDOR_Q');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN QUANT_MINI_VAREJO_D      ');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN QUANT_MINI_DISTRIBUIDOR_D');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN QUANT_MINI_ATACADO_D     ');
+   end;
+
+   if fNaoAtualizado('Código do produto em balanças...') Then
+   begin
+      Executar('ALTER TABLE PRODUTO_PROD CHANGE COD_BALANCA_1 PROD_COD_BALANCA VARCHAR(08) NULL DEFAULT 0 COMMENT "Código do produto na balança"');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN COD_BALANCA_2');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN COD_BALANCA_3');
+   end;
+
+   if fNaoAtualizado('Criada tabela de impressoras....') Then
+   begin
+      Executar('CREATE TABLE IMPRESSORA_IMP SELECT * FROM ponto_impressao WHERE 1=1');
+      Executar('ALTER TABLE IMPRESSORA_IMP CHANGE id   IMP_CODIGO    VARCHAR(10) NOT NULL COMMENT "Código da Impressora"');
+      Executar('ALTER TABLE IMPRESSORA_IMP ADD         IMP_DESCRICAO VARCHAR(30)     NULL COMMENT "Descrição ou nome da Impressora"');
+      Executar('UPDATE IMPRESSORA_IMP SET IMP_DESCRICAO = LEFT(nome,30)');
+      Executar('ALTER TABLE IMPRESSORA_IMP CHANGE impressora IMP_PORTACAMINHO VARCHAR(255) NULL COMMENT "Porta ou caminho da Impressora"');
+   end;
+
+   if fNaoAtualizado('PROD_CDIMPRESSORA...') Then
+      Executar('ALTER TABLE PRODUTO_PROD CHANGE ponto_impressao_id PROD_CDIMPRESSORA VARCHAR(10) NULL COMMENT "Código da Impressora onde deve ser impressa sua etiqueta"');
+
+end;
+
+
+
 
 end.
 
     {
-
-
-	`STATUS_CADASTRAL` ENUM('ATIVO','INATIVO') NULL DEFAULT 'ATIVO',
-	`PESAVEL` ENUM('SIM','NAO') NULL DEFAULT NULL,
-	`UTILIZA_ETIQUETA_BALANCA` ENUM('SIM','NAO') NULL DEFAULT NULL,
-	`USA_LOTE` ENUM('SIM','NAO') NULL DEFAULT NULL,
-	`CONTROLADO` ENUM('SIM','NAO') NULL DEFAULT NULL,
-	`CODIGO_FORNECEDOR` INT(11) NULL DEFAULT NULL,
-	`QUANT_MINI_VAREJO_P` DECIMAL(10,4) NULL DEFAULT NULL,
-	`QUANT_MINI_ATACADO_P` DECIMAL(10,4) NULL DEFAULT NULL,
-	`QUANT_MINI_DISTRIBUIDOR_P` DECIMAL(10,4) NULL DEFAULT NULL,
-	`QUANT_MINI_VAREJO_Q` DECIMAL(10,4) NULL DEFAULT NULL,
-	`QUANT_MINI_ATACADO_Q` DECIMAL(10,4) NULL DEFAULT NULL,
-	`QUANT_MINI_DISTRIBUIDOR_Q` DECIMAL(10,4) NULL DEFAULT NULL,
-	`QUANT_MINI_VAREJO_D` DECIMAL(10,4) NULL DEFAULT NULL,
-	`QUANT_MINI_DISTRIBUIDOR_D` DECIMAL(10,4) NULL DEFAULT NULL,
-	`QUANT_MINI_ATACADO_D` DECIMAL(10,4) NULL DEFAULT NULL,
-	`CST_IPI` VARCHAR(3) NULL DEFAULT NULL,
-	`COD_BALANCA_1` VARCHAR(8) NULL DEFAULT NULL,
-	`COD_BALANCA_2` VARCHAR(8) NULL DEFAULT NULL,
-	`COD_BALANCA_3` VARCHAR(8) NULL DEFAULT NULL,
 	`ponto_impressao_id` INT(11) NULL DEFAULT NULL,
 	`NFe_nDI` VARCHAR(10) NULL DEFAULT NULL COMMENT 'Nfe: Número do Documento de Importação DI/DSI/DA',
 	`NFe_dDI` DATETIME NULL DEFAULT NULL COMMENT 'Nfe: Data de registro do Documento de Importação DI/DSI/DA',
@@ -3242,4 +3288,4 @@ CHANGE nome_atual novo_nome [Tipo de Dados];
 RENAME TABLE tb1 TO tb2;
 }
 
-PROD_UNIDADE PROD_CDUNIDADE
+

@@ -3016,17 +3016,17 @@ object Frm_Produto2: TFrm_Produto2
       FixedChar = True
       Size = 7
     end
-    object SQL_LISTAPESAVEL: TStringField
+    object SQL_LISTAPROD_PESAVEL: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'PESAVEL'
-      Origin = 'PESAVEL'
+      FieldName = 'PROD_PESAVEL'
+      Origin = 'PROD_PESAVEL'
       FixedChar = True
       Size = 3
     end
-    object SQL_LISTAUTILIZA_ETIQUETA_BALANCA: TStringField
+    object SQL_LISTAPROD_USA_ETQ_BALANCA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'UTILIZA_ETIQUETA_BALANCA'
-      Origin = 'UTILIZA_ETIQUETA_BALANCA'
+      FieldName = 'PROD_USA_ETQ_BALANCA'
+      Origin = 'PROD_USA_ETQ_BALANCA'
       FixedChar = True
       Size = 3
     end
@@ -3049,22 +3049,22 @@ object Frm_Produto2: TFrm_Produto2
       FieldName = 'CODIGO_FORNECEDOR'
       Origin = 'CODIGO_FORNECEDOR'
     end
-    object SQL_LISTAQUANT_MINI_VAREJO_P: TBCDField
+    object SQL_LISTAPROD_QTDE_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'QUANT_MINI_VAREJO_P'
-      Origin = 'QUANT_MINI_VAREJO_P'
+      FieldName = 'PROD_QTDE_VAR'
+      Origin = 'PROD_QTDE_VAR'
       Precision = 10
     end
-    object SQL_LISTAQUANT_MINI_ATACADO_P: TBCDField
+    object SQL_LISTAPROD_QTDE_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'QUANT_MINI_ATACADO_P'
-      Origin = 'QUANT_MINI_ATACADO_P'
+      FieldName = 'PROD_QTDE_ATAC'
+      Origin = 'PROD_QTDE_ATAC'
       Precision = 10
     end
-    object SQL_LISTAQUANT_MINI_DISTRIBUIDOR_P: TBCDField
+    object SQL_LISTAPROD_QTDE_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'QUANT_MINI_DISTRIBUIDOR_P'
-      Origin = 'QUANT_MINI_DISTRIBUIDOR_P'
+      FieldName = 'PROD_QTDE_DIST'
+      Origin = 'PROD_QTDE_DIST'
       Precision = 10
     end
     object SQL_LISTAQUANT_MINI_VAREJO_Q: TBCDField
@@ -3109,10 +3109,10 @@ object Frm_Produto2: TFrm_Produto2
       Origin = 'PROD_NFe_O09_CST_IPI'
       Size = 3
     end
-    object SQL_LISTACOD_BALANCA_1: TStringField
+    object SQL_LISTAPROD_COD_BALANCA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'COD_BALANCA_1'
-      Origin = 'COD_BALANCA_1'
+      FieldName = 'PROD_COD_BALANCA'
+      Origin = 'PROD_COD_BALANCA'
       Size = 8
     end
     object SQL_LISTACOD_BALANCA_2: TStringField
@@ -3354,17 +3354,17 @@ object Frm_Produto2: TFrm_Produto2
       Origin = 'COD_BARRAS_AUXILIAR'
       Size = 50
     end
-    object SQL_PRODUTOPESAVEL: TStringField
+    object SQL_PRODUTOPROD_PESAVEL: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'PESAVEL'
-      Origin = 'PESAVEL'
+      FieldName = 'PROD_PESAVEL'
+      Origin = 'PROD_PESAVEL'
       FixedChar = True
       Size = 3
     end
-    object SQL_PRODUTOUTILIZA_ETIQUETA_BALANCA: TStringField
+    object SQL_PRODUTOPROD_USA_ETQ_BALANCA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'UTILIZA_ETIQUETA_BALANCA'
-      Origin = 'UTILIZA_ETIQUETA_BALANCA'
+      FieldName = 'PROD_USA_ETQ_BALANCA'
+      Origin = 'PROD_USA_ETQ_BALANCA'
       FixedChar = True
       Size = 3
     end
@@ -3417,22 +3417,22 @@ object Frm_Produto2: TFrm_Produto2
       FieldName = 'CODIGO_FORNECEDOR'
       Origin = 'CODIGO_FORNECEDOR'
     end
-    object SQL_PRODUTOQUANT_MINI_VAREJO_P: TBCDField
+    object SQL_PRODUTOPROD_QTDE_VAR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'QUANT_MINI_VAREJO_P'
-      Origin = 'QUANT_MINI_VAREJO_P'
+      FieldName = 'PROD_QTDE_VAR'
+      Origin = 'PROD_QTDE_VAR'
       Precision = 10
     end
-    object SQL_PRODUTOQUANT_MINI_ATACADO_P: TBCDField
+    object SQL_PRODUTOPROD_QTDE_ATAC: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'QUANT_MINI_ATACADO_P'
-      Origin = 'QUANT_MINI_ATACADO_P'
+      FieldName = 'PROD_QTDE_ATAC'
+      Origin = 'PROD_QTDE_ATAC'
       Precision = 10
     end
-    object SQL_PRODUTOQUANT_MINI_DISTRIBUIDOR_P: TBCDField
+    object SQL_PRODUTOPROD_QTDE_DIST: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'QUANT_MINI_DISTRIBUIDOR_P'
-      Origin = 'QUANT_MINI_DISTRIBUIDOR_P'
+      FieldName = 'PROD_QTDE_DIST'
+      Origin = 'PROD_QTDE_DIST'
       Precision = 10
     end
     object SQL_PRODUTOQUANT_MINI_VAREJO_Q: TBCDField
@@ -3658,10 +3658,10 @@ object Frm_Produto2: TFrm_Produto2
       FieldName = 'PROD_NFe_N11_orig'
       Origin = 'PROD_NFe_N11_orig'
     end
-    object SQL_PRODUTOCOD_BALANCA_1: TStringField
+    object SQL_PRODUTOPROD_COD_BALANCA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'COD_BALANCA_1'
-      Origin = 'COD_BALANCA_1'
+      FieldName = 'PROD_COD_BALANCA'
+      Origin = 'PROD_COD_BALANCA'
       Size = 8
     end
     object SQL_PRODUTOCOD_BALANCA_2: TStringField
@@ -3752,10 +3752,10 @@ object Frm_Produto2: TFrm_Produto2
       Origin = 'PROD_NFe_N21_vBCST_PAUTA'
       Precision = 10
     end
-    object SQL_PRODUTOponto_impressao_id: TIntegerField
+    object SQL_PRODUTOIMPRESSORA_IMP_id: TIntegerField
       AutoGenerateValue = arDefault
-      FieldName = 'ponto_impressao_id'
-      Origin = 'ponto_impressao_id'
+      FieldName = 'IMPRESSORA_IMP_id'
+      Origin = 'IMPRESSORA_IMP_id'
     end
   end
   object DS_CSTIPI: TDataSource
@@ -4094,7 +4094,7 @@ object Frm_Produto2: TFrm_Produto2
     Left = 1042
     Top = 291
   end
-  object sql_ponto_impressao: TFDQuery
+  object sql_IMPRESSORA_IMP: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
       
@@ -4102,13 +4102,13 @@ object Frm_Produto2: TFrm_Produto2
         'to_impressao')
     Left = 856
     Top = 336
-    object sql_ponto_impressaoid: TFDAutoIncField
+    object sql_IMPRESSORA_IMPid: TFDAutoIncField
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
-    object sql_ponto_impressaonome: TStringField
+    object sql_IMPRESSORA_IMPnome: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'nome'
       Origin = 'nome'
@@ -4117,8 +4117,8 @@ object Frm_Produto2: TFrm_Produto2
       Size = 514
     end
   end
-  object ds_ponto_impressao: TDataSource
-    DataSet = sql_ponto_impressao
+  object ds_IMPRESSORA_IMP: TDataSource
+    DataSet = sql_IMPRESSORA_IMP
     Left = 856
     Top = 392
   end
@@ -4163,3 +4163,11 @@ Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:41
 Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:42
 Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04
 Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:23
+Trocou PESAVEL por @_@_@_@_@_@ : automaticamente em 19/06/2020 06:08
+Trocou @_@_@_@_@_@ por PROD_PESAVEL : automaticamente em 19/06/2020 06:09
+Trocou UTILIZA_ETIQUETA_BALANCA por PROD_USA_ETQ_BALANCA : automaticamente em 19/06/2020 06:34
+Trocou QUANT_MINI_VAREJO_P por PROD_QTDE_VAR : automaticamente em 19/06/2020 08:57
+Trocou QUANT_MINI_ATACADO_P por PROD_QTDE_ATAC : automaticamente em 19/06/2020 08:59
+Trocou QUANT_MINI_DISTRIBUIDOR_P por PROD_QTDE_DIST : automaticamente em 19/06/2020 09:01
+Trocou COD_BALANCA_1 por PROD_COD_BALANCA : automaticamente em 19/06/2020 09:53
+Trocou ponto_impressao por IMPRESSORA_IMP : automaticamente em 19/06/2020 10:25

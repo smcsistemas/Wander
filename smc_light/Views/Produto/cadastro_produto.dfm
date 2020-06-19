@@ -60,6 +60,10 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 0
       ParentFont = False
       OnShow = cxTabSheet1Show
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label58: TLabel
         Left = 20
         Top = 555
@@ -440,6 +444,10 @@ object Frm_Produto: TFrm_Produto
     object tab_Cadastrar: TcxTabSheet
       Caption = 'Cadastro'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel6: TPanel
         Left = 3
         Top = 2
@@ -1053,10 +1061,10 @@ object Frm_Produto: TFrm_Produto
             TabOrder = 0
             OnExit = edPROD_CODIGOExit
           end
-          object cb_ponto_impressao: TcxDBLookupComboBox
+          object cb_IMPRESSORA_IMP: TcxDBLookupComboBox
             Left = 121
             Top = 351
-            DataBinding.DataField = 'ponto_impressao_id'
+            DataBinding.DataField = 'IMPRESSORA_IMP_id'
             ParentFont = False
             Properties.ButtonGlyph.Data = {
               36040000424D3604000000000000360000002800000010000000100000000100
@@ -1102,7 +1110,7 @@ object Frm_Produto: TFrm_Produto
                 FieldName = 'nome'
               end>
             Properties.ListOptions.ShowHeader = False
-            Properties.ListSource = ds_ponto_impressao
+            Properties.ListSource = ds_IMPRESSORA_IMP
             Style.Font.Charset = ANSI_CHARSET
             Style.Font.Color = clWindowText
             Style.Font.Height = -15
@@ -3297,6 +3305,10 @@ object Frm_Produto: TFrm_Produto
     object tabTributacao: TcxTabSheet
       Caption = ' Tributa'#231#227'o'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel4: TPanel
         Left = -1
         Top = 3
@@ -5349,7 +5361,7 @@ object Frm_Produto: TFrm_Produto
       Caption = 'Remover Faixa'
     end
   end
-  object sql_ponto_impressao: TFDQuery
+  object sql_IMPRESSORA_IMP: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
       
@@ -5357,13 +5369,13 @@ object Frm_Produto: TFrm_Produto
         'to_impressao')
     Left = 296
     Top = 232
-    object sql_ponto_impressaoid: TFDAutoIncField
+    object sql_IMPRESSORA_IMPid: TFDAutoIncField
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
-    object sql_ponto_impressaonome: TStringField
+    object sql_IMPRESSORA_IMPnome: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'nome'
       Origin = 'nome'
@@ -5372,8 +5384,8 @@ object Frm_Produto: TFrm_Produto
       Size = 514
     end
   end
-  object ds_ponto_impressao: TDataSource
-    DataSet = sql_ponto_impressao
+  object ds_IMPRESSORA_IMP: TDataSource
+    DataSet = sql_IMPRESSORA_IMP
     Left = 248
     Top = 128
   end
@@ -5390,3 +5402,4 @@ object Frm_Produto: TFrm_Produto
     Top = 28
   end
 end
+Trocou ponto_impressao por IMPRESSORA_IMP : automaticamente em 19/06/2020 10:25

@@ -29,6 +29,64 @@ ordem decrescente de data....
 =========================================================================================================================================
 ALT |   DATA |HORA |UNIT                        |Descrição                                                                              |
 ----|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+1071|19/06/20|10:25|vw_pontos_impressao.pas     |Trocado ponto_impressao por IMPRESSORA_IMP
+1070|19/06/20|10:25|vw_pontos_impressao.dfm     |Trocado ponto_impressao por IMPRESSORA_IMP
+1069|19/06/20|10:25|cadastro_produto.pas        |Trocado ponto_impressao por IMPRESSORA_IMP
+1068|19/06/20|10:25|cadastro_produto.dfm        |Trocado ponto_impressao por IMPRESSORA_IMP
+1067|19/06/20|10:25|cadastro_produto2.pas       |Trocado ponto_impressao por IMPRESSORA_IMP
+1066|19/06/20|10:25|cadastro_produto2.dfm       |Trocado ponto_impressao por IMPRESSORA_IMP
+1065|19/06/20|10:25|relatorios.pas              |Trocado ponto_impressao por IMPRESSORA_IMP
+1064|19/06/20|10:25|relatorios.dfm              |Trocado ponto_impressao por IMPRESSORA_IMP
+1063|19/06/20|10:24|m_Ponto_Impressao.pas       |Trocado ponto_impressao por IMPRESSORA_IMP
+1062|19/06/20|10:24|cadastro_produto.pas        |Trocado ponto_impressao por IMPRESSORA_IMP
+1061|19/06/20|10:24|cadastro_produto.dfm        |Trocado ponto_impressao por IMPRESSORA_IMP
+1060|19/06/20|10:24|h_DB.pas                    |Trocado ponto_impressao por IMPRESSORA_IMP
+1059|19/06/20|10:22|Atualizador                 |Tabela ponto_impressao substituída por IMPRESSORA_IMP
+1059|19/06/20|10:22|Atualizador                 |Tabela ponto_impressao substituída por IMPRESSORA_IMP
+1058|19/06/20|09:53|vw_pdv.pas                  |Trocado COD_BALANCA_1 por PROD_COD_BALANCA
+1057|19/06/20|09:53|cadastro_produto.pas        |Trocado COD_BALANCA_1 por PROD_COD_BALANCA
+1056|19/06/20|09:53|vw_balanca.dfm              |Trocado COD_BALANCA_1 por PROD_COD_BALANCA
+1055|19/06/20|09:53|cadastro_produto2.pas       |Trocado COD_BALANCA_1 por PROD_COD_BALANCA
+1054|19/06/20|09:53|cadastro_produto2.dfm       |Trocado COD_BALANCA_1 por PROD_COD_BALANCA
+1053|19/06/20|09:53|relatorios.pas              |Trocado COD_BALANCA_1 por PROD_COD_BALANCA
+1052|19/06/20|09:53|relatorios.dfm              |Trocado COD_BALANCA_1 por PROD_COD_BALANCA
+1051|19/06/20|09:52|m_Produto.pas               |Trocado COD_BALANCA_1 por PROD_COD_BALANCA
+1050|19/06/20|09:52|cadastro_produto.pas        |Trocado COD_BALANCA_1 por PROD_COD_BALANCA
+1049|19/06/20|09:52|cadastro_produto.dfm        |Trocado COD_BALANCA_1 por PROD_COD_BALANCA
+1048|19/06/20|09:01|Atualizador                 |Excluída coluna COD_BALANCA_3 da tabela PRODUTO_PROD
+1047|19/06/20|09:01|Atualizador                 |Excluída coluna COD_BALANCA_2 da tabela PRODUTO_PROD
+1046|19/06/20|09:01|Atualizador                 |Tabela PRODUTO_PROD Coluna COD_BALANCA_1 renomeada para PROD_COD_BALANCA
+1045|19/06/20|09:01|cadastro_produto.pas        |Trocado QUANT_MINI_DISTRIBUIDOR_P por PROD_QTDE_DIST
+1044|19/06/20|09:01|cadastro_produto2.pas       |Trocado QUANT_MINI_DISTRIBUIDOR_P por PROD_QTDE_DIST
+1043|19/06/20|09:01|cadastro_produto2.dfm       |Trocado QUANT_MINI_DISTRIBUIDOR_P por PROD_QTDE_DIST
+1042|19/06/20|09:01|cadastro_produto.pas        |Trocado QUANT_MINI_DISTRIBUIDOR_P por PROD_QTDE_DIST
+1041|19/06/20|09:01|cadastro_produto.dfm        |Trocado QUANT_MINI_DISTRIBUIDOR_P por PROD_QTDE_DIST
+1040|19/06/20|08:59|cadastro_produto.pas        |Trocado QUANT_MINI_ATACADO_P por PROD_QTDE_ATAC
+1039|19/06/20|08:59|cadastro_produto2.pas       |Trocado QUANT_MINI_ATACADO_P por PROD_QTDE_ATAC
+1038|19/06/20|08:59|cadastro_produto2.dfm       |Trocado QUANT_MINI_ATACADO_P por PROD_QTDE_ATAC
+1037|19/06/20|08:59|cadastro_produto.pas        |Trocado QUANT_MINI_ATACADO_P por PROD_QTDE_ATAC
+1036|19/06/20|08:59|cadastro_produto.dfm        |Trocado QUANT_MINI_ATACADO_P por PROD_QTDE_ATAC
+1035|19/06/20|08:57|cadastro_produto.pas        |Trocado QUANT_MINI_VAREJO_P por PROD_QTDE_VAR
+1034|19/06/20|08:57|cadastro_produto2.pas       |Trocado QUANT_MINI_VAREJO_P por PROD_QTDE_VAR
+1033|19/06/20|08:57|cadastro_produto2.dfm       |Trocado QUANT_MINI_VAREJO_P por PROD_QTDE_VAR
+1032|19/06/20|08:57|cadastro_produto.pas        |Trocado QUANT_MINI_VAREJO_P por PROD_QTDE_VAR
+1031|19/06/20|08:57|cadastro_produto.dfm        |Trocado QUANT_MINI_VAREJO_P por PROD_QTDE_VAR
+1030|19/06/20|06:45|m_Produto                   |Deixa de tratar CONTROLADO
+1029|19/06/20|06:45|m_Produto                   |Deixa de tratar USA_LOTE
+1028|19/06/20|06:45|Atualizador                 |Elimina CONTROLADO da tab PRODUTO_PROD
+1027|19/06/20|06:45|Atualizador                 |Elimina USA_LOTE da tab PRODUTO_PROD
+1026|19/06/20|06:35|cadastro_produto.pas        |Trocado UTILIZA_ETIQUETA_BALANCA por PROD_USA_ETQ_BALANCA
+1025|19/06/20|06:35|cadastro_produto2.pas       |Trocado UTILIZA_ETIQUETA_BALANCA por PROD_USA_ETQ_BALANCA
+1024|19/06/20|06:34|cadastro_produto2.dfm       |Trocado UTILIZA_ETIQUETA_BALANCA por PROD_USA_ETQ_BALANCA
+1023|19/06/20|06:34|cadastro_produto.pas        |Trocado UTILIZA_ETIQUETA_BALANCA por PROD_USA_ETQ_BALANCA
+1022|19/06/20|06:34|cadastro_produto.dfm        |Trocado UTILIZA_ETIQUETA_BALANCA por PROD_USA_ETQ_BALANCA
+1021|19/06/20|06:09|cadastro_produto.pas        |Trocado PESAVEL por PROD_PESAVEL
+1020|19/06/20|06:09|cadastro_produto2.pas       |Trocado PESAVEL por PROD_PESAVEL
+1019|19/06/20|06:09|cadastro_produto2.dfm       |Trocado PESAVEL por PROD_PESAVEL
+1018|19/06/20|06:08|cadastro_produto.pas        |Trocado PESAVEL por PROD_PESAVEL
+1017|19/06/20|06:08|cadastro_produto.dfm        |Trocado PESAVEL por PROD_PESAVEL
+1016|18/06/20|22:45|cadastro_produto            |passa a usar PROD_ATIVO (0/1) ao invpes de STATUS_CADASTRAL
+1015|18/06/20|22:45|Atualizador                 |STATUS_CADASTRAL substituido por PROD_ATIVO (0/1)
 1014|18/06/20|21:23|visualizar_nfc_e.dfm        |Trocado 'NCM' por 'PROD_NCMSH'
 1013|18/06/20|21:23|cadastro_produto2.dfm       |Trocado 'NCM' por 'PROD_NCMSH'
 1012|18/06/20|21:23|vw_importacao_nfe.dfm       |Trocado 'NCM' por 'PROD_NCMSH'

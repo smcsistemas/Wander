@@ -503,7 +503,7 @@ type
     sql_pro_pesavPROD_PRECO_DIST: TBCDField;
     sql_pro_pesavPROD_PRECO_VAR: TBCDField;
     sql_pro_pesavPROD_SALDO: TBCDField;
-    sql_pro_pesavCOD_BALANCA_1: TStringField;
+    sql_pro_pesavPROD_COD_BALANCA: TStringField;
     sql_pro_pesavCOD_BALANCA_2: TStringField;
     sql_pro_pesavCOD_BALANCA_3: TStringField;
     fr_pro_pesaveis: TfrxReport;
@@ -678,7 +678,7 @@ type
     function ImprimeComprovante(IdDetalhe : Integer): Tfrm_relatorio;
     function Convenio(cliente_id: integer; periodo_inicio, periodo_fim: tdate; produtos: BOOLEAN; conveniado_id: integer = 0): Tfrm_relatorio;
     function Comanda(cod_venda: string): Tfrm_relatorio;
-    function teste_ponto_impressao(id_ponto: integer): Tfrm_relatorio;
+    function teste_IMPRESSORA_IMP(id_ponto: integer): Tfrm_relatorio;
   end;
 
 var
@@ -723,7 +723,7 @@ function Tfrm_relatorio.Comanda(cod_venda: string): Tfrm_relatorio;
 const
   _sql_grouped = ' select pi.nome,v.comanda,vi.codigo_produto,vi.descricao,vi.unidade,vi.quantidade from venda_item vi ' +
     ' join venda v on v.codigo_venda = vi.codigo_venda join produto p on p.codigo = vi.codigo_produto ' +
-    ' join ponto_impressao pi on pi.id = p.ponto_impressao_id and pi.id = :pponto_impressao_id where vi.codigo_venda = :pcodigo_venda ';
+    ' join IMPRESSORA_IMP pi on pi.id = p.IMPRESSORA_IMP_id and pi.id = :pIMPRESSORA_IMP_id where vi.codigo_venda = :pcodigo_venda ';
 
 var
   qry, qry_aux: TFDQuery;
@@ -731,7 +731,7 @@ var
   i: integer;
 
 begin
-  qry := tdb.SimpleQuery('select id, impressora from ponto_impressao');
+  qry := tdb.SimpleQuery('select id, impressora from IMPRESSORA_IMP');
   if qry <> nil then
     with qry do
     begin
@@ -741,7 +741,7 @@ begin
       while not eof do
       begin
         if tdb.SimpleQuery
-          ('select vi.codigo_produto from venda_item vi join produto p on p.codigo = vi.codigo_produto and p.ponto_impressao_id = ? and vi.codigo_venda = ?',
+          ('select vi.codigo_produto from venda_item vi join produto p on p.codigo = vi.codigo_produto and p.IMPRESSORA_IMP_id = ? and vi.codigo_venda = ?',
           [qry.FieldByName('id').asInteger, cod_venda]) <> nil then
         begin
           if TParametros_Venda.Comanda.separar_produtos then
@@ -758,7 +758,7 @@ begin
                   sql_not_grouped := sql_not_grouped +
                     Format(' SELECT pi.nome, v.comanda, vi.codigo_produto, vi.descricao, vi.unidade, vi.quantidade FROM venda_item vi' +
                     ' JOIN venda v ON v.codigo_venda = vi.codigo_venda JOIN produto p ON p.codigo = vi.codigo_produto ' +
-                    'JOIN ponto_impressao PI ON pi.id = p.ponto_impressao_id AND pi.id = %d WHERE vi.codigo_venda = %s and vi.codigo_produto = %d union all',
+                    'JOIN IMPRESSORA_IMP PI ON pi.id = p.IMPRESSORA_IMP_id AND pi.id = %d WHERE vi.codigo_venda = %s and vi.codigo_produto = %d union all',
                     [qry.FieldByName('id').asInteger, cod_venda, qry_aux.FieldByName('codigo_produto').asInteger]);
                 end
                 else
@@ -768,7 +768,7 @@ begin
                     sql_not_grouped := sql_not_grouped +
                       Format(' SELECT pi.nome, v.comanda, vi.codigo_produto, vi.descricao, vi.unidade, vi.quantidade FROM venda_item vi' +
                       ' JOIN venda v ON v.codigo_venda = vi.codigo_venda JOIN produto p ON p.codigo = vi.codigo_produto ' +
-                      'JOIN ponto_impressao PI ON pi.id = p.ponto_impressao_id AND pi.id = %d WHERE vi.codigo_venda = %s and vi.codigo_produto = %d union all',
+                      'JOIN IMPRESSORA_IMP PI ON pi.id = p.IMPRESSORA_IMP_id AND pi.id = %d WHERE vi.codigo_venda = %s and vi.codigo_produto = %d union all',
                       [qry.FieldByName('id').asInteger, cod_venda, qry_aux.FieldByName('codigo_produto').asInteger]);
                   end;
                 end;
@@ -797,7 +797,7 @@ begin
             sql_comanda.SQL.Clear;
 
             sql_comanda.SQL.Add(_sql_grouped);
-            sql_comanda.parambyname('pponto_impressao_id').Value := qry.FieldByName('id').asInteger;
+            sql_comanda.parambyname('pIMPRESSORA_IMP_id').Value := qry.FieldByName('id').asInteger;
             sql_comanda.parambyname('pcodigo_venda').Value := cod_venda;
 
             sql_comanda.active := true;
@@ -1597,7 +1597,7 @@ begin
 
 end;
 
-function Tfrm_relatorio.teste_ponto_impressao(id_ponto: integer): Tfrm_relatorio;
+function Tfrm_relatorio.teste_IMPRESSORA_IMP(id_ponto: integer): Tfrm_relatorio;
 begin
   with sql_imp_test65 do
   begin
@@ -1781,3 +1781,5 @@ Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:5
 Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:44
 Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:02
 Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:05
+Trocou COD_BALANCA_1 por PROD_COD_BALANCA : automaticamente em 19/06/2020 09:53
+Trocou ponto_impressao por IMPRESSORA_IMP : automaticamente em 19/06/2020 10:25

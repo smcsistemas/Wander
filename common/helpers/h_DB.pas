@@ -10161,12 +10161,12 @@ begin
   end;
 {$ENDREGION}
 {$REGION 'PONTOS DE IMPRESSÃO'}
-  if TIniFile.Create(TDir.databaseini).ReadBool('db_maintenance', 'ponto_impressao', false) = false then
+  if TIniFile.Create(TDir.databaseini).ReadBool('db_maintenance', 'IMPRESSORA_IMP', false) = false then
   begin
 
     (*
 
-      create table ponto_impressao
+      create table IMPRESSORA_IMP
       (
       id int primary key auto_increment,
       nome varchar(255),
@@ -10174,13 +10174,13 @@ begin
       );
 
     *)
-    if not TableExists('ponto_impressao') then
-      CreateTable('ponto_impressao', ['id int primary key auto_increment', 'nome varchar(255)', 'impressora varchar(255)']);
+    if not TableExists('IMPRESSORA_IMP') then
+      CreateTable('IMPRESSORA_IMP', ['id int primary key auto_increment', 'nome varchar(255)', 'impressora varchar(255)']);
 
-    if not ColumnExists('ponto_impressao_id', 'produto') then
-      ExecQuery('alter table produto add ponto_impressao_id int, add foreign key (ponto_impressao_id) references ponto_impressao(id)');
+    if not ColumnExists('IMPRESSORA_IMP_id', 'produto') then
+      ExecQuery('alter table produto add IMPRESSORA_IMP_id int, add foreign key (IMPRESSORA_IMP_id) references IMPRESSORA_IMP(id)');
 
-    TIniFile.Create(TDir.databaseini).WriteBool('db_maintenance', 'ponto_impressao', True);
+    TIniFile.Create(TDir.databaseini).WriteBool('db_maintenance', 'IMPRESSORA_IMP', True);
   end;
 {$ENDREGION}
 {$REGION 'ESTOQUE MINIMO ZERO'}
@@ -10709,3 +10709,4 @@ Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:01
 Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:03
 Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:40
 Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:41
+Trocou ponto_impressao por IMPRESSORA_IMP : automaticamente em 19/06/2020 10:24

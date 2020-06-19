@@ -1093,7 +1093,7 @@ begin
       qtdecasas := FieldByName('COD_PRODUTO_BALANCA').asInteger;
       CodProdBal := copy(Edt_codBarras.Text, 2, qtdecasas);
       FinalPesoPreco := copy(Edt_codBarras.Text, 2 + qtdecasas, -2 - qtdecasas + length(Edt_codBarras.Text));
-      qry := simplequery('SELECT PROD_CODIGO, PROD_PRECO_VAR FROM PRODUTO_PROD WHERE LPAD(COD_BALANCA_1,' + IntToStr(qtdecasas) + ',0) = ' + quotedstr(CodProdBal));
+      qry := simplequery('SELECT PROD_CODIGO, PROD_PRECO_VAR FROM PRODUTO_PROD WHERE LPAD(PROD_COD_BALANCA,' + IntToStr(qtdecasas) + ',0) = ' + quotedstr(CodProdBal));
       if qry = nil then
         qry := simplequery('SELECT PROD_CODIGO, PROD_PRECO_VAR FROM PRODUTO_PROD WHERE LPAD(COD_BALANCA_2,' + IntToStr(qtdecasas) + ',0) = ' + quotedstr(CodProdBal));
       if qry = nil then
@@ -2092,3 +2092,4 @@ Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:31
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51
 Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:54
+Trocou COD_BALANCA_1 por PROD_COD_BALANCA : automaticamente em 19/06/2020 09:53

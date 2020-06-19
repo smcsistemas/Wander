@@ -291,10 +291,10 @@ type
     Label51: TLabel;
     Label35: TLabel;
     lblprodcads: TLabel;
-    sql_ponto_impressao: TFDQuery;
-    ds_ponto_impressao: TDataSource;
-    sql_ponto_impressaoid: TFDAutoIncField;
-    sql_ponto_impressaonome: TStringField;
+    sql_IMPRESSORA_IMP: TFDQuery;
+    ds_IMPRESSORA_IMP: TDataSource;
+    sql_IMPRESSORA_IMPid: TFDAutoIncField;
+    sql_IMPRESSORA_IMPnome: TStringField;
     N1: TMenuItem;
     ImprimirEtiqueta1: TMenuItem;
     Panel3: TPanel;
@@ -378,7 +378,7 @@ type
     edPROD_CDMARCA: TEdit;
     mmPROD_DETALHES: TMemo;
     edPROD_CODIGO: TEdit;
-    cb_ponto_impressao: TcxDBLookupComboBox;
+    cb_IMPRESSORA_IMP: TcxDBLookupComboBox;
     edNFe_nDI: TEdit;
     cxGroupBox1: TcxGroupBox;
     Label9: TLabel;
@@ -972,8 +972,8 @@ procedure TFrm_Produto.CarregarDadosInternos;
 
 begin
 
-  sql_ponto_impressao.Active := false;
-  sql_ponto_impressao.Active := true;
+  sql_IMPRESSORA_IMP.Active := false;
+  sql_IMPRESSORA_IMP.Active := true;
 
   //edCODIGO.Text := inttostr(SQL_PRODUTOCODIGO.value);
   //u_funcoes.CamposObrigatorios_CorPadrao([PROD_DESCRICAO, PROD_CDUNIDADE, {PROD_PRECO_VAR,} NCM], [], [TcxComboBox(dbcsticms)]);
@@ -2245,7 +2245,7 @@ var
 begin
   if campo.Text <> '' then
   begin
-    qry := simplequery('SELECT * FROM PRODUTO_PROD WHERE (COD_BALANCA_1 = ' + QuotedStr(campo.Text) + ' OR COD_BALANCA_2 = ' +
+    qry := simplequery('SELECT * FROM PRODUTO_PROD WHERE (PROD_COD_BALANCA = ' + QuotedStr(campo.Text) + ' OR COD_BALANCA_2 = ' +
       QuotedStr(campo.Text) + ' OR COD_BALANCA_3 = ' + QuotedStr(campo.Text) + ') AND PROD_CODIGO <> ' + QuotedStr(edPROD_CODIGO.Text));
     if qry <> nil then
     begin
@@ -2909,7 +2909,7 @@ begin
    qAUX.sql.add('       PROD_PRECO_ATAC,          ');
    qAUX.sql.add('       PROD_PRECO_VAR,           ');
    qAUX.sql.add('       PROD_PRECO_DIST,          ');
-   qAUX.sql.add('       STATUS_CADASTRAL,         ');
+   qAUX.sql.add('       PROD_ATIVO,               ');
    qAUX.sql.add('       PROD_NFe_N12_CST_ICMS,    ');
    qAUX.sql.add('       PROD_CDTIPOITEM,          ');
    qAUX.sql.add('       PROD_NFe_N11_orig,        ');
@@ -2945,7 +2945,7 @@ begin
    qAUX.sql.add('      :PROD_PRECO_ATAC,          ');
    qAUX.sql.add('      :PROD_PRECO_VAR,           ');
    qAUX.sql.add('      :PROD_PRECO_DIST,          ');
-   qAUX.sql.add('      :STATUS_CADASTRAL,         ');
+   qAUX.sql.add('      :PROD_ATIVO,               ');
    qAUX.sql.add('      :PROD_NFe_N12_CST_ICMS,    ');
    qAUX.sql.add('      :PROD_CDTIPOITEM,          ');
    qAUX.sql.add('      :PROD_NFe_N11_orig,        ');
@@ -2994,7 +2994,7 @@ begin
    qAUX.ParamByName('PROD_PRECO_ATAC'         ).AsFloat   := ValorValido(edPROD_PRECO_ATAC.Text);
    qAUX.ParamByName('PROD_PRECO_VAR'          ).AsFloat   := ValorValido(edPROD_PRECO_VAR.Text);
    qAUX.ParamByName('PROD_PRECO_DIST'         ).AsFloat   := ValorValido(edPROD_PRECO_DIST.Text);
-   qAUX.ParamByName('STATUS_CADASTRAL'        ).AsString  := Ativo_ou_Inativo(cbSTATUS_CADASTRAL.Checked);
+   qAUX.ParamByName('PROD_ATIVO'              ).AsInteger := Zero_ou_Um(cbSTATUS_CADASTRAL.Checked);
    qAUX.ParamByName('PROD_NFe_N12_CST_ICMS'   ).AsString  := edPROD_NFe_N12_CST_ICMS.Text;
    qAUX.ParamByName('PROD_CDTIPOITEM'         ).AsString  := edPROD_CDTIPOITEM.Text;
    qAUX.ParamByName('PROD_NFe_N11_orig'       ).AsInteger := InteiroMenos1_se_Vazio(edPROD_NFe_N11_orig.Text);
@@ -3102,7 +3102,7 @@ begin
    edPROD_PRECO_DIST.Text      := Float_to_String(qConsulta.FieldByName('PROD_PRECO_DIST').AsFloat);
 
    //Ativo/Inativo
-   cbSTATUS_CADASTRAL.Checked      := (qConsulta.FieldByName('STATUS_CADASTRAL').AsString = 'ATIVO');
+   cbSTATUS_CADASTRAL.Checked      := (qConsulta.FieldByName('PROD_ATIVO').AsInteger= 1);
 
    //Dados Fiscais
    //---------------------------------------------------------------------------
@@ -3758,14 +3758,14 @@ CREATE TABLE `produto` (
 	`ANP` VARCHAR(50) NULL DEFAULT NULL,
 	`EX_IPI` FLOAT NULL DEFAULT NULL,
 	`STATUS_CADASTRAL` ENUM('ATIVO','INATIVO') NULL DEFAULT 'ATIVO',
-	`PESAVEL` ENUM('SIM','NAO') NULL DEFAULT NULL,
-	`UTILIZA_ETIQUETA_BALANCA` ENUM('SIM','NAO') NULL DEFAULT NULL,
+	`PROD_PESAVEL` ENUM('SIM','NAO') NULL DEFAULT NULL,
+	`PROD_USA_ETQ_BALANCA` ENUM('SIM','NAO') NULL DEFAULT NULL,
 	`USA_LOTE` ENUM('SIM','NAO') NULL DEFAULT NULL,
 	`CONTROLADO` ENUM('SIM','NAO') NULL DEFAULT NULL,
 	`CODIGO_FORNECEDOR` INT(11) NULL DEFAULT NULL,
-	`QUANT_MINI_VAREJO_P` DECIMAL(10,4) NULL DEFAULT NULL,
-	`QUANT_MINI_ATACADO_P` DECIMAL(10,4) NULL DEFAULT NULL,
-	`QUANT_MINI_DISTRIBUIDOR_P` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_QTDE_VAR` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_QTDE_ATAC` DECIMAL(10,4) NULL DEFAULT NULL,
+	`PROD_QTDE_DIST` DECIMAL(10,4) NULL DEFAULT NULL,
 	`QUANT_MINI_VAREJO_Q` DECIMAL(10,4) NULL DEFAULT NULL,
 	`QUANT_MINI_ATACADO_Q` DECIMAL(10,4) NULL DEFAULT NULL,
 	`QUANT_MINI_DISTRIBUIDOR_Q` DECIMAL(10,4) NULL DEFAULT NULL,
@@ -3773,10 +3773,10 @@ CREATE TABLE `produto` (
 	`QUANT_MINI_DISTRIBUIDOR_D` DECIMAL(10,4) NULL DEFAULT NULL,
 	`QUANT_MINI_ATACADO_D` DECIMAL(10,4) NULL DEFAULT NULL,
 	`PROD_NFe_O09_CST_IPI` VARCHAR(3) NULL DEFAULT NULL,
-	`COD_BALANCA_1` VARCHAR(8) NULL DEFAULT NULL,
+	`PROD_COD_BALANCA` VARCHAR(8) NULL DEFAULT NULL,
 	`COD_BALANCA_2` VARCHAR(8) NULL DEFAULT NULL,
 	`COD_BALANCA_3` VARCHAR(8) NULL DEFAULT NULL,
-	`ponto_impressao_id` INT(11) NULL DEFAULT NULL,
+	`IMPRESSORA_IMP_id` INT(11) NULL DEFAULT NULL,
 	`Produto_ou_Servico` ENUM('P','S') NULL DEFAULT 'P' COMMENT 'P=Produto e S=Serviço',
 	`PagaComissaoSN` ENUM('S','N') NULL DEFAULT 'S' COMMENT 'S=Paga Comissão e N=Não paga',
 	`ContaContabil` INT(11) NULL DEFAULT NULL COMMENT 'Código da Conta Contábil no Plano de Contas',
@@ -3805,10 +3805,10 @@ CREATE TABLE `produto` (
 	`NFe_motDesICMS` INT(11) NULL DEFAULT NULL COMMENT 'Indicador Motivo da desoneração do ICMS',
 	`VALOR_PAUTA_BC` DECIMAL(10,4) NULL DEFAULT '0.0000' COMMENT 'Valor de Pauta do produto',
 	PRIMARY KEY (`CODIGO`),
-	INDEX `ponto_impressao_id` (`ponto_impressao_id`),
+	INDEX `IMPRESSORA_IMP_id` (`IMPRESSORA_IMP_id`),
 	INDEX `idx_NCM` (`NCM`),
 	INDEX `idx_PROD_REFERENCIASFABRICA` (`PROD_REFERENCIASFABRICA`),
-	CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`ponto_impressao_id`) REFERENCES `ponto_impressao` (`id`)
+	CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`IMPRESSORA_IMP_id`) REFERENCES `IMPRESSORA_IMP` (`id`)
 )
 COMMENT='onde encontram-se os produtos cadastrados\r\n'
 COLLATE='latin1_swedish_ci'
@@ -3861,3 +3861,11 @@ Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:
 Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:41
 Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:42
 Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:05
+Trocou PESAVEL por @_@_@_@_@_@ : automaticamente em 19/06/2020 06:08
+Trocou @_@_@_@_@_@ por PROD_PESAVEL : automaticamente em 19/06/2020 06:09
+Trocou UTILIZA_ETIQUETA_BALANCA por PROD_USA_ETQ_BALANCA : automaticamente em 19/06/2020 06:35
+Trocou QUANT_MINI_VAREJO_P por PROD_QTDE_VAR : automaticamente em 19/06/2020 08:57
+Trocou QUANT_MINI_ATACADO_P por PROD_QTDE_ATAC : automaticamente em 19/06/2020 08:59
+Trocou QUANT_MINI_DISTRIBUIDOR_P por PROD_QTDE_DIST : automaticamente em 19/06/2020 09:01
+Trocou COD_BALANCA_1 por PROD_COD_BALANCA : automaticamente em 19/06/2020 09:53
+Trocou ponto_impressao por IMPRESSORA_IMP : automaticamente em 19/06/2020 10:25

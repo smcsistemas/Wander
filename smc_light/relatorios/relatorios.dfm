@@ -15585,7 +15585,7 @@ object frm_relatorio: Tfrm_relatorio
       'PROD_PRECO_ATAC=PROD_PRECO_ATAC'
       'PROD_PRECO_DIST=PROD_PRECO_DIST'
       'PROD_PRECO_VAR=PROD_PRECO_VAR'
-      'COD_BALANCA_1=COD_BALANCA_1'
+      'PROD_COD_BALANCA=PROD_COD_BALANCA'
       'PRECO_CUSTO=PRECO_CUSTO'
       'MARGEM_L_VAREJO=MARGEM_L_VAREJO'
       'CUSTO_MEDIO=CUSTO_MEDIO'
@@ -15850,7 +15850,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."PROD_EAN"][ds_produtos."COD_BALANCA_1"]')
+            '[ds_produtos."PROD_EAN"][ds_produtos."PROD_COD_BALANCA"]')
           ParentFont = False
           Formats = <
             item
@@ -37342,7 +37342,7 @@ object frm_relatorio: Tfrm_relatorio
       'PROD_PRECO_DIST=PROD_PRECO_DIST'
       'PROD_PRECO_VAR=PROD_PRECO_VAR'
       'PROD_SALDO=PROD_SALDO'
-      'COD_BALANCA_1=COD_BALANCA_1'
+      'PROD_COD_BALANCA=PROD_COD_BALANCA'
       'COD_BALANCA_2=COD_BALANCA_2'
       'COD_BALANCA_3=COD_BALANCA_3')
     DataSet = sql_pro_pesav
@@ -37416,10 +37416,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'PROD_SALDO'
       Precision = 10
     end
-    object sql_pro_pesavCOD_BALANCA_1: TStringField
+    object sql_pro_pesavPROD_COD_BALANCA: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'COD_BALANCA_1'
-      Origin = 'COD_BALANCA_1'
+      FieldName = 'PROD_COD_BALANCA'
+      Origin = 'PROD_COD_BALANCA'
       Size = 8
     end
     object sql_pro_pesavCOD_BALANCA_2: TStringField
@@ -37542,7 +37542,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_pro_pesav."COD_BALANCA_1"]')
+            '[ds_pro_pesav."PROD_COD_BALANCA"]')
           ParentFont = False
         end
         object ds_produtosPROD_SALDO: TfrxMemoView
@@ -43349,8 +43349,8 @@ object frm_relatorio: Tfrm_relatorio
       '    join venda v on v.codigo_venda = vi.codigo_venda'
       '    join PRODUTO_PROD p on p.PROD_CODIGO = vi.codigo_produto '
       
-        '    join ponto_impressao pi on pi.id = p.ponto_impressao_id and ' +
-        'pi.id = :pponto_impressao_id'
+        '    join IMPRESSORA_IMP pi on pi.id = p.IMPRESSORA_IMP_id and ' +
+        'pi.id = :pIMPRESSORA_IMP_id'
       ''
       'where vi.codigo_venda = :pcodigo_venda'
       '')
@@ -43358,7 +43358,7 @@ object frm_relatorio: Tfrm_relatorio
     Top = 608
     ParamData = <
       item
-        Name = 'PPONTO_IMPRESSAO_ID'
+        Name = 'PIMPRESSORA_IMP_ID'
         DataType = ftInteger
         ParamType = ptInput
         Value = 1
@@ -43514,7 +43514,7 @@ object frm_relatorio: Tfrm_relatorio
   object sql_imp_test65: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'select nome, impressora from ponto_impressao where id = :pid')
+      'select nome, impressora from IMPRESSORA_IMP where id = :pid')
     Left = 440
     Top = 592
     ParamData = <
@@ -45765,3 +45765,5 @@ Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:02
 Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:05
 Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04
 Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:23
+Trocou COD_BALANCA_1 por PROD_COD_BALANCA : automaticamente em 19/06/2020 09:53
+Trocou ponto_impressao por IMPRESSORA_IMP : automaticamente em 19/06/2020 10:25
