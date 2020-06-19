@@ -2618,10 +2618,10 @@ object frm_visualizar_venda: Tfrm_visualizar_venda
         '     P.UNIDADE_MEDIDA, p.DESCRICAO_PRODUTO, p.CODIGO_BARRAS, p.N' +
         'CM, p.CEST, '
       
-        '     if(ICMS_CST <> '#39#39',IF(ICMS_CST='#39'60'#39', (SELECT CFOP_ST FROM NA' +
+        '     if(PROD_NFe_N12_CST_ICMS <> '#39#39',IF(PROD_NFe_N12_CST_ICMS='#39'60'#39', (SELECT CFOP_ST FROM NA' +
         'TUREZA_OPERACAO WHERE ID = 1),(SELECT CFOP_TI FROM NATUREZA_OPER' +
         'ACAO WHERE ID = 1)), '#39#39') as CFOP,'
-      '     p.CSOSN, p.ICMS_CST, p.PROD_NFe_N16_pICMS, p.PIS_CST, p.COFINS_CST'
+      '     p.CSOSN, p.PROD_NFe_N12_CST_ICMS, p.PROD_NFe_N16_pICMS, p.PIS_CST, p.COFINS_CST'
       'from venda_item vi'
       'join produto p on vi.codigo_produto = p.codigo'
       'where vi.codigo_venda = :pcodigo')
@@ -2704,11 +2704,11 @@ object frm_visualizar_venda: Tfrm_visualizar_venda
       ReadOnly = True
       Size = 200
     end
-    object SQL_VENDA_ITENSICMS_CST: TStringField
+    object SQL_VENDA_ITENSPROD_NFe_N12_CST_ICMS: TStringField
       Alignment = taRightJustify
       AutoGenerateValue = arDefault
-      FieldName = 'ICMS_CST'
-      Origin = 'ICMS_CST'
+      FieldName = 'PROD_NFe_N12_CST_ICMS'
+      Origin = 'PROD_NFe_N12_CST_ICMS'
       ProviderFlags = []
       ReadOnly = True
       Size = 2
@@ -2840,3 +2840,6 @@ object frm_visualizar_venda: Tfrm_visualizar_venda
   end
 end
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:49
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:42
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:01
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:03

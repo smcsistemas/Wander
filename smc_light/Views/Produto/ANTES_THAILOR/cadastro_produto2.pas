@@ -127,7 +127,7 @@ type
     SQL_PRODUTOCOD_COMB: TStringField;
     SQL_PRODUTOPROD_NFe_O02_clEnq: TIntegerField;
     SQL_PRODUTOCODIGO_LOCALIZACAO: TIntegerField;
-    SQL_PRODUTOICMS_CST: TStringField;
+    SQL_PRODUTOPROD_NFe_N12_CST_ICMS: TStringField;
     SQL_PRODUTOICMS_IPI: TStringField;
     SQL_PRODUTOPIS_CST: TStringField;
     SQL_PRODUTOCSOSN: TStringField;
@@ -216,11 +216,11 @@ type
     SQL_DADOS_ROTINAScaminho_backup: TStringField;
     SQL_DADOS_ROTINAShost_name: TStringField;
     cbTipoItem: TcxDBLookupComboBox;
-    SQL_PRODUTOCODIGO_ORIGEM_MERCADORIA: TIntegerField;
+    SQL_PRODUTOPROD_NFe_N11_orig: TIntegerField;
     SQL_PRODUTOCOD_BALANCA_1: TStringField;
     SQL_PRODUTOCOD_BALANCA_2: TStringField;
     SQL_PRODUTOCOD_BALANCA_3: TStringField;
-    SQL_PRODUTOCST_IPI: TStringField;
+    SQL_PRODUTOPROD_NFe_O09_CST_IPI: TStringField;
     SQL_LISTACODIGO: TFDAutoIncField;
     SQL_LISTACODIGO_BARRAS: TStringField;
     SQL_LISTACOD_BARRAS_AUXILIAR: TStringField;
@@ -278,11 +278,11 @@ type
     SQL_LISTAPROD_NFe_O13_pIPI: TStringField;
     SQL_LISTAPROD_NFe_O02_clEnq: TIntegerField;
     SQL_LISTACODIGO_LOCALIZACAO: TIntegerField;
-    SQL_LISTAICMS_CST: TStringField;
+    SQL_LISTAPROD_NFe_N12_CST_ICMS: TStringField;
     SQL_LISTAICMS_IPI: TStringField;
     SQL_LISTAPIS_CST: TStringField;
     SQL_LISTACOFINS_CST: TStringField;
-    SQL_LISTACODIGO_ORIGEM_MERCADORIA: TIntegerField;
+    SQL_LISTAPROD_NFe_N11_orig: TIntegerField;
     SQL_LISTACSOSN: TStringField;
     SQL_LISTANCM: TStringField;
     SQL_LISTACEST: TStringField;
@@ -303,7 +303,7 @@ type
     SQL_LISTAQUANT_MINI_VAREJO_D: TBCDField;
     SQL_LISTAQUANT_MINI_DISTRIBUIDOR_D: TBCDField;
     SQL_LISTAQUANT_MINI_ATACADO_D: TBCDField;
-    SQL_LISTACST_IPI: TStringField;
+    SQL_LISTAPROD_NFe_O09_CST_IPI: TStringField;
     SQL_LISTACOD_BALANCA_1: TStringField;
     SQL_LISTACOD_BALANCA_2: TStringField;
     SQL_LISTACOD_BALANCA_3: TStringField;
@@ -348,7 +348,7 @@ type
     tbViewTIPO_ITEM: TcxGridDBColumn;
     tbViewPROD_SALDO: TcxGridDBColumn;
     tbViewPROD_NFe_N16_pICMS: TcxGridDBColumn;
-    tbViewICMS_CST: TcxGridDBColumn;
+    tbViewPROD_NFe_N12_CST_ICMS: TcxGridDBColumn;
     tbViewPIS_CST: TcxGridDBColumn;
     tbViewCOFINS_CST: TcxGridDBColumn;
     tbViewCSOSN: TcxGridDBColumn;
@@ -487,3 +487,9 @@ Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/
 Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:02
 Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50
 Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:43
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:44
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:02
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:05
+Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:41
+Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:42
+Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04

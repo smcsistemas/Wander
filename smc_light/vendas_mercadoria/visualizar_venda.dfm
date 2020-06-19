@@ -2218,10 +2218,12 @@ object frm_visualizar_venda: Tfrm_visualizar_venda
         '     P.UNIDADE_MEDIDA, p.DESCRICAO_PRODUTO, p.CODIGO_BARRAS, p.N' +
         'CM, p.CEST, '
       
-        '     if(ICMS_CST <> '#39#39',IF(ICMS_CST='#39'60'#39', (SELECT CFOP_ST FROM NA' +
-        'TUREZA_OPERACAO WHERE ID = 1),(SELECT CFOP_TI FROM NATUREZA_OPER' +
-        'ACAO WHERE ID = 1)), '#39#39') as CFOP,'
-      '     p.CSOSN, p.ICMS_CST, p.PROD_NFe_N16_pICMS, p.PIS_CST, p.COFINS_CST'
+        '     if(PROD_NFe_N12_CST_ICMS <> '#39#39',IF(PROD_NFe_N12_CST_ICMS='#39'60' +
+        #39', (SELECT CFOP_ST FROM NATUREZA_OPERACAO WHERE ID = 1),(SELECT ' +
+        'CFOP_TI FROM NATUREZA_OPERACAO WHERE ID = 1)), '#39#39') as CFOP,'
+      
+        '     p.CSOSN, p.PROD_NFe_N12_CST_ICMS, p.PROD_NFe_N16_pICMS, p.P' +
+        'IS_CST, p.COFINS_CST'
       'from venda_item vi'
       'join produto p on vi.codigo_produto = p.codigo'
       'where vi.codigo_venda = :pcodigo')
@@ -2234,159 +2236,6 @@ object frm_visualizar_venda: Tfrm_visualizar_venda
         ParamType = ptInput
         Value = Null
       end>
-    object SQL_VENDA_ITENSCODIGO_VENDA: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_VENDA'
-      Origin = 'CODIGO_VENDA'
-    end
-    object SQL_VENDA_ITENSCODIGO_ITEM_VENDA: TIntegerField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_ITEM_VENDA'
-      Origin = 'CODIGO_ITEM_VENDA'
-    end
-    object SQL_VENDA_ITENSCODIGO_PRODUTO: TIntegerField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_PRODUTO'
-      Origin = 'CODIGO_PRODUTO'
-    end
-    object SQL_VENDA_ITENSDESCRICAO_PRODUTO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO_PRODUTO'
-      Origin = 'DESCRICAO_PRODUTO'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 200
-    end
-    object SQL_VENDA_ITENSCODIGO_BARRAS: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_BARRAS'
-      Origin = 'CODIGO_BARRAS'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 50
-    end
-    object SQL_VENDA_ITENSNCM: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'NCM'
-      Origin = 'NCM'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 50
-    end
-    object SQL_VENDA_ITENSCEST: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'CEST'
-      Origin = 'CEST'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 50
-    end
-    object SQL_VENDA_ITENSCFOP: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'CFOP'
-      Origin = 'CFOP'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 5
-    end
-    object SQL_VENDA_ITENSCSOSN: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'CSOSN'
-      Origin = 'CSOSN'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 200
-    end
-    object SQL_VENDA_ITENSICMS_CST: TStringField
-      Alignment = taRightJustify
-      AutoGenerateValue = arDefault
-      FieldName = 'ICMS_CST'
-      Origin = 'ICMS_CST'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 2
-    end
-    object SQL_VENDA_ITENSPROD_NFe_N16_pICMS: TBCDField
-      Alignment = taCenter
-      FieldName = 'PROD_NFe_N16_pICMS'
-      Origin = 'PROD_NFe_N16_pICMS'
-      ProviderFlags = []
-      ReadOnly = True
-      DisplayFormat = '% ##,#0.00'
-      Precision = 10
-    end
-    object SQL_VENDA_ITENSPIS_CST: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'PIS_CST'
-      Origin = 'PIS_CST'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 2
-    end
-    object SQL_VENDA_ITENSCOFINS_CST: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'COFINS_CST'
-      Origin = 'COFINS_CST'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 2
-    end
-    object SQL_VENDA_ITENSUNIDADE_MEDIDA: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'UNIDADE_MEDIDA'
-      Origin = 'UNIDADE_MEDIDA'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 50
-    end
-    object SQL_VENDA_ITENSQUANTIDADE: TSingleField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'QUANTIDADE'
-      Origin = 'QUANTIDADE'
-    end
-    object SQL_VENDA_ITENSPRECO: TBCDField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'PRECO'
-      Origin = 'PRECO'
-      currency = True
-      Precision = 10
-    end
-    object SQL_VENDA_ITENSACRESCIMO: TBCDField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'ACRESCIMO'
-      Origin = 'ACRESCIMO'
-      currency = True
-      Precision = 10
-    end
-    object SQL_VENDA_ITENSDESCONTO: TBCDField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCONTO'
-      Origin = 'DESCONTO'
-      currency = True
-      Precision = 10
-    end
-    object SQL_VENDA_ITENSPRECO_TOTAL: TBCDField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'PRECO_TOTAL'
-      Origin = 'PRECO_TOTAL'
-      currency = True
-      Precision = 10
-    end
   end
   object DS_VENDA_ITENS: TDataSource
     DataSet = SQL_VENDA_ITENS
@@ -2439,4 +2288,3 @@ object frm_visualizar_venda: Tfrm_visualizar_venda
     Top = 388
   end
 end
-Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50

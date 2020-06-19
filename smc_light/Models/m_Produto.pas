@@ -63,8 +63,8 @@ type
     Produto_cod_balanca_3: string;
     Produto_usa_lote: boolean;
     Produto_controlado: boolean;
-    Produto_icms_cst: string;
-    Produto_codigo_origem_mercadoria: integer;
+    Produto_PROD_NFe_N12_CST_ICMS: string;
+    Produto_PROD_NFe_N11_orig: integer;
     Produto_PROD_NFe_N16_pICMS: extended;
     Produto_PROD_NFe_N20_pRedBCST: extended;
     //Produto_cod_comb: string;
@@ -118,8 +118,8 @@ type
     function getProduto_cod_balanca_3: string;
     function getProduto_usa_lote: boolean;
     function getProduto_controlado: boolean;
-    function getProduto_icms_cst: string;
-    function getProduto_codigo_origem_mercadoria: integer;
+    function getProduto_PROD_NFe_N12_CST_ICMS: string;
+    function getProduto_PROD_NFe_N11_orig: integer;
     function getProduto_PROD_NFe_N16_pICMS: extended;
     function getProduto_PROD_NFe_N20_pRedBCST: extended;
     //function getProduto_cod_comb: string;
@@ -173,8 +173,8 @@ type
     Procedure setProduto_cod_balanca_3(value: string);
     Procedure setProduto_usa_lote(value: boolean);
     Procedure setProduto_controlado(value: boolean);
-    Procedure setProduto_icms_cst(value: string);
-    Procedure setProduto_codigo_origem_mercadoria(value: integer);
+    Procedure setProduto_PROD_NFe_N12_CST_ICMS(value: string);
+    Procedure setProduto_PROD_NFe_N11_orig(value: integer);
     Procedure setProduto_PROD_NFe_N16_pICMS(value: extended);
     Procedure setProduto_PROD_NFe_N20_pRedBCST(value: extended);
     //Procedure setProduto_cod_comb(value: string);
@@ -238,8 +238,8 @@ type
     property COD_BALANCA_3: string read getProduto_cod_balanca_3 write setProduto_cod_balanca_3;
     property USA_LOTE: boolean read getProduto_usa_lote write setProduto_usa_lote;
     property CONTROLADO: boolean read getProduto_controlado write setProduto_controlado;
-    property ICMS_CST: string read getProduto_icms_cst write setProduto_icms_cst;
-    property CODIGO_ORIGEM_MERCADORIA: integer read getProduto_codigo_origem_mercadoria write setProduto_codigo_origem_mercadoria;
+    property PROD_NFe_N12_CST_ICMS: string read getProduto_PROD_NFe_N12_CST_ICMS write setProduto_PROD_NFe_N12_CST_ICMS;
+    property PROD_NFe_N11_orig: integer read getProduto_PROD_NFe_N11_orig write setProduto_PROD_NFe_N11_orig;
     property PROD_NFe_N16_pICMS: extended read getProduto_PROD_NFe_N16_pICMS write setProduto_PROD_NFe_N16_pICMS;
     property PROD_NFe_N20_pRedBCST: extended read getProduto_PROD_NFe_N20_pRedBCST write setProduto_PROD_NFe_N20_pRedBCST;
     //property COD_COMB: string read getProduto_cod_comb write setProduto_cod_comb;
@@ -307,8 +307,8 @@ begin
   Produto_cod_balanca_3 := '';
   Produto_usa_lote := false;
   Produto_controlado := false;
-  Produto_icms_cst := '';
-  Produto_codigo_origem_mercadoria := 0;
+  Produto_PROD_NFe_N12_CST_ICMS := '';
+  Produto_PROD_NFe_N11_orig := 0;
   Produto_PROD_NFe_N16_pICMS := 0;
   Produto_PROD_NFe_N20_pRedBCST := 0;
   //Produto_cod_comb := '';
@@ -384,8 +384,8 @@ begin
       Self.Produto_cod_balanca_3 := qry.fieldbyname('cod_balanca_3').asString;
       Self.Produto_usa_lote := (qry.fieldbyname('usa_lote').asString = 'SIM');
       Self.Produto_controlado := (qry.fieldbyname('controlado').asString = 'SIM');
-      Self.Produto_icms_cst := qry.fieldbyname('icms_cst').asString;
-      Self.Produto_codigo_origem_mercadoria := qry.fieldbyname('codigo_origem_mercadoria').AsInteger;
+      Self.Produto_PROD_NFe_N12_CST_ICMS := qry.fieldbyname('PROD_NFe_N12_CST_ICMS').asString;
+      Self.Produto_PROD_NFe_N11_orig := qry.fieldbyname('PROD_NFe_N11_orig').AsInteger;
       Self.Produto_PROD_NFe_N16_pICMS := qry.fieldbyname('PROD_NFe_N16_pICMS').asExtended;
       Self.Produto_PROD_NFe_N20_pRedBCST := qry.fieldbyname('PROD_NFe_N20_pRedBCST').asExtended;
       //Self.Produto_cod_comb := qry.fieldbyname('cod_comb').asString;
@@ -436,8 +436,8 @@ begin
     'MARGEM_L_DISTRIBUIDOR, MARGEM_L_ATACADO, PROD_PRECO_VAR, PROD_PRECO_DIST, PROD_PRECO_ATAC, PROD_COMISSAO_VAR,' +
     'PROD_COMISSAO_DIST, PROD_COMISSAO_ATAC, PROD_COMISSAO_EXT_VAR, PROD_COMISSAO_EXT_DIST, PROD_COMISSAO_EXT_ATAC,' +
     'PROD_SALDO, PROD_ESTOQMIN, PROD_MAXDESC_VAR, PROD_MAXDESC_DIST, PROD_MAXDESC_ATAC, STATUS_CADASTRAL, COD_BALANCA_1, COD_BALANCA_2,' +
-    //'COD_BALANCA_3, USA_LOTE, CONTROLADO, ICMS_CST, CODIGO_ORIGEM_MERCADORIA, PROD_NFe_N16_pICMS, PROD_NFe_N20_pRedBCST, COD_COMB, PROD_NFe_N21_vBCST_PAUTA, GENERO, ' +
-    'COD_BALANCA_3, USA_LOTE, CONTROLADO, ICMS_CST, CODIGO_ORIGEM_MERCADORIA, PROD_NFe_N16_pICMS, PROD_NFe_N20_pRedBCST, PROD_NFe_N21_vBCST_PAUTA, ' +
+    //'COD_BALANCA_3, USA_LOTE, CONTROLADO, PROD_NFe_N12_CST_ICMS, PROD_NFe_N11_orig, PROD_NFe_N16_pICMS, PROD_NFe_N20_pRedBCST, COD_COMB, PROD_NFe_N21_vBCST_PAUTA, GENERO, ' +
+    'COD_BALANCA_3, USA_LOTE, CONTROLADO, PROD_NFe_N12_CST_ICMS, PROD_NFe_N11_orig, PROD_NFe_N16_pICMS, PROD_NFe_N20_pRedBCST, PROD_NFe_N21_vBCST_PAUTA, ' +
     //'LUCRO_SUBST_TRIBUTARIA, LEIS, CSOSN, NCM, CEST, ANP, PIS_CST, COFINS_CST)' +
     'CSOSN, NCM, CEST, ANP, PIS_CST, COFINS_CST)' +
     'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
@@ -448,9 +448,9 @@ begin
     Self.Produto_PROD_COMISSAO_LOJA_distribuidor, Self.Produto_PROD_COMISSAO_LOJA_atacado, Self.Produto_PROD_COMISSAO_EXT_VAR, Self.Produto_PROD_COMISSAO_EXT_DIST,
     Self.Produto_PROD_COMISSAO_EXT_ATAC, Self.Produto_estoque, Self.Produto_PROD_ESTOQMIN, Self.Produto_PROD_MAXDESC_VAR, Self.Produto_PROD_MAXDESC_DIST,
     Self.Produto_PROD_MAXDESC_ATAC, TFunctions.ifthen(Self.Produto_status_cadastral, 'ATIVO', 'INATIVO'), Self.Produto_cod_balanca_1, Self.Produto_cod_balanca_2,
-    Self.Produto_cod_balanca_3, TFunctions.ifthen(Self.Produto_usa_lote, 'SIM', 'NAO'), TFunctions.ifthen(Self.Produto_controlado, 'SIM', 'NAO'), Self.Produto_icms_cst,
-    //Self.Produto_codigo_origem_mercadoria, Self.Produto_PROD_NFe_N16_pICMS, Self.Produto_PROD_NFe_N20_pRedBCST, Self.Produto_cod_comb, Self.Produto_PROD_NFe_N21_vBCST_PAUTA, Self.Produto_genero,
-    Self.Produto_codigo_origem_mercadoria, Self.Produto_PROD_NFe_N16_pICMS, Self.Produto_PROD_NFe_N20_pRedBCST, Self.Produto_PROD_NFe_N21_vBCST_PAUTA,
+    Self.Produto_cod_balanca_3, TFunctions.ifthen(Self.Produto_usa_lote, 'SIM', 'NAO'), TFunctions.ifthen(Self.Produto_controlado, 'SIM', 'NAO'), Self.Produto_PROD_NFe_N12_CST_ICMS,
+    //Self.Produto_PROD_NFe_N11_orig, Self.Produto_PROD_NFe_N16_pICMS, Self.Produto_PROD_NFe_N20_pRedBCST, Self.Produto_cod_comb, Self.Produto_PROD_NFe_N21_vBCST_PAUTA, Self.Produto_genero,
+    Self.Produto_PROD_NFe_N11_orig, Self.Produto_PROD_NFe_N16_pICMS, Self.Produto_PROD_NFe_N20_pRedBCST, Self.Produto_PROD_NFe_N21_vBCST_PAUTA,
     //Self.Produto_lucro_subst_tributaria, Self.Produto_leis, Self.Produto_csosn, Self.Produto_ncm, Self.Produto_cest, Self.Produto_anp, Self.Produto_pis_cst,
     Self.Produto_csosn, Self.Produto_ncm, Self.Produto_cest, Self.Produto_anp, Self.Produto_pis_cst,
     Self.Produto_cofins_cst]);
@@ -488,7 +488,7 @@ begin
     'PROD_PRECO_ATAC=?, PROD_COMISSAO_VAR=?, PROD_COMISSAO_DIST=?, PROD_COMISSAO_ATAC=?,' +
     'PROD_COMISSAO_EXT_VAR=?, PROD_COMISSAO_EXT_DIST=?, PROD_COMISSAO_EXT_ATAC=?, PROD_SALDO=?,' +
     'PROD_ESTOQMIN=?, PROD_MAXDESC_VAR=?, PROD_MAXDESC_DIST=?, PROD_MAXDESC_ATAC=?, STATUS_CADASTRAL=?, COD_BALANCA_1=?,' +
-    'COD_BALANCA_2=?, COD_BALANCA_3=?, USA_LOTE=?, CONTROLADO=?, ICMS_CST=?, CODIGO_ORIGEM_MERCADORIA=?, PROD_NFe_N16_pICMS=?, PROD_NFe_N20_pRedBCST=?,' +
+    'COD_BALANCA_2=?, COD_BALANCA_3=?, USA_LOTE=?, CONTROLADO=?, PROD_NFe_N12_CST_ICMS=?, PROD_NFe_N11_orig=?, PROD_NFe_N16_pICMS=?, PROD_NFe_N20_pRedBCST=?,' +
     //'COD_COMB=?, PROD_NFe_N21_vBCST_PAUTA=?, GENERO=?, LUCRO_SUBST_TRIBUTARIA=?, LEIS=?, CSOSN=?, NCM=?, CEST=?, ANP=?, PIS_CST=?, COFINS_CST=?' + 'WHERE codigo=?',
     'PROD_NFe_N21_vBCST_PAUTA=?, CSOSN=?, NCM=?, CEST=?, ANP=?, PIS_CST=?, COFINS_CST=?' + 'WHERE codigo=?',
     [Self.PROD_CODIGO, Self.Produto_descricao, Self.Produto_PROD_EAN, Self.Produto_PROD_DETALHES, Self.Produto_PROD_REFERENCIASFABRICA, Self.Produto_marca, Self.Produto_familia,
@@ -498,9 +498,9 @@ begin
     Self.Produto_PROD_COMISSAO_LOJA_distribuidor, Self.Produto_PROD_COMISSAO_LOJA_atacado, Self.Produto_PROD_COMISSAO_EXT_VAR, Self.Produto_PROD_COMISSAO_EXT_DIST,
     Self.Produto_PROD_COMISSAO_EXT_ATAC, Self.Produto_estoque, Self.Produto_PROD_ESTOQMIN, Self.Produto_PROD_MAXDESC_VAR, Self.Produto_PROD_MAXDESC_DIST,
     Self.Produto_PROD_MAXDESC_ATAC, TFunctions.ifthen(Self.Produto_status_cadastral, 'ATIVO', 'INATIVO'), Self.Produto_cod_balanca_1, Self.Produto_cod_balanca_2,
-    Self.Produto_cod_balanca_3, TFunctions.ifthen(Self.Produto_usa_lote, 'SIM', 'NAO'), TFunctions.ifthen(Self.Produto_controlado, 'SIM', 'NAO'), Self.Produto_icms_cst,
-    //Self.Produto_codigo_origem_mercadoria, Self.Produto_PROD_NFe_N16_pICMS, Self.Produto_PROD_NFe_N20_pRedBCST, Self.Produto_cod_comb, Self.Produto_PROD_NFe_N21_vBCST_PAUTA, Self.Produto_genero,
-    Self.Produto_codigo_origem_mercadoria, Self.Produto_PROD_NFe_N16_pICMS, Self.Produto_PROD_NFe_N20_pRedBCST, Self.Produto_PROD_NFe_N21_vBCST_PAUTA,
+    Self.Produto_cod_balanca_3, TFunctions.ifthen(Self.Produto_usa_lote, 'SIM', 'NAO'), TFunctions.ifthen(Self.Produto_controlado, 'SIM', 'NAO'), Self.Produto_PROD_NFe_N12_CST_ICMS,
+    //Self.Produto_PROD_NFe_N11_orig, Self.Produto_PROD_NFe_N16_pICMS, Self.Produto_PROD_NFe_N20_pRedBCST, Self.Produto_cod_comb, Self.Produto_PROD_NFe_N21_vBCST_PAUTA, Self.Produto_genero,
+    Self.Produto_PROD_NFe_N11_orig, Self.Produto_PROD_NFe_N16_pICMS, Self.Produto_PROD_NFe_N20_pRedBCST, Self.Produto_PROD_NFe_N21_vBCST_PAUTA,
     //Self.Produto_lucro_subst_tributaria, Self.Produto_leis, Self.Produto_csosn, Self.Produto_ncm, Self.Produto_cest, Self.Produto_anp, Self.Produto_pis_cst,
     Self.Produto_csosn, Self.Produto_ncm, Self.Produto_cest, Self.Produto_anp, Self.Produto_pis_cst,
     Self.Produto_cofins_cst, Self.Produto_PROD_CODIGO]);
@@ -542,9 +542,9 @@ begin
   result := Self.Produto_PROD_EAN;
 end;
 
-function TProduto.getProduto_codigo_origem_mercadoria: integer;
+function TProduto.getProduto_PROD_NFe_N11_orig: integer;
 begin
-  result := Self.Produto_codigo_origem_mercadoria;
+  result := Self.Produto_PROD_NFe_N11_orig;
 end;
 
 function TProduto.getProduto_cod_balanca_1: string;
@@ -667,9 +667,9 @@ begin
   result := Self.Produto_grupo;
 end;
 
-function TProduto.getProduto_icms_cst: string;
+function TProduto.getProduto_PROD_NFe_N12_CST_ICMS: string;
 begin
-  result := Self.Produto_icms_cst;
+  result := Self.Produto_PROD_NFe_N12_CST_ICMS;
 end;
 
 function TProduto.getProduto_imposto: extended;
@@ -818,9 +818,9 @@ begin
   Self.Produto_PROD_EAN := value;
 end;
 
-procedure TProduto.setProduto_codigo_origem_mercadoria(value: integer);
+procedure TProduto.setProduto_PROD_NFe_N11_orig(value: integer);
 begin
-  Self.Produto_codigo_origem_mercadoria := value;
+  Self.Produto_PROD_NFe_N11_orig := value;
 end;
 
 procedure TProduto.setProduto_cod_balanca_1(value: string);
@@ -950,9 +950,9 @@ begin
   Self.Produto_grupo := value;
 end;
 
-procedure TProduto.setProduto_icms_cst(value: string);
+procedure TProduto.setProduto_PROD_NFe_N12_CST_ICMS(value: string);
 begin
-  Self.Produto_icms_cst := value;
+  Self.Produto_PROD_NFe_N12_CST_ICMS := value;
 end;
 
 procedure TProduto.setProduto_imposto(value: extended);
@@ -1121,3 +1121,7 @@ Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:49
 Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:53
 Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/06/2020 09:43
 Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:02
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:43
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:01
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:04
+Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04

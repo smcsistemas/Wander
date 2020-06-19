@@ -248,7 +248,7 @@ type
     dbtvMainBASE_COFINS: TcxGridDBBandedColumn;
     dbtvMainALIQ_COFINS: TcxGridDBBandedColumn;
     dbtvMainTOTAL_COFINS: TcxGridDBBandedColumn;
-    dbtvMainCST_IPI: TcxGridDBBandedColumn;
+    dbtvMainPROD_NFe_O09_CST_IPI: TcxGridDBBandedColumn;
     dbtvMainPROD_NFe_O02_clEnq: TcxGridDBBandedColumn;
     dbtvMainCST_ICMS: TcxGridDBBandedColumn;
     dbtvMainPROD_NFe_N16_pICMS: TcxGridDBBandedColumn;
@@ -1176,7 +1176,7 @@ begin
           dbtvMainCOMISSAO.EditValue := objProduto.PROD_COMISSAO_LOJA_VAREJO;
           dbtvMainPRECO_VENDA.EditValue := objProduto.PROD_PRECO_VAR;
 
-          dbtvMainCST_ICMS.EditValue := objProduto.ICMS_CST;
+          dbtvMainCST_ICMS.EditValue := objProduto.PROD_NFe_N12_CST_ICMS;
           dbtvMainPROD_NFe_N16_pICMS.EditValue := objProduto.PROD_NFe_N16_pICMS;
           dbtvMainCST_PIS.EditValue := objProduto.PIS_CST;
           dbtvMainCST_COFINS.EditValue := objProduto.COFINS_CST;
@@ -1790,3 +1790,8 @@ Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51
 Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50
 Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:43
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:44
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:02
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:05
+Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:41
+Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:41

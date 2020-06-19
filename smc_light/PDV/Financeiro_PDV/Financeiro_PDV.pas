@@ -901,9 +901,14 @@ procedure TFrm_Recebimento.PadronizarLayout;
   begin
     Frm_ConfNFCE := tfrm_confnfce.Create(nil);
     Frm_ConfNFCE.SQL_PARAMETROS_NFCE.Active := false;
-    Frm_ConfNFCE.SQL_PARAMETROS_NFCE.Active := True;
+    Frm_ConfNFCE.SQL_PARAMETROS_NFCE.sql.clear;
+    Frm_ConfNFCE.SQL_PARAMETROS_NFCE.sql.add('select pn.*,              ');
+    Frm_ConfNFCE.SQL_PARAMETROS_NFCE.sql.add('       pv.*               ');
+    Frm_ConfNFCE.SQL_PARAMETROS_NFCE.sql.add('  from parametros_nfce pn,');
+    Frm_ConfNFCE.SQL_PARAMETROS_NFCE.sql.add('       parametros_venda pv');
+    Frm_ConfNFCE.SQL_PARAMETROS_NFCE.Active := true;
     Frm_ConfNFCE.SQL_PARAMETROS_NFCE.Last;
-    if Frm_ConfNFCE.SQL_PARAMETROS_NFCEPAG_LISTA.Value = m_true then
+    if Frm_ConfNFCE.SQL_PARAMETROS_NFCE.FieldByName('PAG_LISTA').Value = m_true then
     begin
       edtCodPag.Visible := false;
       edtPagDesc.Visible := false;
@@ -912,40 +917,46 @@ procedure TFrm_Recebimento.PadronizarLayout;
         begin
           close;
           sql.Clear;
-          sql.Add('SELECT * FROM TIPO_PAGAMENTO WHERE COD_TIPO_PAGAMENTO <> "101"'); { Removendo convenio }
+          sql.Add('SELECT *                          ');
+          sql.Add('  FROM TIPO_PAGAMENTO             ');
+          sql.Add(' WHERE COD_TIPO_PAGAMENTO <> "101"'); { Removendo convenio }
           open;
         end;
-      if Frm_ConfNFCE.SQL_PARAMETROS_NFCEUSA_PAG_PADRAO.Value = m_true then
+      if Frm_ConfNFCE.SQL_PARAMETROS_NFCe.FieldByName('USA_PAG_PADRAO').Value = m_true then
       begin
-        dbTipoPagamento.editvalue := Frm_ConfNFCE.SQL_PARAMETROS_NFCEPAG_PADRAO.Value;
+        dbTipoPagamento.editvalue := Frm_ConfNFCE.SQL_PARAMETROS_NFCe.FieldByName('PAG_PADRAO').Value;
         edt_valor.SelectAll;
         edt_valor.setFocus;
       end
-      else if Frm_ConfNFCE.SQL_PARAMETROS_NFCEUSA_PAG_PADRAO.Value = m_false then
+      else if Frm_ConfNFCE.SQL_PARAMETROS_NFCe.FieldByName('USA_PAG_PADRAO').Value = m_false then
       begin
-        if Frm_ConfNFCE.SQL_PARAMETROS_NFCEHABILITAR_FIADO.Value = m_false then { Habilitar pagamento fiado }
+        if Frm_ConfNFCE.SQL_PARAMETROS_NFCe.FieldByName('HABILITAR_FIADO').Value = m_false then { Habilitar pagamento fiado }
         begin
           with SQL_TIPO_PAGAMENTO do
           begin
             close;
             sql.Clear;
-            sql.Add('SELECT * FROM TIPO_PAGAMENTO WHERE COD_TIPO_PAGAMENTO <> ' + quotedstr('100') + ' AND TIPO_PAGAMENTO <> ' + quotedstr('Fiado'));
+            sql.Add('SELECT *              ');
+            sql.Add('  FROM TIPO_PAGAMENTO ');
+            sql.Add(' WHERE COD_TIPO_PAGAMENTO <> ' + quotedstr('100') + ' AND TIPO_PAGAMENTO <> ' + quotedstr('Fiado'));
             open;
           end;
         end;
       end;
     end;
-    if Frm_ConfNFCE.SQL_PARAMETROS_NFCEPAG_CODIGO.Value = m_true then
+    if Frm_ConfNFCE.SQL_PARAMETROS_NFCe.FieldByName('PAG_CODIGO').Value = m_true then
     begin
       dbTipoPagamento.Visible := false;
       edtCodPag.setFocus;
-      if Frm_ConfNFCE.SQL_PARAMETROS_NFCEUSA_PAG_PADRAO.Value = m_true then
+      if Frm_ConfNFCE.SQL_PARAMETROS_NFCe.FieldByName('USA_PAG_PADRAO').Value = m_true then
       begin
         with SQL_TIPO_PAGAMENTO do
         begin
           close;
           sql.Clear;
-          sql.Add('SELECT * FROM TIPO_PAGAMENTO WHERE COD_TIPO_PAGAMENTO = ' + quotedstr(Frm_ConfNFCE.SQL_PARAMETROS_NFCEPAG_PADRAO.Value));
+          sql.Add('SELECT *              ');
+          sql.Add('  FROM TIPO_PAGAMENTO ');
+          sql.Add(' WHERE COD_TIPO_PAGAMENTO = ' + quotedstr(Frm_ConfNFCE.SQL_PARAMETROS_NFCe.FieldByName('PAG_PADRAO').Value));
           open;
         end;
         edtCodPag.Text := SQL_TIPO_PAGAMENTOCOD_TIPO_PAGAMENTO.Value;

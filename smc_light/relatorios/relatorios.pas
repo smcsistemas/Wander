@@ -153,7 +153,7 @@ type
     SQL_LS_AUTORIZADANOME_CLIENTE: TStringField;
     SQL_LS_AUTORIZADACFOP: TStringField;
     SQL_LS_AUTORIZADACSOSN: TStringField;
-    SQL_LS_AUTORIZADAICMS_CST: TStringField;
+    SQL_LS_AUTORIZADAPROD_NFe_N12_CST_ICMS: TStringField;
     SQL_LS_AUTORIZADAPRECO_TOTAL: TFMTBCDField;
     SQL_LS_AUTORIZADAOUTROS: TFMTBCDField;
     SQL_LS_AUTORIZADAPROD_NFe_N16_pICMS: TBCDField;
@@ -537,7 +537,7 @@ type
     sql_mov_caixa_docsVALOR_NFCE_P: TFMTBCDField;
     SQL_ANCFOP: TStringField;
     SQL_ANCSOSN: TStringField;
-    SQL_ANICMS_CST: TStringField;
+    SQL_ANPROD_NFe_N12_CST_ICMS: TStringField;
     SQL_ANPRECO_BASE: TFMTBCDField;
     SQL_ANOUTROS: TFMTBCDField;
     SQL_ANPROD_NFe_N16_pICMS: TBCDField;
@@ -1305,10 +1305,10 @@ begin
         end;
       end;
 
-      ExecQuery('UPDATE PRODUTO SET CSOSN="",PROD_NFe_N16_pICMS=(SELECT ps.ALIQ_IMCS FROM PARAMETROS_SISTEMA ps), PIS_CST="01", COFINS_CST="01" WHERE icms_cst="00" ');
-      ExecQuery('UPDATE PRODUTO SET CSOSN="103",PROD_NFe_N16_pICMS = 0,PIS_CST="99", COFINS_CST="99" WHERE icms_cst="40" ');
-      ExecQuery('UPDATE PRODUTO SET CSOSN="102",PROD_NFe_N16_pICMS = 0,PIS_CST="99", COFINS_CST="99" WHERE icms_cst="41" ');
-      ExecQuery('UPDATE PRODUTO SET CSOSN="500",PROD_NFe_N16_pICMS = 0,PIS_CST="99", COFINS_CST="99" WHERE icms_cst="60" ');
+      ExecQuery('UPDATE PRODUTO SET CSOSN="",PROD_NFe_N16_pICMS=(SELECT ps.ALIQ_IMCS FROM PARAMETROS_SISTEMA ps), PIS_CST="01", COFINS_CST="01" WHERE PROD_NFe_N12_CST_ICMS="00" ');
+      ExecQuery('UPDATE PRODUTO SET CSOSN="103",PROD_NFe_N16_pICMS = 0,PIS_CST="99", COFINS_CST="99" WHERE PROD_NFe_N12_CST_ICMS="40" ');
+      ExecQuery('UPDATE PRODUTO SET CSOSN="102",PROD_NFe_N16_pICMS = 0,PIS_CST="99", COFINS_CST="99" WHERE PROD_NFe_N12_CST_ICMS="41" ');
+      ExecQuery('UPDATE PRODUTO SET CSOSN="500",PROD_NFe_N16_pICMS = 0,PIS_CST="99", COFINS_CST="99" WHERE PROD_NFe_N12_CST_ICMS="60" ');
 
       SQL_LS_AUTORIZADA.close;
       SQL_LS_AUTORIZADA.parambyname('pdata_emissao_1').Value := p_inicio;
@@ -1778,3 +1778,6 @@ Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50
 Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:54
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:44
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:02
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:05

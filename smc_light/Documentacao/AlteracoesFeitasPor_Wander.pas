@@ -29,6 +29,83 @@ ordem decrescente de data....
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+990|18/06/20|19:45|U_ConfNFCE                  |Eliminados todos os campos internos do objeto SQL_PARAMETROS_NFCE
+989|18/06/20|19:45|U_ConfNFCE                  |Eliminados todos os campos internos do objeto Sql_Conf
+988|18/06/20|19:40|U_ConfNFCE                  |Eliminados todos os campos internos do objeto SQL_Empresa
+987|18/06/20|19:19|U_ConfNFCE                  |Eliminados todos os campos internos do objeto SQL_VENDA_ITEM
+986|18/06/20|19:05|cadastro_produto.pas        |Trocado CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig
+985|18/06/20|19:04|cadastro_produto.dfm        |Trocado CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig
+984|18/06/20|19:04|cadastro_produto2.pas       |Trocado CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig
+983|18/06/20|19:04|cadastro_produto2.dfm       |Trocado CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig
+982|18/06/20|19:04|relatorios.dfm              |Trocado CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig
+981|18/06/20|19:04|U_ConfNFCE.pas              |Trocado CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig
+980|18/06/20|19:04|U_ConfNFCE.dfm              |Trocado CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig
+979|18/06/20|19:04|m_Importacao.pas            |Trocado CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig
+978|18/06/20|19:04|m_Produto.pas               |Trocado CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig
+977|18/06/20|19:04|EmissaoDeNFe.pas            |Trocado CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig
+976|18/06/20|19:04|cadastro_produto.pas        |Trocado CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig
+975|18/06/20|19:04|cadastro_produto.dfm        |Trocado CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig
+974|18/06/20|18:55|visualizar_venda            |Eliminados todos os campos internos do objeto SQL_VENDA_ITENS
+974|18/06/20|18:55|visualizar_venda            |Eliminados todos os campos internos do objeto SQL_VENDA_ITENS
+973|18/06/20|18:42|cadastro_produto.pas        |Trocado PROD_NFe_O09_CST_IPI por PROD_NFe_O09_CST_IPI
+972|18/06/20|18:42|cadastro_produto.dfm        |Trocado PROD_NFe_O09_CST_IPI por PROD_NFe_O09_CST_IPI
+971|18/06/20|18:42|cadastro_produto2.pas       |Trocado PROD_NFe_O09_CST_IPI por PROD_NFe_O09_CST_IPI
+970|18/06/20|18:42|cadastro_produto2.dfm       |Trocado PROD_NFe_O09_CST_IPI por PROD_NFe_O09_CST_IPI
+969|18/06/20|18:41|vw_importacao_nfe.pas       |Trocado PROD_NFe_O09_CST_IPI por PROD_NFe_O09_CST_IPI
+968|18/06/20|18:41|vw_importacao_nfe.dfm       |Trocado PROD_NFe_O09_CST_IPI por PROD_NFe_O09_CST_IPI
+967|18/06/20|18:41|m_NFe.pas                   |Trocado PROD_NFe_O09_CST_IPI por PROD_NFe_O09_CST_IPI
+966|18/06/20|18:41|m_Importacao.pas            |Trocado PROD_NFe_O09_CST_IPI por PROD_NFe_O09_CST_IPI
+965|18/06/20|18:41|cadastro_produto.pas        |Trocado PROD_NFe_O09_CST_IPI por PROD_NFe_O09_CST_IPI
+964|18/06/20|18:41|cadastro_produto.dfm        |Trocado PROD_NFe_O09_CST_IPI por PROD_NFe_O09_CST_IPI
+963|18/06/20|18:41|h_DB.pas                    |Trocado PROD_NFe_O09_CST_IPI por PROD_NFe_O09_CST_IPI
+962|18/06/20|18:05|visualizar_nfc_e.pas        |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+961|18/06/20|18:05|visualizar_nfc_e.dfm        |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+960|18/06/20|18:05|cadastro_produto.pas        |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+959|18/06/20|18:05|cadastro_produto.dfm        |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+958|18/06/20|18:05|cadastro_produto2.pas       |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+957|18/06/20|18:05|cadastro_produto2.dfm       |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+956|18/06/20|18:05|vw_importacao_nfe.pas       |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+955|18/06/20|18:05|visualizar_venda.pas        |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+954|18/06/20|18:05|visualizar_venda.dfm        |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+953|18/06/20|18:05|venda_pedido.pas            |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+952|18/06/20|18:05|relatorios.pas              |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+951|18/06/20|18:05|relatorios.dfm              |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+950|18/06/20|18:04|U_ConfNFCE.pas              |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+949|18/06/20|18:04|U_ConfNFCE.dfm              |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+948|18/06/20|18:04|m_NFe.pas                   |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+947|18/06/20|18:04|m_Importacao.pas            |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+946|18/06/20|18:04|m_Produto.pas               |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+945|18/06/20|18:04|EmissaoDeNFe.pas            |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+944|18/06/20|18:04|cadastro_produto.pas        |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+943|18/06/20|18:04|cadastro_produto.dfm        |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+942|18/06/20|18:03|visualizar_venda.pas        |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+941|18/06/20|18:03|visualizar_venda.dfm        |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+940|18/06/20|18:03|h_DB.pas                    |Trocado PROD_NFe_N12_CST por PROD_NFe_N12_CST_ICMS
+939|18/06/20|17:44|visualizar_nfc_e.pas        |Trocado ICMS_CST por PROD_NFe_N12_CST
+938|18/06/20|17:44|visualizar_nfc_e.dfm        |Trocado ICMS_CST por PROD_NFe_N12_CST
+937|18/06/20|17:44|cadastro_produto.pas        |Trocado ICMS_CST por PROD_NFe_N12_CST
+936|18/06/20|17:44|cadastro_produto.dfm        |Trocado ICMS_CST por PROD_NFe_N12_CST
+935|18/06/20|17:44|cadastro_produto2.pas       |Trocado ICMS_CST por PROD_NFe_N12_CST
+934|18/06/20|17:44|cadastro_produto2.dfm       |Trocado ICMS_CST por PROD_NFe_N12_CST
+933|18/06/20|17:44|vw_importacao_nfe.pas       |Trocado ICMS_CST por PROD_NFe_N12_CST
+932|18/06/20|17:44|visualizar_venda.pas        |Trocado ICMS_CST por PROD_NFe_N12_CST
+931|18/06/20|17:44|visualizar_venda.dfm        |Trocado ICMS_CST por PROD_NFe_N12_CST
+930|18/06/20|17:44|venda_pedido.pas            |Trocado ICMS_CST por PROD_NFe_N12_CST
+929|18/06/20|17:44|relatorios.pas              |Trocado ICMS_CST por PROD_NFe_N12_CST
+928|18/06/20|17:44|relatorios.dfm              |Trocado ICMS_CST por PROD_NFe_N12_CST
+927|18/06/20|17:43|U_ConfNFCE.pas              |Trocado ICMS_CST por PROD_NFe_N12_CST
+926|18/06/20|17:43|U_ConfNFCE.dfm              |Trocado ICMS_CST por PROD_NFe_N12_CST
+925|18/06/20|17:43|m_NFe.pas                   |Trocado ICMS_CST por PROD_NFe_N12_CST
+924|18/06/20|17:43|m_Importacao.pas            |Trocado ICMS_CST por PROD_NFe_N12_CST
+923|18/06/20|17:43|m_Produto.pas               |Trocado ICMS_CST por PROD_NFe_N12_CST
+922|18/06/20|17:43|EmissaoDeNFe.pas            |Trocado ICMS_CST por PROD_NFe_N12_CST
+921|18/06/20|17:43|cadastro_produto.pas        |Trocado ICMS_CST por PROD_NFe_N12_CST
+920|18/06/20|17:43|cadastro_produto.dfm        |Trocado ICMS_CST por PROD_NFe_N12_CST
+919|18/06/20|17:42|visualizar_venda.pas        |Trocado ICMS_CST por PROD_NFe_N12_CST
+918|18/06/20|17:42|visualizar_venda.dfm        |Trocado ICMS_CST por PROD_NFe_N12_CST
+917|18/06/20|17:42|h_DB.pas                    |Trocado ICMS_CST por PROD_NFe_N12_CST
+916|18/06/20|17:25|Atualizador                 |Eliminada Coluna CODIGO_LOCALIZACAO da tabela PRODUTO_PROD
+915|18/06/20|17:25|Atualizador                 |Eliminada Coluna CODIGO_ALFANUMERICO da tabela PRODUTO_PROD
 914|18/06/20|10:28|Atualizador                 |Coluna ENQUADRAMENTO_IPI substituída por PROD_NFe_O02_clEnq
 913|18/06/20|14:43|cadastro_produto.pas        |Trocado ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq
 912|18/06/20|14:43|cadastro_produto2.pas       |Trocado ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq

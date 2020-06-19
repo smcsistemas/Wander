@@ -217,7 +217,7 @@ type
     procedure Carregar_RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC(pTPMOV,pCFOP,pProduto:String);
     function Venda_Possui_Produtos_e_Servicos:Boolean;
     function AlgumProdutoSem_ICMS_ST:Boolean;
-    function AlgumProdutoSem_CODIGO_ORIGEM_MERCADORIA:Boolean;
+    function AlgumProdutoSem_PROD_NFe_N11_orig:Boolean;
     function Algum_Nao_eh_Produto_nem_Servico:Boolean;
     function Carregar_TipoDeMovimento(pTPMOV_CODIGO:String):Boolean;
     function Carregar_NaturezaDeOperacao(pID:Integer):Boolean;
@@ -293,7 +293,7 @@ type
     procedure Tratar_Repasse_do_ICMS_ST;
 
     procedure Tratar_N11_Produto_Imposto_ICMS_orig;
-    procedure Tratar_N12_Produto_Imposto_ICMS_CST;
+    procedure Tratar_N12_Produto_Imposto_PROD_NFe_N12_CST_ICMS;
     procedure Tratar_N12_Produto_Imposto_ICMS_CSOSN(pCSOSN:TpcnCSOSNIcms);
     procedure Tratar_N13_Produto_Imposto_ICMS_modBC;
     procedure Tratar_N14_Produto_Imposto_ICMS_pRedBC;
@@ -950,7 +950,7 @@ begin
    while not qVENDA_ITEM.eof do
    begin
      // Obrigado a ter o código da ST do ICMS
-     if qVENDA_ITEM.FieldByName('ICMS_CST').AsString = '' then
+     if qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString = '' then
      begin
        ShowMessage('O produto:'+#13+#13+
                    qVENDA_ITEM.FieldByName('DESCRICAO').AsString+#13+#13+
@@ -964,13 +964,13 @@ begin
      begin
        // Obrigado a ser um código numérico inteiro
        try
-          StrToInt(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
+          StrToInt(qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString);
        except
          ShowMessage('O produto:'+#13+#13+
                      qVENDA_ITEM.FieldByName('DESCRICAO').AsString+#13+#13+
                      'Código ['+IntToStr(qVENDA_ITEM.FieldByName('CODIGO_PRODUTO').AsInteger)+']'+#13+#13+
                      'Possui um código da ST do ICMS inválido definido em seu cadastro: ['+
-                     qVENDA_ITEM.FieldByName('ICMS_CST').AsString+']'#13+#13+
+                     qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString+']'#13+#13+
                      'Impossível emitir NFe. '+#13+#13+
                      'Corrija o cadastro e tente novamente.');
          result := true;
@@ -1030,7 +1030,7 @@ begin
    qVENDA_ITEM.First;
 end;
 
-function TfrmEmissaoDeNFe.AlgumProdutoSem_CODIGO_ORIGEM_MERCADORIA: Boolean;
+function TfrmEmissaoDeNFe.AlgumProdutoSem_PROD_NFe_N11_orig: Boolean;
 begin
    // Verifica se existe algum item da venda sem o código da origem
    // ou com código inválido
@@ -1041,7 +1041,7 @@ begin
    qVENDA_ITEM.First;
    while not qVENDA_ITEM.eof do
    begin
-     if not qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger
+     if not qVENDA_ITEM.FieldByName('PROD_NFe_N11_orig').AsInteger
             in [0, 1, 2, 3, 4, 5, 6, 7, 8] then
      begin
        ShowMessage('O produto:'+#13+#13+
@@ -3888,7 +3888,7 @@ begin
     //---------------------------------------------------
     with Produto.Imposto.ICMS do
     begin
-      Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
+      Case qVENDA_ITEM.FieldByName('PROD_NFe_N11_orig').AsInteger of
          0 : orig := oeNacional;
          1 : orig := oeEstrangeiraImportacaoDireta;
          2 : orig := oeEstrangeiraAdquiridaBrasil;
@@ -3916,13 +3916,13 @@ begin
    Produto.Imposto.ICMS.CSOSN := pCSOSN;
 end;
 
-procedure TfrmEmissaoDeNFe.Tratar_N12_Produto_Imposto_ICMS_CST;
+procedure TfrmEmissaoDeNFe.Tratar_N12_Produto_Imposto_PROD_NFe_N12_CST_ICMS;
 begin
    {N12}
    //CST
    //Tributação do ICMS
    //---------------------------------------------------------------------------
-   Produto.Imposto.ICMS.CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
+   Produto.Imposto.ICMS.CST := ConverteCSTICMS(qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString);
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_N13_Produto_Imposto_ICMS_modBC;
@@ -4360,7 +4360,7 @@ begin
 end;
 
 procedure TfrmEmissaoDeNFe.Tratar_Grupo_N_ICMS_Normal_e_ST;
-var vICMS_CST : Integer;
+var vPROD_NFe_N12_CST_ICMS : Integer;
 begin
    //---------------------------------------------------------------------------
    // LAYOUT FEDERAL
@@ -4375,8 +4375,8 @@ begin
    //N10a, N10b ou N10c com base no conteúdo informado na TAG Tributação do ICMS.
    //(v2.0)
 
-   vICMS_CST := StrToInt(qVENDA_ITEM.FieldByName('ICMS_CST').AsString);
-   Case vICMS_CST of
+   vPROD_NFe_N12_CST_ICMS := StrToInt(qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString);
+   Case vPROD_NFe_N12_CST_ICMS of
      00 : Tratar_ICMS00;
           // 00 - Produto Tributado integralmente
      10 : begin
@@ -4730,7 +4730,6 @@ begin
       //Grupo de PIS tributado pela alíquota ( CST = 01 e 02 )
 
       {269-Q06}
-
       //CST
       //Código de Situação Tributária do PIS
       //    01–Operação Tributável
@@ -6373,7 +6372,7 @@ begin
    //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 00
    //---------------------------------------------------------------------------
-   if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '00' then
+   if qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '00' then
       exit;
 
    // Trata impostos de produtos
@@ -6389,7 +6388,7 @@ begin
    //Tributada integralmente
 
    {166-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
-   {167-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {167-N12   } Tratar_N12_Produto_Imposto_PROD_NFe_N12_CST_ICMS;
    {168-N13   } Tratar_N13_Produto_Imposto_ICMS_modBC;
    {169-N15   } Tratar_N15_Produto_Imposto_ICMS_vBC;
    {170-N16   } Tratar_N16_Produto_Imposto_ICMS_pICMS;
@@ -6403,7 +6402,7 @@ begin
    //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 10
    //---------------------------------------------------------------------------
-   if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '10' then
+   if qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '10' then
       exit;
 
    // Trata impostos de produtos
@@ -6418,7 +6417,7 @@ begin
    //Tributada e com cobrança do ICMS por substituição tributária
 
    {163-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
-   {174-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {174-N12   } Tratar_N12_Produto_Imposto_PROD_NFe_N12_CST_ICMS;
    {175-N13   } Tratar_N13_Produto_Imposto_ICMS_modBC;
    {176-N15   } Tratar_N15_Produto_Imposto_ICMS_vBC;
    {177-N16   } Tratar_N16_Produto_Imposto_ICMS_pICMS;
@@ -6440,7 +6439,7 @@ begin
    //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 20
    //---------------------------------------------------------------------------
-   if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '20' then
+   if qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '20' then
       exit;
 
    // Trata impostos de produtos
@@ -6455,7 +6454,7 @@ begin
    //Com redução de base de cálculo
 
    {186-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
-   {187-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {187-N12   } Tratar_N12_Produto_Imposto_PROD_NFe_N12_CST_ICMS;
    {188-N13   } Tratar_N13_Produto_Imposto_ICMS_modBC;
    {189-N14   } Tratar_N14_Produto_Imposto_ICMS_pRedBC;
    {190-N15   } Tratar_N15_Produto_Imposto_ICMS_vBC;
@@ -6473,7 +6472,7 @@ begin
    //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 30
    //---------------------------------------------------------------------------
-   if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '30' then
+   if qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '30' then
       exit;
 
    // Trata impostos de produtos
@@ -6488,7 +6487,7 @@ begin
    //Isenta ou não tributada e com cobrança do ICMS por substituição tributária
 
    {194-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
-   {195-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {195-N12   } Tratar_N12_Produto_Imposto_PROD_NFe_N12_CST_ICMS;
    {196-N18   } Tratar_N18_Produto_Imposto_ICMS_modBCST;
    {197-N19   } Tratar_N19_Produto_Imposto_ICMS_pMVAST;
    {198-N20   } Tratar_N20_Produto_Imposto_ICMS_pRedBCST;
@@ -6507,9 +6506,9 @@ begin
    //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 40, 41 ou 50
    //---------------------------------------------------------------------------
-   if (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '40') and
-      (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '41') and
-      (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '50') then
+   if (qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '40') and
+      (qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '41') and
+      (qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '50') then
       exit;
 
    // Trata impostos de produtos
@@ -6524,7 +6523,7 @@ begin
    //40-Isenta, 41-Não tributada, 50-Suspensão
 
    {203-N11    } Tratar_N11_Produto_Imposto_ICMS_orig;
-   {204-N12    } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {204-N12    } Tratar_N12_Produto_Imposto_PROD_NFe_N12_CST_ICMS;
    {204.01-N28a} Tratar_N28a_Produto_Imposto_ICMS_vICMSDeson;
    {204.02-N28 } Tratar_N28_Produto_Imposto_ICMS_motDesICMS;
 end;
@@ -6534,7 +6533,7 @@ begin
    //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 51
    //---------------------------------------------------------------------------
-   if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '51' then
+   if qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '51' then
       exit;
 
    // Trata impostos de produtos
@@ -6554,7 +6553,7 @@ begin
    //Diferimento
 
    {206-N11    } Tratar_N11_Produto_Imposto_ICMS_orig;
-   {207-N12    } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {207-N12    } Tratar_N12_Produto_Imposto_PROD_NFe_N12_CST_ICMS;
    {208-N13    } Tratar_N13_Produto_Imposto_ICMS_modBC;
    {209-N14    } Tratar_N14_Produto_Imposto_ICMS_pRedBC;
    {210-N15    } Tratar_N15_Produto_Imposto_ICMS_vBC;
@@ -6573,7 +6572,7 @@ begin
    //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 60
    //                                                     (Incluído NT 2016/002)
-   //---------------------------------------------------------------------------   if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '60' then
+   //---------------------------------------------------------------------------   if qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '60' then
       exit;
 
    // Trata impostos de produtos
@@ -6588,7 +6587,7 @@ begin
    //ICMS cobrado anteriormente por substituição tributária
 
    {214-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
-   {215-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {215-N12   } Tratar_N12_Produto_Imposto_PROD_NFe_N12_CST_ICMS;
    {216-N26   } Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
    {216.1-N26a} Tratar_N26a_Produto_Imposto_ICMS_pST;
    {216.2-N26b} Tratar_N26b_Produto_Imposto_ICMS_vICMSSubstituto;
@@ -6607,7 +6606,7 @@ begin
    //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 70
    //---------------------------------------------------------------------------
-   if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '70' then
+   if qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '70' then
       exit;
 
    // Trata impostos de produtos
@@ -6624,7 +6623,7 @@ begin
    //e cobrança do ICMS por substituição tributária
 
    {219-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
-   {220-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {220-N12   } Tratar_N12_Produto_Imposto_PROD_NFe_N12_CST_ICMS;
    {221-N13   } Tratar_N13_Produto_Imposto_ICMS_modBC;
    {222-N14   } Tratar_N14_Produto_Imposto_ICMS_pRedBC;
    {223-N15   } Tratar_N15_Produto_Imposto_ICMS_vBC;
@@ -6651,7 +6650,7 @@ begin
    //Somente se o Produto apresentar
    //(Código da Situação Tributária) STICMS = 90
    //---------------------------------------------------------------------------
-   if qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '90' then
+   if qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '90' then
       exit;
 
    // Trata impostos de produtos
@@ -6666,7 +6665,7 @@ begin
    //Outros
 
    {233-N11   } Tratar_N11_Produto_Imposto_ICMS_orig;
-   {234-N12   } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {234-N12   } Tratar_N12_Produto_Imposto_PROD_NFe_N12_CST_ICMS;
    {235-N13   } Tratar_N13_Produto_Imposto_ICMS_modBC;
    {236-N15   } Tratar_N15_Produto_Imposto_ICMS_vBC;
    {237-N14   } Tratar_N14_Produto_Imposto_ICMS_pRedBC;
@@ -6694,8 +6693,8 @@ begin
    //        10-Tributada e com cobrança do ICMS por substituição tributária
    //        90–Outros
    //---------------------------------------------------------------------------
-   if (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '10') and
-      (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '90') Then
+   if (qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '10') and
+      (qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '90') Then
       exit;
 
    //CST
@@ -6715,7 +6714,7 @@ begin
    //ICMSPart := 0;
 
    {245.02-N11} Tratar_N11_Produto_Imposto_ICMS_orig;
-   {245.03-N12} Tratar_N12_Produto_Imposto_ICMS_CST;
+   {245.03-N12} Tratar_N12_Produto_Imposto_PROD_NFe_N12_CST_ICMS;
    {245.04-N13} Tratar_N13_Produto_Imposto_ICMS_modBC;
    {245.05-N15} Tratar_N15_Produto_Imposto_ICMS_vBC;
    {245.06-N14} Tratar_N14_Produto_Imposto_ICMS_pRedBC;
@@ -6744,11 +6743,11 @@ begin
    if Nota.Ide.idDest <> doInterestadual then exit;
 
    // Apenas para produtos com ICMS ST retido
-   if (qVENDA_ITEM.FieldByName('ICMS_CST').AsString <> '41') then
+   if (qVENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').AsString <> '41') then
       exit;
 
    {245.18-N11  } Tratar_N11_Produto_Imposto_ICMS_orig;
-   {245.19-N12  } Tratar_N12_Produto_Imposto_ICMS_CST;
+   {245.19-N12  } Tratar_N12_Produto_Imposto_PROD_NFe_N12_CST_ICMS;
    {245.20-N26  } Tratar_N26_Produto_Imposto_ICMS_vBCSTRet;
    {245.20a-N26a} Tratar_N26a_Produto_Imposto_ICMS_pST;
    {245.20b-N26b} Tratar_N26b_Produto_Imposto_ICMS_vICMSSubstituto;
@@ -6779,7 +6778,7 @@ begin
    //---------------------------------------------------------------------------
 
    // Somente para produtos importados
-   Case qVENDA_ITEM.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger of
+   Case qVENDA_ITEM.FieldByName('PROD_NFe_N11_orig').AsInteger of
       0, //Nacional;
       3, //Nacional Conteudo Importacao Superior a 40
       4, //Nacional Processos Basicos
@@ -7299,11 +7298,11 @@ begin
 
   //Carregar dados dos Lacres usados no transporte do movimento
   Carregar_Venda_Lacre(g_Numero_do_Movimento);
-  //Criticar se há alguim produto sem ICMS_CST
+  //Criticar se há alguim produto sem PROD_NFe_N12_CST_ICMS
   if AlgumProdutoSem_ICMS_ST then exit;
 
   // Criticar se há alguim produto sem a origem da mercadoria
-  if AlgumProdutoSem_CODIGO_ORIGEM_MERCADORIA then exit;
+  if AlgumProdutoSem_PROD_NFe_N11_orig then exit;
 
   if Algum_Nao_eh_Produto_nem_Servico then exit;
 
@@ -7660,3 +7659,7 @@ Trocou REDUCAO_ICMS por PROD_NFe_N14_pRedBC : automaticamente em 18/06/2020 07:5
 Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/06/2020 09:43
 Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:02
 Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:43
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:01
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:04
+Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04

@@ -414,12 +414,12 @@ begin
     frm_confnfce := tfrm_confnfce.create(nil);
     frm_confnfce.SQL_PARAMETROS_NFCE.Active := false;
     frm_confnfce.SQL_PARAMETROS_NFCE.Active := true;
-    if frm_confnfce.SQL_PARAMETROS_NFCEESTOQUE_PDV.Value = m_false then { Esconder Estoque no PDV }
+    if frm_confnfce.SQL_PARAMETROS_NFCe.FieldByName('ESTOQUE_PDV').Value = m_false then { Esconder Estoque no PDV }
     begin
       grpDescProduto.Width := (grpEstoque.Left + grpEstoque.Width);
       grpEstoque.visible := false;
     end
-    else if frm_confnfce.SQL_PARAMETROS_NFCEESTOQUE_PDV.Value = m_true then { Mostrar Estoque no PDV }
+    else if frm_confnfce.SQL_PARAMETROS_NFCe.FieldByName('ESTOQUE_PDV').Value = m_true then { Mostrar Estoque no PDV }
     begin
       grpEstoque.visible := true;
     end;
@@ -694,12 +694,17 @@ begin
   frm_confnfce := tfrm_confnfce.create(nil);
   qry_temp := TFDQuery.create(nil);
   frm_confnfce.SQL_PARAMETROS_NFCE.Active := false;
+  frm_confnfce.SQL_PARAMETROS_NFCE.sql.clear;
+  frm_confnfce.SQL_PARAMETROS_NFCE.sql.add('select pn.*,              ');
+  frm_confnfce.SQL_PARAMETROS_NFCE.sql.add('       pv.*               ');
+  frm_confnfce.SQL_PARAMETROS_NFCE.sql.add('  from parametros_nfce pn,');
+  frm_confnfce.SQL_PARAMETROS_NFCE.sql.add('       parametros_venda pv');
   frm_confnfce.SQL_PARAMETROS_NFCE.Active := true;
   if not TParametros_NF.NFCe.LiberadoParaUso then { Chave de liberação não utiliza NFC-e }
     wnErro('Permissão NFC-e',
       'O sistema não está habilitado para emissão da Nota Fiscal do Consumidor. Entre em contato com o suporte técnico para mais detalhes.')
 
-  else if frm_confnfce.SQL_PARAMETROS_NFCEUTILIZA_NFCE.Value = m_true then
+  else if frm_confnfce.SQL_PARAMETROS_NFCe.FieldByName('UTILIZA_NFCE').Value = m_true then
   begin
     if FORM_PDV = frm_pdv then
     begin
@@ -910,7 +915,7 @@ procedure Tfrm_pdv.PreencherDadosProduto(Cod_CodBarras_Descricao, Qtde: TEdit; D
     with frm_confnfce do
     begin
       SQL_PARAMETROS_NFCE.Active := true;
-      if SQL_PARAMETROS_NFCEVENDA_SEM_ESTOQUE.Value = m_false then
+      if SQL_PARAMETROS_NFCe.FieldByName('VENDA_SEM_ESTOQUE').Value = m_false then
         result := true
       else
         result := false;

@@ -60,7 +60,6 @@ object Frm_Produto: TFrm_Produto
       ImageIndex = 0
       ParentFont = False
       OnShow = cxTabSheet1Show
-      ExplicitWidth = 1384
       object Label58: TLabel
         Left = 20
         Top = 555
@@ -441,7 +440,6 @@ object Frm_Produto: TFrm_Produto
     object tab_Cadastrar: TcxTabSheet
       Caption = 'Cadastro'
       ImageIndex = 3
-      ExplicitWidth = 1385
       object Panel6: TPanel
         Left = 3
         Top = 2
@@ -3299,7 +3297,6 @@ object Frm_Produto: TFrm_Produto
     object tabTributacao: TcxTabSheet
       Caption = ' Tributa'#231#227'o'
       ImageIndex = 2
-      ExplicitWidth = 1385
       object Panel4: TPanel
         Left = -1
         Top = 3
@@ -3349,7 +3346,7 @@ object Frm_Produto: TFrm_Produto
             Font.Style = []
             ParentFont = False
           end
-          object edNCM: TEdit
+          object edPROD_NCMSH: TEdit
             Left = 62
             Top = 23
             Width = 104
@@ -3364,9 +3361,9 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 0
-            OnExit = edNCMExit
-            OnKeyDown = edNCMKeyDown
-            OnKeyUp = edNCMKeyUp
+            OnExit = edPROD_NCMSHExit
+            OnKeyDown = edPROD_NCMSHKeyDown
+            OnKeyUp = edPROD_NCMSHKeyUp
           end
           object edCEST: TEdit
             Left = 63
@@ -3552,7 +3549,7 @@ object Frm_Produto: TFrm_Produto
             OnExit = edPROD_NFe_N14_pRedBCExit
             OnKeyPress = edPROD_NFe_N14_pRedBCKeyPress
           end
-          object edICMS_CST: TEdit
+          object edPROD_NFe_N12_CST_ICMS: TEdit
             Left = 68
             Top = 23
             Width = 36
@@ -3567,10 +3564,10 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 0
-            OnExit = edICMS_CSTExit
-            OnKeyDown = edICMS_CSTKeyDown
+            OnExit = edPROD_NFe_N12_CST_ICMSExit
+            OnKeyDown = edPROD_NFe_N12_CST_ICMSKeyDown
           end
-          object edICMS_CST_NOME: TEdit
+          object edPROD_NFe_N12_CST_ICMS_NOME: TEdit
             Left = 104
             Top = 23
             Width = 445
@@ -3641,7 +3638,7 @@ object Frm_Produto: TFrm_Produto
             ParentFont = False
             OnClick = cxButton5Click
           end
-          object edCODIGO_ORIGEM_MERCADORIA: TEdit
+          object edPROD_NFe_N11_orig: TEdit
             Left = 68
             Top = 51
             Width = 36
@@ -3656,10 +3653,10 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 3
-            OnExit = edCODIGO_ORIGEM_MERCADORIAExit
-            OnKeyDown = edCODIGO_ORIGEM_MERCADORIAKeyDown
+            OnExit = edPROD_NFe_N11_origExit
+            OnKeyDown = edPROD_NFe_N11_origKeyDown
           end
-          object edCODIGO_ORIGEM_MERCADORIA_NOME: TEdit
+          object edPROD_NFe_N11_orig_NOME: TEdit
             Left = 104
             Top = 51
             Width = 445
@@ -5117,7 +5114,7 @@ object Frm_Produto: TFrm_Produto
   object SQL_CSTIPI: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'select * from cst_ipi'
+      'select * from PROD_NFe_O09_CST_IPI'
       'order by CODIGO')
     Left = 968
     Top = 240

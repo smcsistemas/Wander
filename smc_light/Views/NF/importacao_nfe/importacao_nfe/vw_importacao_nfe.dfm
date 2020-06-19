@@ -4460,8 +4460,8 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
             Position.ColIndex = -1
             Position.RowIndex = -1
           end
-          object dbtvMainCST_IPI: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'CST_IPI'
+          object dbtvMainPROD_NFe_O09_CST_IPI: TcxGridDBBandedColumn
+            DataBinding.FieldName = 'PROD_NFe_O09_CST_IPI'
             Visible = False
             VisibleForEditForm = bTrue
             Position.BandIndex = -1
@@ -5321,3 +5321,5 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
   end
 end
 Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:43
+Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:41
+Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:41

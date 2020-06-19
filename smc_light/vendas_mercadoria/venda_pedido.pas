@@ -2107,8 +2107,8 @@ begin
    Q.SQL.Add(' WHERE V.CODIGO_PRODUTO = P.CODIGO   ');
    Q.SQL.Add('   AND V.CODIGO_VENDA   = :CODIGO    ');
    Q.SQL.Add('   AND (                             ');
-   Q.SQL.Add('            (P.ICMS_CST IS NULL)     ');
-   Q.SQL.Add('         OR (P.ICMS_CST =  ""  )     ');
+   Q.SQL.Add('            (P.PROD_NFe_N12_CST_ICMS IS NULL)     ');
+   Q.SQL.Add('         OR (P.PROD_NFe_N12_CST_ICMS =  ""  )     ');
    Q.SQL.Add('       )                             ');
    Q.ParamByName('CODIGO').AsInteger := pVenda;
    Q.Open;
@@ -2467,3 +2467,6 @@ Trocou PRECO_FINAL_ATACADO por PROD_PRECO_ATAC : automaticamente em 17/06/2020 0
 Trocou PRECO_FINAL_DISTRIBUIDOR por PROD_PRECO_DIST : automaticamente em 17/06/2020 07:02
 Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:44
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:02
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:05

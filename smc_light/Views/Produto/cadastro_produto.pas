@@ -320,7 +320,7 @@ type
     GroupBox22: TGroupBox;
     Label16: TLabel;
     Label17: TLabel;
-    edNCM: TEdit;
+    edPROD_NCMSH: TEdit;
     edCEST: TEdit;
     btn_ncm: TcxButton;
     mmNCM: TcxMemo;
@@ -331,11 +331,11 @@ type
     Label53: TLabel;
     edPROD_NFe_N16_pICMS: TEdit;
     edPROD_NFe_N14_pRedBC: TEdit;
-    edICMS_CST: TEdit;
-    edICMS_CST_NOME: TEdit;
+    edPROD_NFe_N12_CST_ICMS: TEdit;
+    edPROD_NFe_N12_CST_ICMS_NOME: TEdit;
     cxButton5: TcxButton;
-    edCODIGO_ORIGEM_MERCADORIA: TEdit;
-    edCODIGO_ORIGEM_MERCADORIA_NOME: TEdit;
+    edPROD_NFe_N11_orig: TEdit;
+    edPROD_NFe_N11_orig_NOME: TEdit;
     cxButton7: TcxButton;
     Panel5: TPanel;
     rgNFe_modBC: TRadioGroup;
@@ -520,7 +520,7 @@ type
     function JaExiste_PROD_DESCRICAO: Boolean;
     function RefFabricanteRepetido(foco: Boolean = true): Boolean;
     procedure edCESTKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edNCMKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edPROD_NCMSHKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure calcular_preco_produtos(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBEdit13KeyPress(Sender: TObject; var Key: Char);
     procedure dbcsticmsClick(Sender: TObject);
@@ -534,7 +534,7 @@ type
     procedure PROD_MAXDESC_DISTClick(Sender: TObject);
     procedure PROD_MAXDESC_ATACClick(Sender: TObject);
     procedure calc_margem(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edNCMExit(Sender: TObject);
+    procedure edPROD_NCMSHExit(Sender: TObject);
     procedure edt_qtde_minKeyPress(Sender: TObject; var Key: Char);
     procedure cb_tipoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btn_cad_faixaClick(Sender: TObject);
@@ -574,9 +574,9 @@ type
     procedure edArgumentoDePesquisaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure cxButton5Click(Sender: TObject);
-    procedure edICMS_CSTKeyDown(Sender: TObject; var Key: Word;
+    procedure edPROD_NFe_N12_CST_ICMSKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure edICMS_CSTExit(Sender: TObject);
+    procedure edPROD_NFe_N12_CST_ICMSExit(Sender: TObject);
     procedure edPROD_CDUNIDADEKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edPROD_CDUNIDADEExit(Sender: TObject);
@@ -586,9 +586,9 @@ type
     procedure edPROD_CDTIPOITEMExit(Sender: TObject);
     procedure edPROD_REFERENCIASFABRICAExit(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
-    procedure edCODIGO_ORIGEM_MERCADORIAKeyDown(Sender: TObject; var Key: Word;
+    procedure edPROD_NFe_N11_origKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure edCODIGO_ORIGEM_MERCADORIAExit(Sender: TObject);
+    procedure edPROD_NFe_N11_origExit(Sender: TObject);
     procedure edPROD_NFe_N16_pICMSExit(Sender: TObject);
     procedure edPROD_NFe_N14_pRedBCExit(Sender: TObject);
     procedure rgNFe_modBCClick(Sender: TObject);
@@ -596,7 +596,7 @@ type
     procedure rgNFe_modBCSTClick(Sender: TObject);
     procedure edArgumentoDePesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure tbViewKeyPress(Sender: TObject; var Key: Char);
-    procedure edNCMKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edPROD_NCMSHKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure qRELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPCAfterScroll(
       DataSet: TDataSet);
     procedure bRPC_DeleteClick(Sender: TObject);
@@ -639,7 +639,7 @@ type
     procedure ConsultarFamilias;
     procedure ConsultarGrupos;
     procedure ConsultarProduto_tipo_item;
-    procedure ConsultarCODIGO_ORIGEM_MERCADORIA;
+    procedure ConsultarPROD_NFe_N11_orig;
     procedure ConsultarSubGrupos;
     procedure ConsultarCST_ICMS;
     procedure ConsultarCST_PIS;
@@ -1257,11 +1257,11 @@ begin
   Frm_Consulta_Generica.ShowModal;
 end;
 
-procedure TFrm_Produto.ConsultarCODIGO_ORIGEM_MERCADORIA;
+procedure TFrm_Produto.ConsultarPROD_NFe_N11_orig;
 begin
-  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgORIGEM, edCODIGO_ORIGEM_MERCADORIA);
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgORIGEM, edPROD_NFe_N11_orig);
   Frm_Consulta_Generica.ShowModal;
-  edCODIGO_ORIGEM_MERCADORIA_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edCODIGO_ORIGEM_MERCADORIA.Text);
+  edPROD_NFe_N11_orig_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edPROD_NFe_N11_orig.Text);
 end;
 
 procedure TFrm_Produto.ConsultarCST_COFINS;
@@ -1272,9 +1272,9 @@ end;
 
 procedure TFrm_Produto.ConsultarCST_ICMS;
 begin
-  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgICMS, edICMS_CST);
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgICMS, edPROD_NFe_N12_CST_ICMS);
   Frm_Consulta_Generica.ShowModal;
-  edICMS_CST_NOME.Text := fCST_ICMS_DESCRICAO(edICMS_CST.Text);
+  edPROD_NFe_N12_CST_ICMS_NOME.Text := fCST_ICMS_DESCRICAO(edPROD_NFe_N12_CST_ICMS.Text);
 end;
 
 procedure TFrm_Produto.ConsultarCST_PIS;
@@ -1285,7 +1285,7 @@ end;
 
 procedure TFrm_Produto.cxButton7Click(Sender: TObject);
 begin
-   ConsultarCODIGO_ORIGEM_MERCADORIA;
+   ConsultarPROD_NFe_N11_orig;
 end;
 
 procedure TFrm_Produto.cxButton8Click(Sender: TObject);
@@ -1587,7 +1587,7 @@ end;
 
 procedure TFrm_Produto.Pesquisar_NCM;
 begin
-  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgNCM, edNCM);
+  Frm_Consulta_Generica := TFrm_Consulta_Generica.CREATE(nil, cgNCM, edPROD_NCMSH);
   Frm_Consulta_Generica.ShowModal;
   Preencher_CEST;
 end;
@@ -1602,7 +1602,7 @@ begin
   mmNCM.Text  := '';
   edCEST.Text := '';
 
-  if edNCM.Text = '' then
+  if edPROD_NCMSH.Text = '' then
   begin
     // Não informou NCM...
     mmNCM.Text  := '';
@@ -1611,25 +1611,25 @@ begin
   end;
 
   // Informou NCM...
-  str_cest := edNCM.Text;
+  str_cest := edPROD_NCMSH.Text;
 
   {
   int := pos(';', str_cest);
   if int <> 0 then
-     edNCM.Text := copy(str_cest, 0, int - 1);
+     edPROD_NCMSH.Text := copy(str_cest, 0, int - 1);
   }
 
 
   //Procura CEST na relação NCM x CEST
   qry := simplequery('SELECT CEST, DESCRICAO FROM TAB_CEST WHERE NCM = "'
-                    + edNCM.Text+'"');
+                    + edPROD_NCMSH.Text+'"');
 
   if qry = nil then
   begin
     //Não encontrou NCM
     wnAlerta('Cadastrar Produto',
              'NCM não encontrado');
-    edNCM.SetFocus;
+    edPROD_NCMSH.SetFocus;
     exit;
   end;
 
@@ -2394,28 +2394,28 @@ end;
 
 
 
-procedure TFrm_Produto.edCODIGO_ORIGEM_MERCADORIAExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_NFe_N11_origExit(Sender: TObject);
 begin
-  edCODIGO_ORIGEM_MERCADORIA_NOME.Text := '';
-  if edCODIGO_ORIGEM_MERCADORIA.Text = '' then
+  edPROD_NFe_N11_orig_NOME.Text := '';
+  if edPROD_NFe_N11_orig.Text = '' then
      exit;
 
   //Exibe o nome da Origem da Mercadoria, ou limpa o campo
-  edCODIGO_ORIGEM_MERCADORIA_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edCODIGO_ORIGEM_MERCADORIA.Text);
-  if edCODIGO_ORIGEM_MERCADORIA_NOME.Text = '' then
+  edPROD_NFe_N11_orig_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edPROD_NFe_N11_orig.Text);
+  if edPROD_NFe_N11_orig_NOME.Text = '' then
   begin
     wnAlerta('Cadastrar Produto','Origem não cadastrada');
-    edCODIGO_ORIGEM_MERCADORIA.SetFocus;
+    edPROD_NFe_N11_orig.SetFocus;
     exit;
   end;
 
 end;
 
-procedure TFrm_Produto.edCODIGO_ORIGEM_MERCADORIAKeyDown(Sender: TObject;
+procedure TFrm_Produto.edPROD_NFe_N11_origKeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   if (Key = vk_F1) then
-   ConsultarCODIGO_ORIGEM_MERCADORIA;
+   ConsultarPROD_NFe_N11_orig;
 end;
 
 {procedure TFrm_Produto.cod_combKeyPress(Sender: TObject;
@@ -2472,10 +2472,10 @@ begin
      begin
         //qConsulta.sql.add(' AND (                                        ');
         qConsulta.Sql.Add(' WHERE ');
-        qConsulta.sql.add('          (PROD_CODIGO           LIKE :TEXTO) ');
-        qConsulta.sql.add('       OR (PROD_EAN              LIKE :TEXTO) ');
-        qConsulta.sql.add('       OR (PROD_DESCRICAO     LIKE :TEXTO) ');
-        qConsulta.sql.add('       OR (ncm                   LIKE :TEXTO) ');
+        qConsulta.sql.add('          (PROD_CODIGO             LIKE :TEXTO) ');
+        qConsulta.sql.add('       OR (PROD_EAN                LIKE :TEXTO) ');
+        qConsulta.sql.add('       OR (PROD_DESCRICAO          LIKE :TEXTO) ');
+        qConsulta.sql.add('       OR (PROD_NCMSH              LIKE :TEXTO) ');
         qConsulta.sql.add('       OR (PROD_REFERENCIASFABRICA LIKE :TEXTO) ');
         //qConsulta.sql.add('     )                                        ');
         qConsulta.ParamByName('TEXTO').AsString := '%'+edArgumentoDePesquisa.Text+'%';
@@ -2787,23 +2787,23 @@ begin
     ConsultarGrupos;
 end;
 
-procedure TFrm_Produto.edICMS_CSTExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_NFe_N12_CST_ICMSExit(Sender: TObject);
 begin
-  edICMS_CST_NOME.Text := '';
-  if edICMS_CST.Text = '' then
+  edPROD_NFe_N12_CST_ICMS_NOME.Text := '';
+  if edPROD_NFe_N12_CST_ICMS.Text = '' then
      exit;
 
-  //Exibe o nome dO ICMS_CST, ou limpa o campo
-  edICMS_CST_NOME.Text := fCST_ICMS_DESCRICAO(edICMS_CST.Text);
-  if edICMS_CST_NOME.Text = '' then
+  //Exibe o nome dO PROD_NFe_N12_CST_ICMS, ou limpa o campo
+  edPROD_NFe_N12_CST_ICMS_NOME.Text := fCST_ICMS_DESCRICAO(edPROD_NFe_N12_CST_ICMS.Text);
+  if edPROD_NFe_N12_CST_ICMS_NOME.Text = '' then
   begin
     wnAlerta('Cadastrar Produto','ST do ICMS não cadastrado');
-    edICMS_CST.SetFocus;
+    edPROD_NFe_N12_CST_ICMS.SetFocus;
     exit;
   end;
 end;
 
-procedure TFrm_Produto.edICMS_CSTKeyDown(Sender: TObject; var Key: Word;
+procedure TFrm_Produto.edPROD_NFe_N12_CST_ICMSKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Key = vk_F1) then
@@ -2894,7 +2894,6 @@ begin
    qAUX.sql.clear;
    qAUX.sql.add('INSERT INTO PRODUTO_PROD         ');
    qAUX.sql.add('     ( PROD_CODIGO,              ');
-   qAUX.sql.add('       NFe_nDI,                  ');
    qAUX.sql.add('       PROD_DESCRICAO,           ');
    qAUX.sql.add('       PROD_DESCRICAO_IMPRESSA,  ');
    qAUX.sql.add('       PROD_DETALHES,            ');
@@ -2905,15 +2904,15 @@ begin
    qAUX.sql.add('       PROD_CDFAMILIA,           ');
    qAUX.sql.add('       PROD_CDGRUPO,             ');
    qAUX.sql.add('       PROD_CDSUBGRUPO,          ');
-   qAUX.sql.add('       NCM,                      ');
+   qAUX.sql.add('       PROD_NCMSH,               ');
    qAUX.sql.add('       CEST,                     ');
    qAUX.sql.add('       PROD_PRECO_ATAC,          ');
    qAUX.sql.add('       PROD_PRECO_VAR,           ');
    qAUX.sql.add('       PROD_PRECO_DIST,          ');
    qAUX.sql.add('       STATUS_CADASTRAL,         ');
-   qAUX.sql.add('       ICMS_CST,                 ');
+   qAUX.sql.add('       PROD_NFe_N12_CST_ICMS,    ');
    qAUX.sql.add('       PROD_CDTIPOITEM,          ');
-   qAUX.sql.add('       CODIGO_ORIGEM_MERCADORIA, ');
+   qAUX.sql.add('       PROD_NFe_N11_orig,        ');
    qAUX.sql.add('       PROD_NFe_N16_pICMS,       ');
    qAUX.sql.add('       PROD_NFe_N14_pRedBC,      ');
    qAUX.sql.add('       NFe_modBC,                ');
@@ -2923,14 +2922,14 @@ begin
    qAUX.sql.add('       PROD_TRATALOTE,           ');
    qAUX.sql.add('       PROD_TRATANUMEROSERIE,    ');
    qAUX.sql.add('       VALOR_PAUTA_BC,           ');
-   qAUX.sql.add('       PROD_NFe_N21_vBCST_PAUTA,        ');
+   qAUX.sql.add('       PROD_NFe_N21_vBCST_PAUTA, ');
    qAUX.sql.add('       NFe_pMVA,                 ');
    qAUX.sql.add('       NFe_pMVAST,               ');
-   qAUX.sql.add('       PROD_NFe_N20_pRedBCST    ');
+   qAUX.sql.add('       NFe_nDI,                  ');
+   qAUX.sql.add('       PROD_NFe_N20_pRedBCST     ');
    qAUX.sql.add('     )                           ');
    qAUX.sql.add('VALUES                           ');
    qAUX.sql.add('     (:PROD_CODIGO,              ');
-   qAUX.sql.add('      :NFe_nDI,                  ');
    qAUX.sql.add('      :PROD_DESCRICAO,           ');
    qAUX.sql.add('      :PROD_DESCRICAO_IMPRESSA,  ');
    qAUX.sql.add('      :PROD_DETALHES,            ');
@@ -2941,15 +2940,15 @@ begin
    qAUX.sql.add('      :PROD_CDFAMILIA,           ');
    qAUX.sql.add('      :PROD_CDGRUPO,             ');
    qAUX.sql.add('      :PROD_CDSUBGRUPO,          ');
-   qAUX.sql.add('      :NCM,                      ');
+   qAUX.sql.add('      :PROD_NCMSH,               ');
    qAUX.sql.add('      :CEST,                     ');
    qAUX.sql.add('      :PROD_PRECO_ATAC,          ');
    qAUX.sql.add('      :PROD_PRECO_VAR,           ');
    qAUX.sql.add('      :PROD_PRECO_DIST,          ');
    qAUX.sql.add('      :STATUS_CADASTRAL,         ');
-   qAUX.sql.add('      :ICMS_CST,                 ');
+   qAUX.sql.add('      :PROD_NFe_N12_CST_ICMS,    ');
    qAUX.sql.add('      :PROD_CDTIPOITEM,          ');
-   qAUX.sql.add('      :CODIGO_ORIGEM_MERCADORIA, ');
+   qAUX.sql.add('      :PROD_NFe_N11_orig,        ');
    qAUX.sql.add('      :PROD_NFe_N16_pICMS,       ');
    qAUX.sql.add('      :PROD_NFe_N14_pRedBC,      ');
    qAUX.sql.add('      :NFe_modBC,                ');
@@ -2959,10 +2958,11 @@ begin
    qAUX.sql.add('      :PROD_TRATALOTE,           ');
    qAUX.sql.add('      :PROD_TRATANUMEROSERIE,    ');
    qAUX.sql.add('      :VALOR_PAUTA_BC,           ');
-   qAUX.sql.add('      :PROD_NFe_N21_vBCST_PAUTA,        ');
+   qAUX.sql.add('      :PROD_NFe_N21_vBCST_PAUTA, ');
    qAUX.sql.add('      :NFe_pMVA,                 ');
    qAUX.sql.add('      :NFe_pMVAST,               ');
-   qAUX.sql.add('      :PROD_NFe_N20_pRedBCST    ');
+   qAUX.sql.add('      :NFe_nDI,                  ');
+   qAUX.sql.add('      :PROD_NFe_N20_pRedBCST     ');
    qAUX.sql.add('     )                           ');
 
    //Codigo
@@ -2989,15 +2989,15 @@ begin
    qAUX.ParamByName('PROD_CDFAMILIA'          ).AsString  := edPROD_CDFAMILIA.Text;
    qAUX.ParamByName('PROD_CDGRUPO'            ).AsString  := edPROD_GRUPO.Text;
    qAUX.ParamByName('PROD_CDSUBGRUPO'         ).AsString  := edPROD_CDSUBGRUPO.Text;
-   qAUX.ParamByName('NCM'                     ).AsString  := edNCM.Text;
+   qAUX.ParamByName('PROD_NCMSH'              ).AsString  := edPROD_NCMSH.Text;
    qAUX.ParamByName('CEST'                    ).AsString  := edCEST.Text;
    qAUX.ParamByName('PROD_PRECO_ATAC'         ).AsFloat   := ValorValido(edPROD_PRECO_ATAC.Text);
    qAUX.ParamByName('PROD_PRECO_VAR'          ).AsFloat   := ValorValido(edPROD_PRECO_VAR.Text);
    qAUX.ParamByName('PROD_PRECO_DIST'         ).AsFloat   := ValorValido(edPROD_PRECO_DIST.Text);
    qAUX.ParamByName('STATUS_CADASTRAL'        ).AsString  := Ativo_ou_Inativo(cbSTATUS_CADASTRAL.Checked);
-   qAUX.ParamByName('ICMS_CST'                ).AsString  := edICMS_CST.Text;
+   qAUX.ParamByName('PROD_NFe_N12_CST_ICMS'   ).AsString  := edPROD_NFe_N12_CST_ICMS.Text;
    qAUX.ParamByName('PROD_CDTIPOITEM'         ).AsString  := edPROD_CDTIPOITEM.Text;
-   qAUX.ParamByName('CODIGO_ORIGEM_MERCADORIA').AsInteger := InteiroMenos1_se_Vazio(edCODIGO_ORIGEM_MERCADORIA.Text);
+   qAUX.ParamByName('PROD_NFe_N11_orig'       ).AsInteger := InteiroMenos1_se_Vazio(edPROD_NFe_N11_orig.Text);
    qAUX.ParamByName('PROD_NFe_N16_pICMS'      ).AsFloat   := ValorValido(edPROD_NFe_N16_pICMS.Text);
    qAUX.ParamByName('PROD_NFe_N14_pRedBC'     ).AsFloat   := ValorValido(edPROD_NFe_N14_pRedBC.Text);
    qAUX.ParamByName('NFe_modBC'               ).AsInteger := rgNFe_modBC.ItemIndex;
@@ -3007,10 +3007,10 @@ begin
    qAUX.ParamByName('PROD_TRATALOTE'          ).AsInteger := rgPROD_TRATALOTE.ItemIndex;
    qAUX.ParamByName('PROD_TRATANUMEROSERIE'   ).AsInteger := Zero_ou_Um(cbPROD_RASTREAVEL.checked);
    qAUX.ParamByName('VALOR_PAUTA_BC'          ).AsFloat   := ValorValido(edVALOR_PAUTA_BC.Text);
-   qAUX.ParamByName('PROD_NFe_N21_vBCST_PAUTA'       ).AsFloat   := ValorValido(edPROD_NFe_N21_vBCST_PAUTA.Text);
+   qAUX.ParamByName('PROD_NFe_N21_vBCST_PAUTA').AsFloat   := ValorValido(edPROD_NFe_N21_vBCST_PAUTA.Text);
    qAUX.ParamByName('NFe_pMVA'                ).AsFloat   := ValorValido(edNFe_pMVA.Text);
    qAUX.ParamByName('NFe_pMVAST'              ).AsFloat   := ValorValido(edNFe_pMVAST.Text);
-   qAUX.ParamByName('PROD_NFe_N20_pRedBCST'  ).AsFloat   := ValorValido(edPROD_NFe_N20_pRedBCST.Text);
+   qAUX.ParamByName('PROD_NFe_N20_pRedBCST'   ).AsFloat   := ValorValido(edPROD_NFe_N20_pRedBCST.Text);
    qAUX.ExecSQL;
 
    qAUX.Free;
@@ -3086,7 +3086,7 @@ begin
    //edLEIS.Text                     := qConsulta.FieldByName('LEIS').AsString;
 
    //NCM/SH
-   edNCM.Text                      := qConsulta.FieldByName('NCM').AsString;
+   edPROD_NCMSH.Text                 := qConsulta.FieldByName('PROD_NCMSH').AsString;
 
    //CEST
    //Código Especificador da Substituição Tributária
@@ -3108,12 +3108,12 @@ begin
    //---------------------------------------------------------------------------
 
    //Código da Situação Tributária do ICMS
-   edICMS_CST.Text                 := qConsulta.FieldByName('ICMS_CST').AsString;
-   edICMS_CST_NOME.Text            := fCST_ICMS_DESCRICAO(edICMS_CST.Text);
+   edPROD_NFe_N12_CST_ICMS.Text                 := qConsulta.FieldByName('PROD_NFe_N12_CST_ICMS').AsString;
+   edPROD_NFe_N12_CST_ICMS_NOME.Text            := fCST_ICMS_DESCRICAO(edPROD_NFe_N12_CST_ICMS.Text);
 
    //Origem da Mercadoria
-   edCODIGO_ORIGEM_MERCADORIA.Text := VazioSeInteiroMenos1(qConsulta.FieldByName('CODIGO_ORIGEM_MERCADORIA').AsInteger);
-   edCODIGO_ORIGEM_MERCADORIA_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edCODIGO_ORIGEM_MERCADORIA.Text);
+   edPROD_NFe_N11_orig.Text := VazioSeInteiroMenos1(qConsulta.FieldByName('PROD_NFe_N11_orig').AsInteger);
+   edPROD_NFe_N11_orig_NOME.Text := fORIGEM_MERCADORIA_DESCRICAO(edPROD_NFe_N11_orig.Text);
 
    //Alíquota do ICMS
    edPROD_NFe_N16_pICMS.Text       := Float_to_String(qConsulta.FieldByName('PROD_NFe_N16_pICMS').AsFloat);
@@ -3203,22 +3203,22 @@ begin
    //a solucao está proposta no bloco de comentários acima do SELECT anterior....
 end;
 
-procedure TFrm_Produto.edNCMExit(Sender: TObject);
+procedure TFrm_Produto.edPROD_NCMSHExit(Sender: TObject);
 begin
   Preencher_CEST;
 end;
 
-procedure TFrm_Produto.edNCMKeyDown(Sender: TObject; var Key: Word;
+procedure TFrm_Produto.edPROD_NCMSHKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Key = vk_F1) then
      Pesquisar_NCM;
 end;
 
-procedure TFrm_Produto.edNCMKeyUp(Sender: TObject;
+procedure TFrm_Produto.edPROD_NCMSHKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
-  edNCM.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(edNCM.Text));
+  edPROD_NCMSH.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(edPROD_NCMSH.Text));
 end;
 
 procedure TFrm_Produto.edVALOR_PAUTA_BCKeyPress(Sender: TObject;
@@ -3278,7 +3278,7 @@ var
 begin
   if value = '' then
   begin
-    edNCM.Text  := '';
+    edPROD_NCMSH.Text := '';
     mmNCM.Lines.Clear;
     edCEST.Text := '';
     exit;
@@ -3749,11 +3749,10 @@ CREATE TABLE `produto` (
 	`PROD_NFe_O13_pIPI` VARCHAR(20) NULL DEFAULT NULL,
 	`PROD_NFe_O02_clEnq` INT(11) NULL DEFAULT NULL,
 	`CODIGO_LOCALIZACAO` INT(11) NULL DEFAULT NULL,
-	`ICMS_CST` VARCHAR(3) NULL DEFAULT NULL,
+	`PROD_NFe_N12_CST_ICMS` VARCHAR(3) NULL DEFAULT NULL,
 	`ICMS_IPI` VARCHAR(2) NULL DEFAULT NULL,
-	`PIS_CST` VARCHAR(5) NULL DEFAULT NULL,
 	`COFINS_CST` VARCHAR(5) NULL DEFAULT NULL,
-	`CODIGO_ORIGEM_MERCADORIA` INT(11) NULL DEFAULT NULL,
+	`PROD_NFe_N11_orig` INT(11) NULL DEFAULT NULL,
 	`NCM` VARCHAR(50) NULL DEFAULT NULL,
 	`CEST` VARCHAR(50) NULL DEFAULT NULL,
 	`ANP` VARCHAR(50) NULL DEFAULT NULL,
@@ -3773,7 +3772,7 @@ CREATE TABLE `produto` (
 	`QUANT_MINI_VAREJO_D` DECIMAL(10,4) NULL DEFAULT NULL,
 	`QUANT_MINI_DISTRIBUIDOR_D` DECIMAL(10,4) NULL DEFAULT NULL,
 	`QUANT_MINI_ATACADO_D` DECIMAL(10,4) NULL DEFAULT NULL,
-	`CST_IPI` VARCHAR(3) NULL DEFAULT NULL,
+	`PROD_NFe_O09_CST_IPI` VARCHAR(3) NULL DEFAULT NULL,
 	`COD_BALANCA_1` VARCHAR(8) NULL DEFAULT NULL,
 	`COD_BALANCA_2` VARCHAR(8) NULL DEFAULT NULL,
 	`COD_BALANCA_3` VARCHAR(8) NULL DEFAULT NULL,
@@ -3856,3 +3855,9 @@ Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/
 Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:03
 Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50
 Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:43
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:44
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:02
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:05
+Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:41
+Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:42
+Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:05

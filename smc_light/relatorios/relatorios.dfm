@@ -8486,15 +8486,15 @@ object frm_relatorio: Tfrm_relatorio
       #9'n.CODIGO, n.SERIE, n.TOTAL_NFCE, n.STATUS_NFCE, v.CPF_CLIENTE, '
       #9'v.IE_CLIENTE, v.NOME_CLIENTE,'
       
-        #9'if(p.ICMS_CST <> '#39#39',IF(p.ICMS_CST='#39'60'#39', (SELECT CFOP_ST FROM NA' +
+        #9'if(p.PROD_NFe_N12_CST_ICMS <> '#39#39',IF(p.PROD_NFe_N12_CST_ICMS='#39'60'#39', (SELECT CFOP_ST FROM NA' +
         'TUREZA_OPERACAO WHERE ID = 1),(SELECT CFOP_TI FROM NATUREZA_OPER' +
         'ACAO WHERE ID = 1)), '#39#39') as CFOP,'
-      '        p.CSOSN, p.ICMS_CST,'
+      '        p.CSOSN, p.PROD_NFe_N12_CST_ICMS,'
       
-        #9'IF (p.ICMS_CST = '#39'00'#39',sum(vi.PRECO_TOTAL - vi.RATEIO_DESCONTO +' +
+        #9'IF (p.PROD_NFe_N12_CST_ICMS = '#39'00'#39',sum(vi.PRECO_TOTAL - vi.RATEIO_DESCONTO +' +
         ' vi.RATEIO_ACRESCIMO), 0) as PRECO_TOTAL,'
       
-        #9'IF (p.ICMS_CST <> '#39'00'#39',sum(vi.PRECO_TOTAL - vi.RATEIO_DESCONTO ' +
+        #9'IF (p.PROD_NFe_N12_CST_ICMS <> '#39'00'#39',sum(vi.PRECO_TOTAL - vi.RATEIO_DESCONTO ' +
         '+ vi.RATEIO_ACRESCIMO), 0) as OUTROS,'
       
         '        p.PROD_NFe_N16_pICMS, sum((vi.PRECO_TOTAL * p.PROD_NFe_N' +
@@ -8603,10 +8603,10 @@ object frm_relatorio: Tfrm_relatorio
       ReadOnly = True
       Size = 200
     end
-    object SQL_LS_AUTORIZADAICMS_CST: TStringField
+    object SQL_LS_AUTORIZADAPROD_NFe_N12_CST_ICMS: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'ICMS_CST'
-      Origin = 'ICMS_CST'
+      FieldName = 'PROD_NFe_N12_CST_ICMS'
+      Origin = 'PROD_NFe_N12_CST_ICMS'
       ProviderFlags = []
       ReadOnly = True
       Size = 3
@@ -8662,7 +8662,7 @@ object frm_relatorio: Tfrm_relatorio
       'NOME_CLIENTE=NOME_CLIENTE'
       'CFOP=CFOP'
       'CSOSN=CSOSN'
-      'ICMS_CST=ICMS_CST'
+      'PROD_NFe_N12_CST_ICMS=PROD_NFe_N12_CST_ICMS'
       'PRECO_TOTAL=PRECO_TOTAL'
       'OUTROS=OUTROS'
       'PROD_NFe_N16_pICMS=PROD_NFe_N16_pICMS'
@@ -8720,7 +8720,7 @@ object frm_relatorio: Tfrm_relatorio
       '  if <DS_LS_AUTORIZADA."CSOSN"> = '#39#39' then'
       '  begin          '
       
-        '      Memo37.text := <DS_LS_AUTORIZADA."ICMS_CST"> + '#39' / --- '#39'; ' +
+        '      Memo37.text := <DS_LS_AUTORIZADA."PROD_NFe_N12_CST_ICMS"> + '#39' / --- '#39'; ' +
         '                                                                ' +
         '                                                                ' +
         '      '
@@ -8791,7 +8791,7 @@ object frm_relatorio: Tfrm_relatorio
       'procedure Memo73OnBeforePrint(Sender: TfrxComponent);'
       'begin'
       '    if <DS_AN."CSOSN"> = '#39#39' then          '
-      '       Memo73.text := <DS_AN."ICMS_CST"> + '#39' / --- '#39';  '
+      '       Memo73.text := <DS_AN."PROD_NFe_N12_CST_ICMS"> + '#39' / --- '#39';  '
       'end;'
       ''
       'begin'
@@ -8872,7 +8872,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_an."ICMS_CST"] / [ds_an."CSOSN"]')
+            '[ds_an."PROD_NFe_N12_CST_ICMS"] / [ds_an."CSOSN"]')
           ParentFont = False
           VAlign = vaCenter
           Formats = <
@@ -9351,7 +9351,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_ls_autorizada."ICMS_CST"] / [ds_ls_autorizada."CSOSN"]')
+            '[ds_ls_autorizada."PROD_NFe_N12_CST_ICMS"] / [ds_ls_autorizada."CSOSN"]')
           ParentFont = False
           VAlign = vaCenter
           Formats = <
@@ -11331,7 +11331,7 @@ object frm_relatorio: Tfrm_relatorio
     FieldAliases.Strings = (
       'CFOP=CFOP'
       'CSOSN=CSOSN'
-      'ICMS_CST=ICMS_CST'
+      'PROD_NFe_N12_CST_ICMS=PROD_NFe_N12_CST_ICMS'
       'PRECO_BASE=PRECO_BASE'
       'OUTROS=OUTROS'
       'PROD_NFe_N16_pICMS=PROD_NFe_N16_pICMS'
@@ -11343,21 +11343,21 @@ object frm_relatorio: Tfrm_relatorio
     Top = 24
   end
   object SQL_AN: TFDQuery
-    DetailFields = 'VALOR_ICMS;PRECO_BASE;OUTROS;MODELO;ICMS_CST;CSOSN;CFOP;c'
+    DetailFields = 'VALOR_ICMS;PRECO_BASE;OUTROS;MODELO;PROD_NFe_N12_CST_ICMS;CSOSN;CFOP;c'
     Connection = Module.connection
     SQL.Strings = (
       'SELECT DISTINCT'
       '       "65" AS MODELO,'
       
-        #9'if(p.ICMS_CST <> '#39#39',IF(p.ICMS_CST='#39'60'#39', (SELECT CFOP_ST FROM NA' +
+        #9'if(p.PROD_NFe_N12_CST_ICMS <> '#39#39',IF(p.PROD_NFe_N12_CST_ICMS='#39'60'#39', (SELECT CFOP_ST FROM NA' +
         'TUREZA_OPERACAO WHERE ID = 1),(SELECT CFOP_TI FROM NATUREZA_OPER' +
         'ACAO WHERE ID = 1)), '#39#39') as CFOP,'
-      '        p.CSOSN, p.ICMS_CST,'
+      '        p.CSOSN, p.PROD_NFe_N12_CST_ICMS,'
       
-        #9'IF (p.ICMS_CST = '#39'00'#39',sum(vi.PRECO_TOTAL - vi.RATEIO_DESCONTO +' +
+        #9'IF (p.PROD_NFe_N12_CST_ICMS = '#39'00'#39',sum(vi.PRECO_TOTAL - vi.RATEIO_DESCONTO +' +
         ' vi.RATEIO_ACRESCIMO), 0) as PRECO_BASE,'
       
-        #9'IF (p.ICMS_CST <> '#39'00'#39',sum(vi.PRECO_TOTAL - vi.RATEIO_DESCONTO ' +
+        #9'IF (p.PROD_NFe_N12_CST_ICMS <> '#39'00'#39',sum(vi.PRECO_TOTAL - vi.RATEIO_DESCONTO ' +
         '+ vi.RATEIO_ACRESCIMO), 0) as OUTROS,'
       
         '        p.PROD_NFe_N16_pICMS, sum((vi.PRECO_TOTAL * p.PROD_NFe_N' +
@@ -11369,7 +11369,7 @@ object frm_relatorio: Tfrm_relatorio
       
         #9'where n.status_nfce = '#39'AUTORIZADA'#39' and n.data_emissao between :' +
         'pdata_emissao_1 and :pdata_emissao_2'
-      #9'group by CFOP, p.CSOSN, p.ICMS_CST'
+      #9'group by CFOP, p.CSOSN, p.PROD_NFe_N12_CST_ICMS'
       #9'order by n.codigo')
     Left = 336
     Top = 80
@@ -11398,10 +11398,10 @@ object frm_relatorio: Tfrm_relatorio
       Origin = 'CSOSN'
       Size = 200
     end
-    object SQL_ANICMS_CST: TStringField
+    object SQL_ANPROD_NFe_N12_CST_ICMS: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'ICMS_CST'
-      Origin = 'ICMS_CST'
+      FieldName = 'PROD_NFe_N12_CST_ICMS'
+      Origin = 'PROD_NFe_N12_CST_ICMS'
       Size = 3
     end
     object SQL_ANPRECO_BASE: TFMTBCDField
@@ -15923,7 +15923,7 @@ object frm_relatorio: Tfrm_relatorio
             '[ds_produtos."SUBGRUPO"]')
           ParentFont = False
         end
-        object ds_produtosICMS_CST: TfrxMemoView
+        object ds_produtosPROD_NFe_N12_CST_ICMS: TfrxMemoView
           Left = 688.047620000000000000
           Top = 0.118120000000000000
           Width = 71.811070000000000000
@@ -33140,7 +33140,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."CODIGO_ORIGEM_MERCADORIA"]')
+            '[ds_produtos."PROD_NFe_N11_orig"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -33207,7 +33207,7 @@ object frm_relatorio: Tfrm_relatorio
           ParentFont = False
           VAlign = vaCenter
         end
-        object ds_produtosICMS_CST: TfrxMemoView
+        object ds_produtosPROD_NFe_N12_CST_ICMS: TfrxMemoView
           Left = 423.748300000000000000
           Top = 0.118120000000000000
           Width = 30.236240000000000000
@@ -33224,7 +33224,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight]
           HAlign = haCenter
           Memo.UTF8W = (
-            '[ds_produtos."ICMS_CST"]')
+            '[ds_produtos."PROD_NFe_N12_CST_ICMS"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -34334,19 +34334,19 @@ object frm_relatorio: Tfrm_relatorio
       '(select count(PROD_CODIGO) from PRODUTO_PROD) as qtde_cadastrado'
       ','
       
-        '(select count(PROD_CODIGO) from PRODUTO_PROD where icms_cst = 60' +
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where PROD_NFe_N12_CST_ICMS = 60' +
         ') as pro_substituicao'
       ','
       
-        '(select count(PROD_CODIGO) from PRODUTO_PROD where icms_cst = 00' +
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where PROD_NFe_N12_CST_ICMS = 00' +
         ') as pro_trib_integral '
       ','
       
-        '(select count(PROD_CODIGO) from PRODUTO_PROD where icms_cst = 41' +
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where PROD_NFe_N12_CST_ICMS = 41' +
         ') as pro_n_trib'
       ','
       
-        '(select count(PROD_CODIGO) from PRODUTO_PROD where icms_cst = 40' +
+        '(select count(PROD_CODIGO) from PRODUTO_PROD where PROD_NFe_N12_CST_ICMS = 40' +
         ') as pro_isento')
     Left = 640
     Top = 144
@@ -36649,7 +36649,7 @@ object frm_relatorio: Tfrm_relatorio
           ParentFont = False
           VAlign = vaCenter
         end
-        object ds_produtosICMS_CST: TfrxMemoView
+        object ds_produtosPROD_NFe_N12_CST_ICMS: TfrxMemoView
           Left = 820.173780000000000000
           Top = 0.338590000000000000
           Width = 56.692950000000000000
@@ -37667,7 +37667,7 @@ object frm_relatorio: Tfrm_relatorio
             '[ds_pro_pesav."SUBGRUPO"]')
           ParentFont = False
         end
-        object ds_produtosICMS_CST: TfrxMemoView
+        object ds_produtosPROD_NFe_N12_CST_ICMS: TfrxMemoView
           Left = 669.149970000000000000
           Top = 0.118120000000000000
           Width = 90.708720000000000000
@@ -45760,3 +45760,7 @@ object frm_relatorio: Tfrm_relatorio
     Top = 24
   end
 end
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:44
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:02
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:05
+Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04

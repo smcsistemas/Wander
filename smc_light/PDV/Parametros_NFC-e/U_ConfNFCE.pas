@@ -5,6 +5,7 @@ unit U_ConfNFCE;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+987|18/06/20|19:19|U_ConfNFCE                  |Eliminados todos os campos internos do objeto SQL_VENDA_ITEM
 330|15/06/20|13:35|U_ConfNFCE                  |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 ========================================================================================================================================
 
@@ -40,143 +41,6 @@ type
     SQL_Empresa: TFDQuery;
     Sql_Conf: TFDQuery;
     SQL_PARAMETROS_NFCE: TFDQuery;
-    Sql_ConfCODIGO: TFDAutoIncField;
-    Sql_ConfCERTIFICADO: TMemoField;
-    Sql_ConfID_TOKEN: TStringField;
-    Sql_ConfCODIGO_CSC: TStringField;
-    Sql_ConfEMAIL_SMTP: TStringField;
-    Sql_ConfAMBIENTE: TStringField;
-    Sql_ConfSMT_SEGURO: TStringField;
-    Sql_ConfPORTA: TStringField;
-    Sql_ConfEMAIL: TStringField;
-    Sql_ConfSENHA: TStringField;
-    Sql_ConfNUMERO_SERIE_CERTIFICADO: TStringField;
-    Sql_ConfTIPO_NOTA: TStringField;
-    SQL_PARAMETROS_NFCEUTILIZA_NFCE: TStringField;
-    SQL_PARAMETROS_NFCEIMPRIMIR_DANFE_DIRETO: TStringField;
-    SQL_PARAMETROS_NFCEVISUALIZAR_DANFE: TStringField;
-    SQL_PARAMETROS_NFCEVENDA_GERA_NFCE: TStringField;
-    SQL_PARAMETROS_NFCECARTAO_GERA_NFCE: TStringField;
-    SQL_PARAMETROS_NFCENFCE_COMPROVANTE: TStringField;
-    SQL_PARAMETROS_NFCEIMPRESSORA_DANFE: TStringField;
-    SQL_PARAMETROS_NFCELOTE: TStringField;
-    SQL_PARAMETROS_NFCEIMPRIMIR_COMPROVANTE: TStringField;
-    SQL_PARAMETROS_NFCEVENDA_SEM_ESTOQUE: TStringField;
-    SQL_PARAMETROS_NFCEHABILITAR_FIADO: TStringField;
-    SQL_PARAMETROS_NFCEFIADO_COMPROVANTE: TStringField;
-    SQL_PARAMETROS_NFCEESTOQUE_PDV: TStringField;
-    SQL_PARAMETROS_NFCEALTERA_PRECO_PDV: TStringField;
-    SQL_PARAMETROS_NFCEABRIR_GAVETA: TStringField;
-    SQL_Empresaid: TFDAutoIncField;
-    SQL_Empresaaliq_imcs: TBCDField;
-    SQL_Empresaaliq_pis_cumulativo: TBCDField;
-    SQL_Empresaaliq_pis_nao_cumulativo: TBCDField;
-    SQL_Empresaaliq_cofins_cumulativo: TBCDField;
-    SQL_Empresaaliq_cofins_nao_cumulativo: TBCDField;
-    SQL_Empresaaliq_iss: TBCDField;
-    SQL_Empresacaminho_backup: TStringField;
-    SQL_Empresahost_name: TStringField;
-    SQL_EmpresaPASTA_FTP: TStringField;
-    SQL_EmpresaCODIGO: TFDAutoIncField;
-    SQL_EmpresaRAZAO_SOCIAL: TStringField;
-    SQL_EmpresaNOME_FANTASIA: TStringField;
-    SQL_EmpresaDATA_CADASTRO: TDateField;
-    SQL_EmpresaCNPJ: TStringField;
-    SQL_EmpresaINSCRICAO_ESTADUAL: TStringField;
-    SQL_EmpresaINSCRICAO_MUNICIPAL: TStringField;
-    SQL_EmpresaEMPRESA_TELEFONE_01: TStringField;
-    SQL_EmpresaEMPRESA_TELEFONE_02: TStringField;
-    SQL_EmpresaEMPRESA_TELEFONE_03: TStringField;
-    SQL_EmpresaEMPRESA_FAX: TStringField;
-    SQL_EmpresaEMPRESA_CELULAR_01: TStringField;
-    SQL_EmpresaEMPRESA_CELULAR_02: TStringField;
-    SQL_EmpresaEMPRESA_SKYPE: TStringField;
-    SQL_EmpresaEMPRESA_SITE: TStringField;
-    SQL_EmpresaEMPRESA_EMAIL_01: TStringField;
-    SQL_EmpresaEMPRESA_EMAIL_02: TStringField;
-    SQL_EmpresaSUFRAMA: TStringField;
-    SQL_EmpresaENDERECO: TStringField;
-    SQL_EmpresaNUMERO: TStringField;
-    SQL_EmpresaBAIRRO: TStringField;
-    SQL_EmpresaCEP: TStringField;
-    SQL_EmpresaMUNICIPIO: TStringField;
-    SQL_EmpresaCODIGO_MUNICIPIO: TIntegerField;
-    SQL_EmpresaESTADO: TStringField;
-    SQL_EmpresaCOD_UF: TStringField;
-    SQL_EmpresaPAIS: TStringField;
-    SQL_EmpresaCOMPLEMENTO: TStringField;
-    SQL_EmpresaINICIO_ATIVIDADE: TDateField;
-    SQL_EmpresaIE_SUBSTITUTO_TRIBUTARIO: TStringField;
-    SQL_EmpresaCODIGO_REGIME_TRIBUTARIO: TStringField;
-    SQL_EmpresaTRIBUTACAO_PIS_COFINS: TStringField;
-    SQL_EmpresaAPURACAO_MENSAL_IPI: TStringField;
-    SQL_EmpresaAPURACAO_IPI: TStringField;
-    SQL_EmpresaAPURACAO_DECENDIAL_IPI: TStringField;
-    SQL_EmpresaTRIBUTADO_ALIQUOTA_FIXA_ICMS: TStringField;
-    SQL_EmpresaCONTRIBUINTE_IPI: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_RAZAO_SOCIAL: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_FANTASIA: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_CNPJ_CPF: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_INSCRICAO: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_ENDERECO: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_BAIRRO: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_NUMERO: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_MUNICIPIO: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_CODIGO_MUNICIPIO: TIntegerField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_ESTADO: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_PAIS: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_CEP: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_COMPLEMENTO: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_TELEFONE_01: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_TELEFONE_02: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_CELULAR_01: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_CELULAR_02: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_EMAIL_01: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_EMAIL_02: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_SITE: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_SKYPE: TStringField;
-    SQL_EmpresaCONTADOR_NOME: TStringField;
-    SQL_EmpresaCONTADOR_CPF: TStringField;
-    SQL_EmpresaCONTADOR_CRC: TStringField;
-    SQL_EmpresaNIRE: TStringField;
-    SQL_EmpresaCNAE: TStringField;
-    SQL_EmpresaBANCO_01: TStringField;
-    SQL_EmpresaBANCO_OP: TStringField;
-    SQL_EmpresaBANCO_OP2: TStringField;
-    SQL_EmpresaBANCO_OP_1: TStringField;
-    SQL_EmpresaBANCO_OP_1_2: TStringField;
-    SQL_EmpresaBANCO_AGENCIA_01: TStringField;
-    SQL_EmpresaBANCO_CONTA_01: TStringField;
-    SQL_EmpresaBANCO_02: TStringField;
-    SQL_EmpresaBANCO_AGENCIA_01_DIGITO: TStringField;
-    SQL_EmpresaBANCO_CONTA_01_DIGITO: TStringField;
-    SQL_EmpresaBANCO_AGENCIA_02_DIGITO: TStringField;
-    SQL_EmpresaBANCO_CONTA_02_DIGITO: TStringField;
-    SQL_EmpresaBANCO_AGENCIA_02: TStringField;
-    SQL_EmpresaBANCO_CONTA_02: TStringField;
-    SQL_EmpresaBANCO_03: TIntegerField;
-    SQL_EmpresaBANCO_AGENCIA_03: TStringField;
-    SQL_EmpresaBANCO_CONTA_03: TStringField;
-    SQL_EmpresaBANCO_GERENTE_01: TStringField;
-    SQL_EmpresaBANCO_TELEFONE_01: TStringField;
-    SQL_EmpresaBANCO_RAMAL_01: TStringField;
-    SQL_EmpresaBANCO_GERENTE_02: TStringField;
-    SQL_EmpresaBANCO_TELEFONE_02: TStringField;
-    SQL_EmpresaBANCO_RAMAL_02: TStringField;
-    SQL_EmpresaSOCIO_01: TIntegerField;
-    SQL_EmpresaSOCIO_02: TIntegerField;
-    SQL_EmpresaRODAPE: TStringField;
-    SQL_EmpresaLOGOTIPO: TStringField;
-    SQL_EmpresaSELECAO_EMPRESA: TStringField;
-    SQL_EmpresaCODIGO_IDENTIFICACAO: TStringField;
-    SQL_EmpresaCHAVE_ATIVACAO: TStringField;
-    SQL_EmpresaCODIGO_PAIS: TIntegerField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_CODPAIS: TIntegerField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_CPF: TStringField;
-    SQL_EmpresaDIA_VENCIMENTO: TStringField;
-    SQL_EmpresaARQUIVOS_FISCAIS_EMAIL_01: TStringField;
-    SQL_EmpresaARQUIVOS_FISCAIS_EMAIL_02: TStringField;
-    SQL_EmpresaORGANIZACAO_CONTABIL_NOME: TStringField;
     SQL_NFCE: TFDQuery;
     SQL_NFCECODIGO: TFDAutoIncField;
     SQL_NFCEDATA_EMISSAO: TDateField;
@@ -223,42 +87,8 @@ type
     SQL_VENDATROCO: TBCDField;
     SQL_VENDASTATUS: TStringField;
     SQL_VENDACOD_NFCE: TStringField;
-    SQL_VENDA_PAGAMENTOCODIGO: TFDAutoIncField;
-    SQL_VENDA_PAGAMENTOCODIGO_VENDA: TIntegerField;
-    SQL_VENDA_PAGAMENTOCOD_TIPO_PAGAMENTO: TStringField;
-    SQL_VENDA_PAGAMENTOTIPO_PAGAMENTO: TStringField;
-    SQL_VENDA_PAGAMENTOTOTAL_PAGO: TBCDField;
-    SQL_VENDA_PAGAMENTOVALOR_DEBITADO: TBCDField;
-    SQL_PARAMETROS_NFCESERIE_NORMAL: TStringField;
-    SQL_PARAMETROS_NFCEVIAS_COMPROVANTE: TStringField;
-    SQL_PARAMETROS_NFCEUSA_PAG_PADRAO: TStringField;
-    SQL_PARAMETROS_NFCEPAG_PADRAO: TStringField;
-    SQL_PARAMETROS_NFCEPAG_LISTA: TStringField;
-    SQL_PARAMETROS_NFCEPAG_CODIGO: TStringField;
-    SQL_EmpresaNOME_CONTATO_AD: TMemoField;
     spdNFCe: TspdNFCe;
     spdNFCeDataSets: TspdNFCeDataSets;
-    SQL_VENDA_ITEMCODIGO_PRODUTO: TIntegerField;
-    SQL_VENDA_ITEMCODIGO_VENDA: TIntegerField;
-    SQL_VENDA_ITEMQUANTIDADE: TSingleField;
-    SQL_VENDA_ITEMPRECO: TBCDField;
-    SQL_VENDA_ITEMPRECO_TOTAL: TBCDField;
-    SQL_VENDA_ITEMACRESCIMO: TBCDField;
-    SQL_VENDA_ITEMDESCONTO: TBCDField;
-    SQL_VENDA_ITEMCODIGO_ITEM_VENDA: TIntegerField;
-    SQL_VENDA_ITEMPROD_CODIGO: TStringField;
-    SQL_VENDA_ITEMPROD_DESCRICAO: TStringField;
-    SQL_VENDA_ITEMNCM: TStringField;
-    SQL_VENDA_ITEMFRETE: TBCDField;
-    SQL_VENDA_ITEMICMS_CST: TStringField;
-    SQL_VENDA_ITEMPROD_CDUNIDADE: TStringField;
-    SQL_VENDA_ITEMCODIGO_ORIGEM_MERCADORIA: TIntegerField;
-    SQL_VENDA_ITEMPROD_NFe_N16_pICMS: TBCDField;
-    SQL_VENDA_ITEMVI_CFOP_CSOSN: TStringField;
-    SQL_VENDA_ITEMCEST: TStringField;
-    SQL_VENDA_ITEMPROD_EAN: TStringField;
-    SQL_VENDA_ITEMPIS_CST: TStringField;
-    SQL_VENDA_ITEMCOFINS_CST: TStringField;
     function configurarcomponente(const Certficado: string = ''): boolean;
     procedure PagamentoTroco(Pagamento, Troco: string);
     function EnviarNFCe(NumeroLote, Chave, Caminho, ErroRotina: String; data_op: tdatetime = 0): String;
@@ -285,6 +115,7 @@ type
     procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
+    procedure Preenche_Script_SQL_VENDA_ITEM;
 
   protected
     CSTN12, CRTC21, tpAmbB24, nItemH02, nNFB08, IDA03, NCMI05, tpEmisB22, cDVB23, cNFB03, cNFB03_2, cUFB02, modB06, serieB07, aUF, CST_PIS, CST_COFINS, xCampoPag,
@@ -368,25 +199,25 @@ procedure TFrm_ConfNFCE.VerificarParametros;
 
   function VendaGeraNfce: boolean;
   begin
-    if SQL_PARAMETROS_NFCEVENDA_GERA_NFCE.Value = m_True then { Chave de libera玢o permite utilizar NFC-e }
+    if SQL_PARAMETROS_NFCE.FieldByName('VENDA_GERA_NFCE').Value = m_True then { Chave de libera玢o permite utilizar NFC-e }
       Result := true
-    else if SQL_PARAMETROS_NFCEVENDA_GERA_NFCE.Value = m_False then
+    else if SQL_PARAMETROS_NFCE.FieldByName('VENDA_GERA_NFCE').Value = m_False then
       Result := false;
   end;
 
   function LiberadoParaNFCE: boolean;
   begin
-    if SQL_PARAMETROS_NFCEUTILIZA_NFCE.Value = m_True then { Chave de libera玢o permite utilizar NFC-e }
+    if SQL_PARAMETROS_NFCE.FieldByName('UTILIZA_NFCE').Value = m_True then { Chave de libera玢o permite utilizar NFC-e }
       Result := true
-    else if SQL_PARAMETROS_NFCEUTILIZA_NFCE.Value = m_False then
+    else if SQL_PARAMETROS_NFCE.FieldByName('UTILIZA_NFCE').Value = m_False then
       Result := false;
   end;
 
   function FiadoGeraComprovante: boolean;
   begin
-    if SQL_PARAMETROS_NFCEFIADO_COMPROVANTE.Value = m_True then { Fiado Gera Comprovante }
+    if SQL_PARAMETROS_NFCE.FieldByName('FIADO_COMPROVANTE').Value = m_True then { Fiado Gera Comprovante }
       Result := true
-    else if SQL_PARAMETROS_NFCEFIADO_COMPROVANTE.Value = m_False then
+    else if SQL_PARAMETROS_NFCE.FieldByName('FIADO_COMPROVANTE').Value = m_False then
       Result := false;
   end;
 
@@ -413,7 +244,7 @@ procedure TFrm_ConfNFCE.VerificarParametros;
   var
     qry_temp: TFDQuery;
   begin
-    if SQL_PARAMETROS_NFCECARTAO_GERA_NFCE.Value = m_True then { Emite NFC-e para vendas no cart鉶 }
+    if SQL_PARAMETROS_NFCE.FieldByName('CARTAO_GERA_NFCE').Value = m_True then { Emite NFC-e para vendas no cart鉶 }
     begin
       qry_temp := TFDQuery.Create(nil);
       with qry_temp do
@@ -442,7 +273,7 @@ procedure TFrm_ConfNFCE.VerificarParametros;
         destroy;
       end;
     end
-    else if SQL_PARAMETROS_NFCECARTAO_GERA_NFCE.Value = m_False then
+    else if SQL_PARAMETROS_NFCE.FieldByName('CARTAO_GERA_NFCE').Value = m_False then
     begin
       Result := false;
     end;
@@ -480,9 +311,14 @@ var
   TpEmiss : string;
 begin
   SQL_PARAMETROS_NFCE.Active := false;
+  SQL_PARAMETROS_NFCE.sql.clear;
+  SQL_PARAMETROS_NFCE.sql.add('select pn.*,              ');
+  SQL_PARAMETROS_NFCE.sql.add('       pv.*               ');
+  SQL_PARAMETROS_NFCE.sql.add('  from parametros_nfce pn,');
+  SQL_PARAMETROS_NFCE.sql.add('       parametros_venda pv');
   SQL_PARAMETROS_NFCE.Active := true;
 
-  TpEmiss := Sql_ConfTIPO_NOTA.Value;
+  TpEmiss := Sql_Conf.FieldByName('TIPO_NOTA').Value;
   if not ExistsNetwork then
      TpEmiss := 'CONTINGENCIA';
 
@@ -627,21 +463,37 @@ begin
   try
     tfunctions.configureSSLTTL;
     setModeloNF('65'); { classe de diret髍ios | para organiza玢o das pastas }
+
     Sql_Conf.Active := false;
+    Sql_Conf.sql.clear;
+    Sql_Conf.sql.add('select *           ');
+    Sql_Conf.sql.add('  from config_notas');
     Sql_Conf.Active := true;
+
     SQL_PARAMETROS_NFCE.Active := false;
+    SQL_PARAMETROS_NFCE.sql.clear;
+    SQL_PARAMETROS_NFCE.sql.add('select pn.*,              ');
+    SQL_PARAMETROS_NFCE.sql.add('       pv.*               ');
+    SQL_PARAMETROS_NFCE.sql.add('  from parametros_nfce pn,');
+    SQL_PARAMETROS_NFCE.sql.add('       parametros_venda pv');
     SQL_PARAMETROS_NFCE.Active := true;
+
     SQL_Empresa.Active := false;
+    SQL_Empresa.sql.clear;
+    SQL_Empresa.sql.add('select p.*,                 ');
+    SQL_Empresa.sql.add('       e.*                  ');
+    SQL_Empresa.sql.add('  from empresa e,           ');
+    SQL_Empresa.sql.add('       parametros_sistema p ');
     SQL_Empresa.Active := true;
-    if Sql_ConfAMBIENTE.Value = 'HOMOLOGACAO' then
+    if Sql_Conf.FieldByName('AMBIENTE').Value = 'HOMOLOGACAO' then
       spdNFCe.Ambiente := akHomologacao
-    else if Sql_ConfAMBIENTE.Value = 'PRODUCAO' then
+    else if Sql_Conf.FieldByName('AMBIENTE').Value = 'PRODUCAO' then
       spdNFCe.Ambiente := akProducao;
-    aUF := SQL_EmpresaESTADO.Value;
+    aUF := SQL_Empresa.FieldByName('ESTADO').Value;
     spdNFCe.UF := aUF;
-    spdNFCe.cnpj := SQL_EmpresaCNPJ.Value;
-    spdNFCe.DanfceSettings.IdTokenNFCe := Sql_ConfID_TOKEN.Value;
-    spdNFCe.DanfceSettings.TokenNFCe := Sql_ConfCODIGO_CSC.Value;
+    spdNFCe.cnpj := SQL_Empresa.FieldByName('CNPJ').Value;
+    spdNFCe.DanfceSettings.IdTokenNFCe := Sql_Conf.FieldByName('ID_TOKEN').Value;
+    spdNFCe.DanfceSettings.TokenNFCe := Sql_Conf.FieldByName('CODIGO_CSC').Value;
     spdNFCe.ArquivoServidoresHom := u_diretorios.confignfce + 'nfceservidoreshom.ini';
     spdNFCe.ArquivoServidoresProd := u_diretorios.confignfce + 'nfceservidoresprod.ini';
     spdNFCe.DiretorioEsquemas := u_diretorios.confignfce + 'Esquemas\';
@@ -652,7 +504,7 @@ begin
     spdNFCe.DiretorioXmlDestinatario := u_diretorios.Xml_Autorizadas;
     spdNFCe.TipoCertificado := ckFile;
     if Certficado = emptystr then
-      spdNFCe.NomeCertificado.Text := Sql_ConfCERTIFICADO.Value
+      spdNFCe.NomeCertificado.Text := Sql_Conf.FieldByName('CERTIFICADO').Value
     else
       spdNFCe.NomeCertificado.Text := Certficado;
     spdNFCe.ConexaoSegura := true;
@@ -672,8 +524,8 @@ begin
     spdNFCeDataSets.DiretorioLogErro := u_diretorios.confignfce + 'LogErroDS\';
 
     { danfe }
-    if FileExists(SQL_EmpresaLOGOTIPO.Value) then
-      spdNFCe.DanfceSettings.LogotipoEmitente := SQL_EmpresaLOGOTIPO.Value
+    if FileExists(SQL_Empresa.FieldByName('LOGOTIPO').Value) then
+      spdNFCe.DanfceSettings.LogotipoEmitente := SQL_Empresa.FieldByName('LOGOTIPO').Value
     else
       spdNFCe.DanfceSettings.LogotipoEmitente := '';
 
@@ -688,16 +540,16 @@ begin
     spdNFCe.TimeOut := 10000;
 
     { email }
-    spdNFCe.EmailSettings.ServidorSmtp := Sql_ConfEMAIL_SMTP.Value;
-    spdNFCe.EmailSettings.EmailRemetente := Sql_ConfEMAIL.Value;
+    spdNFCe.EmailSettings.ServidorSmtp := Sql_Conf.FieldByName('EMAIL_SMTP').Value;
+    spdNFCe.EmailSettings.EmailRemetente := Sql_Conf.FieldByName('EMAIL').Value;
     spdNFCe.EmailSettings.EmailDestinatario := 'SMC.PROG@gmail.com';
     spdNFCe.EmailSettings.Assunto := 'Envio de DANFE por email';
     spdNFCe.EmailSettings.Mensagem := 'O arquivo está anexo.';
-    spdNFCe.EmailSettings.Usuario := Sql_ConfEMAIL.Value;
-    spdNFCe.EmailSettings.Senha := Sql_ConfSENHA.Value;
+    spdNFCe.EmailSettings.Usuario := Sql_Conf.FieldByName('EMAIL').Value;
+    spdNFCe.EmailSettings.Senha := Sql_Conf.FieldByName('SENHA').Value;
     spdNFCe.EmailSettings.Autenticacao := true;
-    if Sql_ConfPORTA.Value <> '' then
-      spdNFCe.EmailSettings.Porta := StrToInt(Sql_ConfPORTA.Value); // 587
+    if Sql_Conf.FieldByName('PORTA').Value <> '' then
+      spdNFCe.EmailSettings.Porta := StrToInt(Sql_Conf.FieldByName('PORTA').Value); // 587
 
     { nfce }
     _Dir := u_diretorios.confignfce + 'Templates\vm60\Conversor\NFCeDataSets.xml';
@@ -969,7 +821,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
 
         spdNFCeDataSets.campo('versao_A02').Value := '4.00';
         // Versão do layout
-        cUFB02 := SQL_EmpresaCOD_UF.Value;
+        cUFB02 := SQL_Empresa.FieldByName('COD_UF').Value;
         spdNFCeDataSets.campo('cUF_B02').Value := cUFB02;
         // C骴igo da UF do emitente do Documento Fiscal
         spdNFCeDataSets.campo('natOp_B04').Value := TNatureza_Op.Create(1).Descricao;
@@ -991,7 +843,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
         begin
              cNFB03_2 := IntToStr(GerarCodigoDFe(StrToInt(nNFB08)));
              spdNFCeDataSets.campo('cNF_B03').Value := cNFB03_2;
-             AtualizacNF(nNFB08, SQL_PARAMETROS_NFCESERIE_NORMAL.AsString, cNFB03_2);
+             AtualizacNF(nNFB08, SQL_PARAMETROS_NFCE.FieldByName('SERIE_NORMAL').AsString, cNFB03_2);
         end
         else
            spdNFCeDataSets.campo('cNF_B03').Value := IntToStr(pcNF);
@@ -1004,15 +856,15 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
         // Tipo de Opera玢o: 0-entrada / 1-sa韉a.
         spdNFCeDataSets.campo('idDest_B11a').Value := '1';
         // Identificador de local de destino da opera玢o: 1- Opera玢o interna; 2- Opera玢o interestadual; 3- Opera玢o com exterior.
-        spdNFCeDataSets.campo('cMunFG_B12').Value := inttostr(SQL_EmpresaCODIGO_MUNICIPIO.Value);
+        spdNFCeDataSets.campo('cMunFG_B12').Value := inttostr(SQL_Empresa.FieldByName('CODIGO_MUNICIPIO').Value);
         // C骴igo do Munic韕io de Ocorr阯cia do Fato Gerador
         spdNFCeDataSets.campo('tpImp_B21').Value := '4';
         { Formato do DANFE: 0-Sem gera玢o de DANFE; 1-DANFE normal , Retrato; 2-DANFE normal, Paisagem; 3-DANFE Simplificado;
           4-DANFE NFC-e; 5-DANFE NFC-e em mensagem eletr鬾ica. Nota: O envio de mensagem eletr鬾ica pode ser feita de forma simult鈔ea
           com a impress鉶 do DANFE. Usar o tpImp=5 quando esta for a 鷑ica. }
-        serieB07 := SQL_PARAMETROS_NFCESERIE_NORMAL.Value;
+        serieB07 := SQL_PARAMETROS_NFCE.FieldByName('SERIE_NORMAL').Value;
         if TpEmissao = emptystr then
-          TpEmissao := Sql_ConfTIPO_NOTA.Value;
+          TpEmissao := Sql_Conf.FieldByName('TIPO_NOTA').Value;
         if TpEmissao = 'NORMAL' Then
           tpEmisB22 := '1'
         else if TpEmissao = 'CONTINGENCIA' then
@@ -1071,37 +923,37 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
 
     try
       begin
-        spdNFCeDataSets.campo('CNPJ_C02').Value := RemoverCaracteresEspeciais(SQL_EmpresaCNPJ.Value);
+        spdNFCeDataSets.campo('CNPJ_C02').Value := RemoverCaracteresEspeciais(SQL_Empresa.FieldByName('CNPJ').Value);
         // CNPJ do emitente
-        spdNFCeDataSets.campo('IE_C17').Value := RemoverCaracteresEspeciais(SQL_EmpresaINSCRICAO_ESTADUAL.Value);
+        spdNFCeDataSets.campo('IE_C17').Value := RemoverCaracteresEspeciais(SQL_Empresa.FieldByName('INSCRICAO_ESTADUAL').Value);
         // CNPJ do emitente
-        spdNFCeDataSets.campo('xNome_C03').Value := FormatarTagDescricao(SQL_EmpresaRAZAO_SOCIAL.Value);
+        spdNFCeDataSets.campo('xNome_C03').Value := FormatarTagDescricao(SQL_Empresa.FieldByName('RAZAO_SOCIAL').Value);
         // Raz鉶 Social ou Nome do emitente
-        spdNFCeDataSets.campo('xFant_C04').Value := FormatarTagDescricao(SQL_EmpresaNOME_FANTASIA.Value);
+        spdNFCeDataSets.campo('xFant_C04').Value := FormatarTagDescricao(SQL_Empresa.FieldByName('NOME_FANTASIA').Value);
         // Nome fantasia
-        spdNFCeDataSets.campo('xLgr_C06').Value := FormatarTagDescricao(SQL_EmpresaENDERECO.Value);
+        spdNFCeDataSets.campo('xLgr_C06').Value := FormatarTagDescricao(SQL_Empresa.FieldByName('ENDERECO').Value);
         // Logradouro
-        spdNFCeDataSets.campo('nro_C07').Value := FormatarTagDescricao(SQL_EmpresaNUMERO.Value);
+        spdNFCeDataSets.campo('nro_C07').Value := FormatarTagDescricao(SQL_Empresa.FieldByName('NUMERO').Value);
         // N鷐ero
-        spdNFCeDataSets.campo('xBairro_C09').Value := FormatarTagDescricao(SQL_EmpresaBAIRRO.Value);
+        spdNFCeDataSets.campo('xBairro_C09').Value := FormatarTagDescricao(SQL_Empresa.FieldByName('BAIRRO').Value);
         // Complemento
-        spdNFCeDataSets.campo('cMun_C10').Value := FormatarTagDescricao(SQL_EmpresaCODIGO_MUNICIPIO.asString);
+        spdNFCeDataSets.campo('cMun_C10').Value := FormatarTagDescricao(SQL_Empresa.FieldByName('CODIGO_MUNICIPIO').asString);
         // Código do munic韕io
-        spdNFCeDataSets.campo('xMun_C11').Value := FormatarTagDescricao(SQL_EmpresaMUNICIPIO.Value);
+        spdNFCeDataSets.campo('xMun_C11').Value := FormatarTagDescricao(SQL_Empresa.FieldByName('MUNICIPIO').Value);
         // Nome do munic韕io
-        spdNFCeDataSets.campo('UF_C12').Value := FormatarTagDescricao(SQL_EmpresaESTADO.Value);
+        spdNFCeDataSets.campo('UF_C12').Value := FormatarTagDescricao(SQL_Empresa.FieldByName('ESTADO').Value);
         // Sigla da UF
-        spdNFCeDataSets.campo('CEP_C13').Value := FormatarTagDescricao(SQL_EmpresaCEP.Value);
+        spdNFCeDataSets.campo('CEP_C13').Value := FormatarTagDescricao(SQL_Empresa.FieldByName('CEP').Value);
         // C骴igo do CEP
-        spdNFCeDataSets.campo('cPais_C14').Value := FormatarTagDescricao(SQL_EmpresaCODIGO_PAIS.asString);
+        spdNFCeDataSets.campo('cPais_C14').Value := FormatarTagDescricao(SQL_Empresa.FieldByName('CODIGO_PAIS').asString);
         // C骴igo do Pa韘
-        spdNFCeDataSets.campo('xPais_C15').Value := FormatarTagDescricao(SQL_EmpresaPAIS.Value);
+        spdNFCeDataSets.campo('xPais_C15').Value := FormatarTagDescricao(SQL_Empresa.FieldByName('PAIS').Value);
         // Nome do Pa韘
-        spdNFCeDataSets.campo('fone_C16').Value := FormatarTagDescricao(SQL_EmpresaEMPRESA_TELEFONE_01.Value);
+        spdNFCeDataSets.campo('fone_C16').Value := FormatarTagDescricao(SQL_Empresa.FieldByName('EMPRESA_TELEFONE_01').Value);
         // Telefone
-        spdNFCeDataSets.campo('IE_C17').Value := FormatarTagDescricao(SQL_EmpresaINSCRICAO_ESTADUAL.Value);
+        spdNFCeDataSets.campo('IE_C17').Value := FormatarTagDescricao(SQL_Empresa.FieldByName('INSCRICAO_ESTADUAL').Value);
         // Inscri玢o Estadual
-        CRTC21 := SQL_EmpresaCODIGO_REGIME_TRIBUTARIO.Value;
+        CRTC21 := SQL_Empresa.FieldByName('CODIGO_REGIME_TRIBUTARIO').Value;
         spdNFCeDataSets.campo('CRT_C21').Value := CRTC21;
         { C骴igo de Regime Tribut醨io:
           1 � Simples Nacional;
@@ -1202,6 +1054,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
       begin
         DisableControls;
         Close;
+        Preenche_Script_SQL_VENDA_ITEM;
         ParamByName('pcodigo').Value := StrToInt(m_codigo_venda);
         open;
         Last;
@@ -1219,7 +1072,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
           spdNFCeDataSets.IncluirItem;
           // Iniciar a inclus鉶 de itens
 
-          AliquotaICMS := SQL_VENDA_ITEMPROD_NFe_N16_pICMS.AsExtended / 100;
+          AliquotaICMS := SQL_VENDA_ITEM.FieldByName('PROD_NFe_N16_pICMS').AsExtended / 100;
           // Calculando Porcentagem de Aliquota cadastrada no produto
 
           nItemH02 := inttostr(FieldByName('CODIGO_ITEM_VENDA').AsInteger);
@@ -1228,7 +1081,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
           spdNFCeDataSets.campo('nItem_H02').Value := nItemH02;
           // N鷐ero do item
 
-          spdNFCeDataSets.campo('cProd_I02').Value := inttostr(SQL_VENDA_ITEMCODIGO_PRODUTO.Value);
+          spdNFCeDataSets.campo('cProd_I02').Value := inttostr(SQL_VENDA_ITEM.FieldByName('CODIGO_PRODUTO').Value);
           // C骴igo do produto ou servi鏾
 
           spdNFCeDataSets.campo('cEAN_I03').Value := EanValido(SQL_VENDA_ITEM.FieldByName('PROD_EAN').AsString);
@@ -1242,43 +1095,43 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
             spdNFCeDataSets.campo('xProd_I04').Value := NF_PRODUTO_HOMOLOGACAO
             // MSG PRODUTO EM HOMOLOGACAO
           else
-            spdNFCeDataSets.campo('xProd_I04').Value := FormatarTagDescricao(SQL_VENDA_ITEMPROD_DESCRICAO.asString);
+            spdNFCeDataSets.campo('xProd_I04').Value := FormatarTagDescricao(SQL_VENDA_ITEM.FieldByName('PROD_DESCRICAO').asString);
           // Descri玢o do produto ou servi鏾
 
-          NCMI05 := SQL_VENDA_ITEMNCM.Text;
+          NCMI05 := SQL_VENDA_ITEM.FieldByName('NCM').Text;
           spdNFCeDataSets.campo('NCM_I05').Value := FormatarTagDescricao(NCMI05);
           // C骴igo NCM com 8 d韌itos ou 2 d韌itos (g阯ero)
 
-          spdNFCeDataSets.campo('CEST_I05c').Value := FormatarTagDescricao(SQL_VENDA_ITEMCEST.asString);
+          spdNFCeDataSets.campo('CEST_I05c').Value := FormatarTagDescricao(SQL_VENDA_ITEM.FieldByName('CEST').asString);
           // C骴igo CEST
 
-          spdNFCeDataSets.campo('uCom_I09').Value := SQL_VENDA_ITEMPROD_CDUNIDADE.asString;
+          spdNFCeDataSets.campo('uCom_I09').Value := SQL_VENDA_ITEM.FieldByName('PROD_CDUNIDADE').asString;
           // Unidade Comercial
 
-          qComI10 := SQL_VENDA_ITEMQUANTIDADE.Value;
+          qComI10 := SQL_VENDA_ITEM.FieldByName('QUANTIDADE').Value;
           spdNFCeDataSets.campo('qCom_I10').Value := formatarqtde(qComI10);
           // Quantidade Comercial
 
           (*
-          if comparevalue(SQL_VENDA_ITEMPRECO.AsExtended + SQL_VENDA_ITEMACRESCIMO.AsExtended - SQL_VENDA_ITEMDESCONTO.AsExtended, 0) = -1 then
+          if comparevalue(SQL_VENDA_ITEM.FieldByName('PRECO').AsExtended + SQL_VENDA_ITEM.FieldByName('ACRESCIMO').AsExtended - SQL_VENDA_ITEM.FieldByName('DESCONTO').AsExtended, 0) = -1 then
           begin
-            vUNCOMI10a := SQL_VENDA_ITEMPRECO.AsExtended + SQL_VENDA_ITEMACRESCIMO.AsExtended;
-            vDescI17 := SQL_VENDA_ITEMDESCONTO.AsExtended;
+            vUNCOMI10a := SQL_VENDA_ITEM.FieldByName('PRECO').AsExtended + SQL_VENDA_ITEM.FieldByName('ACRESCIMO').AsExtended;
+            vDescI17 := SQL_VENDA_ITEM.FieldByName('DESCONTO').AsExtended;
           end
           else
-            vUNCOMI10a := SQL_VENDA_ITEMPRECO.AsExtended + SQL_VENDA_ITEMACRESCIMO.AsExtended - SQL_VENDA_ITEMDESCONTO.AsExtended;
+            vUNCOMI10a := SQL_VENDA_ITEM.FieldByName('PRECO').AsExtended + SQL_VENDA_ITEM.FieldByName('ACRESCIMO').AsExtended - SQL_VENDA_ITEM.FieldByName('DESCONTO').AsExtended;
           *)
-          vUNCOMI10a := SQL_VENDA_ITEMPRECO.AsFloat;
-          vDescI17 := SQL_VENDA_ITEMDESCONTO.AsExtended;
+          vUNCOMI10a := SQL_VENDA_ITEM.FieldByName('PRECO').AsFloat;
+          vDescI17   := SQL_VENDA_ITEM.FieldByName('DESCONTO').AsExtended;
 
           spdNFCeDataSets.campo('vUnCom_I10a').Value := FormatarTag(vUNCOMI10a);
 
           // Valor Unit醨io de Comercializa玢o
 
-          spdNFCeDataSets.campo('uTrib_I13').Value := SQL_VENDA_ITEMPROD_CDUNIDADE.Value;
+          spdNFCeDataSets.campo('uTrib_I13').Value := SQL_VENDA_ITEM.FieldByName('PROD_CDUNIDADE').Value;
           // Unidade Tribut醰el
 
-          qTribI14 := SQL_VENDA_ITEMQUANTIDADE.Value;
+          qTribI14 := SQL_VENDA_ITEM.FieldByName('QUANTIDADE').Value;
           spdNFCeDataSets.campo('qTrib_I14').Value := formatarqtde(qTribI14);
           // Quantidade Tribut醰el
 
@@ -1286,7 +1139,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
           spdNFCeDataSets.campo('vUnTrib_I14a').Value := FormatarTag(vUnTribI14a);
           // Valor Unit醨io de tributa玢o
 
-          //vProdI11 := SQL_VENDA_ITEMPRECO_TOTAL.AsExtended;
+          //vProdI11 := SQL_VENDA_ITEM.FieldByName('PRECO_TOTAL').AsExtended;
           vProdI11 := Arredonda(qTribI14 * vUnTribI14a,2);
           spdNFCeDataSets.campo('vProd_I11').Value := FormatarTag(vProdI11);
 
@@ -1300,10 +1153,10 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
           // 0 � o valor do item (vProd) n鉶 comp鮡 o valor total da NF-e (vProd)
           // 1 � o valor do item (vProd) comp鮡 o valor total da NF-e (vProd)
 
-          spdNFCeDataSets.campo('orig_N11').Value := inttostr(SQL_VENDA_ITEMCODIGO_ORIGEM_MERCADORIA.Value);
+          spdNFCeDataSets.campo('orig_N11').Value := inttostr(SQL_VENDA_ITEM.FieldByName('PROD_NFe_N11_orig').Value);
           // Origem da mercadoria
 
-          vOutroI17a := SQL_VENDA_ITEMACRESCIMO.AsExtended;
+          vOutroI17a := SQL_VENDA_ITEM.FieldByName('ACRESCIMO').AsExtended;
           vOutroI17a := vOutroI17a + CalcularAcrescimos(m_codigo_venda, nItemH02, acres_base, ratear_diff_acrescimos);
 
           vDescI17 := vDescI17 + CalcularDescontos(m_codigo_venda, nItemH02, desc_base, ratear_diff_desconto);
@@ -1341,7 +1194,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
           else
           begin
 
-            CSTN12 := SQL_VENDA_ITEMICMS_CST.Value;
+            CSTN12 := SQL_VENDA_ITEM.FieldByName('PROD_NFe_N12_CST_ICMS').Value;
 
             if CSTN12 <> '' then
               if CSTN12 = '60' then
@@ -1358,7 +1211,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
             spdNFCeDataSets.campo('modBC_N13').Value := '1';
             vBCN15 := vProdI11 - vDescI17 + vOutroW15;
             spdNFCeDataSets.campo('vBC_N15').Value := FormatarTag(vBCN15);
-            pICMSN16 := SQL_VENDA_ITEMPROD_NFe_N16_pICMS.AsExtended;
+            pICMSN16 := SQL_VENDA_ITEM.FieldByName('PROD_NFe_N16_pICMS').AsExtended;
             spdNFCeDataSets.campo('pICMS_N16').Value := FormatarTag(pICMSN16);
             vICMSN17 := FormatarTag(vBCN15 * AliquotaICMS, vardouble);
             spdNFCeDataSets.campo('vICMS_N17').Value := FormatarTag(vICMSN17);
@@ -1372,7 +1225,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
             spdNFCeDataSets.campo('modBC_N13').Value := '1';
             vBCN15 := vProdI11 - vDescI17 + vOutroW15;
             spdNFCeDataSets.campo('vBC_N15').Value := FormatarTag(vBCN15);
-            pICMSN16 := SQL_VENDA_ITEMPROD_NFe_N16_pICMS.Value;
+            pICMSN16 := SQL_VENDA_ITEM.FieldByName('PROD_NFe_N16_pICMS').Value;
             spdNFCeDataSets.campo('pICMS_N16').Value := FormatarTag(pICMSN16);
             vICMSN17 := vBCN15 * AliquotaICMS;
             spdNFCeDataSets.campo('vICMS_N17').Value := FormatarTag(vICMSN17);
@@ -1435,8 +1288,8 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
           pCOFINSS08 := 0;
           if CRTC21 = '3' then { Regime normal }
           begin
-            CST_PIS := SQL_VENDA_ITEMPIS_CST.asString;
-            CST_COFINS := SQL_VENDA_ITEMCOFINS_CST.asString;
+            CST_PIS := SQL_VENDA_ITEM.FieldByName('PIS_CST').asString;
+            CST_COFINS := SQL_VENDA_ITEM.FieldByName('COFINS_CST').asString;
             spdNFCeDataSets.campo('CST_Q06').Value := CST_PIS;
             // CST PIS
             spdNFCeDataSets.campo('CST_S06').Value := CST_COFINS;
@@ -1571,21 +1424,27 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
       with SQL_VENDA_PAGAMENTO do
       begin
         Close;
+        with sql do
+        begin
+           add('select *                      ');
+           add('  from venda_pagamento        ');
+           add(' where codigo_venda = :pcodigo');
+        end;
         ParamByName('pcodigo').asString := m_codigo_venda;
         open;
         First;
         while not Eof do
         begin
-          vPagYA03 := SQL_VENDA_PAGAMENTOVALOR_DEBITADO.Value;
+          vPagYA03 := SQL_VENDA_PAGAMENTO.FieldByName('VALOR_DEBITADO').Value;
           spdNFCeDataSets.IncluirPart('YA');
-          if SQL_VENDA_PAGAMENTOCOD_TIPO_PAGAMENTO.asString = '06' then
+          if SQL_VENDA_PAGAMENTO.FieldByName('COD_TIPO_PAGAMENTO').asString = '06' then
           // promiss髍ia
           begin
             spdNFCeDataSets.campo('tPag_YA02').Value := '05'; // cr閐ito loja
             xCampoPag := 'obspag';
           end
           else
-            spdNFCeDataSets.campo('tPag_YA02').Value := SQL_VENDA_PAGAMENTOCOD_TIPO_PAGAMENTO.asString;
+            spdNFCeDataSets.campo('tPag_YA02').Value := SQL_VENDA_PAGAMENTO.FieldByName('COD_TIPO_PAGAMENTO').asString;
           spdNFCeDataSets.campo('vPag_YA03').Value := FormatarTag(vPagYA03);
           spdNFCeDataSets.SalvarPart('YA');
           Next;
@@ -1686,18 +1545,18 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
         begin
           if ParametrosImpressao then
           begin
-            if SQL_PARAMETROS_NFCEVISUALIZAR_DANFE.Value = m_True then
+            if SQL_PARAMETROS_NFCE.FieldByName('VISUALIZAR_DANFE').Value = m_True then
               VisualizarDanfce(IDA03, NFCExml, _NumeroLote, erro_rotina_nfce);
-            if SQL_PARAMETROS_NFCEIMPRIMIR_DANFE_DIRETO.Value = m_True then
+            if SQL_PARAMETROS_NFCE.FieldByName('IMPRIMIR_DANFE_DIRETO').Value = m_True then
               ParametrosImpressaoDanfce(Caminho_XML, erro_rotina_nfce, true)
             else
             begin
-              if SQL_PARAMETROS_NFCENFCE_COMPROVANTE.Value = m_True then
+              if SQL_PARAMETROS_NFCE.FieldByName('NFCE_COMPROVANTE').Value = m_True then
               begin
                 if boolnfce then
                   ParametrosImpressaoDanfce(Caminho_XML, erro_rotina_nfce, false);
               end;
-              if SQL_PARAMETROS_NFCENFCE_COMPROVANTE.Value = m_False then
+              if SQL_PARAMETROS_NFCE.FieldByName('NFCE_COMPROVANTE').Value = m_False then
               begin
                 if GeraComprovante then
                   ImprimirComprovante(m_codigo_venda, true);
@@ -1762,7 +1621,7 @@ begin
       spdNFCeDataSets.Salvar;
       IDA03 := Copy(spdNFCeDataSets.campo('Id_A03').asString, 4, 44);
       // Retornar chave da nota
-      _NumeroLote := SQL_PARAMETROS_NFCELOTE.Value; // Lote da nota fiscal
+      _NumeroLote := SQL_PARAMETROS_NFCE.FieldByName('LOTE').Value; // Lote da nota fiscal
       SalvarLoteEnvioXML;
       if TpEmissao = 'NORMAL' then
       begin
@@ -1884,9 +1743,9 @@ end;
 
 function TFrm_ConfNFCE.GeraComprovante: boolean;
 begin
-  if SQL_PARAMETROS_NFCEIMPRIMIR_COMPROVANTE.Value = m_True then
+  if SQL_PARAMETROS_NFCE.FieldByName('IMPRIMIR_COMPROVANTE').Value = m_True then
     Result := true
-  else if SQL_PARAMETROS_NFCEIMPRIMIR_COMPROVANTE.Value = m_False then
+  else if SQL_PARAMETROS_NFCE.FieldByName('IMPRIMIR_COMPROVANTE').Value = m_False then
     Result := false;
 end;
 
@@ -1903,6 +1762,11 @@ begin
       frm_relatorio := Tfrm_relatorio.Create(nil);
 
       SQL_PARAMETROS_NFCE.Active := false;
+      SQL_PARAMETROS_NFCE.sql.clear;
+      SQL_PARAMETROS_NFCE.sql.add('select pn.*,              ');
+      SQL_PARAMETROS_NFCE.sql.add('       pv.*               ');
+      SQL_PARAMETROS_NFCE.sql.add('  from parametros_nfce pn,');
+      SQL_PARAMETROS_NFCE.sql.add('       parametros_venda pv');
       SQL_PARAMETROS_NFCE.Active := true;
       with frm_relatorio do
       begin
@@ -2003,15 +1867,29 @@ end;
 
 procedure TFrm_ConfNFCE.InformarDadosInternos(Cod_Venda, Arg_ValorPago, Arg_Troco, Arg_Total_Venda: String);
 begin
-
+  //Abre Venda
   SQL_VENDA.Active := false;
-  SQL_VENDA_ITEM.Active := false;
-  SQL_VENDA_PAGAMENTO.Active := false;
+  SQL_VENDA.Close;
+  SQL_VENDA.Sql.Clear;
+  SQL_VENDA.sql.add('SELECT * FROM VENDA           ');
+  SQL_VENDA.sql.add(' WHERE CODIGO_VENDA = :pcodigo');
   SQL_VENDA.ParamByName('pcodigo').Value := Cod_Venda;
-  SQL_VENDA_ITEM.ParamByName('pcodigo').Value := Cod_Venda;
-  SQL_VENDA_PAGAMENTO.ParamByName('pcodigo').Value := Cod_Venda;
   SQL_VENDA.Active := true;
+
+  //Abre Venda Item
+  SQL_VENDA_ITEM.Active := false;
+  Preenche_Script_SQL_VENDA_ITEM;
+  SQL_VENDA_ITEM.ParamByName('pcodigo').Value := Cod_Venda;
   SQL_VENDA_ITEM.Active := true;
+
+  //Abre dados de pagamento
+  SQL_VENDA_PAGAMENTO.Active := false;
+  SQL_VENDA_PAGAMENTO.Close;
+  SQL_VENDA_PAGAMENTO.sql.clear;
+  SQL_VENDA_PAGAMENTO.sql.add('select *                      ');
+  SQL_VENDA_PAGAMENTO.sql.add('  from venda_pagamento        ');
+  SQL_VENDA_PAGAMENTO.sql.add(' where codigo_venda = :pcodigo');
+  SQL_VENDA_PAGAMENTO.ParamByName('pcodigo').Value := Cod_Venda;
   SQL_VENDA_PAGAMENTO.Active := true;
 
   m_codigo_venda := SQL_VENDACODIGO_VENDA.asString;
@@ -2160,7 +2038,7 @@ begin
         FieldByName('SERIE').asString := simplequery('select serie_normal from parametros_nfce').Fields[0].Text;
         POST;
       end;
-      RetornoXML := spdNFCe.InutilizarNF('', Ano, SQL_EmpresaCNPJ.asString, '65', FieldByName('SERIE').asString, FieldByName('CODIGO').asString,
+      RetornoXML := spdNFCe.InutilizarNF('', Ano, SQL_Empresa.FieldByName('CNPJ').asString, '65', FieldByName('SERIE').asString, FieldByName('CODIGO').asString,
         FieldByName('CODIGO').asString, NF_INUTILIZACAO_CANCELAR);
       Status := JanelaRetornaStatus(RetornoXML, RetornaMensagem);
       if RetornaMensagem then
@@ -2362,7 +2240,52 @@ begin
   end;
 end;
 
+procedure TFrm_ConfNFCE.Preenche_Script_SQL_VENDA_ITEM;
+begin
+   with SQL_VENDA_ITEM do
+   begin
+      with sql do
+      begin
+          clear;
+          add('select vi.CODIGO_PRODUTO,                ');
+          add('       vi.CODIGO_VENDA,                  ');
+          add('       vi.QUANTIDADE,                    ');
+          add('       vi.PRECO,                         ');
+          add('       vi.PRECO_TOTAL,                   ');
+          add('       vi.ACRESCIMO,                     ');
+          add('       vi.DESCONTO,                      ');
+          add('       vi.CODIGO_ITEM_VENDA,             ');
+          add('       vi.VI_CFOP_CSOSNm                 ');
+
+          add('       p.PROD_CODIGO,                    ');
+          add('       p.PROD_DESCRICAO,                 ');
+          add('       p.PROD_NCMSH,                     ');
+          add('       p.PROD_NFe_N12_CST_ICMS,          ');
+          add('       p.PROD_CDUNIDADE,                 ');
+          add('       p.PROD_NFe_N11_orig,              ');
+          add('       p.PROD_NFe_N16_pICMS,             ');
+          add('       p.CEST,                           ');
+          add('       p.PROD_EAN                        ');
+
+          //Dependem do movimento
+          // virá da tabela: RELACAO_CFOP_x_PRODUTO_xCST_PISCOFINS_RPC
+          //         coluna: RPC_PIS
+          //add('       p.PIS_CST,                       ');
+          //add('       p.COFINS_CST
+
+          add('  from venda_item vi                      ');
+          add('  inner join produto_PROD p               ');
+          add('     ON vi.CODIGO_PRODUTO = p.PROD_CODIGO ');
+          add('WHERE vi.CODIGO_VENDA = :pcodigo');
+      end;
+   end;
+end;
+
 end.
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:03
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:06
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:43
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:01
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:04
+Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04

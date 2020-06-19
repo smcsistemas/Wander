@@ -551,9 +551,9 @@ object Frm_Produto: TFrm_Produto
             Options.Moving = False
             Width = 70
           end
-          object tbViewICMS_CST: TcxGridDBColumn
+          object tbViewPROD_NFe_N12_CST_ICMS: TcxGridDBColumn
             Caption = 'CST'
-            DataBinding.FieldName = 'ICMS_CST'
+            DataBinding.FieldName = 'PROD_NFe_N12_CST_ICMS'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taCenter
             HeaderAlignmentHorz = taCenter
@@ -4705,7 +4705,7 @@ object Frm_Produto: TFrm_Produto
         object cb_origem: TcxDBLookupComboBox
           Left = 67
           Top = 43
-          DataBinding.DataField = 'CODIGO_ORIGEM_MERCADORIA'
+          DataBinding.DataField = 'PROD_NFe_N11_orig'
           DataBinding.DataSource = DS_PRODUTO
           ParentFont = False
           Properties.ButtonGlyph.Data = {
@@ -4773,7 +4773,7 @@ object Frm_Produto: TFrm_Produto
         object dbcsticms: TcxDBLookupComboBox
           Left = 67
           Top = 18
-          DataBinding.DataField = 'ICMS_CST'
+          DataBinding.DataField = 'PROD_NFe_N12_CST_ICMS'
           DataBinding.DataSource = DS_PRODUTO
           ParentFont = False
           Properties.ButtonGlyph.Data = {
@@ -6452,10 +6452,10 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'CODIGO_LOCALIZACAO'
       Origin = 'CODIGO_LOCALIZACAO'
     end
-    object SQL_LISTAICMS_CST: TStringField
+    object SQL_LISTAPROD_NFe_N12_CST_ICMS: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'ICMS_CST'
-      Origin = 'ICMS_CST'
+      FieldName = 'PROD_NFe_N12_CST_ICMS'
+      Origin = 'PROD_NFe_N12_CST_ICMS'
       Size = 3
     end
     object SQL_LISTAICMS_IPI: TStringField
@@ -6476,10 +6476,10 @@ object Frm_Produto: TFrm_Produto
       Origin = 'COFINS_CST'
       Size = 5
     end
-    object SQL_LISTACODIGO_ORIGEM_MERCADORIA: TIntegerField
+    object SQL_LISTAPROD_NFe_N11_orig: TIntegerField
       AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_ORIGEM_MERCADORIA'
-      Origin = 'CODIGO_ORIGEM_MERCADORIA'
+      FieldName = 'PROD_NFe_N11_orig'
+      Origin = 'PROD_NFe_N11_orig'
     end
     object SQL_LISTACSOSN: TStringField
       AutoGenerateValue = arDefault
@@ -6604,10 +6604,10 @@ object Frm_Produto: TFrm_Produto
       Origin = 'QUANT_MINI_ATACADO_D'
       Precision = 10
     end
-    object SQL_LISTACST_IPI: TStringField
+    object SQL_LISTAPROD_NFe_O09_CST_IPI: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CST_IPI'
-      Origin = 'CST_IPI'
+      FieldName = 'PROD_NFe_O09_CST_IPI'
+      Origin = 'PROD_NFe_O09_CST_IPI'
       Size = 3
     end
     object SQL_LISTACOD_BALANCA_1: TStringField
@@ -6791,10 +6791,10 @@ object Frm_Produto: TFrm_Produto
       FieldName = 'CODIGO_LOCALIZACAO'
       Origin = 'CODIGO_LOCALIZACAO'
     end
-    object SQL_PRODUTOICMS_CST: TStringField
+    object SQL_PRODUTOPROD_NFe_N12_CST_ICMS: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'ICMS_CST'
-      Origin = 'ICMS_CST'
+      FieldName = 'PROD_NFe_N12_CST_ICMS'
+      Origin = 'PROD_NFe_N12_CST_ICMS'
       Size = 2
     end
     object SQL_PRODUTOICMS_IPI: TStringField
@@ -7154,10 +7154,10 @@ object Frm_Produto: TFrm_Produto
       Origin = 'COFINS_CST'
       Size = 2
     end
-    object SQL_PRODUTOCODIGO_ORIGEM_MERCADORIA: TIntegerField
+    object SQL_PRODUTOPROD_NFe_N11_orig: TIntegerField
       AutoGenerateValue = arDefault
-      FieldName = 'CODIGO_ORIGEM_MERCADORIA'
-      Origin = 'CODIGO_ORIGEM_MERCADORIA'
+      FieldName = 'PROD_NFe_N11_orig'
+      Origin = 'PROD_NFe_N11_orig'
     end
     object SQL_PRODUTOCOD_BALANCA_1: TStringField
       AutoGenerateValue = arDefault
@@ -7177,10 +7177,10 @@ object Frm_Produto: TFrm_Produto
       Origin = 'COD_BALANCA_3'
       Size = 8
     end
-    object SQL_PRODUTOCST_IPI: TStringField
+    object SQL_PRODUTOPROD_NFe_O09_CST_IPI: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CST_IPI'
-      Origin = 'CST_IPI'
+      FieldName = 'PROD_NFe_O09_CST_IPI'
+      Origin = 'PROD_NFe_O09_CST_IPI'
       Size = 3
     end
     object SQL_PRODUTOPROD_COMISSAO_ATAC: TBCDField
@@ -7267,7 +7267,7 @@ object Frm_Produto: TFrm_Produto
   object SQL_CSTIPI: TFDQuery
     Connection = Module.connection
     SQL.Strings = (
-      'select * from cst_ipi'
+      'select * from PROD_NFe_O09_CST_IPI'
       'order by CODIGO')
     Left = 1144
     Top = 712
@@ -7667,3 +7667,9 @@ Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/
 Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:02
 Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:49
 Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:42
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:43
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:01
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:04
+Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:40
+Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:41
+Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04

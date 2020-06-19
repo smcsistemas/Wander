@@ -140,7 +140,7 @@ type
     SQL_PRODUTOCOD_COMB: TStringField;
     SQL_PRODUTOPROD_NFe_O02_clEnq: TIntegerField;
     SQL_PRODUTOCODIGO_LOCALIZACAO: TIntegerField;
-    SQL_PRODUTOICMS_CST: TStringField;
+    SQL_PRODUTOPROD_NFe_N12_CST_ICMS: TStringField;
     SQL_PRODUTOICMS_IPI: TStringField;
     SQL_PRODUTOPIS_CST: TStringField;
     SQL_PRODUTOCSOSN: TStringField;
@@ -252,7 +252,7 @@ type
     cbTipoItem: TcxDBLookupComboBox;
     cb_origem: TcxDBLookupComboBox;
     cstpis: TcxDBLookupComboBox;
-    SQL_PRODUTOCODIGO_ORIGEM_MERCADORIA: TIntegerField;
+    SQL_PRODUTOPROD_NFe_N11_orig: TIntegerField;
     Label55: TLabel;
     DBEdit14: TDBEdit;
     DBEdit15: TDBEdit;
@@ -264,7 +264,7 @@ type
     SQL_PRODUTOCOD_BALANCA_1: TStringField;
     SQL_PRODUTOCOD_BALANCA_2: TStringField;
     SQL_PRODUTOCOD_BALANCA_3: TStringField;
-    SQL_PRODUTOCST_IPI: TStringField;
+    SQL_PRODUTOPROD_NFe_O09_CST_IPI: TStringField;
     grp_faixa_preco: TGroupBox;
     GroupBox16: TGroupBox;
     Label27: TLabel;
@@ -337,11 +337,11 @@ type
     SQL_LISTAPROD_NFe_O13_pIPI: TStringField;
     SQL_LISTAPROD_NFe_O02_clEnq: TIntegerField;
     SQL_LISTACODIGO_LOCALIZACAO: TIntegerField;
-    SQL_LISTAICMS_CST: TStringField;
+    SQL_LISTAPROD_NFe_N12_CST_ICMS: TStringField;
     SQL_LISTAICMS_IPI: TStringField;
     SQL_LISTAPIS_CST: TStringField;
     SQL_LISTACOFINS_CST: TStringField;
-    SQL_LISTACODIGO_ORIGEM_MERCADORIA: TIntegerField;
+    SQL_LISTAPROD_NFe_N11_orig: TIntegerField;
     SQL_LISTACSOSN: TStringField;
     SQL_LISTANCM: TStringField;
     SQL_LISTACEST: TStringField;
@@ -362,7 +362,7 @@ type
     SQL_LISTAQUANT_MINI_VAREJO_D: TBCDField;
     SQL_LISTAQUANT_MINI_DISTRIBUIDOR_D: TBCDField;
     SQL_LISTAQUANT_MINI_ATACADO_D: TBCDField;
-    SQL_LISTACST_IPI: TStringField;
+    SQL_LISTAPROD_NFe_O09_CST_IPI: TStringField;
     SQL_LISTACOD_BALANCA_1: TStringField;
     SQL_LISTACOD_BALANCA_2: TStringField;
     SQL_LISTACOD_BALANCA_3: TStringField;
@@ -487,7 +487,7 @@ type
     tbViewTIPO_ITEM: TcxGridDBColumn;
     tbViewPROD_SALDO: TcxGridDBColumn;
     tbViewPROD_NFe_N16_pICMS: TcxGridDBColumn;
-    tbViewICMS_CST: TcxGridDBColumn;
+    tbViewPROD_NFe_N12_CST_ICMS: TcxGridDBColumn;
     tbViewPIS_CST: TcxGridDBColumn;
     tbViewCOFINS_CST: TcxGridDBColumn;
     tbViewCSOSN: TcxGridDBColumn;
@@ -758,7 +758,7 @@ type
 
   private
     { Private declarations }
-    PROCEDURE PreencherCFOP(icms_cst: string);
+    PROCEDURE PreencherCFOP(PROD_NFe_N12_CST_ICMS: string);
   public
     { Public declarations }
     deletar_prod_preco_faixa, consultarultimo: Boolean;
@@ -1143,7 +1143,7 @@ begin
 
   preencherANP(SQL_PRODUTOANP.AsString);
 
-  PreencherCFOP(SQL_PRODUTOICMS_CST.AsString);
+  PreencherCFOP(SQL_PRODUTOPROD_NFe_N12_CST_ICMS.AsString);
 
   cb_tipo.itemindex := 0;
   btnlocalizacao.Enabled := false;
@@ -2222,7 +2222,7 @@ begin
   if edtBuscar.Text <> '' then
   begin
     fld := TFunctions.ifthen(cbFiltro.SelectedItem, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ['codigo', 'codigo_barras', 'descricao_produto',
-      'PROD_CDUNIDADE', 'PROD_PRECO_VAR', 'valor_promocional_varejo', 'grupo', 'marca', 'icms_cst', 'ncm', 'csosn',
+      'PROD_CDUNIDADE', 'PROD_PRECO_VAR', 'valor_promocional_varejo', 'grupo', 'marca', 'PROD_NFe_N12_CST_ICMS', 'ncm', 'csosn',
       'PROD_REFERENCIASFABRICA']);
     sql_x := 'select * from produto where tipo_item = ' + tp_item + ' and ' + fld + ' like "%' + TFunctions.replace(edtBuscar.Text, '"') +
       '%" limit 500';
@@ -2869,13 +2869,13 @@ begin
   end;
 end;
 
-procedure TFrm_Produto.PreencherCFOP(icms_cst: string);
+procedure TFrm_Produto.PreencherCFOP(PROD_NFe_N12_CST_ICMS: string);
 var
   cfop_x: string;
 begin
-  if icms_cst <> '' then
+  if PROD_NFe_N12_CST_ICMS <> '' then
   begin
-    if icms_cst = '60' then
+    if PROD_NFe_N12_CST_ICMS = '60' then
       cfop_x := 'CFOP_ST'
     else
       cfop_x := 'CFOP_TI';
@@ -3239,3 +3239,9 @@ Trocou PROD_NFe_N14_pRedBC_ST por PROD_NFe_N20_pRedBCST : automaticamente em 18/
 Trocou VALOR_PAUTA_BC_ST por PROD_NFe_N21_vBCST_PAUTA : automaticamente em 18/06/2020 10:02
 Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:49
 Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:42
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:43
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:01
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:04
+Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:40
+Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:41
+Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04

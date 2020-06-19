@@ -1255,7 +1255,7 @@ begin
       xItem.ALIQ_COFINS := TNF_Formats.Decimal(s.Fieldbyname('pCOFINS_S08').asString);
       xItem.TOTAL_COFINS := TNF_Formats.Decimal(s.Fieldbyname('vCOFINS_S11').asString);
 
-      xItem.CST_IPI := o.Fieldbyname('CST_O09').asString;
+      xItem.PROD_NFe_O09_CST_IPI := o.Fieldbyname('CST_O09').asString;
       xItem.PROD_NFe_O02_clEnq := o.Fieldbyname('cEnq_O06').asString;
       xItem.BASE_IPI := TNF_Formats.Decimal(o.Fieldbyname('vBC_O10').asString);
       xItem.PROD_NFe_O13_pIPI := TNF_Formats.Decimal(o.Fieldbyname('pIPI_O13').asString);
@@ -1287,7 +1287,7 @@ begin
           xItem.DESC_MAXIMO := produto.PROD_MAXDESC_VAR;
           xItem.PRECO_VENDA := produto.PROD_PRECO_VAR;
 
-          xItem.CST_ICMS := produto.ICMS_CST;
+          xItem.CST_ICMS := produto.PROD_NFe_N12_CST_ICMS;
           xItem.CST_PIS := produto.PIS_CST;
           xItem.CST_COFINS := produto.COFINS_CST;
           xItem.CSOSN := '';//produto.CSOSN;
@@ -1558,3 +1558,8 @@ Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50
 Trocou ALIQ_IPI por PROD_NFe_O13_pIPI : automaticamente em 18/06/2020 10:50
 Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:43
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:43
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:01
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:04
+Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:40
+Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:41

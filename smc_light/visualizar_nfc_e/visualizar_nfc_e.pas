@@ -73,7 +73,7 @@ type
     SQL_NFCE_ITENSCEST: TStringField;
     SQL_NFCE_ITENSCFOP: TStringField;
     SQL_NFCE_ITENSCSOSN: TStringField;
-    SQL_NFCE_ITENSICMS_CST: TStringField;
+    SQL_NFCE_ITENSPROD_NFe_N12_CST_ICMS: TStringField;
     SQL_NFCE_ITENSPROD_NFe_N16_pICMS: TBCDField;
     SQL_NFCECODIGO: TFDAutoIncField;
     SQL_NFCEDATA_EMISSAO: TDateField;
@@ -299,3 +299,6 @@ end.
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:05
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:44
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:02
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:05

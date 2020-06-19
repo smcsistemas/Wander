@@ -2569,10 +2569,10 @@ object FRM_visualizar_nfc_e: TFRM_visualizar_nfc_e
       '     P.PROD_CDUNIDADE, p.PROD_DESCRICAO, p.PROD_EAN, '
       '     p.NCM, p.CEST, '
       
-        '     if(p.ICMS_CST <> '#39#39',IF(p.ICMS_CST='#39'60'#39', (SELECT CFOP_ST FRO' +
+        '     if(p.PROD_NFe_N12_CST_ICMS <> '#39#39',IF(p.PROD_NFe_N12_CST_ICMS='#39'60'#39', (SELECT CFOP_ST FRO' +
         'M NATUREZA_OPERACAO WHERE ID = 1),(SELECT CFOP_TI FROM NATUREZA_' +
         'OPERACAO WHERE ID = 1)), '#39#39') as CFOP,'
-      '     p.CSOSN, p.ICMS_CST, p.PROD_NFe_N16_pICMS, p.PIS_CST, p.COFINS_CST'
+      '     p.CSOSN, p.PROD_NFe_N12_CST_ICMS, p.PROD_NFe_N16_pICMS, p.PIS_CST, p.COFINS_CST'
       'from venda_item vi'
       'join produto_PROD p on vi.codigo_produto = p.PROD_codigo'
       'where vi.codigo_venda = :pcodigo')
@@ -2655,11 +2655,11 @@ object FRM_visualizar_nfc_e: TFRM_visualizar_nfc_e
       ReadOnly = True
       Size = 200
     end
-    object SQL_NFCE_ITENSICMS_CST: TStringField
+    object SQL_NFCE_ITENSPROD_NFe_N12_CST_ICMS: TStringField
       Alignment = taRightJustify
       AutoGenerateValue = arDefault
-      FieldName = 'ICMS_CST'
-      Origin = 'ICMS_CST'
+      FieldName = 'PROD_NFe_N12_CST_ICMS'
+      Origin = 'PROD_NFe_N12_CST_ICMS'
       ProviderFlags = []
       ReadOnly = True
       Size = 2
@@ -2794,3 +2794,6 @@ object FRM_visualizar_nfc_e: TFRM_visualizar_nfc_e
 end
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:51
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:44
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:02
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:05

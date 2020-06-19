@@ -4,6 +4,7 @@ unit visualizar_venda;
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+974|18/06/20|18:55|visualizar_venda            |Eliminados todos os campos internos do objeto SQL_VENDA_ITENS
 334|15/06/20|14:28|visualizar_venda            |Passa a tratar PRODUTO_PROD(PROD_EAN)    ao invés de PRODUTO(CODIGO_BARRAS)
 ========================================================================================================================================
 }
@@ -56,24 +57,6 @@ type
     SQL_VENDA: TFDQuery;
     DS_VENDA: TDataSource;
     SQL_VENDA_ITENS: TFDQuery;
-    SQL_VENDA_ITENSCODIGO_VENDA: TIntegerField;
-    SQL_VENDA_ITENSCODIGO_ITEM_VENDA: TIntegerField;
-    SQL_VENDA_ITENSCODIGO_PRODUTO: TIntegerField;
-    SQL_VENDA_ITENSPROD_DESCRICAO: TStringField;
-    SQL_VENDA_ITENSNCM: TStringField;
-    SQL_VENDA_ITENSCEST: TStringField;
-    SQL_VENDA_ITENSCFOP: TStringField;
-    SQL_VENDA_ITENSCSOSN: TStringField;
-    SQL_VENDA_ITENSICMS_CST: TStringField;
-    SQL_VENDA_ITENSPROD_NFe_N16_pICMS: TBCDField;
-    SQL_VENDA_ITENSPIS_CST: TStringField;
-    SQL_VENDA_ITENSCOFINS_CST: TStringField;
-    SQL_VENDA_ITENSPROD_CDUNIDADE: TStringField;
-    SQL_VENDA_ITENSQUANTIDADE: TSingleField;
-    SQL_VENDA_ITENSPRECO: TBCDField;
-    SQL_VENDA_ITENSACRESCIMO: TBCDField;
-    SQL_VENDA_ITENSDESCONTO: TBCDField;
-    SQL_VENDA_ITENSPRECO_TOTAL: TBCDField;
     DS_VENDA_ITENS: TDataSource;
     SQL_VENDA_PAGAMENTOS: TFDQuery;
     SQL_VENDA_PAGAMENTOSTIPO_PAGAMENTO: TStringField;
@@ -320,3 +303,6 @@ end.
 Trocou UNIDADE_MEDIDA por PROD_UNIDADE : automaticamente em 16/06/2020 11:04
 Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07
 Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:50
+Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:44
+Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:02
+Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:05
