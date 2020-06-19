@@ -1382,7 +1382,7 @@ begin
     if (not CodBarrasRepetido) then
     begin
       if u_funcoes.CamposObrigatorios([PROD_DESCRICAO, PROD_CDUNIDADE, PROD_PRECO_VAR, NCM],
-        ['Descrição do Produto', 'Unidade de Medida', 'Preço de Varejo', 'NCM'], [], [], [TcxComboBox(dbcsticms)], ['CST ICMS']) then
+        ['Descrição do Produto', 'Unidade de Medida', 'Preço de Varejo', 'PROD_NCMSH'], [], [], [TcxComboBox(dbcsticms)], ['CST ICMS']) then
         exit
       else
       begin
@@ -2222,7 +2222,7 @@ begin
   if edtBuscar.Text <> '' then
   begin
     fld := TFunctions.ifthen(cbFiltro.SelectedItem, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], ['codigo', 'codigo_barras', 'descricao_produto',
-      'PROD_CDUNIDADE', 'PROD_PRECO_VAR', 'valor_promocional_varejo', 'grupo', 'marca', 'PROD_NFe_N12_CST_ICMS', 'ncm', 'csosn',
+      'PROD_CDUNIDADE', 'PROD_PRECO_VAR', 'valor_promocional_varejo', 'grupo', 'marca', 'PROD_NFe_N12_CST_ICMS', 'PROD_NCMSH', 'csosn',
       'PROD_REFERENCIASFABRICA']);
     sql_x := 'select * from produto where tipo_item = ' + tp_item + ' and ' + fld + ' like "%' + TFunctions.replace(edtBuscar.Text, '"') +
       '%" limit 500';
@@ -3245,3 +3245,4 @@ Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:
 Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:40
 Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:41
 Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:21

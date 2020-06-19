@@ -26,9 +26,36 @@ ordem decrescente de data....
 |-------|------|
 |  TOTAL| 290  |
 ================
+=========================================================================================================================================
+ALT |   DATA |HORA |UNIT                        |Descrição                                                                              |
+----|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+1014|18/06/20|21:23|visualizar_nfc_e.dfm        |Trocado 'NCM' por 'PROD_NCMSH'
+1013|18/06/20|21:23|cadastro_produto2.dfm       |Trocado 'NCM' por 'PROD_NCMSH'
+1012|18/06/20|21:23|vw_importacao_nfe.dfm       |Trocado 'NCM' por 'PROD_NCMSH'
+1011|18/06/20|21:23|vw_Modifica_Itens.pas       |Trocado 'NCM' por 'PROD_NCMSH'
+1010|18/06/20|21:23|vw_Modifica_Itens.dfm       |Trocado 'NCM' por 'PROD_NCMSH'
+1009|18/06/20|21:23|correcao_fiscal_tributacao_p|Trocado 'NCM' por 'PROD_NCMSH'
+1008|18/06/20|21:23|vw_consulta_generica.pas    |Trocado 'NCM' por 'PROD_NCMSH'
+1007|18/06/20|21:23|atulizar_ncm_cest.dfm       |Trocado 'NCM' por 'PROD_NCMSH'
+1006|18/06/20|21:23|visualizar_venda.dfm        |Trocado 'NCM' por 'PROD_NCMSH'
+1005|18/06/20|21:23|nfe_retorno_mercadoria.dfm  |Trocado 'NCM' por 'PROD_NCMSH'
+1004|18/06/20|21:23|relatorios.dfm              |Trocado 'NCM' por 'PROD_NCMSH'
+1003|18/06/20|21:22|rel_produtos_tributacao.dfm |Trocado 'NCM' por 'PROD_NCMSH'
+1002|18/06/20|21:22|U_ConfNFCE.pas              |Trocado 'NCM' por 'PROD_NCMSH'
+1001|18/06/20|21:22|m_NFe.pas                   |Trocado 'NCM' por 'PROD_NCMSH'
+1000|18/06/20|21:22|m_Importacao.pas            |Trocado 'NCM' por 'PROD_NCMSH'
 ========================================================================================================================================
 ALT|   DATA |HORA |UNIT                        |Descrição                                                                              |
 ---|--------|-----|----------------------------|----------------------------------------------------------------------------------------
+999|18/06/20|21:22|m_Produto.pas               |Trocado 'NCM' por 'PROD_NCMSH'
+998|18/06/20|21:22|m_Ncm.pas                   |Trocado 'NCM' por 'PROD_NCMSH'
+997|18/06/20|21:22|Emissor_nfe.dfm             |Trocado 'NCM' por 'PROD_NCMSH'
+996|18/06/20|21:21|EmissaoDeNFe.pas            |Trocado 'NCM' por 'PROD_NCMSH'
+995|18/06/20|21:21|cadastro_produto.pas        |Trocado 'NCM' por 'PROD_NCMSH'
+994|18/06/20|21:21|cadastro_produto.dfm        |Trocado 'NCM' por 'PROD_NCMSH'
+993|18/06/20|21:21|visualizar_venda.dfm        |Trocado 'NCM' por 'PROD_NCMSH'
+992|18/06/20|21:21|nfe_retorno_mercadoria.dfm  |Trocado 'NCM' por 'PROD_NCMSH'
+991|18/06/20|21:21|emissao_de_nfe.dfm          |Trocado 'NCM' por 'PROD_NCMSH'
 990|18/06/20|19:45|U_ConfNFCE                  |Eliminados todos os campos internos do objeto SQL_PARAMETROS_NFCE
 989|18/06/20|19:45|U_ConfNFCE                  |Eliminados todos os campos internos do objeto Sql_Conf
 988|18/06/20|19:40|U_ConfNFCE                  |Eliminados todos os campos internos do objeto SQL_Empresa

@@ -71,7 +71,7 @@ begin
     setLength(arrNCMs, qry.RecordCount);
     while not qry.eof do
     begin
-      arrNCMs[qry.RecNo - 1] := TNcm.Create(qry.fieldbyname('NCM').asString);
+      arrNCMs[qry.RecNo - 1] := TNcm.Create(qry.fieldbyname('PROD_NCMSH').asString);
       qry.next;
     end;
     result := arrNCMs;
@@ -104,3 +104,4 @@ begin
 end;
 
 end.
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:22

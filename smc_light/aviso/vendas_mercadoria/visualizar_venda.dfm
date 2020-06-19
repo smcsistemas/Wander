@@ -2070,7 +2070,7 @@ object frm_visualizar_venda: Tfrm_visualizar_venda
         end
         item
           Expanded = False
-          FieldName = 'NCM'
+          FieldName = 'PROD_NCMSH'
           Title.Alignment = taCenter
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clWindowText
@@ -2671,8 +2671,8 @@ object frm_visualizar_venda: Tfrm_visualizar_venda
     object SQL_VENDA_ITENSNCM: TStringField
       Alignment = taCenter
       AutoGenerateValue = arDefault
-      FieldName = 'NCM'
-      Origin = 'NCM'
+      FieldName = 'PROD_NCMSH'
+      Origin = 'PROD_NCMSH'
       ProviderFlags = []
       ReadOnly = True
       Size = 50
@@ -2843,3 +2843,4 @@ Trocou ALIQ_ICMS por PROD_NFe_N16_pICMS : automaticamente em 18/06/2020 07:49
 Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:42
 Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:01
 Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:03
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:21

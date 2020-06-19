@@ -1226,7 +1226,7 @@ begin
       if xItem.CEST = '' then
       begin
 
-        NCM_CEST := TNcm.get(['ncm'], [xItem.NCM]);
+        NCM_CEST := TNcm.get(['PROD_NCMSH'], [xItem.NCM]);
         if NCM_CEST <> nil then
           if NCM_CEST.CEST <> '' then
             xItem.CEST := NCM_CEST.CEST;
@@ -1563,3 +1563,4 @@ Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:01
 Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:04
 Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:40
 Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:41
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:22

@@ -572,7 +572,7 @@ begin
     case cgTable of
       //Consultas que retornam campos de nome diferente de "CODIGO"
       cgNCM:
-        Value := SQL_DATA.FieldByName('NCM').asString + ';' + SQL_DATA.FieldByName('CEST').asString;
+        Value := SQL_DATA.FieldByName('PROD_NCMSH').asString + ';' + SQL_DATA.FieldByName('CEST').asString;
       cgFormasPagamento:
         Value := SQL_DATA.FieldByName('COD_TIPO_PAGAMENTO').asString;
       cgMarca:
@@ -670,7 +670,7 @@ begin
   SetQuery(QueryString);
   CustomizeGrid(10);
   SetLength(ArrFieldsTitle, 3);
-  ArrFieldsTitle[0] := 'NCM';
+  ArrFieldsTitle[0] := 'PROD_NCMSH';
   ArrFieldsTitle[1] := 'CEST';
   ArrFieldsTitle[2] := 'DESCRIÇÃO';
   SetGridStyle(0, ArrFieldsTitle[0], 100); { NCM }
@@ -973,7 +973,7 @@ begin
     cgCliente:
       result := ' ORDER BY ' + f(['CODIGO', 'RAZAO_SOCIAL', 'FANTASIA', 'CPF', 'CNPJ', 'PESSOA_TIPO']);
     cgNCM:
-      result := ' ORDER BY ' + f(['NCM', 'CEST', 'DESCRICAO']);
+      result := ' ORDER BY ' + f(['PROD_NCMSH', 'CEST', 'DESCRICAO']);
     cgVendedor:
       result := ' ORDER BY ' + f(['c.CODIGO', 'c.NOME', 'ct.TIPO_COLABORADOR']);
     cgSocio:
@@ -1054,7 +1054,7 @@ begin
       configLayout(870, 500, 18, 10, 'Clientes');
 
     cgNCM:
-      configLayout(850, 500, 18, 12, 'NCM');
+      configLayout(850, 500, 18, 12, 'PROD_NCMSH');
 
     cgVendedor:
       configLayout(470, 280, 10, 10, 'Vendedor');
@@ -1148,3 +1148,4 @@ Trocou PROD_UNIDADE por PROD_CDUNIDADE : automaticamente em 16/06/2020 17:07
 Trocou PRECO_FINAL_VAREJO por PROD_PRECO_VAR : automaticamente em 17/06/2020 06:56
 Trocou SALDO por @_@_@_@_@_@ : automaticamente em 17/06/2020 21:30
 Trocou @_@_@_@_@_@ por PROD_SALDO : automaticamente em 17/06/2020 21:33
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:23

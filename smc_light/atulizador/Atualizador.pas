@@ -3139,16 +3139,32 @@ begin
    if fNaoAtualizado('PROD_NCMSH') Then
       Executar('ALTER TABLE PRODUTO_PROD CHANGE NCM PROD_NCMSH VARCHAR(8) NULL COMMENT "Código do NCM_SH"');
 
+   if fNaoAtualizado('PROD_CEST.') Then
+   begin
+      Executar('ALTER TABLE PRODUTO_PROD ADD PROD_NFe_I05c_CEST VARCHAR(7) NULL COMMENT "Código CEST"');
+      Executar('UPDATE PRODUTO_PROD SET PROD_NFe_I05c_CEST = left(CEST,7) ');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN CEST');
+   end;
 
-end;
+   //ANP VARCHAR(9) NULL DEFAULT NULL COMMENT 'Código Agencia Nacional de Petróleo',
+   //Este campo virá em uma tabela complemento PRODUTO_PETROLEO_PRODP
+   if fNaoAtualizado('Excluindo ANP...') Then
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN ANP');
+
+   if fNaoAtualizado('PROD_NFe_I06_EXTIPI...') Then
+   begin
+      Executar('ALTER TABLE PRODUTO_PROD ADD PROD_NFe_I06_EXTIPI VARCHAR(03) NULL COMMENT "Código EX da TIPI"');
+      Executar('ALTER TABLE PRODUTO_PROD DROP COLUMN EX_IPI');
+   end;
+
+
+   end;
 
 end.
 
     {
-	`NCM` VARCHAR(8) NULL DEFAULT NULL COMMENT 'código do NCM_SH',
-	`CEST` VARCHAR(50) NULL DEFAULT NULL,
-	`ANP` VARCHAR(9) NULL DEFAULT NULL COMMENT 'Código Agencia Nacional de Petróleo',
-	`EX_IPI` FLOAT NULL DEFAULT NULL,
+
+
 	`STATUS_CADASTRAL` ENUM('ATIVO','INATIVO') NULL DEFAULT 'ATIVO',
 	`PESAVEL` ENUM('SIM','NAO') NULL DEFAULT NULL,
 	`UTILIZA_ETIQUETA_BALANCA` ENUM('SIM','NAO') NULL DEFAULT NULL,

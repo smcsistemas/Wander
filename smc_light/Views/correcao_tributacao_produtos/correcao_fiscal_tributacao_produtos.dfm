@@ -36,7 +36,7 @@ object Frm_correca_fiscal_tributacao_produtos: TFrm_correca_fiscal_tributacao_pr
     Top = 7
     Width = 27
     Height = 16
-    Caption = 'NCM'
+    Caption = 'PROD_NCMSH'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -709,7 +709,7 @@ object Frm_correca_fiscal_tributacao_produtos: TFrm_correca_fiscal_tributacao_pr
         Width = 600
       end
       object cxNCM: TcxGridDBColumn
-        Caption = 'NCM'
+        Caption = 'PROD_NCMSH'
         DataBinding.FieldName = 'cpf'
         PropertiesClassName = 'TcxMaskEditProperties'
         Properties.Alignment.Horz = taCenter
@@ -881,3 +881,4 @@ object Frm_correca_fiscal_tributacao_produtos: TFrm_correca_fiscal_tributacao_pr
     Width = 3
   end
 end
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:23

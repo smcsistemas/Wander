@@ -649,7 +649,7 @@ object FMR_relatorio_prod_tributa: TFMR_relatorio_prod_tributa
         Top = 26
         Width = 27
         Height = 16
-        Caption = 'NCM'
+        Caption = 'PROD_NCMSH'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -1146,3 +1146,4 @@ object FMR_relatorio_prod_tributa: TFMR_relatorio_prod_tributa
     end
   end
 end
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:22

@@ -519,9 +519,9 @@ begin
         raise Exception.create(format('Valor inválido para o campo "CSOSN" no item %d', [fieldbyname('item').asInteger]));
       end;
 
-      if fieldbyname('ncm').asString = '' then
+      if fieldbyname('PROD_NCMSH').asString = '' then
         raise Exception.create(format('O campo "NCM" no item %d deve ser preenchido', [fieldbyname('item').asInteger]));
-      produto.NCM := fieldbyname('ncm').asString;
+      produto.NCM := fieldbyname('PROD_NCMSH').asString;
 
       if fieldbyname('cest').asString = '' then
         raise Exception.create(format('O campo "CEST" no item %d deve ser preenchido', [fieldbyname('item').asInteger]));
@@ -624,7 +624,7 @@ end;
 
 procedure TImportacao.DesfazerAlteracoesItens;
 const
-  arrFields: array [1 .. 18] of string = ('CODIGO', 'DESCRICAO', 'COD_BARRAS', 'MARCA', 'UM', 'CST_ICMS', 'PROD_NFe_N16_pICMS', 'CST_PIS', 'CST_COFINS', 'NCM', 'CFOP', 'CSOSN', 'ORIGEM',
+  arrFields: array [1 .. 18] of string = ('CODIGO', 'DESCRICAO', 'COD_BARRAS', 'MARCA', 'UM', 'CST_ICMS', 'PROD_NFe_N16_pICMS', 'CST_PIS', 'CST_COFINS', 'PROD_NCMSH', 'CFOP', 'CSOSN', 'ORIGEM',
     'MARGEM_LUCRO', 'DESPESAS_OPERACIONAIS', 'DESC_MAXIMO', 'COMISSAO', 'TIPO');
 var
   qry, qry_up: tfdquery;
@@ -726,7 +726,7 @@ begin
       self.BASE_IPI := qry.fieldbyname('base_ipi').asExtended;
       self.PROD_NFe_O13_pIPI := qry.fieldbyname('PROD_NFe_O13_pIPI').asExtended;
       self.TOTAL_IPI := qry.fieldbyname('total_ipi').asExtended;
-      self.NCM := qry.fieldbyname('ncm').asString;
+      self.NCM := qry.fieldbyname('PROD_NCMSH').asString;
       self.CEST := qry.fieldbyname('cest').asString;
       self.CFOP := qry.fieldbyname('cfop').asString;
       self.CSOSN := qry.fieldbyname('csosn').asString;
@@ -1365,3 +1365,4 @@ Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:
 Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:40
 Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:41
 Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:22

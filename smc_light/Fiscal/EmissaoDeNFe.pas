@@ -3065,7 +3065,7 @@ begin
    //quando a operação não for de comércio exterior (importação/ exportação) ou
    //o produto não seja tributado pelo IPI.
    //Em caso de serviço informar o código 99 (v2.0)
-   Produto.Prod.NCM := qVENDA_ITEM.FieldByName('NCM').AsString;
+   Produto.Prod.NCM := qVENDA_ITEM.FieldByName('PROD_NCMSH').AsString;
 
    {104a-I05a}
    //(NVE)
@@ -3090,6 +3090,7 @@ begin
    //mercadorias e bens passíveis de sujeição aos regimes de substituição
    //tributária e de antecipação de recolhimento do ICMS.
    //(Incluído na NT 2015/003. Atualizado NT 2016/002)
+   //CEST := qVENDA_ITEM.FieldByName('PROD_NFe_I05c_CEST').AsString;
 
    {104e-I05d}
    //indEscala
@@ -3126,7 +3127,7 @@ begin
    //EX_TIPI
    //Preencher de acordo com o código EX da TIPI.
    //Em caso de serviço, não incluir a TAG.
-   Produto.Prod.EXTIPI := qVENDA_ITEM.FieldByName('EX_IPI').AsString;
+   Produto.Prod.EXTIPI := qVENDA_ITEM.FieldByName('PROD_NFe_I06_EXTIPI').AsString;
 
    {107-I08}
    //(CFOP)
@@ -7663,3 +7664,4 @@ Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:43
 Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:01
 Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:04
 Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:21

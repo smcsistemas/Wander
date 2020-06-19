@@ -394,7 +394,7 @@ begin
       //Self.Produto_lucro_subst_tributaria := qry.fieldbyname('lucro_subst_tributaria').asExtended;
       //Self.Produto_leis := qry.fieldbyname('leis').asString;
       Self.Produto_csosn := qry.fieldbyname('csosn').asString;
-      Self.Produto_ncm := qry.fieldbyname('ncm').asString;
+      Self.Produto_ncm := qry.fieldbyname('PROD_NCMSH').asString;
       Self.Produto_cest := qry.fieldbyname('cest').asString;
       Self.Produto_anp := qry.fieldbyname('anp').asString;
       Self.Produto_pis_cst := qry.fieldbyname('pis_cst').asString;
@@ -1125,3 +1125,4 @@ Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:43
 Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:01
 Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:04
 Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:22

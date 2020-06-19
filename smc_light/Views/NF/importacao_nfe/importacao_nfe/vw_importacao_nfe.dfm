@@ -3531,7 +3531,7 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
             Width = 100
           end
           object grid_prodsDBTableView1NCM: TcxGridDBColumn
-            DataBinding.FieldName = 'NCM'
+            DataBinding.FieldName = 'PROD_NCMSH'
             HeaderAlignmentHorz = taCenter
             HeaderGlyphAlignmentHorz = taCenter
             Width = 100
@@ -3937,7 +3937,7 @@ object frm_importacao_nfe: Tfrm_importacao_nfe
             Position.RowIndex = 0
           end
           object dbtvMainNCM: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'NCM'
+            DataBinding.FieldName = 'PROD_NCMSH'
             PropertiesClassName = 'TcxButtonEditProperties'
             Properties.Alignment.Horz = taLeftJustify
             Properties.Buttons = <
@@ -5323,3 +5323,4 @@ end
 Trocou ENQUADRAMENTO_IPI por PROD_NFe_O02_clEnq : automaticamente em 18/06/2020 14:43
 Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:41
 Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:41
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:23

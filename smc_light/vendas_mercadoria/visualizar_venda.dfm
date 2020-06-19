@@ -1670,7 +1670,7 @@ object frm_visualizar_venda: Tfrm_visualizar_venda
         end
         item
           Expanded = False
-          FieldName = 'NCM'
+          FieldName = 'PROD_NCMSH'
           Title.Alignment = taCenter
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clWindowText
@@ -2288,3 +2288,4 @@ object frm_visualizar_venda: Tfrm_visualizar_venda
     Top = 388
   end
 end
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:23

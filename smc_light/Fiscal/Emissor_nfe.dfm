@@ -3274,7 +3274,7 @@ object frm_emissor_nfe2: Tfrm_emissor_nfe2
             Width = 67
           end
           object cxGridDBTableView1Column13: TcxGridDBColumn
-            Caption = 'NCM'
+            Caption = 'PROD_NCMSH'
             HeaderAlignmentHorz = taCenter
             Width = 55
           end
@@ -4749,3 +4749,4 @@ object frm_emissor_nfe2: Tfrm_emissor_nfe2
     end
   end
 end
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:22

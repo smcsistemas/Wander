@@ -33971,7 +33971,7 @@ object frm_relatorio: Tfrm_relatorio
           Frame.Typ = [ftRight, ftBottom]
           HAlign = haCenter
           Memo.UTF8W = (
-            'NCM')
+            'PROD_NCMSH')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -45764,3 +45764,4 @@ Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:44
 Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:02
 Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:05
 Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:23

@@ -41,7 +41,7 @@ object Frm_Produto: TFrm_Produto
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    Properties.ActivePage = cxTabSheet1
+    Properties.ActivePage = tabTributacao
     Properties.ActivateFocusedTab = False
     Properties.CustomButtons.Buttons = <>
     LookAndFeel.NativeStyle = False
@@ -3365,7 +3365,7 @@ object Frm_Produto: TFrm_Produto
             OnKeyDown = edPROD_NCMSHKeyDown
             OnKeyUp = edPROD_NCMSHKeyUp
           end
-          object edCEST: TEdit
+          object edPROD_NFe_I05c_CEST: TEdit
             Left = 63
             Top = 56
             Width = 129
@@ -3380,8 +3380,8 @@ object Frm_Produto: TFrm_Produto
             ParentBiDiMode = False
             ParentFont = False
             TabOrder = 2
-            OnKeyPress = edCESTKeyPress
-            OnKeyUp = edCESTKeyUp
+            OnKeyPress = edPROD_NFe_I05c_CESTKeyPress
+            OnKeyUp = edPROD_NFe_I05c_CESTKeyUp
           end
           object btn_ncm: TcxButton
             Left = 168

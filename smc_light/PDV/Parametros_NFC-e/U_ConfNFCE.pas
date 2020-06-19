@@ -1098,7 +1098,7 @@ procedure TFrm_ConfNFCE.FinalizarNFCE(porSelectParam: boolean = false; ChaveNFCE
             spdNFCeDataSets.campo('xProd_I04').Value := FormatarTagDescricao(SQL_VENDA_ITEM.FieldByName('PROD_DESCRICAO').asString);
           // Descri玢o do produto ou servi鏾
 
-          NCMI05 := SQL_VENDA_ITEM.FieldByName('NCM').Text;
+          NCMI05 := SQL_VENDA_ITEM.FieldByName('PROD_NCMSH').Text;
           spdNFCeDataSets.campo('NCM_I05').Value := FormatarTagDescricao(NCMI05);
           // C骴igo NCM com 8 d韌itos ou 2 d韌itos (g阯ero)
 
@@ -2289,3 +2289,4 @@ Trocou ICMS_CST por PROD_NFe_N12_CST : automaticamente em 18/06/2020 17:43
 Trocou PROD_NFe_N12_CST por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:01
 Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:04
 Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:22

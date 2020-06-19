@@ -297,7 +297,7 @@ object vw_Modifica_Item: Tvw_Modifica_Item
           'Despesas Operacionais'
           'Lucro Varejo'
           'Comiss'#227'o Varejo'
-          'NCM'
+          'PROD_NCMSH'
           'Origem da Mercadoria'
           'Marca do Produto')
         Properties.OnEditValueChanged = gridMainItensCorrecaoPropertiesEditValueChanged
@@ -853,3 +853,4 @@ object vw_Modifica_Item: Tvw_Modifica_Item
     end
   end
 end
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:23

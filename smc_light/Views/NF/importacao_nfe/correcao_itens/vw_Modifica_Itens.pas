@@ -354,7 +354,7 @@ begin
     begin
       AProperties := edt_Comissao.Properties;
     end;
-    if ARecord.Values[gridMainItensCorrecao.Index] = 'NCM' then
+    if ARecord.Values[gridMainItensCorrecao.Index] = 'PROD_NCMSH' then
     begin
       AProperties := btn_NCM.Properties;
     end;
@@ -479,7 +479,7 @@ begin
 
     me := (gridMainView.Controller.SelectedRows[i].Values[0]).toString;
 
-    case AnsiIndexStr(AnsiUpperCase(me),['CEST','COFINS','ICMS','PIS','DESCONTO VAREJO','DESPESAS OPERACIONAIS','LUCRO VAREJO','COMISSÃO VAREJO','NCM','ORIGEM DA MERCADORIA','MARCA DO PRODUTO']) of
+    case AnsiIndexStr(AnsiUpperCase(me),['CEST','COFINS','ICMS','PIS','DESCONTO VAREJO','DESPESAS OPERACIONAIS','LUCRO VAREJO','COMISSÃO VAREJO','PROD_NCMSH','ORIGEM DA MERCADORIA','MARCA DO PRODUTO']) of
       0: import.CEST := gridMainView.Controller.SelectedRows[i].Values[1];
       1: import.CST_COFINS := gridMainView.Controller.SelectedRows[i].Values[1];
       2: import.CST_ICMS := gridMainView.Controller.SelectedRows[i].Values[1];
@@ -507,3 +507,4 @@ begin
 end;
 
 end.
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:23

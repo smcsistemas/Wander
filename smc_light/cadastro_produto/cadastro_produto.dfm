@@ -601,7 +601,7 @@ object Frm_Produto: TFrm_Produto
             Width = 50
           end
           object tbViewNCM: TcxGridDBColumn
-            DataBinding.FieldName = 'NCM'
+            DataBinding.FieldName = 'PROD_NCMSH'
             PropertiesClassName = 'TcxLabelProperties'
             Properties.Alignment.Horz = taCenter
             HeaderAlignmentHorz = taCenter
@@ -757,7 +757,7 @@ object Frm_Produto: TFrm_Produto
           'Grupo'
           'Marca'
           'CST'
-          'NCM'
+          'PROD_NCMSH'
           'CSOSN'
           'Refer'#234'ncia do Fabricante')
         Properties.ReadOnly = False
@@ -4349,7 +4349,7 @@ object Frm_Produto: TFrm_Produto
           Width = 106
           Height = 22
           BiDiMode = bdLeftToRight
-          DataField = 'NCM'
+          DataField = 'PROD_NCMSH'
           DataSource = DS_PRODUTO
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -6489,8 +6489,8 @@ object Frm_Produto: TFrm_Produto
     end
     object SQL_LISTANCM: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'NCM'
-      Origin = 'NCM'
+      FieldName = 'PROD_NCMSH'
+      Origin = 'PROD_NCMSH'
       Size = 50
     end
     object SQL_LISTACEST: TStringField
@@ -6838,8 +6838,8 @@ object Frm_Produto: TFrm_Produto
     object SQL_PRODUTONCM: TStringField
       Alignment = taCenter
       AutoGenerateValue = arDefault
-      FieldName = 'NCM'
-      Origin = 'NCM'
+      FieldName = 'PROD_NCMSH'
+      Origin = 'PROD_NCMSH'
       Size = 50
     end
     object SQL_PRODUTOSTATUS_CADASTRAL: TStringField
@@ -7673,3 +7673,4 @@ Trocou @_@_@_@_@_@ por PROD_NFe_N12_CST_ICMS : automaticamente em 18/06/2020 18:
 Trocou CST_IPI por @_@_@_@_@_@ : automaticamente em 18/06/2020 18:40
 Trocou @_@_@_@_@_@ por PROD_NFe_O09_CST_IPI : automaticamente em 18/06/2020 18:41
 Trocou CODIGO_ORIGEM_MERCADORIA por PROD_NFe_N11_orig : automaticamente em 18/06/2020 19:04
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:21

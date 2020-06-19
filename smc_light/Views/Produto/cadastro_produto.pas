@@ -321,7 +321,7 @@ type
     Label16: TLabel;
     Label17: TLabel;
     edPROD_NCMSH: TEdit;
-    edCEST: TEdit;
+    edPROD_NFe_I05c_CEST: TEdit;
     btn_ncm: TcxButton;
     mmNCM: TcxMemo;
     GroupBox23: TGroupBox;
@@ -478,7 +478,7 @@ type
     procedure PROD_NFe_O13_pIPIKeyPress(Sender: TObject; var Key: Char);
     procedure aliq_pisKeyPress(Sender: TObject; var Key: Char);
     procedure aliq_cofinsKeyPress(Sender: TObject; var Key: Char);
-    procedure edCESTKeyPress(Sender: TObject; var Key: Char);
+    procedure edPROD_NFe_I05c_CESTKeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit48KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit49KeyPress(Sender: TObject; var Key: Char);
     procedure cxDBTextEdit55KeyPress(Sender: TObject; var Key: Char);
@@ -519,7 +519,7 @@ type
     function JaExiste_PROD_EAN: Boolean;
     function JaExiste_PROD_DESCRICAO: Boolean;
     function RefFabricanteRepetido(foco: Boolean = true): Boolean;
-    procedure edCESTKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edPROD_NFe_I05c_CESTKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edPROD_NCMSHKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure calcular_preco_produtos(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBEdit13KeyPress(Sender: TObject; var Key: Char);
@@ -1600,13 +1600,13 @@ var
 begin
   //Inicia CEST e descrição do NCM
   mmNCM.Text  := '';
-  edCEST.Text := '';
+  edPROD_NFe_I05c_CEST.Text := '';
 
   if edPROD_NCMSH.Text = '' then
   begin
     // Não informou NCM...
     mmNCM.Text  := '';
-    edCEST.Text := '';
+    edPROD_NFe_I05c_CEST.Text := '';
     exit;
   end;
 
@@ -1634,7 +1634,7 @@ begin
   end;
 
   //Encontrou CEST...
-  edCEST.Text := qry.FieldByName('CEST'     ).AsString;
+  edPROD_NFe_I05c_CEST.Text := qry.FieldByName('CEST'     ).AsString;
   mmNCM.Text  := qry.FieldByName('DESCRICAO').AsString;
 
 end;
@@ -2577,18 +2577,18 @@ begin
   Key := u_funcoes.ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.edCESTKeyPress(Sender: TObject;
+procedure TFrm_Produto.edPROD_NFe_I05c_CESTKeyPress(Sender: TObject;
   var Key: Char);
 begin
   inherited;
   Key := ApenasNumeros(Key);
 end;
 
-procedure TFrm_Produto.edCESTKeyUp(Sender: TObject;
+procedure TFrm_Produto.edPROD_NFe_I05c_CESTKeyUp(Sender: TObject;
 
   var Key: Word; Shift: TShiftState);
 begin
-  edCEST.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(edCEST.Text));
+  edPROD_NFe_I05c_CEST.Text := RemoverEspacoEmBranco(RemoverCaracteresEspeciais(edPROD_NFe_I05c_CEST.Text));
 end;
 
 procedure TFrm_Produto.edt_qtde_minKeyPress(Sender: TObject;
@@ -2905,7 +2905,7 @@ begin
    qAUX.sql.add('       PROD_CDGRUPO,             ');
    qAUX.sql.add('       PROD_CDSUBGRUPO,          ');
    qAUX.sql.add('       PROD_NCMSH,               ');
-   qAUX.sql.add('       CEST,                     ');
+   qAUX.sql.add('       PROD_NFe_I05c_CEST,       ');
    qAUX.sql.add('       PROD_PRECO_ATAC,          ');
    qAUX.sql.add('       PROD_PRECO_VAR,           ');
    qAUX.sql.add('       PROD_PRECO_DIST,          ');
@@ -2941,7 +2941,7 @@ begin
    qAUX.sql.add('      :PROD_CDGRUPO,             ');
    qAUX.sql.add('      :PROD_CDSUBGRUPO,          ');
    qAUX.sql.add('      :PROD_NCMSH,               ');
-   qAUX.sql.add('      :CEST,                     ');
+   qAUX.sql.add('      :PROD_NFe_I05c_CEST,       ');
    qAUX.sql.add('      :PROD_PRECO_ATAC,          ');
    qAUX.sql.add('      :PROD_PRECO_VAR,           ');
    qAUX.sql.add('      :PROD_PRECO_DIST,          ');
@@ -2990,7 +2990,7 @@ begin
    qAUX.ParamByName('PROD_CDGRUPO'            ).AsString  := edPROD_GRUPO.Text;
    qAUX.ParamByName('PROD_CDSUBGRUPO'         ).AsString  := edPROD_CDSUBGRUPO.Text;
    qAUX.ParamByName('PROD_NCMSH'              ).AsString  := edPROD_NCMSH.Text;
-   qAUX.ParamByName('CEST'                    ).AsString  := edCEST.Text;
+   qAUX.ParamByName('PROD_NFe_I05c_CEST'      ).AsString  := edPROD_NFe_I05c_CEST.Text;
    qAUX.ParamByName('PROD_PRECO_ATAC'         ).AsFloat   := ValorValido(edPROD_PRECO_ATAC.Text);
    qAUX.ParamByName('PROD_PRECO_VAR'          ).AsFloat   := ValorValido(edPROD_PRECO_VAR.Text);
    qAUX.ParamByName('PROD_PRECO_DIST'         ).AsFloat   := ValorValido(edPROD_PRECO_DIST.Text);
@@ -3094,7 +3094,7 @@ begin
    //onde: 1º e 2º dígitos: representam o segmento da mercadoria
    //      3º, 4º e 5º dígitos: correspondem ao item de um segmento de mercadoria
    //      6º e 7º dígitos: relacionam-se à especificação do item
-   edCEST.Text                     := qConsulta.FieldByName('CEST').AsString;
+   edPROD_NFe_I05c_CEST.Text         := qConsulta.FieldByName('PROD_NFe_I05c_CEST').AsString;
 
    //Preços de Venda
    edPROD_PRECO_ATAC.Text      := Float_to_String(qConsulta.FieldByName('PROD_PRECO_ATAC').AsFloat);
@@ -3280,7 +3280,7 @@ begin
   begin
     edPROD_NCMSH.Text := '';
     mmNCM.Lines.Clear;
-    edCEST.Text := '';
+    edPROD_NFe_I05c_CEST.Text := '';
     exit;
   end;
 
@@ -3289,13 +3289,13 @@ begin
       if xNCM <> nil then
       begin
         mmNCM.Text := xNCM.descricao;
-        edCEST.Text := xNCM.CEST;
+        edPROD_NFe_I05c_CEST.Text := xNCM.CEST;
         //if SQL_PRODUTO.State in [dsEdit, dsInsert] then
-        //  edCEST.Text := xNCM.CEST;
-        if edCEST.Text = '0' then
+        //  edPROD_NFe_I05c_CEST.Text := xNCM.CEST;
+        if edPROD_NFe_I05c_CEST.Text = '0' then
         begin
           mmNCM.Clear;
-          edCEST.Clear;
+          edPROD_NFe_I05c_CEST.Clear;
         end;
         xNCM.Destroy;
       end;

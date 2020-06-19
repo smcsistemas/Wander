@@ -102,7 +102,7 @@ object frm_atualizar_ncm_cest: Tfrm_atualizar_ncm_cest
       OptionsView.GroupByBox = False
       Bands = <
         item
-          Caption = 'NCM'
+          Caption = 'PROD_NCMSH'
           Width = 20
         end
         item
@@ -651,3 +651,4 @@ object frm_atualizar_ncm_cest: Tfrm_atualizar_ncm_cest
     end
   end
 end
+Trocou 'NCM' por 'PROD_NCMSH' : automaticamente em 18/06/2020 21:23
